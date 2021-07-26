@@ -1,30 +1,34 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div dir="rtl" id="app">
+    <router-view/>
   </div>
-  <router-view/>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+export default {
+    created() {
+      // this.CheckLogin();
+    },
+    
+    data() {
+      return {
+        state: 0,
 
-#nav {
-  padding: 30px;
-}
+        admin: false,
+        isSideMenuOpen: false,
+      }
+    },
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+    methods: {
+      CheckLogin() {
+        if(localStorage.getItem("userId") == undefined || localStorage.getItem("userId") == 0 ){
+          this.$router.replace("/");
+        }else{
+          this.$authenticatedUser.userId = localStorage.getItem("userId");
+          // this.$router.replace("/dashboard");
+        }
+      },
+        
+    },
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>
