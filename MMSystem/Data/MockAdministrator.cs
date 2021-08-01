@@ -175,14 +175,10 @@ namespace MMSystem.Data
 
                 if (user != null)
                 {
-                    // var enhancedHashPassword = BCrypt.Net.BCrypt.EnhancedHashPassword(user.Password);
-                    //   var validatePassword = BCrypt.Net.BCrypt.Verify(user.Password, user1.Password);
+                 
                     bool isValid = BCrypt.Net.BCrypt.Verify(user1.Password, user.password);
                     if (isValid)
                     {
-
-
-                        //   user.Password = Securety.dehash(user1.Password);
 
                         var config = new MapperConfiguration(mc => mc.CreateMap<Administrator, AdministratorDto>());
 

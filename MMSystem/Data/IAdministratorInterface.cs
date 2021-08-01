@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Data
 {
-    interface IAdministratorInterface
+    interface IAdministratorInterface 
     {
         Task<AdministratorDto> login(Login user);
 
