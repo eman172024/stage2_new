@@ -23,9 +23,8 @@ namespace MMSystem.Model
         public string Action_Required { get; set; }
         public int userId { get; set; }
 
-        public User user { get; set; }
-     
-     
+        public Administrator user { get; set; }
+
         public External_Mail external_Mail { get; set; }
         public Extrenal_inbox extrenal_Inbox { get; set; }
 

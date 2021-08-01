@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+    @import "fonts.css";
+    html {
+        scroll-behavior: smooth;
+    }
+    html {
+        scrollbar-width: thin;
+        /* "auto" or "thin" */
+        scrollbar-color: #152b67 #F5F5F5;
+        /* scroll thumb and track */
+    }
+    /* width scrollbar */
+     ::-webkit-scrollbar {
+        width: 10px;
+        background-color: #F5F5F5;
+    }
+    /* Track scrollbar */
+     ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        border-radius: 9px;
+        background-color: #F5F5F5;
+    }
+    /* Handle  scrollbar*/
+     ::-webkit-scrollbar-thumb {
+        border-radius: 9px;
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+        background-color: #152b67;
+    }
+    /* Handle scrollbar on hover */
+     ::-webkit-scrollbar-thumb:hover {
+        background: #d3c360;
+    }
+}

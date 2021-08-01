@@ -8,7 +8,7 @@ namespace MMSystem.Model
 {
     public class AppDbCon:DbContext
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<Administrator> Administrator { get; set; }
 
         public DbSet<Department> Departments { get; set; }
         public DbSet<External_Mail> External_Mails { get; set; }
@@ -20,7 +20,7 @@ namespace MMSystem.Model
        public DbSet<Send_to> Sends { get; set; }
        public DbSet<Extrmal_Section> Extrmal_Sections { get; set; }
 
-        public AppDbCon(DbContextOptions<AppDbCon >options):base(options)
+        public AppDbCon(DbContextOptions<AppDbCon>options):base(options)
         {
 
         }
