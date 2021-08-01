@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MMSystem.Model;
+using MMSystem.Services;
+using MMSystem.Services.MailServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,9 +29,13 @@ namespace MMSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
             services.AddDbContext<AppDbCon>(option => option.UseSqlServer(Configuration.GetConnectionString("AppContext")));
-
+            services.AddTransient<IMailInterface, MookMail>();
+            services.AddTransient<IExternalMailcs, MookExternalMail>();
+            services.AddTransient<IExtrenal_inbox, MooKExernalnbox>();
+            services.AddTransient<IMail_Resourcescs, MooKMail_Resourcescs>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,15 +47,19 @@ namespace MMSystem
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
 
             app.UseRouting();
 
             app.UseAuthorization();
+        
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+          
         }
     }
 }

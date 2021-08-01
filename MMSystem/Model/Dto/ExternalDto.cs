@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace MMSystem.Model
+namespace MMSystem.Model.Dto
 {
-    public class External_Mail
+    public class ExternalDto
     {
-        [Key]
         public int ID { get; set; }
 
 
@@ -17,15 +14,10 @@ namespace MMSystem.Model
 
 
         public int MailID { get; set; }
-
-        [JsonIgnore]
         public Mail Mail { get; set; }
-     public int Sectionid { get; set; }
-        public Extrmal_Section Section { get; set; }
+        public int Sectionid { get; set; }
+       
         public string sectionName { get; set; }
         public string action_Requierd { get; set; }
-
-
-
     }
 }
