@@ -16,7 +16,7 @@ namespace MMSystem.Model
 
         public int NumberOfPhotos { get; set; }
 
-        public List<User> Users { get; set; }
+        public List<Administrator> Users { get; set; }
 
 
     }

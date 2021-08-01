@@ -8,7 +8,7 @@ namespace MMSystem.Model
 {
     public class AppDbCon:DbContext
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<Administrator> Administrator { get; set; }
 
         public DbSet<Department> Departments { get; set; }
         public DbSet<External_Mail> External_Mails { get; set; }
