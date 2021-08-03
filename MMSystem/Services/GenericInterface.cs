@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Services
 {
-   public interface GenericInterface<Model,dto >
+   public interface GenericInterface<Model,dto>
     {
         Task<bool> Add(Model t);
         Task<bool> Delete(int id);

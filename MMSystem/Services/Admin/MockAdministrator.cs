@@ -1,27 +1,30 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MMSystem.Model;
-
+using MMSystem.Model.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MMSystem.Data
-{
-    public class MockAdministrator : IAdministratorInterface
+namespace MMSystem.Services { 
+    public class MockAdministrator : IAdministratorInterface 
     {
 
-        public MockAdministrator(AppDbCon data)
+        public MockAdministrator(AppDbCon data, IMapper mapper)
         {
             _data = data;
 
+            _mapper = mapper;
+
         }
 
-        public AppDbCon _data { get; }
-        public async Task<MassageInfo> Add(Administrator user)
+        private AppDbCon _data { get; }
+        private IMapper _mapper { get; }
+
+        public async Task<bool> Add(Administrator user)
         {
-            MassageInfo massageInfo = new MassageInfo();
+           
             try
             {
                 if (user != null)
@@ -29,15 +32,14 @@ namespace MMSystem.Data
                     user.state = true;
                     await _data.Administrator.AddAsync(user);
                     await _data.SaveChangesAsync();
-                    massageInfo.Massage = "تمت عملية الأضافة ";
-                    massageInfo.statuscode = 201;
-                    return massageInfo;
+                
+                    return true;
                 }
                 else
                 {
 
-                    massageInfo.statuscode = 404;
-                    return massageInfo;
+                   
+                    return false;
                 }
 
             }
@@ -48,9 +50,9 @@ namespace MMSystem.Data
 
         }
 
-        public async Task<MassageInfo> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            MassageInfo massageInfo = new MassageInfo();
+          
             try
             {
                 Administrator FIndUsers = await _data.Administrator.FindAsync(id);
@@ -61,16 +63,13 @@ namespace MMSystem.Data
                     FIndUsers.state = false;
                     _data.Administrator.Update(FIndUsers);
                     await _data.SaveChangesAsync();
-                    massageInfo.Massage = "تمت عملية المسح ";
-                    massageInfo.statuscode = 202;
-                    return massageInfo;
+                    return true;
 
                 }
                 else
                 {
-                    massageInfo.Massage = "لم تتم عملية المسح هذا المستخدم غير موجود ";
-                    massageInfo.statuscode = 404;
-                    return massageInfo;
+                
+                    return false;
 
                 }
 
@@ -88,11 +87,8 @@ namespace MMSystem.Data
             try
             {
                 Administrator user = await _data.Administrator.FindAsync(id);
-                var config = new MapperConfiguration(mc => mc.CreateMap<Administrator, AdministratorDto>());
 
-                var maper = new Mapper(config);
-
-                var userdto = maper.Map<Administrator, AdministratorDto>(user);
+                AdministratorDto userdto = _mapper.Map<Administrator, AdministratorDto>(user);
 
                 return userdto;
 
@@ -111,24 +107,11 @@ namespace MMSystem.Data
             {
                 PageintoinAdmin pageing = new PageintoinAdmin();
 
-                List<Administrator> d = await _data.Administrator.OrderByDescending(x => x.UserId).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+                List<Administrator> ListOfAdministrator = await _data.Administrator.OrderByDescending(x => x.UserId).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
                 pageing.total = _data.Administrator.Count();
 
-                foreach (var item in d)
-                {
-                    pageing.listofUser.Add(new AdministratorDto()
-                    {
-                      //  UserId = item.UserId,
-                        UserName = item.UserName,
-                    //    password = item.password,
-                        FirstMACAddress = item.FirstMACAddress,
-                        SecandMACAddress = item.SecandMACAddress,
-                        Role = item.Role,
-                        DepartmentId = item.DepartmentId,
-                        state = item.state
-                    });
-
-                }
+                pageing.listofUser =  _mapper.Map<List<Administrator>, List<AdministratorDto>>(ListOfAdministrator);
+                
 
                 return pageing;
             }
@@ -207,10 +190,9 @@ namespace MMSystem.Data
             }
         }
 
-        public async Task<MassageInfo> Update(Administrator user)
+        public async Task<bool> Update(Administrator user)
         {
 
-            MassageInfo massageInfo = new MassageInfo();
             try
             {
                 Administrator UpdateUser = await _data.Administrator.FindAsync(user.UserId);
@@ -227,16 +209,16 @@ namespace MMSystem.Data
                     UpdateUser.state = user.state;
                     _data.Administrator.Update(UpdateUser);
                     await _data.SaveChangesAsync();
-                    massageInfo.Massage = "تمت عملية التحديث ";
-                    massageInfo.statuscode = 200;
-                    return massageInfo;
+                    //massageInfo.Massage = "تمت عملية التحديث ";
+                    //massageInfo.statuscode = 200;
+                    return true;
 
                 }
                 else
                 {
-                    massageInfo.Massage = "لم تتم عملية التحديث ";
-                    massageInfo.statuscode = 304;
-                    return massageInfo;
+                    //massageInfo.Massage = "لم تتم عملية التحديث ";
+                    //massageInfo.statuscode = 304;
+                    return false;
                 }
 
             }

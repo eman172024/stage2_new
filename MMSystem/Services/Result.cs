@@ -8,9 +8,11 @@ namespace MMSystem.Services
     public class Result
     {
 
-        public int statusCode { get; set; }
 
         public string message { get; set; }
+        public int statusCode { get; set; }
+
+       
 
     }
 }

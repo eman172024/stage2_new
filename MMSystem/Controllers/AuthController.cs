@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MMSystem.Data;
+
 using MMSystem.Model;
+using MMSystem.Model.Dto;
+using MMSystem.Services;
 //
 //using passport_aca.Model;
 
@@ -18,7 +20,7 @@ namespace MMSystem.Controllers
     [Route("[controller]")]
     public class AuthController : Controller
     {
-         AuthController(IAdministratorInterface users)
+       public  AuthController(IAdministratorInterface users)
         {
             _data = users;
         }
@@ -27,19 +29,14 @@ namespace MMSystem.Controllers
         [Route("LoginUser")]
         public async Task<ActionResult<AdministratorDto>> LoginUser([FromBody] Login user)
         {
-            MassageInfo massages = new MassageInfo();
+         
             var find = await _data.login(user);
 
-            if (find != null)
-            {
+                if (find != null)
+            
                 return Ok(find);
-            }
-            else
-            {
-                massages.Massage = "رقم المستخدم او كلمة المرور غير صحيحة";
-                massages.statuscode = 404;
-                return NotFound(massages);
-            }
+        
+                return NotFound(new Result() { message = "رقم المستخدم او كلمة المرور غير صحيحة", statusCode = 404 });
         }
     }
 }

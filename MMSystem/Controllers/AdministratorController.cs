@@ -1,38 +1,37 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MMSystem.Data;
 using MMSystem.Model;
-using MMSystem.Model;
-using System;
+using MMSystem.Model.Dto;
+using MMSystem.Services;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MMSystem.Controllers
 {
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
 
-    public class AdministratorController : Controller
+
+    public class AdministratorController : ControllerBase
     {
 
 
-        AdministratorController(IAdministratorInterface Users)
+        public AdministratorController(IAdministratorInterface Users)
         {
             _data = Users;
-                
+
         }
         private readonly IAdministratorInterface _data;
 
 
         [HttpGet]
-        [Route("GetAllAdministrators")]
+        [Route("GetAll")]
         public async Task<ActionResult<List<Administrator>>> GetAllUsers()
         {
             var users = await _data.GetAll();
             if (users != null)
             {
-                return Json(users);
+                return Ok(users);
             }
             else
             {
@@ -43,13 +42,13 @@ namespace MMSystem.Controllers
 
 
         [HttpGet]
-        [Route("GetAllAdministrator")]
+        [Route("GetPageintoin")]
         public async Task<ActionResult<PageintoinAdmin>> GetAllAdministrator(int page, int pageSize)
         {
             var users = await _data.GetAdministrator(page, pageSize);
             if (users != null)
             {
-                return Json(users);
+                return Ok(users);
             }
             else
             {
@@ -59,99 +58,61 @@ namespace MMSystem.Controllers
         }
 
         [HttpGet]
-        [Route("GetAdministrator/{id}")]
-        public async Task<ActionResult<AdministratorDto>> GetUser(int id)
+        [Route("Get/{id}")]
+        public async Task<IActionResult> GetUser(int id)
         {
             var user = await _data.Get(id);
 
 
             if (user != null)
             {
-                return Json(user);
+                return Ok(user);
             }
             else
             {
-                return NotFound();
+                return NotFound(new Result() {  message= "المستخدم غير موجود", statusCode= 404});
 
             }
         }
         [HttpPut]
-        [Route("UpdateAdministrator")]
-        public async Task<ActionResult<MassageInfo>> UpdateAdministrator([FromBody] Administrator id)
+        [Route("Update")]
+        public async Task<IActionResult> UpdateAdministrator([FromBody] Administrator id)
         {
-            MassageInfo massages = await _data.Update(id);
-            if (massages.statuscode == 200)
-                return Ok(massages);
-            else if (massages.statuscode == 300)
-            {
-                return StatusCode(304, massages);
-            }
-            return BadRequest();
+            bool results = await _data.Update(id);
+            if (results)
+                return Ok(new Result() { message = "تمت عملية التحديث ", statusCode = 200 });
+            return StatusCode(304, new Result() { message = "لم تتم عملية التحديث ", statusCode = 304 });
         }
 
         [HttpPut]
-        [Route("DeleteAdministrator/{id}")]
-        public async Task<ActionResult<MassageInfo>> DeleteAdministrator(int id)
+        [Route("Delete/{id}")]
+        public async Task<IActionResult> DeleteAdministrator(int id)
         {
-            MassageInfo massages = await _data.Delete(id);
-            if (massages.statuscode == 202)
-                return Accepted(massages);
-            else if (massages.statuscode == 404)
-            {
-                return NotFound(massages);
-            }
-            return BadRequest();
+            bool results = await _data.Delete(id);
+            if (results)
+                return Accepted(new Result() { message = "تمت عملية الحذف", statusCode = 202 });
+
+            return NotFound(new Result() { message = "هذا المستخدم غير موجود", statusCode = 404 });
+
         }
 
 
-        [HttpGet]
-        [Route("LoginAdministrator")]
-        public async Task<ActionResult<AdministratorDto>> LoginAdministrator([FromBody] Login user)
-        {
-            MassageInfo massages = new MassageInfo();
-            AdministratorDto find = await _data.login(user);
-
-            if (find != null)
-            {
-                return Ok(find);
-            }
-            else
-            {
-                massages.Massage = "رقم المستخدم او كلمة المرور غير صحيحة";
-                massages.statuscode = 404;
-                return NotFound(massages);
-            }
-        }
 
         [HttpPost]
-        [Route("AddAdministrator")]
+        [Route("Add")]
 
-        public async Task<ActionResult<MassageInfo>> AddAdministrator([FromBody] Administrator user)
+        public async Task<IActionResult> AddAdministrator([FromBody] Administrator user)
         {
-            //  var l = Securety.hash(user.Password);
-            //user.Password = l;
-
+        
             user.password = BCrypt.Net.BCrypt.HashPassword(user.password);
 
+             bool results = await _data.Add(user);
+            if (results)
+            
+                return Created("AddAdministrator", new Result() { message="تمت عملية الاضافة بنجاح", statusCode = 201 });
 
-
-            //var c = BCrypt.Net.BCrypt.EnhancedHashPassword(user.Password);
-            MassageInfo massages = await _data.Add(user);
-            if (massages.statuscode == 201)
-            {
-
-                return Created("AddAdministrator", massages);
-
-            }
-            else
-            {
-                return BadRequest(new MassageInfo()
-                {
-                    Massage = "قشل في عملية الاضافة  ",
-                    statuscode = 400
-
-                });
-            }
+            
+                 return BadRequest(new Result() { message = "قشل في عملية الاضافة  ", statusCode = 400 }); 
 
 
 

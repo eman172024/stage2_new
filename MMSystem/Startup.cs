@@ -36,6 +36,8 @@ namespace MMSystem
             services.AddTransient<IExternalMailcs, MookExternalMail>();
             services.AddTransient<IExtrenal_inbox, MooKExernalnbox>();
             services.AddTransient<IMail_Resourcescs, MooKMail_Resourcescs>();
+            services.AddTransient<IAdministratorInterface, MockAdministrator>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
