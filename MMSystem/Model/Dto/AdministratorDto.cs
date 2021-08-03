@@ -9,7 +9,7 @@ namespace MMSystem.Model.Dto
     {
         public int UserId { get; set; }
         public string UserName { get; set; }
-        public string password { get; set; }
+      //  public string password { get; set; }
         public string FirstMACAddress { get; set; }
         public string SecandMACAddress { get; set; }
         public string Role { get; set; }

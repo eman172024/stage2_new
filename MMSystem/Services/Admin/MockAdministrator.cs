@@ -11,13 +11,17 @@ namespace MMSystem.Services {
     public class MockAdministrator : IAdministratorInterface 
     {
 
-        public MockAdministrator(AppDbCon data)
+        public MockAdministrator(AppDbCon data, IMapper mapper)
         {
             _data = data;
 
+            _mapper = mapper;
+
         }
 
-        public AppDbCon _data { get; }
+        private AppDbCon _data { get; }
+        private IMapper _mapper { get; }
+
         public async Task<bool> Add(Administrator user)
         {
            
@@ -59,15 +63,12 @@ namespace MMSystem.Services {
                     FIndUsers.state = false;
                     _data.Administrator.Update(FIndUsers);
                     await _data.SaveChangesAsync();
-                    //massageInfo.Massage = "تمت عملية المسح ";
-                    //massageInfo.statuscode = 202;
                     return true;
 
                 }
                 else
                 {
-                    //massageInfo.Massage = "لم تتم عملية المسح هذا المستخدم غير موجود ";
-                    //massageInfo.statuscode = 404;
+                
                     return false;
 
                 }
@@ -86,11 +87,8 @@ namespace MMSystem.Services {
             try
             {
                 Administrator user = await _data.Administrator.FindAsync(id);
-                var config = new MapperConfiguration(mc => mc.CreateMap<Administrator, AdministratorDto>());
 
-                var maper = new Mapper(config);
-
-                var userdto = maper.Map<Administrator, AdministratorDto>(user);
+                AdministratorDto userdto = _mapper.Map<Administrator, AdministratorDto>(user);
 
                 return userdto;
 
@@ -109,24 +107,11 @@ namespace MMSystem.Services {
             {
                 PageintoinAdmin pageing = new PageintoinAdmin();
 
-                List<Administrator> d = await _data.Administrator.OrderByDescending(x => x.UserId).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+                List<Administrator> ListOfAdministrator = await _data.Administrator.OrderByDescending(x => x.UserId).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
                 pageing.total = _data.Administrator.Count();
 
-                foreach (var item in d)
-                {
-                    pageing.listofUser.Add(new AdministratorDto()
-                    {
-                      //  UserId = item.UserId,
-                        UserName = item.UserName,
-                    //    password = item.password,
-                        FirstMACAddress = item.FirstMACAddress,
-                        SecandMACAddress = item.SecandMACAddress,
-                        Role = item.Role,
-                        DepartmentId = item.DepartmentId,
-                        state = item.state
-                    });
-
-                }
+                pageing.listofUser =  _mapper.Map<List<Administrator>, List<AdministratorDto>>(ListOfAdministrator);
+                
 
                 return pageing;
             }

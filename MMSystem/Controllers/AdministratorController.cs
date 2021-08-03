@@ -9,22 +9,23 @@ namespace MMSystem.Controllers
 {
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
+
 
     public class AdministratorController : ControllerBase
     {
 
 
-        AdministratorController(IAdministratorInterface Users)
+        public AdministratorController(IAdministratorInterface Users)
         {
             _data = Users;
-                
+
         }
         private readonly IAdministratorInterface _data;
 
 
         [HttpGet]
-        [Route("GetAllAdministrators")]
+        [Route("GetAll")]
         public async Task<ActionResult<List<Administrator>>> GetAllUsers()
         {
             var users = await _data.GetAll();
@@ -41,7 +42,7 @@ namespace MMSystem.Controllers
 
 
         [HttpGet]
-        [Route("GetAllAdministrator")]
+        [Route("GetPageintoin")]
         public async Task<ActionResult<PageintoinAdmin>> GetAllAdministrator(int page, int pageSize)
         {
             var users = await _data.GetAdministrator(page, pageSize);
@@ -57,8 +58,8 @@ namespace MMSystem.Controllers
         }
 
         [HttpGet]
-        [Route("GetAdministrator/{id}")]
-        public async Task<ActionResult<AdministratorDto>> GetUser(int id)
+        [Route("Get/{id}")]
+        public async Task<IActionResult> GetUser(int id)
         {
             var user = await _data.Get(id);
 
@@ -69,50 +70,36 @@ namespace MMSystem.Controllers
             }
             else
             {
-                return NotFound();
+                return NotFound(new Result() {  message= "المستخدم غير موجود", statusCode= 404});
 
             }
         }
         [HttpPut]
-        [Route("UpdateAdministrator")]
+        [Route("Update")]
         public async Task<IActionResult> UpdateAdministrator([FromBody] Administrator id)
         {
-           bool results = await _data.Update(id);
+            bool results = await _data.Update(id);
             if (results)
-                return Ok(new Result() {  message = "تمت عملية التحديث ",statusCode=200  });
-                return StatusCode(304,new Result() {  message = "لم تتم عملية التحديث " ,statusCode=304});
+                return Ok(new Result() { message = "تمت عملية التحديث ", statusCode = 200 });
+            return StatusCode(304, new Result() { message = "لم تتم عملية التحديث ", statusCode = 304 });
         }
 
         [HttpPut]
-        [Route("DeleteAdministrator/{id}")]
+        [Route("Delete/{id}")]
         public async Task<IActionResult> DeleteAdministrator(int id)
         {
-          bool results = await _data.Delete(id);
+            bool results = await _data.Delete(id);
             if (results)
-                return Accepted(new Result() { message= "تمت عملية الحذف",statusCode = 202 });
-            
-                return NotFound(new Result() {message ="هذا المستخدم غير موجود", statusCode = 404 });
-            
+                return Accepted(new Result() { message = "تمت عملية الحذف", statusCode = 202 });
+
+            return NotFound(new Result() { message = "هذا المستخدم غير موجود", statusCode = 404 });
+
         }
 
 
-        [HttpGet]
-        [Route("LoginAdministrator")]
-        public async Task<IActionResult> LoginAdministrator([FromBody] Login user)
-        {
-            
-            AdministratorDto find = await _data.login(user);
-
-            if (find != null)
-            
-                return Ok(find);
-         
-                return NotFound(new Result() {  message = "رقم المستخدم او كلمة المرور غير صحيحة",statusCode=404 });
-            
-        }
 
         [HttpPost]
-        [Route("AddAdministrator")]
+        [Route("Add")]
 
         public async Task<IActionResult> AddAdministrator([FromBody] Administrator user)
         {
