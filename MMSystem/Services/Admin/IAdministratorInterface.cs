@@ -1,5 +1,6 @@
 ﻿using MMSystem.Model;
 using MMSystem.Model.Dto;
+
 //
 //
 //using passport_aca.Model;
@@ -11,21 +12,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MMSystem.Data
+namespace MMSystem.Services
 {
-    interface IAdministratorInterface 
+     public interface IAdministratorInterface : GenericInterface<Administrator,AdministratorDto>
     {
         Task<AdministratorDto> login(Login user);
-
-        Task<MassageInfo> Add(Administrator user);
-
-        Task<List<AdministratorDto>> GetAll();
-
-        Task<MassageInfo> Update(Administrator user);
-
-        Task<MassageInfo> Delete(int id);
-
-        Task<AdministratorDto> Get(int id);
         Task<PageintoinAdmin> GetAdministrator(int page, int pageSize);
     }
 }
