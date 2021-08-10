@@ -5,16 +5,13 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Model.Dto
 {
-    public class ExternalDto
+    public class Mail_ResourcescsDto
     {
         public int ID { get; set; }
-
-
         public int MailID { get; set; }
       
-        public int Sectionid { get; set; }
+        public string path { get; set; }
        
-        public string sectionName { get; set; }
-        public string action_Requierd { get; set; }
+
     }
 }

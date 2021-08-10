@@ -9,7 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MMSystem.Model;
 using MMSystem.Services;
-using MMSystem.Services.MailServices;
+using MMSystem.Services.MailServeic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +37,8 @@ namespace MMSystem
             services.AddTransient<IExtrenal_inbox, MooKExernalnbox>();
             services.AddTransient<IMail_Resourcescs, MooKMail_Resourcescs>();
             services.AddTransient<IAdministratorInterface, MockAdministrator>();
-            
+            services.AddTransient<ISender, MookSender>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -12,7 +12,6 @@ namespace MMSystem.Model
         public int id { get; set; }
         public string Section_Name{ get; set; }
         //
-        public int number_of_mail { get; set; }
         public int perent { get; set; }
 
      public List<Extrenal_inbox> Extrenal_Inboxes { get; set; }

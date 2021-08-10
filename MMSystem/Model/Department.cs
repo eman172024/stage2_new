@@ -13,11 +13,9 @@ namespace MMSystem.Model
         public int Id { get; set; }
         public string DepartmentName { get; set; }
 
-        public int numberOfMail { get; set; }
 
-        public string Section { get; set; }
+        public int perent { get; set; }
 
-        public int NumberOfPhotos { get; set; }
 
         public List<Administrator> Users { get; set; }
 

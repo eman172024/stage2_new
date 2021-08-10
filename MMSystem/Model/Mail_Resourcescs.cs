@@ -14,7 +14,7 @@ namespace MMSystem.Model
         public int MailID { get; set; }
         public Mail Mail { get; set; }
         public string path { get; set; }
-        public int order { get; set; }
+
 
     }
 }

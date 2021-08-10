@@ -2,12 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using MMSystem.Model;
 using MMSystem.Model.Dto;
+using MMSystem.Model.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MMSystem.Services.MailServices
+namespace MMSystem.Services.MailServeic
 {
     public class MooKExernalnbox : IExtrenal_inbox
     {
@@ -25,7 +26,7 @@ namespace MMSystem.Services.MailServices
         {
             try
             {
-                Result result = new Result();
+          
                 Mail mail = await _dbCon.Mails.FindAsync(extrenal.MailID);
                 if (mail != null)
                 {
@@ -54,24 +55,30 @@ namespace MMSystem.Services.MailServices
             throw new NotImplementedException();
         }
 
-        public async Task<Extrenal_inboxDto> Get(int id)
+        public async Task<ExInbox> Get(int id)
         {
             try
             {
-                var email = await _dbCon.Mails.FindAsync(id);
+                ExInbox ExMail = new ExInbox();
+                Mail mail = await _dbCon.Mails.FindAsync(id);
 
 
 
-                if (email != null)
+                if (mail != null)
                 {
+                    ExMail.mail = _mapper.Map<Mail, MailDto>(mail);
 
-                    Extrenal_inbox external = await _dbCon.Extrenal_Inboxes.FirstOrDefaultAsync(x => x.MailID == id);
-                    Extrenal_inboxDto _InboxDto = _mapper.Map<Extrenal_inbox, Extrenal_inboxDto>(external);
+                   
+                    Extrenal_inbox external = await _dbCon.Extrenal_Inboxes.FirstAsync(x => x.MailID == id);
+                    ExMail.extrenal  = _mapper.Map<Extrenal_inbox, Extrenal_inboxDto>(external);
+                  List<Mail_Resourcescs> resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail.MailID).ToListAsync();
+                    ExMail.resourcescsDto = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(resourcescs);
 
-                    return _InboxDto;
+
+                    return ExMail;
 
                 }
-                return null;
+                return ExMail;
 
             }
             catch (Exception)
@@ -84,13 +91,13 @@ namespace MMSystem.Services.MailServices
            
         }
 
-        public async Task<List<Extrenal_inboxDto>> GetAll()
+        public async Task<List<ExInbox>> GetAll()
         {
             try
             {
                 List<Extrenal_inbox> list = await _dbCon.Extrenal_Inboxes.OrderByDescending(x => x.Id).ToListAsync();
                 List<Extrenal_inboxDto> listOfEmail = _mapper.Map<List<Extrenal_inbox>, List<Extrenal_inboxDto>>(list);
-                return listOfEmail;
+                return null;
             }
             catch (Exception)
             {

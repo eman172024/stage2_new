@@ -2,12 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using MMSystem.Model;
 using MMSystem.Model.Dto;
+using MMSystem.Model.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MMSystem.Services.MailServices
+namespace MMSystem.Services.MailServeic
 {
     public class MookExternalMail : IExternalMailcs
     {
@@ -54,30 +55,30 @@ namespace MMSystem.Services.MailServices
             throw new NotImplementedException();
         }
 
-        public async Task<ExternalDto> Get(int id)
-        {
-            External_Mail mail =await _appDb.External_Mails.FindAsync(id);
-
-            if (mail!=null) {
-
-                ExternalDto dto = _mapper.Map<External_Mail, ExternalDto>(mail);
-
-
-                return dto;
-            }
-
-            return null;
-        }
-
-        public async Task<List<ExternalDto>> GetAll()
+        public async Task<ExMail> Get(int id)
         {
             try
             {
-                List<External_Mail> mails = await _appDb.External_Mails.OrderByDescending(x => x.ID).ToListAsync();
+                ExMail ExMail = new ExMail();
+                Mail mail = await _appDb.Mails.FindAsync(id);
 
-                List<ExternalDto> externals = _mapper.Map<List<External_Mail>, List<ExternalDto>>(mails);
 
-                return externals;
+
+                if (mail != null)
+                {
+                    ExMail.mail = _mapper.Map<Mail, MailDto>(mail);
+
+
+                    External_Mail external = await _appDb.External_Mails.FirstAsync(x=>x.MailID==id);
+                    ExMail.External = _mapper.Map<External_Mail, ExternalDto>(external);
+                    List<Mail_Resourcescs> resourcescs = await _appDb.Mail_Resourcescs.Where(x => x.MailID == mail.MailID).ToListAsync();
+                    ExMail.resourcescsDto = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(resourcescs);
+
+
+                    return ExMail;
+
+                }
+                return ExMail;
 
             }
             catch (Exception)
@@ -85,12 +86,21 @@ namespace MMSystem.Services.MailServices
 
                 throw;
             }
-           
+
+
+
+
+
+        }
+
+        public Task<List<ExMail>> GetAll()
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<bool> Update(External_Mail model)
         {
-            Result result = new Result();
+           
 
             try
             {

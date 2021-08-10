@@ -5,7 +5,8 @@ using Microsoft.Extensions.Logging;
 using MMSystem.Model;
 using MMSystem.Model.ViewModel;
 using MMSystem.Services;
-using MMSystem.Services.MailServices;
+using MMSystem.Services.MailServeic;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -50,7 +51,7 @@ namespace MMSystem.Controllers
         {
 
             var c = await _mailcs.Add(mail);
-           var r= _mailcs.Upload(resourse);
+        //   var r= _mailcs.Upload(resourse);
 
             return Ok(c);
         }
@@ -79,6 +80,9 @@ namespace MMSystem.Controllers
             });
            
         }
+
+    
+
 
         [HttpPost("Ada")]
         public async Task<IActionResult> ada(int id,[FromForm] List<IFormFile> resourse)
@@ -124,7 +128,6 @@ namespace MMSystem.Controllers
             try
             {
              
-
 
                 foreach (var file in resourse)
                 {

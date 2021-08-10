@@ -8,7 +8,7 @@ namespace MMSystem.Model.Dto
     public class MailDto
     {
         public int MailID { get; set; }
-        public int Message_Number { get; set; }
+        public int Mail_Number { get; set; }
         public int Management_Id { get; set; }
         public int currentYear { get; set; }
         public DateTime Date_Of_Mail { get; set; }

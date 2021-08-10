@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MMSystem.Model;
 using MMSystem.Model.Dto;
+using MMSystem.Model.ViewModel;
 using MMSystem.Services;
+using MMSystem.Services.MailServeic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +20,17 @@ namespace MMSystem.Controllers
     public class MailController : ControllerBase
     {
         private readonly IMailInterface _Imail;
-        private IWebHostEnvironment iwebHostEnvironment;
-        public string sub { set; get; }
-        public MailController(IMailInterface Imail, IWebHostEnvironment hosting)
+     //   private IWebHostEnvironment iwebHostEnvironment;
+
+        private readonly ISender _sender;
+
+     
+        public MailController(IMailInterface Imail,
+            ISender sender)
         {
             _Imail = Imail;
-            iwebHostEnvironment = hosting;
+         
+           _sender = sender;
 
         }
 
@@ -51,9 +59,9 @@ namespace MMSystem.Controllers
 
         // POST api/<MailController>
         [HttpPost("AddMail")]
-        public async Task<IActionResult> AddMail([FromBody] Mail mail)
+        public async Task<IActionResult> AddMail([FromBody] MailViewModel mail)
         {
-            var result = await _Imail.Add(mail);
+            var result = await _Imail.addMail(mail);
             if(result)
             return Created("AddMail",new Result() {
             message="تمت العملية بنجاح",statusCode=201});
@@ -64,16 +72,19 @@ namespace MMSystem.Controllers
             });
         }
 
+
+
+
         // PUT api/<MailController>/5
         [HttpPut("UpdateMail")]
         public async Task<IActionResult> UpdateMail([FromBody] Mail mail)
         {
            bool result = await _Imail.Update(mail);
-            if (result) ;
-            return  StatusCode(204, new Result()
+            if (result) 
+            return Ok( new Result()
             {
                 message = "تمت العملية بنجاح",
-                statusCode = 204
+                statusCode = 200
             });
             return BadRequest(new Result()
             {
@@ -83,9 +94,86 @@ namespace MMSystem.Controllers
         }
 
         // DELETE api/<MailController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
+
+            bool state = await _Imail.Delete(id);
+            if (state)
+                return StatusCode(203, new Result() { message = "تمت عملية الحذف بنجاح", statusCode = 203 });
+            return BadRequest(new Result() { message = "غشلت العملية", statusCode = 404 });
+
+
+
+
         }
+
+        [HttpPost("Uplode")]
+        public async Task<IActionResult> Uplode([FromForm] int id, List<IFormFile> resourse)
+        {
+
+            bool state = await _Imail.Upload(id, resourse);
+            if (state)
+                return Created("Uplode", new Result() { message = "تمت عملية التحميل بنجاح", statusCode = 203 });
+            return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
+
+
+        }
+
+        [HttpPost("UpdateFile")]
+        public async Task<IActionResult> UpdateFile([FromForm] int id, List<IFormFile> resourse)
+        {
+
+            bool state = await _Imail.UpdateFile(id, resourse);
+            if (state)
+                return Created("Uplode", new Result() { message = "تمت عملية التعديل بنجاح", statusCode = 203 });
+            return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
+
+
+        }
+
+
+
+        [HttpPost("Send")]
+        public async Task<IActionResult> Send([FromBody]Send_to send_To)
+        {
+
+            bool state = await _sender.Add(send_To);
+            if (state)
+                return Created("Send", new Result() { message = "تمت عملية بنجاح", statusCode = 203 });
+            return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
+
+
+        }
+
+        [HttpPost("mailSends")]
+        public async Task<IActionResult> mailSends(int id)
+        {
+
+            var state = await _Imail.Sendermail(id);
+
+            return Ok(state);
+
+
+        }
+
+        [HttpPost("ResievedMail")]
+        public async Task<IActionResult> ResievedMail(int id)
+        {
+
+            var state = await _Imail.ResevidMail(id);
+
+            return Ok(state);
+
+
+        }
+      
+
+
+     
+
+
+
+
     }
 }
