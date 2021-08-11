@@ -30,9 +30,12 @@ namespace MMSystem.Services.MailServeic
 
         private readonly IExtrenal_inbox _extrenal_Inbox;
         private IMail_Resourcescs _resourcescs;
+        private readonly ISender _sender;
 
         public MookMail(AppDbCon appContext, IWebHostEnvironment environment, IMapper mapper
-            ,IExternalMailcs external, IExtrenal_inbox extrenal_Inbox, IMail_Resourcescs resourcescs)
+            ,IExternalMailcs external, IExtrenal_inbox extrenal_Inbox, IMail_Resourcescs resourcescs
+            , ISender sender
+            )
         {
             _appContext = appContext;
             iwebHostEnvironment = environment;
@@ -40,6 +43,7 @@ namespace MMSystem.Services.MailServeic
             _mapper = mapper;
             _extrenal_Inbox = extrenal_Inbox;
             _resourcescs = resourcescs;
+            _sender = sender;
         }
 
 
@@ -83,13 +87,18 @@ namespace MMSystem.Services.MailServeic
                     case "داخلي":
                         mail.mail.state = true;
 
-                        mail.mail.Mail_Number =await GetLastMailNumber(mail.mail.Management_Id);
+                        mail.mail.Mail_Number =await GetLastMailNumber(mail.mail.Management_Id,port);
               
 
                         Email = await Add(mail.mail);
+                   
                         mailViewModel.mail = mail.mail;
                         if (Email)
                         {
+                            Send_to sender = new Send_to();
+                            sender.MailID = mail.mail.MailID;
+                            sender.to = mail.section;
+                        bool send = await _sender.Add(sender);
                             result = true;
                             break;
                         }
@@ -99,27 +108,44 @@ namespace MMSystem.Services.MailServeic
 
                     case "صادر خارجي":
                         mail.mail.state = true;
-                        mail.mail.Mail_Number = await GetLastMailNumber(mail.mail.Management_Id);
+                        mail.mail.Mail_Number = await GetLastMailNumber(mail.mail.Management_Id,port);
 
                         Email = await Add(mail.mail);
                         if (Email)
                         {
-                            mail.external_Mail.MailID = mail.mail.MailID;
 
-                            Exmail = await _external.Add(mail.external_Mail);
+                            if (mail.external_Mail != null) {
 
-                            if (Exmail)
-                            {
-                                result = true;
-                                break;
+                                mail.external_Mail.MailID = mail.mail.MailID;
+
+                                Exmail = await _external.Add(mail.external_Mail);
+
+                                if (Exmail)
+                                {
+                                    Send_to sender = new Send_to();
+                                    sender.MailID = mail.mail.MailID;
+                                    sender.to = mail.section;
+                                    bool send = await _sender.Add(sender);
+                                    result = true;
+                                    break;
+                                }
+
+                                _appContext.Mails.Remove(mail.mail);
+                                await _appContext.SaveChangesAsync();
+
                             }
+                           
+
+
+
+
                         }
                         break;
 
 
                     case "وارد خارجي":
                         mail.mail.state = true;
-                        mail.mail.Mail_Number = await GetLastMailNumber(mail.mail.Management_Id);
+                        mail.mail.Mail_Number = await GetLastMailNumber(mail.mail.Management_Id,port);
 
                         Email = await Add(mail.mail);
 
@@ -132,9 +158,18 @@ namespace MMSystem.Services.MailServeic
                             if (Ex_inboxmail)
                             {
                                 result = true;
+                                Send_to sender = new Send_to();
+                                sender.MailID = mail.mail.MailID;
+                                sender.to = mail.section;
+                                bool send = await _sender.Add(sender);
                                 break;
 
                             }
+                            _appContext.Mails.Remove(mail.mail);
+                            await _appContext.SaveChangesAsync();
+
+
+
                             break;
 
                         }
@@ -191,16 +226,50 @@ namespace MMSystem.Services.MailServeic
             }
         }
 
-        public async Task<int> GetLastMailNumber(int id)
+        public async Task<int> GetLastMailNumber(int id,string MailType)
         {
             try
             {
-                Mail mail = await _appContext.Mails.OrderBy(x => x.MailID).Where(x=>x.Management_Id==id).LastOrDefaultAsync();
-                if (mail != null) {
+                int LastNumber=0;
+                switch (MailType)
+                {
+                    case "داخلي":
+                        Mail mail = await _appContext.Mails.OrderBy(x => x.MailID).Where(x => x.Management_Id == id&&x.Mail_Type.Equals("داخلي")).LastOrDefaultAsync();
+                        if (mail != null) {
+                            LastNumber = mail.Mail_Number + 1;
+                            break;
+                        }
+                        LastNumber += 1;
+                   
+                   break;
+                    case "صادر خارجي":
+                        External_Mail external_Mail = await _appContext.External_Mails.OrderBy(x => x.ID).LastOrDefaultAsync();
+                        if (external_Mail != null) {
+                            LastNumber = external_Mail.ID + 1;
+                            break;
 
-                    return mail.Mail_Number+1;
+                        }
+                        LastNumber = LastNumber + 1;
+                        break;
+                    case "وارد خارجي":
+
+                        Extrenal_inbox _Inbox = await _appContext.Extrenal_Inboxes.OrderBy(x => x.Id).LastOrDefaultAsync();
+                         if (_Inbox != null)
+                        {
+                            LastNumber = _Inbox.Id + 1;
+                            break;
+
+                        }
+                        LastNumber = LastNumber + 1;
+
+                        break;
+                    default:
+                        break;
                 }
-                return 1;
+
+
+
+                return LastNumber;
               
 
             }
@@ -242,6 +311,13 @@ namespace MMSystem.Services.MailServeic
            _mail.Date_Of_Mail = mail.Date_Of_Mail;
               _mail.Mail_Summary = mail.Mail_Summary;
                 _mail.currentYear = mail.currentYear;
+                _mail.state = mail.state;
+                _mail.userId = mail.userId;
+                _mail.Genaral_inbox_year = mail.Genaral_inbox_year;
+                _mail.Genaral_inbox_Number = mail.Genaral_inbox_Number;
+                _mail.Date_Of_Mail = mail.Date_Of_Mail;
+                _mail.Mail_Number = mail.Mail_Number;
+
               _appContext.Mails.Update(_mail);
                 await _appContext.SaveChangesAsync();
                

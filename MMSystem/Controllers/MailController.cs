@@ -135,38 +135,20 @@ namespace MMSystem.Controllers
 
 
         [HttpPost("Send")]
-        public async Task<IActionResult> Send([FromBody]Send_to send_To)
+        public async Task<IActionResult> Send(int id)
         {
 
-            bool state = await _sender.Add(send_To);
+            bool state = await _sender.Send(id);
             if (state)
-                return Created("Send", new Result() { message = "تمت عملية بنجاح", statusCode = 203 });
+                return Created("Send", new Result() { message = "تمت عملية الارسال بنجاح", statusCode = 203 });
             return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
 
 
         }
 
-        [HttpPost("mailSends")]
-        public async Task<IActionResult> mailSends(int id)
-        {
+       
 
-            var state = await _Imail.Sendermail(id);
-
-            return Ok(state);
-
-
-        }
-
-        [HttpPost("ResievedMail")]
-        public async Task<IActionResult> ResievedMail(int id)
-        {
-
-            var state = await _Imail.ResevidMail(id);
-
-            return Ok(state);
-
-
-        }
+      
       
 
 
