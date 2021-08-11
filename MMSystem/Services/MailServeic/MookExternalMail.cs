@@ -109,7 +109,7 @@ namespace MMSystem.Services.MailServeic
                 if (mail != null)
 
                 {
-                    mail.action_Requierd = model.action_Requierd;
+                    mail.action = model.action;
 
                     _appDb.External_Mails.Update(mail);
                     await _appDb.SaveChangesAsync();

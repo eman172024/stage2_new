@@ -23,7 +23,7 @@ namespace MMSystem.Model
      public int Sectionid { get; set; }
         public Extrmal_Section Section { get; set; }
         public string sectionName { get; set; }
-        public string action_Requierd { get; set; }
+        public int action { get; set; }
 
 
 

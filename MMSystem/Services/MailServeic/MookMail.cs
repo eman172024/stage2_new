@@ -305,7 +305,7 @@ namespace MMSystem.Services.MailServeic
             
 
             if (_mail != null) {
-              _mail.Action_Required = mail.Action_Required;
+              _mail.action = mail.action;
           _mail.classification = mail.classification;
               _mail.currentYear = mail.currentYear;
            _mail.Date_Of_Mail = mail.Date_Of_Mail;

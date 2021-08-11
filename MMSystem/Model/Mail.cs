@@ -20,7 +20,7 @@ namespace MMSystem.Model
        public string  Mail_Type { get; set; }
         public int Genaral_inbox_Number { get; set; }
         public int Genaral_inbox_year { get; set; }
-        public string Action_Required { get; set; }
+        public int action { get; set; }
         public int userId { get; set; }
 
         public Administrator user { get; set; }
