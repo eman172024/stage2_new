@@ -75,6 +75,9 @@ namespace MMSystem.Services.MailServeic
                     send_.flag = true;
                     send_.Send_time = DateTime.Now;
 
+                    _data.Sends.Update(send_);
+                    await _data.SaveChangesAsync();
+                    
                     return true;
                 }
                 return false;

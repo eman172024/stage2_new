@@ -110,6 +110,8 @@ namespace MMSystem.Services.MailServeic
 
                 {
                     mail.action = model.action;
+             
+                    
 
                     _appDb.External_Mails.Update(mail);
                     await _appDb.SaveChangesAsync();
