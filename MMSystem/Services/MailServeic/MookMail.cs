@@ -95,10 +95,15 @@ namespace MMSystem.Services.MailServeic
                         mailViewModel.mail = mail.mail;
                         if (Email)
                         {
-                            Send_to sender = new Send_to();
-                            sender.MailID = mail.mail.MailID;
-                            sender.to = mail.section;
-                        bool send = await _sender.Add(sender);
+                            foreach (int item in mail.section)
+                            {
+                                Send_to sender = new Send_to();
+                                sender.MailID = mail.mail.MailID;
+                                sender.to = item;
+                                bool send = await _sender.Add(sender);
+                            }
+
+                        
                             result = true;
                             break;
                         }
@@ -122,10 +127,13 @@ namespace MMSystem.Services.MailServeic
 
                                 if (Exmail)
                                 {
-                                    Send_to sender = new Send_to();
-                                    sender.MailID = mail.mail.MailID;
-                                    sender.to = mail.section;
-                                    bool send = await _sender.Add(sender);
+                                    foreach (int item in mail.section)
+                                    {
+                                        Send_to sender = new Send_to();
+                                        sender.MailID = mail.mail.MailID;
+                                        sender.to = item;
+                                        bool send = await _sender.Add(sender);
+                                    }
                                     result = true;
                                     break;
                                 }
@@ -157,12 +165,14 @@ namespace MMSystem.Services.MailServeic
 
                             if (Ex_inboxmail)
                             {
+                                  foreach (int item in mail.section)
+                                {
+                                    Send_to sender = new Send_to();
+                                    sender.MailID = mail.mail.MailID;
+                                    sender.to = item;
+                                    bool send = await _sender.Add(sender);
+                                }
                                 result = true;
-                                Send_to sender = new Send_to();
-                                sender.MailID = mail.mail.MailID;
-                                sender.to = mail.section;
-                                bool send = await _sender.Add(sender);
-                                break;
 
                             }
                             _appContext.Mails.Remove(mail.mail);
