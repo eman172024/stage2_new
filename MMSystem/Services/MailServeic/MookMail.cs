@@ -98,6 +98,7 @@ namespace MMSystem.Services.MailServeic
                             foreach (int item in mail.section)
                             {
                                 Send_to sender = new Send_to();
+                                sender.type_of_mail = port;
                                 sender.MailID = mail.mail.MailID;
                                 sender.to = item;
                                 bool send = await _sender.Add(sender);

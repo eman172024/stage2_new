@@ -20,6 +20,8 @@ namespace MMSystem.Model
        public DbSet<Send_to> Sends { get; set; }
        public DbSet<Extrmal_Section> Extrmal_Sections { get; set; }
 
+        public DbSet<Measures> measures { get; set; }
+
         public AppDbCon(DbContextOptions<AppDbCon>options):base(options)
         {
 

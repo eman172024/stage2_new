@@ -16,6 +16,8 @@ namespace MMSystem.Model
 
         public int perent { get; set; }
 
+        public bool state { get; set; }
+
 
         public List<Administrator> Users { get; set; }
 
