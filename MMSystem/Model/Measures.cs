@@ -16,6 +16,9 @@ namespace MMSystem.Model
 
         public string MeasuresName { get; set; }
 
+
+        public bool state { get; set; }
+
      
     }
 }
