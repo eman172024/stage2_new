@@ -60,7 +60,6 @@ namespace MMSystem.Services.MailServeic
                 await _appContext.SaveChangesAsync();
 
 
-
                 return true;
 
             }
@@ -95,12 +94,14 @@ namespace MMSystem.Services.MailServeic
                         mailViewModel.mail = mail.mail;
                         if (Email)
                         {
-                            foreach (int item in mail.section)
+                            foreach (var item in mail.actionSenders)
                             {
                                 Send_to sender = new Send_to();
-                                sender.type_of_mail = port;
+                              
                                 sender.MailID = mail.mail.MailID;
-                                sender.to = item;
+                                sender.to = item.sectionID;
+                                sender.flag = false;
+                                sender.type_of_send = item.MeasurId;
                                 bool send = await _sender.Add(sender);
                             }
 
@@ -128,11 +129,14 @@ namespace MMSystem.Services.MailServeic
 
                                 if (Exmail)
                                 {
-                                    foreach (int item in mail.section)
+                                    foreach (var item in mail.actionSenders)
                                     {
                                         Send_to sender = new Send_to();
+
                                         sender.MailID = mail.mail.MailID;
-                                        sender.to = item;
+                                        sender.to = item.sectionID;
+                                        sender.flag = false;
+                                        sender.type_of_send = item.MeasurId;
                                         bool send = await _sender.Add(sender);
                                     }
                                     result = true;
@@ -166,11 +170,14 @@ namespace MMSystem.Services.MailServeic
 
                             if (Ex_inboxmail)
                             {
-                                  foreach (int item in mail.section)
+                                  foreach (var item in mail.actionSenders)
                                 {
                                     Send_to sender = new Send_to();
+
                                     sender.MailID = mail.mail.MailID;
-                                    sender.to = item;
+                                    sender.to = item.sectionID;
+                                    sender.flag = false;
+                                    sender.type_of_send = item.MeasurId;
                                     bool send = await _sender.Add(sender);
                                 }
                                 result = true;

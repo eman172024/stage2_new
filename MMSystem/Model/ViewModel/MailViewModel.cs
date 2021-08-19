@@ -12,7 +12,7 @@ namespace MMSystem.Model.ViewModel
 
         public External_Mail external_Mail { get; set; }
         public Extrenal_inbox extrenal_Inbox { get; set; }
-        public List<int> section { get; set; }
+        public List<ActionSender> actionSenders { get; set; }
 
 
     }

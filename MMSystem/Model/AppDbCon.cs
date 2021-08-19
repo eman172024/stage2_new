@@ -26,5 +26,24 @@ namespace MMSystem.Model
         {
 
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Measures>().HasData(
+              new Measures { MeasuresId=1,   MeasuresName="للعلم",state=true},
+              new Measures { MeasuresId = 2, MeasuresName = "للرأي", state = true },
+              new Measures { MeasuresId = 3, MeasuresName = "للاجراء", state = true },
+              new Measures { MeasuresId = 4, MeasuresName = "للدراسة", state = true },
+              new Measures { MeasuresId = 5, MeasuresName = "للاختصاص", state = true },
+              new Measures { MeasuresId = 6, MeasuresName = "للبحث والاشادة", state = true },
+              new Measures { MeasuresId = 7, MeasuresName = "لاعداد موقف", state = true },
+              new Measures { MeasuresId = 8, MeasuresName = "للمتابعة", state = true },
+              new Measures { MeasuresId = 9, MeasuresName = "للتحقيق", state = true },
+              new Measures { MeasuresId = 10, MeasuresName = "لامانع", state = true },
+            new Measures { MeasuresId = 11, MeasuresName = "للاهتمام", state = true });
+        
+            base.OnModelCreating(modelBuilder);
+        }
+
+
     }
 }

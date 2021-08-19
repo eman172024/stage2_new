@@ -135,10 +135,10 @@ namespace MMSystem.Controllers
 
 
         [HttpPost("Send")]
-        public async Task<IActionResult> Send(int id)
+        public async Task<IActionResult> Send(int Management_Id, int userId)
         {
 
-            bool state = await _sender.Send(id);
+            bool state = await _sender.Send(Management_Id, userId);
             if (state)
                 return Created("Send", new Result() { message = "تمت عملية الارسال بنجاح", statusCode = 203 });
             return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });

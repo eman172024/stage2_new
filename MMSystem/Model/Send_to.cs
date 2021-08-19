@@ -17,7 +17,7 @@ namespace MMSystem.Model
 
         public int to { get; set; }
 
-        public string type_of_mail { get; set; }
+        public int type_of_send{ get; set; }
 
         public DateTime Send_time { get; set; }
         public bool flag { get; set; }
