@@ -14,8 +14,6 @@ namespace MMSystem.Model
 
 
 
-
-
         public int MailID { get; set; }
 
         [JsonIgnore]

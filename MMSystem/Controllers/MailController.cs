@@ -63,8 +63,10 @@ namespace MMSystem.Controllers
         {
             var result = await _Imail.addMail(mail);
             if(result)
-            return Created("AddMail",new Result() {
-            message="تمت العملية بنجاح",statusCode=201});
+            return Created("AddMail",new  {
+            message="تمت العملية بنجاح",statusCode=201,
+                mailId = mail.mail.MailID
+            });
             return BadRequest(new Result()
             {
                 message = "فشلت العملية",
@@ -135,10 +137,10 @@ namespace MMSystem.Controllers
 
 
         [HttpPost("Send")]
-        public async Task<IActionResult> Send(int Management_Id, int userId)
+        public async Task<IActionResult> Send(int mailid)
         {
 
-            bool state = await _sender.Send(Management_Id, userId);
+            bool state = await _sender.Send(mailid);
             if (state)
                 return Created("Send", new Result() { message = "تمت عملية الارسال بنجاح", statusCode = 203 });
             return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });

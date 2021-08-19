@@ -12,7 +12,7 @@ namespace MMSystem.Services.MailServeic
     {
 
         Task<bool> Add(Send_to t);
-        Task<bool> Send(int Management_Id, int userId);
+        Task<bool> Send(int mailId);
         Task<bool> IsRead(int id);
 
 

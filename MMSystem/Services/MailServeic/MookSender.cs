@@ -65,13 +65,13 @@ namespace MMSystem.Services.MailServeic
             }
         }
 
-        public async Task<bool> Send(int Management_Id, int userId)
+        public async Task<bool> Send(int mailId)
         {
             try
             {
-                Mail mail = await _data.Mails.Where(x => x.Management_Id == Management_Id && x.userId == userId).FirstAsync();
+               // Mail mail = await _data.Mails.Where(x => x.Management_Id == Management_Id && x.userId == userId).FirstAsync();
 
-                List<Send_to> send_ = await _data.Sends.Where(x=>x.MailID== mail.MailID).ToListAsync();
+                List<Send_to> send_ = await _data.Sends.Where(x=>x.MailID== mailId).ToListAsync();
                 if (send_ .Count>0)
                 {
                     foreach (var item in send_)
