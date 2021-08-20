@@ -14,17 +14,20 @@ namespace MMSystem.Controllers
     [ApiController]
     public class ServiceController : ControllerBase
     {
-        private readonly GenericInterface<Measures, Measures> _generic;
+        private readonly GenericInterface<Measures, Measures> _measures;
+        private readonly GenericInterface<ClasificationSubject, ClasificationSubject> _ClasificationSubject;
 
-        public ServiceController(GenericInterface<Measures, Measures> generic)
+        public ServiceController(GenericInterface<Measures, Measures> measures,
+            GenericInterface<ClasificationSubject,ClasificationSubject> clasificationSubject)
         {
-            _generic = generic;
+            _measures = measures;
+           _ClasificationSubject = clasificationSubject;
         }
         // GET: api/<ServiceController>
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            List<Measures> list = await _generic.GetAll();
+            List<Measures> list = await _measures.GetAll();
             return Ok(list);
         }
 
@@ -32,7 +35,7 @@ namespace MMSystem.Controllers
         [HttpGet("Get/{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            Measures measures = await _generic.Get(id);
+            Measures measures = await _measures.Get(id);
             if (measures != null) {
 
                 return Ok(measures);
@@ -45,7 +48,7 @@ namespace MMSystem.Controllers
         [HttpPost("Add")]
         public async Task<IActionResult> Add([FromBody] Measures measures)
         {
-            bool result = await _generic.Add(measures);
+            bool result = await _measures.Add(measures);
 
             if (result) {
 
@@ -58,7 +61,7 @@ namespace MMSystem.Controllers
         [HttpPut("Update")]
         public async Task<IActionResult> Update([FromBody] Measures measures)
         {
-            bool result = await _generic.Update(measures);
+            bool result = await _measures.Update(measures);
             if (result)
                 return Ok(new Result() { message = "تمت عملية التحديث ", statusCode = 200 });
             return StatusCode(304, new Result() { message = "لم تتم عملية التحديث ", statusCode = 304 });
@@ -71,7 +74,7 @@ namespace MMSystem.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult>  Delete(int id)
         {
-            bool result = await _generic.Delete(id);
+            bool result = await _measures.Delete(id);
             if (result)
                 return Ok(new Result() { message = "تمت عملية الحدف ", statusCode = 200 });
             return StatusCode(304, new Result() { message = "فشلت العملية ", statusCode = 304 });

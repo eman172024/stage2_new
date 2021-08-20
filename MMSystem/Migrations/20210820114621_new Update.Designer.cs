@@ -4,14 +4,16 @@ using MMSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMSystem.Migrations
 {
     [DbContext(typeof(AppDbCon))]
-    partial class AppDbConModelSnapshot : ModelSnapshot
+    [Migration("20210820114621_new Update")]
+    partial class newUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,69 +54,6 @@ namespace MMSystem.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("Administrator");
-                });
-
-            modelBuilder.Entity("MMSystem.Model.ClasificationSubject", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("state")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("clasifications");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "شكوى",
-                            state = true
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "مقال صحفي",
-                            state = true
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "ادارية",
-                            state = true
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "قرارات",
-                            state = true
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "اجتماعات",
-                            state = true
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "اخرى",
-                            state = true
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "تعميم",
-                            state = true
-                        });
                 });
 
             modelBuilder.Entity("MMSystem.Model.Department", b =>

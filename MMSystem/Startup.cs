@@ -40,7 +40,9 @@ namespace MMSystem
             services.AddTransient<IAdministratorInterface, MockAdministrator>();
             services.AddTransient<ISender, MookSender>();
             services.AddTransient<GenericInterface<Measures, Measures>, MookMeasures>();
-   
+    
+            services.AddTransient<GenericInterface<ClasificationSubject, ClasificationSubject>, MookClasificationSubject>();
+
 
 
         }

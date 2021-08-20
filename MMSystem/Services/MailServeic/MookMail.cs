@@ -323,8 +323,8 @@ namespace MMSystem.Services.MailServeic
             
 
             if (_mail != null) {
-              _mail.action = mail.action;
-          _mail.classification = mail.classification;
+           //   _mail.action = mail.action;
+        //  _mail.classification = mail.classification;
               _mail.currentYear = mail.currentYear;
            _mail.Date_Of_Mail = mail.Date_Of_Mail;
               _mail.Mail_Summary = mail.Mail_Summary;

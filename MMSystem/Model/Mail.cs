@@ -17,11 +17,10 @@ namespace MMSystem.Model
         public DateTime Date_Of_Mail { get; set; }
         public string Mail_Summary { get; set; }
         //
-        public string classification { get; set; }
+        public int clasification { get; set; }
        public string  Mail_Type { get; set; }
         public int Genaral_inbox_Number { get; set; }
         public int Genaral_inbox_year { get; set; }
-        public int action { get; set; }
         public int userId { get; set; }
 
         public string ActionRequired { get; set; }
