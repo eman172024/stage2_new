@@ -1,17 +1,13 @@
-import axios from 'axios';
+﻿import axios from 'axios';
 
 export default {
-    //-------------------   Security -------------------//
-    LoginFun(login) {
-        return axios.post('/Auth/LoginUser', login);
+    Login(Login) {
+        return axios.post(`/api/Security/Login`, Login)
     },
-
     Logout() {
-        return axios.delete('/Auth/Logout');
+        return axios.post('/api/Security/Logout');
     },
-
     CheckLogin() {
-        return axios.get('/Auth/CheckLogin');
+        return axios.get('/api/Security/CheckLogin');
     },
-
 }

@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+    @import "fonts.css";
+    html {
+        scroll-behavior: smooth;
+    }
+    .container {
+        width: 100%;
+        padding-right: 24px;
+        padding-left: 24px;
+    }
+    @screen xs {
+        .container {
+            width: calc(100% - 16px) !important;
+            padding-right: 12px !important;
+            padding-left: 12px !important;
+            margin-right: auto !important;
+            margin-left: auto !important;
+        }
+    }
+    @screen md {
+        .container {
+            width: calc(100% - 80px) !important;
+        }
+    }
+    @screen 2xl {
+        .container {
+            padding-right: 40px !important;
+            padding-left: 40px !important;
+            width: 1440px !important;
+        }
+    }
+    /* scrollbar Firefox */
+    html {
+        scrollbar-width: thin;
+        /* "auto" or "thin" */
+        scrollbar-color: black #F5F5F5;
+        /* scroll thumb and track */
+    }
+    /* width scrollbar */
+     ::-webkit-scrollbar {
+        width: 10px;
+        background-color: #F5F5F5;
+    }
+    /* Track scrollbar */
+     ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        border-radius: 9px;
+        background-color: #F5F5F5;
+    }
+    /* Handle  scrollbar*/
+     ::-webkit-scrollbar-thumb {
+        border-radius: 9px;
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+        background-color: black;
+    }
+    /* Handle scrollbar on hover */
+     ::-webkit-scrollbar-thumb:hover {
+        background: gray;
+    }
+    #sticky-nav {
+        -webkit-transition: all 1s ease-out;
+        -moz-transition: all 1s ease-out;
+        -o-transition: all 1s ease-out;
+        transition: all 1s ease-out;
+        background-color: transparent;
+        top: -100px;
+    }
+    #sticky-nav.inverted {
+        -webkit-transition: all 1s ease-out;
+        -moz-transition: all 1s ease-out;
+        -o-transition: all 1s ease-out;
+        transition: all 1s ease-out;
+        background-color: #FFF;
+        top: 0px;
+    }
+    @media print {
+        @page {
+            page: A4;
+            /* content: url("images/cover.png"); */
+            width: 100%;
+            height: 100%;
+        }
+    }
+}

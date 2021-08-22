@@ -1,26 +1,36 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  darkMode: false, // or 'media' or 'class'
-  theme: {
-    fontFamily: {
-      'sans': ['Tajawal'],
-    },
-    extend: {
-      colors: {
-        primary: {
-            blue: '#152b67',
-            golden: '#d3c360',
+    purge: [],
+    darkMode: false, // or 'media' or 'class'
+    theme: {
+        fontFamily: {
+            'sans': ['Tajawal'],
+        },
+        screens: {
+            'xs': '426px',
+            'sm': '640px',
+            'md': '800px',
+            'lg': '1024px',
+            'xl': '1280px',
+            '2xl': '1440px',
+            '3xl': '1920px',
+            '4xl': '2560px',
+        },
+        extend: {
+            minHeight: {
+                64: '16rem'
+            },
+            colors: {
+                cyan: colors.cyan,
+            }
         },
     },
-      minHeight: {
-        '24': '6rem',
-        '72': '18rem',
-        '80': '20rem',
-      }
+    variants: {
+        extend: {},
     },
-  },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
+    plugins: [],
+    corePlugins: {
+        container: false,
+    }
 }
