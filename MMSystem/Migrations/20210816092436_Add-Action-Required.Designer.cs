@@ -4,14 +4,16 @@ using MMSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMSystem.Migrations
 {
     [DbContext(typeof(AppDbCon))]
-    partial class AppDbConModelSnapshot : ModelSnapshot
+    [Migration("20210816092436_Add-Action-Required")]
+    partial class AddActionRequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,69 +56,6 @@ namespace MMSystem.Migrations
                     b.ToTable("Administrator");
                 });
 
-            modelBuilder.Entity("MMSystem.Model.ClasificationSubject", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("state")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("clasifications");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "شكوى",
-                            state = true
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "مقال صحفي",
-                            state = true
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "ادارية",
-                            state = true
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "قرارات",
-                            state = true
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "اجتماعات",
-                            state = true
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "اخرى",
-                            state = true
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "تعميم",
-                            state = true
-                        });
-                });
-
             modelBuilder.Entity("MMSystem.Model.Department", b =>
                 {
                     b.Property<int>("Id")
@@ -129,9 +68,6 @@ namespace MMSystem.Migrations
 
                     b.Property<int>("perent")
                         .HasColumnType("int");
-
-                    b.Property<bool>("state")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -218,9 +154,6 @@ namespace MMSystem.Migrations
                     b.Property<int>("perent")
                         .HasColumnType("int");
 
-                    b.Property<bool>("state")
-                        .HasColumnType("bit");
-
                     b.HasKey("id");
 
                     b.ToTable("Extrmal_Sections");
@@ -257,8 +190,11 @@ namespace MMSystem.Migrations
                     b.Property<int>("Management_Id")
                         .HasColumnType("int");
 
-                    b.Property<int>("clasification")
+                    b.Property<int>("action")
                         .HasColumnType("int");
+
+                    b.Property<string>("classification")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("currentYear")
                         .HasColumnType("int");
@@ -286,9 +222,6 @@ namespace MMSystem.Migrations
                     b.Property<int>("MailID")
                         .HasColumnType("int");
 
-                    b.Property<int>("order")
-                        .HasColumnType("int");
-
                     b.Property<string>("path")
                         .HasColumnType("nvarchar(max)");
 
@@ -297,93 +230,6 @@ namespace MMSystem.Migrations
                     b.HasIndex("MailID");
 
                     b.ToTable("Mail_Resourcescs");
-                });
-
-            modelBuilder.Entity("MMSystem.Model.Measures", b =>
-                {
-                    b.Property<int>("MeasuresId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("MeasuresName")
-                        .HasMaxLength(18)
-                        .HasColumnType("nvarchar(18)");
-
-                    b.Property<bool>("state")
-                        .HasColumnType("bit");
-
-                    b.HasKey("MeasuresId");
-
-                    b.ToTable("measures");
-
-                    b.HasData(
-                        new
-                        {
-                            MeasuresId = 1,
-                            MeasuresName = "للعلم",
-                            state = true
-                        },
-                        new
-                        {
-                            MeasuresId = 2,
-                            MeasuresName = "للرأي",
-                            state = true
-                        },
-                        new
-                        {
-                            MeasuresId = 3,
-                            MeasuresName = "للاجراء",
-                            state = true
-                        },
-                        new
-                        {
-                            MeasuresId = 4,
-                            MeasuresName = "للدراسة",
-                            state = true
-                        },
-                        new
-                        {
-                            MeasuresId = 5,
-                            MeasuresName = "للاختصاص",
-                            state = true
-                        },
-                        new
-                        {
-                            MeasuresId = 6,
-                            MeasuresName = "للبحث والاشادة",
-                            state = true
-                        },
-                        new
-                        {
-                            MeasuresId = 7,
-                            MeasuresName = "لاعداد موقف",
-                            state = true
-                        },
-                        new
-                        {
-                            MeasuresId = 8,
-                            MeasuresName = "للمتابعة",
-                            state = true
-                        },
-                        new
-                        {
-                            MeasuresId = 9,
-                            MeasuresName = "للتحقيق",
-                            state = true
-                        },
-                        new
-                        {
-                            MeasuresId = 10,
-                            MeasuresName = "لامانع",
-                            state = true
-                        },
-                        new
-                        {
-                            MeasuresId = 11,
-                            MeasuresName = "للاهتمام",
-                            state = true
-                        });
                 });
 
             modelBuilder.Entity("MMSystem.Model.Reply", b =>
@@ -425,9 +271,6 @@ namespace MMSystem.Migrations
                     b.Property<int>("ReplyId")
                         .HasColumnType("int");
 
-                    b.Property<int>("order")
-                        .HasColumnType("int");
-
                     b.Property<string>("path")
                         .HasColumnType("nvarchar(max)");
 
@@ -463,8 +306,8 @@ namespace MMSystem.Migrations
                     b.Property<int>("to")
                         .HasColumnType("int");
 
-                    b.Property<int>("type_of_send")
-                        .HasColumnType("int");
+                    b.Property<string>("type_of_mail")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -6,21 +6,13 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Model
 {
-    public class Department
-    {
-        [Key]
-       
+    public class ClasificationSubject
+    {[Key]
         public int Id { get; set; }
-        public string DepartmentName { get; set; }
 
-
-        public int perent { get; set; }
+        [Required]
+        public string Name { get; set; }
 
         public bool state { get; set; }
-
-
-        public List<Administrator> Users { get; set; }
-
-
     }
 }

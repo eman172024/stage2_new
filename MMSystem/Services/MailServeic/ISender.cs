@@ -8,10 +8,14 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Services.MailServeic
 {
-    public interface ISender:GenericInterface<Send_to, SenderDto>
+    public interface ISender
     {
 
-        Task<List<Re>> GetMySenderMail(int id);
+        Task<bool> Add(Send_to t);
+        Task<bool> Send(int mailId);
+        Task<bool> IsRead(int id);
+
+
 
     }
 }

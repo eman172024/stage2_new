@@ -105,8 +105,14 @@ namespace MMSystem.Services.MailServeic
             try
             {
                 External_Mail mail = await _appDb.External_Mails.FindAsync(model.ID);
+
                 if (mail != null)
+
                 {
+                    mail.action = model.action;
+             
+                    
+
                     _appDb.External_Mails.Update(mail);
                     await _appDb.SaveChangesAsync();
                  

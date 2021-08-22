@@ -13,9 +13,11 @@ namespace MMSystem.Model
         public int ReplyId { get; set; }
         public Reply Reply { get; set; }
         public string path { get; set; }
-     
-       
-       
+        public int order { get; set; }
+
+
+
+
 
 
     }

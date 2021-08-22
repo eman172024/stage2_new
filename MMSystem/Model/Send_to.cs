@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace MMSystem.Model
 
         public int to { get; set; }
 
-        public string type_of_mail { get; set; }
+        public int type_of_send{ get; set; }
 
         public DateTime Send_time { get; set; }
         public bool flag { get; set; }
@@ -24,6 +25,9 @@ namespace MMSystem.Model
         public bool State { get; set; }
 
         public DateTime time_of_read { get; set; }
+
+      
+  
 
         public List<Reply> replies { get; set; }
 
