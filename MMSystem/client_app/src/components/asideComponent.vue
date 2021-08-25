@@ -1,14 +1,13 @@
 <template>
-    <div class="hidden md:flex md:flex-shrink-0">
-        <div class="w-64 flex flex-col">
+    <div class="hidden md:flex md:flex-shrink-0 bg-gray-50">
+        <div :class="toggle_nav ? 'w-64' : 'w-16'" class=" flex flex-col">
             <!-- Sidebar component, swap this element with another sidebar if you like -->
             <div class="border-l border-gray-200 pt-5 pb-4 flex flex-col flex-grow overflow-y-auto">
-                <div class="flex-shrink-0 px-4 flex items-center">
+                <div :class="toggle_nav ? 'px-4' : ''" class="flex-shrink-0  flex items-center">
                     <img class="h-10 w-auto" src="../assets/img/logo-aca.png" alt="logo" />
-
                 </div>
                 <div class="flex-grow mt-5 flex flex-col">
-                    <nav class="flex-1 bg-white px-2 space-y-1">
+                    <nav class="flex-1 bg-gray-50 px-2 space-y-1">
                         <!-- Current: "bg-gray-100 text-gray-900", Default: "text-gray-600 hover:bg-gray-50 hover:text-gray-900" -->
                         <router-link :to="{ name: 'Dashboard' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
                             <!--
@@ -19,7 +18,10 @@
                             <svg class="text-gray-500 ml-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                             </svg>
-                            لوحة التحكم
+                            <span v-if="toggle_nav">
+                                لوحة التحكم
+                            </span>
+                            
                         </router-link>
 
                         <router-link :to="{ name: 'Login' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
@@ -44,7 +46,10 @@
                                     H106.668c-11.76,0-21.333-9.573-21.333-21.333V106.669c0-11.76,9.573-21.333,21.333-21.333h298.667
                                     c11.76,0,21.333,9.573,21.333,21.333V469.336z"/>
                             </svg>
-                            المعاملات
+                            
+                            <span v-if="toggle_nav">
+                                لوحة التحكم
+                            </span>
                         </router-link>
 
                         <router-link :to="{ name: 'Login' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
@@ -52,7 +57,10 @@
                             <svg class="text-gray-400 group-hover:text-gray-500 ml-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                             </svg>
-                            المستخدمين
+                            <span v-if="toggle_nav">
+                                المستخدمين
+                            </span>
+                            
                         </router-link>
 
                         <router-link :to="{ name: 'Login' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
@@ -60,7 +68,10 @@
                             <svg class="text-gray-400 group-hover:text-gray-500 ml-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                             </svg>
-                            التقرير
+                            <span v-if="toggle_nav">
+                               التقرير  
+                            </span>
+                            
                         </router-link>
                     </nav>
                 </div>
@@ -72,6 +83,32 @@
 <script>
 export default {
 
+
+    data() {
+    return {
+
+      toggle_nav: false,
+    };
+  },
+  methods: {
+
+    add_to_array_of_side_action(){
+        this.consignees.push({
+            side : this.side,
+            action : this.action,
+        }) 
+
+        // this.consignees.push( this.side ) 
+
+        console.log(this.consignees)
+    },
+
+
+   
+
+
+
+  },
 }
 </script>
 

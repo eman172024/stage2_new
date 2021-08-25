@@ -52,7 +52,7 @@
                         </div>
 
                         <div class="">
-                            <router-link :to="{ name: 'Dashboard' }" class="py-2 px-8 border border-transparent shadow-sm text-sm font-medium rounded-md text-green-600 border-green-600 hover:bg-green-600 hover:text-white duration-300 focus:outline-none">
+                            <router-link :to="{ name: 'dashboard' }" class="py-2 px-8 border border-transparent shadow-sm text-sm font-medium rounded-md text-green-600 border-green-600 hover:bg-green-600 hover:text-white duration-300 focus:outline-none">
                                 دخول
                             </router-link>
                         </div>
@@ -115,7 +115,7 @@ export default {
 
     totest(){
       console.log("IN")
-      this.$router.push({ name: 'Dashboard' });
+      this.$router.push({ name: 'dashboard' });
     },
     
     submit() {
