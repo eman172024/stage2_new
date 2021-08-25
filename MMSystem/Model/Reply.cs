@@ -15,6 +15,8 @@ namespace MMSystem.Model
         public DateTime Date { get; set; }
         public int To { get; set; }
         public bool state { get; set; }
+        public int UserId { get; set; }
+
         public List<Reply_Resources> MyProperty { get; set; }
 
     }
