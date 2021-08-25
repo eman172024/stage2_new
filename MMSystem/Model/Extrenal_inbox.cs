@@ -11,9 +11,7 @@ namespace MMSystem.Model
     {
         [Key]
         public int Id { get; set; }
-       
-
-
+    
         public int to { get; set; }
         public string type { get; set; }
         public DateTime Send_time { get; set; }
