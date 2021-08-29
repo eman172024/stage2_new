@@ -154,6 +154,27 @@ namespace MMSystem.Services.ReplayServeic
             throw new NotImplementedException();
         }
 
-    
+        public async Task<bool> AddResources(Reply_Resources resources)
+        {
+            try
+            {
+                Reply reply = await _data.Replies.FindAsync(resources.ReplyId);
+
+                if (reply != null)
+                {
+
+
+                    await _data.Reply_Resources.AddAsync(resources);
+                    await _data.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

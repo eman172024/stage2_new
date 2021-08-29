@@ -13,5 +13,8 @@ namespace MMSystem.Services.ReplayServeic
         Task<List<ReplayDto>> GetAllReplay(int id);
 
 
+        Task<bool> AddResources(Reply_Resources resources);
+
+
     }
 }

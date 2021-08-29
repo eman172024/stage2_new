@@ -21,6 +21,8 @@ namespace MMSystem.Model
        public DbSet<Extrmal_Section> Extrmal_Sections { get; set; }
         public DbSet<ClasificationSubject> clasifications { get; set; }
         public DbSet<Measures> measures { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<UserRoles> userRoles { get; set; }
 
         public AppDbCon(DbContextOptions<AppDbCon>options):base(options)
         {
