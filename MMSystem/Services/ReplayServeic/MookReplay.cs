@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using MMSystem.Model;
 using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,14 +18,17 @@ namespace MMSystem.Services.ReplayServeic
     {
 
 
-        public MookReplay(AppDbCon data, IMapper mapper)
+        public MookReplay(AppDbCon data, IMapper mapper, IWebHostEnvironment environment)
         {
             _data = data;
             _mapper = mapper;
+            _environment = environment;
         }
+        public string sub { get; set; }
 
         private readonly AppDbCon _data;
         private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _environment;
 
         public async Task<bool> Add(Reply model)
         {
@@ -158,21 +164,71 @@ namespace MMSystem.Services.ReplayServeic
         {
             try
             {
-                Reply reply = await _data.Replies.FindAsync(resources.ReplyId);
+                if(resources!=null)
 
-                if (reply != null)
                 {
-
-
                     await _data.Reply_Resources.AddAsync(resources);
                     await _data.SaveChangesAsync();
                     return true;
+
                 }
+
+
+
                 return false;
             }
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+
+        public async Task<bool> Upload(int id, List<IFormFile> listOfPhotes)
+        {
+            try
+            {
+                int order = 1;
+                if (listOfPhotes.Count > 0)
+                {
+                    foreach (var file in listOfPhotes)
+                    {
+                        sub = "";
+
+                        IEnumerable<char> takeFiveChar = file.FileName.TakeLast(5);
+
+                        foreach (var item in takeFiveChar)
+                        {
+                            sub = sub + item.ToString();
+
+                        }
+
+                        Guid guid = Guid.NewGuid();
+                        string image = guid.ToString() + "" + sub;
+
+                        var path = Path.Combine(_environment.WebRootPath, "images", image);
+
+                        //  file.FileName.Replace(file.FileName,x);
+                        var stream = new FileStream(path, FileMode.Create);
+
+                        await file.CopyToAsync(stream);
+                        Reply_Resources mail = new Reply_Resources();
+                        mail.ReplyId = id;
+                        mail.path = "wwwroot/images/" + image;
+                        mail.order = order;
+                        bool res = await AddResources(mail);
+
+
+                        order += 1;
+                    }
+                    return true;
+
+                }
+                return false;
+
+            }
+            catch
+            {
                 throw;
             }
         }

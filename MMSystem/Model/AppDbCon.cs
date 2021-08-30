@@ -51,6 +51,26 @@ namespace MMSystem.Model
                 new ClasificationSubject() { Id = 5, Name = "اجتماعات", state = true },
                 new ClasificationSubject() { Id = 6, Name = "اخرى", state = true },
                 new ClasificationSubject() { Id = 7, Name = "تعميم", state = true });
+
+
+
+            modelBuilder.Entity<Role>().HasData(
+                new Role { RoleId=1,Name="الإطلاع على السري"},
+                new Role { RoleId = 2, Name = "استخدام الوارد الخارجي" },
+                new Role { RoleId = 3, Name = "ارسال البريد الى"},
+                new Role { RoleId = 4, Name = "الإطلاع على التقرير الإحصائى" },
+                new Role { RoleId = 5, Name = "الصادر الجديد" },
+                new Role { RoleId = 6, Name = "كتابة اجراءالأمين للرسالة" },
+                new Role { RoleId = 7, Name = "الإطلاع على تقرير المتابعة" },
+                new Role { RoleId = 8, Name = "الاستلام والسحب" },
+                new Role { RoleId = 9, Name = "عرض الصورة" },
+                new Role { RoleId = 10, Name = "الإطلاع على الوارد الجديد" },
+                new Role { RoleId = 11, Name = "استخدام الصادر الخارجي" },
+                new Role { RoleId = 12, Name = "الإطلاع على الردود السابقة" },
+                new Role { RoleId = 13, Name = "اعادة الارسال" },
+                new Role { RoleId = 14, Name = "الرد على الوار الجديد" },
+                new Role { RoleId = 15, Name = "ردود الإدارات الفرعية" },
+                new Role { RoleId = 16, Name = "استخدام البريد الداخلي" });
             base.OnModelCreating(modelBuilder);
         }
 

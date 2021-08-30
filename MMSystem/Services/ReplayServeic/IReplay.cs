@@ -1,4 +1,5 @@
-﻿using MMSystem.Model;
+﻿using Microsoft.AspNetCore.Http;
+using MMSystem.Model;
 using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace MMSystem.Services.ReplayServeic
 
 
         Task<bool> AddResources(Reply_Resources resources);
+
+        Task<bool> Upload(int id, List<IFormFile> listOfPhotes);
 
 
     }
