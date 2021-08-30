@@ -204,7 +204,6 @@ namespace MMSystem.Services {
                     UpdateUser.password = user.password;
                     UpdateUser.FirstMACAddress = user.FirstMACAddress;
                     UpdateUser.SecandMACAddress = user.SecandMACAddress;
-                    UpdateUser.Role = user.Role;
                     UpdateUser.DepartmentId = user.DepartmentId;
                     UpdateUser.state = user.state;
                     _data.Administrator.Update(UpdateUser);

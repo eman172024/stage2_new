@@ -4,14 +4,16 @@ using MMSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMSystem.Migrations
 {
     [DbContext(typeof(AppDbCon))]
-    partial class AppDbConModelSnapshot : ModelSnapshot
+    [Migration("20210829112303_dr")]
+    partial class dr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,10 +39,6 @@ namespace MMSystem.Migrations
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("nationalNumber")
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
 
                     b.Property<string>("password")
                         .HasColumnType("nvarchar(max)");
@@ -455,88 +453,6 @@ namespace MMSystem.Migrations
                     b.HasKey("RoleId");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleId = 1,
-                            Name = "الإطلاع على السري"
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            Name = "استخدام الوارد الخارجي"
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            Name = "ارسال البريد الى"
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            Name = "الإطلاع على التقرير الإحصائى"
-                        },
-                        new
-                        {
-                            RoleId = 5,
-                            Name = "الصادر الجديد"
-                        },
-                        new
-                        {
-                            RoleId = 6,
-                            Name = "كتابة اجراءالأمين للرسالة"
-                        },
-                        new
-                        {
-                            RoleId = 7,
-                            Name = "الإطلاع على تقرير المتابعة"
-                        },
-                        new
-                        {
-                            RoleId = 8,
-                            Name = "الاستلام والسحب"
-                        },
-                        new
-                        {
-                            RoleId = 9,
-                            Name = "عرض الصورة"
-                        },
-                        new
-                        {
-                            RoleId = 10,
-                            Name = "الإطلاع على الوارد الجديد"
-                        },
-                        new
-                        {
-                            RoleId = 11,
-                            Name = "استخدام الصادر الخارجي"
-                        },
-                        new
-                        {
-                            RoleId = 12,
-                            Name = "الإطلاع على الردود السابقة"
-                        },
-                        new
-                        {
-                            RoleId = 13,
-                            Name = "اعادة الارسال"
-                        },
-                        new
-                        {
-                            RoleId = 14,
-                            Name = "الرد على الوار الجديد"
-                        },
-                        new
-                        {
-                            RoleId = 15,
-                            Name = "ردود الإدارات الفرعية"
-                        },
-                        new
-                        {
-                            RoleId = 16,
-                            Name = "استخدام البريد الداخلي"
-                        });
                 });
 
             modelBuilder.Entity("MMSystem.Model.Send_to", b =>
@@ -584,14 +500,9 @@ namespace MMSystem.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("userRoles");
                 });
@@ -708,20 +619,7 @@ namespace MMSystem.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MMSystem.Model.Administrator", "User")
-                        .WithMany("userRoles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Role");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MMSystem.Model.Administrator", b =>
-                {
-                    b.Navigation("userRoles");
                 });
 
             modelBuilder.Entity("MMSystem.Model.Department", b =>
