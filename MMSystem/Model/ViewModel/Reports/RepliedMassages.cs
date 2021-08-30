@@ -12,13 +12,14 @@ namespace MMSystem.Model.ViewModel.Reports
         public string Mail_Type { get; set; }
         public DateTime Date_Of_Mail { get; set; }
         public string Action_Required { get; set; }
-        public bool State { get; set; } /// <summary>
+    
+        public bool State { get; set; }/// <summary>
         /// replied or not replied
         /// </summary>
         public string mail_detail { get; set; }/// <summary>
         /// الرد معلومات الرد
         /// </summary>
-        public int UserName { get; set; }
+        public string UserName { get; set; }
 
     }
 }

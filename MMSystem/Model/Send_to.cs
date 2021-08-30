@@ -26,6 +26,9 @@ namespace MMSystem.Model
 
         public DateTime time_of_read { get; set; }
 
+      
+  
+
         public List<Reply> replies { get; set; }
 
 
