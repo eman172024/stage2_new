@@ -13,7 +13,8 @@ namespace MMSystem.Model
         public string password { get; set; } 
         public string FirstMACAddress { get; set; }
         public string SecandMACAddress { get; set; }
-     
+        [MaxLength(12)]
+        public string nationalNumber { get; set; }
         public int DepartmentId { get; set; }
         public bool state { get; set; }
         public Department Department { get; set; }
