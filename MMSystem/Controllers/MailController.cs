@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MMSystem.Model;
 using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel;
@@ -20,17 +21,19 @@ namespace MMSystem.Controllers
     public class MailController : ControllerBase
     {
         private readonly IMailInterface _Imail;
-     //   private IWebHostEnvironment iwebHostEnvironment;
+        private readonly AppDbCon dbcon;
+
+        //   private IWebHostEnvironment iwebHostEnvironment;
 
         private readonly ISender _sender;
 
      
-        public MailController(IMailInterface Imail,
+        public MailController(IMailInterface Imail,AppDbCon dbcon,
             ISender sender)
         {
             _Imail = Imail;
-         
-           _sender = sender;
+            this.dbcon = dbcon;
+            _sender = sender;
 
         }
 
@@ -148,13 +151,62 @@ namespace MMSystem.Controllers
 
         }
 
-       
+        [HttpGet("GetMail")]
+        public async Task<IActionResult> GetMail(DateTime? myday, int? mangment, DateTime? d1, DateTime? d2 , int? mailnum ,string? summary)
+        {
 
-      
-      
+            if (mangment == null)
+            {
+                mangment = 1;
+            }
 
 
-     
+            if (d1 == null && d2 == null)
+            {
+                DateTime day = DateTime.Now;
+               //if(day.Date==day.Date)
+               // {
+
+               // }
+                d1 = day.Date;
+                d2 = day.Date;
+                
+            }
+
+            var m = await dbcon.Departments.FindAsync(mangment);
+
+            List<Sended_Maill> ma = await (from mail in dbcon.Mails.Where(x => x.Management_Id == mangment
+                                           ||x.Mail_Summary.Contains(summary)).OrderByDescending(x => x.MailID)
+                                           join ex in dbcon.Sends.Where(x => x.flag == true && (x.Send_time.Date >= d1 && x.Send_time.Date <= d2 || x.Send_time.Date==myday
+                                           || x.MailID == mailnum)) on mail.MailID equals ex.MailID
+                                          
+                                           select new Sended_Maill()
+                                           {
+                                               mail_id=mail.MailID,
+                                               State = (ex.State == true) ? "قرأت" : "لم تقرأ",
+                                               type_of_mail = mail.Mail_Type,
+                                               Mail_Number = mail.Mail_Number,
+                                               date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                               procedure_type = mail.clasification,
+                                               mangment_sender = m.DepartmentName,
+                                               Send_time = ex.Send_time,
+                                               time = ex.Send_time.ToString("HH-mm-ss"),
+                                               summary=mail.Mail_Summary,
+                                              mail_res=dbcon.Mail_Resourcescs.Where(x=> x.MailID== mail.MailID).ToList()
+
+
+                                           }).ToListAsync();
+
+
+            return Ok(ma);
+
+        }
+
+
+
+
+
+
 
 
 

@@ -39,7 +39,7 @@ namespace MMSystem.Services.MailServeic
         {
             _appContext = appContext;
             iwebHostEnvironment = environment;
-           _external = external;
+            _external = external;
             _mapper = mapper;
             _extrenal_Inbox = extrenal_Inbox;
             _resourcescs = resourcescs;
@@ -527,7 +527,7 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                List<Mail> list = await _appContext.Mails.Where(x => x.Management_Id == id&&x.Mail_Type.Equals("صادر خارجي")).ToListAsync();
+                List<Mail> list = await _appContext.Mails.Where(x => x.Management_Id == id && x.Mail_Type.Equals("صادر خارجي")).ToListAsync();
 
 
                 List<MailDto> listDto = _mapper.Map<List<Mail>, List<MailDto>>(list);
