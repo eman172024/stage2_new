@@ -99,9 +99,9 @@ namespace MMSystem.Services.MailServeic
                                 Send_to sender = new Send_to();
                               
                                 sender.MailID = mail.mail.MailID;
-                                sender.to = item.sectionID;
+                                sender.to = item.departmentId;
                                 sender.flag = false;
-                                sender.type_of_send = item.MeasurId;
+                                sender.type_of_send = item.measurId;
                                 bool send = await _sender.Add(sender);
                             }
 
@@ -134,9 +134,9 @@ namespace MMSystem.Services.MailServeic
                                         Send_to sender = new Send_to();
 
                                         sender.MailID = mail.mail.MailID;
-                                        sender.to = item.sectionID;
+                                        sender.to = item.departmentId;
                                         sender.flag = false;
-                                        sender.type_of_send = item.MeasurId;
+                                        sender.type_of_send = item.measurId;
                                         bool send = await _sender.Add(sender);
                                     }
                                     result = true;
@@ -175,9 +175,9 @@ namespace MMSystem.Services.MailServeic
                                     Send_to sender = new Send_to();
 
                                     sender.MailID = mail.mail.MailID;
-                                    sender.to = item.sectionID;
+                                    sender.to = item.departmentId;
                                     sender.flag = false;
-                                    sender.type_of_send = item.MeasurId;
+                                    sender.type_of_send = item.measurId;
                                     bool send = await _sender.Add(sender);
                                 }
                                 result = true;
