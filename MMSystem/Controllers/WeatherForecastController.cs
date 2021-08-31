@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MMSystem.Model;
 using MMSystem.Model.ViewModel;
@@ -22,34 +23,40 @@ namespace MMSystem.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-      
+        private readonly AppDbCon appDb;
+
         public string sub { set; get; }
-        public WeatherForecastController( )
+        public WeatherForecastController(AppDbCon appDb)
         {
-           
+            this.appDb = appDb;
+        }
+
+        [HttpGet("GetAllMail")]
+        public async Task<IActionResult> GetAllMail()
+        {
+
+            var c = await appDb.Departments.ToListAsync();
+            return Ok(c);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         }
 
 
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-     
-        
-
-
-
-
-
-
-
-
-
-
     }
- 
-   
 }
 
