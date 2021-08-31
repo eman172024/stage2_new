@@ -17,7 +17,7 @@ namespace MMSystem.Controllers
 {
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AuthController : Controller
     {
        public  AuthController(IAdministratorInterface users)
