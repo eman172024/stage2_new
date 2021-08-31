@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Login from "../views/auth/login.vue";
+// import Login from "../views/auth/login.vue";
+import Login from "../views/Auth/Login.vue";
 
 Vue.use(VueRouter);
 
@@ -9,8 +10,8 @@ const routes = [{
         name: "login",
         component: Login,
     },
-   
-   
+
+
     {
         path: "/dashboard",
         name: "dashboard",
@@ -24,8 +25,9 @@ const routes = [{
             ),
     },
 
+
     {
-        path: "/dashboard/mailn",
+        path: "/mailn",
         name: "mail",
         // route level code-splitting
         // this generates a separate chunk (dashboard.[hash].js) for this route

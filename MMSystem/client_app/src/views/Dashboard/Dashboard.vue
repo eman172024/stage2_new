@@ -6,6 +6,11 @@
                 <div class="max-w-4xl  mx-auto  flex flex-col md:px-8 xl:px-0">
                     <navComponent></navComponent>
                     <main class="flex-1 relative focus:outline-none ">
+
+                        <router-link :to="{ name: 'mail' }" class="border border-g100text-gray-100 hover:text-g5bg-green-500 hover:border-g5bg-green-500 duration-300 bg-white px-4 py-2 rounded-md text-gray-100 font-medium focus:outline-none">
+                                    mailn
+                                </router-link>
+
                         <div class="py-6">
                             <div class="px-4 sm:px-6 md:px-0">
                                 <h1 class="text-xl font-semibold text-gray-100">لوحة التحكم</h1>
@@ -162,6 +167,8 @@ export default {
 
   mounted() {
       console.log("in dashbord")
+      this.test();
+
     //this.GetNumbersOfReports();
     //this.GetLastFiveTransactions();
   },
@@ -192,62 +199,75 @@ export default {
   methods: {
     //   Numbers_Of_Reports
 
-    GetLastFiveTransactions() {
-        this.screenFreeze = true;
-        this.loading = true;
-        this.$http.DashboardService
-            .LastFiveTransactions()
-            .then((res) => {
-                setTimeout(() => {
-                    this.screenFreeze = false;
-                    this.loading = false;
+    // GetLastFiveTransactions() {
+    //     this.screenFreeze = true;
+    //     this.loading = true;
+    //     this.$http.DashboardService
+    //         .LastFiveTransactions()
+    //         .then((res) => {
+    //             setTimeout(() => {
+    //                 this.screenFreeze = false;
+    //                 this.loading = false;
 
-                    this.LastTransactions = res.data;
-                    // this.Reports.count_Of_all_transaction = res.data.count_Of_all_transaction;
-                    // this.Reports.count_Of_booking = res.data.count_Of_booking;
-                    // this.Reports.count_Of_received = res.data.count_Of_received;
+    //                 this.LastTransactions = res.data;
+    //                 // this.Reports.count_Of_all_transaction = res.data.count_Of_all_transaction;
+    //                 // this.Reports.count_Of_booking = res.data.count_Of_booking;
+    //                 // this.Reports.count_Of_received = res.data.count_Of_received;
 
-                }, 100);
+    //             }, 100);
                 
-            })
-            .catch((err) => {
-                setTimeout(() => {
-                    this.screenFreeze = false;
-                    this.loading = false;
-                    console.log(err);
-                }, 100);
+    //         })
+    //         .catch((err) => {
+    //             setTimeout(() => {
+    //                 this.screenFreeze = false;
+    //                 this.loading = false;
+    //                 console.log(err);
+    //             }, 100);
                 
                 
-            });
-    },
+    //         });
+    // },
 
-    GetNumbersOfReports() {
-        this.screenFreeze = true;
-        this.loading = true;
+    test() {
+
+        console.log("SSSSSSSSSSSSSSSSS")
         this.$http.DashboardService
             .NumbersOfReports()
             .then((res) => {
-                setTimeout(() => {
-                    this.screenFreeze = false;
-                    this.loading = false;
-
-                    this.Reports.count_Of_all_transaction = res.data.count_Of_all_transaction;
-                    this.Reports.count_Of_booking = res.data.count_Of_booking;
-                    this.Reports.count_Of_received = res.data.count_Of_received;
-
-                }, 100);
-                
+                console.log(res)
             })
             .catch((err) => {
-                setTimeout(() => {
-                    this.screenFreeze = false;
-                    this.loading = false;
-                    console.log(err);
-                }, 100);
-                
-                
+                console.log(err)
             });
     },
+
+    // GetNumbersOfReports() {
+    //     this.screenFreeze = true;
+    //     this.loading = true;
+    //     this.$http.DashboardService
+    //         .NumbersOfReports()
+    //         .then((res) => {
+    //             setTimeout(() => {
+    //                 this.screenFreeze = false;
+    //                 this.loading = false;
+
+    //                 this.Reports.count_Of_all_transaction = res.data.count_Of_all_transaction;
+    //                 this.Reports.count_Of_booking = res.data.count_Of_booking;
+    //                 this.Reports.count_Of_received = res.data.count_Of_received;
+
+    //             }, 100);
+                
+    //         })
+    //         .catch((err) => {
+    //             setTimeout(() => {
+    //                 this.screenFreeze = false;
+    //                 this.loading = false;
+    //                 console.log(err);
+    //             }, 100);
+                
+                
+    //         });
+    // },
 
     
   },

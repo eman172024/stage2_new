@@ -2,6 +2,46 @@ import axios from 'axios';
 
 export default {
 
+
+    AllClassifications() {
+        return axios.get(`api/Service/GetAllClassification`);
+    },
+
+    AllMeasures() {
+        return axios.get(`api/Service/GetAllClassification`);
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     AddMail(mailInfo) {
         return axios.post(`/api/Mails/AddMail`, mailInfo)
     },
