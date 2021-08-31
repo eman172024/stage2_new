@@ -25,14 +25,14 @@ namespace MMSystem.Controllers
             _ClasificationSubject = clasificationSubject;
         }
         // GET: api/<ServiceController>
-        [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("GetAllMeasures")]
+        public async Task<IActionResult> GetAllMeasures()
         {
             List<MeasuresDto> list = await _measures.GetAll();
             return Ok(list);
         }
-        [HttpGet("GetAllClassFication")]
-        public async Task<IActionResult> GetAllClassFication()
+        [HttpGet("GetAllClassification")]
+        public async Task<IActionResult> GetAllClassification()
         {
             List<ClasificationSubjectDto> list = await _ClasificationSubject.GetAll();
             return Ok(list);
