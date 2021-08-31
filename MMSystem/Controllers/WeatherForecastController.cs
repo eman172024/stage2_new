@@ -24,9 +24,9 @@ namespace MMSystem.Controllers
     {
       
         public string sub { set; get; }
-        public WeatherForecastController()
+        public WeatherForecastController( )
         {
-            
+           
 
         }
 
@@ -36,9 +36,8 @@ namespace MMSystem.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-    
- 
-
+     
+        
 
 
 
