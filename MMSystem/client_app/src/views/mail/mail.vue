@@ -39,7 +39,7 @@
                                             type="radio"
                                             name="type"
                                             class="h-4 w-4"
-                                            value="1"
+                                            value="داخلي"
                                         />
                                         <label
                                             for="internal"
@@ -56,7 +56,7 @@
                                             type="radio"
                                             name="type"
                                             class="h-4 w-4"
-                                            value="2"
+                                            value="صادر داخلي"
                                         />
                                         <label
                                             for="internal_export"
@@ -73,7 +73,7 @@
                                             type="radio"
                                             name="type"
                                             class="h-4 w-4"
-                                            value="3"
+                                            value="وارد خارجي"
                                         />
                                         <label
                                             for="external_incoming"
@@ -162,7 +162,7 @@
                                     placeholder="YYYY"
                                     min="2011"
                                     max="2100"
-                                    v-model="releaseDate"
+                                    v-model="genaral_inbox_year"
                                     id="year"
                                     class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
                                 />
@@ -1084,6 +1084,15 @@ export default {
         departmentNameSelected: '',
         departmentIdSelected: '',
 
+        consignees:[],
+
+
+        releaseDate:'',
+        summary:'',
+        classification: '',
+        mailType:'',
+        general_incoming_number:'',
+        genaral_inbox_year:'',
 
 
 
@@ -1092,7 +1101,7 @@ export default {
         isThisMobile: false,
 
         mailId: '',
-        mailType:'',
+        
         mail_num:'1955 - 12 -2021',
         mail_forwarding:'',
         send_to_sector:'',
@@ -1103,15 +1112,13 @@ export default {
         entity_mail_date:'',
         entity_reference_number:'',
         procedure_type:'',
-        summary:'',
-        classification: 0,
-        releaseDate:'',
-        general_incoming_number:'',
-        year:'',
+        
+        
+        
         required_action:'',
         side: 0,
         action:0,
-        consignees:[],
+        
 
         imagesToSend: [],
         imagesToShow: [],
@@ -1207,6 +1214,52 @@ export default {
             });
     },
 
+    saveMail() {
+      this.showAlert = true;
+      this.loading = true;
+
+        
+      var mailInfo = {
+            Department_Id: Number(1), 
+            Date_Of_Mail: this.releaseDate,
+            Mail_Summary: this.summary,
+            clasification: this.classification,
+            Mail_Type: this.mailType,
+            Genaral_inbox_Number: this.general_incoming_number,
+            Genaral_inbox_year: this.genaral_inbox_year,
+            userId: Number(1),
+            ActionRequired: this.required_action,
+      };
+
+      var actionSenders = this.consignees;
+
+
+
+      this.$http.mailService
+        .AddMail(mailInfo, actionSenders)
+        .then((res) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.Successed = true;
+            this.addSuccessed = res.data.result.message;
+            this.documentSection = true;
+            this.proceduresSection = true;
+
+            this.saveButton = false;
+            this.updataButton = true;
+
+            this.mailId = res.data.result.addedmail.mailId
+
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.Successed = false;
+            this.addErorr = err.message; 
+          }, 500);
+        });
+    },
 
 
 
@@ -1313,42 +1366,7 @@ export default {
       }
     },
 
-    saveMail() {
-      this.showAlert = true;
-      this.loading = true;
-
-      var mailInfo = {
-        sender: this.sender,
-        reply: this.reply,
-        mailType: Number(this.mailType),
-        releaseDate: this.releaseDate,
-        sentMessage: this.sentMessage,
-      };
-      this.$http.mailService
-        .AddMail(mailInfo)
-        .then((res) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.Successed = true;
-            this.addSuccessed = res.data.result.message;
-            this.documentSection = true;
-            this.proceduresSection = true;
-
-            this.saveButton = false;
-            this.updataButton = true;
-
-            this.mailId = res.data.result.addedmail.mailId
-
-          }, 500);
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.Successed = false;
-            this.addErorr = err.message; 
-          }, 500);
-        });
-    },
+    
 
     GetDocmentForMailToShow(){
       this.$http.documentService
