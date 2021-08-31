@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MMSystem.Model;
+using MMSystem.Model.Dto;
 
 namespace MMSystem.Services.MeasuresServeic
 {
-    public class MookClasificationSubject : GenericInterface<ClasificationSubject, ClasificationSubject>
+    public class MookClasificationSubject : GenericInterface<ClasificationSubject, ClasificationSubjectDto>
     {
         private readonly AppDbCon _appDbCon;
+        private readonly IMapper _mapper;
 
-        public MookClasificationSubject(AppDbCon appDbCon)
+        public MookClasificationSubject(AppDbCon appDbCon,IMapper mapper)
         {
             _appDbCon = appDbCon;
+            _mapper = mapper;
         }
         public async Task<bool> Add(ClasificationSubject model)
         {
@@ -57,13 +61,15 @@ namespace MMSystem.Services.MeasuresServeic
             }
         }
 
-        public async Task<ClasificationSubject> Get(int id)
+        public async Task<ClasificationSubjectDto> Get(int id)
         {
             try
             {
                 ClasificationSubject subject = await _appDbCon.clasifications.FindAsync(id);
 
-                return subject;
+                ClasificationSubjectDto dto = _mapper.Map<ClasificationSubject, ClasificationSubjectDto>(subject);
+
+                return dto;
             }
             catch (Exception)
             {
@@ -72,13 +78,14 @@ namespace MMSystem.Services.MeasuresServeic
             }
         }
 
-        public async Task<List<ClasificationSubject>> GetAll()
+        public async Task<List<ClasificationSubjectDto>> GetAll()
         {
             try
             {
                 List<ClasificationSubject> list = await _appDbCon.clasifications.ToListAsync();
+                List<ClasificationSubjectDto> listof = _mapper.Map<List<ClasificationSubject>, List<ClasificationSubjectDto>>(list);
 
-                return list;
+                return listof;
             }
             catch (Exception)
             {
