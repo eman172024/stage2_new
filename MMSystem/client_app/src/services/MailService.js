@@ -8,8 +8,14 @@ export default {
     },
 
     AllMeasures() {
-        return axios.get(`api/Service/GetAllClassification`);
+        return axios.get(`api/Service/GetAllMeasures`);
     },
+
+    AllDepartments() {
+        return axios.get(`api/Service/GetAllMeasures`);
+    },
+
+
 
 
 
