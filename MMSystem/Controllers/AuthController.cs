@@ -2,6 +2,7 @@
 
 using MMSystem.Model;
 using MMSystem.Model.Dto;
+using MMSystem.Model.ViewModel;
 using MMSystem.Services;
 //
 //using passport_aca.Model;
@@ -27,10 +28,10 @@ namespace MMSystem.Controllers
       private IAdministratorInterface _data { get; }
         [HttpPost]
         [Route("LoginUser")]
-        public async Task<ActionResult<AdministratorDto>> LoginUser([FromBody] Login user)
+        public async Task<IActionResult> LoginUser([FromBody] Login user)
         {
          
-            var find = await _data.login(user);
+            UserView find = await _data.login(user);
 
                 if (find != null)
             

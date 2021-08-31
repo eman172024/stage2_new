@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MMSystem.Model;
 using MMSystem.Model.Dto;
+using MMSystem.Model.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -149,39 +150,43 @@ namespace MMSystem.Services {
 
         
 
-        public async Task<AdministratorDto> login(Login user1)
+        public async Task<UserView> login(Login user1)
         {
             try
             {
                 Administrator user = await _data.Administrator.FirstOrDefaultAsync(x => x.UserName == user1.UserName && x.state == true);
 
-
                 if (user != null)
                 {
-                 
+
                     bool isValid = BCrypt.Net.BCrypt.Verify(user1.Password, user.password);
+
                     if (isValid)
                     {
 
-                        var config = new MapperConfiguration(mc => mc.CreateMap<Administrator, AdministratorDto>());
+                        UserView us = await (from c in _data.Administrator.Where(x => x.UserName == user1.UserName && x.state == true)
+                                             join g in _data.userRoles on c.UserId equals g.UserId
 
-                        var maper = new Mapper(config);
+                                             select new UserView
+                                             {
+                                                 Administrator = new AdministratorDto
+                                                 {
+                                                     UserId = c.UserId,
+                                                     UserName = c.UserName,
+                                                     DepartmentId = c.DepartmentId,
+                                                     FirstMACAddress = c.FirstMACAddress,
+                                                     nationalNumber = c.nationalNumber,
+                                                     SecandMACAddress = c.SecandMACAddress
+                                                 },
+                                                 Listrole = _data.Roles.Where(x => x.RoleId == g.RoleId).ToList()
 
-                        var userDto = maper.Map<Administrator, AdministratorDto>(user);
+                                             }).FirstOrDefaultAsync();
 
-                        return userDto;
-
-
+                                       return us;
                     }
-                    else
-                    {
+                  
+                } return null;
 
-
-                    }
-
-                }
-
-                return null;
             }
             catch (Exception)
             {
@@ -205,18 +210,15 @@ namespace MMSystem.Services {
                     UpdateUser.FirstMACAddress = user.FirstMACAddress;
                     UpdateUser.SecandMACAddress = user.SecandMACAddress;
                     UpdateUser.DepartmentId = user.DepartmentId;
+                    UpdateUser.nationalNumber = user.nationalNumber;
                     UpdateUser.state = user.state;
                     _data.Administrator.Update(UpdateUser);
                     await _data.SaveChangesAsync();
-                    //massageInfo.Massage = "تمت عملية التحديث ";
-                    //massageInfo.statuscode = 200;
                     return true;
 
                 }
                 else
                 {
-                    //massageInfo.Massage = "لم تتم عملية التحديث ";
-                    //massageInfo.statuscode = 304;
                     return false;
                 }
 

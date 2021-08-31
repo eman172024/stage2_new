@@ -17,6 +17,7 @@ namespace MMSystem.Model
         public int RoleId { get; set; }
 
         public Role Role { get; set; }
+
         public int UserId { get; set; }
 
         public Administrator User { get; set; }
