@@ -10,7 +10,10 @@
                 <h3 class="text-xl font-semibold text-gray-900">
                 معلومات البريد
                 </h3>
-                <div class="float-left text-base font-semibold text-gray-800 animate-bounce">
+                <!-- 
+                    animate-bounce
+                 -->
+                <div class="float-left text-base font-semibold text-gray-800 ">
                     رقم الرسالة 
 
                     <span class="mr-4 underline font-bold text-2xl">
@@ -109,12 +112,10 @@
                                     <option disabled selected value="0">
                                        إختر التصنيف
                                     </option>
-                                    <option value="1">
-                                        مقال صحفي
+                                    <option v-for="classification in classifications" :key="classification.id" :value="classification.id">
+                                        {{ classification.name }}
                                     </option>
-                                    <option value="2">
-                                        مقال صحفي
-                                    </option>
+                                   
                                 </select>
                             </div>
 
@@ -222,14 +223,9 @@
                                         <option disabled selected value="0">
                                             إختر الإجراء
                                         </option>
-                                        <option value="1">
-                                            للعلم
-                                        </option>
-                                        <option value="2">
-                                            للتحقيق
-                                        </option>
-                                        <option value="3">
-                                            للتنفيذ
+
+                                        <option v-for="measure in measures" :key="measure.id" :value="measure.id">
+                                            {{ measure.name }}
                                         </option>
                                     </select>
                                 </div>
@@ -1041,6 +1037,10 @@ export default {
   created() {},
 
   mounted() {
+
+      this.GetAllClassifications();
+      this.GetAllMeasures();
+
     if (
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
@@ -1067,7 +1067,8 @@ export default {
 
   data() {
     return {
-
+        classifications:[],
+        measures:[],
 
         isThisMobile: false,
 
@@ -1122,6 +1123,33 @@ export default {
     };
   },
   methods: {
+
+    GetAllClassifications() {
+
+        this.$http.mailService
+            .AllClassifications()
+            .then((res) => {
+                this.classifications = res.data 
+                console.log(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+    },
+
+    GetAllMeasures() {
+
+        this.$http.mailService
+            .AllMeasures()
+            .then((res) => {
+                this.measures = res.data 
+                console.log(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+    },
+
 
     add_to_array_of_side_action(){
         this.consignees.push({
