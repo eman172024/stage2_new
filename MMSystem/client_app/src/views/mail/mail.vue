@@ -191,47 +191,51 @@
 
                                 <div class="sm:col-span-3">
                                     <label
-                                    for="side"
+                                    for="department"
                                     class="block text-base font-semibold text-gray-800"
                                     >
                                     الإدارات
                                     </label>
-                                    <select v-model="side" id="side" class="block mt-2 w-full h-10 text-sm rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2">
-                                        <option disabled selected value="0">
-                                            إختر الإدارة
-                                        </option>
-                                        <option value="1">
-                                            مكتب التوثيق
-                                        </option>
-                                        <option value="2">
-                                            مكتب الرئيس
-                                        </option>
-                                        <option value="3">
-                                            مكتب الوكيل
-                                        </option>
-                                    </select>
+
+                                    <div class="relative">
+                                        <button @click="departmentselect = !departmentselect" id="department" class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2">
+                                            {{ departmentNameSelected }}
+                                        </button>
+
+                                        <div v-if="departmentselect" class="border text-sm bg-white border-gray-200 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md">
+                                            <button class="block focus:outline-none w-full my-1 text-right" @click="selectdepartment(department.measuresId, department.measuresName); departmentselect = !departmentselect" v-for="department in departments" :key="department.measuresId">
+                                                {{ department.measuresName }}    
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    
                                 </div>
 
                                 <div class="sm:col-span-2">
                                     <label
-                                        for="action"
+                                        for="measure"
                                         class="block text-base font-semibold text-gray-800"
                                     >
                                     الإجراء
                                     </label>
-                                    <select v-model="action" id="action" class="block mt-2 w-full rounded-md h-10 border text-sm border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2">
-                                        <option disabled selected value="0">
-                                            إختر الإجراء
-                                        </option>
 
-                                        <option v-for="measure in measures" :key="measure.id" :value="measure.id">
-                                            {{ measure.name }}
-                                        </option>
-                                    </select>
+                                    <div class="relative">
+                                        <button @click="measureselect = !measureselect" id="measure" class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2">
+                                            {{ measureNameSelected }}
+                                        </button>
+
+                                        <div v-if="measureselect" class="border text-sm bg-white border-gray-200 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md">
+                                            <button class="block focus:outline-none w-full my-1 text-right" @click="selectmeasure(measure.measuresId, measure.measuresName); measureselect = !measureselect" v-for="measure in measures" :key="measure.measuresId">
+                                                {{ measure.measuresName }}    
+                                            </button>
+                                        </div>
+                                    </div>
+
                                 </div>
 
                                 <div class="sm:col-span-1">
-                                    <button @click="add_to_array_of_side_action()" class="w-full mt-8 rounded-md text-green-400 duration-200 hover:text-green-500 px-2 py-2 text-base font-semibold">
+                                    <button @click="add_to_array_of_side_measure()" class="w-full mt-8 rounded-md text-green-400 duration-200 hover:text-green-500 px-2 py-2 text-base font-semibold">
                                         <svg class="fill-current" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
                                             <g>
                                                 <g>
@@ -262,9 +266,9 @@
                                 <div class="mt-2 w-full rounded-md border border-gray-200 p-2 h-24 overflow-y-scroll flex flex-wrap items-center">
 
                                     <div v-for="consignee in consignees" :key="consignee.side" class="border border-gary-200 rounded-md text-sm flex items-center p-2 m-0.5">
-                                        {{ consignee.side }} , {{ consignee.action }}
+                                        {{ consignee.departmentName }} , {{ consignee.measureName }}
                                         <!--  -->
-                                        <button @click="remove_to_array_of_side_action(consignee.side)" class="mr-1 rounded-full">
+                                        <button @click="remove_to_array_of_side_measure(consignee.departmentId)" class="mr-1 rounded-full">
                                             <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="times-circle" class="w-5 h-5 stroke-current text-red-400 hover:text-red-500 duration-200" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                                 <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path>
                                             </svg>
@@ -1040,6 +1044,7 @@ export default {
 
       this.GetAllClassifications();
       this.GetAllMeasures();
+      this.GetAllDepartments();
 
     if (
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -1068,7 +1073,21 @@ export default {
   data() {
     return {
         classifications:[],
+
         measures:[],
+        measureselect : false,
+        measureNameSelected: '',
+        measureIdSelected: '',
+
+        departments:[],
+        departmentselect : false,
+        departmentNameSelected: '',
+        departmentIdSelected: '',
+
+
+
+
+
 
         isThisMobile: false,
 
@@ -1124,13 +1143,40 @@ export default {
   },
   methods: {
 
+    selectmeasure(id, name){
+        this.measureNameSelected = name;
+        this.measureIdSelected = id;
+    },
+
+    selectdepartment(id, name){
+        this.departmentNameSelected = name;
+        this.departmentIdSelected = id;
+    },
+
+    add_to_array_of_side_measure(){
+        this.consignees.push({
+            departmentId : this.departmentIdSelected,
+            departmentName : this.departmentNameSelected,
+            measureId : this.measureIdSelected,
+            measureName : this.measureNameSelected,
+        }) 
+    },
+
+    remove_to_array_of_side_measure(consignee){
+        const index = this.consignees.findIndex((element, index) => {
+            if (element.departmentId === consignee) {
+                return true
+            }
+        })
+        this.consignees.splice(index, 1);
+    },
+
     GetAllClassifications() {
 
         this.$http.mailService
             .AllClassifications()
             .then((res) => {
                 this.classifications = res.data 
-                console.log(res.data)
             })
             .catch((err) => {
                 console.log(err)
@@ -1143,7 +1189,18 @@ export default {
             .AllMeasures()
             .then((res) => {
                 this.measures = res.data 
-                console.log(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+    },
+
+    GetAllDepartments() {
+
+        this.$http.mailService
+            .AllDepartments()
+            .then((res) => {
+                this.departments = res.data 
             })
             .catch((err) => {
                 console.log(err)
@@ -1151,25 +1208,46 @@ export default {
     },
 
 
-    add_to_array_of_side_action(){
-        this.consignees.push({
-            side : this.side,
-            action : this.action,
-        }) 
 
-        // this.consignees.push( this.side ) 
 
-        console.log(this.consignees)
-    },
 
-    remove_to_array_of_side_action(consignee){
-        const index = this.consignees.findIndex((element, index) => {
-            if (element.side === consignee) {
-                return true
-            }
-        })
-        this.consignees.splice(index, 1);
-    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
   
 
