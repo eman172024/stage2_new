@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MMSystem.Model;
+using MMSystem.Model.Dto;
 using MMSystem.Services;
 using MMSystem.Services.MailServeic;
 using MMSystem.Services.MeasuresServeic;
@@ -40,10 +41,10 @@ namespace MMSystem
             services.AddTransient<IMail_Resourcescs, MooKMail_Resourcescs>();
             services.AddTransient<IAdministratorInterface, MockAdministrator>();
             services.AddTransient<ISender, MookSender>();
-            services.AddTransient<GenericInterface<Measures, Measures>, MookMeasures>();
+            services.AddTransient<GenericInterface<Measures, MeasuresDto>, MookMeasures>();
             services.AddTransient<IReplay, MookReplay>();
     
-            services.AddTransient<GenericInterface<ClasificationSubject, ClasificationSubject>, MookClasificationSubject>();
+            services.AddTransient<GenericInterface<ClasificationSubject, ClasificationSubjectDto>, MookClasificationSubject>();
 
 
 
