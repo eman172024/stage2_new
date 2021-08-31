@@ -86,7 +86,7 @@ namespace MMSystem.Services.MailServeic
                     case "داخلي":
                         mail.mail.state = true;
 
-                        mail.mail.Mail_Number =await GetLastMailNumber(mail.mail.Management_Id,port);
+                        mail.mail.Mail_Number =await GetLastMailNumber(mail.mail.Department_Id, port);
               
 
                         Email = await Add(mail.mail);
@@ -115,7 +115,7 @@ namespace MMSystem.Services.MailServeic
 
                     case "صادر خارجي":
                         mail.mail.state = true;
-                        mail.mail.Mail_Number = await GetLastMailNumber(mail.mail.Management_Id,port);
+                        mail.mail.Mail_Number = await GetLastMailNumber(mail.mail.Department_Id, port);
 
                         Email = await Add(mail.mail);
                         if (Email)
@@ -158,7 +158,7 @@ namespace MMSystem.Services.MailServeic
 
                     case "وارد خارجي":
                         mail.mail.state = true;
-                        mail.mail.Mail_Number = await GetLastMailNumber(mail.mail.Management_Id,port);
+                        mail.mail.Mail_Number = await GetLastMailNumber(mail.mail.Department_Id, port);
 
                         Email = await Add(mail.mail);
 
@@ -252,7 +252,7 @@ namespace MMSystem.Services.MailServeic
                 switch (MailType)
                 {
                     case "داخلي":
-                        Mail mail = await _appContext.Mails.OrderBy(x => x.MailID).Where(x => x.Management_Id == id&&x.Mail_Type.Equals("داخلي")).LastOrDefaultAsync();
+                        Mail mail = await _appContext.Mails.OrderBy(x => x.MailID).Where(x => x.Department_Id == id&&x.Mail_Type.Equals("داخلي")).LastOrDefaultAsync();
                         if (mail != null) {
                             LastNumber = mail.Mail_Number + 1;
                             break;
@@ -410,7 +410,7 @@ namespace MMSystem.Services.MailServeic
             try
             {
                 Pagenation<MailDto> pagenation = new Pagenation<MailDto>();
-                List<Mail> mails = await _appContext.Mails.Where(x => x.Management_Id == id && x.state==true && x.Mail_Type == "داخلي").OrderByDescending(x => x.MailID).Skip((page - 1) * PageSize).Take(page).ToListAsync();
+                List<Mail> mails = await _appContext.Mails.Where(x => x.Department_Id == id && x.state==true && x.Mail_Type == "داخلي").OrderByDescending(x => x.MailID).Skip((page - 1) * PageSize).Take(page).ToListAsync();
 
                 if (mails.Count > 0) {
                     pagenation.Count = mails.Count();
@@ -434,7 +434,7 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                var lis = await (from mail in _appContext.Mails.Where(x => x.Management_Id == id)
+                var lis = await (from mail in _appContext.Mails.Where(x => x.Department_Id == id)
                                  join sender in _appContext.Sends on mail.MailID equals sender.MailID
                                  select new Re { MailID = mail.MailID, Mail_Summary = mail.Mail_Summary, to = sender.to }).ToListAsync();
                 return lis;
@@ -527,7 +527,7 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                List<Mail> list = await _appContext.Mails.Where(x => x.Management_Id == id&&x.Mail_Type.Equals("صادر خارجي")).ToListAsync();
+                List<Mail> list = await _appContext.Mails.Where(x => x.Department_Id == id&&x.Mail_Type.Equals("صادر خارجي")).ToListAsync();
 
 
                 List<MailDto> listDto = _mapper.Map<List<Mail>, List<MailDto>>(list);
@@ -549,7 +549,7 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                List<Mail> list = await _appContext.Mails.Where(x => x.Management_Id == id && x.Mail_Type.Equals("وارد خارجي")).ToListAsync();
+                List<Mail> list = await _appContext.Mails.Where(x => x.Department_Id == id && x.Mail_Type.Equals("وارد خارجي")).ToListAsync();
 
 
                 List<MailDto> listDto = _mapper.Map<List<Mail>, List<MailDto>>(list);

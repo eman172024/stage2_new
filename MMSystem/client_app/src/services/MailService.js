@@ -12,8 +12,11 @@ export default {
     },
 
     AllDepartments() {
-        return axios.get(`api/Service/GetAllMeasures`);
+        return axios.get(`api/WeatherForecast/GetAllMail`);
     },
+
+
+
 
 
 
