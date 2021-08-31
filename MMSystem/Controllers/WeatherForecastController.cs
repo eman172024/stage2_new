@@ -20,7 +20,8 @@ using static System.Net.Mime.MediaTypeNames;
 namespace MMSystem.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+
+    [Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private readonly AppDbCon appDb;
@@ -31,8 +32,8 @@ namespace MMSystem.Controllers
             this.appDb = appDb;
         }
 
-        [HttpGet("GetAllMail")]
-        public async Task<IActionResult> GetAllMail()
+        [HttpGet("GetAllDepartments")]
+        public async Task<IActionResult> GetAllDepartments()
         {
 
             var c = await appDb.Departments.ToListAsync();
