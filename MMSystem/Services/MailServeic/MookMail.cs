@@ -446,6 +446,7 @@ namespace MMSystem.Services.MailServeic
                 {
                     if (System.IO.File.Exists(item.path))
                         System.IO.File.Delete(item.path);
+                 
                 }
                 foreach (var file in listOfPhotes)
                 {
@@ -547,7 +548,7 @@ namespace MMSystem.Services.MailServeic
                     byte[] bytes = Convert.FromBase64String(bsee64string);
                     Guid guid = Guid.NewGuid();
                     string x = guid.ToString();
-                    await File.WriteAllBytesAsync("wwwroot/images/" + $"{x}" + extention, bytes);
+                    await File.WriteAllBytesAsync("wwwroot/images/ccc."   + extention, bytes);
 
                 }
                
