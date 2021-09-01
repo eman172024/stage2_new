@@ -599,7 +599,7 @@ namespace MMSystem.Services.MailServeic
             try
             {
                 List<Mail> list = await _appContext.Mails.OrderBy(x => x.MailID).TakeLast(5).ToListAsync();
-                List<MailDto> mailDtos = _mapper.Map<List<Mail>, List<MailDto>>(c);
+                List<MailDto> mailDtos = _mapper.Map<List<Mail>, List<MailDto>>(list);
 
                 return mailDtos;
 
