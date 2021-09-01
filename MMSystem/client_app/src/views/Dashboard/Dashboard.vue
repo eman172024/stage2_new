@@ -107,41 +107,25 @@
                                 </div>
 
                                 <div class="divide-y divide-gray-200 min-h-72">
-                                    <!--<router-link :to="{ name: 'TransactionsFormEdit', params: { transaction: transaction.id },}" v-for="transaction in LastTransactions" :key="transaction.id" class="w-full bg-white hover:shadow flex items-center">
+                                    <router-link :to="{ name: 'mail-show', params: { mail: mail.id },}" v-for="mail in LastMails" :key="mail.id" class="w-full bg-white hover:shadow flex items-center">
                                         <div class="w-2/12 py-4 pr-2 font-semibold text-black">
-                                            {{ transaction.finacial_recipt_number }}
+                                            {{ mail.finacial_recipt_number }}
                                         </div>
                                         <div class="w-3/12">
-                                            {{ transaction.full_name }}
+                                            {{ mail.full_name }}
                                         </div>
                                         <div class="w-3/12">
-                                            {{ transaction.recipients_name }}
+                                            {{ mail.recipients_name }}
                                         </div>
                                         <div class="w-2/12">
-                                            {{ transaction.delivery_date }}
+                                            {{ mail.delivery_date }}
                                         </div>
                                         <div class="w-2/12 font-semibold text-black pl-2">
-                                            {{ transaction.passport_status }}
+                                            {{ mail.passport_status }}
                                         </div>
-                                    </router-link>-->
+                                    </router-link>
 
-                                    <div class="w-full bg-white hover:shadow flex items-center">
-                                        <div class="w-2/12 py-4 pr-2 font-semibold text-black">
-                                             transaction.finacial_recipt_number 
-                                        </div>
-                                        <div class="w-3/12">
-                                             transaction.full_name 
-                                        </div>
-                                        <div class="w-3/12">
-                                             transaction.recipients_name 
-                                        </div>
-                                        <div class="w-2/12">
-                                             transaction.delivery_date 
-                                        </div>
-                                        <div class="w-2/12 font-semibold text-black pl-2">
-                                             transaction.passport_status 
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </section>
@@ -166,11 +150,12 @@ export default {
   created() {},
 
   mounted() {
-      console.log("in dashbord")
-      this.test();
+      this.GetLastMails();
+
+    //   this.test();
 
     //this.GetNumbersOfReports();
-    //this.GetLastFiveTransactions();
+    
   },
 
   components: {
@@ -186,7 +171,7 @@ export default {
        // userName: this.$authenticatedUser.userName,
        // validity: this.$authenticatedUser.validity,
 
-        LastTransactions:{},
+        LastMails:{},
         Reports:{
             count_Of_all_transaction:0,
             count_Of_received:0,
@@ -199,34 +184,39 @@ export default {
   methods: {
     //   Numbers_Of_Reports
 
-    // GetLastFiveTransactions() {
-    //     this.screenFreeze = true;
-    //     this.loading = true;
-    //     this.$http.DashboardService
-    //         .LastFiveTransactions()
-    //         .then((res) => {
-    //             setTimeout(() => {
-    //                 this.screenFreeze = false;
-    //                 this.loading = false;
+    GetLastMails() {
+        this.screenFreeze = true;
+        this.loading = true;
+        this.$http.DashboardService
+            .LastMails()
+            .then((res) => {
+                setTimeout(() => {
 
-    //                 this.LastTransactions = res.data;
-    //                 // this.Reports.count_Of_all_transaction = res.data.count_Of_all_transaction;
-    //                 // this.Reports.count_Of_booking = res.data.count_Of_booking;
-    //                 // this.Reports.count_Of_received = res.data.count_Of_received;
+                    console.log(res)
+                    this.LastMails = res.data;
+                    
+                    // this.screenFreeze = false;
+                    // this.loading = false;
 
-    //             }, 100);
+                    // this.LastTransactions = res.data;
+                    // this.Reports.count_Of_all_transaction = res.data.count_Of_all_transaction;
+                    // this.Reports.count_Of_booking = res.data.count_Of_booking;
+                    // this.Reports.count_Of_received = res.data.count_Of_received;
+
+
+                }, 100);
                 
-    //         })
-    //         .catch((err) => {
-    //             setTimeout(() => {
-    //                 this.screenFreeze = false;
-    //                 this.loading = false;
-    //                 console.log(err);
-    //             }, 100);
+            })
+            .catch((err) => {
+                setTimeout(() => {
+                    this.screenFreeze = false;
+                    this.loading = false;
+                    console.log(err);
+                }, 100);
                 
                 
-    //         });
-    // },
+            });
+    },
 
     test() {
 
