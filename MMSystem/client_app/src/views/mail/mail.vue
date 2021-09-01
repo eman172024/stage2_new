@@ -39,7 +39,7 @@
                                             type="radio"
                                             name="type"
                                             class="h-4 w-4"
-                                            value="1"
+                                            value="داخلي"
                                         />
                                         <label
                                             for="internal"
@@ -56,7 +56,7 @@
                                             type="radio"
                                             name="type"
                                             class="h-4 w-4"
-                                            value="2"
+                                            value="صادر داخلي"
                                         />
                                         <label
                                             for="internal_export"
@@ -73,7 +73,7 @@
                                             type="radio"
                                             name="type"
                                             class="h-4 w-4"
-                                            value="3"
+                                            value="وارد خارجي"
                                         />
                                         <label
                                             for="external_incoming"
@@ -162,7 +162,7 @@
                                     placeholder="YYYY"
                                     min="2011"
                                     max="2100"
-                                    v-model="releaseDate"
+                                    v-model="genaral_inbox_year"
                                     id="year"
                                     class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
                                 />
@@ -203,8 +203,8 @@
                                         </button>
 
                                         <div v-if="departmentselect" class="border text-sm bg-white border-gray-200 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md">
-                                            <button class="block focus:outline-none w-full my-1 text-right" @click="selectdepartment(department.measuresId, department.measuresName); departmentselect = !departmentselect" v-for="department in departments" :key="department.measuresId">
-                                                {{ department.measuresName }}    
+                                            <button class="block focus:outline-none w-full my-1 text-right" @click="selectdepartment(department.id, department.departmentName); departmentselect = !departmentselect" v-for="department in departments" :key="department.id">
+                                                {{ department.departmentName }}    
                                             </button>
                                         </div>
                                     </div>
@@ -369,9 +369,9 @@
                                     </div>
                                 </div>
 
-                                <!-- <div class="flex justify-center mt-10">
+                                <div class="flex justify-center mt-10">
                                     <button
-                                        @click="addDocuments"
+                                        @click="UploadMail"
                                         type="button"
                                         class="mr-3 flex justify-center items-center py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-700"
                                     >
@@ -435,7 +435,7 @@
 
                                         حفظ المستندات
                                     </button>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
 
@@ -908,17 +908,17 @@
                 <section>
                     <div class="sm:col-span-6 flex items-center justify-end mt-10">
                         <div class="flex justify-end ml-6">
-                            
+                            <!-- @click="saveMail()" -->
                            <button
                                 class="flex justify-center items-center py-2 px-8 border border-transparent shadow-sm text-sm font-medium rounded-md border-green-600 text-green-600 hover:shadow-lg focus:shadow-none duration-300 focus:outline-none"
-                                @click="saveMail()"
+                                
                             >
                                 <svg class="w-5 h-5 stroke-current ml-2 fill-current" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><g><path d="m115.817 138.734h195.166v30h-195.166z"/><path d="m115.817 198.734h195.166v30h-195.166z"/><path d="m115.817 258.734h195.166v30h-195.166z"/><path d="m438.304 330.762c-15.36-15.361-34.297-25.016-54.154-28.976v-301.786h-272.714l-68.786 68.787v372.418h220.429c5.203 14.767 13.686 28.302 25.084 39.7 20.052 20.052 46.713 31.095 75.071 31.095 28.357 0 55.019-11.043 75.07-31.096 41.395-41.394 41.395-108.747 0-150.142zm-316.92-298.283v46.255h-46.255zm-48.734 378.726v-302.47h78.734v-78.735h202.766v270.11c-24.084 2.05-47.598 12.262-65.987 30.652-20.053 20.052-31.096 46.713-31.096 75.071 0 1.798.045 3.588.133 5.371h-184.55zm344.442 48.486c-14.386 14.386-33.513 22.309-53.858 22.309-20.346 0-39.473-7.923-53.858-22.309-14.386-14.386-22.309-33.513-22.309-53.857s7.923-39.472 22.309-53.858c14.851-14.85 34.351-22.273 53.858-22.273 19.502 0 39.011 7.426 53.857 22.273 29.698 29.697 29.698 78.018.001 107.715z"/><path d="m378.233 365.807h-30v25.026h-25.026v30h25.026v25.027h30v-25.027h25.027v-30h-25.027z"/></g></svg>
                                 جديد
                             </button> 
                         </div>
 
-                        <div v-if="updataButton" class="flex justify-end">
+                        <div v-if="updataButton" class="flex justify-end ml-6">
                             <button
                                 @click="updateMail"
                                 type="button"
@@ -1007,6 +1007,50 @@
                                 حفظ
                             </button>
                         </div>
+
+                        <div v-if="sendButton" class="flex justify-end">
+                            <button
+                                class="flex justify-center items-center py-2 px-8 border border-transparent shadow-sm text-sm font-medium rounded-md border-green-600 text-white bg-green-600 hover:shadow-lg focus:shadow-none duration-300 focus:outline-none"
+                                @click="sendMail()"
+                            >
+                                <svg
+                                class="w-4 h-4 stroke-current ml-2 fill-current"
+                                version="1.1"
+                                id="Capa_1"
+                                xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                x="0px"
+                                y="0px"
+                                viewBox="0 0 512 512"
+                                style="enable-background: new 0 0 512 512"
+                                xml:space="preserve"
+                                >
+                                <g>
+                                    <g>
+                                    <g>
+                                        <path
+                                        d="M166,332h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,332,166,332z"
+                                        ></path>
+                                        <path
+                                        d="M166,392h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,392,166,392z"
+                                        ></path>
+                                        <path
+                                        d="M507.606,84.394l-80-80C424.793,1.58,420.978,0,417,0H15C6.716,0,0,6.716,0,15v482c0,8.284,6.716,15,15,15
+                                            c6.912,0,477.495,0,482,0c8.284,0,15-6.716,15-15V95C512,91.021,510.419,87.206,507.606,84.394z M121,30h210v100H121V30z
+                                            M391,482H121V272h270V482z M482,482h-61V257c0-8.284-6.716-15-15-15H106c-8.284,0-15,6.716-15,15v225H30V30h61v115
+                                            c0,8.284,6.716,15,15,15h240c8.284,0,15-6.716,15-15V30h49.787L482,101.213V482z"
+                                        ></path>
+                                        <path
+                                        d="M166,452h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,452,166,452z"
+                                        ></path>
+                                    </g>
+                                    </g>
+                                </g>
+                                </svg>
+                                إرسال
+                            </button>
+                        </div>
+
                         
                     </div>
                 </section>
@@ -1084,6 +1128,28 @@ export default {
         departmentNameSelected: '',
         departmentIdSelected: '',
 
+        consignees:[],
+
+
+        releaseDate:'',
+        summary:'',
+        classification: '',
+        mailType:'',
+        general_incoming_number:'',
+        genaral_inbox_year:'',
+
+        mailId: '',
+
+        saveButton: true,
+        sendButton: false,
+        updataButton: false,
+
+
+
+
+
+
+
 
 
 
@@ -1091,8 +1157,8 @@ export default {
 
         isThisMobile: false,
 
-        mailId: '',
-        mailType:'',
+        
+        
         mail_num:'1955 - 12 -2021',
         mail_forwarding:'',
         send_to_sector:'',
@@ -1103,23 +1169,20 @@ export default {
         entity_mail_date:'',
         entity_reference_number:'',
         procedure_type:'',
-        summary:'',
-        classification: 0,
-        releaseDate:'',
-        general_incoming_number:'',
-        year:'',
+        
+        
+        
         required_action:'',
         side: 0,
         action:0,
-        consignees:[],
+        
 
         imagesToSend: [],
         imagesToShow: [],
 
 
 
-        saveButton: true,
-        updataButton: false,
+        
 
         showAlert: false,
         Successed: false,
@@ -1207,7 +1270,130 @@ export default {
             });
     },
 
+    saveMail() {
+      this.showAlert = true;
+      this.loading = true;
 
+
+      var info = {
+          "mail":{
+                "Mail_Summary": this.summary,
+                "Mail_Type": this.mailType,
+                "userId":1,
+                "Department_Id":1,
+
+                "Date_Of_Mail": this.releaseDate,
+                "Mail_Summary": this.summary,
+                "clasification": this.classification,
+                "Genaral_inbox_Number": Number(this.general_incoming_number),
+                "Genaral_inbox_year": Number(this.genaral_inbox_year),
+                "ActionRequired": this.required_action,
+
+            },
+            "actionSenders":this.consignees
+        }
+      this.$http.mailService
+        .SaveMail(info)
+        .then((res) => {
+          setTimeout(() => {
+            // this.loading = false;
+            // this.Successed = true;
+            // this.addSuccessed = res.data.result.message;
+            // this.documentSection = true;
+            // this.proceduresSection = true;
+
+            this.saveButton = false;
+            this.sendButton = true;
+            this.updataButton = true;
+
+            this.mailId = res.data.mailId
+
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.Successed = false;
+            this.addErorr = err.message; 
+          }, 500);
+        });
+    },
+
+    sendMail(){
+      this.showAlert = true;
+      this.loading = true;
+
+      this.$http.mailService
+        .SendMail(Number(this.mailId))
+        .then((res) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.Successed = true;
+            this.addSuccessed = res.data.message;
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.Successed = false;
+            this.addErorr = err.message; 
+          }, 500);
+        });
+    },
+
+
+    UploadMail() {
+      this.showAlert = true;
+      this.loading = true;
+     
+      this.$http.mailService
+        .UploadMail(Number(this.mailId), this.imagesToSend)
+        .then((res) => {
+          setTimeout(() => {
+
+                console.log(res)
+
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.Successed = false;
+            this.addErorr = err.message; 
+          }, 500);
+        });
+    },
+
+
+    addDocuments() {
+      this.showAlert = true;
+      this.loading = true;
+
+       var documenInfo = {
+        mailId: Number(this.mailId),
+        images: this.imagesToSend,
+      };
+
+      this.$http.documentService
+        .AddDocument(documenInfo)
+        .then((res) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.Successed = true;
+            this.addSuccessed = res.data.result.message;
+
+            this.imagesToSend = [];
+            this.GetDocmentForMailToShow()
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.Successed = false;
+            this.addErorr = err.message; 
+          }, 500);
+        });
+    },
 
 
 
@@ -1313,42 +1499,7 @@ export default {
       }
     },
 
-    saveMail() {
-      this.showAlert = true;
-      this.loading = true;
-
-      var mailInfo = {
-        sender: this.sender,
-        reply: this.reply,
-        mailType: Number(this.mailType),
-        releaseDate: this.releaseDate,
-        sentMessage: this.sentMessage,
-      };
-      this.$http.mailService
-        .AddMail(mailInfo)
-        .then((res) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.Successed = true;
-            this.addSuccessed = res.data.result.message;
-            this.documentSection = true;
-            this.proceduresSection = true;
-
-            this.saveButton = false;
-            this.updataButton = true;
-
-            this.mailId = res.data.result.addedmail.mailId
-
-          }, 500);
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.Successed = false;
-            this.addErorr = err.message; 
-          }, 500);
-        });
-    },
+    
 
     GetDocmentForMailToShow(){
       this.$http.documentService
@@ -1372,35 +1523,7 @@ export default {
         });
     },
 
-    addDocuments() {
-      this.showAlert = true;
-      this.loading = true;
-
-       var documenInfo = {
-        mailId: Number(this.mailId),
-        images: this.imagesToSend,
-      };
-
-      this.$http.documentService
-        .AddDocument(documenInfo)
-        .then((res) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.Successed = true;
-            this.addSuccessed = res.data.result.message;
-
-            this.imagesToSend = [];
-            this.GetDocmentForMailToShow()
-          }, 500);
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.Successed = false;
-            this.addErorr = err.message; 
-          }, 500);
-        });
-    },
+    
 
     deleteDocument(documentId, index){
       this.$http.documentService
@@ -1416,27 +1539,7 @@ export default {
 
     },
 
-    sendMail(){
-      this.showAlert = true;
-      this.loading = true;
-
-      this.$http.mailService
-        .SendMail(this.mailId)
-        .then((res) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.Successed = true;
-            this.addSuccessed = res.data.result.message;
-          }, 500);
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.Successed = false;
-            this.addErorr = err.message; 
-          }, 500);
-        });
-    },
+    
 
     updateMail(){
       this.showAlert = true;

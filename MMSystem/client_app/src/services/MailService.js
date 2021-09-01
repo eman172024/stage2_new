@@ -2,7 +2,6 @@ import axios from 'axios';
 
 export default {
 
-
     AllClassifications() {
         return axios.get(`api/Service/GetAllClassification`);
     },
@@ -12,7 +11,26 @@ export default {
     },
 
     AllDepartments() {
-        return axios.get(`api/WeatherForecast/GetAllMail`);
+        return axios.get(`api/WeatherForecast/GetAllDepartments`);
+    },
+
+    SaveMail(info) {
+        return axios.post(`/api/Mail/AddMail`, info)
+    },
+
+    SendMail(mailId) {
+        return axios.put(`/api/Mail/Send?mailid=${mailId}`)
+    },
+
+
+
+    UploadMail(id, resourse) {
+        return axios.post(`/api/Mail/Uplode`, {
+            params: {
+                id: id,
+                resourse: resourse,
+            }
+        })
     },
 
 
@@ -50,10 +68,6 @@ export default {
 
 
 
-
-    AddMail(mailInfo) {
-        return axios.post(`/api/Mails/AddMail`, mailInfo)
-    },
 
     GetMails(filter, role) {
         return axios.get(`/api/Mails/GetMails`, {
@@ -77,9 +91,7 @@ export default {
         return axios.post(`/api/Documents/ReplyMail`, ReplyMail)
     },
 
-    SendMail(mailId) {
-        return axios.put(`/api/Mails/EmploySender?mailId=${mailId}`)
-    },
+
 
     EditMail(mailInfo) {
         return axios.put(`/api/Mails/EditMail`, mailInfo)

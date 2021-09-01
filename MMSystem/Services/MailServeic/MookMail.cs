@@ -325,10 +325,9 @@ namespace MMSystem.Services.MailServeic
             if (_mail != null) {
            //   _mail.action = mail.action;
         //  _mail.classification = mail.classification;
-              _mail.currentYear = mail.currentYear;
+           
            _mail.Date_Of_Mail = mail.Date_Of_Mail;
               _mail.Mail_Summary = mail.Mail_Summary;
-                _mail.currentYear = mail.currentYear;
                 _mail.state = mail.state;
                 _mail.userId = mail.userId;
                 _mail.Genaral_inbox_year = mail.Genaral_inbox_year;

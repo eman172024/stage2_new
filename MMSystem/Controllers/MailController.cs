@@ -136,7 +136,7 @@ namespace MMSystem.Controllers
 
 
 
-        [HttpPost("Send")]
+        [HttpPut("Send")]
         public async Task<IActionResult> Send(int mailid)
         {
 
