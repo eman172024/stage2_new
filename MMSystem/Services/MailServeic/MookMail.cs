@@ -429,24 +429,7 @@ namespace MMSystem.Services.MailServeic
 
         }
 
-        public async Task<List<Re>> Sendermail(int id)
-        {
-            try
-            {
-                var lis = await (from mail in _appContext.Mails.Where(x => x.Department_Id == id)
-                                 join sender in _appContext.Sends on mail.MailID equals sender.MailID
-                                 select new Re { MailID = mail.MailID, Mail_Summary = mail.Mail_Summary, to = sender.to }).ToListAsync();
-                return lis;
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-         
-        }
+     
 
         public async Task<bool> UpdateFile(int id, List<IFormFile> listOfPhotes)
         {
@@ -504,23 +487,7 @@ namespace MMSystem.Services.MailServeic
 
                 }
 
-        public async Task<List<Re>> ResevidMail(int id)
-        {
-            try
-            {
-                var lis = await(from mail in _appContext.Mails
-                                join sender in _appContext.Sends.Where(x=>x.to==id) on mail.MailID equals sender.MailID 
-                                select new Re { MailID = mail.MailID, Mail_Summary = mail.Mail_Summary, to = sender.to }).ToListAsync();
-                return lis;
 
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-        }
 
         public async Task<List<MailDto>> getExternalMail(int id)
         {
@@ -565,11 +532,11 @@ namespace MMSystem.Services.MailServeic
 
         }
 
-        public async Task<bool> up(List<UplodeFile> file)
+        public async Task<bool> up(Re file)
         {
             try
             {
-                foreach (var item in file)
+                foreach (var item in file.list)
                 {
                     var index = item.baseAs64.IndexOf(',');
                     var bsee64string = item.baseAs64.Substring(index + 1);

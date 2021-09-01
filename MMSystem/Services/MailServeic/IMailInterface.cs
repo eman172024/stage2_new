@@ -25,12 +25,11 @@ namespace MMSystem.Services.MailServeic
       Task<List<MailDto>> getExternalMail(int id);
         Task<List<MailDto>> getExternalInbox(int id);
 
-        Task<List<Re>> Sendermail(int id);
-        Task<List<Re>> ResevidMail(int id);
+
         Task<Pagenation<MailDto>> PaganationList(int page,int PageSize,int id);
 
 
-        Task<bool> up(UplodeFile ss);
+        Task<bool> up(Re ss);
       
 
     }

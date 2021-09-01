@@ -161,7 +161,7 @@ namespace MMSystem.Controllers
 
         }
         [HttpPost("Up")]
-        public async Task<IActionResult> Up(UplodeFile file)
+        public async Task<IActionResult> Up(Re file)
         {
 
             bool state = await _Imail.up(file);
