@@ -2,6 +2,9 @@ import axios from 'axios';
 
 export default {
 
+    LastMails() {
+        return axios.get(`api/Mails/GetLastMails`);
+    },
 
     NumbersOfReports() {
         return axios.get(`api/Service/GetAllClassFication`);
