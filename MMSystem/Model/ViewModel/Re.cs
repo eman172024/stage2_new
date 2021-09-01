@@ -7,9 +7,7 @@ namespace MMSystem.Model.ViewModel
 {
     public class Re
     {
-        public int MailID { get; set; }
-        public string Mail_Summary { get; set; }
-        public int to { get; set; }
+        public List<UplodeFile> list { get; set; }
 
     }
 }

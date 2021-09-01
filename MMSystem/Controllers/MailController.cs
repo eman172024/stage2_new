@@ -9,6 +9,7 @@ using MMSystem.Services.MailServeic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -83,10 +84,10 @@ namespace MMSystem.Controllers
         {
            bool result = await _Imail.Update(mail);
             if (result) 
-            return Ok( new Result()
+            return StatusCode(203, new Result()
             {
                 message = "تمت العملية بنجاح",
-                statusCode = 200
+                statusCode = 203
             });
             return BadRequest(new Result()
             {
@@ -161,7 +162,7 @@ namespace MMSystem.Controllers
 
         }
         [HttpPost("Up")]
-        public async Task<IActionResult> Up(UplodeFile file)
+        public async Task<IActionResult> Up(Re file)
         {
 
             bool state = await _Imail.up(file);
@@ -171,6 +172,17 @@ namespace MMSystem.Controllers
 
 
         }
+
+
+        [HttpPost("Up1")]
+        public async Task<IActionResult> Up1(string x)
+        {
+          var c=  Convert.ToBase64String(System.IO.File.ReadAllBytes(x));
+
+            return Ok(c);
+
+        }
+
 
 
 

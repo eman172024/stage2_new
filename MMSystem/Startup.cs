@@ -46,7 +46,7 @@ namespace MMSystem
     
             services.AddTransient<GenericInterface<ClasificationSubject, ClasificationSubjectDto>, MookClasificationSubject>();
 
-
+            
 
         }
 
@@ -60,7 +60,7 @@ namespace MMSystem
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            
 
             app.UseRouting();
 
