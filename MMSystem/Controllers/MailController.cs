@@ -122,6 +122,19 @@ namespace MMSystem.Controllers
 
         }
 
+        [HttpPost("GetLastMails")]
+        public async Task<IActionResult> GetLastMails()
+        {
+
+            List<MailDto> list = await _Imail.GetSevenMail();
+            if (list.Count>0)
+                return Ok(list);
+            return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
+
+
+        }
+
+
         [HttpPost("UpdateFile")]
         public async Task<IActionResult> UpdateFile([FromForm] int id, List<IFormFile> resourse)
         {
