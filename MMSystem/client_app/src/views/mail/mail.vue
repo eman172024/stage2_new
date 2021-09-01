@@ -1086,6 +1086,13 @@ export default {
 
   mounted() {
 
+if (this.$route.params.mail) {
+    console.log("sss")
+    console.log(this.$route.params.mail)
+
+}else{
+
+}
       this.GetAllClassifications();
       this.GetAllMeasures();
       this.GetAllDepartments();

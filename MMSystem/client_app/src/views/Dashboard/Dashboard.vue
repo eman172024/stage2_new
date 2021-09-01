@@ -7,13 +7,10 @@
                     <navComponent></navComponent>
                     <main class="flex-1 relative focus:outline-none ">
 
-                        <router-link :to="{ name: 'mail' }" class="border border-g100text-gray-100 hover:text-g5bg-green-500 hover:border-g5bg-green-500 duration-300 bg-white px-4 py-2 rounded-md text-gray-100 font-medium focus:outline-none">
-                                    mailn
-                                </router-link>
 
                         <div class="py-6">
                             <div class="px-4 sm:px-6 md:px-0">
-                                <h1 class="text-xl font-semibold text-gray-100">لوحة التحكم</h1>
+                                <h1 class="text-xl font-semibold text-gray-900">لوحة التحكم</h1>
                             </div>
                             <div class="px-4 sm:px-6 md:px-0">
                                 <!-- Replace with your content -->
@@ -81,8 +78,8 @@
 
                         <section>
                             <div class="px-4 sm:px-6 md:px-0 flex justify-between items-center">
-                                <h1 class="text-xl font-semibold text-gray-100">أحدث المعاملات</h1>
-                                <router-link :to="{ name: 'Login' }" class="border border-g100text-gray-100 hover:text-g5bg-green-500 hover:border-g5bg-green-500 duration-300 bg-white px-4 py-2 rounded-md text-gray-100 font-medium focus:outline-none">
+                                <h1 class="text-xl font-semibold text-gray-900">أحدث المعاملات</h1>
+                                <router-link :to="{ name: 'mail' }" class="border border-g100text-gray-100 hover:text-g5bg-green-500 hover:border-g5bg-green-500 duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-medium focus:outline-none">
                                     إضافة +
                                 </router-link>
                             </div>
@@ -90,41 +87,40 @@
                             <div class="w-full mt-4 rounded-md overflow-hidden divide-y-2 divide-gray-200">
                                 <div class="flex items-center bg-white w-full">
                                     <div class="w-2/12 py-4 pr-2">
-                                        رقم الإيصال
+                                        نوع البريد
                                     </div>
-                                    <div class="w-3/12">
-                                        الاسم
+                                    <div class="w-4/12">
+                                        الملخص
                                     </div>
-                                    <div class="w-3/12">
-                                        المستلم
+                                    <div class="w-4/12">
+                                        الإجراء المطلوب
                                     </div>
                                     <div class="w-2/12">
                                         تاريخ الاستلام
                                     </div>
-                                    <div class="w-2/12 pl-2">
-                                        الحالة
-                                    </div>
                                 </div>
 
                                 <div class="divide-y divide-gray-200 min-h-72">
-                                    <router-link :to="{ name: 'mail-show', params: { mail: mail.id },}" v-for="mail in LastMails" :key="mail.id" class="w-full bg-white hover:shadow flex items-center">
-                                        <div class="w-2/12 py-4 pr-2 font-semibold text-black">
-                                            {{ mail.finacial_recipt_number }}
-                                        </div>
-                                        <div class="w-3/12">
-                                            {{ mail.full_name }}
-                                        </div>
-                                        <div class="w-3/12">
-                                            {{ mail.recipients_name }}
-                                        </div>
-                                        <div class="w-2/12">
-                                            {{ mail.delivery_date }}
-                                        </div>
-                                        <div class="w-2/12 font-semibold text-black pl-2">
-                                            {{ mail.passport_status }}
-                                        </div>
-                                    </router-link>
 
+                                    <router-link :to="{ name: 'mail-show', params: { mail: mail.mailID },}" v-for="mail in LastMails" :key="mail.mailID" class="w-full bg-white hover:shadow flex items-center">
+                                        
+                                        <div class="w-2/12 pr-2 py-4">
+                                            {{ mail.mail_Type }}
+                                        </div>
+
+                                        <div class="w-4/12 font-semibold text-black">
+                                            {{ mail.mail_Summary }}
+                                        </div>
+                                        
+                                        <div class="w-4/12">
+                                            {{ mail.action_Required }}
+                                        </div>
+
+                                        <div class="w-2/12">
+                                            {{ mail.date_Of_Mail }}
+                                        </div>
+
+                                    </router-link>
                                    
                                 </div>
                             </div>
@@ -195,8 +191,10 @@ export default {
                     console.log(res)
                     this.LastMails = res.data;
                     
-                    // this.screenFreeze = false;
-                    // this.loading = false;
+                    setTimeout(() => {
+                        this.screenFreeze = false;
+                    this.loading = false;
+                    }, 300);
 
                     // this.LastTransactions = res.data;
                     // this.Reports.count_Of_all_transaction = res.data.count_Of_all_transaction;

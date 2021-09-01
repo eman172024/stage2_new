@@ -3,15 +3,15 @@ import axios from 'axios';
 export default {
 
     AllClassifications() {
-        return axios.get(`api/Service/GetAllClassification`);
+        return axios.get(`/api/Service/GetAllClassification`);
     },
 
     AllMeasures() {
-        return axios.get(`api/Service/GetAllMeasures`);
+        return axios.get(`/api/Service/GetAllMeasures`);
     },
 
     AllDepartments() {
-        return axios.get(`api/WeatherForecast/GetAllDepartments`);
+        return axios.get(`/api/WeatherForecast/GetAllDepartments`);
     },
 
     SaveMail(info) {
