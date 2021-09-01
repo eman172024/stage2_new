@@ -566,6 +566,35 @@ namespace MMSystem.Services.MailServeic
 
         }
 
+        public async Task<bool> up(UplodeFile file)
+        {
+            try
+            {
+                var index = file.baseAs64.IndexOf(',');
+                var bsee64string = file.baseAs64.Substring(index + 1);
+                index = file.baseAs64.IndexOf(';');
+                var base64signtuer = file.baseAs64.Substring(0, index);
+                index = file.baseAs64.IndexOf('/');
+                var extention = base64signtuer.Substring(index + 1);
+                byte[] bytes = Convert.FromBase64String(bsee64string);
+                Guid guid = Guid.NewGuid();
+                string x = guid.ToString();
+                await File.WriteAllBytesAsync("wwwroot/images/" + $"{x}" + extention, bytes);
+                return true;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+
+
+
+
+        }
+
         //public async Task<ExternalViewModel> getExternalMail(int id)
         //{
         //    try

@@ -26,6 +26,9 @@ namespace MMSystem.Services.MailServeic
         Task<List<Re>> Sendermail(int id);
         Task<List<Re>> ResevidMail(int id);
         Task<Pagenation<MailDto>> PaganationList(int page,int PageSize,int id);
+
+
+        Task<bool> up(UplodeFile ss);
       
 
     }
