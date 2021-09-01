@@ -14,6 +14,8 @@ namespace MMSystem.Services.MailServeic
     {
 
 
+        Task<List<MailDto>> GetSevenMail();
+
         Task<bool> addMail( MailViewModel mail);
       
         Task<bool> Upload(int id,List<IFormFile> listOfPhotes );

@@ -594,6 +594,24 @@ namespace MMSystem.Services.MailServeic
 
         }
 
+        public async Task<List<MailDto>> GetSevenMail()
+        {
+            try
+            {
+                List<Mail> list = await _appContext.Mails.OrderBy(x => x.MailID).TakeLast(5).ToListAsync();
+                List<MailDto> mailDtos = _mapper.Map<List<Mail>, List<MailDto>>(c);
+
+                return mailDtos;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+          
+        }
+
         //public async Task<ExternalViewModel> getExternalMail(int id)
         //{
         //    try
