@@ -290,7 +290,7 @@
                             >
                                 <div class="grid gap-6">
                                     <div v-for="(image, index) in imagesToSend" :key="index" class="relative h-60 w-full">
-                                        <img :src="image.documentFile" class="w-full h-full rounded" />
+                                        <img :src="image.baseAs64" class="w-full h-full rounded" />
                                         <!-- absolute inset-x-0  -->
                                         <div class="flex justify-between items-center mt-4">
 
@@ -337,7 +337,7 @@
                                         :key="image.documentId"
                                         class="relative h-64 w-full"
                                     >
-                                        <img :src="image.documentFile" class="w-full h-full rounded" />
+                                        <img :src="image.baseAs64" class="w-full h-full rounded" />
                                         <div class="absolute inset-x-0 flex justify-center">
                                             <button
                                                 type="button"
@@ -1086,16 +1086,17 @@ export default {
 
   mounted() {
 
-if (this.$route.params.mail) {
-    console.log("sss")
-    console.log(this.$route.params.mail)
+    if (this.$route.params.mail) {
+        console.log("sss")
+        console.log(this.$route.params.mail)
 
-}else{
+    }else{
 
-}
+    }
       this.GetAllClassifications();
       this.GetAllMeasures();
       this.GetAllDepartments();
+
 
     if (
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -1111,8 +1112,6 @@ if (this.$route.params.mail) {
       // document.write("not mobile device");
     }
 
-    //this.GetNumbersOfReports();
-    //this.GetLastFiveTransactions();
   },
 
   components: {
@@ -1354,7 +1353,7 @@ if (this.$route.params.mail) {
       this.loading = true;
      
       this.$http.mailService
-        .UploadMail(Number(this.mailId), this.imagesToSend)
+        .UploadMail( this.imagesToSend)
         .then((res) => {
           setTimeout(() => {
 
@@ -1456,7 +1455,7 @@ if (this.$route.params.mail) {
         var reader = new FileReader();
         reader.onload = function (event) {
           const imageUrl = event.target.result;
-          vm.imagesToSend.push({documentFile:imageUrl});
+          vm.imagesToSend.push({baseAs64:imageUrl});
         };
         reader.readAsDataURL(files[index]);
       }
@@ -1502,11 +1501,9 @@ if (this.$route.params.mail) {
       ) {
         var scannedImage = scannedImages[i];
         // this.processScannedImage(scannedImage);
-        this.imagesToSend.push({documentFile:scannedImage.src});
+        this.imagesToSend.push({baseAs64:scannedImage.src});
       }
     },
-
-    
 
     GetDocmentForMailToShow(){
       this.$http.documentService
@@ -1530,8 +1527,6 @@ if (this.$route.params.mail) {
         });
     },
 
-    
-
     deleteDocument(documentId, index){
       this.$http.documentService
         .DeleteDocument(Number(documentId))
@@ -1545,8 +1540,6 @@ if (this.$route.params.mail) {
         });
 
     },
-
-    
 
     updateMail(){
       this.showAlert = true;
@@ -1622,53 +1615,7 @@ if (this.$route.params.mail) {
         "<img  style='padding:0; width: 100%; size:A4; margin:0;' src='" + img + "' /></body></html>";
     },
 
-    GetLastFiveTransactions() {
-      this.screenFreeze = true;
-      this.loading = true;
-      this.$http.DashboardService.LastFiveTransactions()
-        .then((res) => {
-          setTimeout(() => {
-            this.screenFreeze = false;
-            this.loading = false;
-
-            this.LastTransactions = res.data;
-            // this.Reports.count_Of_all_transaction = res.data.count_Of_all_transaction;
-            // this.Reports.count_Of_booking = res.data.count_Of_booking;
-            // this.Reports.count_Of_received = res.data.count_Of_received;
-          }, 100);
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.screenFreeze = false;
-            this.loading = false;
-            console.log(err);
-          }, 100);
-        });
-    },
-
-    GetNumbersOfReports() {
-      this.screenFreeze = true;
-      this.loading = true;
-      this.$http.DashboardService.NumbersOfReports()
-        .then((res) => {
-          setTimeout(() => {
-            this.screenFreeze = false;
-            this.loading = false;
-
-            this.Reports.count_Of_all_transaction =
-              res.data.count_Of_all_transaction;
-            this.Reports.count_Of_booking = res.data.count_Of_booking;
-            this.Reports.count_Of_received = res.data.count_Of_received;
-          }, 100);
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.screenFreeze = false;
-            this.loading = false;
-            console.log(err);
-          }, 100);
-        });
-    },
+   
   },
 };
 </script>

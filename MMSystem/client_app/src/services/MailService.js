@@ -24,13 +24,19 @@ export default {
 
 
 
-    UploadMail(id, resourse) {
-        return axios.post(`/api/Mail/Uplode`, {
-            params: {
-                id: id,
-                resourse: resourse,
-            }
-        })
+    // UploadMail(id, resourse) {
+    //     return axios.post(`/api/Mail/Uplode`, {
+    //         params: {
+    //             id: id,
+    //             resourse: resourse,
+    //         }
+    //     })
+    // },
+
+
+
+    UploadMail(list) {
+        return axios.post(`/api/Mail/Up`, { list: list, })
     },
 
 
