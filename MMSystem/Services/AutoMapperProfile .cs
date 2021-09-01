@@ -12,7 +12,8 @@ namespace MMSystem.Services
     {
         public AutoMapperProfile()
         {
-            CreateMap<Mail, MailDto>();
+            CreateMap<Mail, MailDto>().
+                ForMember(ds=>ds.Date_Of_Mail,sr=>sr.MapFrom(x=>x.Date_Of_Mail.ToString("yyyy-MM-dd")));
             CreateMap<External_Mail, ExternalDto>();
             CreateMap<Extrenal_inbox, Extrenal_inboxDto>();
             CreateMap<Administrator, AdministratorDto>();
