@@ -565,20 +565,25 @@ namespace MMSystem.Services.MailServeic
 
         }
 
-        public async Task<bool> up(UplodeFile file)
+        public async Task<bool> up(List<UplodeFile> file)
         {
             try
             {
-                var index = file.baseAs64.IndexOf(',');
-                var bsee64string = file.baseAs64.Substring(index + 1);
-                index = file.baseAs64.IndexOf(';');
-                var base64signtuer = file.baseAs64.Substring(0, index);
-                index = file.baseAs64.IndexOf('/');
-                var extention = base64signtuer.Substring(index + 1);
-                byte[] bytes = Convert.FromBase64String(bsee64string);
-                Guid guid = Guid.NewGuid();
-                string x = guid.ToString();
-                await File.WriteAllBytesAsync("wwwroot/images/" + $"{x}" + extention, bytes);
+                foreach (var item in file)
+                {
+                    var index = item.baseAs64.IndexOf(',');
+                    var bsee64string = item.baseAs64.Substring(index + 1);
+                    index = item.baseAs64.IndexOf(';');
+                    var base64signtuer = item.baseAs64.Substring(0, index);
+                    index = item.baseAs64.IndexOf('/');
+                    var extention = base64signtuer.Substring(index + 1);
+                    byte[] bytes = Convert.FromBase64String(bsee64string);
+                    Guid guid = Guid.NewGuid();
+                    string x = guid.ToString();
+                    await File.WriteAllBytesAsync("wwwroot/images/" + $"{x}" + extention, bytes);
+
+                }
+               
                 return true;
 
             }
@@ -598,10 +603,18 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                List<Mail> list = await _appContext.Mails.OrderBy(x => x.MailID).TakeLast(5).ToListAsync();
-                List<MailDto> mailDtos = _mapper.Map<List<Mail>, List<MailDto>>(list);
+                var list = await _appContext.Mails.Take(7).OrderByDescending(x=>x.MailID).ToListAsync();
 
-                return mailDtos;
+                if (list.Count > 0) {
+
+                    List<MailDto> mailDtos = _mapper.Map<List<Mail>, List<MailDto>>(list);
+
+                    return mailDtos;
+
+                }
+                return null;
+
+               
 
             }
             catch (Exception)
@@ -610,6 +623,11 @@ namespace MMSystem.Services.MailServeic
                 throw;
             }
           
+        }
+
+        public Task<bool> up(UplodeFile ss)
+        {
+            throw new NotImplementedException();
         }
 
         //public async Task<ExternalViewModel> getExternalMail(int id)

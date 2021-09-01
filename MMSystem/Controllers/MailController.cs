@@ -122,7 +122,7 @@ namespace MMSystem.Controllers
 
         }
 
-        [HttpPost("GetLastMails")]
+        [HttpGet("GetLastMails")]
         public async Task<IActionResult> GetLastMails()
         {
 
