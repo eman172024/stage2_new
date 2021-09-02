@@ -46,7 +46,7 @@ namespace MMSystem.Controllers
         }
 
         // GET api/<MailController>/5
-        [HttpGet("GetMailById{id}")]
+        [HttpGet("GetMailById/{id}")]
         public async Task<IActionResult> GetMailById(int id)
         {
             MailDto mail = await _Imail.Get(id);

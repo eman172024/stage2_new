@@ -571,7 +571,7 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                var list = await _appContext.Mails.Take(6).OrderByDescending(x=>x.MailID).ToListAsync();
+                var list = await _appContext.Mails.Where(x=>x.state==true).Take(6).OrderByDescending(x=>x.MailID).ToListAsync();
 
                 if (list.Count > 0) {
 

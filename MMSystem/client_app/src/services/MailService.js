@@ -39,6 +39,13 @@ export default {
         return axios.post(`/api/Mail/Up`, { list: list, })
     },
 
+    DeleteMail(mailId) {
+        return axios.delete(`/api/Mail/Delete/${mailId}`);
+    },
+
+    GetMailById(mailId) {
+        return axios.get(`/api/Mail/GetMailById/${mailId}`);
+    },
 
 
 
@@ -85,13 +92,9 @@ export default {
         })
     },
 
-    GetMailById(mailId) {
-        return axios.get(`/api/Mails/GetMailForEdit?mailId=${mailId}`);
-    },
 
-    DeleteMail(mailId) {
-        return axios.delete(`/api/Mails/DeleteMail?mailId=${mailId}`);
-    },
+
+
 
     ReplyMail(ReplyMail) {
         return axios.post(`/api/Documents/ReplyMail`, ReplyMail)
