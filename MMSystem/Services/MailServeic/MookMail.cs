@@ -676,7 +676,11 @@ namespace MMSystem.Services.MailServeic
             try
             {
                 MailVM mail = new MailVM();
+
+
+
                 mail.mailDto = await Get(id);
+
 
                 List<Send_to>  sends= await _appContext.Sends.Where(x=>x.MailID== mail.mailDto.MailID).ToListAsync();
 
