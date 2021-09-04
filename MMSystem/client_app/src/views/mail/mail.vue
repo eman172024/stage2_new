@@ -395,7 +395,7 @@
 
                                 <div
                                     v-for="(image, index) in imagesToShow"
-                                    :key="image.indexOfimagesToShow"
+                                    :key="image.id"
                                     class="relative h-64 w-full"
                                 >
                                 
@@ -404,7 +404,7 @@
                                         <button
                                             type="button"
                                             class="bg-red-600 hover:bg-red-500 duration-500 p-2 rounded-full bottom-0 mx-auto mb-2 focus:outline-none"
-                                            @click="deleteDocument(image.documentId, index)"
+                                            @click="deleteDocument(image.id, index)"
                                             >
                                             <svg
                                                 class="w-4 h-4 text-white fill-current mx-auto"
@@ -1390,27 +1390,80 @@ export default {
         },
 
         UploadImagesMail() {
-        this.showAlert = true;
-        this.loading = true;
-        console.log(this.imagesToSend)
-        this.$http.mailService
-            .UploadImagesMail(   this.mailId ,this.imagesToSend)
-            .then((res) => {
-            setTimeout(() => {
+            this.showAlert = true;
+            this.loading = true;
+            console.log(this.imagesToSend)
+            this.$http.mailService
+                .UploadImagesMail(   this.mailId ,this.imagesToSend)
+                .then((res) => {
+                setTimeout(() => {
 
-                    console.log(res)
+                        console.log(res)
 
-            }, 500);
-            })
-            .catch((err) => {
-            setTimeout(() => {
-                this.loading = false;
-                this.Successed = false;
-                this.addErorr = err.message; 
-            }, 500);
-            });
+                }, 500);
+                })
+                .catch((err) => {
+                setTimeout(() => {
+                    this.loading = false;
+                    this.Successed = false;
+                    this.addErorr = err.message; 
+                }, 500);
+                });
         },
 
+        deleteDocument(documentId, index){
+            this.$http.mailService
+                .DeleteDocument(Number(documentId))
+                .then((res) => {
+                    this.imagesToShow.splice(index, 1);
+                    console.log(res)
+                    // this.imagesToShow = res.data.result.documents
+                })
+                .catch((err) => {
+                    this.addErorr = err.message; 
+                });
+        },
+
+        updateMail(){
+            this.showAlert = true;
+            this.loading = true;
+
+            var dataUpdate = {
+
+                "mail":{
+                    "mailId": Number(this.mailId),
+                    "Mail_Type": this.mailType,
+                    "userId":1,
+                    "department_Id":1,
+                    "Date_Of_Mail": this.releaseDate,
+                    "Mail_Summary": this.summary,
+                    "clasification": this.classification,
+                    "Genaral_inbox_Number": Number(this.general_incoming_number),
+                    "Genaral_inbox_year": Number(this.genaral_inbox_year),
+                    "ActionRequired": this.required_action,
+                },
+
+                
+                
+            };
+
+            this.$http.mailService
+                .UpdateMail(dataUpdate)
+                .then((res) => {
+                    setTimeout(() => {
+                        this.loading = false;
+                        this.Successed = true;
+                        this.addSuccessed = res.data.result.message;
+                    }, 500);
+                })
+                .catch((err) => {
+                    setTimeout(() => {
+                        this.loading = false;
+                        this.Successed = false;
+                        this.addErorr = err.message; 
+                    }, 500);
+                });
+        },
 
 
 
@@ -1483,50 +1536,9 @@ export default {
         });
     },
 
-    deleteDocument(documentId, index){
-      this.$http.documentService
-        .DeleteDocument(Number(documentId))
-        .then((res) => {
-          this.imagesToShow.splice(index, 1);
-          console.log(res)
-          // this.imagesToShow = res.data.result.documents
-        })
-        .catch((err) => {
-          this.addErorr = err.message; 
-        });
+    
 
-    },
-
-    updateMail(){
-      this.showAlert = true;
-      this.loading = true;
-
-      var dataUpdate = {
-        mailId: Number(this.mailId),
-        sender: this.sender,
-        reply: this.reply,
-        mailType: Number(this.mailType),
-        releaseDate: this.releaseDate,
-        sentMessage: this.sentMessage,
-      };
-
-      this.$http.mailService
-        .EditMail(dataUpdate)
-        .then((res) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.Successed = true;
-            this.addSuccessed = res.data.result.message;
-          }, 500);
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.Successed = false;
-            this.addErorr = err.message; 
-          }, 500);
-        });
-    },
+    
 
     
 
