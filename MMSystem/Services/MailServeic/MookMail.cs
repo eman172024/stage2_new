@@ -678,31 +678,40 @@ namespace MMSystem.Services.MailServeic
                 MailVM mail = new MailVM();
 
 
+                MailDto dto= await Get(id);
+                if (dto != null) {
 
-                mail.mailDto = await Get(id);
+                    mail.mailDto = dto;
+                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mailDto.MailID).ToListAsync();
+
+                    ActionSender sender = new ActionSender();
+                    foreach (var item in sends)
+                    {
+                        var cc = await _appContext.Departments.FindAsync(item.to);
+                        var sss = await _appContext.measures.FindAsync(item.type_of_send);
+                        sender.departmentId = item.to;
+                        sender.departmentName = cc.DepartmentName;
+                        sender.measurId = item.type_of_send;
+                        sender.measurName = sss.MeasuresName;
+                        mail.actionSenders.Add(sender);
+
+                        mail.resourcescs   = await _resourcescs.GetAll(mail.mailDto.MailID);
 
 
-                List<Send_to>  sends= await _appContext.Sends.Where(x=>x.MailID== mail.mailDto.MailID).ToListAsync();
-
-                
-                foreach (var item in sends)
-                {
-                    var cc = await _appContext.Departments.FindAsync(item.to);
-                    var sss =await _appContext.measures.FindAsync(item.type_of_send);
-                    mail.actionSenders.Add(new ActionSender {
-                        departmentId = item.to,
-                       departmentName = cc.DepartmentName.ToString(),
-
-                       measurId=sss.MeasuresId,measurName=sss.MeasuresName
-                       
-                    }) ;
 
 
-                    mail.resourcescs =await _resourcescs.GetAll(mail.mailDto.MailID);
+
+
+                    }
+
+
+                    return mail;
+
+
                 }
 
 
-                return mail;
+                return null;
             }
 
 
