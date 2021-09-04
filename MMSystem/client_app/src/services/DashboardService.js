@@ -3,7 +3,7 @@ import axios from 'axios';
 export default {
 
     LastMails() {
-        return axios.get(`api/Mails/GetLastMails`);
+        return axios.get(`api/Mail/GetLastMails`);
     },
 
     NumbersOfReports() {

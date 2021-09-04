@@ -3,15 +3,15 @@ import axios from 'axios';
 export default {
 
     AllClassifications() {
-        return axios.get(`api/Service/GetAllClassification`);
+        return axios.get(`/api/Service/GetAllClassification`);
     },
 
     AllMeasures() {
-        return axios.get(`api/Service/GetAllMeasures`);
+        return axios.get(`/api/Service/GetAllMeasures`);
     },
 
     AllDepartments() {
-        return axios.get(`api/WeatherForecast/GetAllDepartments`);
+        return axios.get(`/api/WeatherForecast/GetAllDepartments`);
     },
 
     SaveMail(info) {
@@ -24,15 +24,28 @@ export default {
 
 
 
-    UploadMail(id, resourse) {
-        return axios.post(`/api/Mail/Uplode`, {
-            params: {
-                id: id,
-                resourse: resourse,
-            }
-        })
+    // UploadMail(id, resourse) {
+    //     return axios.post(`/api/Mail/Uplode`, {
+    //         params: {
+    //             id: id,
+    //             resourse: resourse,
+    //         }
+    //     })
+    // },
+
+
+
+    UploadMail(list) {
+        return axios.post(`/api/Mail/Up`, { list: list, })
     },
 
+    DeleteMail(mailId) {
+        return axios.delete(`/api/Mail/Delete/${mailId}`);
+    },
+
+    GetMailById(mailId) {
+        return axios.get(`/api/Mail/GetMailById/${mailId}`);
+    },
 
 
 
@@ -79,13 +92,9 @@ export default {
         })
     },
 
-    GetMailById(mailId) {
-        return axios.get(`/api/Mails/GetMailForEdit?mailId=${mailId}`);
-    },
 
-    DeleteMail(mailId) {
-        return axios.delete(`/api/Mails/DeleteMail?mailId=${mailId}`);
-    },
+
+
 
     ReplyMail(ReplyMail) {
         return axios.post(`/api/Documents/ReplyMail`, ReplyMail)

@@ -290,7 +290,7 @@
                             >
                                 <div class="grid gap-6">
                                     <div v-for="(image, index) in imagesToSend" :key="index" class="relative h-60 w-full">
-                                        <img :src="image.documentFile" class="w-full h-full rounded" />
+                                        <img :src="image.baseAs64" class="w-full h-full rounded" />
                                         <!-- absolute inset-x-0  -->
                                         <div class="flex justify-between items-center mt-4">
 
@@ -337,7 +337,7 @@
                                         :key="image.documentId"
                                         class="relative h-64 w-full"
                                     >
-                                        <img :src="image.documentFile" class="w-full h-full rounded" />
+                                        <img :src="image.baseAs64" class="w-full h-full rounded" />
                                         <div class="absolute inset-x-0 flex justify-center">
                                             <button
                                                 type="button"
@@ -965,6 +965,53 @@
                             </button>
                         </div>
 
+                        <div v-if="deleteButton" class="flex justify-end ml-6">
+                            <button
+                                @click="deleteMail"
+                                type="button"
+                                id="edit"
+                                class="w-full sm:w-auto sm:mr-3 flex justify-center items-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md border-green-600 text-white bg-green-600 hover:shadow-lg focus:shadow-none duration-300 focus:outline-none"
+                            >
+                                <!-- onclick="change();" -->
+                                <svg
+                                class="w-4 h-4 stroke-current text-white ml-2 fill-current"
+                                version="1.1"
+                                id="Capa_1"
+                                xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                x="0px"
+                                y="0px"
+                                viewBox="0 0 477.873 477.873"
+                                style="enable-background: new 0 0 477.873 477.873"
+                                xml:space="preserve"
+                                >
+                                <g>
+                                    <g>
+                                    <path
+                                        d="M392.533,238.937c-9.426,0-17.067,7.641-17.067,17.067V426.67c0,9.426-7.641,17.067-17.067,17.067H51.2
+                                        c-9.426,0-17.067-7.641-17.067-17.067V85.337c0-9.426,7.641-17.067,17.067-17.067H256c9.426,0,17.067-7.641,17.067-17.067
+                                        S265.426,34.137,256,34.137H51.2C22.923,34.137,0,57.06,0,85.337V426.67c0,28.277,22.923,51.2,51.2,51.2h307.2
+                                        c28.277,0,51.2-22.923,51.2-51.2V256.003C409.6,246.578,401.959,238.937,392.533,238.937z"
+                                    ></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                    <path
+                                        d="M458.742,19.142c-12.254-12.256-28.875-19.14-46.206-19.138c-17.341-0.05-33.979,6.846-46.199,19.149L141.534,243.937
+                                        c-1.865,1.879-3.272,4.163-4.113,6.673l-34.133,102.4c-2.979,8.943,1.856,18.607,10.799,21.585
+                                        c1.735,0.578,3.552,0.873,5.38,0.875c1.832-0.003,3.653-0.297,5.393-0.87l102.4-34.133c2.515-0.84,4.8-2.254,6.673-4.13
+                                        l224.802-224.802C484.25,86.023,484.253,44.657,458.742,19.142z M434.603,87.419L212.736,309.286l-66.287,22.135l22.067-66.202
+                                        L390.468,43.353c12.202-12.178,31.967-12.158,44.145,0.044c5.817,5.829,9.095,13.72,9.12,21.955
+                                        C443.754,73.631,440.467,81.575,434.603,87.419z"
+                                    ></path>
+                                    </g>
+                                </g>
+                                </svg>
+                                حذف
+                            </button>
+                        </div>
+
                         <div v-if="saveButton" class="flex justify-end">
                             <button
                                 class="flex justify-center items-center py-2 px-8 border border-transparent shadow-sm text-sm font-medium rounded-md border-green-600 text-white bg-green-600 hover:shadow-lg focus:shadow-none duration-300 focus:outline-none"
@@ -1086,9 +1133,24 @@ export default {
 
   mounted() {
 
+    if (this.$route.params.mail) {
+
+        this.mailId = this.$route.params.mail;
+
+        this.sendButton = true;
+        this.updataButton = true;
+        this.deleteButton = true;
+        this.saveButton = false;
+
+        this.getMailById();
+
+    }else{
+
+    }
       this.GetAllClassifications();
       this.GetAllMeasures();
       this.GetAllDepartments();
+
 
     if (
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -1104,8 +1166,6 @@ export default {
       // document.write("not mobile device");
     }
 
-    //this.GetNumbersOfReports();
-    //this.GetLastFiveTransactions();
   },
 
   components: {
@@ -1137,12 +1197,17 @@ export default {
         mailType:'',
         general_incoming_number:'',
         genaral_inbox_year:'',
+        required_action: '',
 
         mailId: '',
 
         saveButton: true,
         sendButton: false,
         updataButton: false,
+        deleteButton: false,
+
+        mail_Number: '',
+        department_Id: '',
 
 
 
@@ -1172,7 +1237,6 @@ export default {
         
         
         
-        required_action:'',
         side: 0,
         action:0,
         
@@ -1277,10 +1341,9 @@ export default {
 
       var info = {
           "mail":{
-                "Mail_Summary": this.summary,
                 "Mail_Type": this.mailType,
                 "userId":1,
-                "Department_Id":1,
+                "department_Id":1,
 
                 "Date_Of_Mail": this.releaseDate,
                 "Mail_Summary": this.summary,
@@ -1341,13 +1404,12 @@ export default {
         });
     },
 
-
     UploadMail() {
       this.showAlert = true;
       this.loading = true;
      
       this.$http.mailService
-        .UploadMail(Number(this.mailId), this.imagesToSend)
+        .UploadMail( this.imagesToSend)
         .then((res) => {
           setTimeout(() => {
 
@@ -1363,7 +1425,6 @@ export default {
           }, 500);
         });
     },
-
 
     addDocuments() {
       this.showAlert = true;
@@ -1392,6 +1453,61 @@ export default {
             this.Successed = false;
             this.addErorr = err.message; 
           }, 500);
+        });
+    },
+
+    deleteMail(){
+      this.showAlert = true;
+      this.loading = true;
+
+      this.$http.mailService
+        .DeleteMail(this.mailId)
+        .then((res) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.Successed = true;
+            this.addSuccessed = res.data.result.message;
+
+            setTimeout(() => {
+              this.$router.replace("/dashboard");
+            }, 500);
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.Successed = false;
+            this.addErorr = err.message; 
+          }, 500);
+        });
+    },
+
+    getMailById(){
+         this.$http.mailService
+        .GetMailById(this.mailId)
+        .then((res) => {
+          console.log(res.data)
+
+            this.mail_Number = res.data.mail_Number
+            this.department_Id = res.data.department_Id
+            this.releaseDate = res.data.date_Of_Mail
+            this.summary = res.data.mail_Summary
+            this.classification = res.data.clasification
+            this.mailType = res.data.mail_Type
+            this.general_incoming_number = res.data.genaral_inbox_Number
+            this.genaral_inbox_year = res.data.genaral_inbox_year
+            this.required_action = res.data.action_Required
+
+
+        //   this.GetDocmentForMail();
+        //   this.GetDocmentForMailToShow();
+
+
+        //   this.GetProcessingResponses()
+
+        })
+        .catch((err) => {
+          console.log(err)
         });
     },
 
@@ -1449,7 +1565,7 @@ export default {
         var reader = new FileReader();
         reader.onload = function (event) {
           const imageUrl = event.target.result;
-          vm.imagesToSend.push({documentFile:imageUrl});
+          vm.imagesToSend.push({baseAs64:imageUrl});
         };
         reader.readAsDataURL(files[index]);
       }
@@ -1495,11 +1611,9 @@ export default {
       ) {
         var scannedImage = scannedImages[i];
         // this.processScannedImage(scannedImage);
-        this.imagesToSend.push({documentFile:scannedImage.src});
+        this.imagesToSend.push({baseAs64:scannedImage.src});
       }
     },
-
-    
 
     GetDocmentForMailToShow(){
       this.$http.documentService
@@ -1523,8 +1637,6 @@ export default {
         });
     },
 
-    
-
     deleteDocument(documentId, index){
       this.$http.documentService
         .DeleteDocument(Number(documentId))
@@ -1538,8 +1650,6 @@ export default {
         });
 
     },
-
-    
 
     updateMail(){
       this.showAlert = true;
@@ -1572,31 +1682,7 @@ export default {
         });
     },
 
-    deleteMail(){
-      this.showAlert = true;
-      this.loading = true;
-
-      this.$http.mailService
-        .DeleteMail(this.mailId)
-        .then((res) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.Successed = true;
-            this.addSuccessed = res.data.result.message;
-
-            setTimeout(() => {
-              this.$router.replace("/dashboard");
-            }, 500);
-          }, 500);
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.Successed = false;
-            this.addErorr = err.message; 
-          }, 500);
-        });
-    },
+    
 
     printImage(img) {
         var Pagelink = "هيئة الرقابة الادارية ليبيا";
@@ -1615,53 +1701,7 @@ export default {
         "<img  style='padding:0; width: 100%; size:A4; margin:0;' src='" + img + "' /></body></html>";
     },
 
-    GetLastFiveTransactions() {
-      this.screenFreeze = true;
-      this.loading = true;
-      this.$http.DashboardService.LastFiveTransactions()
-        .then((res) => {
-          setTimeout(() => {
-            this.screenFreeze = false;
-            this.loading = false;
-
-            this.LastTransactions = res.data;
-            // this.Reports.count_Of_all_transaction = res.data.count_Of_all_transaction;
-            // this.Reports.count_Of_booking = res.data.count_Of_booking;
-            // this.Reports.count_Of_received = res.data.count_Of_received;
-          }, 100);
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.screenFreeze = false;
-            this.loading = false;
-            console.log(err);
-          }, 100);
-        });
-    },
-
-    GetNumbersOfReports() {
-      this.screenFreeze = true;
-      this.loading = true;
-      this.$http.DashboardService.NumbersOfReports()
-        .then((res) => {
-          setTimeout(() => {
-            this.screenFreeze = false;
-            this.loading = false;
-
-            this.Reports.count_Of_all_transaction =
-              res.data.count_Of_all_transaction;
-            this.Reports.count_Of_booking = res.data.count_Of_booking;
-            this.Reports.count_Of_received = res.data.count_Of_received;
-          }, 100);
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.screenFreeze = false;
-            this.loading = false;
-            console.log(err);
-          }, 100);
-        });
-    },
+   
   },
 };
 </script>
