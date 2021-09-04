@@ -1081,7 +1081,7 @@ export default {
         imagesToSend: [],
         indexOfimagesToShow: 0,
 
-
+        userId: this.$authenticatedUser.userId,
 
 
 
@@ -1135,7 +1135,7 @@ export default {
 
         marginalizedDocuments: [],
       
-      // userId: this.$authenticatedUser.userId,
+      // 
       //name: this.$authenticatedUser.name,
       // userName: this.$authenticatedUser.userName,
       // validity: this.$authenticatedUser.validity,
@@ -1390,7 +1390,7 @@ export default {
         this.loading = true;
         console.log(this.imagesToSend)
         this.$http.mailService
-            .UploadImagesMail( this.imagesToSend)
+            .UploadImagesMail(   this.mailId ,this.imagesToSend)
             .then((res) => {
             setTimeout(() => {
 

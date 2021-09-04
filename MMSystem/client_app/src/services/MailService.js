@@ -35,8 +35,8 @@ export default {
 
 
 
-    UploadImagesMail(list) {
-        return axios.post(`/api/Mail/Up`, { list: list, })
+    UploadImagesMail(id, list) {
+        return axios.post(`/api/Mail/Uplode`, { mail_id: Number(id), list: list, })
     },
 
     DeleteMail(mailId) {
