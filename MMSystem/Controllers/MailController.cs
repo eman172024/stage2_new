@@ -167,7 +167,7 @@ namespace MMSystem.Controllers
 
             bool state = await _Imail.up(file);
             if (state)
-                return Created("Send", new Result() { message = "تمت عملية التحميل بنجاح", statusCode = 203 });
+                return Created("Up", new Result() { message = "تمت عملية التحميل بنجاح", statusCode = 203 });
             return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
 
 
