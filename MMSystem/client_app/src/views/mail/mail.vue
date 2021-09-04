@@ -1412,15 +1412,15 @@ export default {
         },
 
         deleteDocument(documentId, index){
-            this.$http.documentService
+            this.$http.mailService
                 .DeleteDocument(Number(documentId))
                 .then((res) => {
-                this.imagesToShow.splice(index, 1);
-                console.log(res)
-                // this.imagesToShow = res.data.result.documents
+                    this.imagesToShow.splice(index, 1);
+                    console.log(res)
+                    // this.imagesToShow = res.data.result.documents
                 })
                 .catch((err) => {
-                this.addErorr = err.message; 
+                    this.addErorr = err.message; 
                 });
         },
 
@@ -1435,14 +1435,12 @@ export default {
                     "Mail_Type": this.mailType,
                     "userId":1,
                     "department_Id":1,
-
                     "Date_Of_Mail": this.releaseDate,
                     "Mail_Summary": this.summary,
                     "clasification": this.classification,
                     "Genaral_inbox_Number": Number(this.general_incoming_number),
                     "Genaral_inbox_year": Number(this.genaral_inbox_year),
                     "ActionRequired": this.required_action,
-
                 },
 
                 
@@ -1450,7 +1448,7 @@ export default {
             };
 
             this.$http.mailService
-                .EditMail(dataUpdate)
+                .UpdateMail(dataUpdate)
                 .then((res) => {
                     setTimeout(() => {
                         this.loading = false;

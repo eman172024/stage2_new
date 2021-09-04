@@ -48,7 +48,11 @@ export default {
     },
 
     DeleteDocument(id) {
-        return axios.delete(`/api/Mail/DeletePhote/${id}`)
+        return axios.delete(`/api/Mail/DeleteDocument/${id}`)
+    },
+
+    UpdateMail(Mail) {
+        return axios.put(`/api/Mail/UpdateMail`, Mail)
     },
 
 
@@ -105,9 +109,7 @@ export default {
 
 
 
-    EditMail(mailInfo) {
-        return axios.put(`/api/Mails/EditMail`, mailInfo)
-    },
+
 
     GetReports() {
         return axios.get(`/api/Reports/GetReports`);

@@ -179,7 +179,7 @@ namespace MMSystem.Controllers
 
         }
       
-           [HttpDelete("DeleteDocument")]
+           [HttpDelete("DeleteDocument/{id}")]
         public async Task<IActionResult> DeletePhote(int id)
         {
 
