@@ -47,6 +47,9 @@ export default {
         return axios.get(`/api/Mail/GetMailById/${mailId}`);
     },
 
+    DeleteDocument(id) {
+        return axios.delete(`/api/Mail/DeletePhote/${id}`)
+    },
 
 
 
