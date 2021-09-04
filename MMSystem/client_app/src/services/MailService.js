@@ -35,7 +35,7 @@ export default {
 
 
 
-    UploadMail(list) {
+    UploadImagesMail(list) {
         return axios.post(`/api/Mail/Up`, { list: list, })
     },
 
