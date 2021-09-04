@@ -15,7 +15,7 @@ namespace MMSystem.Services.MailServeic
         private readonly AppDbCon _data;
         private readonly IMapper _mapper;
 
-        public MookSender(AppDbCon data,IMapper mapper)
+        public MookSender(AppDbCon data, IMapper mapper)
         {
             _data = data;
             _mapper = mapper;
@@ -31,13 +31,13 @@ namespace MMSystem.Services.MailServeic
                 await _data.SaveChangesAsync();
                 return true;
 
-               
+
             }
             catch (Exception)
             {
                 throw;
             }
-           
+
         }
 
         public async Task<bool> IsRead(int id)
@@ -69,10 +69,10 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-               // Mail mail = await _data.Mails.Where(x => x.Management_Id == Management_Id && x.userId == userId).FirstAsync();
+                // Mail mail = await _data.Mails.Where(x => x.Management_Id == Management_Id && x.userId == userId).FirstAsync();
 
-                List<Send_to> send_ = await _data.Sends.Where(x=>x.MailID== mailId).ToListAsync();
-                if (send_ .Count>0)
+                List<Send_to> send_ = await _data.Sends.Where(x => x.MailID == mailId).ToListAsync();
+                if (send_.Count > 0)
                 {
                     foreach (var item in send_)
                     {
@@ -83,8 +83,8 @@ namespace MMSystem.Services.MailServeic
                         await _data.SaveChangesAsync();
                     }
 
-                  
-                    
+
+
                     return true;
                 }
                 return false;
@@ -94,15 +94,29 @@ namespace MMSystem.Services.MailServeic
 
                 throw;
             }
-         
+
         }
 
-       
+        public async Task<bool> Update(Send_to send_)
+        {
+            try
+            {
+                Send_to send_To = await _data.Sends.FirstOrDefaultAsync(x => x.MailID == send_.MailID && x.to == send_.to && x.type_of_send == send_.type_of_send);
 
-    
+                if (send_To!=null) { 
+                
+                }
+               
+            }
+            catch (Exception)
+            {
 
-      
+                throw;
+            }
 
-       
+
+            return true;
+
+        }
     }
 }
