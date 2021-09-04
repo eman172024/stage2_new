@@ -21,7 +21,7 @@
               </div>
             </div>
             <div>
-              <button @click="totest()" type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md border-green-600 text-white bg-green-600 hover:shadow-lg focus:shadow-none duration-300 focus:outline-none">
+              <button @click="submit()" type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md border-green-600 text-white bg-green-600 hover:shadow-lg focus:shadow-none duration-300 focus:outline-none">
                 <span class="absolute left-0 inset-y-0 flex items-center pl-3">
                     <svg class="h-5 w-5 text-white fill-current" id="_x31__x2C_5" enable-background="new 0 0 24 24" height="512" viewBox="0 0 24 24" width="512">
                         <path d="m18.75 24h-13.5c-1.24 0-2.25-1.009-2.25-2.25v-10.5c0-1.241 1.01-2.25 2.25-2.25h13.5c1.24 0 2.25 1.009 2.25 2.25v10.5c0 1.241-1.01 2.25-2.25 2.25zm-13.5-13.5c-.413 0-.75.336-.75.75v10.5c0 .414.337.75.75.75h13.5c.413 0 .75-.336.75-.75v-10.5c0-.414-.337-.75-.75-.75z"/>
@@ -128,23 +128,27 @@ export default {
 
 
         this.$http.securityService
-            .LoginFun(Login)
+            .Login(Login)
             .then((res) => {
                 setTimeout(() => {
                     this.loading = false;
                     // this.screenFreeze = false;
 
                     this.loginSuccess = true;
+                    console.log(res.data)
 
                     this.user = res.data
 
-                    this.$authenticatedUser.userId = this.user.id
+                    this.$authenticatedUser.userId = this.user.userId
+                    this.$authenticatedUser.name = this.user.userName
+                    this.$authenticatedUser.departmentId = this.user.departmentId
 
-                    localStorage.setItem("userId", this.user.id);
+                    localStorage.setItem("userId", this.user.userId);
+                    localStorage.setItem("departmentId", this.user.departmentId);
 
-                    this.$authenticatedUser.name = this.user.name
-                    this.$authenticatedUser.userName = this.user.username
-                    this.$authenticatedUser.validity = this.user.validity
+                    
+                    // this.$authenticatedUser.userName = this.user.username
+                    // this.$authenticatedUser.validity = this.user.validity
 
                 }, 100);
                 
