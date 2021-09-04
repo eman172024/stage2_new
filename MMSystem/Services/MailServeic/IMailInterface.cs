@@ -32,7 +32,7 @@ namespace MMSystem.Services.MailServeic
         Task<Pagenation<MailDto>> PaganationList(int page,int PageSize,int id);
 
 
-        Task<bool> up(Re ss);
+        Task<bool> up(Uplode ss);
       
 
     }

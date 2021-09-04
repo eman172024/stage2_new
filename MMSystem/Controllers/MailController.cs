@@ -111,17 +111,17 @@ namespace MMSystem.Controllers
 
         }
 
-        [HttpPost("Uplode")]
-        public async Task<IActionResult> Uplode([FromForm] int id, List<IFormFile> resourse)
-        {
+        //[HttpPost("Uplode")]
+        //public async Task<IActionResult> Uplode([FromForm] int id, List<IFormFile> resourse)
+        //{
 
-            bool state = await _Imail.Upload(id, resourse);
-            if (state)
-                return Created("Uplode", new Result() { message = "تمت عملية التحميل بنجاح", statusCode = 203 });
-            return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
+        //    bool state = await _Imail.Upload(id, resourse);
+        //    if (state)
+        //        return Created("Uplode", new Result() { message = "تمت عملية التحميل بنجاح", statusCode = 203 });
+        //    return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
 
 
-        }
+        //}
 
         [HttpGet("GetLastMails")]
         public async Task<IActionResult> GetLastMails()
@@ -161,13 +161,19 @@ namespace MMSystem.Controllers
 
 
         }
-        [HttpPost("Up")]
-        public async Task<IActionResult> Up(Re file)
+        [HttpPost("Uplode")]
+        public async Task<IActionResult> Uplode(Uplode file)
         {
 
-            bool state = await _Imail.up(file);
-            if (state)
-                return Created("Up", new Result() { message = "تمت عملية التحميل بنجاح", statusCode = 203 });
+            if (ModelState.IsValid)
+            {
+                bool state = await _Imail.Uplode(file);
+                if (state)
+                    return Created("Up", new Result() { message = "تمت عملية التحميل بنجاح", statusCode = 203 });
+                return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
+
+            }
+
             return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
 
 

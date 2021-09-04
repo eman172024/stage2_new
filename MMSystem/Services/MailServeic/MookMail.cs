@@ -540,7 +540,7 @@ namespace MMSystem.Services.MailServeic
 
         }
 
-        public async Task<bool> up(Re file)
+        public async Task<bool> Uplode(Uplode file)
         {
             try
             {
@@ -555,7 +555,15 @@ namespace MMSystem.Services.MailServeic
                     byte[] bytes = Convert.FromBase64String(bsee64string);
                     Guid guid = Guid.NewGuid();
                     string x = guid.ToString();
-                    await File.WriteAllBytesAsync("wwwroot/images/ccc." + extention, bytes);
+                    await File.WriteAllBytesAsync($"wwwroot/images/{x}." + extention, bytes);
+                    Mail_Resourcescs mail = new Mail_Resourcescs();
+                    mail.MailID =file.mail_id ;
+                    mail.path = "wwwroot/images/" + x+".";
+                    mail.order = item.index;
+                    bool res = await _resourcescs.Add(mail);
+
+
+
 
                 }
 
@@ -629,6 +637,8 @@ namespace MMSystem.Services.MailServeic
                        
                     }) ;
 
+
+                    mail.resourcescs =await _resourcescs.GetAll(mail.mailDto.MailID);
                 }
 
 
@@ -642,99 +652,9 @@ namespace MMSystem.Services.MailServeic
                 throw;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
             }
 
-            //public async Task<ExternalViewModel> getExternalMail(int id)
-            //{
-            //    try
-            //    {
-            //        ExternalViewModel model = new ExternalViewModel();
-            //    model.list = await (from mail in _appContext.Mails.Where(x=>x.Management_Id==id&&x.Mail_Type== "صادر خارجي")
-            //                                join ex in _appContext.External_Mails on mail.MailID equals ex.MailID
-            //                        join re in _appContext.Mail_Resourcescs on mail.MailID equals re.MailID
-
-            //                        select new ExMail
-            //                                {
-            //                                    mail = new MailDto
-            //                                    {
-            //                                        Action_Required = mail.Action_Required,
-            //                                        MailID = mail.MailID,
-            //                                        currentYear = mail.currentYear,
-            //                                        classification = mail.classification,
-            //                                        Date_Of_Mail = mail.Date_Of_Mail,
-            //                                        Genaral_inbox_Number = mail.Genaral_inbox_Number,
-            //                                        Genaral_inbox_year = mail.Genaral_inbox_year,
-            //                                        Mail_Summary = mail.Mail_Summary,
-            //                                        Mail_Type = mail.Mail_Type,
-            //                                        Management_Id = mail.Management_Id,
-            //                                        Mail_Number = mail.Mail_Number,
-            //                                        userId = mail.userId
-
-            //                                    },
-            //                                    External = new ExternalDto() {
-            //                                   ID=ex.ID,
-            //                                   action_Requierd=ex.action_Requierd,
-            //                                   MailID=ex.MailID,
-            //                                   Sectionid=ex.Sectionid,
-            //                                   sectionName=ex.sectionName
-
-            //                                        },
-            //                                    resourcescsDto=new List<Mail_Resourcescs>{
-            //                                        new Mail_Resourcescs(){ 
-            //                                         ID=re.ID,
-            //                                        path=re.path}
-
-
-            //                                    }
-
-
-            //                        }).ToListAsync();
-            //        ExternalViewModel model2 = new ExternalViewModel();
-            //        foreach (var item in model.list)
-
-            //        {
-            //            model2.list.Add(new ExMail
-            //            {
-            //                mail = item.mail,
-            //                External = item.External,
-            //                resourcescsDto= await _appContext.Mail_Resourcescs.Where(x=>x.MailID==item.mail.MailID).ToListAsync()
-            //            }); 
-
-
-
-            //        }
-            //        model.count = model.list.Count;
-            //        model2.count = model.count;
-
-
-
-
-
-
-
-
-            //        return model;
-
-            //    }
-            //    catch (Exception)
-            //    {
-
-            //        throw;
-            //    }
-
-            //}
+       
 
 
         }
