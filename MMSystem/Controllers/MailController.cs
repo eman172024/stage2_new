@@ -136,17 +136,17 @@ namespace MMSystem.Controllers
         }
 
 
-        [HttpPost("UpdateFile")]
-        public async Task<IActionResult> UpdateFile([FromForm] int id, List<IFormFile> resourse)
-        {
+        //[HttpPost("UpdateFile")]
+        //public async Task<IActionResult> UpdateFile([FromForm] int id, List<IFormFile> resourse)
+        //{
 
-            bool state = await _Imail.UpdateFile(id, resourse);
-            if (state)
-                return Created("Uplode", new Result() { message = "تمت عملية التعديل بنجاح", statusCode = 203 });
-            return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
+        //    bool state = await _Imail.UpdateFile(id, resourse);
+        //    if (state)
+        //        return Created("Uplode", new Result() { message = "تمت عملية التعديل بنجاح", statusCode = 203 });
+        //    return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
 
 
-        }
+        //}
 
 
 
@@ -169,7 +169,7 @@ namespace MMSystem.Controllers
             {
                 bool state = await _Imail.Uplode(file);
                 if (state)
-                    return Created("Up", new Result() { message = "تمت عملية التحميل بنجاح", statusCode = 203 });
+                    return Created("Uplode", new Result() { message = "تمت عملية التحميل بنجاح", statusCode = 203 });
                 return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
 
             }
@@ -178,16 +178,26 @@ namespace MMSystem.Controllers
 
 
         }
-
-
-        [HttpPost("Up1")]
-        public async Task<IActionResult> Up1(string x)
+      
+           [HttpPost("DeletePhote")]
+        public async Task<IActionResult> DeletePhote(string path)
         {
-          var c=  Convert.ToBase64String(System.IO.File.ReadAllBytes(x));
 
-            return Ok(c);
+           if(!String.IsNullOrEmpty(path))
+            {
+                bool state = await _Imail.DeletePhote(path);
+                if (state)
+                    return Ok( new Result() { message = "تمت عملية الحذف", statusCode = 203 });
+                return NotFound(new Result() { message = "لايوجد صور", statusCode = 404 });
+
+            }
+
+            return BadRequest(new Result() { message = "فشلت العملية", statusCode = 400 });
+
 
         }
+
+
 
 
 
