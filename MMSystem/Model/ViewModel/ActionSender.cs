@@ -9,7 +9,7 @@ namespace MMSystem.Model.ViewModel
     {
         public int departmentId { get; set; }
         public string departmentName { get; set; }
-        public int measurId { get; set; }
-        public string measurName { get; set; }
+        public int measureId { get; set; }
+        public string measureName { get; set; }
     }
 }

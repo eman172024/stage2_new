@@ -399,7 +399,7 @@
                                     class="relative h-64 w-full"
                                 >
                                 
-                                    <img :src="image.baseAs64" class="w-full h-full rounded" />
+                                    <img :src="image.path" class="w-full h-full rounded" />
                                     <div class="absolute inset-x-0 flex justify-center">
                                         <button
                                             type="button"
@@ -1321,15 +1321,19 @@ export default {
             .then((res) => {
             console.log(res.data)
 
-                this.mail_Number = res.data.mail_Number
-                this.department_Id = res.data.department_Id
-                this.releaseDate = res.data.date_Of_Mail
-                this.summary = res.data.mail_Summary
-                this.classification = res.data.clasification
-                this.mailType = res.data.mail_Type
-                this.general_incoming_number = res.data.genaral_inbox_Number
-                this.genaral_inbox_year = res.data.genaral_inbox_year
-                this.required_action = res.data.action_Required
+                this.mail_Number = res.data.mailDto.mail_Number
+                this.department_Id = res.data.mailDto.department_Id
+                this.releaseDate = res.data.mailDto.date_Of_Mail
+                this.summary = res.data.mailDto.mail_Summary
+                this.classification = res.data.mailDto.clasification
+                this.mailType = res.data.mailDto.mail_Type
+                this.general_incoming_number = res.data.mailDto.genaral_inbox_Number
+                this.genaral_inbox_year = res.data.mailDto.genaral_inbox_year
+                this.required_action = res.data.mailDto.action_Required
+
+                this.consignees = res.data.actionSenders
+
+                this.imagesToShow = res.data.resourcescs
 
 
             //   this.GetDocmentForMail();

@@ -101,7 +101,7 @@ namespace MMSystem.Services.MailServeic
                                 sender.MailID = mail.mail.MailID;
                                 sender.to = item.departmentId;
                                 sender.flag = false;
-                                sender.type_of_send = item.measurId;
+                                sender.type_of_send = item.measureId;
                                 bool send = await _sender.Add(sender);
                             }
 
@@ -137,7 +137,7 @@ namespace MMSystem.Services.MailServeic
                                         sender.MailID = mail.mail.MailID;
                                         sender.to = item.departmentId;
                                         sender.flag = false;
-                                        sender.type_of_send = item.measurId;
+                                        sender.type_of_send = item.measureId;
                                         bool send = await _sender.Add(sender);
                                     }
                                     result = true;
@@ -178,7 +178,7 @@ namespace MMSystem.Services.MailServeic
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = item.departmentId;
                                     sender.flag = false;
-                                    sender.type_of_send = item.measurId;
+                                    sender.type_of_send = item.measureId;
                                     bool send = await _sender.Add(sender);
                                 }
                                 result = true;
@@ -691,19 +691,27 @@ namespace MMSystem.Services.MailServeic
                         var sss = await _appContext.measures.FindAsync(item.type_of_send);
                         sender.departmentId = item.to;
                         sender.departmentName = cc.DepartmentName;
-                        sender.measurId = item.type_of_send;
-                        sender.measurName = sss.MeasuresName;
+                        sender.measureId = item.type_of_send;
+                        sender.measureName = sss.MeasuresName;
                         mail.actionSenders.Add(sender);
 
                         mail.resourcescs   = await _resourcescs.GetAll(mail.mailDto.MailID);
 
 
+                        foreach (var xx in mail.resourcescs)
+                        { string x = xx.path;
+                            xx.path = await bas(x);
+
+                        }
 
 
 
 
                     }
 
+
+
+                    
 
                     return mail;
 
@@ -723,8 +731,22 @@ namespace MMSystem.Services.MailServeic
 
             }
 
+
+            
        
 
+
+        }
+
+        public async Task< string> bas(string patj) {
+
+
+            var attachmentType = System.IO.Path.GetExtension(patj);
+            var Type = attachmentType.Substring(1, attachmentType.Length - 1);
+            var filePath = System.IO.Path.Combine(patj);
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            var ImageBase64 = "data:image/" + Type + ";base64," + Convert.ToBase64String(fileBytes);
+            return ImageBase64;
 
         }
 
