@@ -80,9 +80,9 @@ namespace MMSystem.Controllers
 
         // PUT api/<MailController>/5
         [HttpPut("UpdateMail")]
-        public async Task<IActionResult> UpdateMail([FromBody] Mail mail)
+        public async Task<IActionResult> UpdateMail([FromBody] MailViewModel mail)
         {
-           bool result = await _Imail.Update(mail);
+           bool result = await _Imail.UpdateMail(mail);
             if (result) 
             return StatusCode(203, new Result()
             {

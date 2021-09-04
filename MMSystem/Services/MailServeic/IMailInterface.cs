@@ -33,6 +33,7 @@ namespace MMSystem.Services.MailServeic
 
 
         Task<bool> Uplode(Uplode ss);
+        Task<bool> UpdateMail(MailViewModel mail);
         Task<bool> DeletePhote(int id);
 
 
