@@ -128,9 +128,9 @@ namespace MMSystem.Controllers
         {
 
             List<MailDto> list = await _Imail.GetSevenMail();
-            if (list.Count>0)
+           // if (list.Count>0)
                 return Ok(list);
-            return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
+            //return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
 
 
         }
