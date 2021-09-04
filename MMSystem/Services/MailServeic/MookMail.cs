@@ -496,6 +496,59 @@ namespace MMSystem.Services.MailServeic
         }
 
 
+        public async Task<bool> UpdateFile(Uplode uplode)
+        {
+            Mail_Resourcescs resourse = new Mail_Resourcescs();
+           List<Mail_Resourcescs> res = await _appContext.Mail_Resourcescs.Where(x=>x.MailID==uplode.mail_id).ToListAsync();
+            foreach (var item in res)
+            {
+
+          
+            }
+
+
+            return true;
+
+              
+
+
+
+
+        }
+
+
+        public async Task<bool> DeletePhote(string path)
+        {
+            try
+            {
+                Mail_Resourcescs res = await _appContext.Mail_Resourcescs.FirstOrDefaultAsync(x => x.path == path);
+
+                if (System.IO.File.Exists(res.path))
+                {
+                    System.IO.File.Delete(res.path);
+                    return true;
+                }
+                return false;
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            
+           
+
+
+
+
+
+
+        }
+
+
 
         public async Task<List<MailDto>> getExternalMail(int id)
         {
@@ -555,10 +608,13 @@ namespace MMSystem.Services.MailServeic
                     byte[] bytes = Convert.FromBase64String(bsee64string);
                     Guid guid = Guid.NewGuid();
                     string x = guid.ToString();
-                    await File.WriteAllBytesAsync($"wwwroot/images/{x}." + extention, bytes);
+                    var path = Path.Combine(this.iwebHostEnvironment.WebRootPath, "images", x+".");
+
+
+                    await File.WriteAllBytesAsync(path + extention, bytes);
                     Mail_Resourcescs mail = new Mail_Resourcescs();
                     mail.MailID =file.mail_id ;
-                    mail.path = "wwwroot/images/" + x+".";
+                    mail.path = path+ extention;
                     mail.order = item.index;
                     bool res = await _resourcescs.Add(mail);
 

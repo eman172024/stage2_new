@@ -18,7 +18,7 @@ namespace MMSystem.Services.MailServeic
 
         Task<bool> addMail( MailViewModel mail);
       
-        Task<bool> Upload(int id,List<IFormFile> listOfPhotes );
+     //   Task<bool> Upload(int id,List<IFormFile> listOfPhotes );
         Task<bool> UpdateFile(int id, List<IFormFile> listOfPhotes);
      Task<int> GetLastMailNumber(int id,string mailType);
 
@@ -32,7 +32,7 @@ namespace MMSystem.Services.MailServeic
         Task<Pagenation<MailDto>> PaganationList(int page,int PageSize,int id);
 
 
-        Task<bool> up(Uplode ss);
+        Task<bool> Uplode(Uplode ss);
       
 
     }
