@@ -49,7 +49,7 @@ namespace MMSystem.Controllers
         [HttpGet("GetMailById/{id}")]
         public async Task<IActionResult> GetMailById(int id)
         {
-            MailDto mail = await _Imail.Get(id);
+            MailVM mail =await  _Imail.GetMailById(id);
             if (mail != null) 
                 return Ok(mail);
 

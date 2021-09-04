@@ -22,6 +22,9 @@ namespace MMSystem.Services.MailServeic
         Task<bool> UpdateFile(int id, List<IFormFile> listOfPhotes);
      Task<int> GetLastMailNumber(int id,string mailType);
 
+
+        Task<MailVM> GetMailById(int id);
+
       Task<List<MailDto>> getExternalMail(int id);
         Task<List<MailDto>> getExternalInbox(int id);
 

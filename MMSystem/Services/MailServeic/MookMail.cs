@@ -33,13 +33,13 @@ namespace MMSystem.Services.MailServeic
         private readonly ISender _sender;
 
         public MookMail(AppDbCon appContext, IWebHostEnvironment environment, IMapper mapper
-            ,IExternalMailcs external, IExtrenal_inbox extrenal_Inbox, IMail_Resourcescs resourcescs
+            , IExternalMailcs external, IExtrenal_inbox extrenal_Inbox, IMail_Resourcescs resourcescs
             , ISender sender
             )
         {
             _appContext = appContext;
             iwebHostEnvironment = environment;
-           _external = external;
+            _external = external;
             _mapper = mapper;
             _extrenal_Inbox = extrenal_Inbox;
             _resourcescs = resourcescs;
@@ -50,11 +50,11 @@ namespace MMSystem.Services.MailServeic
 
         public async Task<bool> Add(Mail mail)
         {
-         
+
             if (mail != null)
             {
-            mail.Date_Of_Mail = DateTime.Now;
-              
+                mail.Date_Of_Mail = DateTime.Now;
+
                 await _appContext.Mails.AddAsync(mail);
 
                 await _appContext.SaveChangesAsync();
@@ -63,7 +63,7 @@ namespace MMSystem.Services.MailServeic
                 return true;
 
             }
-            
+
             return false;
         }
 
@@ -86,18 +86,18 @@ namespace MMSystem.Services.MailServeic
                     case "داخلي":
                         mail.mail.state = true;
 
-                        mail.mail.Mail_Number =await GetLastMailNumber(mail.mail.Department_Id, port);
-              
+                        mail.mail.Mail_Number = await GetLastMailNumber(mail.mail.Department_Id, port);
+
 
                         Email = await Add(mail.mail);
-                   
+
                         mailViewModel.mail = mail.mail;
                         if (Email)
                         {
                             foreach (var item in mail.actionSenders)
                             {
                                 Send_to sender = new Send_to();
-                              
+
                                 sender.MailID = mail.mail.MailID;
                                 sender.to = item.departmentId;
                                 sender.flag = false;
@@ -105,7 +105,7 @@ namespace MMSystem.Services.MailServeic
                                 bool send = await _sender.Add(sender);
                             }
 
-                        
+
                             result = true;
                             break;
                         }
@@ -121,7 +121,8 @@ namespace MMSystem.Services.MailServeic
                         if (Email)
                         {
 
-                            if (mail.external_Mail != null) {
+                            if (mail.external_Mail != null)
+                            {
 
                                 mail.external_Mail.MailID = mail.mail.MailID;
 
@@ -147,7 +148,7 @@ namespace MMSystem.Services.MailServeic
                                 await _appContext.SaveChangesAsync();
 
                             }
-                           
+
 
 
 
@@ -170,7 +171,7 @@ namespace MMSystem.Services.MailServeic
 
                             if (Ex_inboxmail)
                             {
-                                  foreach (var item in mail.actionSenders)
+                                foreach (var item in mail.actionSenders)
                                 {
                                     Send_to sender = new Send_to();
 
@@ -192,7 +193,7 @@ namespace MMSystem.Services.MailServeic
 
                         }
                         break;
-                    default:break;
+                    default: break;
 
 
 
@@ -213,7 +214,8 @@ namespace MMSystem.Services.MailServeic
             try
             {
                 Mail mail = await _appContext.Mails.FindAsync(id);
-                if (mail != null) {
+                if (mail != null)
+                {
 
                     mail.state = false;
                     _appContext.Mails.Update(mail);
@@ -233,7 +235,7 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                Mail mail =await  _appContext.Mails.FindAsync(id);
+                Mail mail = await _appContext.Mails.FindAsync(id);
                 MailDto dto = _mapper.Map<Mail, MailDto>(mail);
                 return dto;
             }
@@ -244,25 +246,27 @@ namespace MMSystem.Services.MailServeic
             }
         }
 
-        public async Task<int> GetLastMailNumber(int id,string MailType)
+        public async Task<int> GetLastMailNumber(int id, string MailType)
         {
             try
             {
-                int LastNumber=0;
+                int LastNumber = 0;
                 switch (MailType)
                 {
                     case "داخلي":
-                        Mail mail = await _appContext.Mails.OrderBy(x => x.MailID).Where(x => x.Department_Id == id&&x.Mail_Type.Equals("داخلي")).LastOrDefaultAsync();
-                        if (mail != null) {
+                        Mail mail = await _appContext.Mails.OrderBy(x => x.MailID).Where(x => x.Department_Id == id && x.Mail_Type.Equals("داخلي")).LastOrDefaultAsync();
+                        if (mail != null)
+                        {
                             LastNumber = mail.Mail_Number + 1;
                             break;
                         }
                         LastNumber += 1;
-                   
-                   break;
+
+                        break;
                     case "صادر خارجي":
                         External_Mail external_Mail = await _appContext.External_Mails.OrderBy(x => x.ID).LastOrDefaultAsync();
-                        if (external_Mail != null) {
+                        if (external_Mail != null)
+                        {
                             LastNumber = external_Mail.ID + 1;
                             break;
 
@@ -272,7 +276,7 @@ namespace MMSystem.Services.MailServeic
                     case "وارد خارجي":
 
                         Extrenal_inbox _Inbox = await _appContext.Extrenal_Inboxes.OrderBy(x => x.Id).LastOrDefaultAsync();
-                         if (_Inbox != null)
+                        if (_Inbox != null)
                         {
                             LastNumber = _Inbox.Id + 1;
                             break;
@@ -288,7 +292,7 @@ namespace MMSystem.Services.MailServeic
 
 
                 return LastNumber;
-              
+
 
             }
             catch (Exception)
@@ -303,7 +307,7 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                List<Mail> mails = await _appContext.Mails.Where(x=>x.state==true).OrderByDescending(x => x.MailID).ToListAsync();
+                List<Mail> mails = await _appContext.Mails.Where(x => x.state == true).OrderByDescending(x => x.MailID).ToListAsync();
 
                 List<MailDto> listdto = _mapper.Map<List<Mail>, List<MailDto>>(mails);
 
@@ -314,20 +318,21 @@ namespace MMSystem.Services.MailServeic
 
                 throw;
             }
-           
+
         }
 
         public async Task<bool> Update(Mail mail)
         {
             Mail _mail = await _appContext.Mails.FindAsync(mail.MailID);
-            
 
-            if (_mail != null) {
-           //   _mail.action = mail.action;
-        //  _mail.classification = mail.classification;
-           
-           _mail.Date_Of_Mail = mail.Date_Of_Mail;
-              _mail.Mail_Summary = mail.Mail_Summary;
+
+            if (_mail != null)
+            {
+                //   _mail.action = mail.action;
+                //  _mail.classification = mail.classification;
+
+                _mail.Date_Of_Mail = mail.Date_Of_Mail;
+                _mail.Mail_Summary = mail.Mail_Summary;
                 _mail.state = mail.state;
                 _mail.userId = mail.userId;
                 _mail.Genaral_inbox_year = mail.Genaral_inbox_year;
@@ -335,22 +340,22 @@ namespace MMSystem.Services.MailServeic
                 _mail.Date_Of_Mail = mail.Date_Of_Mail;
                 _mail.Mail_Number = mail.Mail_Number;
 
-              _appContext.Mails.Update(_mail);
+                _appContext.Mails.Update(_mail);
                 await _appContext.SaveChangesAsync();
-               
-                
+
+
 
                 return true;
 
             }
-           
+
             return false;
 
 
         }
 
 
-      
+
         public async Task<bool> Upload(int id, List<IFormFile> listOfPhotes)
         {
             try
@@ -380,7 +385,7 @@ namespace MMSystem.Services.MailServeic
                         await file.CopyToAsync(stream);
                         Mail_Resourcescs mail = new Mail_Resourcescs();
                         mail.MailID = id;
-                        mail.path = "wwwroot/images/"+x;
+                        mail.path = "wwwroot/images/" + x;
                         bool res = await _resourcescs.Add(mail);
 
 
@@ -390,7 +395,7 @@ namespace MMSystem.Services.MailServeic
 
                 }
                 return false;
-                
+
             }
             catch
             {
@@ -401,7 +406,7 @@ namespace MMSystem.Services.MailServeic
         }
 
 
-   
+
 
 
         public async Task<Pagenation<MailDto>> PaganationList(int page, int PageSize, int id)
@@ -409,15 +414,16 @@ namespace MMSystem.Services.MailServeic
             try
             {
                 Pagenation<MailDto> pagenation = new Pagenation<MailDto>();
-                List<Mail> mails = await _appContext.Mails.Where(x => x.Department_Id == id && x.state==true && x.Mail_Type == "داخلي").OrderByDescending(x => x.MailID).Skip((page - 1) * PageSize).Take(page).ToListAsync();
+                List<Mail> mails = await _appContext.Mails.Where(x => x.Department_Id == id && x.state == true && x.Mail_Type == "داخلي").OrderByDescending(x => x.MailID).Skip((page - 1) * PageSize).Take(page).ToListAsync();
 
-                if (mails.Count > 0) {
+                if (mails.Count > 0)
+                {
                     pagenation.Count = mails.Count();
                     pagenation.list = _mapper.Map<List<Mail>, List<MailDto>>(mails);
 
                     return pagenation;
                 }
-               
+
                 return null;
             }
             catch (Exception)
@@ -425,34 +431,35 @@ namespace MMSystem.Services.MailServeic
 
                 throw;
             }
-          
+
 
         }
 
-     
+
 
         public async Task<bool> UpdateFile(int id, List<IFormFile> listOfPhotes)
         {
-           
+
             var list = await _appContext.Mail_Resourcescs.Where(x => x.MailID == id).ToListAsync();
 
             var listto = list;
             int index = 0;
 
-            if (list.Count > 0 &&listOfPhotes.Count>0) {
+            if (list.Count > 0 && listOfPhotes.Count > 0)
+            {
 
                 //for delete photo
                 foreach (var item in list)
                 {
                     if (System.IO.File.Exists(item.path))
                         System.IO.File.Delete(item.path);
-                 
+
                 }
                 foreach (var file in listOfPhotes)
                 {
                     sub = "";
 
-               IEnumerable<char> takeFiveChar = file.FileName.TakeLast(5);
+                    IEnumerable<char> takeFiveChar = file.FileName.TakeLast(5);
 
                     foreach (var item in takeFiveChar)
                     {
@@ -470,12 +477,12 @@ namespace MMSystem.Services.MailServeic
 
                     await file.CopyToAsync(stream);
                     Mail_Resourcescs mail = listto.ElementAt(index);
-                  
+
                     mail.path = "wwwroot/images/" + xx;
                     bool res = await _resourcescs.Update(mail);
                     index += 1;
 
-                  
+
 
                 }
                 return true;
@@ -483,10 +490,10 @@ namespace MMSystem.Services.MailServeic
             }
             return false;
 
-              
 
 
-                }
+
+        }
 
 
 
@@ -494,7 +501,7 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                List<Mail> list = await _appContext.Mails.Where(x => x.Department_Id == id&&x.Mail_Type.Equals("صادر خارجي")).ToListAsync();
+                List<Mail> list = await _appContext.Mails.Where(x => x.Department_Id == id && x.Mail_Type.Equals("صادر خارجي")).ToListAsync();
 
 
                 List<MailDto> listDto = _mapper.Map<List<Mail>, List<MailDto>>(list);
@@ -508,7 +515,7 @@ namespace MMSystem.Services.MailServeic
 
                 throw;
             }
-           
+
 
         }
 
@@ -548,10 +555,10 @@ namespace MMSystem.Services.MailServeic
                     byte[] bytes = Convert.FromBase64String(bsee64string);
                     Guid guid = Guid.NewGuid();
                     string x = guid.ToString();
-                    await File.WriteAllBytesAsync("wwwroot/images/ccc."   + extention, bytes);
+                    await File.WriteAllBytesAsync("wwwroot/images/ccc." + extention, bytes);
 
                 }
-               
+
                 return true;
 
             }
@@ -560,7 +567,7 @@ namespace MMSystem.Services.MailServeic
 
                 throw;
             }
-           
+
 
 
 
@@ -571,9 +578,10 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                var list = await _appContext.Mails.Where(x=>x.state==true).Take(6).OrderByDescending(x=>x.MailID).ToListAsync();
+                var list = await _appContext.Mails.Where(x => x.state == true).Take(6).OrderByDescending(x => x.MailID).ToListAsync();
 
-                if (list.Count > 0) {
+                if (list.Count > 0)
+                {
 
                     List<MailDto> mailDtos = _mapper.Map<List<Mail>, List<MailDto>>(list);
 
@@ -582,7 +590,7 @@ namespace MMSystem.Services.MailServeic
                 }
                 return null;
 
-               
+
 
             }
             catch (Exception)
@@ -590,7 +598,7 @@ namespace MMSystem.Services.MailServeic
 
                 throw;
             }
-          
+
         }
 
         public Task<bool> up(UplodeFile ss)
@@ -598,67 +606,40 @@ namespace MMSystem.Services.MailServeic
             throw new NotImplementedException();
         }
 
-        //public async Task<ExternalViewModel> getExternalMail(int id)
-        //{
-        //    try
-        //    {
-        //        ExternalViewModel model = new ExternalViewModel();
-        //    model.list = await (from mail in _appContext.Mails.Where(x=>x.Management_Id==id&&x.Mail_Type== "صادر خارجي")
-        //                                join ex in _appContext.External_Mails on mail.MailID equals ex.MailID
-        //                        join re in _appContext.Mail_Resourcescs on mail.MailID equals re.MailID
+        public async Task<MailVM> GetMailById(int id)
+        {
 
-        //                        select new ExMail
-        //                                {
-        //                                    mail = new MailDto
-        //                                    {
-        //                                        Action_Required = mail.Action_Required,
-        //                                        MailID = mail.MailID,
-        //                                        currentYear = mail.currentYear,
-        //                                        classification = mail.classification,
-        //                                        Date_Of_Mail = mail.Date_Of_Mail,
-        //                                        Genaral_inbox_Number = mail.Genaral_inbox_Number,
-        //                                        Genaral_inbox_year = mail.Genaral_inbox_year,
-        //                                        Mail_Summary = mail.Mail_Summary,
-        //                                        Mail_Type = mail.Mail_Type,
-        //                                        Management_Id = mail.Management_Id,
-        //                                        Mail_Number = mail.Mail_Number,
-        //                                        userId = mail.userId
+            try
+            {
+                MailVM mail = new MailVM();
+                mail.mailDto = await Get(id);
 
-        //                                    },
-        //                                    External = new ExternalDto() {
-        //                                   ID=ex.ID,
-        //                                   action_Requierd=ex.action_Requierd,
-        //                                   MailID=ex.MailID,
-        //                                   Sectionid=ex.Sectionid,
-        //                                   sectionName=ex.sectionName
+                List<Send_to>  sends= await _appContext.Sends.Where(x=>x.MailID== mail.mailDto.MailID).ToListAsync();
 
-        //                                        },
-        //                                    resourcescsDto=new List<Mail_Resourcescs>{
-        //                                        new Mail_Resourcescs(){ 
-        //                                         ID=re.ID,
-        //                                        path=re.path}
+                
+                foreach (var item in sends)
+                {
+                    var cc = await _appContext.Departments.FindAsync(item.to);
+                    var sss =await _appContext.measures.FindAsync(item.type_of_send);
+                    mail.actionSenders.Add(new ActionSender {
+                        departmentId = item.to,
+                       departmentName = cc.DepartmentName.ToString(),
+
+                       measurId=sss.MeasuresId,measurName=sss.MeasuresName
+                       
+                    }) ;
+
+                }
 
 
-        //                                    }
+                return mail;
+            }
 
 
-        //                        }).ToListAsync();
-        //        ExternalViewModel model2 = new ExternalViewModel();
-        //        foreach (var item in model.list)
+            catch (Exception)
+            {
 
-        //        {
-        //            model2.list.Add(new ExMail
-        //            {
-        //                mail = item.mail,
-        //                External = item.External,
-        //                resourcescsDto= await _appContext.Mail_Resourcescs.Where(x=>x.MailID==item.mail.MailID).ToListAsync()
-        //            }); 
-
-
-
-        //        }
-        //        model.count = model.list.Count;
-        //        model2.count = model.count;
+                throw;
 
 
 
@@ -667,21 +648,99 @@ namespace MMSystem.Services.MailServeic
 
 
 
-        //        return model;
-
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-
-        //}
 
 
-    }
+
+
+
+
+            }
+
+            //public async Task<ExternalViewModel> getExternalMail(int id)
+            //{
+            //    try
+            //    {
+            //        ExternalViewModel model = new ExternalViewModel();
+            //    model.list = await (from mail in _appContext.Mails.Where(x=>x.Management_Id==id&&x.Mail_Type== "صادر خارجي")
+            //                                join ex in _appContext.External_Mails on mail.MailID equals ex.MailID
+            //                        join re in _appContext.Mail_Resourcescs on mail.MailID equals re.MailID
+
+            //                        select new ExMail
+            //                                {
+            //                                    mail = new MailDto
+            //                                    {
+            //                                        Action_Required = mail.Action_Required,
+            //                                        MailID = mail.MailID,
+            //                                        currentYear = mail.currentYear,
+            //                                        classification = mail.classification,
+            //                                        Date_Of_Mail = mail.Date_Of_Mail,
+            //                                        Genaral_inbox_Number = mail.Genaral_inbox_Number,
+            //                                        Genaral_inbox_year = mail.Genaral_inbox_year,
+            //                                        Mail_Summary = mail.Mail_Summary,
+            //                                        Mail_Type = mail.Mail_Type,
+            //                                        Management_Id = mail.Management_Id,
+            //                                        Mail_Number = mail.Mail_Number,
+            //                                        userId = mail.userId
+
+            //                                    },
+            //                                    External = new ExternalDto() {
+            //                                   ID=ex.ID,
+            //                                   action_Requierd=ex.action_Requierd,
+            //                                   MailID=ex.MailID,
+            //                                   Sectionid=ex.Sectionid,
+            //                                   sectionName=ex.sectionName
+
+            //                                        },
+            //                                    resourcescsDto=new List<Mail_Resourcescs>{
+            //                                        new Mail_Resourcescs(){ 
+            //                                         ID=re.ID,
+            //                                        path=re.path}
+
+
+            //                                    }
+
+
+            //                        }).ToListAsync();
+            //        ExternalViewModel model2 = new ExternalViewModel();
+            //        foreach (var item in model.list)
+
+            //        {
+            //            model2.list.Add(new ExMail
+            //            {
+            //                mail = item.mail,
+            //                External = item.External,
+            //                resourcescsDto= await _appContext.Mail_Resourcescs.Where(x=>x.MailID==item.mail.MailID).ToListAsync()
+            //            }); 
+
+
+
+            //        }
+            //        model.count = model.list.Count;
+            //        model2.count = model.count;
+
+
+
+
+
+
+
+
+            //        return model;
+
+            //    }
+            //    catch (Exception)
+            //    {
+
+            //        throw;
+            //    }
+
+            //}
+
 
         }
+
+    }
+}
 
 
 
