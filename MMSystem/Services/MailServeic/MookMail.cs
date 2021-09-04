@@ -517,11 +517,11 @@ namespace MMSystem.Services.MailServeic
         }
 
 
-        public async Task<bool> DeletePhote(string path)
+        public async Task<bool> DeletePhote(int  id)
         {
             try
             {
-                Mail_Resourcescs res = await _appContext.Mail_Resourcescs.FirstOrDefaultAsync(x => x.path == path);
+                Mail_Resourcescs res = await _appContext.Mail_Resourcescs.FirstOrDefaultAsync(x => x.ID == id);
 
                 if (System.IO.File.Exists(res.path))
                 {

@@ -179,22 +179,18 @@ namespace MMSystem.Controllers
 
         }
       
-           [HttpPost("DeletePhote")]
-        public async Task<IActionResult> DeletePhote(string path)
+           [HttpDelete("DeleteDocument")]
+        public async Task<IActionResult> DeletePhote(int id)
         {
 
-           if(!String.IsNullOrEmpty(path))
-            {
-                bool state = await _Imail.DeletePhote(path);
+         
+           
+                bool state = await _Imail.DeletePhote(id);
                 if (state)
                     return Ok( new Result() { message = "تمت عملية الحذف", statusCode = 203 });
                 return NotFound(new Result() { message = "لايوجد صور", statusCode = 404 });
 
-            }
-
-            return BadRequest(new Result() { message = "فشلت العملية", statusCode = 400 });
-
-
+         
         }
 
 
