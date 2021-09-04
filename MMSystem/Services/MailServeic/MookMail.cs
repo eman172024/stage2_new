@@ -432,14 +432,14 @@ namespace MMSystem.Services.MailServeic
                 throw;
             }
 
-
+            
         }
 
 
 
         public async Task<bool> UpdateFile(int id, List<IFormFile> listOfPhotes)
         {
-
+            
             var list = await _appContext.Mail_Resourcescs.Where(x => x.MailID == id).ToListAsync();
 
             var listto = list;

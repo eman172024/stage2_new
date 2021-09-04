@@ -11,7 +11,7 @@ namespace MMSystem.Model.ViewModel
         public MailDto mailDto { get; set; }
 
 
-        public List<ActionSender> actionSenders { get; set; }
+        public List<ActionSender> actionSenders  { get; set; }
 
         public List<Mail_ResourcescsDto> resourcescs { get; set; }
 
