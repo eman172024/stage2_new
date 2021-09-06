@@ -369,7 +369,8 @@ namespace MMSystem.Services.MailServeic
                         Email = await Update(mail.mail);
                         if (Email) {
 
-                            if (mail.actionSenders.Count > 0) {
+                            if (mail.actionSenders != null){
+
                                 foreach (var item in mail.actionSenders)
                                 {
                                     Send_to sender = new Send_to();
@@ -387,7 +388,12 @@ namespace MMSystem.Services.MailServeic
                             }
 
 
-                           
+
+
+
+
+
+
 
 
                             result = true;
@@ -411,7 +417,7 @@ namespace MMSystem.Services.MailServeic
                             if (Exmail) {
 
 
-                                if (mail.actionSenders.Count > 0) {
+                                if (mail.actionSenders !=null) {
 
                                     foreach (var item in mail.actionSenders)
                                     {
