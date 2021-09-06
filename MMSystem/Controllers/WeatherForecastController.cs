@@ -70,11 +70,11 @@ namespace MMSystem.Controllers
         }
 
 
-        [HttpGet("GetParent")]
-        public async Task<IActionResult> GetParent(int id,int parent)
+        [HttpGet("GetParent/{id}")]
+        public async Task<IActionResult> GetParent(int id)
         {
 
-            var c = await appDb.Extrmal_Sections.Where(x => x.type == id&&x.perent== parent).ToListAsync();
+            var c = await appDb.Extrmal_Sections.Where(x => x.type == id&&x.perent== 0).ToListAsync();
             if(c.Count>0)
             return Ok(c);
             return NotFound("لايوجد بيانات");
