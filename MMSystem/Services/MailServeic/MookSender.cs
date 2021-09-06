@@ -118,5 +118,11 @@ namespace MMSystem.Services.MailServeic
             return true;
 
         }
+
+        public async Task<bool> UpdateSenderList(UpdateVM update)
+        {
+            List<Send_to> list = await _data.Sends.Where(x=>x.MailID==update.mail_id&& x.State==true).ToListAsync();
+            return true;
+        }
     }
 }

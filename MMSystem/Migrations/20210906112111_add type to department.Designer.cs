@@ -4,14 +4,16 @@ using MMSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMSystem.Migrations
 {
     [DbContext(typeof(AppDbCon))]
-    partial class AppDbConModelSnapshot : ModelSnapshot
+    [Migration("20210906112111_add type to department")]
+    partial class addtypetodepartment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -386,9 +388,6 @@ namespace MMSystem.Migrations
                     b.Property<string>("Section_Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("action_required_by_the_entity")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("perent")
                         .HasColumnType("int");
 
@@ -401,96 +400,6 @@ namespace MMSystem.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Extrmal_Sections");
-
-                    b.HasData(
-                        new
-                        {
-                            id = 1,
-                            Section_Name = "فروع الهيئة ",
-                            perent = 0,
-                            state = true,
-                            type = 1
-                        },
-                        new
-                        {
-                            id = 2,
-                            Section_Name = "فرغ سبها ",
-                            perent = 1,
-                            state = true,
-                            type = 1
-                        },
-                        new
-                        {
-                            id = 3,
-                            Section_Name = "فرع مصراته ",
-                            perent = 1,
-                            state = true,
-                            type = 1
-                        },
-                        new
-                        {
-                            id = 4,
-                            Section_Name = "الشركات الوطنية ",
-                            perent = 0,
-                            state = true,
-                            type = 2
-                        },
-                        new
-                        {
-                            id = 5,
-                            Section_Name = "الشركة العامة للكهرباء  ",
-                            perent = 4,
-                            state = true,
-                            type = 2
-                        },
-                        new
-                        {
-                            id = 6,
-                            Section_Name = "شركة المياه والصرف الصحي ",
-                            perent = 4,
-                            state = true,
-                            type = 2
-                        },
-                        new
-                        {
-                            id = 7,
-                            Section_Name = "الشركات الاجنبية ",
-                            perent = 0,
-                            state = true,
-                            type = 2
-                        },
-                        new
-                        {
-                            id = 8,
-                            Section_Name = "Oil and Gas",
-                            perent = 7,
-                            state = true,
-                            type = 2
-                        },
-                        new
-                        {
-                            id = 9,
-                            Section_Name = "AVA",
-                            perent = 7,
-                            state = true,
-                            type = 2
-                        },
-                        new
-                        {
-                            id = 10,
-                            Section_Name = "ذات المسؤولية المحدودة",
-                            perent = 0,
-                            state = true,
-                            type = 3
-                        },
-                        new
-                        {
-                            id = 11,
-                            Section_Name = "النمو التقني",
-                            perent = 10,
-                            state = true,
-                            type = 3
-                        });
                 });
 
             modelBuilder.Entity("MMSystem.Model.Mail", b =>
