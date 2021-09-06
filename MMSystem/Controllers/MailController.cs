@@ -135,6 +135,15 @@ namespace MMSystem.Controllers
 
         }
 
+        [HttpDelete("DeleteMangament")]
+        public async Task<IActionResult> DeleteMangament(int mail_id, int departmentId )
+        {
+            bool result = await _Imail.deleteSender(mail_id,departmentId);
+            if (result)
+                return StatusCode(203, new Result() { message = "تمت عملية الحذف بنجاح", statusCode = 203 });
+            return BadRequest(new Result() { message = "غشلت العملية", statusCode = 404 });
+
+        }
 
         //[HttpPost("UpdateFile")]
         //public async Task<IActionResult> UpdateFile([FromForm] int id, List<IFormFile> resourse)

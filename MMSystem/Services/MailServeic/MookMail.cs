@@ -805,6 +805,32 @@ namespace MMSystem.Services.MailServeic
 
         }
 
+        public async Task<bool> deleteSender(int mail_id,int departmentId)
+        {
+            try
+            {
+                Send_to send_ = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail_id && x.to == departmentId);
+                if (send_ != null) {
+                    _appContext.Sends.Remove(send_);
+                    await _appContext.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+
+
+            return false;
+
+        }
+
+
     }
 }
 
