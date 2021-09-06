@@ -78,23 +78,8 @@ namespace MMSystem.Controllers
 
 
 
-        // PUT api/<MailController>/5
-        [HttpPut("UpdateMail")]
-        public async Task<IActionResult> UpdateMail([FromBody] MailViewModel mail)
-        {
-           bool result = await _Imail.UpdateMail(mail);
-            if (result) 
-            return StatusCode(203, new Result()
-            {
-                message = "تمت العملية بنجاح",
-                statusCode = 203
-            });
-            return BadRequest(new Result()
-            {
-                message = "فشلت العملية",
-                statusCode = 400
-            });
-        }
+      
+
 
         // DELETE api/<MailController>/5
         [HttpDelete("Delete/{id}")]
@@ -144,6 +129,17 @@ namespace MMSystem.Controllers
             return BadRequest(new Result() { message = "غشلت العملية", statusCode = 404 });
 
         }
+
+        [HttpPut("UpdateMail")]
+        public async Task<IActionResult> UpdateMail(MailViewModel mail)
+        {
+            bool result = await _Imail.UpdateMail(mail);
+            if (result)
+                return StatusCode(203, new Result() { message = "تمت عملية الحذف بنجاح", statusCode = 203 });
+            return BadRequest(new Result() { message = "غشلت العملية", statusCode = 404 });
+
+        }
+
 
         //[HttpPost("UpdateFile")]
         //public async Task<IActionResult> UpdateFile([FromForm] int id, List<IFormFile> resourse)

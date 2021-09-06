@@ -355,36 +355,36 @@ namespace MMSystem.Services.MailServeic
         }
         public async Task<bool> UpdateMail(MailViewModel mail)
         {
-            Mail _mail = await _appContext.Mails.FindAsync(mail.mail.MailID);
-
-
-            if (_mail != null)
+            try
             {
-                //   _mail.action = mail.action;
-                //  _mail.classification = mail.classification;
+                bool result = await Update(mail.mail);
+                if (result)
 
-                _mail.Date_Of_Mail =mail. mail.Date_Of_Mail;
-                _mail.Mail_Summary = mail. mail.Mail_Summary;
-      
-                _mail.userId =mail. mail.userId;
-                _mail.Genaral_inbox_year =mail. mail.Genaral_inbox_year;
-                _mail.Genaral_inbox_Number =mail. mail.Genaral_inbox_Number;
-                _mail.Date_Of_Mail =mail. mail.Date_Of_Mail;
-                _mail.Mail_Number = mail. mail.Mail_Number;
+                {
+                    foreach (var item in mail.actionSenders)
+                    {
+                        Send_to sender = new Send_to();
 
-                _appContext.Mails.Update(_mail);
-                await _appContext.SaveChangesAsync();
-
-           
-
-
-
-
+                        sender.MailID = mail.mail.MailID;
+                        sender.to = item.departmentId;
+                        sender.flag = false;
+                        sender.type_of_send = item.measureId;
+                        bool send = await _sender.Add(sender);
+                    }
                     return true;
 
-            }
 
-            return false;
+
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+         
 
 
         }
