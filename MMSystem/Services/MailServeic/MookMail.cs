@@ -375,7 +375,7 @@ namespace MMSystem.Services.MailServeic
                 _appContext.Mails.Update(_mail);
                 await _appContext.SaveChangesAsync();
 
-              
+           
 
 
 
@@ -714,60 +714,67 @@ namespace MMSystem.Services.MailServeic
 
             try
             {
-                MailVM mail = new MailVM();
+
+                {
+                    MailVM mail = new MailVM();
 
 
-                MailDto dto= await Get(id);
-                if (dto != null) {
-                  
-               
-                    mail.mailDto = dto;
-                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mailDto.MailID).ToListAsync();
-
-                    ActionSender sender = new ActionSender();
-                    foreach (var item in sends)
+                    MailDto dto = await Get(id);
+                    if (dto != null)
                     {
-                        Department departments = await _appContext.Departments.FindAsync(item.to);
-                        Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
-                       
-                        mail.actionSenders.Add(new ActionSender (){
 
 
-                           departmentName = departments.DepartmentName,
-                          measureId  = item.type_of_send,
-                       measureName = measures.MeasuresName,departmentId=departments.Id
+                        mail.mailDto = dto;
+                        List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mailDto.MailID).ToListAsync();
+
+                        ActionSender sender = new ActionSender();
+                        foreach (var item in sends)
+                        {
+                            Department departments = await _appContext.Departments.FindAsync(item.to);
+                            Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
+
+                            mail.actionSenders.Add(new ActionSender()
+                            {
+
+
+                                departmentName = departments.DepartmentName,
+                                measureId = item.type_of_send,
+                                measureName = measures.MeasuresName,
+                                departmentId = departments.Id
+                            }
+
+
+
+
+                            );
+
+                            mail.resourcescs = await _resourcescs.GetAll(mail.mailDto.MailID);
+
+
+                            foreach (var xx in mail.resourcescs)
+                            {
+                                string x = xx.path;
+                                xx.path = await bas(x);
+
+                            }
+
+
+
+
                         }
 
 
-                        
-                        
-                        );
-
-                        mail.resourcescs   = await _resourcescs.GetAll(mail.mailDto.MailID);
 
 
-                        foreach (var xx in mail.resourcescs)
-                        { string x = xx.path;
-                            xx.path = await bas(x);
 
-                        }
-
-
+                        return mail;
 
 
                     }
 
 
-
-                    
-
-                    return mail;
-
-
+                    return null;
                 }
-
-
-                return null;
             }
 
 

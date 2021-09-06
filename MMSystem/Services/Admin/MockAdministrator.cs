@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MMSystem.Model;
 using MMSystem.Model.Dto;
+using MMSystem.Model.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -131,11 +132,8 @@ namespace MMSystem.Services {
                 List<Administrator> listOfuser = await _data.Administrator.OrderByDescending(x => x.UserId ).Where(x => x.state == true).ToListAsync(); 
 
 
-                var config = new MapperConfiguration(mc => mc.CreateMap<Administrator, AdministratorDto>());
 
-                var maper = new Mapper(config);
-
-                var list = maper.Map<List<Administrator>, List<AdministratorDto>>(listOfuser);
+                var list = _mapper.Map<List<Administrator>, List<AdministratorDto>>(listOfuser);
 
                 return list;
             }
@@ -149,16 +147,19 @@ namespace MMSystem.Services {
 
         
 
-        public async Task<AdministratorDto> login(Login user1)
+        public async Task<Administrator> login(Login user1)
         {
-            try
-            {
+           try {
+
+
+
+
                 Administrator user = await _data.Administrator.FirstOrDefaultAsync(x => x.UserName == user1.UserName && x.state == true);
 
 
                 if (user != null)
                 {
-                 
+
                     bool isValid = BCrypt.Net.BCrypt.Verify(user1.Password, user.password);
                     if (isValid)
                     {
@@ -169,17 +170,39 @@ namespace MMSystem.Services {
 
                         var userDto = maper.Map<Administrator, AdministratorDto>(user);
 
-                        return userDto;
+                        return user;
 
 
                     }
-                    else
-                    {
-
-
-                    }
+                    return null;
 
                 }
+                //------------------------
+                //UserViewModel userView = new UserViewModel();
+                //Administrator user = await _data.Administrator.FirstOrDefaultAsync(x => x.UserName == user1.UserName
+                //&& x.state == true);
+                //if (user != null) {
+                //    bool isValid = BCrypt.Net.BCrypt.Verify(user1.Password, user.password);
+
+                //    if (isValid)
+                //    {
+
+                //        userView.user = _mapper.Map<Administrator, AdministratorDto>(user);
+
+                //        userView.roles = await (from userrole in _data.userRoles.Where(x => x.UserId == user.UserId)
+                //                                join
+
+                //                               role in _data.Roles on userrole.RoleId equals role.RoleId
+                //                                select role).ToListAsync();
+                //        return userView;
+
+
+                //    }
+                //    return null;
+
+                //}
+
+
 
                 return null;
             }
