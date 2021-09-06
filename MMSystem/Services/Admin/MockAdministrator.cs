@@ -147,7 +147,7 @@ namespace MMSystem.Services {
 
         
 
-        public async Task<Administrator> login(Login user1)
+        public async Task<AdministratorDto> login(Login user1)
         {
            try {
 
@@ -170,7 +170,7 @@ namespace MMSystem.Services {
 
                         var userDto = maper.Map<Administrator, AdministratorDto>(user);
 
-                        return user;
+                        return userDto;
 
 
                     }
