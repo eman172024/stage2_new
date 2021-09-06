@@ -361,34 +361,155 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                bool result = await Update(mail.mail);
-                if (result)
+                bool Email, Exmail, Ex_inboxmail, result = false;
 
-                {
-                    foreach (var item in mail.actionSenders)
-                    {
-                        Send_to sender = new Send_to();
 
-                        sender.MailID = mail.mail.MailID;
-                        sender.to = item.departmentId;
-                        sender.flag = false;
-                        sender.type_of_send = item.measureId;
-                        bool send = await _sender.Add(sender);
-                    }
-                    return true;
 
+                string port = mail.mail.Mail_Type;
+
+                switch (port) {
+                    case "داخلي":
+
+                        Email = await Update(mail.mail);
+                        if (Email) {
+
+                            if (mail.actionSenders != null){
+
+                                foreach (var item in mail.actionSenders)
+                                {
+                                    Send_to sender = new Send_to();
+
+                                    sender.MailID = mail.mail.MailID;
+                                    sender.to = item.departmentId;
+                                    sender.flag = false;
+                                    sender.type_of_send = item.measureId;
+                                    bool send = await _sender.Add(sender);
+                                }
+
+                                result = true;
+                                break;
+
+                            }
+
+
+
+
+
+
+
+
+
+
+                            result = true;
+                            break;
+
+
+
+
+                        }
+                        
+                        
+                        
+                        break;
+                    case "صادر خارجي":
+
+                        Email = await Update(mail.mail);
+                        if (Email)
+                        {
+
+                            Exmail = await _external.Update(mail.external_Mail);
+                            if (Exmail) {
+
+
+                                if (mail.actionSenders !=null) {
+
+                                    foreach (var item in mail.actionSenders)
+                                    {
+                                        Send_to sender = new Send_to();
+
+                                        sender.MailID = mail.mail.MailID;
+                                        sender.to = item.departmentId;
+                                        sender.flag = false;
+                                        sender.type_of_send = item.measureId;
+                                        bool send = await _sender.Add(sender);
+                                    }
+                                    result = true;
+                                    break;
+
+
+                                }
+
+
+                                result = true;
+                                break;
+
+
+                            }
+
+
+
+
+                            break;
+
+                        }
+                        break;
+                    case "وارد خارجي":
+
+                        Email = await Update(mail.mail);
+                        if (Email) {
+
+                            mail.extrenal_Inbox.MailID = mail.mail.MailID;
+                            Ex_inboxmail = await _extrenal_Inbox.Update(mail.extrenal_Inbox);
+                            if (Ex_inboxmail) {
+
+                                if (mail.actionSenders.Count > 0)
+                                {
+
+                                    foreach (var item in mail.actionSenders)
+                                    {
+                                        Send_to sender = new Send_to();
+
+                                        sender.MailID = mail.mail.MailID;
+                                        sender.to = item.departmentId;
+                                        sender.flag = false;
+                                        sender.type_of_send = item.measureId;
+                                        bool send = await _sender.Add(sender);
+                                    }
+                                    result = true;
+                                    break;
+                                }
+                                result = true;
+                                break;
+                            
+                            
+                            }
+                            break;
+
+                        }
+                        break;
+
+
+                        
+                        
+                        
+                        
+                     
+                    default:break;
 
 
                 }
 
-                return false;
+
+                return result;
+
             }
             catch (Exception)
             {
 
                 throw;
             }
-         
+
+
 
 
         }
@@ -803,7 +924,7 @@ namespace MMSystem.Services.MailServeic
             var attachmentType = System.IO.Path.GetExtension(patj);
             var Type = attachmentType.Substring(1, attachmentType.Length - 1);
             var filePath = System.IO.Path.Combine(patj);
-            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            byte[] fileBytes =await System.IO.File.ReadAllBytesAsync(filePath);
             var ImageBase64 = "data:image/" + Type + ";base64," + Convert.ToBase64String(fileBytes);
             return ImageBase64;
 
