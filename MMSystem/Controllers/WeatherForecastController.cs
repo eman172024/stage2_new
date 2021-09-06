@@ -47,7 +47,10 @@ namespace MMSystem.Controllers
         {
 
             var c = await appDb.Extrmal_Sections.Where(x => x.perent  >0&&x.type==id).ToListAsync();
+            if(c.Count>0)
             return Ok(c);
+            return NotFound("لايوجد بيانات");
+
 
 
             //return spcefic value 
@@ -57,7 +60,10 @@ namespace MMSystem.Controllers
         {
 
             var c = await appDb.Extrmal_Sections.Where(x=>x.perent==id).ToListAsync();
+
+            if(c.Count>0)
             return Ok(c);
+            return NotFound("لايوجد بيانات");
 
 
 
@@ -69,7 +75,9 @@ namespace MMSystem.Controllers
         {
 
             var c = await appDb.Extrmal_Sections.Where(x => x.type == id&&x.perent== parent).ToListAsync();
+            if(c.Count>0)
             return Ok(c);
+            return NotFound("لايوجد بيانات");
 
 
 
