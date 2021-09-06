@@ -41,22 +41,39 @@ namespace MMSystem.Controllers
 
 
 
+        }
+        [HttpGet("Get/{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+
+            var c = await appDb.Extrmal_Sections.Where(x => x.perent  >0&&x.type==id).ToListAsync();
+            return Ok(c);
 
 
+            //return spcefic value 
+        }
+        [HttpGet("GetAll/{id}")]
+        public async Task<IActionResult> GetAll(int id)
+        {
 
-
-
-
-
-
-
-
-
+            var c = await appDb.Extrmal_Sections.Where(x=>x.perent==id).ToListAsync();
+            return Ok(c);
 
 
 
         }
 
+
+        [HttpGet("GetParent")]
+        public async Task<IActionResult> GetParent(int id,int parent)
+        {
+
+            var c = await appDb.Extrmal_Sections.Where(x => x.type == id&&x.perent== parent).ToListAsync();
+            return Ok(c);
+
+
+
+        }
 
     }
 }

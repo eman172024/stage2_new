@@ -16,7 +16,7 @@ namespace MMSystem.Model
         public bool state { get; set; }
         public int type { get; set; }
 
-        public string action_required_by_the_entity { get; set; }
+       
 
         public List<Extrenal_inbox> Extrenal_Inboxes { get; set; }
         public List<External_Mail> External_Mails { get; set; }

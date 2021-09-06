@@ -22,6 +22,7 @@ namespace MMSystem.Model
         public Extrmal_Section Section { get; set; }
         public string sectionName { get; set; }
         public int action { get; set; }
+        public string action_required_by_the_entity { get; set; }
 
 
 
