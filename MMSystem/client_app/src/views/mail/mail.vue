@@ -515,9 +515,9 @@
                     </section>
                 </div> 
 
-                <section v-if="mailType == 2 || mailType == 3" class="col-span-2 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 bg-gray-50 rounded-md p-6">
+                <section v-if="mailType == 'صادر داخلي' || mailType == 'وارد خارجي'" class="col-span-2 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 bg-gray-50 rounded-md p-6">
 
-                    <div v-if="mailType == 2 " class="sm:col-span-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                    <div v-if="mailType == 'صادر داخلي' " class="sm:col-span-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                         <fieldset class="sm:col-span-3">
                             <div class="flex items-center">
                                 <legend class="block text-base font-semibold text-gray-800 w-24">
@@ -548,7 +548,7 @@
                                         type="radio"
                                         name="forwarding"
                                         class="h-4 w-4"
-                                        value="3"
+                                        value="2"
                                     />
                                     <label
                                         for="public_parties"
@@ -566,7 +566,7 @@
                                         name="forwarding"
 
                                         class="h-4 w-4"
-                                        value="2"
+                                        value="3"
                                     />
                                     <label
                                         for="private_parties"
@@ -613,7 +613,7 @@
                         </div>
                     </div>
 
-                    <div v-if="mailType == 3 " class="sm:col-span-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 rounded-md">
+                    <div v-if="mailType == 'وارد خارجي' " class="sm:col-span-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 rounded-md">
                         <fieldset class="sm:col-span-3">
                             <div class="flex items-center">
 
@@ -1229,16 +1229,30 @@ export default {
                     "Mail_Type": this.mailType,
                     "userId":1,
                     "department_Id":1,
-
                     "Date_Of_Mail": this.releaseDate,
                     "Mail_Summary": this.summary,
                     "clasification": this.classification,
                     "Genaral_inbox_Number": Number(this.general_incoming_number),
                     "Genaral_inbox_year": Number(this.genaral_inbox_year),
                     "ActionRequired": this.required_action,
-
                 },
-                "actionSenders":this.consignees
+
+                "actionSenders":this.consignees,
+
+                "extrenal_Inbox":{
+                    "to": this.mailType,
+                    "type":1,
+                    "SectionId":1,
+                    "section_Name": this.releaseDate,
+                    "action": this.summary,
+                },
+
+                "external_Mail":{
+                    "Sectionid": this.mailType,
+                    "sectionName":1,
+                    "action":1,
+                },
+
             }
         this.$http.mailService
             .SaveMail(info)
