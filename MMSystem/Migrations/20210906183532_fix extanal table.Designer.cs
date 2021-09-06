@@ -4,14 +4,16 @@ using MMSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMSystem.Migrations
 {
     [DbContext(typeof(AppDbCon))]
-    partial class AppDbConModelSnapshot : ModelSnapshot
+    [Migration("20210906183532_fix extanal table")]
+    partial class fixextanaltable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -372,8 +374,8 @@ namespace MMSystem.Migrations
                     b.Property<int>("to")
                         .HasColumnType("int");
 
-                    b.Property<int>("type")
-                        .HasColumnType("int");
+                    b.Property<string>("type")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

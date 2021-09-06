@@ -56,13 +56,13 @@
                                             type="radio"
                                             name="type"
                                             class="h-4 w-4"
-                                            value="صادر داخلي"
+                                            value="صادر خارجي"
                                         />
                                         <label
                                             for="internal_export"
                                             class="mr-2 block  text-gray-800"
                                         >
-                                            صادر داخلي
+                                            صادر خارجي
                                         </label>
                                     </div>
 
@@ -515,13 +515,20 @@
                     </section>
                 </div> 
 
-                <section v-if="mailType == 'صادر داخلي' || mailType == 'وارد خارجي'" class="col-span-2 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 bg-gray-50 rounded-md p-6">
+                <section v-if="mailType == 'صادر خارجي' || mailType == 'وارد خارجي'" class="col-span-2 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 bg-gray-50 rounded-md p-6">
 
-                    <div v-if="mailType == 'صادر داخلي' " class="sm:col-span-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                    <div class="sm:col-span-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                        
                         <fieldset class="sm:col-span-3">
                             <div class="flex items-center">
                                 <legend class="block text-base font-semibold text-gray-800 w-24">
-                                    توجيه البريد
+                                    <div v-if="mailType == 'صادر خارجي'">
+                                        توجيه البريد
+                                    </div>
+
+                                    <div v-if="mailType == 'وارد خارجي'">
+                                        وارد من
+                                    </div>
                                 </legend>
                             
                                 <div class="flex items-center w-32">
@@ -532,6 +539,7 @@
                                         name="forwarding"
                                         class="h-4 w-4"
                                         value="1"
+                                        @click="get_sectors(1)"
                                     />
                                     <label
                                         for="Branches"
@@ -549,6 +557,7 @@
                                         name="forwarding"
                                         class="h-4 w-4"
                                         value="2"
+                                        @click="get_sectors(2)"
                                     />
                                     <label
                                         for="public_parties"
@@ -564,9 +573,9 @@
                                         id="private_parties"
                                         type="radio"
                                         name="forwarding"
-
                                         class="h-4 w-4"
                                         value="3"
+                                        @click="get_sectors(3)"
                                     />
                                     <label
                                         for="private_parties"
@@ -577,7 +586,9 @@
                                 </div>
                             </div>
                         </fieldset>
+
                         <br>
+
                         <div class="sm:col-span-3">
                             <label
                                 for="send_to_sector"
@@ -585,14 +596,19 @@
                             >
                                 القطاع
                             </label>
-                            <select v-model="send_to_sector"  id="send_to_sector" class="block mt-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2">
-                                <option value="مقال صحفي">
-                                    مقال صحفي
-                                </option>
-                                <option value="مقال صحفي">
-                                    مقال صحفي
-                                </option>
-                            </select>
+
+                            <div class="relative">
+                                <button @click="sectorselect = !sectorselect" id="department" class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2">
+                                    {{ sectorNameSelected }}
+                                </button>
+
+                                <div v-if="sectorselect" class="border text-sm bg-white border-gray-200 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md">
+                                    <button class="block focus:outline-none w-full my-1 text-right" @click="get_sides(sector.id, sector.section_Name ); sectorselect = !sectorselect" v-for="sector in sectors" :key="sector.id">
+                                        {{ sector.section_Name }}    
+                                    </button>
+                                </div>
+                            </div>
+                            
                         </div>
 
                         <div class="sm:col-span-3">
@@ -603,17 +619,32 @@
                                 الجهة
                             </label>
                             <select v-model="send_to_side" id="send_to_side" class="block mt-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2">
-                                <option value="مقال صحفي">
-                                    مقال صحفي
+                                <option v-for="side in sides" :key="side.id"  :value="side.id">
+                                    {{ side.section_Name }}
                                 </option>
-                                <option value="مقال صحفي">
-                                    مقال صحفي
-                                </option>
+                                
                             </select>
                         </div>
+
                     </div>
 
-                    <div v-if="mailType == 'وارد خارجي' " class="sm:col-span-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 rounded-md">
+                    <div v-if="mailType == 'صادر خارجي'" class="sm:col-span-6">
+                        <label
+                        for="action_required"
+                        class="block text-base font-semibold text-gray-800"
+                        >
+                         الإجراء المطلوب من الجهة
+                        </label>
+                        <textarea
+                            v-model="action_required_by_the_entity"
+                            id="action_required"
+                            rows="3"
+                            class="block mt-2 w-full text-sm rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        >
+                        </textarea>
+                    </div>
+
+                    <div v-if="mailType == 'وارد خارجي' " class="sm:col-span-6 grid grid-cols-1 mt-6 gap-y-6 gap-x-4 sm:grid-cols-6 rounded-md">
                         <fieldset class="sm:col-span-3">
                             <div class="flex items-center">
 
@@ -698,40 +729,6 @@
                             </div>
                         </fieldset>
 
-                        <div class="sm:col-span-3">
-                            <label
-                                for="send_to_sector_ward"
-                                class="block text-base font-semibold text-gray-800"
-                            >
-                                القطاع
-                            </label>
-                            <select v-model="send_to_sector_ward" id="send_to_sector_ward" class="block mt-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2">
-                                <option value="مقال صحفي">
-                                    مقال صحفي
-                                </option>
-                                <option value="مقال صحفي">
-                                    مقال صحفي
-                                </option>
-                            </select>
-                        </div>
-
-                        <div class="sm:col-span-3">
-                            <label
-                                for="send_to_side_ward"
-                                class="block text-base font-semibold text-gray-800"
-                            >
-                                الجهة
-                            </label>
-                            <select v-model="send_to_side_ward" id="send_to_side_ward" class="block mt-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2">
-                                <option value="مقال صحفي">
-                                    مقال صحفي
-                                </option>
-                                <option value="مقال صحفي">
-                                    مقال صحفي
-                                </option>
-                            </select>
-                        </div>
-
                         <div class="sm:col-span-2">
                             <label
                                 for="entity_mail_date"
@@ -772,10 +769,10 @@
                                 نوع الإجراء
                             </label>
                             <select v-model="procedure_type" id="procedure_type" class="block mt-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2">
-                                <option value="لم تعرض">
+                                <option value="1">
                                     لم تعرض
                                 </option>
-                                <option value="مقال صحفي">
+                                <option value="2">
                                     مقال صحفي
                                 </option>
                             </select>
@@ -1083,9 +1080,24 @@ export default {
 
         userId: this.$authenticatedUser.userId,
 
+        action_required_by_the_entity:'',
+        mail_forwarding:'',
 
+        send_to_sector:'',
 
+        sectors:[],
+        sectorselect : false,
+        sectorNameSelected: '',
+        sectorIdSelected: '',
 
+        sides:[],
+        send_to_side:'',
+
+        entity_reference_number:'',
+        procedure_type:'',
+        entity_mail_date:'',
+        mail_ward_type:'',
+        ward_to:'',
 
 
 
@@ -1102,15 +1114,14 @@ export default {
         
         
         mail_num:'1955 - 12 -2021',
-        mail_forwarding:'',
-        send_to_sector:'',
-        send_to_side:'',
-        ward_to:'',
-        mail_ward_type:'',
+        
+        
+        
+        
+        
         send_to_sector_ward:'',
-        entity_mail_date:'',
-        entity_reference_number:'',
-        procedure_type:'',
+        
+        
         
         
         
@@ -1146,6 +1157,32 @@ export default {
     };
   },
   methods: {
+
+      get_sides(sector, sector_name){
+          this.sectorNameSelected = sector_name
+          this.$http.sectorsService
+            .GetSides(sector)
+            .then((res) => {
+                console.log(res)
+                this.sides = res.data 
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+      },
+
+      get_sectors(type){
+          this.$http.sectorsService
+            .GetSectors(type)
+            .then((res) => {
+                this.sectors = res.data 
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+      },
+
+      
 
         previousImage(){
             
@@ -1224,8 +1261,52 @@ export default {
         this.loading = true;
 
 
-        var info = {
-            "mail":{
+        if (this.mailType == 'داخلي'){
+            var info = {
+                "mail":{
+                    "Mail_Type": this.mailType,
+                    "userId":1,
+                    "department_Id":1,
+                    "Date_Of_Mail": this.releaseDate,
+                    "Mail_Summary": this.summary,
+                    "clasification": this.classification,
+                    "Genaral_inbox_Number": Number(this.general_incoming_number),
+                    "Genaral_inbox_year": Number(this.genaral_inbox_year),
+                    "ActionRequired": this.required_action,
+                },
+
+                "actionSenders":this.consignees,
+            }
+        }
+
+        if (this.mailType == 'صادر خارجي'){
+            var info = {
+                "mail":{
+                    "Mail_Type": this.mailType,
+                    "userId":1,
+                    "department_Id":1,
+                    "Date_Of_Mail": this.releaseDate,
+                    "Mail_Summary": this.summary,
+                    "clasification": this.classification,
+                    "Genaral_inbox_Number": Number(this.general_incoming_number),
+                    "Genaral_inbox_year": Number(this.genaral_inbox_year),
+                    "ActionRequired": this.required_action,
+                },
+
+                "actionSenders":this.consignees,
+
+                "external_Mail":{
+                    "action": Number(this.mail_forwarding),
+                    "Sectionid": this.send_to_side,
+                    "sectionName":'',
+                    "action_required_by_the_entity": this.action_required_by_the_entity
+                },
+            }
+        }
+
+        if (this.mailType == 'وارد خارجي'){
+            var info = {
+                "mail":{
                     "Mail_Type": this.mailType,
                     "userId":1,
                     "department_Id":1,
@@ -1240,20 +1321,20 @@ export default {
                 "actionSenders":this.consignees,
 
                 "extrenal_Inbox":{
-                    "to": this.mailType,
-                    "type":1,
-                    "SectionId":1,
-                    "section_Name": this.releaseDate,
-                    "action": this.summary,
+                    "action": Number(this.mail_forwarding),
+                    "Sectionid": this.send_to_side,
+                    "section_Name":'',
+                    "to": Number(this.ward_to),
+                    "type": Number(this.mail_ward_type),
+                    "Send_time": this.entity_mail_date,
+                    "entity_reference_number": Number(this.entity_reference_number),
+                    "procedure_type": Number(this.procedure_type),
                 },
-
-                "external_Mail":{
-                    "Sectionid": this.mailType,
-                    "sectionName":1,
-                    "action":1,
-                },
-
             }
+        }
+
+
+        
         this.$http.mailService
             .SaveMail(info)
             .then((res) => {

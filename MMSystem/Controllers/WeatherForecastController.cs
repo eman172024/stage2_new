@@ -42,45 +42,29 @@ namespace MMSystem.Controllers
 
 
         }
-        [HttpGet("Get/{id}")]
-        public async Task<IActionResult> Get(int id)
-        {
 
-            var c = await appDb.Extrmal_Sections.Where(x => x.perent  >0&&x.type==id).ToListAsync();
+
+
+
+        [HttpGet("GetSectors/{type}")]
+        public async Task<IActionResult> GetSectors(int type)
+        {
+            var c = await appDb.Extrmal_Sections.Where(x => x.type == type&&x.perent== 0).ToListAsync();
             if(c.Count>0)
             return Ok(c);
             return NotFound("لايوجد بيانات");
-
-
-
-            //return spcefic value 
-        }
-        [HttpGet("GetAll/{id}")]
-        public async Task<IActionResult> GetAll(int id)
-        {
-
-            var c = await appDb.Extrmal_Sections.Where(x=>x.perent==id).ToListAsync();
-
-            if(c.Count>0)
-            return Ok(c);
-            return NotFound("لايوجد بيانات");
-
-
-
         }
 
+     
 
-        [HttpGet("GetParent/{id}")]
-        public async Task<IActionResult> GetParent(int id)
+        [HttpGet("GetSides/{id}")]
+        public async Task<IActionResult> GetSides(int id)
         {
+            var c = await appDb.Extrmal_Sections.Where(x => x.perent == id).ToListAsync();
 
-            var c = await appDb.Extrmal_Sections.Where(x => x.type == id&&x.perent== 0).ToListAsync();
-            if(c.Count>0)
-            return Ok(c);
+            if (c.Count > 0)
+                return Ok(c);
             return NotFound("لايوجد بيانات");
-
-
-
         }
 
     }

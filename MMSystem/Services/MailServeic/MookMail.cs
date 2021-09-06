@@ -182,10 +182,14 @@ namespace MMSystem.Services.MailServeic
                                     bool send = await _sender.Add(sender);
                                 }
                                 result = true;
+                                break;
 
                             }
-                            _appContext.Mails.Remove(mail.mail);
-                            await _appContext.SaveChangesAsync();
+                            
+                                _appContext.Mails.Remove(mail.mail);
+                                await _appContext.SaveChangesAsync();
+                            
+                            
 
 
 
