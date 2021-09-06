@@ -17,7 +17,7 @@ namespace MMSystem.Services
 {
      public interface IAdministratorInterface : GenericInterface<Administrator,AdministratorDto>
     {
-        Task<Administrator> login(Login user1);
+        Task<AdministratorDto> login(Login user1);
         Task<PageintoinAdmin> GetAdministrator(int page, int pageSize);
     }
 }
