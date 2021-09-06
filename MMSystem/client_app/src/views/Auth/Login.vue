@@ -48,7 +48,7 @@
                             <span class="font-bold">
                                {{ user.name }} &nbsp;
                             </span>
-                             مرحبا بك مجدداَ في منظومة الجوازات. 
+                             مرحبا بك مجدداَ في منظومة البريد. 
                         </div>
 
                         <div class="">

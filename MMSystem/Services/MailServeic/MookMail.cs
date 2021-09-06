@@ -561,6 +561,9 @@ namespace MMSystem.Services.MailServeic
                 if (System.IO.File.Exists(res.path))
                 {
                     System.IO.File.Delete(res.path);
+
+                     _appContext.Mail_Resourcescs.Remove(res);
+                    await _appContext.SaveChangesAsync();
                     
                     return true;
                 }
