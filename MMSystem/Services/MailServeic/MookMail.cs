@@ -834,65 +834,75 @@ namespace MMSystem.Services.MailServeic
             throw new NotImplementedException();
         }
 
-        public async Task<MailVM> GetMailById(int id)
+        public async Task<dynamic> GetMailById(int id)
         {
 
             try
             {
 
-                {
+
+
+                
                     MailVM mail = new MailVM();
+                ExMail ex = new ExMail();
+                ExInbox inbox = new ExInbox();
 
 
                     MailDto dto = await Get(id);
                     if (dto != null)
                     {
+                    switch (dto.Mail_Type) {
 
+                        case "داخلي":
+                            mail.mailDto = dto;
+                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mailDto.MailID).ToListAsync();
 
-                        mail.mailDto = dto;
-                        List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mailDto.MailID).ToListAsync();
-
-                        ActionSender sender = new ActionSender();
-                        foreach (var item in sends)
-                        {
-                            Department departments = await _appContext.Departments.FindAsync(item.to);
-                            Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
-
-                            mail.actionSenders.Add(new ActionSender()
+                            ActionSender sender = new ActionSender();
+                            foreach (var item in sends)
                             {
+                                Department departments = await _appContext.Departments.FindAsync(item.to);
+                                Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
+
+                                mail.actionSenders.Add(new ActionSender()
+                                {
 
 
-                                departmentName = departments.DepartmentName,
-                                measureId = item.type_of_send,
-                                measureName = measures.MeasuresName,
-                                departmentId = departments.Id
+                                    departmentName = departments.DepartmentName,
+                                    measureId = item.type_of_send,
+                                    measureName = measures.MeasuresName,
+                                    departmentId = departments.Id
+                                }
+                                
+                                );
+
+                                mail.resourcescs = await _resourcescs.GetAll(mail.mailDto.MailID);
+
+
+                                foreach (var xx in mail.resourcescs)
+                                {
+                                    string x = xx.path;
+                                    xx.path = await bas(x);
+
+                                }
+
+
                             }
 
 
 
-
-                            );
-
-                            mail.resourcescs = await _resourcescs.GetAll(mail.mailDto.MailID);
+                            return mail;
 
 
-                            foreach (var xx in mail.resourcescs)
-                            {
-                                string x = xx.path;
-                                xx.path = await bas(x);
-
-                            }
+                            break;
+                        case "":break;
+                        case "dd":break;
+                        default:break;
 
 
+                    
+                    }
 
-
-                        }
-
-
-
-
-
-                        return mail;
+                      
 
 
                     }
@@ -900,7 +910,7 @@ namespace MMSystem.Services.MailServeic
 
                     return null;
                 }
-            }
+            
 
 
             catch (Exception)

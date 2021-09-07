@@ -23,7 +23,7 @@ namespace MMSystem.Services.MailServeic
      Task<int> GetLastMailNumber(int id,string mailType);
 
 
-        Task<MailVM> GetMailById(int id);
+        Task<dynamic> GetMailById(int id);
 
       Task<List<MailDto>> getExternalMail(int id);
         Task<List<MailDto>> getExternalInbox(int id);
