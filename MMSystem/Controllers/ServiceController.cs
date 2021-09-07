@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MMSystem.Model;
+using MMSystem.Model.Dto;
 using MMSystem.Services;
 using System;
 using System.Collections.Generic;
@@ -14,26 +15,26 @@ namespace MMSystem.Controllers
     [ApiController]
     public class ServiceController : ControllerBase
     {
-        private readonly GenericInterface<Measures, Measures> _measures;
-        private readonly GenericInterface<ClasificationSubject, ClasificationSubject> _ClasificationSubject;
+        private readonly GenericInterface<Measures, MeasuresDto> _measures;
+        private readonly GenericInterface<ClasificationSubject, ClasificationSubjectDto> _ClasificationSubject;
 
-        public ServiceController(GenericInterface<Measures, Measures> measures,
-            GenericInterface<ClasificationSubject, ClasificationSubject> clasificationSubject)
+        public ServiceController(GenericInterface<Measures, MeasuresDto> measures,
+            GenericInterface<ClasificationSubject, ClasificationSubjectDto> clasificationSubject)
         {
             _measures = measures;
             _ClasificationSubject = clasificationSubject;
         }
         // GET: api/<ServiceController>
-        [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("GetAllMeasures")]
+        public async Task<IActionResult> GetAllMeasures()
         {
-            List<Measures> list = await _measures.GetAll();
+            List<MeasuresDto> list = await _measures.GetAll();
             return Ok(list);
         }
-        [HttpGet("GetAllClassFication")]
-        public async Task<IActionResult> GetAllClassFication()
+        [HttpGet("GetAllClassification")]
+        public async Task<IActionResult> GetAllClassification()
         {
-            List<ClasificationSubject> list = await _ClasificationSubject.GetAll();
+            List<ClasificationSubjectDto> list = await _ClasificationSubject.GetAll();
             return Ok(list);
         }
 
@@ -42,7 +43,7 @@ namespace MMSystem.Controllers
         [HttpGet("Get/{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            Measures measures = await _measures.Get(id);
+            MeasuresDto measures = await _measures.Get(id);
             if (measures != null) {
 
                 return Ok(measures);
@@ -53,7 +54,7 @@ namespace MMSystem.Controllers
         [HttpGet("GetClassfication/{id}")]
         public async Task<IActionResult> GetClassfication(int id)
         {
-            ClasificationSubject model = await _ClasificationSubject.Get(id);
+            ClasificationSubjectDto model = await _ClasificationSubject.Get(id);
             if (model != null)
             {
 

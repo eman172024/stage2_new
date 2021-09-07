@@ -14,6 +14,8 @@ namespace MMSystem.Services.MailServeic
         Task<bool> Add(Send_to t);
         Task<bool> Send(int mailId);
         Task<bool> IsRead(int id);
+        Task<bool> Update(Send_to send_);
+        Task<bool> UpdateSenderList(UpdateVM update);
 
 
 

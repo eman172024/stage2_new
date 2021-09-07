@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Model.ViewModel
 {
-    public class ExternalViewModel
+    public class ReplyViewModel
     {
 
-        public List<ExMail> list { get; set; } = new List<ExMail>();
-        public int count { get; set; }
-
+        public int RepluId { get; set; }
+        public Reply reply { get; set; }
     }
 }

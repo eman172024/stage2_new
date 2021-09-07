@@ -1,5 +1,6 @@
 ﻿using MMSystem.Model;
 using MMSystem.Model.Dto;
+using MMSystem.Model.ViewModel;
 
 //
 //
@@ -16,7 +17,7 @@ namespace MMSystem.Services
 {
      public interface IAdministratorInterface : GenericInterface<Administrator,AdministratorDto>
     {
-        Task<AdministratorDto> login(Login user);
+        Task<AdministratorDto> login(Login user1);
         Task<PageintoinAdmin> GetAdministrator(int page, int pageSize);
     }
 }

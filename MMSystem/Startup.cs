@@ -14,6 +14,7 @@ using MMSystem.Services.Depart;
 using MMSystem.Services.MailServeic;
 using MMSystem.Services.MeasuresServeic;
 using MMSystem.Services.Section;
+using MMSystem.Services.ReplayServeic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,12 +43,14 @@ namespace MMSystem
             services.AddTransient<IMail_Resourcescs, MooKMail_Resourcescs>();
             services.AddTransient<IAdministratorInterface, MockAdministrator>();
             services.AddTransient<ISender, MookSender>();
-            services.AddTransient<GenericInterface<Measures, Measures>, MookMeasures>();
+            services.AddTransient<GenericInterface<Measures, MeasuresDto>, MookMeasures>();
+            services.AddTransient<IReplay, MookReplay>();
     
             services.AddTransient<GenericInterface<ClasificationSubject, ClasificationSubject>, MookClasificationSubject>();
             services.AddTransient<Idepartment, MocDepartment>();
             services.AddTransient<Generic2<Extrmal_Section, Extrmal_SectionDto>, MocSection>();
 
+            
 
         }
 
@@ -61,7 +64,7 @@ namespace MMSystem
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            
 
             app.UseRouting();
 

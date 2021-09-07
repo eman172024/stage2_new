@@ -32,14 +32,15 @@ namespace MMSystem.Migrations
                     b.Property<string>("FirstMACAddress")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Role")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("SecandMACAddress")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nationalNumber")
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.Property<string>("password")
                         .HasColumnType("nvarchar(max)");
@@ -136,6 +137,176 @@ namespace MMSystem.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Departments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DepartmentName = "مكتب رئيس الهيئة ",
+                            perent = 0,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DepartmentName = "مكتب مستشاري رئيس الهيئة",
+                            perent = 1,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DepartmentName = "مكتب الشؤون القانونية ودراسة التشريعات",
+                            perent = 1,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DepartmentName = "مكتب التفتيش وتقييم الاداء",
+                            perent = 1,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DepartmentName = "مكتب التخطيط",
+                            perent = 1,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DepartmentName = "مكتب التعاون الدولي والتواضل",
+                            perent = 1,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 7,
+                            DepartmentName = "مكتب المراجعة الداخلية",
+                            perent = 1,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 8,
+                            DepartmentName = "وحدة الحماية الشخصية",
+                            perent = 1,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 9,
+                            DepartmentName = "وحدة العلاقات الخاصة بمكتب الرئيس",
+                            perent = 1,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 10,
+                            DepartmentName = "مكتب وكيل الهيئة",
+                            perent = 0,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 11,
+                            DepartmentName = "مكتب التوثيق وتقنية المعلومات",
+                            perent = 10,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 12,
+                            DepartmentName = "مكتب التحري والمعلومات",
+                            perent = 10,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 13,
+                            DepartmentName = "مكتب الشؤون الإعلامية",
+                            perent = 10,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 14,
+                            DepartmentName = "الإدارات العامة الفنية والرقابية",
+                            perent = 0,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 15,
+                            DepartmentName = "الإدارة العامة للتحقيق",
+                            perent = 14,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 16,
+                            DepartmentName = "الإدارة العامة للرقابة على رئاسة الوزراء",
+                            perent = 14,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 17,
+                            DepartmentName = "الإدارة العامة للرقابة علي القطاعات الخدمية والأمنية",
+                            perent = 14,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 18,
+                            DepartmentName = "الإدارة العامة للرقابة علي القطاعات الإنتاجية والبنية الأساسية",
+                            perent = 14,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 19,
+                            DepartmentName = "الإدارة العامة للرقابة علي القطاعات الاقتصادية والاستثمار",
+                            perent = 14,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 20,
+                            DepartmentName = "الإدارة العامة للرقابة علي قطاع الخارجية",
+                            perent = 14,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 21,
+                            DepartmentName = "الإدارات العامة الخدمية",
+                            perent = 0,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 22,
+                            DepartmentName = "الإدارةالعامة للموارد البشرية",
+                            perent = 21,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 23,
+                            DepartmentName = "الإدارةالعامة للشؤون الإدارية والخدمات",
+                            perent = 21,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 24,
+                            DepartmentName = "الإدارةالعامة للشؤون المالية",
+                            perent = 21,
+                            state = true
+                        });
                 });
 
             modelBuilder.Entity("MMSystem.Model.External_Mail", b =>
@@ -153,6 +324,9 @@ namespace MMSystem.Migrations
 
                     b.Property<int>("action")
                         .HasColumnType("int");
+
+                    b.Property<string>("action_required_by_the_entity")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("sectionName")
                         .HasColumnType("nvarchar(max)");
@@ -186,14 +360,20 @@ namespace MMSystem.Migrations
                     b.Property<int>("action")
                         .HasColumnType("int");
 
+                    b.Property<int>("entity_reference_number")
+                        .HasColumnType("int");
+
+                    b.Property<int>("procedure_type")
+                        .HasColumnType("int");
+
                     b.Property<string>("section_Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("to")
                         .HasColumnType("int");
 
-                    b.Property<string>("type")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("type")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -221,9 +401,102 @@ namespace MMSystem.Migrations
                     b.Property<bool>("state")
                         .HasColumnType("bit");
 
+                    b.Property<int>("type")
+                        .HasColumnType("int");
+
                     b.HasKey("id");
 
                     b.ToTable("Extrmal_Sections");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            Section_Name = "فروع الهيئة ",
+                            perent = 0,
+                            state = true,
+                            type = 1
+                        },
+                        new
+                        {
+                            id = 2,
+                            Section_Name = "فرغ سبها ",
+                            perent = 1,
+                            state = true,
+                            type = 1
+                        },
+                        new
+                        {
+                            id = 3,
+                            Section_Name = "فرع مصراته ",
+                            perent = 1,
+                            state = true,
+                            type = 1
+                        },
+                        new
+                        {
+                            id = 4,
+                            Section_Name = "الشركات الوطنية ",
+                            perent = 0,
+                            state = true,
+                            type = 2
+                        },
+                        new
+                        {
+                            id = 5,
+                            Section_Name = "الشركة العامة للكهرباء  ",
+                            perent = 4,
+                            state = true,
+                            type = 2
+                        },
+                        new
+                        {
+                            id = 6,
+                            Section_Name = "شركة المياه والصرف الصحي ",
+                            perent = 4,
+                            state = true,
+                            type = 2
+                        },
+                        new
+                        {
+                            id = 7,
+                            Section_Name = "الشركات الاجنبية ",
+                            perent = 0,
+                            state = true,
+                            type = 2
+                        },
+                        new
+                        {
+                            id = 8,
+                            Section_Name = "Oil and Gas",
+                            perent = 7,
+                            state = true,
+                            type = 2
+                        },
+                        new
+                        {
+                            id = 9,
+                            Section_Name = "AVA",
+                            perent = 7,
+                            state = true,
+                            type = 2
+                        },
+                        new
+                        {
+                            id = 10,
+                            Section_Name = "ذات المسؤولية المحدودة",
+                            perent = 0,
+                            state = true,
+                            type = 3
+                        },
+                        new
+                        {
+                            id = 11,
+                            Section_Name = "النمو التقني",
+                            perent = 10,
+                            state = true,
+                            type = 3
+                        });
                 });
 
             modelBuilder.Entity("MMSystem.Model.Mail", b =>
@@ -238,6 +511,9 @@ namespace MMSystem.Migrations
 
                     b.Property<DateTime>("Date_Of_Mail")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Department_Id")
+                        .HasColumnType("int");
 
                     b.Property<int>("Genaral_inbox_Number")
                         .HasColumnType("int");
@@ -254,13 +530,7 @@ namespace MMSystem.Migrations
                     b.Property<string>("Mail_Type")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Management_Id")
-                        .HasColumnType("int");
-
                     b.Property<int>("clasification")
-                        .HasColumnType("int");
-
-                    b.Property<int>("currentYear")
                         .HasColumnType("int");
 
                     b.Property<bool>("state")
@@ -405,7 +675,7 @@ namespace MMSystem.Migrations
                     b.Property<string>("mail_detail")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("send_ToId")
+                    b.Property<int>("send_ToId")
                         .HasColumnType("int");
 
                     b.Property<bool>("state")
@@ -441,6 +711,103 @@ namespace MMSystem.Migrations
                     b.ToTable("Reply_Resources");
                 });
 
+            modelBuilder.Entity("MMSystem.Model.Role", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = 1,
+                            Name = "الإطلاع على السري"
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            Name = "استخدام الوارد الخارجي"
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            Name = "ارسال البريد الى"
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            Name = "الإطلاع على التقرير الإحصائى"
+                        },
+                        new
+                        {
+                            RoleId = 5,
+                            Name = "الصادر الجديد"
+                        },
+                        new
+                        {
+                            RoleId = 6,
+                            Name = "كتابة اجراءالأمين للرسالة"
+                        },
+                        new
+                        {
+                            RoleId = 7,
+                            Name = "الإطلاع على تقرير المتابعة"
+                        },
+                        new
+                        {
+                            RoleId = 8,
+                            Name = "الاستلام والسحب"
+                        },
+                        new
+                        {
+                            RoleId = 9,
+                            Name = "عرض الصورة"
+                        },
+                        new
+                        {
+                            RoleId = 10,
+                            Name = "الإطلاع على الوارد الجديد"
+                        },
+                        new
+                        {
+                            RoleId = 11,
+                            Name = "استخدام الصادر الخارجي"
+                        },
+                        new
+                        {
+                            RoleId = 12,
+                            Name = "الإطلاع على الردود السابقة"
+                        },
+                        new
+                        {
+                            RoleId = 13,
+                            Name = "اعادة الارسال"
+                        },
+                        new
+                        {
+                            RoleId = 14,
+                            Name = "الرد على الوار الجديد"
+                        },
+                        new
+                        {
+                            RoleId = 15,
+                            Name = "ردود الإدارات الفرعية"
+                        },
+                        new
+                        {
+                            RoleId = 16,
+                            Name = "استخدام البريد الداخلي"
+                        });
+                });
+
             modelBuilder.Entity("MMSystem.Model.Send_to", b =>
                 {
                     b.Property<int>("Id")
@@ -474,6 +841,28 @@ namespace MMSystem.Migrations
                     b.HasIndex("MailID");
 
                     b.ToTable("Sends");
+                });
+
+            modelBuilder.Entity("MMSystem.Model.UserRoles", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("userRoles");
                 });
 
             modelBuilder.Entity("MMSystem.Model.Administrator", b =>
@@ -551,7 +940,9 @@ namespace MMSystem.Migrations
                 {
                     b.HasOne("MMSystem.Model.Send_to", "send_To")
                         .WithMany("replies")
-                        .HasForeignKey("send_ToId");
+                        .HasForeignKey("send_ToId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("send_To");
                 });
@@ -559,7 +950,7 @@ namespace MMSystem.Migrations
             modelBuilder.Entity("MMSystem.Model.Reply_Resources", b =>
                 {
                     b.HasOne("MMSystem.Model.Reply", "Reply")
-                        .WithMany("MyProperty")
+                        .WithMany("_Resources")
                         .HasForeignKey("ReplyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -576,6 +967,30 @@ namespace MMSystem.Migrations
                         .IsRequired();
 
                     b.Navigation("Mail");
+                });
+
+            modelBuilder.Entity("MMSystem.Model.UserRoles", b =>
+                {
+                    b.HasOne("MMSystem.Model.Role", "Role")
+                        .WithMany("userRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MMSystem.Model.Administrator", "User")
+                        .WithMany("userRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MMSystem.Model.Administrator", b =>
+                {
+                    b.Navigation("userRoles");
                 });
 
             modelBuilder.Entity("MMSystem.Model.Department", b =>
@@ -599,7 +1014,12 @@ namespace MMSystem.Migrations
 
             modelBuilder.Entity("MMSystem.Model.Reply", b =>
                 {
-                    b.Navigation("MyProperty");
+                    b.Navigation("_Resources");
+                });
+
+            modelBuilder.Entity("MMSystem.Model.Role", b =>
+                {
+                    b.Navigation("userRoles");
                 });
 
             modelBuilder.Entity("MMSystem.Model.Send_to", b =>

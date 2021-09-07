@@ -12,16 +12,21 @@ namespace MMSystem.Model
         [Key]
         public int ID { get; set; }
 
-
-
         public int MailID { get; set; }
 
         [JsonIgnore]
+        
         public Mail Mail { get; set; }
-     public int Sectionid { get; set; }
+
         public Extrmal_Section Section { get; set; }
-        public string sectionName { get; set; }
+
         public int action { get; set; }
+
+        public int Sectionid { get; set; }
+        
+        public string sectionName { get; set; }
+       
+        public string action_required_by_the_entity { get; set; }
 
 
 

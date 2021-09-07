@@ -9,11 +9,10 @@ namespace MMSystem.Model.Dto
     {
         public int MailID { get; set; }
         public int Mail_Number { get; set; }
-        public int Management_Id { get; set; }
-        public int currentYear { get; set; }
-        public DateTime Date_Of_Mail { get; set; }
+        public int department_Id { get; set; }
+        public string Date_Of_Mail { get; set; }
         public string Mail_Summary { get; set; }
-        public string classification { get; set; }
+        public string clasification { get; set; }
         public string Mail_Type { get; set; }
         public int Genaral_inbox_Number { get; set; }
         public int Genaral_inbox_year { get; set; }

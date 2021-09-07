@@ -14,19 +14,31 @@ namespace MMSystem.Services.MailServeic
     {
 
 
+        Task<List<MailDto>> GetSevenMail();
+
         Task<bool> addMail( MailViewModel mail);
       
-        Task<bool> Upload(int id,List<IFormFile> listOfPhotes );
+     //   Task<bool> Upload(int id,List<IFormFile> listOfPhotes );
         Task<bool> UpdateFile(int id, List<IFormFile> listOfPhotes);
      Task<int> GetLastMailNumber(int id,string mailType);
+
+
+        Task<MailVM> GetMailById(int id);
 
       Task<List<MailDto>> getExternalMail(int id);
         Task<List<MailDto>> getExternalInbox(int id);
 
-        Task<List<Re>> Sendermail(int id);
-        Task<List<Re>> ResevidMail(int id);
+
         Task<Pagenation<MailDto>> PaganationList(int page,int PageSize,int id);
-      
+
+
+        Task<bool> Uplode(Uplode ss);
+        Task<bool> UpdateMail(MailViewModel mail);
+        Task<bool> DeletePhote(int id);
+        Task<bool> deleteSender(int mail_id, int departmentId);
+
+
+
 
     }
 }

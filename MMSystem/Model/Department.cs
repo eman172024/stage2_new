@@ -9,12 +9,13 @@ namespace MMSystem.Model
     public class Department
     {
         [Key]
-       
+
         public int Id { get; set; }
         public string DepartmentName { get; set; }
 
 
         public int perent { get; set; }
+
 
         public bool state { get; set; }
 
