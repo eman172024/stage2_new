@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MMSystem.Model;
 using MMSystem.Model.Dto;
+using MMSystem.Model.ViewModel;
 using MMSystem.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -76,7 +77,7 @@ namespace MMSystem.Controllers
         }
         [HttpPut]
         [Route("Update")]
-        public async Task<IActionResult> UpdateAdministrator([FromBody] Administrator id)
+        public async Task<IActionResult> UpdateAdministrator([FromBody] UserAddORUpdate id)
         {
             bool results = await _data.Update(id);
             if (results)
@@ -101,13 +102,13 @@ namespace MMSystem.Controllers
         [HttpPost]
         [Route("Add")]
 
-        public async Task<IActionResult> AddAdministrator([FromBody] Administrator user)
+        public async Task<IActionResult> AddAdministrator([FromBody] UserAddORUpdate user)
         {
         
-            user.password = BCrypt.Net.BCrypt.HashPassword(user.password);
+            user.Administrator.password = BCrypt.Net.BCrypt.HashPassword(user.Administrator.password);
 
              bool results = await _data.Add(user);
-            if (results)
+              if (results)
             
                 return Created("AddAdministrator", new Result() { message="تمت عملية الاضافة بنجاح", statusCode = 201 });
 
