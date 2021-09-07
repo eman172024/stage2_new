@@ -8,10 +8,6 @@ namespace MMSystem.Model.Dto
     public class MeasuresDto
     {
         public int MeasuresId { get; set; }
-
-     
-
-
         public string MeasuresName { get; set; }
 
     }
