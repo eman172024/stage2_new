@@ -18,6 +18,7 @@ namespace MMSystem.Model
 
         public Role Role { get; set; }
 
+        [ForeignKey("UserId")]
         public int UserId { get; set; }
 
         public Administrator User { get; set; }

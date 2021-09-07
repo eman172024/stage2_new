@@ -1,14 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
 using MMSystem.Model;
 using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel;
 using MMSystem.Services;
-//
-//using passport_aca.Model;
-
-//
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +12,7 @@ namespace MMSystem.Controllers
 {
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AuthController : Controller
     {
        public  AuthController(IAdministratorInterface users)
@@ -31,7 +25,7 @@ namespace MMSystem.Controllers
         public async Task<IActionResult> LoginUser([FromBody] Login user)
         {
          
-            UserView find = await _data.login(user);
+              UserView find = await _data.login(user);
 
                 if (find != null)
             

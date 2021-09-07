@@ -23,25 +23,42 @@ namespace MMSystem.Services {
         private AppDbCon _data { get; }
         private IMapper _mapper { get; }
 
-        public async Task<bool> Add(Administrator user)
+        public async Task<bool> Add(UserAddORUpdate user)
         {
            
             try
             {
+                UserRoles role = new UserRoles();
+
                 if (user != null)
                 {
-                    user.state = true;
-                    await _data.Administrator.AddAsync(user);
-                    await _data.SaveChangesAsync();
-                
+                    Administrator FIndUsers = await _data.Administrator.FirstOrDefaultAsync(x=>x.nationalNumber==user.Administrator.nationalNumber);
+
+                    if (FIndUsers == null)
+                    {
+                        user.Administrator.state = true;
+                        await _data.Administrator.AddAsync(user.Administrator);
+                        await _data.SaveChangesAsync();
+
+                        foreach (var item in user.Listrole)
+                        {
+                            await _data.userRoles.AddAsync(new UserRoles
+                            {
+                                RoleId = item,
+                                UserId = user.Administrator.UserId
+                            });
+                            await _data.SaveChangesAsync();
+                        }
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
                     return true;
                 }
-                else
-                {
-
-                   
-                    return false;
-                }
+                return false;
 
             }
             catch (Exception)
@@ -49,6 +66,11 @@ namespace MMSystem.Services {
                 throw;
             }
 
+        }
+
+        public Task<bool> Add(Administrator t)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<bool> Delete(int id)
@@ -154,6 +176,8 @@ namespace MMSystem.Services {
         {
             try
             {
+                UserView view = new UserView();
+               
                 Administrator user = await _data.Administrator.FirstOrDefaultAsync(x => x.UserName == user1.UserName && x.state == true);
 
                 if (user != null)
@@ -164,27 +188,16 @@ namespace MMSystem.Services {
                     if (isValid)
                     {
 
-                        UserView us = await (from c in _data.Administrator.Where(x => x.UserName == user1.UserName && x.state == true)
-                                             join g in _data.userRoles on c.UserId equals g.UserId
+                        view.Administrator = _mapper.Map<Administrator, AdministratorDto>(user) ;
 
-                                             select new UserView
-                                             {
-                                                 Administrator = new AdministratorDto
-                                                 {
-                                                     UserId = c.UserId,
-                                                     UserName = c.UserName,
-                                                     DepartmentId = c.DepartmentId,
-                                                     FirstMACAddress = c.FirstMACAddress,
-                                                     nationalNumber = c.nationalNumber,
-                                                     SecandMACAddress = c.SecandMACAddress
-                                                 },
-                                                 Listrole = _data.Roles.Where(x => x.RoleId == g.RoleId).ToList()
-
-                                             }).FirstOrDefaultAsync();
-
-                                       return us;
+                        view.Listrole = await (from userrole in _data.userRoles.Where(x => x.UserId == user.UserId)
+                                               join
+                                               role in _data.Roles on userrole.RoleId equals role.RoleId
+                                               select role).ToListAsync();
+                                        return view;
                     }
-                  
+                      return null;
+
                 } return null;
 
             }
@@ -195,32 +208,60 @@ namespace MMSystem.Services {
             }
         }
 
-        public async Task<bool> Update(Administrator user)
+        public async Task<bool> Update(UserAddORUpdate user)
         {
 
             try
             {
-                Administrator UpdateUser = await _data.Administrator.FindAsync(user.UserId);
+                UserRoles role = new UserRoles();
+
+                UserAddORUpdate view = new UserAddORUpdate();
+
+                view.Administrator = await _data.Administrator.FindAsync(user.Administrator.UserId);
 
 
-                if (UpdateUser != null)
+                if (view.Administrator != null)
                 {
-                    UpdateUser.UserName = user.UserName;
-                    UpdateUser.password = user.password;
-                    UpdateUser.FirstMACAddress = user.FirstMACAddress;
-                    UpdateUser.SecandMACAddress = user.SecandMACAddress;
-                    UpdateUser.DepartmentId = user.DepartmentId;
-                    UpdateUser.nationalNumber = user.nationalNumber;
-                    UpdateUser.state = user.state;
-                    _data.Administrator.Update(UpdateUser);
+                   
+                   view.Administrator.UserName = user.Administrator.UserName;
+                   view.Administrator.password = user.Administrator.password;
+                   view.Administrator.FirstMACAddress = user.Administrator.FirstMACAddress;
+                   view.Administrator.SecandMACAddress = user.Administrator.SecandMACAddress;
+                   view.Administrator.DepartmentId = user.Administrator.DepartmentId;
+                   view.Administrator.nationalNumber = user.Administrator.nationalNumber;
+                   view.Administrator.state = user.Administrator.state;
+                   
+                    _data.Administrator.Update(view.Administrator);
                     await _data.SaveChangesAsync();
-                    return true;
+
+
+                    List<UserRoles> Listrol = await _data.userRoles.Where(x => x.UserId == user.Administrator.UserId).ToListAsync();
+
+                    foreach (var item in Listrol)
+                    {
+                        _data.userRoles.Remove(item);
+                        await _data.SaveChangesAsync();
+                    }
+                  
+
+                    if (user.Listrole.Count > 0)
+                    {
+                        foreach (var item in user.Listrole)
+                        {
+                     
+                            await _data.userRoles.AddAsync(new UserRoles { RoleId= item ,
+                            UserId=user.Administrator.UserId});
+                            await _data.SaveChangesAsync();
+                        }
+                        return true;
+
+                    }
+
+
+                    return false;
 
                 }
-                else
-                {
-                    return false;
-                }
+                return false;
 
             }
             catch (Exception)
@@ -228,6 +269,11 @@ namespace MMSystem.Services {
 
                 throw;
             }
+        }
+
+        public Task<bool> Update(Administrator model)
+        {
+            throw new NotImplementedException();
         }
     }
 }
