@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Services.MailServeic
 {
-   public interface IExternalMailcs:GenericInterface<External_Mail, ExMail>
+   public interface IExternalMailcs:GenericInterface<External_Mail, ExternalDto>
     {
     }
 }
