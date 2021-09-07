@@ -13,7 +13,7 @@ namespace MMSystem.Model
         public int Id { get; set; }
 
         public int MailID { get; set; }
-        [JsonIgnore]
+
         
         public Mail Mail { get; set; }
 
