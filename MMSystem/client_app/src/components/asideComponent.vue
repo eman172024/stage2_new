@@ -9,7 +9,7 @@
                 <div class="flex-grow mt-5 flex flex-col">
                     <nav class="flex-1 bg-gray-50 px-2 space-y-1">
                         <!-- Current: "bg-gray-100 text-gray-900", Default: "text-gray-600 hover:bg-gray-50 hover:text-gray-900" -->
-                        <router-link :to="{ name: 'Dashboard' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
+                        <router-link :to="{ name: 'dashboard' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
                             <!--
                                 Heroicon name: outline/home
 
@@ -24,7 +24,7 @@
                             
                         </router-link>
 
-                        <router-link :to="{ name: 'Login' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
+                        <router-link :to="{ name: 'login' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
                             <!-- Heroicon name: outlineAdministrators -->
                             <svg class="text-gray-400 group-hover:text-gray-500 ml-3 h-6 w-6 fill-current" viewBox="0 0 512.002 512.002" >
                                 <path d="M360.241,384.596l-213.365-0.031c-5.885,0-10.667,4.771-10.667,10.667c0,5.885,4.771,10.667,10.667,10.667l213.365,0.031
@@ -52,7 +52,7 @@
                             </span>
                         </router-link>
 
-                        <router-link :to="{ name: 'Login' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
+                        <router-link :to="{ name: 'login' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
                             <!-- Heroicon name: outline/Administrators -->
                             <svg class="text-gray-400 group-hover:text-gray-500 ml-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -63,7 +63,7 @@
                             
                         </router-link>
 
-                        <router-link :to="{ name: 'Login' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
+                        <router-link :to="{ name: 'login' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
                             <!-- Heroicon name: outline/chart-bar -->
                             <svg class="text-gray-400 group-hover:text-gray-500 ml-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />

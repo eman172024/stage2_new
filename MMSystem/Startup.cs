@@ -10,8 +10,10 @@ using Microsoft.Extensions.Logging;
 using MMSystem.Model;
 using MMSystem.Model.Dto;
 using MMSystem.Services;
+using MMSystem.Services.Depart;
 using MMSystem.Services.MailServeic;
 using MMSystem.Services.MeasuresServeic;
+using MMSystem.Services.Section;
 using MMSystem.Services.ReplayServeic;
 using System;
 using System.Collections.Generic;
@@ -44,9 +46,11 @@ namespace MMSystem
             services.AddTransient<GenericInterface<Measures, MeasuresDto>, MookMeasures>();
             services.AddTransient<IReplay, MookReplay>();
     
-            services.AddTransient<GenericInterface<ClasificationSubject, ClasificationSubjectDto>, MookClasificationSubject>();
+            services.AddTransient<GenericInterface<ClasificationSubject, ClasificationSubject>, MookClasificationSubject>();
+            services.AddTransient<Idepartment, MocDepartment>();
+            services.AddTransient<Generic2<Extrmal_Section, Extrmal_SectionDto>, MocSection>();
 
-
+            
 
         }
 
@@ -60,7 +64,7 @@ namespace MMSystem
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            
 
             app.UseRouting();
 

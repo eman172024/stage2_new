@@ -9,8 +9,11 @@ namespace MMSystem.Model.Dto
     {
         public int ID { get; set; }
         public int MailID { get; set; }
-      
+        public int order { get; set; }
+
+
         public string path { get; set; }
+
        
 
     }

@@ -71,6 +71,135 @@ namespace MMSystem.Model
                 new Role { RoleId = 14, Name = "الرد على الوار الجديد" },
                 new Role { RoleId = 15, Name = "ردود الإدارات الفرعية" },
                 new Role { RoleId = 16, Name = "استخدام البريد الداخلي" });
+
+
+            modelBuilder.Entity<Department>().HasData
+                (
+                
+                new Department { Id=1,DepartmentName="مكتب رئيس الهيئة ",perent=0,state=true},
+                new Department { Id =2, DepartmentName = "مكتب مستشاري رئيس الهيئة", perent =1, state = true },
+                new Department { Id =3, DepartmentName = "مكتب الشؤون القانونية ودراسة التشريعات", perent =1, state = true },
+                new Department { Id =4, DepartmentName = "مكتب التفتيش وتقييم الاداء", perent =1, state = true },
+                new Department { Id =5, DepartmentName = "مكتب التخطيط", perent =1, state = true },
+                 new Department { Id =6, DepartmentName = "مكتب التعاون الدولي والتواضل", perent =1, state = true },
+                 new Department { Id =7, DepartmentName = "مكتب المراجعة الداخلية", perent =1, state = true },
+                new Department { Id =8, DepartmentName = "وحدة الحماية الشخصية", perent =1, state = true },
+                new Department { Id =9, DepartmentName = "وحدة العلاقات الخاصة بمكتب الرئيس", perent =1, state = true },
+                 new Department { Id =10, DepartmentName = "مكتب وكيل الهيئة", perent =0, state = true },
+                 new Department { Id =11, DepartmentName = "مكتب التوثيق وتقنية المعلومات", perent =10, state = true },
+                 new Department { Id = 12, DepartmentName = "مكتب التحري والمعلومات", perent =10, state = true },
+                new Department { Id =13, DepartmentName = "مكتب الشؤون الإعلامية", perent =10, state = true },
+                 new Department { Id = 14, DepartmentName = "الإدارات العامة الفنية والرقابية", perent =0, state = true },
+                 new Department { Id = 15, DepartmentName = "الإدارة العامة للتحقيق", perent =14, state = true },
+                   new Department { Id = 16, DepartmentName = "الإدارة العامة للرقابة على رئاسة الوزراء", perent =14, state = true },
+                new Department { Id = 17, DepartmentName = "الإدارة العامة للرقابة علي القطاعات الخدمية والأمنية", perent =14, state = true },
+                 new Department { Id = 18, DepartmentName = "الإدارة العامة للرقابة علي القطاعات الإنتاجية والبنية الأساسية", perent =14, state = true },
+                 new Department { Id = 19, DepartmentName = "الإدارة العامة للرقابة علي القطاعات الاقتصادية والاستثمار", perent =14, state = true },
+                  new Department { Id = 20, DepartmentName = "الإدارة العامة للرقابة علي قطاع الخارجية", perent =14, state = true },
+                 new Department { Id = 21, DepartmentName = "الإدارات العامة الخدمية", perent =0, state = true },
+                 new Department { Id = 22, DepartmentName = "الإدارةالعامة للموارد البشرية", perent =21, state = true },
+                 new Department { Id = 23, DepartmentName = "الإدارةالعامة للشؤون الإدارية والخدمات", perent = 21, state = true },
+                 new Department { Id = 24, DepartmentName = "الإدارةالعامة للشؤون المالية", perent = 21, state = true }
+
+                                         );
+
+
+            modelBuilder.Entity<Extrmal_Section>().HasData(
+
+                new Extrmal_Section
+                {
+                    id = 1,
+                    type = 1,
+                    Section_Name = "فروع الهيئة ",
+                    perent=0,
+                    state=true
+                },
+                new Extrmal_Section
+                {
+                    id = 2,
+                    type = 1,
+                    Section_Name = "فرغ سبها ",
+                    perent =1,
+                    state = true
+                }, 
+                new Extrmal_Section
+                {
+                    id = 3,
+                    type = 1,
+                    Section_Name = "فرع مصراته ",
+                    perent = 1,
+                    state = true
+                },
+
+                new Extrmal_Section
+                {
+                    id = 4,
+                    type = 2,
+                    Section_Name = "الشركات الوطنية ",
+                    perent = 0,
+                    state = true
+                },
+                new Extrmal_Section
+                {
+                    id = 5,
+                    type = 2,
+                    Section_Name = "الشركة العامة للكهرباء  ",
+                    perent =4,
+                    state = true
+                },
+                new Extrmal_Section
+                 {
+                     id = 6,
+                     type = 2,
+                     Section_Name = "شركة المياه والصرف الصحي ",
+                     perent = 4,
+                     state = true
+                 },
+                 
+                new Extrmal_Section
+                {
+                    id = 7,
+                    type = 2,
+                    Section_Name = "الشركات الاجنبية ",
+                    perent = 0,
+                    state = true
+                },
+                new Extrmal_Section
+                 {
+                     id = 8,
+                     type = 2,
+                     Section_Name = "Oil and Gas",
+                     perent = 7,
+                     state = true
+                 },
+                new Extrmal_Section
+                {
+                    id = 9,
+                    type = 2,
+                    Section_Name = "AVA",
+                    perent = 7,
+                    state = true
+                },
+
+                new Extrmal_Section
+                {
+                    id = 10,
+                    type = 3,
+                    Section_Name = "ذات المسؤولية المحدودة",
+                    perent = 0,
+                    state = true
+                },
+                new Extrmal_Section
+                {
+                    id = 11,
+                    type = 3,
+                    Section_Name = "النمو التقني",
+                    perent = 10,
+                    state = true
+                }
+
+                ); 
+
             base.OnModelCreating(modelBuilder);
         }
 

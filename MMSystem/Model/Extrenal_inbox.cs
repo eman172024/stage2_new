@@ -11,23 +11,29 @@ namespace MMSystem.Model
     {
         [Key]
         public int Id { get; set; }
-    
-        public int to { get; set; }
-        public string type { get; set; }
-        public DateTime Send_time { get; set; }
-     
-
 
         public int MailID { get; set; }
         [JsonIgnore]
+        
         public Mail Mail { get; set; }
-        public int SectionId { get; set; }
-    
+
         public Extrmal_Section Section { get; set; }
-        public string section_Name { get; set; }
 
         public int action { get; set; }
 
+        public int SectionId { get; set; }
+
+        public string section_Name { get; set; }
+
+        public int to { get; set; }
+
+        public int type { get; set; }
+
+        public DateTime Send_time { get; set; }
+
+        public int entity_reference_number { get; set; }
+
+        public int procedure_type { get; set; }
 
     }
 }

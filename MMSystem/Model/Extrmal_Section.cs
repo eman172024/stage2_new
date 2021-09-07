@@ -14,6 +14,9 @@ namespace MMSystem.Model
         //
         public int perent { get; set; }
         public bool state { get; set; }
+        public int type { get; set; }
+
+       
 
         public List<Extrenal_inbox> Extrenal_Inboxes { get; set; }
         public List<External_Mail> External_Mails { get; set; }

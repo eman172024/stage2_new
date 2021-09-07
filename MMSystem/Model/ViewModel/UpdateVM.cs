@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Model.ViewModel
 {
-    public class ExternalViewModel
+    public class UpdateVM
     {
+        public int mail_id { get; set; }
+        public List<ActionSender> actionSenders { get; set; }
 
-        public List<ExMail> list { get; set; } = new List<ExMail>();
-        public int count { get; set; }
 
     }
 }

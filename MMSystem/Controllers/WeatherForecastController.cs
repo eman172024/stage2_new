@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MMSystem.Model;
 using MMSystem.Model.ViewModel;
@@ -19,37 +20,53 @@ using static System.Net.Mime.MediaTypeNames;
 namespace MMSystem.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+
+    [Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-      
+        private readonly AppDbCon appDb;
+
         public string sub { set; get; }
-        public WeatherForecastController( )
+        public WeatherForecastController(AppDbCon appDb)
         {
-           
+            this.appDb = appDb;
+        }
+
+        [HttpGet("GetAllDepartments")]
+        public async Task<IActionResult> GetAllDepartments()
+        {
+
+            var c = await appDb.Departments.ToListAsync();
+            return Ok(c);
+
+
 
         }
 
 
-        private static readonly string[] Summaries = new[]
+
+
+        [HttpGet("GetSectors/{type}")]
+        public async Task<IActionResult> GetSectors(int type)
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+            var c = await appDb.Extrmal_Sections.Where(x => x.type == type&&x.perent== 0).ToListAsync();
+            if(c.Count>0)
+            return Ok(c);
+            return NotFound("لايوجد بيانات");
+        }
 
      
-        
 
+        [HttpGet("GetSides/{id}")]
+        public async Task<IActionResult> GetSides(int id)
+        {
+            var c = await appDb.Extrmal_Sections.Where(x => x.perent == id).ToListAsync();
 
-
-
-
-
-
-
-
+            if (c.Count > 0)
+                return Ok(c);
+            return NotFound("لايوجد بيانات");
+        }
 
     }
- 
-   
 }
 

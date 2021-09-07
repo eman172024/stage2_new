@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Model.ViewModel
 {
-    public class Re
+    public class UplodeFile
     {
-        public int MailID { get; set; }
-        public string Mail_Summary { get; set; }
-        public int to { get; set; }
+        public string baseAs64 { get; set; }
 
+        public int index { get; set; }
     }
 }

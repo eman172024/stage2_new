@@ -154,11 +154,8 @@ namespace MMSystem.Services {
                 List<Administrator> listOfuser = await _data.Administrator.OrderByDescending(x => x.UserId ).Where(x => x.state == true).ToListAsync(); 
 
 
-                var config = new MapperConfiguration(mc => mc.CreateMap<Administrator, AdministratorDto>());
 
-                var maper = new Mapper(config);
-
-                var list = maper.Map<List<Administrator>, List<AdministratorDto>>(listOfuser);
+                var list = _mapper.Map<List<Administrator>, List<AdministratorDto>>(listOfuser);
 
                 return list;
             }
