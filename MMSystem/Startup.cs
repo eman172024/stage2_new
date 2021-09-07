@@ -46,7 +46,7 @@ namespace MMSystem
             services.AddTransient<GenericInterface<Measures, MeasuresDto>, MookMeasures>();
             services.AddTransient<IReplay, MookReplay>();
     
-            services.AddTransient<GenericInterface<ClasificationSubject, ClasificationSubject>, MookClasificationSubject>();
+            services.AddTransient<GenericInterface<ClasificationSubject, ClasificationSubjectDto>, MookClasificationSubject>();
             services.AddTransient<Idepartment, MocDepartment>();
             services.AddTransient<Generic2<Extrmal_Section, Extrmal_SectionDto>, MocSection>();
 
