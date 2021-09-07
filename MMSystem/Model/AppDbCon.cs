@@ -40,15 +40,10 @@ namespace MMSystem.Model
               new Measures { MeasuresId = 9, MeasuresName = "للتحقيق", state = true },
               new Measures { MeasuresId = 10, MeasuresName = "لامانع", state = true },
             new Measures { MeasuresId = 11, MeasuresName = "للاهتمام", state = true });
-            modelBuilder.Entity<ClasificationSubject>().HasData(
-                
-                new ClasificationSubject() {Id=1,Name="شكوى" ,state=true},
-                new ClasificationSubject() { Id = 2, Name = "مقال صحفي", state = true },
-                new ClasificationSubject() { Id = 3, Name = "ادارية", state = true },
-                new ClasificationSubject() { Id = 4, Name = "قرارات", state = true },
-                new ClasificationSubject() { Id = 5, Name = "اجتماعات", state = true },
-                new ClasificationSubject() { Id = 6, Name = "اخرى", state = true },
-                new ClasificationSubject() { Id = 7, Name = "تعميم", state = true });
+
+           
+
+           
             base.OnModelCreating(modelBuilder);
         }
 

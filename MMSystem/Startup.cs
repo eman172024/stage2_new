@@ -8,9 +8,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MMSystem.Model;
+using MMSystem.Model.Dto;
 using MMSystem.Services;
+using MMSystem.Services.Depart;
 using MMSystem.Services.MailServeic;
 using MMSystem.Services.MeasuresServeic;
+using MMSystem.Services.Section;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +45,8 @@ namespace MMSystem
             services.AddTransient<GenericInterface<Measures, Measures>, MookMeasures>();
     
             services.AddTransient<GenericInterface<ClasificationSubject, ClasificationSubject>, MookClasificationSubject>();
-
+            services.AddTransient<Idepartment, MocDepartment>();
+            services.AddTransient<Generic2<Extrmal_Section, Extrmal_SectionDto>, MocSection>();
 
 
         }

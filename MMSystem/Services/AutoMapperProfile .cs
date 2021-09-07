@@ -17,6 +17,9 @@ namespace MMSystem.Services
             CreateMap<Extrenal_inbox, Extrenal_inboxDto>();
             CreateMap<Administrator, AdministratorDto>();
          CreateMap<Mail_Resourcescs, Mail_ResourcescsDto>();
+            CreateMap<Department, DepartmentDto>();
+            CreateMap<Extrmal_Section, Extrmal_SectionDto>();
+            
 
         }
 
