@@ -9,7 +9,9 @@ namespace MMSystem.Model
     public class Administrator
     {[Key]
         public int UserId { get; set; }
+        [Required]
         public string UserName { get; set; }
+       
         public string password { get; set; } 
         public string FirstMACAddress { get; set; }
         public string SecandMACAddress { get; set; }

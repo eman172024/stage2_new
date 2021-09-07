@@ -9,9 +9,6 @@ namespace MMSystem.Model.ViewModel
     public class AllSectionReport
     {
         public List<MySectionReport> DepartmentName { get; set; }
-
      
-    
-      
     }
 }

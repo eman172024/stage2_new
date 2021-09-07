@@ -13,5 +13,13 @@ namespace MMSystem.Model.ViewModel
         public Extrenal_inboxDto extrenal { get; set; }
 
         public List<Mail_ResourcescsDto> resourcescsDto { get; set; }
+        public List<ActionSender> actionSenders { get; set; }
+        public ExInbox()
+        {
+            actionSenders = new List<ActionSender>();
+            resourcescsDto = new List<Mail_ResourcescsDto>() { };
+
+        }
+
     }
 }

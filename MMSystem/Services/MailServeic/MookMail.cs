@@ -16,13 +16,15 @@ namespace MMSystem.Services.MailServeic
     public class MookMail : IMailInterface
 
     {
+        dynamic c;
+
         private readonly AppDbCon _appContext;
 
         public string sub { get; set; }
 
         private IWebHostEnvironment iwebHostEnvironment;
 
-        public IExternalMailcs _external { get; }
+        private IExternalMailcs _external;
 
 
         private readonly IMapper _mapper;
@@ -840,66 +842,50 @@ namespace MMSystem.Services.MailServeic
             try
             {
 
+
+                MailVM mail = new MailVM();
+                ExMail ex = new ExMail();
+                ExInbox inbox = new ExInbox();
+
+
+                MailDto dto = await Get(id);
+                if (dto != null)
                 {
-                    MailVM mail = new MailVM();
 
+                    mail.mailDto = dto;
+                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mailDto.MailID).ToListAsync();
 
-                    MailDto dto = await Get(id);
-                    if (dto != null)
+                    ActionSender sender = new ActionSender();
+                    foreach (var item in sends)
                     {
+                        Department departments = await _appContext.Departments.FindAsync(item.to);
+                        Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
 
-
-                        mail.mailDto = dto;
-                        List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mailDto.MailID).ToListAsync();
-
-                        ActionSender sender = new ActionSender();
-                        foreach (var item in sends)
+                        mail.actionSenders.Add(new ActionSender()
                         {
-                            Department departments = await _appContext.Departments.FindAsync(item.to);
-                            Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
 
-                            mail.actionSenders.Add(new ActionSender()
-                            {
-
-
-                                departmentName = departments.DepartmentName,
-                                measureId = item.type_of_send,
-                                measureName = measures.MeasuresName,
-                                departmentId = departments.Id
-                            }
-
-
-
-
-                            );
-
-                            mail.resourcescs = await _resourcescs.GetAll(mail.mailDto.MailID);
-
-
-                            foreach (var xx in mail.resourcescs)
-                            {
-                                string x = xx.path;
-                                xx.path = await bas(x);
-
-                            }
-
-
-
-
+                            departmentName = departments.DepartmentName,
+                            measureId = item.type_of_send,
+                            measureName = measures.MeasuresName,
+                            departmentId = departments.Id
                         }
 
+                        );
+                    }
+                    mail.resourcescs = await _resourcescs.GetAll(mail.mailDto.MailID);
 
 
-
-
-                        return mail;
-
+                    foreach (var xx in mail.resourcescs)
+                    {
+                        string x = xx.path;
+                        xx.path = await bas(x);
 
                     }
+             
 
-
-                    return null;
+                    return mail;
                 }
+                return null;
             }
 
 
@@ -912,11 +898,146 @@ namespace MMSystem.Services.MailServeic
             }
 
 
-            
-       
-
-
         }
+
+        public async Task<ExMail> GetMailById1(int id)
+        {
+
+            try
+            {
+
+
+                MailVM mail = new MailVM();
+                ExMail ex = new ExMail();
+           
+
+                MailDto dto = await Get(id);
+                if (dto != null)
+                {
+
+
+
+
+
+                    ex.mail = dto;
+
+
+                    ex.External = await _external.Get(id);
+
+                    List<Send_to> sends = await _appContext.Sends.Where(x=>x.MailID==id).ToListAsync();
+
+                 
+                    foreach (var item in sends)
+                    {
+                        Department departments = await _appContext.Departments.FindAsync(item.to);
+                        Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
+
+                        ex.actionSenders.Add(new ActionSender()
+                        {
+
+                            departmentName = departments.DepartmentName,
+                            measureId = item.type_of_send,
+                            measureName = measures.MeasuresName,
+                            departmentId = departments.Id
+                        }
+
+                        );
+                    }
+                    ex.resourcescsDto = await _resourcescs.GetAll(id);
+
+
+                    foreach (var xx in ex.resourcescsDto)
+                    {
+                        string x = xx.path;
+                        xx.path = await bas(x);
+
+                    }
+
+
+                    return ex;
+                }
+                return null;
+            }
+
+
+            catch (Exception)
+            {
+
+                throw;
+
+
+            }
+        }
+
+        public async Task<ExInbox> GetMailById2(int id)
+        {
+
+            try
+            {
+
+
+                MailVM mail = new MailVM();
+                ExInbox ex = new ExInbox();
+
+                    MailDto dto = await Get(id);
+                if (dto != null)
+                {
+
+
+
+
+
+                    ex.mail = dto;
+
+
+                    ex.extrenal = await _extrenal_Inbox.Get(id);
+
+                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == id).ToListAsync();
+
+
+                    foreach (var item in sends)
+                    {
+                        Department departments = await _appContext.Departments.FindAsync(item.to);
+                        Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
+
+                        ex.actionSenders.Add(new ActionSender()
+                        {
+
+                            departmentName = departments.DepartmentName,
+                            measureId = item.type_of_send,
+                            measureName = measures.MeasuresName,
+                            departmentId = departments.Id
+                        }
+
+                        );
+                    }
+                    ex.resourcescsDto = await _resourcescs.GetAll(id);
+
+
+                    foreach (var xx in ex.resourcescsDto)
+                    {
+                        string x = xx.path;
+                        xx.path = await bas(x);
+
+                    }
+
+
+                    return ex;
+                }
+                return null;
+            }
+
+
+            catch (Exception)
+            {
+
+                throw;
+
+
+            }
+        }
+
+
 
         public async Task< string> bas(string patj) {
 
