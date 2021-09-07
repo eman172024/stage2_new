@@ -43,8 +43,12 @@ export default {
         return axios.delete(`/api/Mail/Delete/${mailId}`);
     },
 
-    GetMailById(mailId) {
-        return axios.get(`/api/Mail/GetMailById/${mailId}`);
+    // GetMailById(mailId) {
+    //     return axios.get(`/api/Mail/GetMailById/${mailId}`);
+    // },
+
+    GetMailById(id, type) {
+        return axios.get(`/api/Mail/GetMailById?id=${id}&type=${type}`);
     },
 
     DeleteDocument(id) {

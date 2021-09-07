@@ -1158,6 +1158,43 @@ export default {
   },
   methods: {
 
+      getMailById(){
+            this.$http.mailService
+            .GetMailById(this.mailId, '2')
+            .then((res) => {
+            console.log(res.data)
+
+                this.mail_Number = res.data.mail.mail_Number
+                this.department_Id = res.data.mail.department_Id
+                this.releaseDate = res.data.mail.date_Of_Mail
+                this.summary = res.data.mail.mail_Summary
+                this.classification = res.data.mail.clasification
+                this.mailType = res.data.mail.mail_Type
+                this.general_incoming_number = res.data.mail.genaral_inbox_Number
+                this.genaral_inbox_year = res.data.mail.genaral_inbox_year
+                this.required_action = res.data.mail.action_Required
+
+                this.consignees = res.data.actionSenders
+
+                this.imagesToShow = res.data.resourcescs
+
+
+                this.send_to_side = res.data.external.sectionid
+
+
+
+            //   this.GetDocmentForMail();
+            //   this.GetDocmentForMailToShow();
+
+
+            //   this.GetProcessingResponses()
+
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+        },
+
       get_sides(sector, sector_name){
           this.sectorNameSelected = sector_name
           this.$http.sectorsService
@@ -1407,38 +1444,7 @@ export default {
             });
         },
 
-        getMailById(){
-            this.$http.mailService
-            .GetMailById(this.mailId)
-            .then((res) => {
-            console.log(res.data)
-
-                this.mail_Number = res.data.mailDto.mail_Number
-                this.department_Id = res.data.mailDto.department_Id
-                this.releaseDate = res.data.mailDto.date_Of_Mail
-                this.summary = res.data.mailDto.mail_Summary
-                this.classification = res.data.mailDto.clasification
-                this.mailType = res.data.mailDto.mail_Type
-                this.general_incoming_number = res.data.mailDto.genaral_inbox_Number
-                this.genaral_inbox_year = res.data.mailDto.genaral_inbox_year
-                this.required_action = res.data.mailDto.action_Required
-
-                this.consignees = res.data.actionSenders
-
-                this.imagesToShow = res.data.resourcescs
-
-
-            //   this.GetDocmentForMail();
-            //   this.GetDocmentForMailToShow();
-
-
-            //   this.GetProcessingResponses()
-
-            })
-            .catch((err) => {
-            console.log(err)
-            });
-        },
+        
 
         scanToJpg() {
         scanner.scan(this.displayImagesOnPage, {

@@ -48,11 +48,11 @@ namespace MMSystem.Controllers
 
         // GET api/<MailController>/5
         [HttpGet("GetMailById")]
-        public async Task<IActionResult> GetMailById(int id,string name)
+        public async Task<IActionResult> GetMailById(int id,string type)
         {
-            switch (name) 
+            switch (type) 
             {
-                case "داخلي":
+                case "1":
                     MailVM mail = await _Imail.GetMailById(id);
                     if (mail != null)
                         c = mail;
@@ -61,7 +61,7 @@ namespace MMSystem.Controllers
                   
 
                   
-                case "صادر خارجي":
+                case "2":
 
                     var ddc = await _Imail.GetMailById1(id);
                     if (ddc != null)
@@ -69,7 +69,7 @@ namespace MMSystem.Controllers
                         c = ddc;
                     break;
 
-                case"وارد خارجي":
+                case"3":
 
                     var ccc = await _Imail.GetMailById2(id);
                     if (ccc != null)
