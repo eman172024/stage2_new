@@ -20,7 +20,7 @@
                                         <button class="bg-white p-4 hover:shadow focus:outline-none group">
                                             <div class="flex justify-between items-start">
                                                 <div class="">
-                                                    <p class="text-gray-900">إجمالي المعاملات</p>
+                                                    <p class="text-gray-900">إجمالي البريد</p>
                                                     <p class="font-bold text-gray-100 text-3xl mt-2 text-right">
                                                         {{ Reports.count_Of_all_transaction }}
                                                     </p>
@@ -37,7 +37,7 @@
                                         <button class="bg-white p-4 hover:shadow focus:outline-none group">
                                             <div class="flex justify-between items-start">
                                                 <div class="">
-                                                    <p class="text-gray-900">المعاملات المستلمة</p>
+                                                    <p class="text-gray-900">بريد صادر</p>
                                                     <p class="font-bold text-gray-100 text-3xl mt-2 text-right">
                                                         {{ Reports.count_Of_received }}
                                                     </p>
@@ -55,7 +55,7 @@
                                         <button class="bg-white p-4 hover:shadow focus:outline-none group">
                                             <div class="flex justify-between items-start">
                                                 <div class="">
-                                                    <p class="text-gray-900">المعاملات المحجوزة</p>
+                                                    <p class="text-gray-900">بريد وارد</p>
                                                     <p class="font-bold text-gray-100 text-3xl mt-2 text-right">
                                                         {{ Reports.count_Of_booking }}
                                                     </p>
@@ -78,7 +78,7 @@
 
                         <section>
                             <div class="px-4 sm:px-6 md:px-0 flex justify-between items-center">
-                                <h1 class="text-xl font-semibold text-gray-900">أحدث المعاملات</h1>
+                                <h1 class="text-xl font-semibold text-gray-900">أحدث البريد</h1>
                                 <router-link :to="{ name: 'mail' }" class="border border-g100text-gray-100 hover:text-g5bg-green-500 hover:border-g5bg-green-500 duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-medium focus:outline-none">
                                     إضافة +
                                 </router-link>

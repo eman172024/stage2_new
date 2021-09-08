@@ -24,6 +24,8 @@ namespace MMSystem.Services.MailServeic
 
 
         Task<MailVM> GetMailById(int id);
+        Task<ExMail> GetMailById1(int id);
+ Task<ExInbox> GetMailById2(int id);
 
       Task<List<MailDto>> getExternalMail(int id);
         Task<List<MailDto>> getExternalInbox(int id);

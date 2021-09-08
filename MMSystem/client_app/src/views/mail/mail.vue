@@ -17,7 +17,7 @@
                     رقم الرسالة 
 
                     <span class="mr-4 underline font-bold text-2xl">
-                        {{ mail_num }}
+                         {{mailId}}
                     </span>
                 </div>
             </div>
@@ -1158,6 +1158,43 @@ export default {
   },
   methods: {
 
+      getMailById(){
+            this.$http.mailService
+            .GetMailById(this.mailId, '2')
+            .then((res) => {
+            console.log(res.data)
+
+                this.mail_Number = res.data.mail.mail_Number
+                this.department_Id = res.data.mail.department_Id
+                this.releaseDate = res.data.mail.date_Of_Mail
+                this.summary = res.data.mail.mail_Summary
+                this.classification = res.data.mail.clasification
+                this.mailType = res.data.mail.mail_Type
+                this.general_incoming_number = res.data.mail.genaral_inbox_Number
+                this.genaral_inbox_year = res.data.mail.genaral_inbox_year
+                this.required_action = res.data.mail.action_Required
+
+                this.consignees = res.data.actionSenders
+
+                this.imagesToShow = res.data.resourcescs
+
+
+                this.send_to_side = res.data.external.sectionid
+
+
+
+            //   this.GetDocmentForMail();
+            //   this.GetDocmentForMailToShow();
+
+
+            //   this.GetProcessingResponses()
+
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+        },
+
       get_sides(sector, sector_name){
           this.sectorNameSelected = sector_name
           this.$http.sectorsService
@@ -1257,109 +1294,106 @@ export default {
         },
 
         saveMail() {
-        this.showAlert = true;
-        this.loading = true;
+            this.showAlert = true;
+            this.loading = true;
 
+            if (this.mailType == 'داخلي'){
+                var info = {
+                    "mail":{
+                        "Mail_Type": this.mailType,
+                        "userId":1,
+                        "department_Id":1,
+                        "Date_Of_Mail": this.releaseDate,
+                        "Mail_Summary": this.summary,
+                        "clasification": this.classification,
+                        "Genaral_inbox_Number": Number(this.general_incoming_number),
+                        "Genaral_inbox_year": Number(this.genaral_inbox_year),
+                        "ActionRequired": this.required_action,
+                    },
 
-        if (this.mailType == 'داخلي'){
-            var info = {
-                "mail":{
-                    "Mail_Type": this.mailType,
-                    "userId":1,
-                    "department_Id":1,
-                    "Date_Of_Mail": this.releaseDate,
-                    "Mail_Summary": this.summary,
-                    "clasification": this.classification,
-                    "Genaral_inbox_Number": Number(this.general_incoming_number),
-                    "Genaral_inbox_year": Number(this.genaral_inbox_year),
-                    "ActionRequired": this.required_action,
-                },
-
-                "actionSenders":this.consignees,
+                    "actionSenders":this.consignees,
+                }
             }
-        }
 
-        if (this.mailType == 'صادر خارجي'){
-            var info = {
-                "mail":{
-                    "Mail_Type": this.mailType,
-                    "userId":1,
-                    "department_Id":1,
-                    "Date_Of_Mail": this.releaseDate,
-                    "Mail_Summary": this.summary,
-                    "clasification": this.classification,
-                    "Genaral_inbox_Number": Number(this.general_incoming_number),
-                    "Genaral_inbox_year": Number(this.genaral_inbox_year),
-                    "ActionRequired": this.required_action,
-                },
+            if (this.mailType == 'صادر خارجي'){
+                var info = {
+                    "mail":{
+                        "Mail_Type": this.mailType,
+                        "userId":1,
+                        "department_Id":1,
+                        "Date_Of_Mail": this.releaseDate,
+                        "Mail_Summary": this.summary,
+                        "clasification": this.classification,
+                        "Genaral_inbox_Number": Number(this.general_incoming_number),
+                        "Genaral_inbox_year": Number(this.genaral_inbox_year),
+                        "ActionRequired": this.required_action,
+                    },
 
-                "actionSenders":this.consignees,
+                    "actionSenders":this.consignees,
 
-                "external_Mail":{
-                    "action": Number(this.mail_forwarding),
-                    "Sectionid": this.send_to_side,
-                    "sectionName":'',
-                    "action_required_by_the_entity": this.action_required_by_the_entity
-                },
+                    "external_Mail":{
+                        "action": Number(this.mail_forwarding),
+                        "Sectionid": this.send_to_side,
+                        "sectionName":'',
+                        "action_required_by_the_entity": this.action_required_by_the_entity
+                    },
+                }
             }
-        }
 
-        if (this.mailType == 'وارد خارجي'){
-            var info = {
-                "mail":{
-                    "Mail_Type": this.mailType,
-                    "userId":1,
-                    "department_Id":1,
-                    "Date_Of_Mail": this.releaseDate,
-                    "Mail_Summary": this.summary,
-                    "clasification": this.classification,
-                    "Genaral_inbox_Number": Number(this.general_incoming_number),
-                    "Genaral_inbox_year": Number(this.genaral_inbox_year),
-                    "ActionRequired": this.required_action,
-                },
+            if (this.mailType == 'وارد خارجي'){
+                var info = {
+                    "mail":{
+                        "Mail_Type": this.mailType,
+                        "userId":1,
+                        "department_Id":1,
+                        "Date_Of_Mail": this.releaseDate,
+                        "Mail_Summary": this.summary,
+                        "clasification": this.classification,
+                        "Genaral_inbox_Number": Number(this.general_incoming_number),
+                        "Genaral_inbox_year": Number(this.genaral_inbox_year),
+                        "ActionRequired": this.required_action,
+                    },
 
-                "actionSenders":this.consignees,
+                    "actionSenders":this.consignees,
 
-                "extrenal_Inbox":{
-                    "action": Number(this.mail_forwarding),
-                    "Sectionid": this.send_to_side,
-                    "section_Name":'',
-                    "to": Number(this.ward_to),
-                    "type": Number(this.mail_ward_type),
-                    "Send_time": this.entity_mail_date,
-                    "entity_reference_number": Number(this.entity_reference_number),
-                    "procedure_type": Number(this.procedure_type),
-                },
+                    "extrenal_Inbox":{
+                        "action": Number(this.mail_forwarding),
+                        "Sectionid": this.send_to_side,
+                        "section_Name":'',
+                        "to": Number(this.ward_to),
+                        "type": Number(this.mail_ward_type),
+                        "Send_time": this.entity_mail_date,
+                        "entity_reference_number": Number(this.entity_reference_number),
+                        "procedure_type": Number(this.procedure_type),
+                    },
+                }
             }
-        }
+            
+            this.$http.mailService
+                .SaveMail(info)
+                .then((res) => {
+                setTimeout(() => {
+                    // this.loading = false;
+                    // this.Successed = true;
+                    // this.addSuccessed = res.data.result.message;
+                    // this.documentSection = true;
+                    // this.proceduresSection = true;
 
+                    this.saveButton = false;
+                    this.sendButton = true;
+                    this.updataButton = true;
 
-        
-        this.$http.mailService
-            .SaveMail(info)
-            .then((res) => {
-            setTimeout(() => {
-                // this.loading = false;
-                // this.Successed = true;
-                // this.addSuccessed = res.data.result.message;
-                // this.documentSection = true;
-                // this.proceduresSection = true;
+                    this.mailId = res.data.mailId
 
-                this.saveButton = false;
-                this.sendButton = true;
-                this.updataButton = true;
-
-                this.mailId = res.data.mailId
-
-            }, 500);
-            })
-            .catch((err) => {
-            setTimeout(() => {
-                this.loading = false;
-                this.Successed = false;
-                this.addErorr = err.message; 
-            }, 500);
-            });
+                }, 500);
+                })
+                .catch((err) => {
+                    setTimeout(() => {
+                        this.loading = false;
+                        this.Successed = false;
+                        this.addErorr = err.message; 
+                    }, 500);
+                });
         },
 
         sendMail(){
@@ -1410,38 +1444,7 @@ export default {
             });
         },
 
-        getMailById(){
-            this.$http.mailService
-            .GetMailById(this.mailId)
-            .then((res) => {
-            console.log(res.data)
-
-                this.mail_Number = res.data.mailDto.mail_Number
-                this.department_Id = res.data.mailDto.department_Id
-                this.releaseDate = res.data.mailDto.date_Of_Mail
-                this.summary = res.data.mailDto.mail_Summary
-                this.classification = res.data.mailDto.clasification
-                this.mailType = res.data.mailDto.mail_Type
-                this.general_incoming_number = res.data.mailDto.genaral_inbox_Number
-                this.genaral_inbox_year = res.data.mailDto.genaral_inbox_year
-                this.required_action = res.data.mailDto.action_Required
-
-                this.consignees = res.data.actionSenders
-
-                this.imagesToShow = res.data.resourcescs
-
-
-            //   this.GetDocmentForMail();
-            //   this.GetDocmentForMailToShow();
-
-
-            //   this.GetProcessingResponses()
-
-            })
-            .catch((err) => {
-            console.log(err)
-            });
-        },
+        
 
         scanToJpg() {
         scanner.scan(this.displayImagesOnPage, {

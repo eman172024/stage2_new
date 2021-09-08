@@ -44,18 +44,42 @@ namespace MMSystem.Controllers
             List<MailDto> mails =await _Imail.GetAll();
             return Ok(mails);
         }
+        dynamic c;
 
         // GET api/<MailController>/5
-        [HttpGet("GetMailById/{id}")]
-        public async Task<IActionResult> GetMailById(int id)
+        [HttpGet("GetMailById")]
+        public async Task<IActionResult> GetMailById(int id,string type)
         {
-            MailVM mail =await  _Imail.GetMailById(id);
-            if (mail != null) 
-                return Ok(mail);
+            switch (type) 
+            {
+                case "1":
+                    MailVM mail = await _Imail.GetMailById(id);
+                    if (mail != null)
+                        c = mail;
+                    break;
+             
+                  
 
+                  
+                case "2":
 
-         return NotFound(  new Result { message="لايوجد بريد ",
-         statusCode=404});
+                    var ddc = await _Imail.GetMailById1(id);
+                    if (ddc != null)
+
+                        c = ddc;
+                    break;
+
+                case"3":
+
+                    var ccc = await _Imail.GetMailById2(id);
+                    if (ccc != null)
+                        c = ccc;
+                    break;
+                   
+            }
+            if(c!=null)
+            return Ok(c);
+            return NotFound();
         }
 
         // POST api/<MailController>
