@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MMSystem.Model.Dto
@@ -19,5 +20,12 @@ namespace MMSystem.Model.Dto
         public string sectionName { get; set; }
 
         public string action_required_by_the_entity { get; set; }
+       
+    
+       
+
+
+        public int type { get; set; }
+    
     }
 }

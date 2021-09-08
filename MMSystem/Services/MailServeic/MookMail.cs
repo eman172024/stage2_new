@@ -241,9 +241,56 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                Mail mail = await _appContext.Mails.FindAsync(id);
-                MailDto dto = _mapper.Map<Mail, MailDto>(mail);
-                return dto;
+                MailDto dto1 = new MailDto();
+
+               
+
+                 
+                        Mail mail2 = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == "وارد خارجي ");
+                        dto1 = _mapper.Map<Mail, MailDto>(mail2);
+                return dto1;
+
+            }
+
+               
+                
+            
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<MailDto> Getdto(int id, string type)
+        {
+            try
+            {
+                MailDto dto1 = new MailDto();
+
+                switch (type)
+                {
+
+                    case "1":
+                        Mail mail = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == "داخلي");
+                        dto1 = _mapper.Map<Mail, MailDto>(mail);
+
+                        break;
+                    case "2":
+                        Mail mail1 = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == "صادر خارجي ");
+                        dto1 = _mapper.Map<Mail, MailDto>(mail1);
+
+                        break;
+                    case "3":
+                        Mail mail2 = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == "وارد خارجي ");
+                        dto1 = _mapper.Map<Mail, MailDto>(mail2);
+                        break;
+                    default: break;
+
+                }
+
+
+                return dto1;
             }
             catch (Exception)
             {
@@ -251,6 +298,7 @@ namespace MMSystem.Services.MailServeic
                 throw;
             }
         }
+
 
         public async Task<int> GetLastMailNumber(int id, string MailType)
         {
@@ -836,7 +884,7 @@ namespace MMSystem.Services.MailServeic
             throw new NotImplementedException();
         }
 
-        public async Task<MailVM> GetMailById(int id)
+        public async Task<MailVM> GetMailById(int id,string type)
         {
 
             try
@@ -848,7 +896,7 @@ namespace MMSystem.Services.MailServeic
                 ExInbox inbox = new ExInbox();
 
 
-                MailDto dto = await Get(id);
+                MailDto dto = await Getdto(id, type);
                 if (dto != null)
                 {
 
@@ -878,7 +926,7 @@ namespace MMSystem.Services.MailServeic
                     foreach (var xx in mail.resourcescs)
                     {
                         string x = xx.path;
-                        xx.path = await bas(x);
+                        xx.path = await tobase64(x);
 
                     }
              
@@ -900,7 +948,7 @@ namespace MMSystem.Services.MailServeic
 
         }
 
-        public async Task<ExMail> GetMailById1(int id)
+        public async Task<ExMail> GetMailById1(int id,string type)
         {
 
             try
@@ -911,50 +959,63 @@ namespace MMSystem.Services.MailServeic
                 ExMail ex = new ExMail();
            
 
-                MailDto dto = await Get(id);
+                MailDto dto = await Getdto(id,type);
                 if (dto != null)
                 {
-
-
-
-
-
+                    
                     ex.mail = dto;
+                    ex.External = await _external.Get(dto.MailID);
 
-
-                    ex.External = await _external.Get(id);
-
-                    List<Send_to> sends = await _appContext.Sends.Where(x=>x.MailID==id).ToListAsync();
-
-                 
-                    foreach (var item in sends)
+                    if (ex.External == null)
                     {
-                        Department departments = await _appContext.Departments.FindAsync(item.to);
-                        Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
 
-                        ex.actionSenders.Add(new ActionSender()
+                        return null;
+                    }
+                    else {
+
+                        Extrmal_Section _s1 = await _appContext.Extrmal_Sections.FindAsync(ex.External.Sectionid);
+                        Extrmal_Section s2 = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.perent == 0 && x.type == _s1.type);
+
+
+                        ex.list.Add(_s1);
+                        ex.list.Add(s2);
+
+
+
+                        List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == id).ToListAsync();
+
+
+                        foreach (var item in sends)
                         {
+                            Department departments = await _appContext.Departments.FindAsync(item.to);
+                            Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
 
-                            departmentName = departments.DepartmentName,
-                            measureId = item.type_of_send,
-                            measureName = measures.MeasuresName,
-                            departmentId = departments.Id
+                            ex.actionSenders.Add(new ActionSender()
+                            {
+
+                                departmentName = departments.DepartmentName,
+                                measureId = item.type_of_send,
+                                measureName = measures.MeasuresName,
+                                departmentId = departments.Id
+                            }
+
+                            );
+                        }
+                        ex.resourcescsDto = await _resourcescs.GetAll(id);
+
+
+                        foreach (var xx in ex.resourcescsDto)
+                        {
+                            string x = xx.path;
+                            xx.path = await tobase64(x);
+
                         }
 
-                        );
-                    }
-                    ex.resourcescsDto = await _resourcescs.GetAll(id);
 
-
-                    foreach (var xx in ex.resourcescsDto)
-                    {
-                        string x = xx.path;
-                        xx.path = await bas(x);
+                        return ex;
 
                     }
-
-
-                    return ex;
+                 
                 }
                 return null;
             }
@@ -969,7 +1030,7 @@ namespace MMSystem.Services.MailServeic
             }
         }
 
-        public async Task<ExInbox> GetMailById2(int id)
+        public async Task<ExInbox> GetMailById2(int id,string type)
         {
 
             try
@@ -979,7 +1040,7 @@ namespace MMSystem.Services.MailServeic
                 MailVM mail = new MailVM();
                 ExInbox ex = new ExInbox();
 
-                    MailDto dto = await Get(id);
+                    MailDto dto = await Getdto(id,type);
                 if (dto != null)
                 {
 
@@ -992,6 +1053,10 @@ namespace MMSystem.Services.MailServeic
 
                     ex.extrenal = await _extrenal_Inbox.Get(id);
 
+                    Extrmal_Section _s1 = await _appContext.Extrmal_Sections.FindAsync(ex.extrenal.SectionId);
+                    Extrmal_Section s2 = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.perent == 0 && x.type == _s1.type);
+                    ex.list.Add(_s1);
+                    ex.list.Add(s2);
                     List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == id).ToListAsync();
 
 
@@ -1017,7 +1082,7 @@ namespace MMSystem.Services.MailServeic
                     foreach (var xx in ex.resourcescsDto)
                     {
                         string x = xx.path;
-                        xx.path = await bas(x);
+                        xx.path = await tobase64(x);
 
                     }
 
@@ -1039,7 +1104,7 @@ namespace MMSystem.Services.MailServeic
 
 
 
-        public async Task< string> bas(string patj) {
+        public async Task< string> tobase64(string patj) {
 
 
             var attachmentType = System.IO.Path.GetExtension(patj);

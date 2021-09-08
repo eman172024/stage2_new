@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MMSystem.Model
@@ -17,8 +18,9 @@ namespace MMSystem.Model
         public int type { get; set; }
 
        
-
+        [JsonIgnore]
         public List<Extrenal_inbox> Extrenal_Inboxes { get; set; }
+        [JsonIgnore]
         public List<External_Mail> External_Mails { get; set; }
 
     }

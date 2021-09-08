@@ -12,7 +12,7 @@ namespace MMSystem.Services.MailServeic
 {
     public interface IMailInterface:GenericInterface<Mail,MailDto>
     {
-
+        Task<MailDto> Getdto(int id, string type);
 
         Task<List<MailDto>> GetSevenMail();
 
@@ -23,9 +23,9 @@ namespace MMSystem.Services.MailServeic
      Task<int> GetLastMailNumber(int id,string mailType);
 
 
-        Task<MailVM> GetMailById(int id);
-        Task<ExMail> GetMailById1(int id);
- Task<ExInbox> GetMailById2(int id);
+        Task<MailVM> GetMailById(int id,string type);
+        Task<ExMail> GetMailById1(int id,string type);
+ Task<ExInbox> GetMailById2(int id, string type);
 
       Task<List<MailDto>> getExternalMail(int id);
         Task<List<MailDto>> getExternalInbox(int id);

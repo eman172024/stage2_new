@@ -14,10 +14,12 @@ namespace MMSystem.Model.ViewModel
 
         public List<Mail_ResourcescsDto> resourcescsDto { get; set; }
         public List<ActionSender> actionSenders { get; set; }
+        public List<Extrmal_Section> list { get; set; }
         public ExInbox()
         {
             actionSenders = new List<ActionSender>();
             resourcescsDto = new List<Mail_ResourcescsDto>() { };
+            list = new List<Extrmal_Section>() { };
 
         }
 
