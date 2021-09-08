@@ -948,11 +948,6 @@ namespace MMSystem.Services.MailServeic
                 throw;
             }
 
-
-
-
-            return false;
-
         }
 
 
