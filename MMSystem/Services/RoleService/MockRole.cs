@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Services.RoleService
 {
-    public class MockRole : IRoleInterface
+    public class MockRole : GenericInterface<Role,RoleDto>
     {
         public MockRole(AppDbCon data, IMapper mapper)
         {
@@ -49,7 +49,7 @@ namespace MMSystem.Services.RoleService
                 if (FIndRoles != null)
                 {
 
-                   // FIndRoles.state = false;
+                   FIndRoles.state = false;
                     _data.Roles.Update(FIndRoles);
                     await _data.SaveChangesAsync();
                     return true;
@@ -92,12 +92,9 @@ namespace MMSystem.Services.RoleService
         {
             try
             {
-                //List<Role> listOfRole = await _data.Roles.OrderByDescending(x => x.RoleId).Where(x => x.state == true).ToListAsync();
+               List<Role> listOfRole =  _data.Roles.OrderByDescending(x => x.RoleId).Where(x => x.state == true).ToList();
 
-                List<Role> listOfRole =  _data.Roles.Where(x => x.RoleId == 1).ToList();
-                   
-
-                var list = _mapper.Map<List<Role>, List<RoleDto>>(listOfRole);
+                List<RoleDto> list = _mapper.Map<List<Role>, List<RoleDto>>(listOfRole);
 
                 return list;
             }
