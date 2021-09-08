@@ -53,17 +53,15 @@ namespace MMSystem.Controllers
             switch (type) 
             {
                 case "1":
-                    MailVM mail = await _Imail.GetMailById(id);
+                    MailVM mail = await _Imail.GetMailById(id,type);
                     if (mail != null)
                         c = mail;
                     break;
              
                   
-
-                  
                 case "2":
 
-                    var ddc = await _Imail.GetMailById1(id);
+                    var ddc = await _Imail.GetMailById1(id,type);
                     if (ddc != null)
 
                         c = ddc;
@@ -71,15 +69,16 @@ namespace MMSystem.Controllers
 
                 case"3":
 
-                    var ccc = await _Imail.GetMailById2(id);
+                    var ccc = await _Imail.GetMailById2(id,type);
                     if (ccc != null)
                         c = ccc;
                     break;
-                   
+                default:break;
             }
+            
             if(c!=null)
             return Ok(c);
-            return NotFound();
+            return NotFound("لايوجد بريد ");
         }
 
         // POST api/<MailController>

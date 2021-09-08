@@ -19,6 +19,8 @@ namespace MMSystem.Model
         public string nationalNumber { get; set; }
         public int DepartmentId { get; set; }
         public bool state { get; set; }
+        public string userNetwork { get; set; }
+
         public Department Department { get; set; }
         public List<UserRoles> userRoles { get; set; }
 
