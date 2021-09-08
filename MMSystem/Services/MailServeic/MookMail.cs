@@ -841,8 +841,6 @@ namespace MMSystem.Services.MailServeic
 
             try
             {
-
-
                 MailVM mail = new MailVM();
                 ExMail ex = new ExMail();
                 ExInbox inbox = new ExInbox();
@@ -983,12 +981,7 @@ namespace MMSystem.Services.MailServeic
                 if (dto != null)
                 {
 
-
-
-
-
                     ex.mail = dto;
-
 
                     ex.extrenal = await _extrenal_Inbox.Get(id);
 
