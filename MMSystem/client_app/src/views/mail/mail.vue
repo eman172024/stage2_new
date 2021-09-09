@@ -1194,6 +1194,11 @@ export default {
             .GetMailById(this.mailId, this.to_test_passing_mail_type)
             .then((res) => {
 
+                if(res.data.mail.is_send == true){
+                    this.sendButton = false
+                    this.deleteButton = false
+                }
+
                 this.mail_Number = res.data.mail.mail_Number
                 this.department_Id = res.data.mail.department_Id
                 this.releaseDate = res.data.mail.date_Of_Mail
@@ -1465,6 +1470,7 @@ export default {
                     this.saveButton = false;
                     this.sendButton = true;
                     this.updataButton = true;
+                    this.deleteButton = true;
 
                     this.mailId = res.data.mailId
 
@@ -1487,9 +1493,14 @@ export default {
             .SendMail(Number(this.mailId))
             .then((res) => {
             setTimeout(() => {
+                this.deleteButton = false;
+                this.sendButton = false;
+
                 this.loading = false;
                 this.Successed = true;
                 this.addSuccessed = res.data.message;
+
+                
             }, 500);
             })
             .catch((err) => {
