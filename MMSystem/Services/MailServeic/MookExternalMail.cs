@@ -108,7 +108,7 @@ namespace MMSystem.Services.MailServeic
              
                     
 
-                    _appDb.External_Mails.Update(mail);
+                    _appDb.External_Mails.Update(model);
                     await _appDb.SaveChangesAsync();
                  
                     return true;
