@@ -139,12 +139,12 @@ export default {
 
                     this.user = res.data
 
-                    this.$authenticatedUser.userId = this.user.userId
-                    this.$authenticatedUser.name = this.user.userName
-                    this.$authenticatedUser.departmentId = this.user.departmentId
+                    this.$authenticatedUser.userId = this.user.administrator.userId
+                    this.$authenticatedUser.name = this.user.administrator.userName
+                    this.$authenticatedUser.departmentId = this.user.administrator.departmentId
 
-                    localStorage.setItem("userId", this.user.userId);
-                    localStorage.setItem("departmentId", this.user.departmentId);
+                    localStorage.setItem("userId", this.user.administrator.userId);
+                    localStorage.setItem("departmentId", this.user.administrator.departmentId);
 
                     
                     // this.$authenticatedUser.userName = this.user.username
