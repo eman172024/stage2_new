@@ -118,7 +118,7 @@ namespace MMSystem.Controllers
 
 
         }
-
+        
         //[HttpPost("Uplode")]
         //public async Task<IActionResult> Uplode([FromForm] int id, List<IFormFile> resourse)
         //{
