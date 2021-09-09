@@ -69,24 +69,34 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                // Mail mail = await _data.Mails.Where(x => x.Management_Id == Management_Id && x.userId == userId).FirstAsync();
+                Mail mail = await _data.Mails.FindAsync(mailId);
 
-                List<Send_to> send_ = await _data.Sends.Where(x => x.MailID == mailId).ToListAsync();
-                if (send_.Count > 0)
-                {
-                    foreach (var item in send_)
+                if (mail != null) {
+
+                    mail.isRead = true;
+                    _data.Mails.Update(mail);
+                    await _data.SaveChangesAsync();
+
+                    List<Send_to> send_ = await _data.Sends.Where(x => x.MailID == mailId).ToListAsync();
+                    if (send_.Count > 0)
                     {
-                        item.flag = true;
-                        item.Send_time = DateTime.Now;
+                        foreach (var item in send_)
+                        {
+                            item.flag = true;
+                            item.Send_time = DateTime.Now;
 
-                        _data.Sends.Update(item);
-                        await _data.SaveChangesAsync();
+                            _data.Sends.Update(item);
+                            await _data.SaveChangesAsync();
+                        }
+
+
+
+                       
                     }
-
-
-
                     return true;
                 }
+
+
                 return false;
             }
             catch (Exception)
