@@ -29,6 +29,7 @@ namespace MMSystem.Services.RoleService
               Role role = new Role();
 
               await _data.Roles.AddAsync(t);
+
               await _data.SaveChangesAsync();
 
                 return true;
@@ -92,9 +93,9 @@ namespace MMSystem.Services.RoleService
         {
             try
             {
-               List<Role> listOfRole =  _data.Roles.OrderByDescending(x => x.RoleId).Where(x => x.state == true).ToList();
+               List<Role> listOfRole =  _data.Roles.OrderBy(x => x.RoleId).Where(x => x.state == true).ToList();
 
-                List<RoleDto> list = _mapper.Map<List<Role>, List<RoleDto>>(listOfRole);
+               List<RoleDto> list = _mapper.Map<List<Role>, List<RoleDto>>(listOfRole);
 
                 return list;
             }
@@ -110,15 +111,16 @@ namespace MMSystem.Services.RoleService
            
             try
             {
-                Role role = new Role();
+               Role role = new Role();
 
-               role = await _data.Roles.FindAsync(role.RoleId);
+               role = await _data.Roles.FindAsync(model.RoleId);
 
 
                 if (role != null)
                 {
                    
-                    role.Name = role.Name;
+                    role.Name = model.Name;
+                    role.state = model.state;
                    
                     _data.Roles.Update(role);
 
