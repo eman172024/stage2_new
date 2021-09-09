@@ -24,7 +24,7 @@ namespace MMSystem.Model
 
         public string ActionRequired { get; set; }
 
-        public bool isRead { get; set; }
+        public bool is_send { get; set; }
         public Administrator user { get; set; }
 
         public External_Mail external_Mail { get; set; }

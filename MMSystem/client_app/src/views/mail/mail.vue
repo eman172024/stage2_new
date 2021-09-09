@@ -235,7 +235,7 @@
                                 </div>
 
                                 <div class="sm:col-span-1 flex justify-end">
-                                    <button @click="add_to_array_of_side_measure()" class="mt-10 rounded-md text-green-400 duration-200 hover:text-green-500 text-base font-semibold w-8 h-8">
+                                    <button v-if="add_button_consignees" @click="add_to_array_of_side_measure()" class="mt-10 rounded-md text-green-400 duration-200 hover:text-green-500 text-base font-semibold w-8 h-8">
                                         <svg class="fill-current w-full h-full" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
                                             <g>
                                                 <g>
@@ -268,7 +268,7 @@
                                     <div v-for="consignee in consignees" :key="consignee.side" class="border border-gary-200 rounded-md text-sm flex items-center p-2 m-0.5">
                                         {{ consignee.departmentName }} , {{ consignee.measureName }}
                                         <!--  -->
-                                        <button @click="remove_to_array_of_side_measure(consignee.departmentId)" class="mr-1 rounded-full">
+                                        <button v-if="remove_button_consignees" @click="remove_to_array_of_side_measure(consignee.departmentId)" class="mr-1 rounded-full">
                                             <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="times-circle" class="w-5 h-5 stroke-current text-red-400 hover:text-red-500 duration-200" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                                 <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path>
                                             </svg>
@@ -1129,6 +1129,8 @@ export default {
 
 
         to_test_passing_mail_type : '',
+        remove_button_consignees: true,
+        add_button_consignees: true,
 
 
 
@@ -1193,6 +1195,13 @@ export default {
             this.$http.mailService
             .GetMailById(this.mailId, this.to_test_passing_mail_type)
             .then((res) => {
+
+                if(res.data.mail.is_send == true){
+                    this.sendButton = false
+                    this.deleteButton = false
+                    this.remove_button_consignees = false
+                    this.add_button_consignees = false
+                }
 
                 this.mail_Number = res.data.mail.mail_Number
                 this.department_Id = res.data.mail.department_Id
@@ -1465,6 +1474,7 @@ export default {
                     this.saveButton = false;
                     this.sendButton = true;
                     this.updataButton = true;
+                    this.deleteButton = true;
 
                     this.mailId = res.data.mailId
 
@@ -1487,9 +1497,14 @@ export default {
             .SendMail(Number(this.mailId))
             .then((res) => {
             setTimeout(() => {
+                this.deleteButton = false;
+                this.sendButton = false;
+
                 this.loading = false;
                 this.Successed = true;
                 this.addSuccessed = res.data.message;
+
+                
             }, 500);
             })
             .catch((err) => {
