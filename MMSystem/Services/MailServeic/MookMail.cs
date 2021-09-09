@@ -442,17 +442,9 @@ namespace MMSystem.Services.MailServeic
                             }
 
 
-
-
-
-
-
-
-
-
                             result = true;
                             break;
-
+                            
 
 
 
@@ -645,7 +637,7 @@ namespace MMSystem.Services.MailServeic
             
         }
 
-
+        
 
         public async Task<bool> UpdateFile(int id, List<IFormFile> listOfPhotes)
         {
@@ -883,6 +875,52 @@ namespace MMSystem.Services.MailServeic
         {
             throw new NotImplementedException();
         }
+
+        public async Task<dynamic> DynamicGet(int id,string type) {
+
+            try
+            {
+              
+                switch (type)
+                {
+                    case "1":
+                        MailVM mail = await GetMailById(id, type);
+                        if (mail != null)
+                            c = mail;
+                        break;
+
+
+                    case "2":
+
+                        var ddc = await GetMailById1(id, type);
+                        if (ddc != null)
+
+                            c = ddc;
+                        break;
+
+                    case "3":
+
+                        var ccc = await GetMailById2(id, type);
+                        if (ccc != null)
+                            c = ccc;
+                        break;
+                    default: break;
+                }
+                return c;
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        
+        }
+
+
+
+
 
         public async Task<MailVM> GetMailById(int id,string type)
         {

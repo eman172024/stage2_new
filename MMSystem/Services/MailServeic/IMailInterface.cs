@@ -30,7 +30,7 @@ namespace MMSystem.Services.MailServeic
       Task<List<MailDto>> getExternalMail(int id);
         Task<List<MailDto>> getExternalInbox(int id);
 
-
+        Task<dynamic> DynamicGet(int id, string type);
         Task<Pagenation<MailDto>> PaganationList(int page,int PageSize,int id);
 
 
