@@ -42,7 +42,7 @@ const routes = [{
     },
 
     {
-        path: "/mail/:mail",
+        path: "/mail/:mail/:type",
         name: "mail-show",
         // route level code-splitting
         // this generates a separate chunk (mail.[hash].js) for this route

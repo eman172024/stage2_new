@@ -936,8 +936,8 @@ namespace MMSystem.Services.MailServeic
                 if (dto != null)
                 {
 
-                    mail.mailDto = dto;
-                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mailDto.MailID).ToListAsync();
+                    mail.mail = dto;
+                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID).ToListAsync();
 
                     ActionSender sender = new ActionSender();
                     foreach (var item in sends)
@@ -956,7 +956,7 @@ namespace MMSystem.Services.MailServeic
 
                         );
                     }
-                    mail.resourcescs = await _resourcescs.GetAll(mail.mailDto.MailID);
+                    mail.resourcescs = await _resourcescs.GetAll(mail.mail.MailID);
 
 
                     foreach (var xx in mail.resourcescs)
@@ -1009,12 +1009,15 @@ namespace MMSystem.Services.MailServeic
                     }
                     else {
 
-                        Extrmal_Section _s1 = await _appContext.Extrmal_Sections.FindAsync(ex.External.Sectionid);
-                        Extrmal_Section s2 = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.perent == 0 && x.type == _s1.type);
+                        var side = await _appContext.Extrmal_Sections.FindAsync(ex.External.Sectionid);
+
+                        ex.side.Add(side);
+
+                        var sector = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.perent == 0 && x.type == side.type);
+                        ex.sector.Add(sector);
 
 
-                        ex.list.Add(_s1);
-                        ex.list.Add(s2);
+                
 
 
 
@@ -1082,12 +1085,15 @@ namespace MMSystem.Services.MailServeic
 
                     ex.mail = dto;
 
-                    ex.extrenal = await _extrenal_Inbox.Get(id);
+                    ex.external = await _extrenal_Inbox.Get(id);
+                    var side = await _appContext.Extrmal_Sections.FindAsync(ex.external.SectionId);
 
-                    Extrmal_Section _s1 = await _appContext.Extrmal_Sections.FindAsync(ex.extrenal.SectionId);
-                    Extrmal_Section s2 = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.perent == 0 && x.type == _s1.type);
-                    ex.list.Add(_s1);
-                    ex.list.Add(s2);
+                    ex.side.Add(side);
+
+                    var sector = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.perent == 0 && x.type == side.type);
+                    ex.sector.Add(sector);
+
+
                     List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == id).ToListAsync();
 
 

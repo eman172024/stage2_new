@@ -15,7 +15,8 @@ namespace MMSystem.Services
             CreateMap<Mail, MailDto>().
                 ForMember(ds=>ds.Date_Of_Mail,sr=>sr.MapFrom(x=>x.Date_Of_Mail.ToString("yyyy-MM-dd")));
             CreateMap<External_Mail, ExternalDto>();
-            CreateMap<Extrenal_inbox, Extrenal_inboxDto>();
+            CreateMap<Extrenal_inbox, Extrenal_inboxDto>().
+                ForMember(ds => ds.Send_time, sr => sr.MapFrom(x => x.Send_time.ToString("yyyy-MM-dd")));
             CreateMap<Administrator, AdministratorDto>();
             CreateMap<Role,RoleDto>();
 

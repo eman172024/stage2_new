@@ -596,6 +596,7 @@
                             >
                                 القطاع
                             </label>
+                            
 
                             <div class="relative">
                                 <button @click="sectorselect = !sectorselect" id="department" class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2">
@@ -613,17 +614,24 @@
 
                         <div class="sm:col-span-3">
                             <label
-                                for="send_to_side"
+                                for="sideIdSelected"
                                 class="block text-base font-semibold text-gray-800"
                             >
                                 الجهة
                             </label>
-                            <select v-model="send_to_side" id="send_to_side" class="block mt-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2">
-                                <option v-for="side in sides" :key="side.id"  :value="side.id">
-                                    {{ side.section_Name }}
-                                </option>
-                                
-                            </select>
+
+                            <div class="relative">
+                                <button @click="sideselect = !sideselect" id="department" class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2">
+                                    {{ sideNameSelected }}
+                                </button>
+
+                                <div v-if="sideselect" class="border text-sm bg-white border-gray-200 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md">
+                                    <button class="block focus:outline-none w-full my-1 text-right" @click="pass_side(side.id, side.section_Name ); sideselect = !sideselect" v-for="side in sides" :key="side.id">
+                                        {{ side.section_Name }}    
+                                    </button>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
@@ -773,7 +781,7 @@
                                     لم تعرض
                                 </option>
                                 <option value="2">
-                                    مقال صحفي
+                                    عرضت
                                 </option>
                             </select>
                         </div>
@@ -1013,6 +1021,21 @@ export default {
 
     if (this.$route.params.mail) {
 
+     
+
+        if(this.$route.params.type == 'داخلي'){
+            this.to_test_passing_mail_type = 1            
+        }
+        if(this.$route.params.type == 'صادر خارجي'){
+            this.to_test_passing_mail_type = 2
+        }
+        if(this.$route.params.type == 'وارد خارجي'){
+            this.to_test_passing_mail_type = 3
+        }
+
+        
+
+
         this.mailId = this.$route.params.mail;
 
         this.sendButton = true;
@@ -1091,6 +1114,11 @@ export default {
         sectorIdSelected: '',
 
         sides:[],
+
+        sideselect : false,
+        sideNameSelected: '',
+        sideIdSelected: '',
+
         send_to_side:'',
 
         entity_reference_number:'',
@@ -1098,6 +1126,9 @@ export default {
         entity_mail_date:'',
         mail_ward_type:'',
         ward_to:'',
+
+
+        to_test_passing_mail_type : '',
 
 
 
@@ -1158,11 +1189,10 @@ export default {
   },
   methods: {
 
-      getMailById(){
+        getMailById(){
             this.$http.mailService
-            .GetMailById(this.mailId, '2')
+            .GetMailById(this.mailId, this.to_test_passing_mail_type)
             .then((res) => {
-            console.log(res.data)
 
                 this.mail_Number = res.data.mail.mail_Number
                 this.department_Id = res.data.mail.department_Id
@@ -1178,8 +1208,50 @@ export default {
 
                 this.imagesToShow = res.data.resourcescs
 
+                if(this.to_test_passing_mail_type == '2'){
 
-                this.send_to_side = res.data.external.sectionid
+                    this.action_required_by_the_entity = res.data.external.action_required_by_the_entity
+
+                    this.mail_forwarding = res.data.external.action
+
+                    this.get_sectors(this.mail_forwarding)
+
+                    this.sectorNameSelected = res.data.sector[0].section_Name
+                    this.sectorIdSelected = res.data.sector[0].id
+
+                    this.get_sides(this.sectorIdSelected, this.sectorNameSelected)
+                    this.sideNameSelected = res.data.side[0].section_Name
+                    this.sideIdSelected = res.data.side[0].id
+                }
+                if(this.to_test_passing_mail_type == '3'){
+                   
+                    this.mail_forwarding = res.data.external.action
+                  
+                    this.get_sectors(this.mail_forwarding)
+
+                    this.sectorNameSelected = res.data.sector[0].section_Name
+                    this.sectorIdSelected = res.data.sector[0].id
+
+                    this.get_sides(this.sectorIdSelected, this.sectorNameSelected)
+                    this.sideNameSelected = res.data.side[0].section_Name
+                    this.sideIdSelected = res.data.side[0].id
+
+                    this.ward_to = res.data.external.to
+
+                    this.mail_ward_type = res.data.external.type
+
+                    this.entity_mail_date = res.data.external.send_time
+
+                    this.entity_reference_number = res.data.external.entity_reference_number
+
+                    this.procedure_type = res.data.external.procedure_type
+                }
+
+                
+
+               
+
+                
 
 
 
@@ -1195,31 +1267,42 @@ export default {
             });
         },
 
-      get_sides(sector, sector_name){
-          this.sectorNameSelected = sector_name
-          this.$http.sectorsService
-            .GetSides(sector)
-            .then((res) => {
-                console.log(res)
-                this.sides = res.data 
-            })
-            .catch((err) => {
-                console.log(err)
-            });
-      },
+        pass_side(id, name){
+            this.sideNameSelected = name
+            this.sideIdSelected = id
+        },
 
-      get_sectors(type){
-          this.$http.sectorsService
-            .GetSectors(type)
-            .then((res) => {
-                this.sectors = res.data 
-            })
-            .catch((err) => {
-                console.log(err)
-            });
-      },
+        get_sides(sector, sector_name){
+            this.sectorNameSelected = sector_name
+            this.$http.sectorsService
+                .GetSides(sector)
+                .then((res) => {
+                    console.log(res)
+                    this.sides = res.data 
+                })
+                .catch((err) => {
+                    console.log(err)
+                });
+        },
 
-      
+        get_sectors(type){
+            
+                this.sideNameSelected = ''
+                this.sideIdSelected = ''
+                this.sectorIdSelected = ''
+                this.sectorNameSelected = ''
+                this.sectors = []
+                this.sides = []
+
+            this.$http.sectorsService
+                .GetSectors(type)
+                .then((res) => {
+                    this.sectors = res.data 
+                })
+                .catch((err) => {
+                    console.log(err)
+                });
+        },
 
         previousImage(){
             
@@ -1333,7 +1416,7 @@ export default {
 
                     "external_Mail":{
                         "action": Number(this.mail_forwarding),
-                        "Sectionid": this.send_to_side,
+                        "Sectionid": this.sideIdSelected,
                         "sectionName":'',
                         "action_required_by_the_entity": this.action_required_by_the_entity
                     },
@@ -1358,7 +1441,7 @@ export default {
 
                     "extrenal_Inbox":{
                         "action": Number(this.mail_forwarding),
-                        "Sectionid": this.send_to_side,
+                        "Sectionid": this.sideIdSelected,
                         "section_Name":'',
                         "to": Number(this.ward_to),
                         "type": Number(this.mail_ward_type),
@@ -1443,8 +1526,6 @@ export default {
             }, 500);
             });
         },
-
-        
 
         scanToJpg() {
         scanner.scan(this.displayImagesOnPage, {

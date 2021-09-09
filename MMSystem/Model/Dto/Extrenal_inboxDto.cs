@@ -23,7 +23,7 @@ namespace MMSystem.Model.Dto
 
         public int type { get; set; }
 
-        public DateTime Send_time { get; set; }
+        public string Send_time { get; set; }
 
         public int entity_reference_number { get; set; }
 

@@ -102,7 +102,7 @@
 
                                 <div class="divide-y divide-gray-200 min-h-72">
 
-                                    <router-link :to="{ name: 'mail-show', params: { mail: mail.mailID },}" v-for="mail in LastMails" :key="mail.mailID" class="w-full bg-white hover:shadow flex items-center">
+                                    <router-link :to="{ name: 'mail-show', params: { mail: mail.mailID, type:mail.mail_Type },}" v-for="mail in LastMails" :key="mail.mailID" class="w-full bg-white hover:shadow flex items-center">
                                         
                                         <div class="w-2/12 pr-2 py-4">
                                             {{ mail.mail_Type }}
