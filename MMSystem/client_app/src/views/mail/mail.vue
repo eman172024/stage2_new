@@ -1242,6 +1242,8 @@ export default {
                     this.sideIdSelected = res.data.side[0].id
                 }
                 if(this.to_test_passing_mail_type == '3'){
+
+                    this.external_mailId = res.data.external.id
                    
                     this.mail_forwarding = res.data.external.action
                   
@@ -1701,6 +1703,7 @@ export default {
                     "actionSenders":this.consignees,
 
                     "extrenal_Inbox":{
+                        "Id" : Number(this.external_mailId),
                         "action": Number(this.mail_forwarding),
                         "Sectionid": this.sideIdSelected,
                         "section_Name":'',
