@@ -1397,7 +1397,7 @@ export default {
                         "department_Id":1,
                         "Date_Of_Mail": this.releaseDate,
                         "Mail_Summary": this.summary,
-                        "clasification": this.classification,
+                        "clasification": Number(this.classification),
                         "Genaral_inbox_Number": Number(this.general_incoming_number),
                         "Genaral_inbox_year": Number(this.genaral_inbox_year),
                         "ActionRequired": this.required_action,
@@ -1415,7 +1415,7 @@ export default {
                         "department_Id":1,
                         "Date_Of_Mail": this.releaseDate,
                         "Mail_Summary": this.summary,
-                        "clasification": this.classification,
+                        "clasification": Number(this.classification),
                         "Genaral_inbox_Number": Number(this.general_incoming_number),
                         "Genaral_inbox_year": Number(this.genaral_inbox_year),
                         "ActionRequired": this.required_action,
@@ -1440,7 +1440,7 @@ export default {
                         "department_Id":1,
                         "Date_Of_Mail": this.releaseDate,
                         "Mail_Summary": this.summary,
-                        "clasification": this.classification,
+                        "clasification": Number(this.classification),
                         "Genaral_inbox_Number": Number(this.general_incoming_number),
                         "Genaral_inbox_year": Number(this.genaral_inbox_year),
                         "ActionRequired": this.required_action,
@@ -1622,24 +1622,83 @@ export default {
             this.showAlert = true;
             this.loading = true;
 
-            var dataUpdate = {
+            if (this.mailType == 'داخلي'){
+                var dataUpdate = {
+                    "mail":{
+                        "MailID": Number(this.mailId),
+                        "Mail_Type": this.mailType,
+                        "userId":1,
+                        "department_Id":1,
+                        "Date_Of_Mail": this.releaseDate,
+                        "Mail_Summary": this.summary,
+                        "clasification": Number(this.classification),
+                        "Genaral_inbox_Number": Number(this.general_incoming_number),
+                        "Genaral_inbox_year": Number(this.genaral_inbox_year),
+                        "ActionRequired": this.required_action,
+                        "state": true
+                    },
 
-                "mail":{
-                    "mailId": Number(this.mailId),
-                    "Mail_Type": this.mailType,
-                    "userId":1,
-                    "department_Id":1,
-                    "Date_Of_Mail": this.releaseDate,
-                    "Mail_Summary": this.summary,
-                    "clasification": this.classification,
-                    "Genaral_inbox_Number": Number(this.general_incoming_number),
-                    "Genaral_inbox_year": Number(this.genaral_inbox_year),
-                    "ActionRequired": this.required_action,
-                },
+                    "actionSenders":this.consignees,
+                }
+            }
 
-                
-                
-            };
+            if (this.mailType == 'صادر خارجي'){
+                var dataUpdate = {
+                    "mail":{
+                        "MailID": Number(this.mailId),
+                        "Mail_Type": this.mailType,
+                        "userId":1,
+                        "department_Id":1,
+                        "Date_Of_Mail": this.releaseDate,
+                        "Mail_Summary": this.summary,
+                        "clasification": Number(this.classification),
+                        "Genaral_inbox_Number": Number(this.general_incoming_number),
+                        "Genaral_inbox_year": Number(this.genaral_inbox_year),
+                        "ActionRequired": this.required_action,
+                        "state": true
+                    },
+
+                    "actionSenders":this.consignees,
+
+                    "external_Mail":{
+                        "action": Number(this.mail_forwarding),
+                        "Sectionid": this.sideIdSelected,
+                        "sectionName":'',
+                        "action_required_by_the_entity": this.action_required_by_the_entity
+                    },
+                }
+            }
+
+            if (this.mailType == 'وارد خارجي'){
+                var dataUpdate = {
+                    "mail":{
+                        "MailID": Number(this.mailId),
+                        "Mail_Type": this.mailType,
+                        "userId":1,
+                        "department_Id":1,
+                        "Date_Of_Mail": this.releaseDate,
+                        "Mail_Summary": this.summary,
+                        "clasification": Number(this.classification),
+                        "Genaral_inbox_Number": Number(this.general_incoming_number),
+                        "Genaral_inbox_year": Number(this.genaral_inbox_year),
+                        "ActionRequired": this.required_action,
+                        "state": true
+                    },
+
+                    "actionSenders":this.consignees,
+
+                    "extrenal_Inbox":{
+                        "action": Number(this.mail_forwarding),
+                        "Sectionid": this.sideIdSelected,
+                        "section_Name":'',
+                        "to": Number(this.ward_to),
+                        "type": Number(this.mail_ward_type),
+                        "Send_time": this.entity_mail_date,
+                        "entity_reference_number": Number(this.entity_reference_number),
+                        "procedure_type": Number(this.procedure_type),
+                    },
+                }
+            }
 
             this.$http.mailService
                 .UpdateMail(dataUpdate)
