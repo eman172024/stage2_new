@@ -23,6 +23,7 @@ namespace MMSystem.Model
         public DbSet<Measures> measures { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRoles> userRoles { get; set; }
+        public DbSet<Historyes> History { get; set; }
 
         public AppDbCon(DbContextOptions<AppDbCon>options):base(options)
         {
