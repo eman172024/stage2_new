@@ -1019,6 +1019,10 @@ export default {
 
   mounted() {
 
+    this.my_user_id = localStorage.getItem('userId')
+    this.my_department_id = localStorage.getItem('departmentId')
+  
+
     if (this.$route.params.mail) {
 
      
@@ -1101,7 +1105,8 @@ export default {
         imagesToSend: [],
         indexOfimagesToShow: 0,
 
-        userId: this.$authenticatedUser.userId,
+        my_user_id: '',
+        my_department_id : '',
 
         action_required_by_the_entity:'',
         mail_forwarding:'',
@@ -1393,8 +1398,8 @@ export default {
                 var info = {
                     "mail":{
                         "Mail_Type": this.mailType,
-                        "userId":1,
-                        "department_Id":1,
+                        "userId": Number(this.my_user_id),
+                        "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
                         "Mail_Summary": this.summary,
                         "clasification": Number(this.classification),
@@ -1411,8 +1416,8 @@ export default {
                 var info = {
                     "mail":{
                         "Mail_Type": this.mailType,
-                        "userId":1,
-                        "department_Id":1,
+                        "userId": Number(this.my_user_id),
+                        "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
                         "Mail_Summary": this.summary,
                         "clasification": Number(this.classification),
@@ -1436,8 +1441,8 @@ export default {
                 var info = {
                     "mail":{
                         "Mail_Type": this.mailType,
-                        "userId":1,
-                        "department_Id":1,
+                        "userId": Number(this.my_user_id),
+                        "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
                         "Mail_Summary": this.summary,
                         "clasification": Number(this.classification),
@@ -1627,8 +1632,8 @@ export default {
                     "mail":{
                         "MailID": Number(this.mailId),
                         "Mail_Type": this.mailType,
-                        "userId":1,
-                        "department_Id":1,
+                        "userId": Number(this.my_user_id),
+                        "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
                         "Mail_Summary": this.summary,
                         "clasification": Number(this.classification),
@@ -1647,8 +1652,8 @@ export default {
                     "mail":{
                         "MailID": Number(this.mailId),
                         "Mail_Type": this.mailType,
-                        "userId":1,
-                        "department_Id":1,
+                        "userId": Number(this.my_user_id),
+                        "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
                         "Mail_Summary": this.summary,
                         "clasification": Number(this.classification),
@@ -1674,8 +1679,8 @@ export default {
                     "mail":{
                         "MailID": Number(this.mailId),
                         "Mail_Type": this.mailType,
-                        "userId":1,
-                        "department_Id":1,
+                        "userId": Number(this.my_user_id),
+                        "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
                         "Mail_Summary": this.summary,
                         "clasification": Number(this.classification),
