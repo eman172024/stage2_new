@@ -45,8 +45,11 @@ namespace MMSystem.Services.Reports
                 List<Department> departments = _data.Departments.Where(x => x.state == true).ToList();
 
                 MySectionReport mysectionreport = new MySectionReport();
+              
                 TotalCounts totalCounts = new TotalCounts();
+               
                 List<Send_to> sends = new List<Send_to>();
+              
                 List<MySectionReport> List1 = new List<MySectionReport>();
 
                 foreach (var item in departments)
@@ -59,7 +62,7 @@ namespace MMSystem.Services.Reports
                                            join
                                            g in _data.Replies on hu.Id equals g.send_ToId
                                            select g.ReplyId
-                                               ).ToList().Count();
+                                           ).ToList().Count();
                     mysectionreport.TotalOfReceived.TotalOfReplay = massageReplaied;
 
 
