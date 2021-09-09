@@ -1032,6 +1032,7 @@ export default {
         }
         if(this.$route.params.type == 'صادر خارجي'){
             this.to_test_passing_mail_type = 2
+
         }
         if(this.$route.params.type == 'وارد خارجي'){
             this.to_test_passing_mail_type = 3
@@ -1093,6 +1094,7 @@ export default {
         required_action: '',
 
         mailId: '',
+        external_mailId: '',
 
         saveButton: true,
         sendButton: false,
@@ -1224,6 +1226,8 @@ export default {
 
                 if(this.to_test_passing_mail_type == '2'){
 
+                    this.external_mailId = res.data.external.id
+
                     this.action_required_by_the_entity = res.data.external.action_required_by_the_entity
 
                     this.mail_forwarding = res.data.external.action
@@ -1287,6 +1291,9 @@ export default {
         },
 
         get_sides(sector, sector_name){
+            this.sideNameSelected = ''
+                this.sideIdSelected = ''
+            this.sides = []
             this.sectorNameSelected = sector_name
             this.$http.sectorsService
                 .GetSides(sector)
@@ -1666,6 +1673,7 @@ export default {
                     "actionSenders":this.consignees,
 
                     "external_Mail":{
+                        "id" : Number(this.external_mailId),
                         "action": Number(this.mail_forwarding),
                         "Sectionid": this.sideIdSelected,
                         "sectionName":'',
