@@ -423,6 +423,19 @@ namespace MMSystem.Services.MailServeic
                         Email = await Update(mail.mail);
                         if (Email) {
 
+                            var list = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID).ToListAsync();
+
+                            if (list.Count > 0)
+                            {
+
+                                _appContext.Sends.RemoveRange(list);
+                                await _appContext.SaveChangesAsync();
+
+                            }
+                            else { }
+
+
+
                             if (mail.actionSenders != null){
 
                                 foreach (var item in mail.actionSenders)
@@ -462,6 +475,17 @@ namespace MMSystem.Services.MailServeic
                             Exmail = await _external.Update(mail.external_Mail);
                             if (Exmail) {
 
+
+                                var list = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID).ToListAsync();
+
+                                if (list.Count > 0)
+                                {
+
+                                    _appContext.Sends.RemoveRange(list);
+                                    await _appContext.SaveChangesAsync();
+
+                                }
+                             
 
                                 if (mail.actionSenders !=null) {
 
@@ -503,6 +527,20 @@ namespace MMSystem.Services.MailServeic
                             mail.extrenal_Inbox.MailID = mail.mail.MailID;
                             Ex_inboxmail = await _extrenal_Inbox.Update(mail.extrenal_Inbox);
                             if (Ex_inboxmail) {
+
+
+                                var list = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID).ToListAsync();
+
+                                if (list.Count > 0)
+                                {
+
+                                    _appContext.Sends.RemoveRange(list);
+                                    await _appContext.SaveChangesAsync();
+
+                                }
+                                else { }
+
+
 
                                 if (mail.actionSenders.Count > 0)
                                 {
