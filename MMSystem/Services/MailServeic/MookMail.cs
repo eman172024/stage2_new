@@ -393,6 +393,9 @@ namespace MMSystem.Services.MailServeic
                 _mail.Genaral_inbox_Number = mail.Genaral_inbox_Number;
                 _mail.Date_Of_Mail = mail.Date_Of_Mail;
                 _mail.Mail_Number = mail.Mail_Number;
+                _mail.clasification = mail.clasification;
+                _mail.ActionRequired = mail.ActionRequired;
+
 
                 _appContext.Mails.Update(_mail);
                 await _appContext.SaveChangesAsync();
