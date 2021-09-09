@@ -73,7 +73,7 @@ namespace MMSystem.Services.MailServeic
 
                 if (mail != null) {
 
-                    mail.isRead = true;
+                    mail.is_send = true;
                     _data.Mails.Update(mail);
                     await _data.SaveChangesAsync();
 
