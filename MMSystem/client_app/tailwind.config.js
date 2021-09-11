@@ -21,15 +21,16 @@ module.exports = {
             minHeight: {
                 64: '16rem'
             },
+            maxWidth: {
+                '10/12': '83.33%',
+            },
             colors: {
                 cyan: colors.cyan,
             }
         },
     },
     variants: {
-        extend: {
-            borderWidth: ['hover'],
-        },
+        extend: {},
     },
     plugins: [],
     corePlugins: {
