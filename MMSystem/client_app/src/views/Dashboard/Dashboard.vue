@@ -3,7 +3,7 @@
         <div class="h-screen bg-white overflow-hidden flex">
             <asideComponent></asideComponent>
             <div class="flex-1 bg-gray-100 w-0 overflow-y-auto">
-                <div class="max-w-4xl  mx-auto  flex flex-col md:px-8 xl:px-0">
+                <div class="max-w-screen-2xl  mx-auto flex flex-col md:px-8">
                     <navComponent></navComponent>
                     <main class="flex-1 relative focus:outline-none ">
 

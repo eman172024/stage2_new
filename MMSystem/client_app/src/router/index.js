@@ -10,10 +10,7 @@ const routes = [{
         component: Login,
     },
 
-
-
-
-
+    // dashboard
     {
         path: "/dashboard",
         name: "dashboard",
@@ -27,7 +24,7 @@ const routes = [{
             ),
     },
 
-
+    // mail
     {
         path: "/mail",
         name: "mail",
@@ -41,6 +38,7 @@ const routes = [{
             ),
     },
 
+    // mail form
     {
         path: "/mail/:mail/:type",
         name: "mail-show",
@@ -51,6 +49,44 @@ const routes = [{
             import ( /* webpackChunkName: "mail" */ "../views/mail/mail_form.vue"),
     },
 
+    // inbox
+    {
+        path: "/inbox",
+        name: "inbox",
+        // route level code-splitting
+        // this generates a separate chunk (dashboard.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import (
+                /* webpackChunkName: "dashboard" */
+                "../views/mail/inbox/inbox.vue"
+            ),
+    },
+
+    {
+        path: "/inbox/:mail",
+        name: "inbox-show",
+        // route level code-splitting
+        // this generates a separate chunk (dashboard.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import (
+                /* webpackChunkName: "dashboard" */
+                "../views/mail/inbox/inbox_form.vue"
+            ),
+    },
+
+
+
+
+
+
+
+
+
+
+
+    // testing
     {
         path: "/1",
         name: "1",
@@ -63,7 +99,6 @@ const routes = [{
                 "../views/test_pages/1.vue"
             ),
     },
-
     {
         path: "/2",
         name: "2",
@@ -76,8 +111,6 @@ const routes = [{
                 "../views/test_pages/2.vue"
             ),
     },
-
-
     {
         path: "/3",
         name: "3",
@@ -90,7 +123,6 @@ const routes = [{
                 "../views/test_pages/3.vue"
             ),
     },
-
     {
         path: "/4",
         name: "4",
@@ -103,7 +135,6 @@ const routes = [{
                 "../views/test_pages/4.vue"
             ),
     },
-
     {
         path: "/5",
         name: "5",
@@ -116,13 +147,6 @@ const routes = [{
                 "../views/test_pages/5.vue"
             ),
     },
-
-
-
-
-
-
-
 
 ];
 
