@@ -13,7 +13,7 @@ namespace MMSystem.Services.ReplayServeic
         Task<bool> AddReplay(ReplyViewModel model);
         Task<List<ReplayDto>> GetAllReplay(int id);
 
-
+        Task<bool> Uplode(Uplode file);
         Task<bool> AddResources(Reply_Resources resources);
 
         Task<bool> Upload(int id, List<IFormFile> listOfPhotes);

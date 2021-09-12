@@ -17,7 +17,7 @@
                     رقم الرسالة 
 
                     <span class="mr-4 underline font-bold text-2xl">
-                        {{ mail_num }}
+                         {{mailId}}
                     </span>
                 </div>
             </div>
@@ -235,7 +235,7 @@
                                 </div>
 
                                 <div class="sm:col-span-1 flex justify-end">
-                                    <button @click="add_to_array_of_side_measure()" class="mt-10 rounded-md text-green-400 duration-200 hover:text-green-500 text-base font-semibold w-8 h-8">
+                                    <button v-if="add_button_consignees" @click="add_to_array_of_side_measure()" class="mt-10 rounded-md text-green-400 duration-200 hover:text-green-500 text-base font-semibold w-8 h-8">
                                         <svg class="fill-current w-full h-full" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
                                             <g>
                                                 <g>
@@ -268,7 +268,7 @@
                                     <div v-for="consignee in consignees" :key="consignee.side" class="border border-gary-200 rounded-md text-sm flex items-center p-2 m-0.5">
                                         {{ consignee.departmentName }} , {{ consignee.measureName }}
                                         <!--  -->
-                                        <button @click="remove_to_array_of_side_measure(consignee.departmentId)" class="mr-1 rounded-full">
+                                        <button v-if="remove_button_consignees" @click="remove_to_array_of_side_measure(consignee.departmentId)" class="mr-1 rounded-full">
                                             <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="times-circle" class="w-5 h-5 stroke-current text-red-400 hover:text-red-500 duration-200" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                                 <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path>
                                             </svg>
@@ -596,6 +596,7 @@
                             >
                                 القطاع
                             </label>
+                            
 
                             <div class="relative">
                                 <button @click="sectorselect = !sectorselect" id="department" class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2">
@@ -613,17 +614,24 @@
 
                         <div class="sm:col-span-3">
                             <label
-                                for="send_to_side"
+                                for="sideIdSelected"
                                 class="block text-base font-semibold text-gray-800"
                             >
                                 الجهة
                             </label>
-                            <select v-model="send_to_side" id="send_to_side" class="block mt-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2">
-                                <option v-for="side in sides" :key="side.id"  :value="side.id">
-                                    {{ side.section_Name }}
-                                </option>
-                                
-                            </select>
+
+                            <div class="relative">
+                                <button @click="sideselect = !sideselect" id="department" class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2">
+                                    {{ sideNameSelected }}
+                                </button>
+
+                                <div v-if="sideselect" class="border text-sm bg-white border-gray-200 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md">
+                                    <button class="block focus:outline-none w-full my-1 text-right" @click="pass_side(side.id, side.section_Name ); sideselect = !sideselect" v-for="side in sides" :key="side.id">
+                                        {{ side.section_Name }}    
+                                    </button>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
@@ -773,7 +781,7 @@
                                     لم تعرض
                                 </option>
                                 <option value="2">
-                                    مقال صحفي
+                                    عرضت
                                 </option>
                             </select>
                         </div>
@@ -1011,7 +1019,27 @@ export default {
 
   mounted() {
 
+    this.my_user_id = localStorage.getItem('userId')
+    this.my_department_id = localStorage.getItem('departmentId')
+  
+
     if (this.$route.params.mail) {
+
+     
+
+        if(this.$route.params.type == 'داخلي'){
+            this.to_test_passing_mail_type = 1            
+        }
+        if(this.$route.params.type == 'صادر خارجي'){
+            this.to_test_passing_mail_type = 2
+
+        }
+        if(this.$route.params.type == 'وارد خارجي'){
+            this.to_test_passing_mail_type = 3
+        }
+
+        
+
 
         this.mailId = this.$route.params.mail;
 
@@ -1066,6 +1094,7 @@ export default {
         required_action: '',
 
         mailId: '',
+        external_mailId: '',
 
         saveButton: true,
         sendButton: false,
@@ -1078,7 +1107,8 @@ export default {
         imagesToSend: [],
         indexOfimagesToShow: 0,
 
-        userId: this.$authenticatedUser.userId,
+        my_user_id: '',
+        my_department_id : '',
 
         action_required_by_the_entity:'',
         mail_forwarding:'',
@@ -1091,6 +1121,11 @@ export default {
         sectorIdSelected: '',
 
         sides:[],
+
+        sideselect : false,
+        sideNameSelected: '',
+        sideIdSelected: '',
+
         send_to_side:'',
 
         entity_reference_number:'',
@@ -1098,6 +1133,11 @@ export default {
         entity_mail_date:'',
         mail_ward_type:'',
         ward_to:'',
+
+
+        to_test_passing_mail_type : '',
+        remove_button_consignees: true,
+        add_button_consignees: true,
 
 
 
@@ -1158,31 +1198,134 @@ export default {
   },
   methods: {
 
-      get_sides(sector, sector_name){
-          this.sectorNameSelected = sector_name
-          this.$http.sectorsService
-            .GetSides(sector)
+        getMailById(){
+            this.$http.mailService
+            .GetMailById(this.mailId, this.to_test_passing_mail_type)
             .then((res) => {
-                console.log(res)
-                this.sides = res.data 
+
+                if(res.data.mail.is_send == true){
+                    this.sendButton = false
+                    this.deleteButton = false
+                    this.remove_button_consignees = false
+                    this.add_button_consignees = false
+                }
+
+                this.mail_Number = res.data.mail.mail_Number
+                this.department_Id = res.data.mail.department_Id
+                this.releaseDate = res.data.mail.date_Of_Mail
+                this.summary = res.data.mail.mail_Summary
+                this.classification = res.data.mail.clasification
+                this.mailType = res.data.mail.mail_Type
+                this.general_incoming_number = res.data.mail.genaral_inbox_Number
+                this.genaral_inbox_year = res.data.mail.genaral_inbox_year
+                this.required_action = res.data.mail.action_Required
+
+                this.consignees = res.data.actionSenders
+
+                this.imagesToShow = res.data.resourcescs
+
+                if(this.to_test_passing_mail_type == '2'){
+
+                    this.external_mailId = res.data.external.id
+
+                    this.action_required_by_the_entity = res.data.external.action_required_by_the_entity
+
+                    this.mail_forwarding = res.data.external.action
+
+                    this.get_sectors(this.mail_forwarding)
+
+                    this.sectorNameSelected = res.data.sector[0].section_Name
+                    this.sectorIdSelected = res.data.sector[0].id
+
+                    this.get_sides(this.sectorIdSelected, this.sectorNameSelected)
+                    this.sideNameSelected = res.data.side[0].section_Name
+                    this.sideIdSelected = res.data.side[0].id
+                }
+                if(this.to_test_passing_mail_type == '3'){
+
+                    this.external_mailId = res.data.external.id
+                   
+                    this.mail_forwarding = res.data.external.action
+                  
+                    this.get_sectors(this.mail_forwarding)
+
+                    this.sectorNameSelected = res.data.sector[0].section_Name
+                    this.sectorIdSelected = res.data.sector[0].id
+
+                    this.get_sides(this.sectorIdSelected, this.sectorNameSelected)
+                    this.sideNameSelected = res.data.side[0].section_Name
+                    this.sideIdSelected = res.data.side[0].id
+
+                    this.ward_to = res.data.external.to
+
+                    this.mail_ward_type = res.data.external.type
+
+                    this.entity_mail_date = res.data.external.send_time
+
+                    this.entity_reference_number = res.data.external.entity_reference_number
+
+                    this.procedure_type = res.data.external.procedure_type
+                }
+
+                
+
+               
+
+                
+
+
+
+            //   this.GetDocmentForMail();
+            //   this.GetDocmentForMailToShow();
+
+
+            //   this.GetProcessingResponses()
+
             })
             .catch((err) => {
                 console.log(err)
             });
-      },
+        },
 
-      get_sectors(type){
-          this.$http.sectorsService
-            .GetSectors(type)
-            .then((res) => {
-                this.sectors = res.data 
-            })
-            .catch((err) => {
-                console.log(err)
-            });
-      },
+        pass_side(id, name){
+            this.sideNameSelected = name
+            this.sideIdSelected = id
+        },
 
-      
+        get_sides(sector, sector_name){
+            this.sideNameSelected = ''
+                this.sideIdSelected = ''
+            this.sides = []
+            this.sectorNameSelected = sector_name
+            this.$http.sectorsService
+                .GetSides(sector)
+                .then((res) => {
+                    console.log(res)
+                    this.sides = res.data 
+                })
+                .catch((err) => {
+                    console.log(err)
+                });
+        },
+
+        get_sectors(type){
+            
+                this.sideNameSelected = ''
+                this.sideIdSelected = ''
+                this.sectorIdSelected = ''
+                this.sectorNameSelected = ''
+                this.sectors = []
+                this.sides = []
+
+            this.$http.sectorsService
+                .GetSectors(type)
+                .then((res) => {
+                    this.sectors = res.data 
+                })
+                .catch((err) => {
+                    console.log(err)
+                });
+        },
 
         previousImage(){
             
@@ -1257,109 +1400,107 @@ export default {
         },
 
         saveMail() {
-        this.showAlert = true;
-        this.loading = true;
+            this.showAlert = true;
+            this.loading = true;
 
+            if (this.mailType == 'داخلي'){
+                var info = {
+                    "mail":{
+                        "Mail_Type": this.mailType,
+                        "userId": Number(this.my_user_id),
+                        "department_Id": Number(this.my_department_id),
+                        "Date_Of_Mail": this.releaseDate,
+                        "Mail_Summary": this.summary,
+                        "clasification": Number(this.classification),
+                        "Genaral_inbox_Number": Number(this.general_incoming_number),
+                        "Genaral_inbox_year": Number(this.genaral_inbox_year),
+                        "ActionRequired": this.required_action,
+                    },
 
-        if (this.mailType == 'داخلي'){
-            var info = {
-                "mail":{
-                    "Mail_Type": this.mailType,
-                    "userId":1,
-                    "department_Id":1,
-                    "Date_Of_Mail": this.releaseDate,
-                    "Mail_Summary": this.summary,
-                    "clasification": this.classification,
-                    "Genaral_inbox_Number": Number(this.general_incoming_number),
-                    "Genaral_inbox_year": Number(this.genaral_inbox_year),
-                    "ActionRequired": this.required_action,
-                },
-
-                "actionSenders":this.consignees,
+                    "actionSenders":this.consignees,
+                }
             }
-        }
 
-        if (this.mailType == 'صادر خارجي'){
-            var info = {
-                "mail":{
-                    "Mail_Type": this.mailType,
-                    "userId":1,
-                    "department_Id":1,
-                    "Date_Of_Mail": this.releaseDate,
-                    "Mail_Summary": this.summary,
-                    "clasification": this.classification,
-                    "Genaral_inbox_Number": Number(this.general_incoming_number),
-                    "Genaral_inbox_year": Number(this.genaral_inbox_year),
-                    "ActionRequired": this.required_action,
-                },
+            if (this.mailType == 'صادر خارجي'){
+                var info = {
+                    "mail":{
+                        "Mail_Type": this.mailType,
+                        "userId": Number(this.my_user_id),
+                        "department_Id": Number(this.my_department_id),
+                        "Date_Of_Mail": this.releaseDate,
+                        "Mail_Summary": this.summary,
+                        "clasification": Number(this.classification),
+                        "Genaral_inbox_Number": Number(this.general_incoming_number),
+                        "Genaral_inbox_year": Number(this.genaral_inbox_year),
+                        "ActionRequired": this.required_action,
+                    },
 
-                "actionSenders":this.consignees,
+                    "actionSenders":this.consignees,
 
-                "external_Mail":{
-                    "action": Number(this.mail_forwarding),
-                    "Sectionid": this.send_to_side,
-                    "sectionName":'',
-                    "action_required_by_the_entity": this.action_required_by_the_entity
-                },
+                    "external_Mail":{
+                        "action": Number(this.mail_forwarding),
+                        "Sectionid": this.sideIdSelected,
+                        "sectionName":'',
+                        "action_required_by_the_entity": this.action_required_by_the_entity
+                    },
+                }
             }
-        }
 
-        if (this.mailType == 'وارد خارجي'){
-            var info = {
-                "mail":{
-                    "Mail_Type": this.mailType,
-                    "userId":1,
-                    "department_Id":1,
-                    "Date_Of_Mail": this.releaseDate,
-                    "Mail_Summary": this.summary,
-                    "clasification": this.classification,
-                    "Genaral_inbox_Number": Number(this.general_incoming_number),
-                    "Genaral_inbox_year": Number(this.genaral_inbox_year),
-                    "ActionRequired": this.required_action,
-                },
+            if (this.mailType == 'وارد خارجي'){
+                var info = {
+                    "mail":{
+                        "Mail_Type": this.mailType,
+                        "userId": Number(this.my_user_id),
+                        "department_Id": Number(this.my_department_id),
+                        "Date_Of_Mail": this.releaseDate,
+                        "Mail_Summary": this.summary,
+                        "clasification": Number(this.classification),
+                        "Genaral_inbox_Number": Number(this.general_incoming_number),
+                        "Genaral_inbox_year": Number(this.genaral_inbox_year),
+                        "ActionRequired": this.required_action,
+                    },
 
-                "actionSenders":this.consignees,
+                    "actionSenders":this.consignees,
 
-                "extrenal_Inbox":{
-                    "action": Number(this.mail_forwarding),
-                    "Sectionid": this.send_to_side,
-                    "section_Name":'',
-                    "to": Number(this.ward_to),
-                    "type": Number(this.mail_ward_type),
-                    "Send_time": this.entity_mail_date,
-                    "entity_reference_number": Number(this.entity_reference_number),
-                    "procedure_type": Number(this.procedure_type),
-                },
+                    "extrenal_Inbox":{
+                        "action": Number(this.mail_forwarding),
+                        "Sectionid": this.sideIdSelected,
+                        "section_Name":'',
+                        "to": Number(this.ward_to),
+                        "type": Number(this.mail_ward_type),
+                        "Send_time": this.entity_mail_date,
+                        "entity_reference_number": Number(this.entity_reference_number),
+                        "procedure_type": Number(this.procedure_type),
+                    },
+                }
             }
-        }
+            
+            this.$http.mailService
+                .SaveMail(info)
+                .then((res) => {
+                setTimeout(() => {
+                    // this.loading = false;
+                    // this.Successed = true;
+                    // this.addSuccessed = res.data.result.message;
+                    // this.documentSection = true;
+                    // this.proceduresSection = true;
 
+                    this.saveButton = false;
+                    this.sendButton = true;
+                    this.updataButton = true;
+                    this.deleteButton = true;
 
-        
-        this.$http.mailService
-            .SaveMail(info)
-            .then((res) => {
-            setTimeout(() => {
-                // this.loading = false;
-                // this.Successed = true;
-                // this.addSuccessed = res.data.result.message;
-                // this.documentSection = true;
-                // this.proceduresSection = true;
+                    this.mailId = res.data.mailId
 
-                this.saveButton = false;
-                this.sendButton = true;
-                this.updataButton = true;
-
-                this.mailId = res.data.mailId
-
-            }, 500);
-            })
-            .catch((err) => {
-            setTimeout(() => {
-                this.loading = false;
-                this.Successed = false;
-                this.addErorr = err.message; 
-            }, 500);
-            });
+                }, 500);
+                })
+                .catch((err) => {
+                    setTimeout(() => {
+                        this.loading = false;
+                        this.Successed = false;
+                        this.addErorr = err.message; 
+                    }, 500);
+                });
         },
 
         sendMail(){
@@ -1370,9 +1511,14 @@ export default {
             .SendMail(Number(this.mailId))
             .then((res) => {
             setTimeout(() => {
+                this.deleteButton = false;
+                this.sendButton = false;
+
                 this.loading = false;
                 this.Successed = true;
                 this.addSuccessed = res.data.message;
+
+                
             }, 500);
             })
             .catch((err) => {
@@ -1407,39 +1553,6 @@ export default {
                 this.Successed = false;
                 this.addErorr = err.message; 
             }, 500);
-            });
-        },
-
-        getMailById(){
-            this.$http.mailService
-            .GetMailById(this.mailId)
-            .then((res) => {
-            console.log(res.data)
-
-                this.mail_Number = res.data.mailDto.mail_Number
-                this.department_Id = res.data.mailDto.department_Id
-                this.releaseDate = res.data.mailDto.date_Of_Mail
-                this.summary = res.data.mailDto.mail_Summary
-                this.classification = res.data.mailDto.clasification
-                this.mailType = res.data.mailDto.mail_Type
-                this.general_incoming_number = res.data.mailDto.genaral_inbox_Number
-                this.genaral_inbox_year = res.data.mailDto.genaral_inbox_year
-                this.required_action = res.data.mailDto.action_Required
-
-                this.consignees = res.data.actionSenders
-
-                this.imagesToShow = res.data.resourcescs
-
-
-            //   this.GetDocmentForMail();
-            //   this.GetDocmentForMailToShow();
-
-
-            //   this.GetProcessingResponses()
-
-            })
-            .catch((err) => {
-            console.log(err)
             });
         },
 
@@ -1523,24 +1636,85 @@ export default {
             this.showAlert = true;
             this.loading = true;
 
-            var dataUpdate = {
+            if (this.mailType == 'داخلي'){
+                var dataUpdate = {
+                    "mail":{
+                        "MailID": Number(this.mailId),
+                        "Mail_Type": this.mailType,
+                        "userId": Number(this.my_user_id),
+                        "department_Id": Number(this.my_department_id),
+                        "Date_Of_Mail": this.releaseDate,
+                        "Mail_Summary": this.summary,
+                        "clasification": Number(this.classification),
+                        "Genaral_inbox_Number": Number(this.general_incoming_number),
+                        "Genaral_inbox_year": Number(this.genaral_inbox_year),
+                        "ActionRequired": this.required_action,
+                        "state": true
+                    },
 
-                "mail":{
-                    "mailId": Number(this.mailId),
-                    "Mail_Type": this.mailType,
-                    "userId":1,
-                    "department_Id":1,
-                    "Date_Of_Mail": this.releaseDate,
-                    "Mail_Summary": this.summary,
-                    "clasification": this.classification,
-                    "Genaral_inbox_Number": Number(this.general_incoming_number),
-                    "Genaral_inbox_year": Number(this.genaral_inbox_year),
-                    "ActionRequired": this.required_action,
-                },
+                    "actionSenders":this.consignees,
+                }
+            }
 
-                
-                
-            };
+            if (this.mailType == 'صادر خارجي'){
+                var dataUpdate = {
+                    "mail":{
+                        "MailID": Number(this.mailId),
+                        "Mail_Type": this.mailType,
+                        "userId": Number(this.my_user_id),
+                        "department_Id": Number(this.my_department_id),
+                        "Date_Of_Mail": this.releaseDate,
+                        "Mail_Summary": this.summary,
+                        "clasification": Number(this.classification),
+                        "Genaral_inbox_Number": Number(this.general_incoming_number),
+                        "Genaral_inbox_year": Number(this.genaral_inbox_year),
+                        "ActionRequired": this.required_action,
+                        "state": true
+                    },
+
+                    "actionSenders":this.consignees,
+
+                    "external_Mail":{
+                        "id" : Number(this.external_mailId),
+                        "action": Number(this.mail_forwarding),
+                        "Sectionid": this.sideIdSelected,
+                        "sectionName":'',
+                        "action_required_by_the_entity": this.action_required_by_the_entity
+                    },
+                }
+            }
+
+            if (this.mailType == 'وارد خارجي'){
+                var dataUpdate = {
+                    "mail":{
+                        "MailID": Number(this.mailId),
+                        "Mail_Type": this.mailType,
+                        "userId": Number(this.my_user_id),
+                        "department_Id": Number(this.my_department_id),
+                        "Date_Of_Mail": this.releaseDate,
+                        "Mail_Summary": this.summary,
+                        "clasification": Number(this.classification),
+                        "Genaral_inbox_Number": Number(this.general_incoming_number),
+                        "Genaral_inbox_year": Number(this.genaral_inbox_year),
+                        "ActionRequired": this.required_action,
+                        "state": true
+                    },
+
+                    "actionSenders":this.consignees,
+
+                    "extrenal_Inbox":{
+                        "Id" : Number(this.external_mailId),
+                        "action": Number(this.mail_forwarding),
+                        "Sectionid": this.sideIdSelected,
+                        "section_Name":'',
+                        "to": Number(this.ward_to),
+                        "type": Number(this.mail_ward_type),
+                        "Send_time": this.entity_mail_date,
+                        "entity_reference_number": Number(this.entity_reference_number),
+                        "procedure_type": Number(this.procedure_type),
+                    },
+                }
+            }
 
             this.$http.mailService
                 .UpdateMail(dataUpdate)

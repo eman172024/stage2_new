@@ -36,6 +36,7 @@ namespace MMSystem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("nationalNumber")
@@ -47,6 +48,9 @@ namespace MMSystem.Migrations
 
                     b.Property<bool>("state")
                         .HasColumnType("bit");
+
+                    b.Property<string>("userNetwork")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
 
@@ -499,6 +503,33 @@ namespace MMSystem.Migrations
                         });
                 });
 
+            modelBuilder.Entity("MMSystem.Model.Historyes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("OldValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RowTransaction")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Transaction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("User")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("History");
+                });
+
             modelBuilder.Entity("MMSystem.Model.Mail", b =>
                 {
                     b.Property<int>("MailID")
@@ -532,6 +563,9 @@ namespace MMSystem.Migrations
 
                     b.Property<int>("clasification")
                         .HasColumnType("int");
+
+                    b.Property<bool>("is_send")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("state")
                         .HasColumnType("bit");
@@ -721,6 +755,9 @@ namespace MMSystem.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("state")
+                        .HasColumnType("bit");
+
                     b.HasKey("RoleId");
 
                     b.ToTable("Roles");
@@ -729,82 +766,98 @@ namespace MMSystem.Migrations
                         new
                         {
                             RoleId = 1,
-                            Name = "الإطلاع على السري"
+                            Name = "الإطلاع على السري",
+                            state = true
                         },
                         new
                         {
                             RoleId = 2,
-                            Name = "استخدام الوارد الخارجي"
+                            Name = "استخدام الوارد الخارجي",
+                            state = true
                         },
                         new
                         {
                             RoleId = 3,
-                            Name = "ارسال البريد الى"
+                            Name = "ارسال البريد الى",
+                            state = true
                         },
                         new
                         {
                             RoleId = 4,
-                            Name = "الإطلاع على التقرير الإحصائى"
+                            Name = "الإطلاع على التقرير الإحصائى",
+                            state = true
                         },
                         new
                         {
                             RoleId = 5,
-                            Name = "الصادر الجديد"
+                            Name = "الصادر الجديد",
+                            state = true
                         },
                         new
                         {
                             RoleId = 6,
-                            Name = "كتابة اجراءالأمين للرسالة"
+                            Name = "كتابة اجراءالأمين للرسالة",
+                            state = true
                         },
                         new
                         {
                             RoleId = 7,
-                            Name = "الإطلاع على تقرير المتابعة"
+                            Name = "الإطلاع على تقرير المتابعة",
+                            state = true
                         },
                         new
                         {
                             RoleId = 8,
-                            Name = "الاستلام والسحب"
+                            Name = "الاستلام والسحب",
+                            state = true
                         },
                         new
                         {
                             RoleId = 9,
-                            Name = "عرض الصورة"
+                            Name = "عرض الصورة",
+                            state = true
                         },
                         new
                         {
                             RoleId = 10,
-                            Name = "الإطلاع على الوارد الجديد"
+                            Name = "الإطلاع على الوارد الجديد",
+                            state = true
                         },
                         new
                         {
                             RoleId = 11,
-                            Name = "استخدام الصادر الخارجي"
+                            Name = "استخدام الصادر الخارجي",
+                            state = true
                         },
                         new
                         {
                             RoleId = 12,
-                            Name = "الإطلاع على الردود السابقة"
+                            Name = "الإطلاع على الردود السابقة",
+                            state = true
                         },
                         new
                         {
                             RoleId = 13,
-                            Name = "اعادة الارسال"
+                            Name = "اعادة الارسال",
+                            state = true
                         },
                         new
                         {
                             RoleId = 14,
-                            Name = "الرد على الوار الجديد"
+                            Name = "الرد على الوار الجديد",
+                            state = true
                         },
                         new
                         {
                             RoleId = 15,
-                            Name = "ردود الإدارات الفرعية"
+                            Name = "ردود الإدارات الفرعية",
+                            state = true
                         },
                         new
                         {
                             RoleId = 16,
-                            Name = "استخدام البريد الداخلي"
+                            Name = "استخدام البريد الداخلي",
+                            state = true
                         });
                 });
 

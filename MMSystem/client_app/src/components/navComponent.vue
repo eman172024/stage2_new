@@ -84,7 +84,7 @@
                                             name="search"
                                             autocomplete="off"
                                             class="block w-full px-10 py-2 rounded-full leading-5 bg-surface-grey focus:outline-none focus:bg-white sm:text-sm"
-                                            placeholder="بحث عام عن (رقم المعاملة، رقم الايصال المالي، رقم الجواز، الاسم)"
+                                            placeholder="بحث عام عن (رقم البريد، الملخص،)"
                                             type="text"
                                         />
                                         </div>
@@ -93,7 +93,7 @@
                                     <div id="searchMenu" v-if="searchMenu" class="w-full absolute mt-12 px-2 lg:px-12 z-40" >
                                         <div class="shadow-lg bg-white">
                                             <div v-if="finacial_recipt_number != 0" class="">
-                                                <p class="bg-gray-100 py-2 px-2">النتائج المشابة لرقم الإيصال المالي</p>
+                                                <p class="bg-gray-100 py-2 px-2">النتائج المشابة لرقم البريد</p>
 
                                                 <div class="px-3 py-2">
                                                     <a
@@ -113,7 +113,7 @@
                                             </div>
 
                                             <div v-if="transaction_number != 0" class="">
-                                                <p class="bg-gray-100 py-2 px-2">  النتائج المشابة لرقم المعاملة </p>
+                                                <p class="bg-gray-100 py-2 px-2">  النتائج المشابة للملخص </p>
 
                                                 <div class="px-3 py-2">
                                                 <a
@@ -132,45 +132,7 @@
                                                 </div>
                                             </div>
 
-                                            <div v-if="full_name != 0" class="">
-                                                <p class="bg-gray-100 py-2 px-2">النتائج المشابة لاسم صاحب الجواز</p>
-
-                                                <div class="px-3 py-2">
-                                                <a
-                                                    :href="
-                                                    $router.resolve({
-                                                        name: 'TransactionsFormEdit',
-                                                        params: { transaction: name.id },
-                                                    }).href
-                                                    "
-                                                    class="block py-1 hover:bg-gray-50"
-                                                    :key="index"
-                                                    v-for="(name, index) in full_name"
-                                                >
-                                                    {{ name.full_name }}
-                                                </a>
-                                                </div>
-                                            </div>
-
-                                            <div v-if="passport_number != 0" class="">
-                                                <p class="bg-gray-100 py-2 px-2">النتائج المشابة لرقم الجواز</p>
-
-                                                <div class="px-3 py-2">
-                                                    <a
-                                                        :href="
-                                                        $router.resolve({
-                                                            name: 'TransactionsFormEdit',
-                                                            params: { transaction: passport.id },
-                                                        }).href
-                                                        "
-                                                        class="block py-1 hover:bg-gray-50"
-                                                        :key="index"
-                                                        v-for="(passport, index) in passport_number"
-                                                    >
-                                                        {{ passport.passport_number }}
-                                                    </a>
-                                                </div>
-                                            </div>
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -233,10 +195,6 @@ export default {
             finacial_recipt_number: {},
 
             transaction_number: {},
-
-            full_name: {},
-            passport_number: {},
-        
         
         };
     },
@@ -262,14 +220,10 @@ export default {
 
                     this.finacial_recipt_number = this.resultOfSearch.finacial_recipt_number;
                     this.transaction_number = this.resultOfSearch.transaction_number;
-                    this.full_name = this.resultOfSearch.full_name;
-                    this.passport_number = this.resultOfSearch.passport_number;
 
                     if (
                         this.finacial_recipt_number == 0 &&
-                        this.transaction_number == 0 &&
-                        this.full_name == 0 &&
-                        this.passport_number == 0
+                        this.transaction_number == 0
                         ) {
                             this.searchMenu = false;
                         }

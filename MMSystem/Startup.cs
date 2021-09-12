@@ -19,6 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MMSystem.Services.RoleService;
+using MMSystem.Services.Histor;
+using MMSystem.Services.DashBords;
 
 namespace MMSystem
 {
@@ -45,12 +48,14 @@ namespace MMSystem
             services.AddTransient<ISender, MookSender>();
             services.AddTransient<GenericInterface<Measures, MeasuresDto>, MookMeasures>();
             services.AddTransient<IReplay, MookReplay>();
-    
+            services.AddTransient<GenericInterface<Role, RoleDto>, MockRole>();
             services.AddTransient<GenericInterface<ClasificationSubject, ClasificationSubjectDto>, MookClasificationSubject>();
             services.AddTransient<Idepartment, MocDepartment>();
             services.AddTransient<Generic2<Extrmal_Section, Extrmal_SectionDto>, MocSection>();
+            services.AddTransient<IHistory, MokHistory>();
+            services.AddTransient<IDashBord, MokDashBord>();
 
-            
+
 
         }
 

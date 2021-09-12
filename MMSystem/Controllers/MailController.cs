@@ -44,18 +44,41 @@ namespace MMSystem.Controllers
             List<MailDto> mails =await _Imail.GetAll();
             return Ok(mails);
         }
+        dynamic c;
 
         // GET api/<MailController>/5
-        [HttpGet("GetMailById/{id}")]
-        public async Task<IActionResult> GetMailById(int id)
+        [HttpGet("GetMailById")]
+        public async Task<IActionResult> GetMailById(int id,string type)
         {
-            MailVM mail =await  _Imail.GetMailById(id);
-            if (mail != null) 
-                return Ok(mail);
+            //switch (type) 
+            //{
+            //    case "1":
+            //        MailVM mail = await _Imail.GetMailById(id,type);
+            //        if (mail != null)
+            //            c = mail;
+            //        break;
 
 
-         return NotFound(  new Result { message="لايوجد بريد ",
-         statusCode=404});
+            //    case "2":
+
+            //        var ddc = await _Imail.GetMailById1(id,type);
+            //        if (ddc != null)
+
+            //            c = ddc;
+            //        break;
+
+            //    case"3":
+
+            //        var ccc = await _Imail.GetMailById2(id,type);
+            //        if (ccc != null)
+            //            c = ccc;
+            //        break;
+            //    default:break;
+            //}
+            var c = await _Imail.DynamicGet(id,type);
+            if(c!=null)
+            return Ok(c);
+            return NotFound("لايوجد بريد ");
         }
 
         // POST api/<MailController>
@@ -95,7 +118,7 @@ namespace MMSystem.Controllers
 
 
         }
-
+        
         //[HttpPost("Uplode")]
         //public async Task<IActionResult> Uplode([FromForm] int id, List<IFormFile> resourse)
         //{
