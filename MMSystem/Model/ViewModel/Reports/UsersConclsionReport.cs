@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Model.ViewModel.Reports
 {
-    public class UserReports
+    public class UsersConclsionReport
     {
+    
         public string UserName { get; set; }
 
-        public List<UserMailInfo> information1 { get; set; }
-      //  public TotalCounts Total_Count { get; set; }
+        public DateTime Last_date { get; set; }
+        public TotalCounts Total_Count { get; set; } = new TotalCounts() { };
     }
 }

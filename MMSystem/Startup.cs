@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MMSystem.Services.RoleService;
+using MMSystem.Services.Reports;
 
 namespace MMSystem
 {
@@ -44,6 +45,7 @@ namespace MMSystem
             services.AddTransient<IMail_Resourcescs, MooKMail_Resourcescs>();
             services.AddTransient<IAdministratorInterface, MockAdministrator>();
             services.AddTransient<ISender, MookSender>();
+            services.AddTransient<IRportInterface,MockReports>();
             services.AddTransient<GenericInterface<Measures, MeasuresDto>, MookMeasures>();
             services.AddTransient<IReplay, MookReplay>();
             services.AddTransient<GenericInterface<Role, RoleDto>, MockRole>();

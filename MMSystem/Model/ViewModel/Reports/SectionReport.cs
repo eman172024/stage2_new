@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Model.ViewModel
 {
-    public class MySectionReport
+    public class SectionReport
     {
         public string DepartmentName { get; set; }
         public TotalCounts TotalOfReceived { get; set; }
