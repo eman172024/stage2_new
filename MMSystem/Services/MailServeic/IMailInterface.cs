@@ -12,21 +12,35 @@ namespace MMSystem.Services.MailServeic
 {
     public interface IMailInterface:GenericInterface<Mail,MailDto>
     {
+        Task<MailDto> Getdto(int id, int type);
 
+        Task<List<MailDto>> GetSevenMail();
 
         Task<bool> addMail( MailViewModel mail);
       
-        Task<bool> Upload(int id,List<IFormFile> listOfPhotes );
+     //   Task<bool> Upload(int id,List<IFormFile> listOfPhotes );
         Task<bool> UpdateFile(int id, List<IFormFile> listOfPhotes);
-     Task<int> GetLastMailNumber(int id,string mailType);
+     Task<int> GetLastMailNumber(int id,int mailType);
+
+
+        Task<MailVM> GetMailById(int id,int type);
+        Task<ExMail> GetMailById1(int id,int type);
+ Task<ExInbox> GetMailById2(int id, int type);
 
       Task<List<MailDto>> getExternalMail(int id);
         Task<List<MailDto>> getExternalInbox(int id);
 
-        Task<List<Re>> Sendermail(int id);
-        Task<List<Re>> ResevidMail(int id);
+        Task<dynamic> DynamicGet(int id, int type);
         Task<Pagenation<MailDto>> PaganationList(int page,int PageSize,int id);
-      
+
+
+        Task<bool> Uplode(Uplode ss);
+        Task<bool> UpdateMail(MailViewModel mail);
+        Task<bool> DeletePhote(int id);
+        Task<bool> deleteSender(int mail_id, int departmentId);
+
+
+
 
     }
 }

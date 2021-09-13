@@ -12,12 +12,21 @@ namespace MMSystem.Services
     {
         public AutoMapperProfile()
         {
-            CreateMap<Mail, MailDto>();
+            CreateMap<Mail, MailDto>().
+                ForMember(ds=>ds.Date_Of_Mail,sr=>sr.MapFrom(x=>x.Date_Of_Mail.ToString("yyyy-MM-dd")));
             CreateMap<External_Mail, ExternalDto>();
-            CreateMap<Extrenal_inbox, Extrenal_inboxDto>();
+            CreateMap<Extrenal_inbox, Extrenal_inboxDto>().
+                ForMember(ds => ds.Send_time, sr => sr.MapFrom(x => x.Send_time.ToString("yyyy-MM-dd")));
             CreateMap<Administrator, AdministratorDto>();
-         CreateMap<Mail_Resourcescs, Mail_ResourcescsDto>();
+            CreateMap<Role,RoleDto>();
+
+            CreateMap<Department, DepartmentDto>();
+            CreateMap<Extrmal_Section, Extrmal_SectionDto>();
+            
+            CreateMap<Mail_Resourcescs, Mail_ResourcescsDto>();
             CreateMap<Reply,ReplayDto>();
+            CreateMap<ClasificationSubject, ClasificationSubjectDto>();
+            CreateMap<Measures, MeasuresDto>();
 
         }
 

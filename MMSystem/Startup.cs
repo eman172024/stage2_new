@@ -8,14 +8,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MMSystem.Model;
+using MMSystem.Model.Dto;
 using MMSystem.Services;
+using MMSystem.Services.Depart;
 using MMSystem.Services.MailServeic;
 using MMSystem.Services.MeasuresServeic;
+using MMSystem.Services.Section;
 using MMSystem.Services.ReplayServeic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MMSystem.Services.RoleService;
+using MMSystem.Services.Reports;
+using MMSystem.Services.Histor;
+using MMSystem.Services.DashBords;
 
 namespace MMSystem
 {
@@ -40,10 +47,15 @@ namespace MMSystem
             services.AddTransient<IMail_Resourcescs, MooKMail_Resourcescs>();
             services.AddTransient<IAdministratorInterface, MockAdministrator>();
             services.AddTransient<ISender, MookSender>();
-            services.AddTransient<GenericInterface<Measures, Measures>, MookMeasures>();
+            services.AddTransient<IRportInterface,MockReports>();
+            services.AddTransient<GenericInterface<Measures, MeasuresDto>, MookMeasures>();
             services.AddTransient<IReplay, MookReplay>();
-    
-            services.AddTransient<GenericInterface<ClasificationSubject, ClasificationSubject>, MookClasificationSubject>();
+            services.AddTransient<GenericInterface<Role, RoleDto>, MockRole>();
+            services.AddTransient<GenericInterface<ClasificationSubject, ClasificationSubjectDto>, MookClasificationSubject>();
+            services.AddTransient<Idepartment, MocDepartment>();
+            services.AddTransient<Generic2<Extrmal_Section, Extrmal_SectionDto>, MocSection>();
+            services.AddTransient<IHistory, MokHistory>();
+            services.AddTransient<IDashBord, MokDashBord>();
 
 
 
@@ -59,7 +71,7 @@ namespace MMSystem
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            
 
             app.UseRouting();
 

@@ -16,6 +16,7 @@ namespace MMSystem.Model
 
         public int perent { get; set; }
 
+
         public bool state { get; set; }
 
 

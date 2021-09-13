@@ -55,30 +55,30 @@ namespace MMSystem.Services.MailServeic
             throw new NotImplementedException();
         }
 
-        public async Task<ExInbox> Get(int id)
+        public async Task<Extrenal_inboxDto> Get(int id)
         {
             try
             {
-                ExInbox ExMail = new ExInbox();
+            
                 Mail mail = await _dbCon.Mails.FindAsync(id);
 
 
 
                 if (mail != null)
                 {
-                    ExMail.mail = _mapper.Map<Mail, MailDto>(mail);
+                    
+                    
+                    var c= _mapper.Map<Mail, MailDto>(mail);
 
                    
                     Extrenal_inbox external = await _dbCon.Extrenal_Inboxes.FirstAsync(x => x.MailID == id);
-                    ExMail.extrenal  = _mapper.Map<Extrenal_inbox, Extrenal_inboxDto>(external);
-                  List<Mail_Resourcescs> resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail.MailID).ToListAsync();
-                    ExMail.resourcescsDto = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(resourcescs);
+                  Extrenal_inboxDto dto = _mapper.Map<Extrenal_inbox, Extrenal_inboxDto>(external);
+                  
 
-
-                    return ExMail;
+                    return dto;
 
                 }
-                return ExMail;
+                return null;
 
             }
             catch (Exception)
@@ -91,7 +91,7 @@ namespace MMSystem.Services.MailServeic
            
         }
 
-        public async Task<List<ExInbox>> GetAll()
+        public async Task<List<Extrenal_inboxDto>> GetAll()
         {
             try
             {
@@ -112,8 +112,16 @@ namespace MMSystem.Services.MailServeic
             Extrenal_inbox _Inbox = await _dbCon.Extrenal_Inboxes.FindAsync(model.Id);
 
             if (_Inbox != null) {
+                _Inbox.action = model.action;
+                _Inbox.entity_reference_number = model.entity_reference_number;
+                _Inbox.SectionId = model.SectionId;
+                _Inbox.section_Name = model.section_Name;
+                _Inbox.procedure_type = model.procedure_type;
+                _Inbox.to = model.to;
+                _Inbox.type = model.type;
+                _Inbox.Send_time = model.Send_time;
 
-                await _dbCon.Extrenal_Inboxes.AddAsync(model);
+                 _dbCon.Extrenal_Inboxes.Update(_Inbox);
                 await _dbCon.SaveChangesAsync();
 
                 return true;

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MMSystem.Model;
+using MMSystem.Model.Dto;
+using MMSystem.Model.ViewModel;
 using MMSystem.Services;
 using MMSystem.Services.ReplayServeic;
 using System;
@@ -38,7 +40,35 @@ namespace MMSystem.Controllers
                 statusCode = 400
             });
         }
-      
+        [HttpPost("Uplode")]
+        public async Task<IActionResult> Uplode([FromBody] Uplode file)
+        {
+            var result = await _Replay.Uplode(file);
+            if (result)
+                return StatusCode(203, new
+                {
+                    message = "تمت العملية بنجاح",
+                    statusCode = 203,
+                   
+                });
+            return BadRequest(new Result()
+            {
+                message = "فشلت العملية",
+                statusCode = 400
+            });
+        }
+        [HttpGet("GetReplyById/{id}")]
+        public async Task<IActionResult> GetRepliesById(int id)
+        {
+            List<ReplayDto> result = await _Replay.GetAllReplay(id);
+            if(result.Count>0)
+            return Ok(result);
+            return BadRequest(new Result()
+            {
+                message = "فشلت العملية",
+                statusCode = 400
+            });
+        }
 
 
 

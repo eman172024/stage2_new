@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MMSystem.Model;
+using MMSystem.Model.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +9,15 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Services.MeasuresServeic
 {
-    public class MookMeasures : GenericInterface<Measures, Measures>
+    public class MookMeasures : GenericInterface<Measures, MeasuresDto>
     {
         private readonly AppDbCon _data;
+        private readonly IMapper _mapper;
 
-        public MookMeasures(AppDbCon data)
+        public MookMeasures(AppDbCon data,IMapper mapper)
         {
             _data = data;
+            _mapper = mapper;
         }
 
         public async Task<bool> Add(Measures model)
@@ -57,12 +61,13 @@ namespace MMSystem.Services.MeasuresServeic
             }
         }
 
-        public async Task<Measures> Get(int id)
+        public async Task<MeasuresDto> Get(int id)
         {
             try
             {
                 Measures measures = await _data.measures.FindAsync(id);
-                return measures;
+                MeasuresDto dto = _mapper.Map<Measures, MeasuresDto>(measures);
+                return dto;
 
             }
             catch (Exception)
@@ -72,12 +77,14 @@ namespace MMSystem.Services.MeasuresServeic
             }
         }
 
-        public async Task<List<Measures>> GetAll()
+        public async Task<List<MeasuresDto>> GetAll()
         {
             try
             {
                 List<Measures> measures = await _data.measures.Where(x => x.state == true).ToListAsync();
-                return measures;
+
+                List<MeasuresDto> list = _mapper.Map<List<Measures>, List<MeasuresDto>>(measures);
+                return list;
             }
             catch (Exception)
             {

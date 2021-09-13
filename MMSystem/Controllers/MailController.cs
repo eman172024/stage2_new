@@ -10,6 +10,7 @@ using MMSystem.Services.MailServeic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -46,18 +47,41 @@ namespace MMSystem.Controllers
             List<MailDto> mails =await _Imail.GetAll();
             return Ok(mails);
         }
+        dynamic c;
 
         // GET api/<MailController>/5
-        [HttpGet("GetMailById{id}")]
-        public async Task<IActionResult> GetMailById(int id)
+        [HttpGet("GetMailById")]
+        public async Task<IActionResult> GetMailById(int id,int type)
         {
-            MailDto mail = await _Imail.Get(id);
-            if (mail != null) 
-                return Ok(mail);
+            //switch (type) 
+            //{
+            //    case "1":
+            //        MailVM mail = await _Imail.GetMailById(id,type);
+            //        if (mail != null)
+            //            c = mail;
+            //        break;
 
 
-         return NotFound(  new Result { message="لايوجد بريد ",
-         statusCode=404});
+            //    case "2":
+
+            //        var ddc = await _Imail.GetMailById1(id,type);
+            //        if (ddc != null)
+
+            //            c = ddc;
+            //        break;
+
+            //    case"3":
+
+            //        var ccc = await _Imail.GetMailById2(id,type);
+            //        if (ccc != null)
+            //            c = ccc;
+            //        break;
+            //    default:break;
+            //}
+            var c = await _Imail.DynamicGet(id,type);
+            if(c!=null)
+            return Ok(c);
+            return NotFound("لايوجد بريد ");
         }
 
         // POST api/<MailController>
@@ -80,23 +104,8 @@ namespace MMSystem.Controllers
 
 
 
-        // PUT api/<MailController>/5
-        [HttpPut("UpdateMail")]
-        public async Task<IActionResult> UpdateMail([FromBody] Mail mail)
-        {
-           bool result = await _Imail.Update(mail);
-            if (result) 
-            return Ok( new Result()
-            {
-                message = "تمت العملية بنجاح",
-                statusCode = 200
-            });
-            return BadRequest(new Result()
-            {
-                message = "فشلت العملية",
-                statusCode = 400
-            });
-        }
+      
+
 
         // DELETE api/<MailController>/5
         [HttpDelete("Delete/{id}")]
@@ -112,34 +121,67 @@ namespace MMSystem.Controllers
 
 
         }
+        
+        //[HttpPost("Uplode")]
+        //public async Task<IActionResult> Uplode([FromForm] int id, List<IFormFile> resourse)
+        //{
 
-        [HttpPost("Uplode")]
-        public async Task<IActionResult> Uplode([FromForm] int id, List<IFormFile> resourse)
+        //    bool state = await _Imail.Upload(id, resourse);
+        //    if (state)
+        //        return Created("Uplode", new Result() { message = "تمت عملية التحميل بنجاح", statusCode = 203 });
+        //    return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
+
+
+        //}
+
+        [HttpGet("GetLastMails")]
+        public async Task<IActionResult> GetLastMails()
         {
 
-            bool state = await _Imail.Upload(id, resourse);
-            if (state)
-                return Created("Uplode", new Result() { message = "تمت عملية التحميل بنجاح", statusCode = 203 });
-            return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
+            List<MailDto> list = await _Imail.GetSevenMail();
+           // if (list.Count>0)
+                return Ok(list);
+            //return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
 
 
         }
 
-        [HttpPost("UpdateFile")]
-        public async Task<IActionResult> UpdateFile([FromForm] int id, List<IFormFile> resourse)
+        [HttpDelete("DeleteMangament")]
+        public async Task<IActionResult> DeleteMangament(int mail_id, int departmentId )
         {
+            bool result = await _Imail.deleteSender(mail_id,departmentId);
+            if (result)
+                return StatusCode(203, new Result() { message = "تمت عملية الحذف بنجاح", statusCode = 203 });
+            return BadRequest(new Result() { message = "غشلت العملية", statusCode = 404 });
 
-            bool state = await _Imail.UpdateFile(id, resourse);
-            if (state)
-                return Created("Uplode", new Result() { message = "تمت عملية التعديل بنجاح", statusCode = 203 });
-            return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
+        }
 
+        [HttpPut("UpdateMail")]
+        public async Task<IActionResult> UpdateMail(MailViewModel mail)
+        {
+            bool result = await _Imail.UpdateMail(mail);
+            if (result)
+                return StatusCode(203, new Result() { message = "تمت عملية التعديل بنجاح", statusCode = 203 });
+            return BadRequest(new Result() { message = "غشلت العملية", statusCode = 404 });
 
         }
 
 
+        //[HttpPost("UpdateFile")]
+        //public async Task<IActionResult> UpdateFile([FromForm] int id, List<IFormFile> resourse)
+        //{
 
-        [HttpPost("Send")]
+        //    bool state = await _Imail.UpdateFile(id, resourse);
+        //    if (state)
+        //        return Created("Uplode", new Result() { message = "تمت عملية التعديل بنجاح", statusCode = 203 });
+        //    return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
+
+
+        //}
+
+
+
+        [HttpPut("Send")]
         public async Task<IActionResult> Send(int mailid)
         {
 
@@ -150,6 +192,9 @@ namespace MMSystem.Controllers
 
 
         }
+        [HttpPost("Uplode")]
+        public async Task<IActionResult> Uplode(Uplode file)
+        {
 
         [HttpGet("GetMail")]
         public async Task<IActionResult> GetMail(DateTime? myday, int? daycheck, int? mailnum_bool, 
@@ -286,6 +331,45 @@ namespace MMSystem.Controllers
             return Ok(ma);
 
         }
+
+
+
+
+            if (ModelState.IsValid)
+            {
+                bool state = await _Imail.Uplode(file);
+                if (state)
+                    return Created("Uplode", new Result() { message = "تمت عملية التحميل بنجاح", statusCode = 203 });
+                return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
+
+            }
+
+            return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
+
+
+        }
+      
+           [HttpDelete("DeleteDocument/{id}")]
+        public async Task<IActionResult> DeletePhote(int id)
+        {
+
+         
+           
+                bool state = await _Imail.DeletePhote(id);
+                if (state)
+                    return Ok( new Result() { message = "تمت عملية الحذف", statusCode = 203 });
+                return NotFound(new Result() { message = "لايوجد صور", statusCode = 404 });
+
+         
+        }
+
+
+
+
+
+
+
+
 
 
 

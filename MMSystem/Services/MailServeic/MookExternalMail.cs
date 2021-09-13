@@ -26,10 +26,10 @@ namespace MMSystem.Services.MailServeic
             try
             {
                 Mail mail = await _appDb.Mails.FindAsync(exMail.MailID);
-
+                
                 if (mail != null)
                 {
-                    exMail.MailID = mail.MailID;
+                 exMail.MailID = mail.MailID;
                     await _appDb.External_Mails.AddAsync(exMail);
 
                     await _appDb.SaveChangesAsync();
@@ -55,30 +55,25 @@ namespace MMSystem.Services.MailServeic
             throw new NotImplementedException();
         }
 
-        public async Task<ExMail> Get(int id)
+        public async Task<ExternalDto> Get(int id)
         {
             try
             {
-                ExMail ExMail = new ExMail();
+            
                 Mail mail = await _appDb.Mails.FindAsync(id);
 
 
 
                 if (mail != null)
                 {
-                    ExMail.mail = _mapper.Map<Mail, MailDto>(mail);
+                    External_Mail external = _appDb.External_Mails.FirstOrDefault(x=>x.MailID==id);
 
+                    ExternalDto dto = _mapper.Map<External_Mail, ExternalDto>(external);
 
-                    External_Mail external = await _appDb.External_Mails.FirstAsync(x=>x.MailID==id);
-                    ExMail.External = _mapper.Map<External_Mail, ExternalDto>(external);
-                    List<Mail_Resourcescs> resourcescs = await _appDb.Mail_Resourcescs.Where(x => x.MailID == mail.MailID).ToListAsync();
-                    ExMail.resourcescsDto = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(resourcescs);
-
-
-                    return ExMail;
+                    return dto;
 
                 }
-                return ExMail;
+                return null;
 
             }
             catch (Exception)
@@ -93,7 +88,7 @@ namespace MMSystem.Services.MailServeic
 
         }
 
-        public Task<List<ExMail>> GetAll()
+        public Task<List<ExternalDto>> GetAll()
         {
             throw new NotImplementedException();
         }
@@ -109,9 +104,12 @@ namespace MMSystem.Services.MailServeic
                 if (mail != null)
 
                 {
+                    mail.Sectionid = model.Sectionid;
+                    mail.sectionName = model.sectionName;
                     mail.action = model.action;
-             
-                    
+                    mail.action_required_by_the_entity = model.action_required_by_the_entity;
+
+
 
                     _appDb.External_Mails.Update(mail);
                     await _appDb.SaveChangesAsync();
