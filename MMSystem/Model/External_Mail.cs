@@ -14,8 +14,7 @@ namespace MMSystem.Model
 
         public int MailID { get; set; }
 
-        [JsonIgnore]
-        
+           [JsonIgnore]
         public Mail Mail { get; set; }
 
         public Extrmal_Section Section { get; set; }
@@ -27,8 +26,12 @@ namespace MMSystem.Model
         public string sectionName { get; set; }
        
         public string action_required_by_the_entity { get; set; }
+        //for 
+        public DateTime Send_of_Ex_mail  { get; set; }
 
 
+        public string delivery { get; set; }
+        public bool Attachments { get; set; }
 
     }
 }
