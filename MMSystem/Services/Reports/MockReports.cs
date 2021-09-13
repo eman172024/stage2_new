@@ -28,12 +28,12 @@ namespace MMSystem.Services.Reports
 
             totalCounts.TotalOfMassage = _data.Mails.Where(x => x.state == true).Count();
             
-            totalCounts.TotalOfReplay = (from hus in _data.Sends.Where(x => x.State == true)
+            totalCounts.TotalOfReplay = (from hus in _data.Sends.Where(x => x.flag == 1)
                                         join
                                         hu in _data.Replies on hus.Id equals hu.send_ToId
                                         select  hu.ReplyId  ).Count();
 
-            totalCounts.TotalOfReplay = (from hus in _data.Sends.Where(x => x.State == true)
+            totalCounts.TotalOfReplay = (from hus in _data.Sends.Where(x => x.flag == 1)
                                          join
                                          hu in _data.Replies  on hus.Id equals hu.send_ToId
                                          group hu by hu.send_ToId).Count();
@@ -45,7 +45,7 @@ namespace MMSystem.Services.Reports
             return totalCounts;
         }
 
-        public async Task<List<SectionReport>> GetAllDepartmentReports(DateTime? fromdate, DateTime? todate, string? MailType, string SendedOrRecieved = "recieved")
+        public async Task<List<SectionReport>> GetAllDepartmentReports(DateTime? fromdate, DateTime? todate, int ? MailType, string SendedOrRecieved = "recieved")
         {
             try
             {
@@ -118,7 +118,7 @@ namespace MMSystem.Services.Reports
 
         }
 
-        public async Task<List<SectionReport>> GetMySectionReport(int id, DateTime ? fromdate, DateTime ? todate, string ? MailType, string  SendedOrRecieved = "sended")
+        public async Task<List<SectionReport>> GetMySectionReport(int id, DateTime ? fromdate, DateTime ? todate, int? MailType, string  SendedOrRecieved = "sended")
         {
             try
             {
@@ -136,13 +136,13 @@ namespace MMSystem.Services.Reports
 
                         mysectionreport.TotalOfReceived.TotalOfMassage = (from hus in _data.Mails.Where(x => x.Department_Id == id && x.state == true || x.Mail_Type == MailType)
                                                                           join
-                                                                          g in _data.Sends.Where(x => x.State == true && x.to == item.Id && (x.Send_time >= fromdate && x.Send_time <= todate)) 
+                                                                          g in _data.Sends.Where(x => x.flag== 1 && x.to == item.Id && (x.Send_time >= fromdate && x.Send_time <= todate)) 
                                                                           on hus.MailID equals g.MailID
                                                                           select g.MailID).ToList().Count();
 
                         int massageReplaied = (from hus in _data.Mails.Where(x => x.Department_Id == id && x.state == true)
                                                join
-                                               hu in _data.Sends.Where(x => x.State == true && x.to == item.Id) on hus.MailID equals hu.MailID
+                                               hu in _data.Sends.Where(x => x.flag == 1 && x.to == item.Id) on hus.MailID equals hu.MailID
                                                join
                                                g in _data.Replies on hu.Id equals g.send_ToId
                                                select g.ReplyId
@@ -169,13 +169,13 @@ namespace MMSystem.Services.Reports
 
                         mysectionreport.TotalOfReceived.TotalOfMassage = (from hus in _data.Mails.Where(x =>( x.Department_Id == item.Id && x.state == true )|| x.Mail_Type == MailType)
                                                                           join
-                                                                          g in _data.Sends.Where(x => x.State == true && x.to == id && ((x.Send_time >= fromdate && x.Send_time <= todate)))
+                                                                          g in _data.Sends.Where(x => x.flag == 1 && x.to == id && ((x.Send_time >= fromdate && x.Send_time <= todate)))
                                                                           on hus.MailID equals g.MailID
                                                                           select g.MailID).ToList().Count();
 
                         int massageReplaied = (from hus in _data.Mails.Where(x => (x.Department_Id == item.Id && x.state == true )|| x.Mail_Type == MailType)
                                                join
-                                               hu in _data.Sends.Where(x => x.State == true && x.to == id && ((x.Send_time >= fromdate && x.Send_time <= todate))) on hus.MailID equals hu.MailID
+                                               hu in _data.Sends.Where(x => x.flag == 1 && x.to == id && ((x.Send_time >= fromdate && x.Send_time <= todate))) on hus.MailID equals hu.MailID
                                                join
                                                g in _data.Replies on hu.Id equals g.send_ToId
                                                select g.ReplyId
@@ -202,7 +202,7 @@ namespace MMSystem.Services.Reports
         }
 
 
-        public async Task<UserReports> GetAllUserMassageReport(int id, DateTime? fromdate, DateTime? todate, string? MailType, string SendedOrRecieved)
+        public async Task<UserReports> GetAllUserMassageReport(int id, DateTime? fromdate, DateTime? todate, int ? MailType, string SendedOrRecieved)
         {
             try
             {
@@ -286,7 +286,7 @@ namespace MMSystem.Services.Reports
             }
         }
 
-        public async Task<UsersConclsionReport> GetAllUserCount(int departmentid, DateTime? fromdate, DateTime? todate, string? MailType, string RecievedOrSended)
+        public async Task<UsersConclsionReport> GetAllUserCount(int departmentid, DateTime? fromdate, DateTime? todate, int ? MailType, string RecievedOrSended)
         {
             try
             {
