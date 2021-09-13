@@ -17,12 +17,15 @@ namespace MMSystem.Model
         public string Mail_Summary { get; set; }
         //
         public int clasification { get; set; }
-        public string  Mail_Type { get; set; }
+    // public string  Mail_Type { get; set; }
+        public int Mail_Type { get; set; }
         public int Genaral_inbox_Number { get; set; }
         public int Genaral_inbox_year { get; set; }
         public int userId { get; set; }
 
         public string ActionRequired { get; set; }
+
+        public bool is_send { get; set; }
         public Administrator user { get; set; }
 
         public External_Mail external_Mail { get; set; }
@@ -30,6 +33,7 @@ namespace MMSystem.Model
         public bool state { get; set; }
 
 
+       
 
 
     }

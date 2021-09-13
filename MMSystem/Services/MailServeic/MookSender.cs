@@ -24,8 +24,7 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                t.flag = false;
-                t.State = false;
+                t.flag = 0;
                 t.Send_time = DateTime.Now;
                 await _data.Sends.AddAsync(t);
                 await _data.SaveChangesAsync();
@@ -48,7 +47,7 @@ namespace MMSystem.Services.MailServeic
                 Send_to send_ = await _data.Sends.FirstOrDefaultAsync(x => x.MailID == id);
                 if (send_ != null)
                 {
-                    send_.State = true;
+                    send_.flag = 1;
                     send_.time_of_read = DateTime.Now;
 
                     _data.Sends.Update(send_);
@@ -69,24 +68,34 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                // Mail mail = await _data.Mails.Where(x => x.Management_Id == Management_Id && x.userId == userId).FirstAsync();
+                Mail mail = await _data.Mails.FindAsync(mailId);
 
-                List<Send_to> send_ = await _data.Sends.Where(x => x.MailID == mailId).ToListAsync();
-                if (send_.Count > 0)
-                {
-                    foreach (var item in send_)
+                if (mail != null) {
+
+                    mail.is_send = true;
+                    _data.Mails.Update(mail);
+                    await _data.SaveChangesAsync();
+
+                    List<Send_to> send_ = await _data.Sends.Where(x => x.MailID == mailId).ToListAsync();
+                    if (send_.Count > 0)
                     {
-                        item.flag = true;
-                        item.Send_time = DateTime.Now;
+                        foreach (var item in send_)
+                        {
+                            item.flag = 1;
+                            item.Send_time = DateTime.Now;
 
-                        _data.Sends.Update(item);
-                        await _data.SaveChangesAsync();
+                            _data.Sends.Update(item);
+                            await _data.SaveChangesAsync();
+                        }
+
+
+
+                       
                     }
-
-
-
                     return true;
                 }
+
+
                 return false;
             }
             catch (Exception)
@@ -121,7 +130,7 @@ namespace MMSystem.Services.MailServeic
 
         public async Task<bool> UpdateSenderList(UpdateVM update)
         {
-            List<Send_to> list = await _data.Sends.Where(x=>x.MailID==update.mail_id&& x.State==true).ToListAsync();
+            List<Send_to> list = await _data.Sends.Where(x=>x.MailID==update.mail_id&& x.flag==1).ToListAsync();
             return true;
         }
     }

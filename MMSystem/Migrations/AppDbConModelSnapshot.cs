@@ -503,6 +503,33 @@ namespace MMSystem.Migrations
                         });
                 });
 
+            modelBuilder.Entity("MMSystem.Model.Historyes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("OldValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RowTransaction")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Transaction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("User")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("History");
+                });
+
             modelBuilder.Entity("MMSystem.Model.Mail", b =>
                 {
                     b.Property<int>("MailID")
@@ -531,11 +558,14 @@ namespace MMSystem.Migrations
                     b.Property<string>("Mail_Summary")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Mail_Type")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Mail_Type")
+                        .HasColumnType("int");
 
                     b.Property<int>("clasification")
                         .HasColumnType("int");
+
+                    b.Property<bool>("is_send")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("state")
                         .HasColumnType("bit");
@@ -737,97 +767,97 @@ namespace MMSystem.Migrations
                         {
                             RoleId = 1,
                             Name = "الإطلاع على السري",
-                            state = false
+                            state = true
                         },
                         new
                         {
                             RoleId = 2,
                             Name = "استخدام الوارد الخارجي",
-                            state = false
+                            state = true
                         },
                         new
                         {
                             RoleId = 3,
                             Name = "ارسال البريد الى",
-                            state = false
+                            state = true
                         },
                         new
                         {
                             RoleId = 4,
                             Name = "الإطلاع على التقرير الإحصائى",
-                            state = false
+                            state = true
                         },
                         new
                         {
                             RoleId = 5,
                             Name = "الصادر الجديد",
-                            state = false
+                            state = true
                         },
                         new
                         {
                             RoleId = 6,
                             Name = "كتابة اجراءالأمين للرسالة",
-                            state = false
+                            state = true
                         },
                         new
                         {
                             RoleId = 7,
                             Name = "الإطلاع على تقرير المتابعة",
-                            state = false
+                            state = true
                         },
                         new
                         {
                             RoleId = 8,
                             Name = "الاستلام والسحب",
-                            state = false
+                            state = true
                         },
                         new
                         {
                             RoleId = 9,
                             Name = "عرض الصورة",
-                            state = false
+                            state = true
                         },
                         new
                         {
                             RoleId = 10,
                             Name = "الإطلاع على الوارد الجديد",
-                            state = false
+                            state = true
                         },
                         new
                         {
                             RoleId = 11,
                             Name = "استخدام الصادر الخارجي",
-                            state = false
+                            state = true
                         },
                         new
                         {
                             RoleId = 12,
                             Name = "الإطلاع على الردود السابقة",
-                            state = false
+                            state = true
                         },
                         new
                         {
                             RoleId = 13,
                             Name = "اعادة الارسال",
-                            state = false
+                            state = true
                         },
                         new
                         {
                             RoleId = 14,
                             Name = "الرد على الوار الجديد",
-                            state = false
+                            state = true
                         },
                         new
                         {
                             RoleId = 15,
                             Name = "ردود الإدارات الفرعية",
-                            state = false
+                            state = true
                         },
                         new
                         {
                             RoleId = 16,
                             Name = "استخدام البريد الداخلي",
-                            state = false
+                            state = true
                         });
                 });
 
@@ -844,11 +874,8 @@ namespace MMSystem.Migrations
                     b.Property<DateTime>("Send_time")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("State")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("flag")
-                        .HasColumnType("bit");
+                    b.Property<int>("flag")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("time_of_read")
                         .HasColumnType("datetime2");
@@ -858,6 +885,9 @@ namespace MMSystem.Migrations
 
                     b.Property<int>("type_of_send")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("update_At")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

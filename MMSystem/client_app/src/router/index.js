@@ -10,10 +10,7 @@ const routes = [{
         component: Login,
     },
 
-
-
-
-
+    // dashboard
     {
         path: "/dashboard",
         name: "dashboard",
@@ -27,9 +24,9 @@ const routes = [{
             ),
     },
 
-
+    // mail
     {
-        path: "/mailn",
+        path: "/mail",
         name: "mail",
         // route level code-splitting
         // this generates a separate chunk (dashboard.[hash].js) for this route
@@ -37,18 +34,46 @@ const routes = [{
         component: () =>
             import (
                 /* webpackChunkName: "dashboard" */
-                "../views/mail/mail.vue"
+                "../views/mail/mail_form.vue"
             ),
     },
 
+    // mail form
     {
-        path: "/mail/:mail",
+        path: "/mail/:mail/:type",
         name: "mail-show",
         // route level code-splitting
         // this generates a separate chunk (mail.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-            import ( /* webpackChunkName: "mail" */ "../views/mail/mail.vue"),
+            import ( /* webpackChunkName: "mail" */ "../views/mail/mail_form.vue"),
+    },
+
+    // inbox
+    {
+        path: "/inbox",
+        name: "inbox",
+        // route level code-splitting
+        // this generates a separate chunk (dashboard.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import (
+                /* webpackChunkName: "dashboard" */
+                "../views/mail/inbox/inbox.vue"
+            ),
+    },
+
+    {
+        path: "/inbox/:mail",
+        name: "inbox-show",
+        // route level code-splitting
+        // this generates a separate chunk (dashboard.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import (
+                /* webpackChunkName: "dashboard" */
+                "../views/mail/inbox/inbox_form.vue"
+            ),
     },
 
 
@@ -57,6 +82,71 @@ const routes = [{
 
 
 
+
+
+
+
+    // testing
+    {
+        path: "/1",
+        name: "1",
+        // route level code-splitting
+        // this generates a separate chunk (dashboard.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import (
+                /* webpackChunkName: "dashboard" */
+                "../views/test_pages/1.vue"
+            ),
+    },
+    {
+        path: "/2",
+        name: "2",
+        // route level code-splitting
+        // this generates a separate chunk (dashboard.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import (
+                /* webpackChunkName: "dashboard" */
+                "../views/test_pages/2.vue"
+            ),
+    },
+    {
+        path: "/3",
+        name: "3",
+        // route level code-splitting
+        // this generates a separate chunk (dashboard.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import (
+                /* webpackChunkName: "dashboard" */
+                "../views/test_pages/3.vue"
+            ),
+    },
+    {
+        path: "/4",
+        name: "4",
+        // route level code-splitting
+        // this generates a separate chunk (dashboard.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import (
+                /* webpackChunkName: "dashboard" */
+                "../views/test_pages/4.vue"
+            ),
+    },
+    {
+        path: "/5",
+        name: "5",
+        // route level code-splitting
+        // this generates a separate chunk (dashboard.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import (
+                /* webpackChunkName: "dashboard" */
+                "../views/test_pages/5.vue"
+            ),
+    },
 
 ];
 

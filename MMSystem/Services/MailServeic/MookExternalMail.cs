@@ -26,10 +26,10 @@ namespace MMSystem.Services.MailServeic
             try
             {
                 Mail mail = await _appDb.Mails.FindAsync(exMail.MailID);
-
+                
                 if (mail != null)
                 {
-                    exMail.MailID = mail.MailID;
+                 exMail.MailID = mail.MailID;
                     await _appDb.External_Mails.AddAsync(exMail);
 
                     await _appDb.SaveChangesAsync();
@@ -104,9 +104,12 @@ namespace MMSystem.Services.MailServeic
                 if (mail != null)
 
                 {
+                    mail.Sectionid = model.Sectionid;
+                    mail.sectionName = model.sectionName;
                     mail.action = model.action;
-             
-                    
+                    mail.action_required_by_the_entity = model.action_required_by_the_entity;
+
+
 
                     _appDb.External_Mails.Update(mail);
                     await _appDb.SaveChangesAsync();

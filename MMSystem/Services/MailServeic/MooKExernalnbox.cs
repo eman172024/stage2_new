@@ -112,8 +112,16 @@ namespace MMSystem.Services.MailServeic
             Extrenal_inbox _Inbox = await _dbCon.Extrenal_Inboxes.FindAsync(model.Id);
 
             if (_Inbox != null) {
+                _Inbox.action = model.action;
+                _Inbox.entity_reference_number = model.entity_reference_number;
+                _Inbox.SectionId = model.SectionId;
+                _Inbox.section_Name = model.section_Name;
+                _Inbox.procedure_type = model.procedure_type;
+                _Inbox.to = model.to;
+                _Inbox.type = model.type;
+                _Inbox.Send_time = model.Send_time;
 
-                await _dbCon.Extrenal_Inboxes.AddAsync(model);
+                 _dbCon.Extrenal_Inboxes.Update(_Inbox);
                 await _dbCon.SaveChangesAsync();
 
                 return true;

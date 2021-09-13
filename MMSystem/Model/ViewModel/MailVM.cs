@@ -8,7 +8,7 @@ namespace MMSystem.Model.ViewModel
 {
     public class MailVM
     {
-        public MailDto mailDto { get; set; }
+        public MailDto mail { get; set; }
 
 
         public List<ActionSender> actionSenders  { get; set; }

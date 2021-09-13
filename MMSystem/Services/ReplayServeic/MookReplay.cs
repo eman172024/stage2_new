@@ -16,19 +16,20 @@ namespace MMSystem.Services.ReplayServeic
     public class MookReplay : IReplay
 
     {
+        private IWebHostEnvironment iwebHostEnvironment;
 
 
         public MookReplay(AppDbCon data, IMapper mapper, IWebHostEnvironment environment)
         {
             _data = data;
             _mapper = mapper;
-            _environment = environment;
+            iwebHostEnvironment = environment;
         }
         public string sub { get; set; }
 
         private readonly AppDbCon _data;
         private readonly IMapper _mapper;
-        private readonly IWebHostEnvironment _environment;
+      
 
         public async Task<bool> Add(Reply model)
         {
@@ -120,10 +121,10 @@ namespace MMSystem.Services.ReplayServeic
  
         public async Task<bool> AddReplay(ReplyViewModel model)
         {
-            Send_to send = await _data.Sends.FindAsync(model.RepluId);
+            Send_to send = await _data.Sends.FindAsync(model.send_ToId);
 
             if (send != null) {
-
+                model.reply.send_ToId = model.send_ToId;
                 model.reply.Date = DateTime.Now;
                 model.reply.state = true;
 
@@ -206,7 +207,7 @@ namespace MMSystem.Services.ReplayServeic
                         Guid guid = Guid.NewGuid();
                         string image = guid.ToString() + "" + sub;
 
-                        var path = Path.Combine(_environment.WebRootPath, "images", image);
+                        var path = Path.Combine(this.iwebHostEnvironment.WebRootPath, "images", image);
 
                         //  file.FileName.Replace(file.FileName,x);
                         var stream = new FileStream(path, FileMode.Create);
@@ -232,5 +233,66 @@ namespace MMSystem.Services.ReplayServeic
                 throw;
             }
         }
+
+        public async Task<bool> Uplode(Uplode file)
+        {
+            try
+
+
+            {
+                string year = DateTime.Now.Year.ToString();
+                string Month = DateTime.Now.Month.ToString();
+                string name = "ReplyResources";
+              
+                string x = Path.Combine(this.iwebHostEnvironment.WebRootPath, "images").ToLower();
+                string y = Path.Combine(x, year);
+
+
+                if (Directory.Exists(x))
+                    if (!Directory.Exists(y)) {
+                        Directory.CreateDirectory(y);
+
+                    }
+
+
+
+
+
+
+
+                //foreach (var item in file.list)
+                //{
+                //    var index = item.baseAs64.IndexOf(',');
+                //    var bsee64string = item.baseAs64.Substring(index + 1);
+                //    index = item.baseAs64.IndexOf(';');
+                //    var base64signtuer = item.baseAs64.Substring(0, index);
+                //    index = item.baseAs64.IndexOf('/');
+                //    var extention = base64signtuer.Substring(index + 1);
+                //    byte[] bytes = Convert.FromBase64String(bsee64string);
+                //    Guid guid = Guid.NewGuid();
+                //    string x = guid.ToString();
+                //    var path = Path.Combine(_environment.WebRootPath, name + "/" + year + "/" + "/" + Month, x + ".");
+
+
+                //    await File.WriteAllBytesAsync(path + extention, bytes);
+                //    Reply_Resources reply = new Reply_Resources();
+                //    reply.ReplyId = file.mail_id;
+                //    reply.path = path + extention;
+                //    reply.order = item.index;
+                //    bool res = await AddResources(reply);
+
+
+                // }
+                return true;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
     }
 }
