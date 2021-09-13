@@ -32,14 +32,15 @@ namespace MMSystem.Migrations
                     b.Property<string>("FirstMACAddress")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Role")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("SecandMACAddress")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nationalNumber")
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.Property<string>("password")
                         .HasColumnType("nvarchar(max)");
@@ -399,10 +400,13 @@ namespace MMSystem.Migrations
                     b.Property<int>("To")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("mail_detail")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("send_ToId")
+                    b.Property<int>("send_ToId")
                         .HasColumnType("int");
 
                     b.Property<bool>("state")
@@ -438,6 +442,103 @@ namespace MMSystem.Migrations
                     b.ToTable("Reply_Resources");
                 });
 
+            modelBuilder.Entity("MMSystem.Model.Role", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = 1,
+                            Name = "الإطلاع على السري"
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            Name = "استخدام الوارد الخارجي"
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            Name = "ارسال البريد الى"
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            Name = "الإطلاع على التقرير الإحصائى"
+                        },
+                        new
+                        {
+                            RoleId = 5,
+                            Name = "الصادر الجديد"
+                        },
+                        new
+                        {
+                            RoleId = 6,
+                            Name = "كتابة اجراءالأمين للرسالة"
+                        },
+                        new
+                        {
+                            RoleId = 7,
+                            Name = "الإطلاع على تقرير المتابعة"
+                        },
+                        new
+                        {
+                            RoleId = 8,
+                            Name = "الاستلام والسحب"
+                        },
+                        new
+                        {
+                            RoleId = 9,
+                            Name = "عرض الصورة"
+                        },
+                        new
+                        {
+                            RoleId = 10,
+                            Name = "الإطلاع على الوارد الجديد"
+                        },
+                        new
+                        {
+                            RoleId = 11,
+                            Name = "استخدام الصادر الخارجي"
+                        },
+                        new
+                        {
+                            RoleId = 12,
+                            Name = "الإطلاع على الردود السابقة"
+                        },
+                        new
+                        {
+                            RoleId = 13,
+                            Name = "اعادة الارسال"
+                        },
+                        new
+                        {
+                            RoleId = 14,
+                            Name = "الرد على الوار الجديد"
+                        },
+                        new
+                        {
+                            RoleId = 15,
+                            Name = "ردود الإدارات الفرعية"
+                        },
+                        new
+                        {
+                            RoleId = 16,
+                            Name = "استخدام البريد الداخلي"
+                        });
+                });
+
             modelBuilder.Entity("MMSystem.Model.Send_to", b =>
                 {
                     b.Property<int>("Id")
@@ -471,6 +572,28 @@ namespace MMSystem.Migrations
                     b.HasIndex("MailID");
 
                     b.ToTable("Sends");
+                });
+
+            modelBuilder.Entity("MMSystem.Model.UserRoles", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("userRoles");
                 });
 
             modelBuilder.Entity("MMSystem.Model.Administrator", b =>
@@ -548,7 +671,9 @@ namespace MMSystem.Migrations
                 {
                     b.HasOne("MMSystem.Model.Send_to", "send_To")
                         .WithMany("replies")
-                        .HasForeignKey("send_ToId");
+                        .HasForeignKey("send_ToId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("send_To");
                 });
@@ -556,7 +681,7 @@ namespace MMSystem.Migrations
             modelBuilder.Entity("MMSystem.Model.Reply_Resources", b =>
                 {
                     b.HasOne("MMSystem.Model.Reply", "Reply")
-                        .WithMany("MyProperty")
+                        .WithMany("_Resources")
                         .HasForeignKey("ReplyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -573,6 +698,30 @@ namespace MMSystem.Migrations
                         .IsRequired();
 
                     b.Navigation("Mail");
+                });
+
+            modelBuilder.Entity("MMSystem.Model.UserRoles", b =>
+                {
+                    b.HasOne("MMSystem.Model.Role", "Role")
+                        .WithMany("userRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MMSystem.Model.Administrator", "User")
+                        .WithMany("userRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MMSystem.Model.Administrator", b =>
+                {
+                    b.Navigation("userRoles");
                 });
 
             modelBuilder.Entity("MMSystem.Model.Department", b =>
@@ -596,7 +745,12 @@ namespace MMSystem.Migrations
 
             modelBuilder.Entity("MMSystem.Model.Reply", b =>
                 {
-                    b.Navigation("MyProperty");
+                    b.Navigation("_Resources");
+                });
+
+            modelBuilder.Entity("MMSystem.Model.Role", b =>
+                {
+                    b.Navigation("userRoles");
                 });
 
             modelBuilder.Entity("MMSystem.Model.Send_to", b =>

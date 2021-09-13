@@ -11,6 +11,7 @@ using MMSystem.Model;
 using MMSystem.Services;
 using MMSystem.Services.MailServeic;
 using MMSystem.Services.MeasuresServeic;
+using MMSystem.Services.ReplayServeic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,7 @@ namespace MMSystem
             services.AddTransient<IAdministratorInterface, MockAdministrator>();
             services.AddTransient<ISender, MookSender>();
             services.AddTransient<GenericInterface<Measures, Measures>, MookMeasures>();
+            services.AddTransient<IReplay, MookReplay>();
     
             services.AddTransient<GenericInterface<ClasificationSubject, ClasificationSubject>, MookClasificationSubject>();
 

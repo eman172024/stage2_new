@@ -152,34 +152,119 @@ namespace MMSystem.Controllers
         }
 
         [HttpGet("GetMail")]
-        public async Task<IActionResult> GetMail(DateTime? myday, int? mangment, DateTime? d1, DateTime? d2 , int? mailnum ,string? summary)
+        public async Task<IActionResult> GetMail(DateTime? myday, int? daycheck, int? mailnum_bool, 
+            int? mangment, DateTime? d1, DateTime? d2 , int? mailnum ,string? summary , int? mail_Readed,
+            bool? mailReaded, bool? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2 , int? Typeof_send , int? userid)
+
         {
+            userid = 3;
+            string mail_type = " ";
+            var role_id = await dbcon.userRoles.FirstOrDefaultAsync(x=> x.UserId== userid);
+            int user_role_num = role_id.RoleId;
+            
+            DateTime day = DateTime.Now;
+            bool mail_accept = false;
+            bool daysended = false;
+            bool sendedType_exsist = false;
+           // myday = day.Date;
 
             if (mangment == null)
+            {   mangment = 1; }
+
+            if (summary == null)
+            {   summary = " "; }
+
+            if (mailnum != null)
             {
-                mangment = 1;
+                mailnum_bool = 0;
+            }
+            else
+            {
+                mailnum_bool = 1;
             }
 
+            if (myday != null)
+            {
+               
+                daycheck = 0;
+            }
+            else if (myday == null)
+            {
+               
+                daycheck = 1;
+            }
 
             if (d1 == null && d2 == null)
-            {
-                DateTime day = DateTime.Now;
-               //if(day.Date==day.Date)
-               // {
-
-               // }
+            { 
                 d1 = day.Date;
                 d2 = day.Date;
-                
+
+            }
+
+            if(mail_Readed == null)
+            {
+                mail_accept = true;
+                mailReaded = true;
+                mailnot_readed = false;
+            }else if(mail_Readed == 1)
+            {
+                mail_accept = false;
+                mailReaded = true;
+                mailnot_readed = true;
+            }else if(mail_Readed ==0)
+            {
+                mail_accept = false;
+                mailnot_readed = false;
+                mailReaded = false;
+            }
+
+            if(Day_sended1 == null && Day_sended2 == null)
+            {
+                daysended = true;
+            }else
+            {
+                daysended = false;
+            }
+
+            if(Typeof_send ==null)
+            {
+                sendedType_exsist = true;
+            }
+            else
+            {
+                sendedType_exsist = false;
+            }
+
+            if(user_role_num == 10 )
+            {
+                mail_type = "خ";
+            }
+            else if(user_role_num == 17)
+            {
+                mail_type = "داخلي";
+            }
+            else if (user_role_num == 18)
+            {
+                mail_type = "وارد خارجي";
+            }
+            else if (user_role_num == 19)
+            {
+                mail_type = "صادر خارجي";
             }
 
             var m = await dbcon.Departments.FindAsync(mangment);
 
-            List<Sended_Maill> ma = await (from mail in dbcon.Mails.Where(x => x.Management_Id == mangment
-                                           ||x.Mail_Summary.Contains(summary)).OrderByDescending(x => x.MailID)
-                                           join ex in dbcon.Sends.Where(x => x.flag == true && (x.Send_time.Date >= d1 && x.Send_time.Date <= d2 || x.Send_time.Date==myday
-                                           || x.MailID == mailnum)) on mail.MailID equals ex.MailID
+            List<Sended_Maill> ma = await (from mail in dbcon.Mails.Where(x => (x.Management_Id == mangment &&
+                                           x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
+                                           &&(mailnum_bool == 1  || x.Mail_Number == mailnum ) &&  x.Mail_Type.Contains(mail_type) ).OrderByDescending(x => x.MailID)
+
+                                           join ex in dbcon.Sends.Where(x => (x.flag == true) && ( daycheck == 1 || x.Send_time.Date == myday) &&
+                                           ((x.State == mailnot_readed && x.State == mailReaded) || mail_accept == true ) && 
+                                           ((x.Send_time.Date >=Day_sended1 && x.Send_time.Date <=Day_sended2 && x.State == true) || daysended ==true) &&
+                                           (x.type_of_send == Typeof_send || sendedType_exsist ==true)   )
+                                           on mail.MailID equals ex.MailID
                                           
+                                          // join cx in dbcon.Replies.Where(x=> x.ReplyId)
                                            select new Sended_Maill()
                                            {
                                                mail_id=mail.MailID,

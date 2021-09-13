@@ -85,7 +85,7 @@ namespace MMSystem.Services.MeasuresServeic
 
                 throw;
             }
-            return null;
+          
         }
 
         public async Task<bool> Update(ClasificationSubject model)
