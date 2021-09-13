@@ -24,24 +24,29 @@
                         <div class="w-full mt-4 rounded-md  divide-y-2 divide-gray-200">
 
                             <div class="flex items-center bg-white w-full text-sm">
-                                <div class="w-1/12 py-4 pr-6">
+                                <div class="w-2/12 py-4 pr-6">
                                     رقم الرسالة
                                 </div>
-
+                                <div class="w-1/12">
+                                    الحالة
+                                </div>
                                 <div class="w-1/12">
                                     النوع
                                 </div>
-
-                                <div class="w-4/12">
-                                    الإدارة
+                                <div class="w-3/12">
+                                      الإدارة المرسلة
                                 </div>
-
-                                <div class="w-5/12">
-                                    ملخص الرسالة
+                                <div class="w-1/12">
+                                    نوع الإجراء
                                 </div>
-                                
                                 <div class="w-1/12">
                                     تاريخ الارسال
+                                </div>
+                                <div class="w-1/12">
+                                    وقت الارسال
+                                </div>
+                                <div class="w-1/12">
+                                    الإجراءات
                                 </div>
                             </div>
 
