@@ -463,8 +463,8 @@ export default {
             my_department_id : '',
             
             imagesToShow : {},
-            mailType : '',
-            // mailType : 'وارد خارجي',
+            // mailType : '',
+            mailType : 'وارد خارجي',
             // mailType : 'صادر خارجي',
 
             
