@@ -48,7 +48,7 @@ namespace MMSystem.Controllers
 
         // GET api/<MailController>/5
         [HttpGet("GetMailById")]
-        public async Task<IActionResult> GetMailById(int id,string type)
+        public async Task<IActionResult> GetMailById(int id,int type)
         {
             //switch (type) 
             //{

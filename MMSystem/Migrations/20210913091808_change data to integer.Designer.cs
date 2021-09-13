@@ -4,14 +4,16 @@ using MMSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMSystem.Migrations
 {
     [DbContext(typeof(AppDbCon))]
-    partial class AppDbConModelSnapshot : ModelSnapshot
+    [Migration("20210913091808_change data to integer")]
+    partial class changedatatointeger
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -558,13 +560,13 @@ namespace MMSystem.Migrations
                     b.Property<string>("Mail_Summary")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Mail_Type")
+                    b.Property<string>("Mail_Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Mail_Type1")
                         .HasColumnType("int");
 
                     b.Property<int>("clasification")
-                        .HasColumnType("int");
-
-                    b.Property<int>("flag")
                         .HasColumnType("int");
 
                     b.Property<bool>("is_send")

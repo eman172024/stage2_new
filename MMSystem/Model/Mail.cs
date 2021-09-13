@@ -17,7 +17,8 @@ namespace MMSystem.Model
         public string Mail_Summary { get; set; }
         //
         public int clasification { get; set; }
-        public string  Mail_Type { get; set; }
+    // public string  Mail_Type { get; set; }
+        public int Mail_Type { get; set; }
         public int Genaral_inbox_Number { get; set; }
         public int Genaral_inbox_year { get; set; }
         public int userId { get; set; }
@@ -32,6 +33,7 @@ namespace MMSystem.Model
         public bool state { get; set; }
 
 
+        public int flag { get; set; }
 
 
     }

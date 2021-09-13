@@ -81,11 +81,11 @@ namespace MMSystem.Services.MailServeic
                 bool Exmail;
                 bool Ex_inboxmail;
                 bool result = false;
-                string port = mail.mail.Mail_Type;
+                int port = mail.mail.Mail_Type;
 
                 switch (port)
                 {
-                    case "داخلي":
+                    case 1:
                         mail.mail.state = true;
 
                         mail.mail.Mail_Number = await GetLastMailNumber(mail.mail.Department_Id, port);
@@ -115,7 +115,7 @@ namespace MMSystem.Services.MailServeic
 
                         break;
 
-                    case "صادر خارجي":
+                    case  2:
                         mail.mail.state = true;
                         mail.mail.Mail_Number = await GetLastMailNumber(mail.mail.Department_Id, port);
 
@@ -159,7 +159,7 @@ namespace MMSystem.Services.MailServeic
                         break;
 
 
-                    case "وارد خارجي":
+                    case  3:
                         mail.mail.state = true;
                         mail.mail.Mail_Number = await GetLastMailNumber(mail.mail.Department_Id, port);
 
@@ -246,7 +246,7 @@ namespace MMSystem.Services.MailServeic
                
 
                  
-                        Mail mail2 = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == "وارد خارجي ");
+                        Mail mail2 = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 2);
                         dto1 = _mapper.Map<Mail, MailDto>(mail2);
                 return dto1;
 
@@ -262,7 +262,7 @@ namespace MMSystem.Services.MailServeic
             }
         }
 
-        public async Task<MailDto> Getdto(int id, string type)
+        public async Task<MailDto> Getdto(int id, int type)
         {
             try
             {
@@ -271,18 +271,18 @@ namespace MMSystem.Services.MailServeic
                 switch (type)
                 {
 
-                    case "1":
-                        Mail mail = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == "داخلي");
+                    case 1:
+                        Mail mail = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 1);
                         dto1 = _mapper.Map<Mail, MailDto>(mail);
 
                         break;
-                    case "2":
-                        Mail mail1 = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == "صادر خارجي ");
+                    case 2:
+                        Mail mail1 = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type ==  2);
                         dto1 = _mapper.Map<Mail, MailDto>(mail1);
 
                         break;
-                    case "3":
-                        Mail mail2 = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == "وارد خارجي ");
+                    case 3:
+                        Mail mail2 = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 3);
                         dto1 = _mapper.Map<Mail, MailDto>(mail2);
                         break;
                     default: break;
@@ -300,15 +300,15 @@ namespace MMSystem.Services.MailServeic
         }
 
 
-        public async Task<int> GetLastMailNumber(int id, string MailType)
+        public async Task<int> GetLastMailNumber(int id, int MailType)
         {
             try
             {
                 int LastNumber = 0;
                 switch (MailType)
                 {
-                    case "داخلي":
-                        Mail mail = await _appContext.Mails.OrderBy(x => x.MailID).Where(x => x.Department_Id == id && x.Mail_Type.Equals("داخلي")).LastOrDefaultAsync();
+                    case 1:
+                        Mail mail = await _appContext.Mails.OrderBy(x => x.MailID).Where(x => x.Department_Id == id && x.Mail_Type==1).LastOrDefaultAsync();
                         if (mail != null)
                         {
                             LastNumber = mail.Mail_Number + 1;
@@ -317,7 +317,7 @@ namespace MMSystem.Services.MailServeic
                         LastNumber += 1;
 
                         break;
-                    case "صادر خارجي":
+                    case 2:
                         External_Mail external_Mail = await _appContext.External_Mails.OrderBy(x => x.ID).LastOrDefaultAsync();
                         if (external_Mail != null)
                         {
@@ -327,7 +327,7 @@ namespace MMSystem.Services.MailServeic
                         }
                         LastNumber = LastNumber + 1;
                         break;
-                    case "وارد خارجي":
+                    case 3:
 
                         Extrenal_inbox _Inbox = await _appContext.Extrenal_Inboxes.OrderBy(x => x.Id).LastOrDefaultAsync();
                         if (_Inbox != null)
@@ -418,10 +418,10 @@ namespace MMSystem.Services.MailServeic
 
 
 
-                string port = mail.mail.Mail_Type;
+                int port = mail.mail.Mail_Type;
 
                 switch (port) {
-                    case "داخلي":
+                    case 1:
 
                         Email = await Update(mail.mail);
                         if (Email) {
@@ -469,7 +469,7 @@ namespace MMSystem.Services.MailServeic
                         
                         
                         break;
-                    case "صادر خارجي":
+                    case 2:
 
                         Email = await Update(mail.mail);
                         if (Email)
@@ -522,7 +522,7 @@ namespace MMSystem.Services.MailServeic
 
                         }
                         break;
-                    case "وارد خارجي":
+                    case 3:
 
                         Email = await Update(mail.mail);
                         if (Email) {
@@ -657,7 +657,7 @@ namespace MMSystem.Services.MailServeic
             try
             {
                 Pagenation<MailDto> pagenation = new Pagenation<MailDto>();
-                List<Mail> mails = await _appContext.Mails.Where(x => x.Department_Id == id && x.state == true && x.Mail_Type == "داخلي").OrderByDescending(x => x.MailID).Skip((page - 1) * PageSize).Take(page).ToListAsync();
+                List<Mail> mails = await _appContext.Mails.Where(x => x.Department_Id == id && x.state == true && x.Mail_Type == 1).OrderByDescending(x => x.MailID).Skip((page - 1) * PageSize).Take(page).ToListAsync();
 
                 if (mails.Count > 0)
                 {
@@ -801,7 +801,7 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                List<Mail> list = await _appContext.Mails.Where(x => x.Department_Id == id && x.Mail_Type.Equals("صادر خارجي")).ToListAsync();
+                List<Mail> list = await _appContext.Mails.Where(x => x.Department_Id == id && x.Mail_Type==2).ToListAsync();
 
 
                 List<MailDto> listDto = _mapper.Map<List<Mail>, List<MailDto>>(list);
@@ -823,7 +823,7 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                List<Mail> list = await _appContext.Mails.Where(x => x.Department_Id == id && x.Mail_Type.Equals("وارد خارجي")).ToListAsync();
+                List<Mail> list = await _appContext.Mails.Where(x => x.Department_Id == id && x.Mail_Type==3).ToListAsync();
 
 
                 List<MailDto> listDto = _mapper.Map<List<Mail>, List<MailDto>>(list);
@@ -917,21 +917,21 @@ namespace MMSystem.Services.MailServeic
             throw new NotImplementedException();
         }
 
-        public async Task<dynamic> DynamicGet(int id,string type) {
+        public async Task<dynamic> DynamicGet(int id,int type) {
 
             try
             {
               
                 switch (type)
                 {
-                    case "1":
+                    case 1:
                         MailVM mail = await GetMailById(id, type);
                         if (mail != null)
                             c = mail;
                         break;
 
 
-                    case "2":
+                    case 2:
 
                         var ddc = await GetMailById1(id, type);
                         if (ddc != null)
@@ -939,7 +939,7 @@ namespace MMSystem.Services.MailServeic
                             c = ddc;
                         break;
 
-                    case "3":
+                    case 3:
 
                         var ccc = await GetMailById2(id, type);
                         if (ccc != null)
@@ -963,7 +963,7 @@ namespace MMSystem.Services.MailServeic
 
 
 
-        public async Task<MailVM> GetMailById(int id,string type)
+        public async Task<MailVM> GetMailById(int id,int type)
         {
 
             try
@@ -1025,7 +1025,7 @@ namespace MMSystem.Services.MailServeic
 
         }
 
-        public async Task<ExMail> GetMailById1(int id,string type)
+        public async Task<ExMail> GetMailById1(int id,int type)
         {
 
             try
@@ -1110,7 +1110,7 @@ namespace MMSystem.Services.MailServeic
             }
         }
 
-        public async Task<ExInbox> GetMailById2(int id,string type)
+        public async Task<ExInbox> GetMailById2(int id,int type)
         {
 
             try

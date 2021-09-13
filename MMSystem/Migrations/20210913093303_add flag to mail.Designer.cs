@@ -4,14 +4,16 @@ using MMSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMSystem.Migrations
 {
     [DbContext(typeof(AppDbCon))]
-    partial class AppDbConModelSnapshot : ModelSnapshot
+    [Migration("20210913093303_add flag to mail")]
+    partial class addflagtomail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -558,7 +560,7 @@ namespace MMSystem.Migrations
                     b.Property<string>("Mail_Summary")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Mail_Type")
+                    b.Property<int>("Mail_Type1")
                         .HasColumnType("int");
 
                     b.Property<int>("clasification")
