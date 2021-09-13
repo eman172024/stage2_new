@@ -25,7 +25,7 @@ namespace MMSystem.Controllers
             List<ArchivesViewModel> mail = await _archives.GetAll(page, pagesize);
             if (mail != null)
                 return Ok(mail);
-
+            
 
             return NotFound(new
             {
