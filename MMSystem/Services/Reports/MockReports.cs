@@ -33,7 +33,7 @@ namespace MMSystem.Services.Reports
 
             totalCounts.TotalOfNotReplay = _data.Replies.Where(x=> x.state == false).Count();
             
-            totalCounts.TotalOfReplay    =  _data.Sends.Where(x=> x.State == true).Count();
+            totalCounts.TotalOfReplay    =  _data.Sends.Where(x=> x.flag == 1).Count();
 
             return totalCounts;
         }

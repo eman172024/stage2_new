@@ -33,7 +33,7 @@ namespace MMSystem.Model
         public bool state { get; set; }
 
 
-        public int flag { get; set; }
+       
 
 
     }

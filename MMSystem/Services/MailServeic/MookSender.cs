@@ -24,8 +24,7 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                t.flag = false;
-                t.State = false;
+                t.flag = 0;
                 t.Send_time = DateTime.Now;
                 await _data.Sends.AddAsync(t);
                 await _data.SaveChangesAsync();
@@ -48,7 +47,7 @@ namespace MMSystem.Services.MailServeic
                 Send_to send_ = await _data.Sends.FirstOrDefaultAsync(x => x.MailID == id);
                 if (send_ != null)
                 {
-                    send_.State = true;
+                    send_.flag = 1;
                     send_.time_of_read = DateTime.Now;
 
                     _data.Sends.Update(send_);
@@ -82,7 +81,7 @@ namespace MMSystem.Services.MailServeic
                     {
                         foreach (var item in send_)
                         {
-                            item.flag = true;
+                            item.flag = 1;
                             item.Send_time = DateTime.Now;
 
                             _data.Sends.Update(item);
@@ -131,7 +130,7 @@ namespace MMSystem.Services.MailServeic
 
         public async Task<bool> UpdateSenderList(UpdateVM update)
         {
-            List<Send_to> list = await _data.Sends.Where(x=>x.MailID==update.mail_id&& x.State==true).ToListAsync();
+            List<Send_to> list = await _data.Sends.Where(x=>x.MailID==update.mail_id&& x.flag==1).ToListAsync();
             return true;
         }
     }
