@@ -9,7 +9,7 @@ namespace MMSystem.Model.ViewModel.Reports
     {
         public string UserName { get; set; }
 
-        public List<UserMailInfo> information1 { get; set; }
+        public List<UserMailInfo> information1 { get; set; } = new List<UserMailInfo>();
       //  public TotalCounts Total_Count { get; set; }
     }
 }

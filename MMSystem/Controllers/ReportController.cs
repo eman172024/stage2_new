@@ -56,7 +56,7 @@ namespace MMSystem.Controllers
 
         [HttpGet]
         [Route("GetAllDepartmentReports")]
-        public async Task<IActionResult> GetAllDepartmentReports([FromBody]DateTime? fromdate, DateTime? todate, int ? MailType, string SendedOrRecieved)
+        public async Task<IActionResult> GetAllDepartmentReports(DateTime? fromdate, DateTime? todate, int ? MailType, string SendedOrRecieved)
         {
             var role = await _data.GetAllDepartmentReports( fromdate,todate, MailType , SendedOrRecieved);
 
@@ -72,9 +72,9 @@ namespace MMSystem.Controllers
 
         [HttpGet]
         [Route("GetAllUserMassageReport")]
-        public async Task<IActionResult> GetAllUserMassageReport([FromBody] int id, DateTime? fromdate, DateTime? todate, int ? MailType, string SendedOrRecieved)
+        public async Task<IActionResult> GetAllUserMassageReport(int userid, DateTime? fromdate, DateTime? todate, int ? MailType, string SendedOrRecieved)
         {
-            var role = await _data.GetAllUserMassageReport(id,fromdate, todate, MailType, SendedOrRecieved);
+            var role = await _data.GetAllUserMassageReport(userid, fromdate, todate, MailType, SendedOrRecieved);
 
             if (role != null)
             {
