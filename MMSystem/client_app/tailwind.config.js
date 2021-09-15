@@ -18,6 +18,12 @@ module.exports = {
             '4xl': '2560px',
         },
         extend: {
+
+            width: {
+                '1/9': '11.1111%',
+                '2/9': '22.2222%',
+            },
+
             minHeight: {
                 64: '16rem'
             },
@@ -78,6 +84,8 @@ module.exports = {
     variants: {
         extend: {
             display: ['group-hover'],
+            fontWeight: ['hover'],
+            strokeWidth: ['group-hover'],
         },
     },
     plugins: [],

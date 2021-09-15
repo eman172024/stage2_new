@@ -11,6 +11,7 @@ namespace MMSystem.Services.Archives
         Task<List<ArchivesViewModel>> GetAll(int page,int pageSize);
 
         Task<bool> UpdateExternal(UpdateArchiveViewModel model);
+        Task<List<ArchivesViewModel>> GetByNum(int id);
 
     }
 }

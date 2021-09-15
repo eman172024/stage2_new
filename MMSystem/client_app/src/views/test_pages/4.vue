@@ -1,357 +1,267 @@
 <template>
-    <div class="  mx-auto  max-w-6xl mt-6 rounded-md bg-gray-100 p-2 ">
-
-
-
-        <h1 class="font-extrabold text-4xl text-center"> وارد جديد من الإدارات والمكاتب</h1>
-
-
-        <div class="flex justify-between items-center  border-green-300 border rounded-md px-4 mt-4">
-
-            <div class="">
-
-                <label for="year" class="font-medium ">السنة</label>
-
-                <input type="number" id="year" value="2021"
-                    class="focus:outline-none  w-20 focus:border-green-300 border rounded-md px-2 py-1">
-
+    <div class="bg-gray-200" dir="rtl">
+        <form class="max-w-3xl mx-auto bg-gray-200 overflow-hidden">
+            <div>
+                <div class="font-extrabold text-xl bg-gray-200">
+                    <h3>تصنيف الموضوع</h3>
+                </div>
             </div>
-
-
-            <div class=" p-2 border-b">
-
-                <span class="font-bold ">نوع البريد</span>
-
-                <div class=" flex items-center mt-4 justify-between">
-
-                    <div class="flex items-center ml-4">
-
-                        <input id="internal" type="radio" name="mail_type" class=" h-4 w-4  border-gray-300"
-                            value="مفعل">
-
-                        <label for="internal" class="mr-2 text-sm font-medium ">
-                            داخلي
-                        </label>
-
-                    </div>
-
-                    <div class="flex items-center ml-4">
-
-                        <input id="external_export" type="radio" name="mail_type" class=" h-4 w-4 ">
-
-                        <label for="external_export" class="mr-2 text-sm font-medium ">
-                            صادر خارجي
-                        </label>
-
-                    </div>
-
-                    <div class="flex items-center ">
-
-                        <input id="external_incoming" type="radio" name="mail_type" class=" h-4 w-4 ">
-
-                        <label for="external_incoming" class="mr-2 text-sm font-medium ">
-                            وارد خارجي
-                        </label>
-
-                    </div>
-
+            <div class="rounded-t-md bg-gray-100">
+                <div class="flex px-8 py-6">
+                    <input
+                        class="px-16 py-2 w-full border rounded-lg focus:outline-none focus:shadow-md focus:bg-white text-center"
+                        type="text" placeholder="تصنيف الموضوع . . .">
+                    <button
+                        class="px-32 py-2 mr-12 bg-green-700 hover:bg-green-800 text-white border rounded-lg focus:outline-none hover:shadow-md font-medium">حفظ</button>
                 </div>
-
             </div>
-
-        </div>
-
-
-
-        <div class="mt-2 p-2 border-green-300 border rounded-md grid grid-cols-2  gap-6">
-
-            <div class="flex items-center ">
-
-                <input id="to_day" type="checkbox" class=" h-4 w-4 ">
-
-                <label for="to_day" class="mr-2 text-sm font-medium ">
-                    اليوم
-                </label>
-
+            <div class="flex border-t rounded-b-md bg-gray-100 px-8 py-8">
+                <table class="w-full shadow-md rounded-md">
+                    <thead class="bg-white flex border-t border-l border-r rounded-t-md text-black w-full">
+                        <tr class="flex w-full outline-none justify-center">
+                            <th class="p-4 w-1/2">الأسم</th>
+                            <th class="p-4 w-1/2">الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody class="flex bg-white flex-col border text-center overflow-y-scroll w-full"
+                        style="height: 30.5vh; ">
+                        <tr class="flex border-b w-full">
+                            <td class="py-5 w-1/2">سند نورالدين حماص</td>
+                            <td class="flex py-3 justify-center w-1/2">
+                                <button type="button"
+                                    class="flex items-center hover:shadow-md bg-green-700 hover:bg-green-800 text-white px-12 rounded-full focus:outline-none">
+                                    تعديل
+                                </button>
+                                <button type="button"
+                                    class="flex items-center mr-16 text-sm hover:shadow-md bg-white hover:bg-red-500 text-black px-2 py-2 rounded-md focus:outline-none focus:shadow-outline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="flex border-b w-full">
+                            <td class="py-5 w-1/2 ">سند نورالدين حماص</td>
+                            <td class="flex py-3 justify-center w-1/2">
+                                <button type="button"
+                                    class="flex items-center text-base hover:shadow-md bg-green-700 hover:bg-green-800 text-white px-12 rounded-full focus:outline-none">
+                                    تعديل
+                                </button>
+                                <button type="button"
+                                    class="flex items-center mr-16 text-sm hover:shadow-md bg-white hover:bg-red-500 text-black px-2 py-2 rounded-md focus:outline-none focus:shadow-outline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="flex border-b w-full">
+                            <td class="py-5 w-1/2 ">سند نورالدين حماص</td>
+                            <td class="flex py-3 justify-center w-1/2">
+                                <button type="button"
+                                    class="flex items-center text-base hover:shadow-md bg-green-700 hover:bg-green-800 text-white px-12 rounded-full focus:outline-none">
+                                    تعديل
+                                </button>
+                                <button type="button"
+                                    class="flex items-center mr-16 text-sm hover:shadow-md bg-white hover:bg-red-500 text-black px-2 py-2 rounded-md focus:outline-none focus:shadow-outline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="flex border-b w-full">
+                            <td class="py-5 w-1/2 ">سند نورالدين حماص</td>
+                            <td class="flex py-3 justify-center w-1/2">
+                                <button type="button"
+                                    class="flex items-center text-base hover:shadow-md bg-green-700 hover:bg-green-800 text-white px-12 rounded-full focus:outline-none">
+                                    تعديل
+                                </button>
+                                <button type="button"
+                                    class="flex items-center mr-16 text-sm hover:shadow-md bg-white hover:bg-red-500 text-black px-2 py-2 rounded-md focus:outline-none focus:shadow-outline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="flex border-b w-full">
+                            <td class="py-5 w-1/2 ">سند نورالدين حماص</td>
+                            <td class="flex py-3  justify-center w-1/2">
+                                <button type="button"
+                                    class="flex items-center text-base hover:shadow-md bg-green-700 hover:bg-green-800 text-white px-12 rounded-full focus:outline-none">
+                                    تعديل
+                                </button>
+                                <button type="button"
+                                    class="flex items-center mr-16 text-sm hover:shadow-md bg-white hover:bg-red-500 text-black px-2 py-2 rounded-md focus:outline-none focus:shadow-outline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="flex border-b w-full">
+                            <td class="py-5 w-1/2 ">سند نورالدين حماص</td>
+                            <td class="flex py-3 justify-center w-1/2">
+                                <button type="button"
+                                    class="flex items-center text-base hover:shadow-md bg-green-700 hover:bg-green-800 text-white px-12 rounded-full focus:outline-none">
+                                    تعديل
+                                </button>
+                                <button type="button"
+                                    class="flex items-center mr-16 text-sm hover:shadow-md bg-white hover:bg-red-500 text-black px-2 py-2 rounded-md focus:outline-none focus:shadow-outline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+        </form>
 
-
-
-            <div class="flex items-center mt-2">
-
-
-                <div class="ml-2 w-32 flex items-center ">
-
-                    <input id="depends_on_mangment" type="checkbox" class=" h-4 w-4 ">
-
-                    <label for="depends_on_mangment" class="mr-2  w-20 text-sm font-medium ">
-                        حسب الإدارة
-                    </label>
-
+        <form class="max-w-3xl mx-auto bg-gray-200 overflow-hidden">
+            <div>
+                <div class="font-extrabold text-xl bg-gray-200">
+                    <h3>الإجراءات</h3>
                 </div>
-
-                <select class="shadow-sm  w-full mr-2    focus:outline-none  rounded-md px-2 py-1" name="mangment_type">
-                    <option value="0">التوثيق</option>
-
-                </select>
-
             </div>
-
-
-            <div class="flex items-center w-full ">
-
-                <div class="flex items-center ">
-
-                    <input id="word-from-subject" type="checkbox" class=" h-4 w-4 ">
-
-                    <label for="word-from-subject" class="mr-2 w-40 text-sm font-medium ">
-                        كلمة من ملخص الموضوع
-                    </label>
-
-
-
+            <div class="rounded-t-md bg-gray-100">
+                <div class="flex px-8 py-6">
+                    <input
+                        class="px-16 py-2 w-full border rounded-lg focus:outline-none focus:shadow-md focus:bg-white text-center"
+                        type="text" placeholder="الإجراءات . . .">
+                    <button
+                        class="px-32 py-2 mr-12 bg-green-700 hover:bg-green-800 text-white border rounded-lg focus:outline-none hover:shadow-md font-medium">حفظ</button>
                 </div>
-
-                <input type="text" class="shadow-sm  w-full mr-2    focus:outline-none  rounded-md px-2 py-1">
-
             </div>
-
-
-
-
-
-            <div class="flex items-center ">
-
-
-                <div class="ml-2 flex items-center ">
-
-                    <input id="depends_on_number" type="checkbox" class=" h-4 w-4 ">
-
-                    <label for="depends_on_number" class="mr-2 w-20 text-sm font-medium ">
-                        حسب الرقم
-                    </label>
-
-                </div>
-
-                <input type="number" class="shadow-sm  w-full mr-2    focus:outline-none  rounded-md px-2 py-1">
-
+            <div class="flex border-t rounded-b-md bg-gray-100 px-8 py-8">
+                <table class="w-full shadow-md rounded-md">
+                    <thead class="bg-white flex border-t border-l border-r rounded-t-md text-black w-full">
+                        <tr class="flex w-full outline-none justify-center">
+                            <th class="p-4 w-1/2">الأسم</th>
+                            <th class="p-4 w-1/2">الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody class="flex bg-white flex-col border text-center overflow-y-auto w-full" style="height: 30.5vh;">
+                        <tr class="flex border-b w-full">
+                            <td class="py-5 w-1/2">سند نورالدين حماص</td>
+                            <td class="flex py-3 justify-center w-1/2">
+                                <button type="button"
+                                    class="flex px-12 items-center bg-green-700 hover:bg-green-800 text-white rounded-full hover:shadow-md focus:outline-none">
+                                    تعديل
+                                </button>
+                                <button type="button"
+                                    class="flex items-center mr-16 text-sm hover:shadow-md bg-white hover:bg-red-500 text-black px-2 py-2 rounded-md focus:outline-none focus:shadow-outline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="flex border-b w-full">
+                            <td class="py-5 w-1/2 ">سند نورالدين حماص</td>
+                            <td class="flex py-3 justify-center w-1/2">
+                                <button type="button"
+                                    class="flex items-center text-base hover:shadow-md bg-green-700 hover:bg-green-800 text-white px-12 rounded-full focus:outline-none">
+                                    تعديل
+                                </button>
+                                <button type="button"
+                                    class="flex items-center mr-16 text-sm hover:shadow-md bg-white hover:bg-red-500 text-black px-2 py-2 rounded-md focus:outline-none focus:shadow-outline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="flex border-b w-full">
+                            <td class="py-5 w-1/2 ">سند نورالدين حماص</td>
+                            <td class="flex py-3 justify-center w-1/2">
+                                <button type="button"
+                                    class="flex items-center text-base hover:shadow-md bg-green-700 hover:bg-green-800 text-white px-12 rounded-full focus:outline-none">
+                                    تعديل
+                                </button>
+                                <button type="button"
+                                    class="flex items-center mr-16 text-sm hover:shadow-md bg-white hover:bg-red-500 text-black px-2 py-2 rounded-md focus:outline-none focus:shadow-outline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="flex border-b w-full">
+                            <td class="py-5 w-1/2 ">سند نورالدين حماص</td>
+                            <td class="flex py-3 justify-center w-1/2">
+                                <button type="button"
+                                    class="flex items-center text-base hover:shadow-md bg-green-700 hover:bg-green-800 text-white px-12 rounded-full focus:outline-none">
+                                    تعديل
+                                </button>
+                                <button type="button"
+                                    class="flex items-center mr-16 text-sm hover:shadow-md bg-white hover:bg-red-500 text-black px-2 py-2 rounded-md focus:outline-none focus:shadow-outline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="flex border-b w-full">
+                            <td class="py-5 w-1/2 ">سند نورالدين حماص</td>
+                            <td class="flex py-3  justify-center w-1/2">
+                                <button type="button"
+                                    class="flex items-center text-base hover:shadow-md bg-green-700 hover:bg-green-800 text-white px-12 rounded-full focus:outline-none">
+                                    تعديل
+                                </button>
+                                <button type="button"
+                                    class="flex items-center mr-16 text-sm hover:shadow-md bg-white hover:bg-red-500 text-black px-2 py-2 rounded-md focus:outline-none focus:shadow-outline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="flex border-b w-full">
+                            <td class="py-5 w-1/2 ">سند نورالدين حماص</td>
+                            <td class="flex py-3 justify-center w-1/2">
+                                <button type="button"
+                                    class="flex items-center text-base hover:shadow-md bg-green-700 hover:bg-green-800 text-white px-12 rounded-full focus:outline-none">
+                                    تعديل
+                                </button>
+                                <button type="button"
+                                    class="flex items-center mr-16 text-sm hover:shadow-md bg-green-700 hover:bg-green-800 text-black px-2 py-2 rounded-md focus:outline-none focus:shadow-outline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-            <div class="flex items-center w-full">
-
-                <div class="flex items-center ">
-
-                    <input id="depens_on_achievement" type="checkbox" class=" h-4 w-4 ">
-
-                    <label for="depens_on_achievement" class="mr-2 w-40 text-sm font-medium ">
-                        حسب الإنجاز
-                    </label>
-
-                </div>
-
-
-
-                <div class=" flex items-center  justify-around border border-green-300 p-1 rounded-md w-full">
-
-                    <div class="flex items-center ml-4">
-
-                        <input id="done" type="radio" name="achievement" class=" h-4 w-4  border-gray-300" value="مفعل">
-
-                        <label for="done" class="mr-2 text-sm font-medium ">
-                            منجز
-                        </label>
-
-                    </div>
-
-                    <div class="flex items-center ml-4">
-
-                        <input id="not_done" type="radio" name="achievement" class=" h-4 w-4 ">
-
-                        <label for="not_done" class="mr-2  text-sm font-medium ">
-                            غير منجز
-                        </label>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-
-            <div class="flex items-center ">
-
-
-                <div class="ml-2 flex items-center ">
-
-                    <input id="state_of_mail" type="checkbox" class=" h-4 w-4 ">
-
-                    <label for="state_of_mail" class="mr-2 w-20 text-sm font-medium ">
-                        حالة الرسالة
-                    </label>
-
-                </div>
-
-
-
-                <div class=" flex items-center  justify-around border border-green-300 py-1 px-2 rounded-md w-full">
-
-                    <div class="flex items-center ml-4">
-
-                        <input id="readed" type="radio" name="state_of_mail" class=" h-4 w-4  border-gray-300"
-                            value="مفعل">
-
-                        <label for="readed" class="mr-2 text-sm font-medium ">
-                            قرأت
-                        </label>
-
-                    </div>
-
-                    <div class="flex items-center ml-4">
-
-                        <input id="not_readed" type="radio" name="state_of_mail" class=" h-4 w-4 ">
-
-                        <label for="not_readed" class="mr-2 text-sm font-medium ">
-                            لم تقرأ
-                        </label>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div class="flex items-center w-full col-span-2">
-
-                <div class="flex items-center ">
-
-                    <input id="date_of_withdrawal" type="checkbox" class=" h-4 w-4 ">
-
-                    <label for="date_of_withdrawal" class="mr-2 w-40 text-sm font-medium ">
-                        حسب تاريخ السحب
-                    </label>
-
-                </div>
-
-
-
-                <div class=" flex items-center  justify-around border border-green-300 p-1 rounded-md w-full">
-
-                    <div class="flex items-center ml-4">
-
-                        
-                        <label for="done" class=" text-sm font-medium ">
-                            من
-                        </label>
-
-                        <input  type="date" name="achievement" class="mr-2" value="21/09/2021">
-
-                    </div>
-
-                    <div class="flex items-center ml-4">
-
-                        <input id="not_done" type="radio" name="achievement" class=" h-4 w-4 ">
-
-                        <label for="not_done" class="mr-2  text-sm font-medium ">
-                            غير منجز
-                        </label>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-
-            <div class="flex items-center ">
-
-
-                <div class="ml-2 flex items-center ">
-
-                    <input id="state_of_mail" type="checkbox" class=" h-4 w-4 ">
-
-                    <label for="state_of_mail" class="mr-2 w-20 text-sm font-medium ">
-                        حالة الرسالة
-                    </label>
-
-                </div>
-
-
-
-                <div class=" flex items-center  justify-around border border-green-300 py-1 px-2 rounded-md w-full">
-
-                    <div class="flex items-center ml-4">
-
-                        <input id="readed" type="radio" name="state_of_mail" class=" h-4 w-4  border-gray-300"
-                            value="مفعل">
-
-                        <label for="readed" class="mr-2 text-sm font-medium ">
-                            قرأت
-                        </label>
-
-                    </div>
-
-                    <div class="flex items-center ml-4">
-
-                        <input id="not_readed" type="radio" name="state_of_mail" class=" h-4 w-4 ">
-
-                        <label for="not_readed" class="mr-2 text-sm font-medium ">
-                            لم تقرأ
-                        </label>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-
-
-        </div>
-
+        </form>
     </div>
 </template>
 

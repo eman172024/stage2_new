@@ -28,12 +28,12 @@ namespace MMSystem.Services.Reports
 
             totalCounts.TotalOfMassage = _data.Mails.Where(x => x.state == true).Count();
             
-            totalCounts.TotalOfReplay = (from hus in _data.Sends.Where(x => x.flag == 1)
+            totalCounts.TotalOfReplay = (from hus in _data.Sends.Where(x => x.flag != 0)
                                         join
                                         hu in _data.Replies on hus.Id equals hu.send_ToId
                                         select  hu.ReplyId  ).Count();
 
-            totalCounts.TotalOfReplay = (from hus in _data.Sends.Where(x => x.flag == 1)
+            totalCounts.TotalOfReplay = (from hus in _data.Sends.Where(x => x.flag != 0)
                                          join
                                          hu in _data.Replies  on hus.Id equals hu.send_ToId
                                          group hu by hu.send_ToId).Count();
@@ -136,13 +136,13 @@ namespace MMSystem.Services.Reports
 
                         mysectionreport.TotalOfReceived.TotalOfMassage = (from hus in _data.Mails.Where(x => x.Department_Id == id && x.state == true || x.Mail_Type == MailType)
                                                                           join
-                                                                          g in _data.Sends.Where(x => x.flag== 1 && x.to == item.Id && (x.Send_time >= fromdate && x.Send_time <= todate)) 
+                                                                          g in _data.Sends.Where(x => x.flag != 0 && x.to == item.Id && (x.Send_time >= fromdate && x.Send_time <= todate)) 
                                                                           on hus.MailID equals g.MailID
                                                                           select g.MailID).ToList().Count();
 
                         int massageReplaied = (from hus in _data.Mails.Where(x => x.Department_Id == id && x.state == true)
                                                join
-                                               hu in _data.Sends.Where(x => x.flag == 1 && x.to == item.Id) on hus.MailID equals hu.MailID
+                                               hu in _data.Sends.Where(x => x.flag != 0 && x.to == item.Id) on hus.MailID equals hu.MailID
                                                join
                                                g in _data.Replies on hu.Id equals g.send_ToId
                                                select g.ReplyId
@@ -169,13 +169,13 @@ namespace MMSystem.Services.Reports
 
                         mysectionreport.TotalOfReceived.TotalOfMassage = (from hus in _data.Mails.Where(x =>( x.Department_Id == item.Id && x.state == true )|| x.Mail_Type == MailType)
                                                                           join
-                                                                          g in _data.Sends.Where(x => x.flag == 1 && x.to == id && ((x.Send_time >= fromdate && x.Send_time <= todate)))
+                                                                          g in _data.Sends.Where(x => x.flag != 0 && x.to == id && ((x.Send_time >= fromdate && x.Send_time <= todate)))
                                                                           on hus.MailID equals g.MailID
                                                                           select g.MailID).ToList().Count();
 
                         int massageReplaied = (from hus in _data.Mails.Where(x => (x.Department_Id == item.Id && x.state == true )|| x.Mail_Type == MailType)
                                                join
-                                               hu in _data.Sends.Where(x => x.flag == 1 && x.to == id && ((x.Send_time >= fromdate && x.Send_time <= todate))) on hus.MailID equals hu.MailID
+                                               hu in _data.Sends.Where(x => x.flag != 0 && x.to == id && ((x.Send_time >= fromdate && x.Send_time <= todate))) on hus.MailID equals hu.MailID
                                                join
                                                g in _data.Replies on hu.Id equals g.send_ToId
                                                select g.ReplyId
@@ -202,55 +202,48 @@ namespace MMSystem.Services.Reports
         }
 
 
-        public async Task<UserReports> GetAllUserMassageReport(int id, DateTime? fromdate, DateTime? todate, int ? MailType, string SendedOrRecieved)
+        public async Task<UserReports> GetAllUserMassageReport(int userid, DateTime? fromdate, DateTime? todate, int ? MailType, string SendedOrRecieved)
         {
             try
             {
-                Administrator user = _data.Administrator.FirstOrDefault(x => x.state == true && x.UserId == id);
+                Administrator user = _data.Administrator.FirstOrDefault(x => x.state == true && x.UserId == userid);
 
                 UserReports userreport = new UserReports();
 
+                if (!fromdate.HasValue)
+                {
+                    fromdate = DateTime.Parse("2019-01-01");
+                }
 
-                if (SendedOrRecieved == "recieved")
-                {                  
+                if (!todate.HasValue)
+                {
+                    todate = DateTime.Now;
+                }
+
+                if (SendedOrRecieved == "sended")
+                {
+                    if (MailType == null)
+                    {
+
+
                         userreport.UserName = user.UserName;
-
-                        userreport.information1 = (from hus in _data.Mails.Where(x => x.state == true && x.userId != user.UserId && x.Mail_Type == MailType)
+                   
+                 
+                        userreport.information1 = (from hus in _data.Mails.Where(x => x.state == true && x.userId == user.UserId)
                                                    join
-                                                   hu in _data.Sends.Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
-                                                   on hus.MailID equals hu.MailID
-                                                   join
-                                                   g in _data.Replies.Where(x => x.UserId == user.UserId) on hu.Id equals g.send_ToId                                                   
-                                                    select new UserMailInfo
+                                                   g in _data.Sends.Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
+                                                   on hus.MailID equals g.MailID
+                                                   select new UserMailInfo
                                                    {
                                                        Mail_Summary = hus.Mail_Summary,
-                                                       Send_To = hu.to,
+                                                       Send_To = g.to,
                                                        Date_Of_Mail = hus.Date_Of_Mail,
                                                        Mail_Number = hus.Mail_Number
                                                    }).ToList();
 
-                        int massageReplaied = (from hus in _data.Mails.Where(x => x.state == true && x.userId != user.UserId && x.Mail_Type == MailType)
-                                               join
-                                               hu in _data.Sends.Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
-                                               on hus.MailID equals hu.MailID
-                                               join
-                                               g in _data.Replies.Where(x => x.UserId == user.UserId) on hu.Id equals g.send_ToId
-                                               select g.ReplyId
-                                                  ).ToList().Count();
-
-                        //userreport.Total_Count.TotalOfMassage = userreport.information1.Count();
-                        //userreport.Total_Count.TotalOfReplay = massageReplaied;
-                        //userreport.Total_Count.TotalOfNotReplay = userreport.Total_Count.TotalOfMassage - userreport.Total_Count.TotalOfReplay;
-                        //userreport.Total_Count.Average = (userreport.Total_Count.TotalOfReplay / userreport.Total_Count.TotalOfMassage) * 100;
-
-                    
-
-                }
-                else if (SendedOrRecieved == "sended")
-                {
-
-                        userreport.UserName = user.UserName;
-
+               
+                    }
+                    else {
                         userreport.information1 = (from hus in _data.Mails.Where(x => x.state == true && x.userId == user.UserId && x.Mail_Type == MailType)
                                                    join
                                                    g in _data.Sends.Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
@@ -263,19 +256,61 @@ namespace MMSystem.Services.Reports
                                                        Mail_Number = hus.Mail_Number
                                                    }).ToList();
 
-                        int massageReplaied = (from hus in _data.Mails.Where(x => x.state == true && x.userId == user.UserId && x.Mail_Type == MailType)
-                                               join
-                                               hu in _data.Sends.Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
-                                               on hus.MailID equals hu.MailID
-                                               join
-                                               g in _data.Replies.Where(x => x.UserId != user.UserId) on hu.Id equals g.send_ToId
-                                               select g.ReplyId
-                                                  ).ToList().Count();
+                        userreport.UserName = user.UserName;
 
-                        //userreport.Total_Count.TotalOfMassage = userreport.information1.Count();
-                        //userreport.Total_Count.TotalOfReplay = massageReplaied;
-                        //userreport.Total_Count.TotalOfNotReplay = userreport.Total_Count.TotalOfMassage - userreport.Total_Count.TotalOfReplay;
-                        //userreport.Total_Count.Average = (userreport.Total_Count.TotalOfReplay / userreport.Total_Count.TotalOfMassage) * 100;
+
+                    }
+
+                }
+                else if (SendedOrRecieved == "recieved")
+                {
+                    userreport.UserName = user.UserName;
+
+                    if (MailType == null)
+                    {
+
+                        userreport.information1 = (from hus in _data.Mails.Where(x => x.state == true && x.userId != user.UserId)
+                                                   join
+                                                   hu in _data.Sends.Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
+                                                   on hus.MailID equals hu.MailID
+                                                   join
+                                                   g in _data.Replies.Where(x => x.UserId == user.UserId) on hu.Id equals g.send_ToId
+                                                    select  new  UserMailInfo
+                                                   {
+                                                       Mail_Summary = hus.Mail_Summary,
+                                                       Send_To = hu.to,
+                                                       Date_Of_Mail = hus.Date_Of_Mail,
+                                                       Mail_Number = hus.Mail_Number
+                                                   }).ToList();
+                    }
+                    else {
+
+                        userreport.information1 = (from hus in _data.Mails.Where(x => x.state == true && x.userId != user.UserId && x.Mail_Type == MailType)
+                                                   join
+                                                   hu in _data.Sends.Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
+                                                   on hus.MailID equals hu.MailID
+                                                   join
+                                                   g in _data.Replies.Where(x => x.UserId == user.UserId) on hu.Id equals g.send_ToId
+                                                   select new UserMailInfo
+                                                   {
+                                                       Mail_Summary = hus.Mail_Summary,
+                                                       Send_To = hu.to,
+                                                       Date_Of_Mail = hus.Date_Of_Mail,
+                                                       Mail_Number = hus.Mail_Number
+                                                   }).ToList();
+
+
+
+                    }
+                    //int massageReplaied = (from hus in _data.Mails.Where(x => x.state == true && x.userId != user.UserId && x.Mail_Type == MailType)
+                    //                       join
+                    //                       hu in _data.Sends.Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
+                    //                       on hus.MailID equals hu.MailID
+                    //                       join
+                    //                       g in _data.Replies.Where(x => x.UserId == user.UserId) on hu.Id equals g.send_ToId
+                    //                       select g.ReplyId
+                    //                          ).ToList().Count();
+
 
                 }
                 return userreport;
@@ -306,7 +341,83 @@ namespace MMSystem.Services.Reports
                 int information;
                 int massageReplaied;
 
-                if (RecievedOrSended == "recieved")
+                if(RecievedOrSended == "sended")
+                {
+
+                    foreach (var item1 in user)
+                    {
+                        userreport.UserName = item1.UserName;
+
+                        if (MailType == null)
+                        {
+                            information = (from hus in _data.Mails.Where(x =>x.state == true && x.userId == item1.UserId)
+                                           join
+                                           g in _data.Sends.Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
+                                           on hus.MailID equals g.MailID
+                                           select hus.Mail_Number
+                                           ).ToList().Count();
+
+                            massageReplaied = (from hus in _data.Mails.Where(x => x.state == true && x.userId == item1.UserId)
+                                               join
+                                               hu in _data.Sends.Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
+                                               on hus.MailID equals hu.MailID
+                                               join
+                                               g in _data.Replies.Where(x => x.UserId != item1.UserId) on hu.Id equals g.send_ToId
+                                               group g by g.send_ToId
+                                               ).Count();
+
+                            //userreport.Last_date = (from hus in _data.Mails.Where(x => x.state == true && x.userId == item1.UserId )
+                            //                        join
+                            //                        g in _data.Sends.OrderByDescending(x => x.time_of_read).Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
+                            //                        on hus.MailID equals g.MailID
+                            //                        select g.time_of_read
+                            //                  ).ToList().First();
+                        }
+                        else
+                        {
+                            information = (from hus in _data.Mails.Where(x => x.state == true && x.userId == item1.UserId && x.Mail_Type == MailType)
+                                           join
+                                           g in _data.Sends.Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
+                                           on hus.MailID equals g.MailID
+                                           select hus.Mail_Number
+                                                      ).ToList().Count();
+
+                            massageReplaied = (from hus in _data.Mails.Where(x => x.state == true && x.userId == item1.UserId && x.Mail_Type == MailType)
+                                               join
+                                               hu in _data.Sends.Where(x => x.Send_time >= fromdate && x.Send_time <= todate )
+                                               on hus.MailID equals hu.MailID
+                                               join
+                                               g in _data.Replies.Where(x => x.UserId != item1.UserId) on hu.Id equals g.send_ToId
+                                               group g by g.send_ToId
+                                                       ).Count();
+
+                            //userreport.Last_date = (from hus in _data.Mails.Where(x => x.state == true && x.userId == item1.UserId && x.Mail_Type == MailType)
+                            //                        join
+                            //                        g in _data.Sends.OrderByDescending(x => x.time_of_read).Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
+                            //                        on hus.MailID equals g.MailID
+                            //                        select g.time_of_read
+                            //                  ).ToList().First();
+                        }
+                        userreport.Total_Count.TotalOfMassage = information;
+                        userreport.Total_Count.TotalOfReplay = massageReplaied;
+                        userreport.Total_Count.TotalOfNotReplay = decimal.ToInt32(userreport.Total_Count.TotalOfMassage - userreport.Total_Count.TotalOfReplay);
+                        if (userreport.Total_Count.TotalOfMassage != 0)
+                        {
+                            userreport.Total_Count.Average = (userreport.Total_Count.TotalOfReplay / userreport.Total_Count.TotalOfMassage) * 100;
+                        }
+                        else
+                        {
+                            userreport.Total_Count.Average = 0;
+                        }
+
+
+                         
+                      
+                    }
+
+
+                }
+                else if (RecievedOrSended == "recieved")
                 {
 
                     foreach (var item in user)
@@ -328,7 +439,7 @@ namespace MMSystem.Services.Reports
                                                on hus.MailID equals hu.MailID
                                                join
                                                g in _data.Replies.Where(x => x.UserId == item.UserId) on hu.Id equals g.send_ToId
-                                               group g by g.send_ToId ).Count();
+                                               group g by g.send_ToId).Count();
                         }
                         else
                         {
@@ -367,82 +478,6 @@ namespace MMSystem.Services.Reports
                             userreport.Total_Count.Average = 0;
                         }
                     }
-                }
-                else if(RecievedOrSended == "sended")
-                {
-
-                    foreach (var item1 in user)
-                    {
-                        userreport.UserName = item1.UserName;
-
-                        if (MailType == null)
-                        {
-                            information = (from hus in _data.Mails.Where(x =>x.state == true && x.userId == item1.UserId)
-                                           join
-                                           g in _data.Sends.Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
-                                           on hus.MailID equals g.MailID
-                                           select hus.Mail_Number
-                                           ).ToList().Count();
-
-                            massageReplaied = (from hus in _data.Mails.Where(x => x.state == true && x.userId == item1.UserId)
-                                               join
-                                               hu in _data.Sends.Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
-                                               on hus.MailID equals hu.MailID
-                                               join
-                                               g in _data.Replies.Where(x => x.UserId != item1.UserId) on hu.Id equals g.send_ToId
-                                               group g by g.send_ToId
-                                               ).Count();
-
-                            userreport.Last_date = (from hus in _data.Mails.Where(x => x.state == true && x.userId == item1.UserId )
-                                                    join
-                                                    g in _data.Sends.OrderByDescending(x => x.time_of_read).Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
-                                                    on hus.MailID equals g.MailID
-                                                    select g.time_of_read
-                                              ).ToList().First();
-                        }
-                        else
-                        {
-                            information = (from hus in _data.Mails.Where(x => x.state == true && x.userId == item1.UserId && x.Mail_Type == MailType)
-                                           join
-                                           g in _data.Sends.Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
-                                           on hus.MailID equals g.MailID
-                                           select hus.Mail_Number
-                                                      ).ToList().Count();
-
-                            massageReplaied = (from hus in _data.Mails.Where(x => x.state == true && x.userId == item1.UserId && x.Mail_Type == MailType)
-                                               join
-                                               hu in _data.Sends.Where(x => x.Send_time >= fromdate && x.Send_time <= todate )
-                                               on hus.MailID equals hu.MailID
-                                               join
-                                               g in _data.Replies.Where(x => x.UserId != item1.UserId) on hu.Id equals g.send_ToId
-                                               group g by g.send_ToId
-                                                       ).Count();
-
-                            userreport.Last_date = (from hus in _data.Mails.Where(x => x.state == true && x.userId == item1.UserId && x.Mail_Type == MailType)
-                                                    join
-                                                    g in _data.Sends.OrderByDescending(x => x.time_of_read).Where(x => x.Send_time >= fromdate && x.Send_time <= todate)
-                                                    on hus.MailID equals g.MailID
-                                                    select g.time_of_read
-                                              ).ToList().First();
-                        }
-                        userreport.Total_Count.TotalOfMassage = information;
-                        userreport.Total_Count.TotalOfReplay = massageReplaied;
-                        userreport.Total_Count.TotalOfNotReplay = decimal.ToInt32(userreport.Total_Count.TotalOfMassage - userreport.Total_Count.TotalOfReplay);
-                        if (userreport.Total_Count.TotalOfMassage != 0)
-                        {
-                            userreport.Total_Count.Average = (userreport.Total_Count.TotalOfReplay / userreport.Total_Count.TotalOfMassage) * 100;
-                        }
-                        else
-                        {
-                            userreport.Total_Count.Average = 0;
-                        }
-
-
-                         
-                      
-                    }
-
-
                 }
                 return userreport;
 

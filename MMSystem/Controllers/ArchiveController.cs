@@ -20,18 +20,26 @@ namespace MMSystem.Controllers
             _archives = archives;
         }
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll(int page, int pagesize)
-        {
-            List<ArchivesViewModel> mail = await _archives.GetAll(page, pagesize);
-            if (mail != null)
-                return Ok(mail);
+        public async Task<IActionResult> GetAll(int page, int pagesize,int Depid )
+        {if (Depid ==25 )
+
+            {
+                List<ArchivesViewModel> mail = await _archives.GetAll(page, pagesize);
+                if (mail != null)
+                    return Ok(mail);
+
+                return NotFound(new
+                {
+                    message = "لايوجد بريد ",
+                    statusCode = 404
+                });
+
+            }
+            else {
+                return Unauthorized();
+            }
             
 
-            return NotFound(new
-            {
-                message = "لايوجد بريد ",
-                statusCode = 404
-            });
 
         }
         [HttpPut("Update")]
