@@ -104,7 +104,7 @@ namespace MMSystem.Model
                  new Department { Id = 24, DepartmentName = "الإدارةالعامة للشؤون المالية", perent = 21, state = true }
 
                                          );
-
+            
 
             modelBuilder.Entity<Extrmal_Section>().HasData(
 
