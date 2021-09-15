@@ -19,6 +19,7 @@ namespace MMSystem.Model.Dto
         public string Action_Required { get; set; }
         public int userId { get; set; }
         public bool is_send { get; set; }
+        public int mail_year { get; set; }
 
 
 
