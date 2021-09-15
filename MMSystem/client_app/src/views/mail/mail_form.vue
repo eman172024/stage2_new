@@ -39,7 +39,7 @@
                                             type="radio"
                                             name="type"
                                             class="h-4 w-4"
-                                            value="داخلي"
+                                            value="1"
                                         />
                                         <label
                                             for="internal"
@@ -56,7 +56,7 @@
                                             type="radio"
                                             name="type"
                                             class="h-4 w-4"
-                                            value="صادر خارجي"
+                                            value="2"
                                         />
                                         <label
                                             for="internal_export"
@@ -73,7 +73,7 @@
                                             type="radio"
                                             name="type"
                                             class="h-4 w-4"
-                                            value="وارد خارجي"
+                                            value="3"
                                         />
                                         <label
                                             for="external_incoming"
@@ -515,18 +515,18 @@
                     </section>
                 </div> 
 
-                <section v-if="mailType == 'صادر خارجي' || mailType == 'وارد خارجي'" class="col-span-2 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 bg-gray-50 rounded-md p-6">
+                <section v-if="mailType == '2' || mailType == '3'" class="col-span-2 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 bg-gray-50 rounded-md p-6">
 
                     <div class="sm:col-span-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                         
                         <fieldset class="sm:col-span-3">
                             <div class="flex items-center">
                                 <legend class="block text-base font-semibold text-gray-800 w-24">
-                                    <div v-if="mailType == 'صادر خارجي'">
+                                    <div v-if="mailType == '2'">
                                         توجيه البريد
                                     </div>
 
-                                    <div v-if="mailType == 'وارد خارجي'">
+                                    <div v-if="mailType == '3'">
                                         وارد من
                                     </div>
                                 </legend>
@@ -636,7 +636,7 @@
 
                     </div>
 
-                    <div v-if="mailType == 'صادر خارجي'" class="sm:col-span-6">
+                    <div v-if="mailType == '2'" class="sm:col-span-6">
                         <label
                         for="action_required"
                         class="block text-base font-semibold text-gray-800"
@@ -652,7 +652,7 @@
                         </textarea>
                     </div>
 
-                    <div v-if="mailType == 'وارد خارجي' " class="sm:col-span-6 grid grid-cols-1 mt-6 gap-y-6 gap-x-4 sm:grid-cols-6 rounded-md">
+                    <div v-if="mailType == '3' " class="sm:col-span-6 grid grid-cols-1 mt-6 gap-y-6 gap-x-4 sm:grid-cols-6 rounded-md">
                         <fieldset class="sm:col-span-3">
                             <div class="flex items-center">
 
@@ -1027,14 +1027,14 @@ export default {
 
      
 
-        if(this.$route.params.type == 'داخلي'){
+        if(this.$route.params.type == '1'){
             this.to_test_passing_mail_type = 1            
         }
-        if(this.$route.params.type == 'صادر خارجي'){
+        if(this.$route.params.type == '2'){
             this.to_test_passing_mail_type = 2
 
         }
-        if(this.$route.params.type == 'وارد خارجي'){
+        if(this.$route.params.type == '3'){
             this.to_test_passing_mail_type = 3
         }
 
@@ -1403,7 +1403,7 @@ export default {
             this.showAlert = true;
             this.loading = true;
 
-            if (this.mailType == 'داخلي'){
+            if (this.mailType == '1'){
                 var info = {
                     "mail":{
                         "Mail_Type": this.mailType,
@@ -1421,7 +1421,7 @@ export default {
                 }
             }
 
-            if (this.mailType == 'صادر خارجي'){
+            if (this.mailType == '2'){
                 var info = {
                     "mail":{
                         "Mail_Type": this.mailType,
@@ -1446,7 +1446,7 @@ export default {
                 }
             }
 
-            if (this.mailType == 'وارد خارجي'){
+            if (this.mailType == '3'){
                 var info = {
                     "mail":{
                         "Mail_Type": this.mailType,
@@ -1636,7 +1636,7 @@ export default {
             this.showAlert = true;
             this.loading = true;
 
-            if (this.mailType == 'داخلي'){
+            if (this.mailType == '1'){
                 var dataUpdate = {
                     "mail":{
                         "MailID": Number(this.mailId),
@@ -1656,7 +1656,7 @@ export default {
                 }
             }
 
-            if (this.mailType == 'صادر خارجي'){
+            if (this.mailType == '2'){
                 var dataUpdate = {
                     "mail":{
                         "MailID": Number(this.mailId),
@@ -1684,7 +1684,7 @@ export default {
                 }
             }
 
-            if (this.mailType == 'وارد خارجي'){
+            if (this.mailType == '3'){
                 var dataUpdate = {
                     "mail":{
                         "MailID": Number(this.mailId),
