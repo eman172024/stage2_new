@@ -9,17 +9,14 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Services.Reports
 {
-    interface IRportInterface
+   public interface IRportInterface
     {
 
- 
-        Task<List<MySectionReport>> GetAllDepartmentReports();
-        Task<MySectionReport> GetMySectionReport(int id, DateTime fromdate, DateTime todate, string MailType, string SendedOrRecieved);
-
-        Task<UserReports> GetAllUserMassageReport(int id, DateTime fromdate, DateTime todate, string MailType,string SendedOrRecieved);
-       
-        Task<TotalCounts> GetAllCount();
-            
+        Task<List<SectionReport>> GetAllDepartmentReports( DateTime? fromdate, DateTime? todate, int ? MailType , string SendedOrRecieved);
+        Task<List<SectionReport>> GetMySectionReport(int  id, DateTime ? fromdate, DateTime ? todate, int ? MailType , string ? SendedOrRecieved);
+        Task<UserReports> GetAllUserMassageReport(int id, DateTime? fromdate, DateTime? todate, int ? MailType, string SendedOrRecieved);      
+        Task<TotalCounts> GetAllSystemCount();
+        Task<UsersConclsionReport> GetAllUserCount(int departmentid, DateTime? fromdate, DateTime? todate, int ? MailType, string RecievedOrSended);
 
     }
 }

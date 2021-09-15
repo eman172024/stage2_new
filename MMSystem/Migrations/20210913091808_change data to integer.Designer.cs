@@ -4,14 +4,16 @@ using MMSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMSystem.Migrations
 {
     [DbContext(typeof(AppDbCon))]
-    partial class AppDbConModelSnapshot : ModelSnapshot
+    [Migration("20210913091808_change data to integer")]
+    partial class changedatatointeger
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -310,13 +312,6 @@ namespace MMSystem.Migrations
                             DepartmentName = "الإدارةالعامة للشؤون المالية",
                             perent = 21,
                             state = true
-                        },
-                        new
-                        {
-                            Id = 25,
-                            DepartmentName = "المحفوظات",
-                            perent = 0,
-                            state = true
                         });
                 });
 
@@ -327,29 +322,17 @@ namespace MMSystem.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Attachments")
-                        .HasColumnType("bit");
-
                     b.Property<int>("MailID")
                         .HasColumnType("int");
 
                     b.Property<int>("Sectionid")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Send_of_Ex_mail")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("action")
                         .HasColumnType("int");
 
                     b.Property<string>("action_required_by_the_entity")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("delivery")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("number_of_copies")
-                        .HasColumnType("int");
 
                     b.Property<string>("sectionName")
                         .HasColumnType("nvarchar(max)");
@@ -577,7 +560,10 @@ namespace MMSystem.Migrations
                     b.Property<string>("Mail_Summary")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Mail_Type")
+                    b.Property<string>("Mail_Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Mail_Type1")
                         .HasColumnType("int");
 
                     b.Property<int>("clasification")
@@ -877,18 +863,6 @@ namespace MMSystem.Migrations
                             RoleId = 16,
                             Name = "استخدام البريد الداخلي",
                             state = true
-                        },
-                        new
-                        {
-                            RoleId = 17,
-                            Name = "الداخلي",
-                            state = true
-                        },
-                        new
-                        {
-                            RoleId = 18,
-                            Name = "وارد خارجي",
-                            state = true
                         });
                 });
 
@@ -905,8 +879,11 @@ namespace MMSystem.Migrations
                     b.Property<DateTime>("Send_time")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("flag")
-                        .HasColumnType("int");
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("flag")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("time_of_read")
                         .HasColumnType("datetime2");
@@ -916,9 +893,6 @@ namespace MMSystem.Migrations
 
                     b.Property<int>("type_of_send")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("update_At")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

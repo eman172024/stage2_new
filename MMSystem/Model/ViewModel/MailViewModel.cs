@@ -17,5 +17,7 @@ namespace MMSystem.Model.ViewModel
         public List<ActionSender> actionSenders { get; set; }
 
 
+
+
     }
 }

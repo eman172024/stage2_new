@@ -98,7 +98,7 @@ namespace MMSystem.Controllers
                 return Created("AddRole", new Result() { message = "تمت عملية الاضافة بنجاح", statusCode = 201 });
 
 
-            return BadRequest(new Result() { message = "قشل في عملية الاضافة  ", statusCode = 400 });
+            return BadRequest(new Result()  { message = "قشل في عملية الاضافة  ", statusCode = 400 });
 
         }
     }

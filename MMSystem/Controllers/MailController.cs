@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MMSystem.Model;
 using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel;
@@ -21,17 +22,19 @@ namespace MMSystem.Controllers
     public class MailController : ControllerBase
     {
         private readonly IMailInterface _Imail;
-     //   private IWebHostEnvironment iwebHostEnvironment;
+        private readonly AppDbCon dbcon;
+
+        //   private IWebHostEnvironment iwebHostEnvironment;
 
         private readonly ISender _sender;
 
      
-        public MailController(IMailInterface Imail,
+        public MailController(IMailInterface Imail,AppDbCon dbcon,
             ISender sender)
         {
             _Imail = Imail;
-         
-           _sender = sender;
+            this.dbcon = dbcon;
+            _sender = sender;
 
         }
 
@@ -48,7 +51,7 @@ namespace MMSystem.Controllers
 
         // GET api/<MailController>/5
         [HttpGet("GetMailById")]
-        public async Task<IActionResult> GetMailById(int id,string type)
+        public async Task<IActionResult> GetMailById(int id,int type)
         {
             //switch (type) 
             //{
@@ -193,6 +196,11 @@ namespace MMSystem.Controllers
         public async Task<IActionResult> Uplode(Uplode file)
         {
 
+       
+
+
+
+
             if (ModelState.IsValid)
             {
                 bool state = await _Imail.Uplode(file);
@@ -220,7 +228,6 @@ namespace MMSystem.Controllers
 
          
         }
-
 
 
 

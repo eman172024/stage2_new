@@ -29,6 +29,7 @@ namespace MMSystem.Model
         {
 
         }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Measures>().HasData(
@@ -72,7 +73,10 @@ namespace MMSystem.Model
                 new Role { RoleId = 13, Name = "اعادة الارسال", state = true },
                 new Role { RoleId = 14, Name = "الرد على الوار الجديد", state = true },
                 new Role { RoleId = 15, Name = "ردود الإدارات الفرعية", state = true },
-                new Role { RoleId = 16, Name = "استخدام البريد الداخلي", state = true });
+                new Role { RoleId = 16, Name = "استخدام البريد الداخلي", state = true },
+                 new Role { RoleId = 17, Name = "الداخلي", state = true },
+                new Role { RoleId = 18, Name = "وارد خارجي", state = true })
+                ;
 
 
             modelBuilder.Entity<Department>().HasData
@@ -101,7 +105,8 @@ namespace MMSystem.Model
                  new Department { Id = 21, DepartmentName = "الإدارات العامة الخدمية", perent =0, state = true },
                  new Department { Id = 22, DepartmentName = "الإدارةالعامة للموارد البشرية", perent =21, state = true },
                  new Department { Id = 23, DepartmentName = "الإدارةالعامة للشؤون الإدارية والخدمات", perent = 21, state = true },
-                 new Department { Id = 24, DepartmentName = "الإدارةالعامة للشؤون المالية", perent = 21, state = true }
+                 new Department { Id = 24, DepartmentName = "الإدارةالعامة للشؤون المالية", perent = 21, state = true },
+              new Department { Id = 25, DepartmentName = "المحفوظات", perent = 0, state = true }
 
                                          );
 
