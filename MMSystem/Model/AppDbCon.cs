@@ -109,7 +109,7 @@ namespace MMSystem.Model
               new Department { Id = 25, DepartmentName = "المحفوظات", perent = 0, state = true }
 
                                          );
-
+            
 
             modelBuilder.Entity<Extrmal_Section>().HasData(
 
