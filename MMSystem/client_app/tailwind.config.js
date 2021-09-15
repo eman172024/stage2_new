@@ -84,6 +84,8 @@ module.exports = {
     variants: {
         extend: {
             display: ['group-hover'],
+            fontWeight: ['hover'],
+            strokeWidth: ['group-hover'],
         },
     },
     plugins: [],
