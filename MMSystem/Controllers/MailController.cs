@@ -92,7 +92,10 @@ namespace MMSystem.Controllers
             if(result)
             return Created("AddMail",new  {
             message="تمت العملية بنجاح",statusCode=201,
-                mailId = mail.mail.MailID
+                mailId = mail.mail.MailID,
+                Department_Id=mail.mail.Department_Id,
+                Genaral_inbox_year=mail.mail.Genaral_inbox_year
+
             });
             return BadRequest(new Result()
             {
