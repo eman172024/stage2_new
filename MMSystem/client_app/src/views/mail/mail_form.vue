@@ -1406,7 +1406,7 @@ export default {
             if (this.mailType == '1'){
                 var info = {
                     "mail":{
-                        "Mail_Type": this.mailType,
+                        "Mail_Type": Number(this.mailType),
                         "userId": Number(this.my_user_id),
                         "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
@@ -1424,7 +1424,7 @@ export default {
             if (this.mailType == '2'){
                 var info = {
                     "mail":{
-                        "Mail_Type": this.mailType,
+                        "Mail_Type": Number(this.mailType),
                         "userId": Number(this.my_user_id),
                         "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
@@ -1449,7 +1449,7 @@ export default {
             if (this.mailType == '3'){
                 var info = {
                     "mail":{
-                        "Mail_Type": this.mailType,
+                        "Mail_Type": Number(this.mailType),
                         "userId": Number(this.my_user_id),
                         "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
@@ -1640,7 +1640,7 @@ export default {
                 var dataUpdate = {
                     "mail":{
                         "MailID": Number(this.mailId),
-                        "Mail_Type": this.mailType,
+                        "Mail_Type": Number(this.mailType),
                         "userId": Number(this.my_user_id),
                         "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
@@ -1660,7 +1660,7 @@ export default {
                 var dataUpdate = {
                     "mail":{
                         "MailID": Number(this.mailId),
-                        "Mail_Type": this.mailType,
+                        "Mail_Type": Number(this.mailType),
                         "userId": Number(this.my_user_id),
                         "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
@@ -1688,7 +1688,7 @@ export default {
                 var dataUpdate = {
                     "mail":{
                         "MailID": Number(this.mailId),
-                        "Mail_Type": this.mailType,
+                        "Mail_Type": Number(this.mailType),
                         "userId": Number(this.my_user_id),
                         "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
