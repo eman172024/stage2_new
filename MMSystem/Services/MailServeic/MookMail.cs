@@ -844,6 +844,7 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
+                bool result=false;
                 foreach (var item in file.list)
                 {
                     var index = item.baseAs64.IndexOf(',');
@@ -864,13 +865,17 @@ namespace MMSystem.Services.MailServeic
                     mail.path = path+ extention;
                     mail.order = item.index;
                     bool res = await _resourcescs.Add(mail);
-
-
-
+                    if (res) {
+                        result = true;
+                    }
+                   else {
+                        File.Delete(mail.path);
+                    
+                    }
 
                 }
 
-                return true;
+                return result;
 
             }
             catch (Exception)
