@@ -45,6 +45,12 @@ namespace MMSystem.Services.Archives
             }
         }
 
+        public async Task<List<ArchivesViewModel>> GetByNum(int id)
+        {
+           
+            throw new NotImplementedException();
+        }
+
         public async  Task<bool> UpdateExternal(UpdateArchiveViewModel model)
         {
             try

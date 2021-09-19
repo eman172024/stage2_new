@@ -151,15 +151,15 @@
                                 </section>
                             </div>
 
-                            <section v-if="mailType == 'صادر خارجي' || mailType == 'وارد خارجي'"  class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-8 bg-gray-50 rounded-md p-6">
+                            <section v-if="mailType == '2' || mailType == '3'"  class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-8 bg-gray-50 rounded-md p-6">
                                 
                                 <div class="sm:col-span-2">
                                     <label class="block text-base font-semibold text-gray-800 w-24">
-                                        <div v-if="mailType == 'صادر خارجي'">
+                                        <div v-if="mailType == '2'">
                                             توجيه البريد
                                         </div>
 
-                                        <div v-if="mailType == 'وارد خارجي'">
+                                        <div v-if="mailType == '3'">
                                             وارد من
                                         </div>
                                     </label>
@@ -200,7 +200,7 @@
 
                                 </div>
 
-                                <div v-if="mailType == 'وارد خارجي' " class="sm:col-span-2">
+                                <div v-if="mailType == '3' " class="sm:col-span-2">
 
                                     <label class="block text-base font-semibold text-gray-800 w-24">
                                         وارد إلي
@@ -211,7 +211,7 @@
                                     </div>
                                 </div>
 
-                                <div v-if="mailType == 'وارد خارجي' " class="sm:col-span-2">
+                                <div v-if="mailType == '3' " class="sm:col-span-2">
 
                                     <label class="block text-base font-semibold text-gray-800 w-24">
                                         نوعها
@@ -223,7 +223,7 @@
                                     
                                 </div>
 
-                                <div v-if="mailType == 'وارد خارجي' " class="sm:col-span-2">
+                                <div v-if="mailType == '3' " class="sm:col-span-2">
                                     <label
                                         for="entity_mail_date"
                                         class="block text-base font-semibold text-gray-800"
@@ -235,7 +235,7 @@
                                     </div>
                                 </div>
 
-                                <div v-if="mailType == 'وارد خارجي' " class="sm:col-span-2">
+                                <div v-if="mailType == '3' " class="sm:col-span-2">
                                     <label
                                         for="entity_reference_number"
                                         class="block text-base font-semibold text-gray-800"
@@ -247,7 +247,7 @@
                                     </div>
                                 </div>
 
-                                <div v-if="mailType == 'وارد خارجي' " class="sm:col-span-2">
+                                <div v-if="mailType == '3' " class="sm:col-span-2">
                                     <label
                                         for="procedure_type"
                                         class="block text-base font-semibold text-gray-800"
@@ -259,7 +259,7 @@
                                         </div>
                                 </div>
 
-                                    <div v-if="mailType == 'صادر خارجي'" class="sm:col-span-6">
+                                    <div v-if="mailType == '2'" class="sm:col-span-6">
                                     <label
                                     for="action_required"
                                     class="block text-base font-semibold text-gray-800"
@@ -464,8 +464,8 @@ export default {
             
             imagesToShow : {},
             // mailType : '',
-            mailType : 'وارد خارجي',
-            // mailType : 'صادر خارجي',
+            mailType : '3',
+            // mailType : '2',
 
             
             

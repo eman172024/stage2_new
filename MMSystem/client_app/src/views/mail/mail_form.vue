@@ -13,11 +13,11 @@
                 <!-- 
                     animate-bounce
                  -->
-                <div class="float-left text-base font-semibold text-gray-800 ">
+                <div v-if="mailId" class="float-left text-base font-semibold text-gray-800 ">
                     رقم الرسالة 
 
                     <span class="mr-4 underline font-bold text-2xl">
-                         {{mailId}}
+                         {{mailId}} - {{department_Id}} - {{mail_year}}
                     </span>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                                             type="radio"
                                             name="type"
                                             class="h-4 w-4"
-                                            value="داخلي"
+                                            value="1"
                                         />
                                         <label
                                             for="internal"
@@ -56,7 +56,7 @@
                                             type="radio"
                                             name="type"
                                             class="h-4 w-4"
-                                            value="صادر خارجي"
+                                            value="2"
                                         />
                                         <label
                                             for="internal_export"
@@ -73,7 +73,7 @@
                                             type="radio"
                                             name="type"
                                             class="h-4 w-4"
-                                            value="وارد خارجي"
+                                            value="3"
                                         />
                                         <label
                                             for="external_incoming"
@@ -284,7 +284,7 @@
                         <div class="flex justify-between items-center">
                             <h3 class="block text-base font-semibold text-gray-800">المستندات</h3>
 
-                            <label class="w-48 flex justify-center items-center py-2 bg-white rounded-lg tracking-wide border border-green-600 cursor-pointer hover:text-white hover:bg-green-600 focus:outline-none duration-300">
+                            <label v-if="mailId" class="w-48 flex justify-center items-center py-2 bg-white rounded-lg tracking-wide border border-green-600 cursor-pointer hover:text-white hover:bg-green-600 focus:outline-none duration-300">
                                 <svg
                                 class="w-5 h-5 ml-2"
                                 fill="currentColor"
@@ -374,6 +374,10 @@
 
                         <div class="h-72 w-full bg-gray-100 rounded-md mt-4">
                             <div v-if=" imagesToSend != '' || imagesToShow != '' " class="mt-4 px-4 pt-4 pb-4 rounded-md">
+
+                                
+
+
                                 <div v-for="(image, index) in imagesToSend" :key="image.indexOfimagesToShow" class="relative h-60 overflow-x-scroll w-full">
                                     <div class="absolute inset-x-0 bottom-2 flex justify-center items-center">
                                         <button
@@ -388,22 +392,27 @@
                                             <svg class="w-5 h-5 stroke-current text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
                                         </button>
                                    </div>
-                                    <!-- <img src="https://www.bmwusa.com/content/dam/bmwusa/fma/new-secondary-fmas-assets/non-cookied/secondary-fma-4/BMW-HP-X5-Secondary-FMA-Mobile.jpg" class="w-full h-full rounded" /> -->
                                     <img :src="image.baseAs64" class="w-full h-full rounded" />
                                     
                                 </div>
 
-                                <div
-                                    v-for="(image, index) in imagesToShow"
-                                    :key="image.id"
-                                    class="relative h-64 w-full"
-                                >
-                                
-                                    <img :src="image.path" class="w-full h-full rounded" />
-                                    <div class="absolute inset-x-0 flex justify-center">
+                                 <div class="relative h-64 w-full " >
+
+                                    <img :src="testimage" alt="image" class="w-full h-full rounded object-contain">
+
+                                    <div class="absolute inset-0 flex justify-center items-center">
+
+                                        <button type="button" class="bg-green-600 hover:bg-green-500 duration-500 p-2 rounded-full focus:outline-none">
+                                            <svg class="w-4 h-4 text-white  mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                                        </button>
+
+                                        <button type="button" class="bg-blue-600 hover:bg-blue-500 duration-500 p-2 rounded-full focus:outline-none mx-4">
+                                            <svg class="w-4 h-4 text-white  mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                                        </button>
+
                                         <button
                                             type="button"
-                                            class="bg-red-600 hover:bg-red-500 duration-500 p-2 rounded-full bottom-0 mx-auto mb-2 focus:outline-none"
+                                            class="bg-red-600 hover:bg-red-500 duration-500 p-2 rounded-full focus:outline-none"
                                             @click="deleteDocument(image.id, index)"
                                             >
                                             <svg
@@ -426,22 +435,23 @@
                                                 d="m173.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
                                                 />
                                             </svg>
-                                    </button>
+                                        </button>
+                                    
                                     </div>
+
                                 </div>
                                 
 
                                  <div class="flex justify-between items-center mt-4">
-                                        <button @click="previousImage()" class="w-12 h-8 bg-gray-300 rounded flex justify-center items-center">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                                        </button>
+                                    <button @click="previousImage()" class="w-12 h-8 bg-gray-300 rounded flex justify-center items-center">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                    </button>
+                                        {{indextotest +1}} / {{ imagesToShow.length }}
 
-                                        {{ imagesToSend.length }}
-
-                                         <button @click="nextImage()" class="w-12 h-8 bg-gray-300 rounded flex justify-center items-center">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                                        </button>
-                                    </div>
+                                        <button title="next" @click="nextImage()" class="w-12 h-8 bg-gray-300 rounded flex justify-center items-center">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                                    </button>
+                                </div>
 
                                 <div class="flex justify-center mt-10">
                                     <button
@@ -515,18 +525,18 @@
                     </section>
                 </div> 
 
-                <section v-if="mailType == 'صادر خارجي' || mailType == 'وارد خارجي'" class="col-span-2 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 bg-gray-50 rounded-md p-6">
+                <section v-if="mailType == '2' || mailType == '3'" class="col-span-2 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 bg-gray-50 rounded-md p-6">
 
                     <div class="sm:col-span-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                         
                         <fieldset class="sm:col-span-3">
                             <div class="flex items-center">
                                 <legend class="block text-base font-semibold text-gray-800 w-24">
-                                    <div v-if="mailType == 'صادر خارجي'">
+                                    <div v-if="mailType == '2'">
                                         توجيه البريد
                                     </div>
 
-                                    <div v-if="mailType == 'وارد خارجي'">
+                                    <div v-if="mailType == '3'">
                                         وارد من
                                     </div>
                                 </legend>
@@ -636,7 +646,7 @@
 
                     </div>
 
-                    <div v-if="mailType == 'صادر خارجي'" class="sm:col-span-6">
+                    <div v-if="mailType == '2'" class="sm:col-span-6">
                         <label
                         for="action_required"
                         class="block text-base font-semibold text-gray-800"
@@ -652,7 +662,7 @@
                         </textarea>
                     </div>
 
-                    <div v-if="mailType == 'وارد خارجي' " class="sm:col-span-6 grid grid-cols-1 mt-6 gap-y-6 gap-x-4 sm:grid-cols-6 rounded-md">
+                    <div v-if="mailType == '3' " class="sm:col-span-6 grid grid-cols-1 mt-6 gap-y-6 gap-x-4 sm:grid-cols-6 rounded-md">
                         <fieldset class="sm:col-span-3">
                             <div class="flex items-center">
 
@@ -1027,14 +1037,14 @@ export default {
 
      
 
-        if(this.$route.params.type == 'داخلي'){
+        if(this.$route.params.type == '1'){
             this.to_test_passing_mail_type = 1            
         }
-        if(this.$route.params.type == 'صادر خارجي'){
+        if(this.$route.params.type == '2'){
             this.to_test_passing_mail_type = 2
 
         }
-        if(this.$route.params.type == 'وارد خارجي'){
+        if(this.$route.params.type == '3'){
             this.to_test_passing_mail_type = 3
         }
 
@@ -1070,6 +1080,27 @@ export default {
 
   data() {
     return {
+        testimage:'',
+        indextotest: 0,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         classifications:[],
 
         measures:[],
@@ -1168,7 +1199,7 @@ export default {
         side: 0,
         action:0,
         
-
+        mail_year : '',
        
         imagesToShow: [],
 
@@ -1177,8 +1208,7 @@ export default {
         
 
         showAlert: false,
-        Successed: false,
-        addSuccessed: "",
+     
         addErorr: null,
 
         documentSection : true,
@@ -1197,6 +1227,20 @@ export default {
     };
   },
   methods: {
+
+        previousImage(){
+            if ( this.indextotest > 0 ) {
+                this.indextotest--
+                this.testimage = this.imagesToShow[this.indextotest].path
+            }  
+        },
+
+        nextImage(){
+            if ( this.indextotest < this.imagesToShow.length-1 ) {
+                this.indextotest++
+                this.testimage = this.imagesToShow[this.indextotest].path
+            }
+        },
 
         getMailById(){
             this.$http.mailService
@@ -1223,6 +1267,9 @@ export default {
                 this.consignees = res.data.actionSenders
 
                 this.imagesToShow = res.data.resourcescs
+
+
+                this.testimage = this.imagesToShow[0].path
 
                 if(this.to_test_passing_mail_type == '2'){
 
@@ -1327,13 +1374,7 @@ export default {
                 });
         },
 
-        previousImage(){
-            
-        },
-
-        nextImage(){
-
-        },
+        
 
         selectmeasure(id, name){
             this.measureNameSelected = name;
@@ -1400,13 +1441,14 @@ export default {
         },
 
         saveMail() {
-            this.showAlert = true;
+            
+            this.screenFreeze = true;
             this.loading = true;
 
-            if (this.mailType == 'داخلي'){
+            if (this.mailType == '1'){
                 var info = {
                     "mail":{
-                        "Mail_Type": this.mailType,
+                        "Mail_Type": Number(this.mailType),
                         "userId": Number(this.my_user_id),
                         "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
@@ -1421,10 +1463,10 @@ export default {
                 }
             }
 
-            if (this.mailType == 'صادر خارجي'){
+            if (this.mailType == '2'){
                 var info = {
                     "mail":{
-                        "Mail_Type": this.mailType,
+                        "Mail_Type": Number(this.mailType),
                         "userId": Number(this.my_user_id),
                         "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
@@ -1446,10 +1488,10 @@ export default {
                 }
             }
 
-            if (this.mailType == 'وارد خارجي'){
+            if (this.mailType == '3'){
                 var info = {
                     "mail":{
-                        "Mail_Type": this.mailType,
+                        "Mail_Type": Number(this.mailType),
                         "userId": Number(this.my_user_id),
                         "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
@@ -1478,45 +1520,50 @@ export default {
             this.$http.mailService
                 .SaveMail(info)
                 .then((res) => {
-                setTimeout(() => {
-                    // this.loading = false;
-                    // this.Successed = true;
-                    // this.addSuccessed = res.data.result.message;
-                    // this.documentSection = true;
-                    // this.proceduresSection = true;
+                    setTimeout(() => {
+                        // this.loading = false;
+             
+                        // this.documentSection = true;
+                        // this.proceduresSection = true;
 
-                    this.saveButton = false;
-                    this.sendButton = true;
-                    this.updataButton = true;
-                    this.deleteButton = true;
+                        this.loading = false;
+                        this.screenFreeze = false;
 
-                    this.mailId = res.data.mailId
+                        this.saveButton = false;
+                        this.sendButton = true;
+                        this.updataButton = true;
+                        this.deleteButton = true;
 
-                }, 500);
+                        this.mailId = res.data.mailId
+                        this.department_Id = res.data.department_Id
+                        this.mail_year = res.data.mail_year
+
+                    }, 500);
                 })
                 .catch((err) => {
                     setTimeout(() => {
                         this.loading = false;
-                        this.Successed = false;
-                        this.addErorr = err.message; 
+                        this.screenFreeze = false;
+                        
                     }, 500);
                 });
         },
 
         sendMail(){
-        this.showAlert = true;
+        this.screenFreeze = true;
         this.loading = true;
 
         this.$http.mailService
             .SendMail(Number(this.mailId))
             .then((res) => {
             setTimeout(() => {
+                
                 this.deleteButton = false;
                 this.sendButton = false;
 
                 this.loading = false;
-                this.Successed = true;
-                this.addSuccessed = res.data.message;
+                        this.screenFreeze = false;
+                
 
                 
             }, 500);
@@ -1524,14 +1571,15 @@ export default {
             .catch((err) => {
             setTimeout(() => {
                 this.loading = false;
-                this.Successed = false;
-                this.addErorr = err.message; 
+                        this.screenFreeze = false;
+                
+                
             }, 500);
             });
         },
     
         deleteMail(){
-        this.showAlert = true;
+        this.screenFreeze = true;
         this.loading = true;
 
         this.$http.mailService
@@ -1539,8 +1587,8 @@ export default {
             .then((res) => {
             setTimeout(() => {
                 this.loading = false;
-                this.Successed = true;
-                this.addSuccessed = res.data.result.message;
+                        this.screenFreeze = false;
+               
 
                 setTimeout(() => {
                 this.$router.replace("/dashboard");
@@ -1550,8 +1598,8 @@ export default {
             .catch((err) => {
             setTimeout(() => {
                 this.loading = false;
-                this.Successed = false;
-                this.addErorr = err.message; 
+                        this.screenFreeze = false;
+              
             }, 500);
             });
         },
@@ -1598,14 +1646,15 @@ export default {
         },
 
         UploadImagesMail() {
-            this.showAlert = true;
+            this.screenFreeze = true;
             this.loading = true;
             console.log(this.imagesToSend)
             this.$http.mailService
                 .UploadImagesMail(   this.mailId ,this.imagesToSend)
                 .then((res) => {
                 setTimeout(() => {
-
+                    this.loading = false;
+                        this.screenFreeze = false;
                         console.log(res)
 
                 }, 500);
@@ -1613,8 +1662,8 @@ export default {
                 .catch((err) => {
                 setTimeout(() => {
                     this.loading = false;
-                    this.Successed = false;
-                    this.addErorr = err.message; 
+                        this.screenFreeze = false;
+                    
                 }, 500);
                 });
         },
@@ -1633,14 +1682,14 @@ export default {
         },
 
         updateMail(){
-            this.showAlert = true;
+            this.screenFreeze = true;
             this.loading = true;
 
-            if (this.mailType == 'داخلي'){
+            if (this.mailType == '1'){
                 var dataUpdate = {
                     "mail":{
                         "MailID": Number(this.mailId),
-                        "Mail_Type": this.mailType,
+                        "Mail_Type": Number(this.mailType),
                         "userId": Number(this.my_user_id),
                         "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
@@ -1656,11 +1705,11 @@ export default {
                 }
             }
 
-            if (this.mailType == 'صادر خارجي'){
+            if (this.mailType == '2'){
                 var dataUpdate = {
                     "mail":{
                         "MailID": Number(this.mailId),
-                        "Mail_Type": this.mailType,
+                        "Mail_Type": Number(this.mailType),
                         "userId": Number(this.my_user_id),
                         "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
@@ -1684,11 +1733,11 @@ export default {
                 }
             }
 
-            if (this.mailType == 'وارد خارجي'){
+            if (this.mailType == '3'){
                 var dataUpdate = {
                     "mail":{
                         "MailID": Number(this.mailId),
-                        "Mail_Type": this.mailType,
+                        "Mail_Type": Number(this.mailType),
                         "userId": Number(this.my_user_id),
                         "department_Id": Number(this.my_department_id),
                         "Date_Of_Mail": this.releaseDate,
@@ -1721,15 +1770,15 @@ export default {
                 .then((res) => {
                     setTimeout(() => {
                         this.loading = false;
-                        this.Successed = true;
-                        this.addSuccessed = res.data.result.message;
+                        this.screenFreeze = false;
+                       
                     }, 500);
                 })
                 .catch((err) => {
                     setTimeout(() => {
                         this.loading = false;
-                        this.Successed = false;
-                        this.addErorr = err.message; 
+                        this.screenFreeze = false;
+                        
                     }, 500);
                 });
         },
@@ -1867,7 +1916,7 @@ export default {
     // },
 
     // addDocuments() {
-    //   this.showAlert = true;
+    //   this.screenFreeze = true;
     //   this.loading = true;
 
     //    var documenInfo = {
@@ -1880,8 +1929,7 @@ export default {
     //     .then((res) => {
     //       setTimeout(() => {
     //         this.loading = false;
-    //         this.Successed = true;
-    //         this.addSuccessed = res.data.result.message;
+    //         
 
     //         this.imagesToSend = [];
     //         this.GetDocmentForMailToShow()
@@ -1890,8 +1938,7 @@ export default {
     //     .catch((err) => {
     //       setTimeout(() => {
     //         this.loading = false;
-    //         this.Successed = false;
-    //         this.addErorr = err.message; 
+    //     
     //       }, 500);
     //     });
     // },
