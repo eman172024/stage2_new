@@ -380,7 +380,7 @@ export default {
   created() {},
 
   mounted() {
-        this.GetLastMails();
+        this.GetInboxs();
 
         this.GetAllmail_cases()
         this.GetAllClassifications();
@@ -432,6 +432,30 @@ export default {
     };
   },
   methods: {
+
+        GetInboxs() {
+            this.screenFreeze = true;
+            this.loading = true;
+            this.$http.mailService
+                .inboxs()
+                .then((res) => {
+                    console.log(res)
+                    this.LastMails = res.data;
+                    setTimeout(() => {
+                        this.screenFreeze = false;
+                    this.loading = false;
+                    }, 300);
+                })
+                .catch((err) => {
+                    setTimeout(() => {
+                        this.screenFreeze = false;
+                        this.loading = false;
+                        console.log(err);
+                    }, 100);
+                    
+                    
+                });
+        },
 
         GetAllDepartments() {
 
@@ -513,29 +537,7 @@ export default {
         // },
 
 
-    GetLastMails() {
-        this.screenFreeze = true;
-        this.loading = true;
-        this.$http.DashboardService
-            .LastMails()
-            .then((res) => {
-                console.log(res)
-                this.LastMails = res.data;
-                setTimeout(() => {
-                    this.screenFreeze = false;
-                  this.loading = false;
-                }, 300);
-            })
-            .catch((err) => {
-                setTimeout(() => {
-                    this.screenFreeze = false;
-                    this.loading = false;
-                    console.log(err);
-                }, 100);
-                
-                
-            });
-    },
+    
     
   },
 

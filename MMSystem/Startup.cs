@@ -24,6 +24,7 @@ using MMSystem.Services.Reports;
 using MMSystem.Services.Histor;
 using MMSystem.Services.DashBords;
 using MMSystem.Services.Archives;
+using MMSystem.Services.ReceivedMail;
 
 namespace MMSystem
 {
@@ -58,6 +59,7 @@ namespace MMSystem
             services.AddTransient<IHistory, MokHistory>();
             services.AddTransient<IDashBord, MokDashBord>();
             services.AddTransient<IArchives, MokArchives>();
+            services.AddScoped<IReceived, MookRecevied>();
 
 
         }
