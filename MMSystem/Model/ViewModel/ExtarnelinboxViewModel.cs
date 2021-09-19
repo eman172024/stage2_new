@@ -1,12 +1,11 @@
-﻿using MMSystem.Model.Dto;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MMSystem.Model.ViewModel
 {
-    public class Sended_Maill
+    public class ExtarnelinboxViewModel
     {
 
         public int mail_id { get; set; }
@@ -27,6 +26,8 @@ namespace MMSystem.Model.ViewModel
         public string State { get; set; }
 
         public string summary { get; set; }
+
+        public string sectionName { get; set; }
 
         public int Sends_id { get; set; }
 
