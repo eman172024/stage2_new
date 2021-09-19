@@ -56,7 +56,7 @@ namespace MMSystem.Services.MailServeic
             if (mail != null)
             {
                 mail.Date_Of_Mail = DateTime.Now;
-
+                mail.Mail_Summary = mail.Mail_Summary + " ";
                 await _appContext.Mails.AddAsync(mail);
 
                 await _appContext.SaveChangesAsync();
