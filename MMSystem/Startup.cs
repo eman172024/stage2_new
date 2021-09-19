@@ -23,6 +23,7 @@ using MMSystem.Services.RoleService;
 using MMSystem.Services.Reports;
 using MMSystem.Services.Histor;
 using MMSystem.Services.DashBords;
+using MMSystem.Services.Archives;
 
 namespace MMSystem
 {
@@ -56,7 +57,7 @@ namespace MMSystem
             services.AddTransient<Generic2<Extrmal_Section, Extrmal_SectionDto>, MocSection>();
             services.AddTransient<IHistory, MokHistory>();
             services.AddTransient<IDashBord, MokDashBord>();
-
+            services.AddTransient<IArchives, MokArchives>();
 
 
         }

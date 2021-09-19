@@ -10,7 +10,7 @@ namespace MMSystem.Model.ViewModel.Reports
     
         public string UserName { get; set; }
 
-        public DateTime Last_date { get; set; }
+        //public DateTime Last_date { get; set; }
         public TotalCounts Total_Count { get; set; } = new TotalCounts() { };
     }
 }
