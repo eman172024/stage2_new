@@ -44,14 +44,14 @@ namespace MMSystem.Controllers
         public async Task<IActionResult> GetMail(DateTime? myday, int? daycheck, int? mailnum_bool,
             int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
             int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2,
-            int? Typeof_send, int? userid, int? mailNumType , int? mail_type, string? replaytext)
+            int? Typeof_send, int? userid, int? mailNumType , int? mail_type, string? replaytext, int pagenum, int size)
 
         {
 
             dynamic c =await _re.GetMail(myday, daycheck, mailnum_bool,
                 mangment, d1, d2, mailnum, summary, mail_Readed,
                 mailReaded, mailnot_readed, Day_sended1, Day_sended2,
-               Typeof_send, userid, mailNumType , mail_type , replaytext);
+               Typeof_send, userid, mailNumType , mail_type , replaytext, pagenum,size);
 
             return Ok(c);
         }
@@ -90,7 +90,7 @@ namespace MMSystem.Controllers
         public async Task<IActionResult> GetIncomingMail(DateTime? myday, int? daycheck,
             int? mailnum_bool, int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary,
             int? mail_Readed, int? mailReaded, int? mailnot_readed, DateTime? Day_sended1,
-            DateTime? Day_sended2, int? Typeof_send, int? mail_type, string? replaytext, int? userid,int mailNumType)
+            DateTime? Day_sended2, int? Typeof_send, int? mail_type, string? replaytext, int? userid,int mailNumType, int pagenum, int size)
 
         {
 
@@ -99,11 +99,27 @@ namespace MMSystem.Controllers
             mail_Readed,  mailReaded,  mailnot_readed,  Day_sended1,
 
              Day_sended2,Typeof_send,  userid,  mailNumType,
-             mail_type, replaytext);
+             mail_type, replaytext, pagenum,  size);
             if(c!=null)
             return Ok(c);
+            return Unauthorized("غير مسموح لك بدخول  ");
+        }
+
+        [HttpGet("GetMailState/{mailid}")]
+        public async Task<IActionResult> GetMailState(int mailid)
+
+        {
+
+            var c = await _re.GetMailState(mailid);
+            if (c != null)
+                return Ok(new {
+                flag=c
+                });
             return NotFound();
         }
+
+
+
 
     }
 
