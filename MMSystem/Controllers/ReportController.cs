@@ -40,9 +40,9 @@ namespace MMSystem.Controllers
 
         [HttpGet]
         [Route("GetAllUserCount")]
-        public async Task<IActionResult> GetAllUserCount(int departmentid, DateTime? fromdate, DateTime ? todate, int ? MailType , string RecievedOrSended)
+        public async Task<IActionResult> GetAllUserCount(int departmentid, DateTime? fromdate, DateTime ? todate, int ? MailType , string SendedOrRecieved)
         {
-            var roles = await _data.GetAllUserCount(departmentid, fromdate, todate,  MailType, RecievedOrSended);
+            var roles = await _data.GetAllUserCount(departmentid, fromdate, todate,  MailType, SendedOrRecieved);
             if (roles != null)
             {
                 return Ok(roles);
@@ -86,5 +86,20 @@ namespace MMSystem.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetMySectionReport")]
+        public async Task<IActionResult> GetMySectionReport(int departmentid, DateTime? fromdate, DateTime? todate, int? MailType, string SendedOrRecieved)
+        {
+            var roles = await _data.GetMySectionReport(departmentid, fromdate, todate, MailType, SendedOrRecieved);
+            if (roles != null)
+            {
+                return Ok(roles);
+            }
+            else
+            {
+                return NotFound(new Result() { message = "التقارير غير موجودة", statusCode = 404 });
+
+            }
+        }
     }
 }
