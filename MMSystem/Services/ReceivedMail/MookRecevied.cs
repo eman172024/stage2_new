@@ -1281,7 +1281,7 @@ namespace MMSystem.Services.ReceivedMail
 
             try
             {
-                var role_id = await dbcon.userRoles.FirstOrDefaultAsync(x => x.UserId == userid);
+                var role_id = await dbcon.userRoles.FirstAsync(x => x.UserId == userid);
                 int user_role_num = role_id.RoleId;
 
                 switch (mailNumType)
