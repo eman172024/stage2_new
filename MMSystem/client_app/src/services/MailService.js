@@ -63,7 +63,9 @@ export default {
 
 
 
-
+    inboxs() {
+        return axios.get(`api/Mail/GetLastMails`);
+    },
 
 
 
