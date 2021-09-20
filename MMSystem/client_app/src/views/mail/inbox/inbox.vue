@@ -258,7 +258,7 @@
                                     النوع
                                 </div>
                                 <div class="w-2/9">
-                                      الإدارة المرسلة
+                                    الإدارة المرسلة
                                 </div>
                                 <div class="w-1/9">
                                     نوع الإجراء
@@ -275,18 +275,18 @@
                             </div>
 
                             <div class="min-h-72">
-                                <div v-for="mail in LastMails" :key="mail.mailID" class="group relative border-r-8 border-red-500 flex items-center bg-white">
+                                <div v-for="mail in inboxMails" :key="mail.mail_id" class="group relative border-r-8 border-red-500 flex items-center bg-white">
                                     <div class="w-1/9 pr-4 py-3">
-                                        14
+                                        {{ mail.mail_Number }}
                                     </div>
                                     <div class="w-1/9">
-                                        الحالة
+                                        {{ mail.state }}
                                     </div>
                                     <div class="w-1/9">
-                                        {{ mail.mail_Type }}
+                                        {{ mail.type_of_mail }}
                                     </div>
                                     <div class="w-2/9">
-                                        الإدارة المرسلة
+                                        {{ mail.mangment_sender}}
                                     </div>
                                     <div class="w-1/9">
                                         نوع الإجراء
@@ -380,6 +380,10 @@ export default {
   created() {},
 
   mounted() {
+
+      this.my_user_id = localStorage.getItem('userId')
+      this.my_department_id = localStorage.getItem('departmentId')
+
         this.GetInboxs();
 
         this.GetAllmail_cases()
@@ -397,7 +401,10 @@ export default {
 
   data() {
     return {
-        LastMails:{},
+        my_user_id: '',
+        my_department_id: '',
+
+        inboxMails:{},
 
         mail_id:'',
 
@@ -422,13 +429,16 @@ export default {
         mail_caseNameSelected: '',
         mail_caseIdSelected: '',
 
-        mailType:'',
+        mailType:0,
 
         summary:'',
 
         filter: false,
         loading: false,
         screenFreeze: false,
+
+        page_size: 8,
+        page_num: 1
     };
   },
   methods: {
@@ -437,14 +447,14 @@ export default {
             this.screenFreeze = true;
             this.loading = true;
             this.$http.mailService
-                .inboxs()
+                .inboxs(this.my_user_id, this.mailType, this.my_department_id, this.page_num, this.page_size)
                 .then((res) => {
                     console.log(res)
-                    this.LastMails = res.data;
-                    setTimeout(() => {
-                        this.screenFreeze = false;
-                    this.loading = false;
-                    }, 300);
+                     this.inboxMails = res.data.mail;
+                    // setTimeout(() => {
+                    //     this.screenFreeze = false;
+                    // this.loading = false;
+                    // }, 300);
                 })
                 .catch((err) => {
                     setTimeout(() => {
