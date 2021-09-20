@@ -149,9 +149,9 @@ namespace MMSystem.Services.ReceivedMail
                                                   type_of_mail = mail.Mail_Type,
                                                   Mail_Number = mail.Mail_Number,
                                                   date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                                  procedure_type = mail.clasification,
+                                                  //procedure_type = mail.clasification,
                                                   mangment_sender = m.DepartmentName,
-                                                  Send_time = ex.Send_time,
+                                                  Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                                   time = ex.Send_time.ToString("HH-mm-ss"),
                                                   summary = mail.Mail_Summary,
                                                   Sends_id = ex.Id
@@ -181,9 +181,9 @@ namespace MMSystem.Services.ReceivedMail
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                   procedure_type = mail.clasification,
+                                   //procedure_type = mail.clasification,
                                    mangment_sender = m.DepartmentName,
-                                   Send_time = ex.Send_time,
+                                   Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                    time = ex.Send_time.ToString("HH-mm-ss"),
                                    summary = mail.Mail_Summary,
                                    Sends_id = ex.Id
@@ -333,7 +333,9 @@ namespace MMSystem.Services.ReceivedMail
                                                    ((x.Send_time.Date >= Day_sended1 && x.Send_time.Date <= Day_sended2 && x.flag == 5) || daysended == true) &&
                                                             (x.type_of_send == Typeof_send || sendedType_exsist == true))
                                                             on mail.MailID equals ex.MailID
-
+                                                             join dx in dbcon.measures on ex.type_of_send equals dx.MeasuresId
+                                                            
+                                                            
                                                           //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
 
                                                             // join cx in dbcon.Replies.Where(x=> x.ReplyId)
@@ -344,9 +346,8 @@ namespace MMSystem.Services.ReceivedMail
                                                                 type_of_mail = mail.Mail_Type,
                                                                 Mail_Number = mail.Mail_Number,
                                                                 date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                                                procedure_type = mail.clasification,
-                                                                mangment_sender = m.DepartmentName,
-                                                                Send_time = ex.Send_time,
+                                                                Masure_type=dx.MeasuresName,                                                                mangment_sender = m.DepartmentName,
+                                                                Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                                                 time = ex.Send_time.ToString("HH-mm-ss"),
                                                                 summary = mail.Mail_Summary,
                                                                 //sectionName = Extr.section_Name,
@@ -365,23 +366,23 @@ namespace MMSystem.Services.ReceivedMail
                       ((x.Send_time.Date >= Day_sended1 && x.Send_time.Date <= Day_sended2 && x.flag == 5) || daysended == true) &&
                                (x.type_of_send == Typeof_send || sendedType_exsist == true))
                                on mail.MailID equals ex.MailID
+                                   join dx in dbcon.measures on ex.type_of_send equals dx.MeasuresId
 
-                               //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
+                                   //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
 
-                               // join cx in dbcon.Replies.Where(x=> x.ReplyId)
-                               select new Sended_Maill()
+                                   // join cx in dbcon.Replies.Where(x=> x.ReplyId)
+                                   select new Sended_Maill()
                                {
                                    mail_id = mail.MailID,
                                    State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                   procedure_type = mail.clasification,
+                                   Masure_type= dx.MeasuresName,
                                    mangment_sender = m.DepartmentName,
-                                   Send_time = ex.Send_time,
+                                   Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                    time = ex.Send_time.ToString("HH-mm-ss"),
                                    summary = mail.Mail_Summary,
-                                   //sectionName = Extr.section_Name,
                                    Sends_id = ex.Id
 
 
@@ -635,9 +636,9 @@ namespace MMSystem.Services.ReceivedMail
                                   type_of_mail = mail.Mail_Type,
                                   Mail_Number = mail.Mail_Number,
                                   date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                  procedure_type = mail.clasification,
+                                  //procedure_type = mail.clasification,
                                   mangment_sender = m.DepartmentName,
-                                  Send_time = ex.Send_time,
+                                  Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                   time = ex.Send_time.ToString("HH-mm-ss"),
                                   summary = mail.Mail_Summary,
                                   sectionName = Extr.section_Name,
@@ -669,9 +670,9 @@ namespace MMSystem.Services.ReceivedMail
                                         type_of_mail = mail.Mail_Type,
                                         Mail_Number = mail.Mail_Number,
                                         date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                        procedure_type = mail.clasification,
+                                       // procedure_type = mail.clasification,
                                         mangment_sender = m.DepartmentName,
-                                        Send_time = ex.Send_time,
+                                        Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                         time = ex.Send_time.ToString("HH-mm-ss"),
                                         summary = mail.Mail_Summary,
                                         sectionName = Extr.section_Name,
@@ -832,9 +833,9 @@ namespace MMSystem.Services.ReceivedMail
                                                    type_of_mail = mail.Mail_Type,
                                                    Mail_Number = mail.Mail_Number,
                                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                                   procedure_type = mail.clasification,
+                                                   //procedure_type = mail.clasification,
                                                    mangment_sender = m.DepartmentName,
-                                                   Send_time = ex.Send_time,
+                                                   Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                                    time = ex.Send_time.ToString("HH-mm-ss"),
                                                    summary = mail.Mail_Summary,
                                                    sectionName= Extr.sectionName,
@@ -865,9 +866,9 @@ namespace MMSystem.Services.ReceivedMail
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                      procedure_type = mail.clasification,
+                                     // procedure_type = mail.clasification,
                                       mangment_sender = m.DepartmentName,
-                                      Send_time = ex.Send_time,
+                                      Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                       time = ex.Send_time.ToString("HH-mm-ss"),
                                       summary = mail.Mail_Summary,
                                       sectionName = Extr.sectionName,
@@ -912,9 +913,9 @@ namespace MMSystem.Services.ReceivedMail
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                   procedure_type = mail.clasification,
+                                   //procedure_type = mail.clasification,
                                    mangment_sender = m.DepartmentName,
-                                   Send_time = y.Send_time,
+                                   Send_time = y.Send_time.ToString("yyyy-MM-dd"),
                                    time = y.Send_time.ToString("HH-mm-ss"),
                                    summary = mail.Mail_Summary,
                                    Sends_id = y.Id,
@@ -957,9 +958,9 @@ namespace MMSystem.Services.ReceivedMail
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                   procedure_type = mail.clasification,
+                                   //procedure_type = mail.clasification,
                                    mangment_sender = m.DepartmentName,
-                                   Send_time = y.Send_time,
+                                   Send_time = y.Send_time.ToString("yyyy-MM-dd"),
                                    time = y.Send_time.ToString("HH-mm-ss"),
                                    summary = mail.Mail_Summary,
                                    Sends_id = y.Id,
@@ -1003,9 +1004,9 @@ namespace MMSystem.Services.ReceivedMail
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                   procedure_type = mail.clasification,
+                                   //procedure_type = mail.clasification,
                                    mangment_sender = m.DepartmentName,
-                                   Send_time = y.Send_time,
+                                   Send_time = y.Send_time.ToString("yyyy-MM-dd"),
                                    time = y.Send_time.ToString("HH-mm-ss"),
                                    summary = mail.Mail_Summary,
                                    Sends_id = y.Id,
@@ -1049,9 +1050,9 @@ namespace MMSystem.Services.ReceivedMail
                                     type_of_mail = mail.Mail_Type,
                                     Mail_Number = mail.Mail_Number,
                                     date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                    procedure_type = mail.clasification,
+                                    //procedure_type = mail.clasification,
                                     mangment_sender = m.DepartmentName,
-                                    Send_time = y.Send_time,
+                                    Send_time = y.Send_time.ToString("yyyy-MM-dd"),
                                     time = y.Send_time.ToString("HH-mm-ss"),
                                     summary = mail.Mail_Summary,
                                     Sends_id = y.Id,
@@ -1194,23 +1195,24 @@ namespace MMSystem.Services.ReceivedMail
                                                ((x.Send_time.Date >= Day_sended1 && x.Send_time.Date <= Day_sended2 && x.flag == 5) || daysended == true) &&
                                                (x.type_of_send == Typeof_send || sendedType_exsist == true))
                                                on mail.MailID equals ex.MailID
+                              join dx in dbcon.measures on ex.type_of_send equals dx.MeasuresId
 
-                                                         // join rep in dbcon.Replies on ex.Id equals rep.ReplyId
-                                                         // join cx in dbcon.Replies.Where(x=> x.ReplyId)
-                                                         select new ExtarnelinboxViewModel()
+                              // join rep in dbcon.Replies on ex.Id equals rep.ReplyId
+                              // join cx in dbcon.Replies.Where(x=> x.ReplyId)
+                              select new ExtarnelinboxViewModel()
                                                          {
                                                              mail_id = mail.MailID,
                                                              State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
                                                              type_of_mail = mail.Mail_Type,
                                                              Mail_Number = mail.Mail_Number,
                                                              date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                                             procedure_type = mail.clasification,
+                                                             Masure_type=dx.MeasuresName,
                                                              mangment_sender = m.DepartmentName,
-                                                             Send_time = ex.Send_time,
+                                                             Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                                              time = ex.Send_time.ToString("HH-mm-ss"),
                                                              summary = mail.Mail_Summary,
                                                              Sends_id = ex.Id,
-                                                             sectionName=Extr.section_Name
+                                                           //  sectionName=Extr.section_Name
 
 
 
@@ -1227,23 +1229,24 @@ namespace MMSystem.Services.ReceivedMail
                      ((x.Send_time.Date >= Day_sended1 && x.Send_time.Date <= Day_sended2 && x.flag == 5) || daysended == true) &&
                      (x.type_of_send == Typeof_send || sendedType_exsist == true))
                      on mail.MailID equals ex.MailID
+                                  join dx in dbcon.measures on ex.type_of_send equals dx.MeasuresId
 
-                               // join rep in dbcon.Replies on ex.Id equals rep.ReplyId
-                               // join cx in dbcon.Replies.Where(x=> x.ReplyId)
-                               select new ExtarnelinboxViewModel()
+                                  // join rep in dbcon.Replies on ex.Id equals rep.ReplyId
+                                  // join cx in dbcon.Replies.Where(x=> x.ReplyId)
+                                  select new ExtarnelinboxViewModel()
                                {
                                    mail_id = mail.MailID,
                                    State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                   procedure_type = mail.clasification,
+                                   Masure_type=dx.MeasuresName,
                                    mangment_sender = m.DepartmentName,
-                                   Send_time = ex.Send_time,
+                                   Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                    time = ex.Send_time.ToString("HH-mm-ss"),
                                    summary = mail.Mail_Summary,
                                    Sends_id = ex.Id,
-                                   sectionName = Extr.section_Name
+                                  // sectionName = Extr.section_Name
 
 
 
@@ -1387,23 +1390,24 @@ namespace MMSystem.Services.ReceivedMail
                                                ((x.Send_time.Date >= Day_sended1 && x.Send_time.Date <= Day_sended2 && x.flag == 5) || daysended == true) &&
                                                (x.type_of_send == Typeof_send || sendedType_exsist == true))
                                                on mail.MailID equals ex.MailID
+                              join dx in dbcon.measures on ex.type_of_send equals dx.MeasuresId
 
-                                               // join rep in dbcon.Replies on ex.Id equals rep.ReplyId
-                                               // join cx in dbcon.Replies.Where(x=> x.ReplyId)
-                                               select new ExtarnelinboxViewModel()
+                              // join rep in dbcon.Replies on ex.Id equals rep.ReplyId
+                              // join cx in dbcon.Replies.Where(x=> x.ReplyId)
+                              select new ExtarnelinboxViewModel()
                                                {
                                                    mail_id = mail.MailID,
                                                    State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
                                                    type_of_mail = mail.Mail_Type,
                                                    Mail_Number = mail.Mail_Number,
                                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                                   procedure_type = mail.clasification,
+                                                   Masure_type=dx.MeasuresName,
                                                    mangment_sender = m.DepartmentName,
-                                                   Send_time = ex.Send_time,
+                                                   Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                                    time = ex.Send_time.ToString("HH-mm-ss"),
                                                    summary = mail.Mail_Summary,
                                                    Sends_id = ex.Id,
-                                                   sectionName=Extr.sectionName
+                                                  // sectionName=Extr.sectionName
 
 
 
@@ -1420,23 +1424,24 @@ namespace MMSystem.Services.ReceivedMail
                      ((x.Send_time.Date >= Day_sended1 && x.Send_time.Date <= Day_sended2 && x.flag == 5) || daysended == true) &&
                      (x.type_of_send == Typeof_send || sendedType_exsist == true))
                      on mail.MailID equals ex.MailID
+                                 join dx in dbcon.measures on ex.type_of_send equals dx.MeasuresId
 
-                               // join rep in dbcon.Replies on ex.Id equals rep.ReplyId
-                               // join cx in dbcon.Replies.Where(x=> x.ReplyId)
-                               select new ExtarnelinboxViewModel()
+                                 // join rep in dbcon.Replies on ex.Id equals rep.ReplyId
+                                 // join cx in dbcon.Replies.Where(x=> x.ReplyId)
+                                 select new ExtarnelinboxViewModel()
                                {
                                    mail_id = mail.MailID,
                                    State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                   procedure_type = mail.clasification,
+                                   Masure_type=dx.MeasuresName,
                                    mangment_sender = m.DepartmentName,
-                                   Send_time = ex.Send_time,
+                                   Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                    time = ex.Send_time.ToString("HH-mm-ss"),
                                    summary = mail.Mail_Summary,
                                    Sends_id = ex.Id,
-                                   sectionName = Extr.sectionName
+                                 //  sectionName = Extr.sectionName
 
 
 
@@ -1577,6 +1582,7 @@ namespace MMSystem.Services.ReceivedMail
                                               ((x.Send_time.Date >= Day_sended1 && x.Send_time.Date <= Day_sended2 && x.flag == 5) || daysended == true) &&
                                               (x.type_of_send == Typeof_send || sendedType_exsist == true))
                                               on mail.MailID equals ex.MailID
+                                              join dx in dbcon.measures on ex.type_of_send equals dx.MeasuresId
 
                                              // join rep in dbcon.Replies on ex.Id equals rep.ReplyId
                                               // join cx in dbcon.Replies.Where(x=> x.ReplyId)
@@ -1587,9 +1593,9 @@ namespace MMSystem.Services.ReceivedMail
                                                   type_of_mail = mail.Mail_Type,
                                                   Mail_Number = mail.Mail_Number,
                                                   date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                                  procedure_type = mail.clasification,
+                                                  Masure_type=dx.MeasuresName,
                                                   mangment_sender = m.DepartmentName,
-                                                  Send_time = ex.Send_time,
+                                                  Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                                   time = ex.Send_time.ToString("HH-mm-ss"),
                                                   summary = mail.Mail_Summary,
                                                   Sends_id = ex.Id
@@ -1607,19 +1613,20 @@ namespace MMSystem.Services.ReceivedMail
                                ((x.Send_time.Date >= Day_sended1 && x.Send_time.Date <= Day_sended2 && x.flag == 5) || daysended == true) &&
                                (x.type_of_send == Typeof_send || sendedType_exsist == true))
                                on mail.MailID equals ex.MailID
+                               join dx in dbcon.measures on ex.type_of_send equals dx.MeasuresId
 
-                               // join rep in dbcon.Replies on ex.Id equals rep.ReplyId
-                               // join cx in dbcon.Replies.Where(x=> x.ReplyId)
-                               select new Sended_Maill()
+                                 // join rep in dbcon.Replies on ex.Id equals rep.ReplyId
+                                 // join cx in dbcon.Replies.Where(x=> x.ReplyId)
+                                 select new Sended_Maill()
                                {
                                    mail_id = mail.MailID,
                                    State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                   procedure_type = mail.clasification,
+                                   Masure_type=dx.MeasuresName,
                                    mangment_sender = m.DepartmentName,
-                                   Send_time = ex.Send_time,
+                                   Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                    time = ex.Send_time.ToString("HH-mm-ss"),
                                    summary = mail.Mail_Summary,
                                    Sends_id = ex.Id
@@ -1752,9 +1759,9 @@ namespace MMSystem.Services.ReceivedMail
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                   procedure_type = mail.clasification,
+                                   //procedure_type = mail.clasification,
                                    mangment_sender = m.DepartmentName,
-                                   Send_time = y.Send_time,
+                                   Send_time = y.Send_time.ToString("yyyy-MM-dd"),
                                    time = y.Send_time.ToString("HH-mm-ss"),
                                    summary = mail.Mail_Summary,
                                    Sends_id = y.Id
@@ -1815,9 +1822,9 @@ namespace MMSystem.Services.ReceivedMail
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                   procedure_type = mail.clasification,
+                                   //procedure_type = mail.clasification,
                                    mangment_sender = m.DepartmentName,
-                                   Send_time = y.Send_time,
+                                   Send_time = y.Send_time.ToString("yyyy-MM-dd"),
                                    time = y.Send_time.ToString("HH-mm-ss"),
                                    summary = mail.Mail_Summary,
                                    Sends_id = y.Id
@@ -1971,9 +1978,9 @@ namespace MMSystem.Services.ReceivedMail
                                                        type_of_mail = mail.Mail_Type,
                                                        Mail_Number = mail.Mail_Number,
                                                        date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                                       procedure_type = mail.clasification,
+                                                      // procedure_type = mail.clasification,
                                                        mangment_sender = m.DepartmentName,
-                                                       Send_time = ex.Send_time,
+                                                       Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                                        time = ex.Send_time.ToString("HH-mm-ss"),
                                                        summary = mail.Mail_Summary,
                                                        Sends_id = ex.Id
@@ -2004,9 +2011,9 @@ namespace MMSystem.Services.ReceivedMail
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                   procedure_type = mail.clasification,
+                                  // procedure_type = mail.clasification,
                                    mangment_sender = m.DepartmentName,
-                                   Send_time = ex.Send_time,
+                                   Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                    time = ex.Send_time.ToString("HH-mm-ss"),
                                    summary = mail.Mail_Summary,
                                    Sends_id = ex.Id

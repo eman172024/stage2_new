@@ -13,13 +13,13 @@ namespace MMSystem.Model.ViewModel
 
         public string date { get; set; }
 
-        public int procedure_type { get; set; }
+        public String Masure_type { get; set; }
 
         public string mangment_sender { get; set; }
 
         public int type_of_mail { get; set; }
 
-        public DateTime Send_time { get; set; }
+        public string Send_time { get; set; }
 
         public string time { get; set; }
 
