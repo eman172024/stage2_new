@@ -118,7 +118,7 @@ namespace MMSystem.Controllers
             return NotFound();
         }
 
-        [HttpGet("GetMailFlag")]
+        [HttpPut("GetMailFlag")]
         public async Task<IActionResult> GetMailFlag(int mail_id,int  department_Id)
 
         {
