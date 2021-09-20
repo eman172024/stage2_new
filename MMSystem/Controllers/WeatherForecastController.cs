@@ -25,11 +25,13 @@ namespace MMSystem.Controllers
     public class WeatherForecastController : ControllerBase
     {
         private readonly AppDbCon appDb;
+        private readonly GetMailServices _getMailServices;
 
         public string sub { set; get; }
-        public WeatherForecastController(AppDbCon appDb)
+        public WeatherForecastController(AppDbCon appDb, GetMailServices getMailServices)
         {
             this.appDb = appDb;
+            _getMailServices = getMailServices;
         }
 
         [HttpGet("GetAllDepartments")]
@@ -40,6 +42,16 @@ namespace MMSystem.Controllers
             return Ok(c);
 
 
+
+        }
+
+
+        [HttpGet("GetMailInfo")]
+        public async Task<IActionResult> GetMailInfo(int mail_id, int Depa)
+        {
+
+            var c = await _getMailServices.GetMail(mail_id,Depa);
+            return Ok(c);
 
         }
 

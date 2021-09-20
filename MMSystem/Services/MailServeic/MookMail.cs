@@ -1189,13 +1189,21 @@ namespace MMSystem.Services.MailServeic
 
         public async Task< string> tobase64(string patj) {
 
+            try
+            {
+                var attachmentType = System.IO.Path.GetExtension(patj);
+                var Type = attachmentType.Substring(1, attachmentType.Length - 1);
+                var filePath = System.IO.Path.Combine(patj);
+                byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+                var ImageBase64 = "data:image/" + Type + ";base64," + Convert.ToBase64String(fileBytes);
+                return ImageBase64;
+            }
+            catch (Exception)
+            {
 
-            var attachmentType = System.IO.Path.GetExtension(patj);
-            var Type = attachmentType.Substring(1, attachmentType.Length - 1);
-            var filePath = System.IO.Path.Combine(patj);
-            byte[] fileBytes =await System.IO.File.ReadAllBytesAsync(filePath);
-            var ImageBase64 = "data:image/" + Type + ";base64," + Convert.ToBase64String(fileBytes);
-            return ImageBase64;
+                throw;
+            }
+          
 
         }
 
