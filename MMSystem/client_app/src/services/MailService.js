@@ -63,8 +63,9 @@ export default {
 
 
 
-    inboxs() {
-        return axios.get(`api/Mail/GetLastMails`);
+    inboxs(id, mailType, mangment_id, pagenum, size) {
+        return axios.get(`/api/ExternalMails/GetIncomingMail?userid=${id}&mailNumType=${mailType}&mangment=${mangment_id}&pagenum=${pagenum}&size=${size}`);
+        // return axios.get(`api/ExternalMails/GetIncomingMail?userid=1&mailNumType=1&mangment=2&pagenum=1&size=1`);
     },
 
 
