@@ -118,6 +118,21 @@ namespace MMSystem.Controllers
             return NotFound();
         }
 
+        [HttpGet("GetMailFlag")]
+        public async Task<IActionResult> GetMailFlag(int mail_id,int  department_Id)
+
+        {
+
+            var c = await _re.GetFlag(mail_id, department_Id);
+            if (c >0)
+                return Ok(new
+                {
+                    flag = c
+                });
+            return BadRequest("فشلت العملية");
+        }
+
+
 
 
 

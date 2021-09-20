@@ -2036,5 +2036,38 @@ namespace MMSystem.Services.ReceivedMail
             }
             
         }
+
+        public async Task<int> GetState(int mail_id)
+        {
+            try
+            {
+                var c = await dbcon.Sends.LastOrDefaultAsync(x => x.MailID == mail_id);
+                return c.flag;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+          
+        }
+
+        public async Task<int> GetFlag(int mail_id, int department_Id)
+        {
+
+
+            var c = await dbcon.Sends.LastOrDefaultAsync(x => x.MailID == mail_id&&department_Id==x.to);
+            if (c != null) {
+                c.flag = 2;
+                dbcon.Sends.Update(c);
+                await dbcon.SaveChangesAsync();
+                return c.flag;
+            }
+            return 0;
+
+
+            return c.flag;
+
+        }
     }
 }
