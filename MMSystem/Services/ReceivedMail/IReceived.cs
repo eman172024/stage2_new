@@ -73,5 +73,8 @@ namespace MMSystem.Services.ReceivedMail
          int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
          Typeof_send, int? mail_type, string? replaytext, int? userid ,int pagenum, int size);
          Task<int> GetMailState(int mailid);
+
+        Task<int> GetFlag(int mail_id,int department_Id);
+
     }
 }

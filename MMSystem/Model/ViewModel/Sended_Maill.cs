@@ -20,6 +20,7 @@ namespace MMSystem.Model.ViewModel
 
         public int type_of_mail { get; set; }
 
+        public int flag { get; set; }
         public string Send_time { get; set; }
 
         public string time { get; set; }

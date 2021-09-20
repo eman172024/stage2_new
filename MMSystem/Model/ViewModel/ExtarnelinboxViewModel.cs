@@ -17,6 +17,10 @@ namespace MMSystem.Model.ViewModel
 
         public string mangment_sender { get; set; }
 
+
+        public int flag { get; set; }
+
+
         public int type_of_mail { get; set; }
 
         public string Send_time { get; set; }

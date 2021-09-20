@@ -350,7 +350,7 @@ namespace MMSystem.Services.ReceivedMail
                                                                 Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                                                 time = ex.Send_time.ToString("HH-mm-ss"),
                                                                 summary = mail.Mail_Summary,
-                                                                //sectionName = Extr.section_Name,
+                                                                flag=ex.flag,
                                                                 Sends_id = ex.Id
 
 
@@ -382,7 +382,8 @@ namespace MMSystem.Services.ReceivedMail
                                    mangment_sender = m.DepartmentName,
                                    Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                    time = ex.Send_time.ToString("HH-mm-ss"),
-                                   summary = mail.Mail_Summary,
+                                       flag = ex.flag,
+                                       summary = mail.Mail_Summary,
                                    Sends_id = ex.Id
 
 
@@ -1208,6 +1209,8 @@ namespace MMSystem.Services.ReceivedMail
                                                              date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
                                                              Masure_type=dx.MeasuresName,
                                                              mangment_sender = m.DepartmentName,
+                                                             flag=ex.flag,
+
                                                              Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                                              time = ex.Send_time.ToString("HH-mm-ss"),
                                                              summary = mail.Mail_Summary,
@@ -1242,7 +1245,8 @@ namespace MMSystem.Services.ReceivedMail
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
                                    Masure_type=dx.MeasuresName,
                                    mangment_sender = m.DepartmentName,
-                                   Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
+                                   flag = ex.flag,
+                                  Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                    time = ex.Send_time.ToString("HH-mm-ss"),
                                    summary = mail.Mail_Summary,
                                    Sends_id = ex.Id,
@@ -1405,6 +1409,8 @@ namespace MMSystem.Services.ReceivedMail
                                                    mangment_sender = m.DepartmentName,
                                                    Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                                    time = ex.Send_time.ToString("HH-mm-ss"),
+                                                   flag=ex.flag,
+
                                                    summary = mail.Mail_Summary,
                                                    Sends_id = ex.Id,
                                                   // sectionName=Extr.sectionName
@@ -1434,7 +1440,9 @@ namespace MMSystem.Services.ReceivedMail
                                    State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
-                                   date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                     flag = ex.flag,
+
+                                     date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
                                    Masure_type=dx.MeasuresName,
                                    mangment_sender = m.DepartmentName,
                                    Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
@@ -1595,6 +1603,7 @@ namespace MMSystem.Services.ReceivedMail
                                                   date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
                                                   Masure_type=dx.MeasuresName,
                                                   mangment_sender = m.DepartmentName,
+                                                  flag = ex.flag,
                                                   Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                                   time = ex.Send_time.ToString("HH-mm-ss"),
                                                   summary = mail.Mail_Summary,
@@ -1626,7 +1635,9 @@ namespace MMSystem.Services.ReceivedMail
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
                                    Masure_type=dx.MeasuresName,
                                    mangment_sender = m.DepartmentName,
-                                   Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
+                                     flag = ex.flag,
+
+                                     Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                    time = ex.Send_time.ToString("HH-mm-ss"),
                                    summary = mail.Mail_Summary,
                                    Sends_id = ex.Id
@@ -2056,7 +2067,7 @@ namespace MMSystem.Services.ReceivedMail
         {
 
 
-            var c = await dbcon.Sends.LastOrDefaultAsync(x => x.MailID == mail_id&&department_Id==x.to);
+            var c = await dbcon.Sends.OrderBy(x=> x.Id).LastOrDefaultAsync(x => x.MailID == mail_id&&department_Id==x.to);
             if (c != null) {
                 c.flag = 2;
                 dbcon.Sends.Update(c);
