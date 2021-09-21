@@ -33,19 +33,19 @@ namespace MMSystem.Services.ReceivedMail
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
            int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
            Typeof_send, int? mail_type, string? replaytext, int? userid , int pagenum,int size, int? Measure_filter,
-           int? Department_filter, int? Classfication, int? WhiteDraw_filter, int? Replay_filter);
+           int? Department_filter, int? Classfication, int? mail_state);
 
         Task <PagenationSendedEmail<ExtarnelinboxViewModel>> GetIncomingExtarnelinbox(DateTime? myday, int? daycheck, int? mailnum_bool,
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
            int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
            Typeof_send, int? mail_type, string? replaytext, int? userid ,int pagenum, int size, int? Measure_filter, 
-           int? Department_filter, int? Classfication, int? WhiteDraw_filter, int? Replay_filter);
+           int? Department_filter, int? Classfication, int? mail_state);
 
         Task<PagenationSendedEmail<Sended_Maill>> GetIncomingRecevidMail(DateTime? myday, int? daycheck, int? mailnum_bool,
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
            int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
            Typeof_send, int? mail_type, string? replaytext, int? userid  , int pagenum, 
-           int size, int? Measure_filter, int? Department_filter, int? Classfication, int? WhiteDraw_filter, int? Replay_filter);
+           int size, int? Measure_filter, int? Department_filter, int? Classfication, int? mail_state);
 
         Task<PagenationSendedEmail<Sended_Maill>> Getmail( int depid, int size, int pagenum);
 
@@ -63,7 +63,7 @@ namespace MMSystem.Services.ReceivedMail
         int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
         int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
         Typeof_send, int? userid, int? mailNumType, int? mail_type, string? replaytext, int pagenum,
-        int size, int? Measure_filter, int? Department_filter, int? Classfication, int? WhiteDraw_filter, int? Replay_filter);
+        int size, int? Measure_filter, int? Department_filter, int? Classfication, int? mail_state);
 
 
 
@@ -71,7 +71,7 @@ namespace MMSystem.Services.ReceivedMail
           int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
           int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
           Typeof_send, int? mail_type, string? replaytext, int? userid, int pagenum, int size,
-          int? Measure_filter, int? Department_filter, int? Classfication, int? WhiteDraw_filter, int? Replay_filter);
+          int? Measure_filter, int? Department_filter, int? Classfication, int? mail_state);
 
         Task<PagenationSendedEmail<Sended_Maill>> GetAll(DateTime? myday, int? daycheck, int? mailnum_bool,
          int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
