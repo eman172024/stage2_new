@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Model\ViewModel\MailVModels\" />
     <Folder Include="wwwroot\Mail_photos\" />
     <Folder Include="wwwroot\Reply_photos\" />
   </ItemGroup>

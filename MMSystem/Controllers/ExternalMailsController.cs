@@ -88,18 +88,19 @@ namespace MMSystem.Controllers
 
         [HttpGet("GetIncomingMail")]
         public async Task<IActionResult> GetIncomingMail(DateTime? myday, int? daycheck,
-            int? mailnum_bool, int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary,
+            int? mailnum_bool, int? mangment, DateTime? date_from, DateTime? date_to, int? mailnum, string? summary,
             int? mail_Readed, int? mailReaded, int? mailnot_readed, DateTime? Day_sended1,
-            DateTime? Day_sended2, int? Typeof_send, int? mail_type, string? replaytext, int? userid,int mailNumType, int page_num, int page_size)
+            DateTime? Day_sended2, int? Typeof_send, int? mail_type, string? replaytext, int? userid,int mailNumType, int page_num,
+            int page_size, int? Measure_filter, int? Department_filter, int? Classfication, int? WhiteDraw_filter, int? Replay_filter)
 
         {
 
             var c = await _re.GetDynamic( myday, daycheck, mailnum_bool,
-             mangment,d1,  d2, mailnum, summary,
+             mangment, date_from, date_to, mailnum, summary,
             mail_Readed,  mailReaded,  mailnot_readed,  Day_sended1,
-
              Day_sended2,Typeof_send,  userid,  mailNumType,
-             mail_type, replaytext, page_num, page_size);
+             mail_type, replaytext, page_num, page_size,
+             Measure_filter,  Department_filter,  Classfication,  WhiteDraw_filter,  Replay_filter);
             if(c!=null)
             return Ok(c);
             return Unauthorized("غير مسموح لك بدخول  ");
@@ -117,6 +118,22 @@ namespace MMSystem.Controllers
                 });
             return NotFound();
         }
+
+        [HttpPut("GetMailFlag")]
+        public async Task<IActionResult> GetMailFlag(int mail_id,int  department_Id)
+
+        {
+
+            var c = await _re.GetFlag(mail_id, department_Id);
+            if (c >0)
+                return Ok(new
+                {
+                    flag = c,
+                    State="قرأت"
+                });
+            return BadRequest("فشلت العملية");
+        }
+
 
 
 

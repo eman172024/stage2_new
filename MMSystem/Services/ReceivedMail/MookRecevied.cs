@@ -207,7 +207,8 @@ namespace MMSystem.Services.ReceivedMail
         public async Task<PagenationSendedEmail<Sended_Maill>> GetAllIncoming(DateTime? myday, int? daycheck, 
             int? mailnum_bool, int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string summary, int? mail_Readed,
             int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int? Typeof_send
-            , int? mail_type, string replaytext, int? userid , int pagenum,int size)
+            , int? mail_type, string replaytext, int? userid , int pagenum,int size, int? Measure_filter,
+            int?  Department_filter, int? Classfication ,int? WhiteDraw_filter,int? Replay_filter)
         {
             try
             {
@@ -215,10 +216,49 @@ namespace MMSystem.Services.ReceivedMail
 
 
                 DateTime day = DateTime.Now;
+
+                bool dep_filter = false;
+                bool clasf_filter = false;
+                bool meas_filter = false;
                 bool mail_accept = false;
                 bool daysended = false;
-                bool sendedType_exsist = false;
+                bool whitdr_filter = false;
+                bool rep_filter = false;
                 // myday = day.Date;
+
+                if(WhiteDraw_filter == null)
+                {
+                    whitdr_filter = true;
+                }
+                else { whitdr_filter = false; }
+
+                if(Replay_filter == null)
+                {
+                    rep_filter = true;
+                }
+                else { rep_filter = false; }
+
+                if (Classfication ==null)
+                {
+                    clasf_filter = true;
+                }
+                else { clasf_filter = false; }
+
+
+                    if (Measure_filter == null)
+                {
+                    meas_filter = true;
+                }
+                else { meas_filter = false; }
+
+                if(Department_filter==null)
+                {
+
+                    dep_filter = true;
+
+                }
+                else { dep_filter = false; }
+
 
 
                 if (summary == null)
@@ -279,14 +319,7 @@ namespace MMSystem.Services.ReceivedMail
                     daysended = false;
                 }
 
-                if (Typeof_send == null)
-                {
-                    sendedType_exsist = true;
-                }
-                else
-                {
-                    sendedType_exsist = false;
-                }
+                
                 if (replaytext == null)
                 {
                     replaytext = " ";
@@ -325,53 +358,57 @@ namespace MMSystem.Services.ReceivedMail
 
                    var c  = await(from mail in dbcon.Mails.Where(x => (
                                               x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
-                                              && (mailnum_bool == 1 || x.Mail_Number == mailnum)).OrderByDescending(x => x.MailID)
+                                              && (mailnum_bool == 1 || x.Mail_Number == mailnum) && (x.clasification==Classfication || clasf_filter ==true)).OrderByDescending(x => x.MailID)
 
                                                             //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
-                                                            join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment && (daycheck == 1 || x.Send_time.Date == myday) &&
+                                                            join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment && 
                                                             ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                                                   ((x.Send_time.Date >= Day_sended1 && x.Send_time.Date <= Day_sended2 && x.flag == 5) || daysended == true) &&
-                                                            (x.type_of_send == Typeof_send || sendedType_exsist == true))
+                                                            ( x.flag == WhiteDraw_filter || whitdr_filter == true) &&
+                                                            (x.flag == Replay_filter || rep_filter == true))
                                                             on mail.MailID equals ex.MailID
-                                                             join dx in dbcon.measures on ex.type_of_send equals dx.MeasuresId
-                                                            
-                                                            
-                                                          //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
+                                                             join dx in dbcon.measures.Where(x=> (x.MeasuresId ==Measure_filter || meas_filter ==true) ) on ex.type_of_send equals dx.MeasuresId
+                                                             join n in dbcon.Departments.Where(x=> (x.Id== Department_filter || dep_filter == true) ) on mail.Department_Id equals n.Id
 
-                                                            // join cx in dbcon.Replies.Where(x=> x.ReplyId)
-                                                            select new Sended_Maill()
+
+                                  //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
+
+                                  // join cx in dbcon.Replies.Where(x=> x.ReplyId)
+                                  select new Sended_Maill()
                                                             {
                                                                 mail_id = mail.MailID,
                                                                 State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
                                                                 type_of_mail = mail.Mail_Type,
                                                                 Mail_Number = mail.Mail_Number,
                                                                 date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                                                Masure_type=dx.MeasuresName,                                                                mangment_sender = m.DepartmentName,
-                                                                Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
+                                                                Masure_type=dx.MeasuresName,
+                                                                  mangment_sender = n.DepartmentName,
+                                                                  mangment_sender_id = mail.Department_Id,
+                                                                  Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                                                 time = ex.Send_time.ToString("HH-mm-ss"),
                                                                 summary = mail.Mail_Summary,
-                                                                //sectionName = Extr.section_Name,
+                                                                flag=ex.flag,
                                                                 Sends_id = ex.Id
 
 
-
                                                             }).OrderByDescending(v => v.mail_id).ToListAsync();
-                pag.mail  = await (from mail in dbcon.Mails.Where(x => (
+                                             pag.mail  = await (from mail in dbcon.Mails.Where(x => (
                                             x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
-                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum)).OrderByDescending(x => x.MailID)
+                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) && (x.clasification == Classfication || clasf_filter == true)).OrderByDescending(x => x.MailID)
 
-                                   //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
-                               join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment && (daycheck == 1 || x.Send_time.Date == myday) &&
-                               ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                      ((x.Send_time.Date >= Day_sended1 && x.Send_time.Date <= Day_sended2 && x.flag == 5) || daysended == true) &&
-                               (x.type_of_send == Typeof_send || sendedType_exsist == true))
-                               on mail.MailID equals ex.MailID
-                                   join dx in dbcon.measures on ex.type_of_send equals dx.MeasuresId
+                                                                    //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
+                                                                join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment &&
+                                                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
+                                                                (x.flag == WhiteDraw_filter || whitdr_filter == true) &&
+                                                                (x.flag == Replay_filter || rep_filter == true))
+                                                                on mail.MailID equals ex.MailID
+                                                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
+                                                                join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
 
-                                   //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
 
-                                   // join cx in dbcon.Replies.Where(x=> x.ReplyId)
-                                   select new Sended_Maill()
+                                                                //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
+
+                                                                // join cx in dbcon.Replies.Where(x=> x.ReplyId)
+                                                                select new Sended_Maill()
                                {
                                    mail_id = mail.MailID,
                                    State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
@@ -379,10 +416,12 @@ namespace MMSystem.Services.ReceivedMail
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
                                    Masure_type= dx.MeasuresName,
-                                   mangment_sender = m.DepartmentName,
+                                   mangment_sender = n.DepartmentName,
+                                   mangment_sender_id=mail.Department_Id,
                                    Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                    time = ex.Send_time.ToString("HH-mm-ss"),
-                                   summary = mail.Mail_Summary,
+                                       flag = ex.flag,
+                                       summary = mail.Mail_Summary,
                                    Sends_id = ex.Id
 
 
@@ -417,9 +456,9 @@ namespace MMSystem.Services.ReceivedMail
         public async  Task<dynamic> GetDynamic(DateTime? myday, int? daycheck, int? mailnum_bool, 
             int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string summary, 
             int? mail_Readed, int? mailReaded, int? mailnot_readed, DateTime? Day_sended1,
-            
             DateTime? Day_sended2, int? Typeof_send, int? userid, int? mailNumType, 
-            int? mail_type, string? replaytext, int pagenum, int size)
+            int? mail_type, string? replaytext, int pagenum, int size, int? Measure_filter,
+            int? Department_filter, int? Classfication, int? WhiteDraw_filter, int? Replay_filter)
         {
             var role_id = await dbcon.userRoles.Where(x => x.UserId == userid).ToListAsync();
 
@@ -435,8 +474,43 @@ namespace MMSystem.Services.ReceivedMail
                         var c0 = await GetAllIncoming(myday, daycheck, mailnum_bool,
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed, Day_sended1, Day_sended2,
-           Typeof_send, mail_type, replaytext, userid, pagenum, size);
+           Typeof_send, mail_type, replaytext, userid, pagenum, size,  Measure_filter, 
+           Department_filter,  Classfication, WhiteDraw_filter,  Replay_filter);
                         d = c0;
+                        break;
+                    }else if(role_id.Any(x => x.RoleId == 17))
+                    {
+                        mail_type = 1;
+                        var a = await GetIncomingRecevidMail(myday, daycheck, mailnum_bool,
+            mangment, d1, d2, mailnum, summary, mail_Readed,
+            mailReaded, mailnot_readed, Day_sended1, Day_sended2,
+           Typeof_send, mail_type, replaytext, userid, pagenum, size,
+           Measure_filter, Department_filter, Classfication, WhiteDraw_filter, Replay_filter);
+                        d = a;
+                        break;
+                    }else if (role_id.Any(x => x.RoleId == 19))
+                    {
+                        mail_type = 2;
+
+                        var a2 = await GetIncomingExtarnelMail(myday, daycheck, mailnum_bool,
+            mangment, d1, d2, mailnum, summary, mail_Readed,
+            mailReaded, mailnot_readed, Day_sended1, Day_sended2,
+           Typeof_send, mail_type, replaytext, userid, pagenum, size,
+           Measure_filter, Department_filter, Classfication, WhiteDraw_filter, Replay_filter);
+                        d = a2;
+                        break;
+                    }else if(role_id.Any(x => x.RoleId == 18))
+                    {
+
+                        mail_type = 3;
+                        var a3 = await GetIncomingExtarnelinbox(myday, daycheck, mailnum_bool,
+            mangment, d1, d2, mailnum, summary, mail_Readed,
+            mailReaded, mailnot_readed, Day_sended1, Day_sended2,
+           Typeof_send, mail_type, replaytext, userid, pagenum, size,
+           Measure_filter, Department_filter, Classfication, WhiteDraw_filter, Replay_filter);
+                        d = a3;
+
+
                         break;
                     }
                     d = null;
@@ -452,7 +526,8 @@ namespace MMSystem.Services.ReceivedMail
                         var c = await GetIncomingRecevidMail(myday, daycheck, mailnum_bool,
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed, Day_sended1, Day_sended2,
-           Typeof_send, mail_type, replaytext, userid,  pagenum,  size);
+           Typeof_send, mail_type, replaytext, userid,  pagenum,  size, 
+           Measure_filter,  Department_filter,  Classfication,  WhiteDraw_filter,  Replay_filter);
                         d = c;
                         break;
                     }
@@ -466,7 +541,8 @@ namespace MMSystem.Services.ReceivedMail
                         var cc = await GetIncomingExtarnelMail(myday, daycheck, mailnum_bool,
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed, Day_sended1, Day_sended2,
-           Typeof_send, mail_type, replaytext, userid, pagenum,size);
+           Typeof_send, mail_type, replaytext, userid, pagenum,size,
+           Measure_filter,  Department_filter,  Classfication,  WhiteDraw_filter,  Replay_filter);
                         d = cc;
                         break;
                     }
@@ -480,7 +556,8 @@ namespace MMSystem.Services.ReceivedMail
                         var ccc = await GetIncomingExtarnelinbox(myday, daycheck, mailnum_bool,
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed, Day_sended1, Day_sended2,
-           Typeof_send, mail_type, replaytext, userid , pagenum,size);
+           Typeof_send, mail_type, replaytext, userid , pagenum,size,
+           Measure_filter,  Department_filter,  Classfication,  WhiteDraw_filter,  Replay_filter);
                         d = ccc;
 
 
@@ -1076,19 +1153,59 @@ namespace MMSystem.Services.ReceivedMail
         public async Task<PagenationSendedEmail<ExtarnelinboxViewModel>> GetIncomingExtarnelinbox(DateTime? myday, int? daycheck, int? mailnum_bool,
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
            int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
-           Typeof_send, int? mail_type, string? replaytext, int? userid ,int pagenum,int size)
+           Typeof_send, int? mail_type, string? replaytext, int? userid ,int pagenum,int size, 
+           int? Measure_filter, int? Department_filter, int? Classfication, int? WhiteDraw_filter, int? Replay_filter)
         {
             try
             {
 
 
+
                 DateTime day = DateTime.Now;
+
+                bool dep_filter = false;
+                bool clasf_filter = false;
+                bool meas_filter = false;
                 bool mail_accept = false;
                 bool daysended = false;
-                bool sendedType_exsist = false;
+                bool whitdr_filter = false;
+                bool rep_filter = false;
                 // myday = day.Date;
 
-               
+                if (WhiteDraw_filter == null)
+                {
+                    whitdr_filter = true;
+                }
+                else { whitdr_filter = false; }
+
+                if (Replay_filter == null)
+                {
+                    rep_filter = true;
+                }
+                else { rep_filter = false; }
+
+                if (Classfication == null)
+                {
+                    clasf_filter = true;
+                }
+                else { clasf_filter = false; }
+
+
+                if (Measure_filter == null)
+                {
+                    meas_filter = true;
+                }
+                else { meas_filter = false; }
+
+                if (Department_filter == null)
+                {
+
+                    dep_filter = true;
+
+                }
+                else { dep_filter = false; }
+
+
 
                 if (summary == null)
                 { summary = " "; }
@@ -1148,114 +1265,123 @@ namespace MMSystem.Services.ReceivedMail
                     daysended = false;
                 }
 
-                if (Typeof_send == null)
+
+                if (replaytext == null)
                 {
-                    sendedType_exsist = true;
+                    replaytext = " ";
                 }
-                else
-                {
-                    sendedType_exsist = false;
-                }
+
+                //if (mailNumType == 1 && (user_role_num == 10 || user_role_num == 17))
+                //{
+                //    mail_type = "داخلي";
+                //}
 
                 //if (user_role_num == 10)
                 //{
                 //    mail_type = "خ";
                 //}
-                //else if (user_role_num == 17)
-                //{
-                //    mail_type = "داخلي";
-                //}
-                //else if (user_role_num == 18)
+                ////else if (user_role_num == 17)
+                ////{
+                ////    mail_type = "داخلي";
+                ////}
+                //else if (mailNumType == 3 && (user_role_num == 18 || user_role_num == 10))
                 //{
                 //    mail_type = "وارد خارجي";
                 //}
-                //else if (user_role_num == 19)
+                //else if (mailNumType == 2 && (user_role_num == 19 || user_role_num == 10))
                 //{
                 //    mail_type = "صادر خارجي";
                 //}
-                //if (replaytext == null)
-                //{
-                //    replaytext = " ";
-                //}
-             
 
+                if (replaytext == null)
+                {
+                    replaytext = " ";
+                }
                 var m = await dbcon.Departments.FindAsync(mangment);
-
 
                 PagenationSendedEmail<ExtarnelinboxViewModel> pag = new PagenationSendedEmail<ExtarnelinboxViewModel>();
 
-               var c = await (from mail in dbcon.Mails.Where(x => (
-                                               x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
-                                               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type==mail_type).OrderByDescending(x => x.MailID)
 
-                                                         join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
+                var c = await (from mail in dbcon.Mails.Where(x => (
+                                           x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
+                                           && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type && (x.clasification == Classfication || clasf_filter == true)).OrderByDescending(x => x.MailID)
 
-                                                         join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment && (daycheck == 1 || x.Send_time.Date == myday) &&
-                                               ((x.flag >= mailReaded && x.flag <=  mailnot_readed) || mail_accept == true) &&
-                                               ((x.Send_time.Date >= Day_sended1 && x.Send_time.Date <= Day_sended2 && x.flag == 5) || daysended == true) &&
-                                               (x.type_of_send == Typeof_send || sendedType_exsist == true))
-                                               on mail.MailID equals ex.MailID
-                              join dx in dbcon.measures on ex.type_of_send equals dx.MeasuresId
-
-                              // join rep in dbcon.Replies on ex.Id equals rep.ReplyId
-                              // join cx in dbcon.Replies.Where(x=> x.ReplyId)
-                              select new ExtarnelinboxViewModel()
-                                                         {
-                                                             mail_id = mail.MailID,
-                                                             State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
-                                                             type_of_mail = mail.Mail_Type,
-                                                             Mail_Number = mail.Mail_Number,
-                                                             date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                                             Masure_type=dx.MeasuresName,
-                                                             mangment_sender = m.DepartmentName,
-                                                             Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                                             time = ex.Send_time.ToString("HH-mm-ss"),
-                                                             summary = mail.Mail_Summary,
-                                                             Sends_id = ex.Id,
-                                                           //  sectionName=Extr.section_Name
+                                   //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
+                               join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment &&
+                               ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
+                               (x.flag == WhiteDraw_filter || whitdr_filter == true) &&
+                               (x.flag == Replay_filter || rep_filter == true))
+                               on mail.MailID equals ex.MailID
+                               join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
+                               join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
 
 
+                               //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
 
-                                                         }).OrderByDescending(v => v.mail_id).ToListAsync();
-
-                pag.mail = await (from mail in dbcon.Mails.Where(x => (
-                                             x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
-                                             && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type).OrderByDescending(x => x.MailID)
-
-                               join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
-
-                               join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment && (daycheck == 1 || x.Send_time.Date == myday) &&
-                     ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                     ((x.Send_time.Date >= Day_sended1 && x.Send_time.Date <= Day_sended2 && x.flag == 5) || daysended == true) &&
-                     (x.type_of_send == Typeof_send || sendedType_exsist == true))
-                     on mail.MailID equals ex.MailID
-                                  join dx in dbcon.measures on ex.type_of_send equals dx.MeasuresId
-
-                                  // join rep in dbcon.Replies on ex.Id equals rep.ReplyId
-                                  // join cx in dbcon.Replies.Where(x=> x.ReplyId)
-                                  select new ExtarnelinboxViewModel()
+                               // join cx in dbcon.Replies.Where(x=> x.ReplyId)
+                               select new ExtarnelinboxViewModel()
                                {
                                    mail_id = mail.MailID,
                                    State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                   Masure_type=dx.MeasuresName,
-                                   mangment_sender = m.DepartmentName,
+                                   Masure_type = dx.MeasuresName,
+                                   mangment_sender = n.DepartmentName,
+                                   mangment_sender_id = mail.Department_Id,
                                    Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                    time = ex.Send_time.ToString("HH-mm-ss"),
                                    summary = mail.Mail_Summary,
-                                   Sends_id = ex.Id,
-                                  // sectionName = Extr.section_Name
+                                   flag = ex.flag,
+                                   Sends_id = ex.Id
+
+
+                               }).OrderByDescending(v => v.mail_id).ToListAsync();
+                pag.mail = await (from mail in dbcon.Mails.Where(x => (
+              x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
+              && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type && (x.clasification == Classfication || clasf_filter == true)).OrderByDescending(x => x.MailID)
+
+                                      //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
+                                  join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment &&
+                                  ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
+                                  (x.flag == WhiteDraw_filter || whitdr_filter == true) &&
+                                  (x.flag == Replay_filter || rep_filter == true))
+                                  on mail.MailID equals ex.MailID
+                                  join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
+                                  join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+
+
+                                  //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
+
+                                  // join cx in dbcon.Replies.Where(x=> x.ReplyId)
+                                  select new ExtarnelinboxViewModel()
+                                  {
+                                      mail_id = mail.MailID,
+                                      State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
+                                      type_of_mail = mail.Mail_Type,
+                                      Mail_Number = mail.Mail_Number,
+                                      date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                      Masure_type = dx.MeasuresName,
+                                      mangment_sender = n.DepartmentName,
+                                      mangment_sender_id = mail.Department_Id,
+                                      Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
+                                      time = ex.Send_time.ToString("HH-mm-ss"),
+                                      flag = ex.flag,
+                                      summary = mail.Mail_Summary,
+                                      Sends_id = ex.Id
 
 
 
-                               }).OrderByDescending(v => v.mail_id).Skip((pagenum - 1) * size).Take(size).ToListAsync();
+                                  }).OrderByDescending(v => v.mail_id).Skip((pagenum - 1) * size).Take(size).ToListAsync();
                 pag.Total = c.Count;
 
                 return pag;
+
+
+
             }
-            
+
+
             catch (Exception)
             {
 
@@ -1266,19 +1392,59 @@ namespace MMSystem.Services.ReceivedMail
         public async Task <PagenationSendedEmail<ExtarnelinboxViewModel>> GetIncomingExtarnelMail(DateTime? myday, int? daycheck, int? mailnum_bool,
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
            int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
-           Typeof_send, int? mail_type, string? replaytext, int? userid ,int pagenum ,int size)
+           Typeof_send, int? mail_type, string? replaytext, int? userid ,int pagenum ,int size,
+           int? Measure_filter, int? Department_filter, int? Classfication, int? WhiteDraw_filter, int? Replay_filter)
         {
             try
             {
 
 
+
                 DateTime day = DateTime.Now;
+
+                bool dep_filter = false;
+                bool clasf_filter = false;
+                bool meas_filter = false;
                 bool mail_accept = false;
                 bool daysended = false;
-                bool sendedType_exsist = false;
+                bool whitdr_filter = false;
+                bool rep_filter = false;
                 // myday = day.Date;
 
-               
+                if (WhiteDraw_filter == null)
+                {
+                    whitdr_filter = true;
+                }
+                else { whitdr_filter = false; }
+
+                if (Replay_filter == null)
+                {
+                    rep_filter = true;
+                }
+                else { rep_filter = false; }
+
+                if (Classfication == null)
+                {
+                    clasf_filter = true;
+                }
+                else { clasf_filter = false; }
+
+
+                if (Measure_filter == null)
+                {
+                    meas_filter = true;
+                }
+                else { meas_filter = false; }
+
+                if (Department_filter == null)
+                {
+
+                    dep_filter = true;
+
+                }
+                else { dep_filter = false; }
+
+
 
                 if (summary == null)
                 { summary = " "; }
@@ -1310,7 +1476,6 @@ namespace MMSystem.Services.ReceivedMail
 
                 }
 
-
                 if (mail_Readed == null)
                 {
                     mail_accept = true;
@@ -1330,7 +1495,6 @@ namespace MMSystem.Services.ReceivedMail
                     mailReaded = 1;
                 }
 
-
                 if (Day_sended1 == null && Day_sended2 == null)
                 {
                     daysended = true;
@@ -1340,117 +1504,123 @@ namespace MMSystem.Services.ReceivedMail
                     daysended = false;
                 }
 
-                if (Typeof_send == null)
+
+                if (replaytext == null)
                 {
-                    sendedType_exsist = true;
+                    replaytext = " ";
                 }
-                else
-                {
-                    sendedType_exsist = false;
-                }
+
+                //if (mailNumType == 1 && (user_role_num == 10 || user_role_num == 17))
+                //{
+                //    mail_type = "داخلي";
+                //}
 
                 //if (user_role_num == 10)
                 //{
                 //    mail_type = "خ";
                 //}
-                //else if (user_role_num == 17)
-                //{
-                //    mail_type = "داخلي";
-                //}
-                //else if (user_role_num == 18)
+                ////else if (user_role_num == 17)
+                ////{
+                ////    mail_type = "داخلي";
+                ////}
+                //else if (mailNumType == 3 && (user_role_num == 18 || user_role_num == 10))
                 //{
                 //    mail_type = "وارد خارجي";
                 //}
-                //else if (user_role_num == 19)
+                //else if (mailNumType == 2 && (user_role_num == 19 || user_role_num == 10))
                 //{
                 //    mail_type = "صادر خارجي";
                 //}
-                //if (replaytext == null)
-                //{
-                //    replaytext = " ";
-                //}
-               
 
+                if (replaytext == null)
+                {
+                    replaytext = " ";
+                }
                 var m = await dbcon.Departments.FindAsync(mangment);
-
 
                 PagenationSendedEmail<ExtarnelinboxViewModel> pag = new PagenationSendedEmail<ExtarnelinboxViewModel>();
 
-                
+
+                var c = await (from mail in dbcon.Mails.Where(x => (
+                                           x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
+                                           && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type && (x.clasification == Classfication || clasf_filter == true)).OrderByDescending(x => x.MailID)
+
+                                   //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
+                               join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment &&
+                               ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
+                               (x.flag == WhiteDraw_filter || whitdr_filter == true) &&
+                               (x.flag == Replay_filter || rep_filter == true))
+                               on mail.MailID equals ex.MailID
+                               join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
+                               join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
 
 
-               var c = await (from mail in dbcon.Mails.Where(x => (
-                                               x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
-                                               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type).OrderByDescending(x => x.MailID)
+                               //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
 
-                                                         join Extr in dbcon.External_Mails on mail.MailID equals Extr.MailID
-
-                                                         join ex in dbcon.Sends.Where(x => (x.flag !=0) && x.to == mangment && (daycheck == 1 || x.Send_time.Date == myday) &&
-                                               ((x.flag >= mailReaded && x.flag <=  mailnot_readed) || mail_accept == true) &&
-                                               ((x.Send_time.Date >= Day_sended1 && x.Send_time.Date <= Day_sended2 && x.flag == 5) || daysended == true) &&
-                                               (x.type_of_send == Typeof_send || sendedType_exsist == true))
-                                               on mail.MailID equals ex.MailID
-                              join dx in dbcon.measures on ex.type_of_send equals dx.MeasuresId
-
-                              // join rep in dbcon.Replies on ex.Id equals rep.ReplyId
-                              // join cx in dbcon.Replies.Where(x=> x.ReplyId)
-                              select new ExtarnelinboxViewModel()
-                                               {
-                                                   mail_id = mail.MailID,
-                                                   State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
-                                                   type_of_mail = mail.Mail_Type,
-                                                   Mail_Number = mail.Mail_Number,
-                                                   date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                                   Masure_type=dx.MeasuresName,
-                                                   mangment_sender = m.DepartmentName,
-                                                   Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                                   time = ex.Send_time.ToString("HH-mm-ss"),
-                                                   summary = mail.Mail_Summary,
-                                                   Sends_id = ex.Id,
-                                                  // sectionName=Extr.sectionName
-
-
-
-                                               }).OrderByDescending(v => v.mail_id).ToListAsync();
-
-               pag.mail = await (from mail in dbcon.Mails.Where(x => (
-                                              x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
-                                              && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type).OrderByDescending(x => x.MailID)
-
-                               join Extr in dbcon.External_Mails on mail.MailID equals Extr.MailID
-
-                               join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment && (daycheck == 1 || x.Send_time.Date == myday) &&
-                     ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                     ((x.Send_time.Date >= Day_sended1 && x.Send_time.Date <= Day_sended2 && x.flag == 5) || daysended == true) &&
-                     (x.type_of_send == Typeof_send || sendedType_exsist == true))
-                     on mail.MailID equals ex.MailID
-                                 join dx in dbcon.measures on ex.type_of_send equals dx.MeasuresId
-
-                                 // join rep in dbcon.Replies on ex.Id equals rep.ReplyId
-                                 // join cx in dbcon.Replies.Where(x=> x.ReplyId)
-                                 select new ExtarnelinboxViewModel()
+                               // join cx in dbcon.Replies.Where(x=> x.ReplyId)
+                               select new ExtarnelinboxViewModel()
                                {
                                    mail_id = mail.MailID,
                                    State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                   Masure_type=dx.MeasuresName,
-                                   mangment_sender = m.DepartmentName,
+                                   Masure_type = dx.MeasuresName,
+                                   mangment_sender = n.DepartmentName,
+                                   mangment_sender_id = mail.Department_Id,
                                    Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                    time = ex.Send_time.ToString("HH-mm-ss"),
                                    summary = mail.Mail_Summary,
-                                   Sends_id = ex.Id,
-                                 //  sectionName = Extr.sectionName
+                                   flag = ex.flag,
+                                   Sends_id = ex.Id
+
+
+                               }).OrderByDescending(v => v.mail_id).ToListAsync();
+                pag.mail = await (from mail in dbcon.Mails.Where(x => (
+              x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
+              && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type && (x.clasification == Classfication || clasf_filter == true)).OrderByDescending(x => x.MailID)
+
+                                      //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
+                                  join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment &&
+                                  ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
+                                  (x.flag == WhiteDraw_filter || whitdr_filter == true) &&
+                                  (x.flag == Replay_filter || rep_filter == true))
+                                  on mail.MailID equals ex.MailID
+                                  join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
+                                  join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+
+
+                                  //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
+
+                                  // join cx in dbcon.Replies.Where(x=> x.ReplyId)
+                                  select new ExtarnelinboxViewModel()
+                                  {
+                                      mail_id = mail.MailID,
+                                      State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
+                                      type_of_mail = mail.Mail_Type,
+                                      Mail_Number = mail.Mail_Number,
+                                      date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                      Masure_type = dx.MeasuresName,
+                                      mangment_sender = n.DepartmentName,
+                                      mangment_sender_id = mail.Department_Id,
+                                      Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
+                                      time = ex.Send_time.ToString("HH-mm-ss"),
+                                      flag = ex.flag,
+                                      summary = mail.Mail_Summary,
+                                      Sends_id = ex.Id
 
 
 
-                               }).OrderByDescending(v => v.mail_id).Skip((pagenum - 1) * size).Take(size).ToListAsync();
+                                  }).OrderByDescending(v => v.mail_id).Skip((pagenum - 1) * size).Take(size).ToListAsync();
                 pag.Total = c.Count;
 
                 return pag;
+
+
+
             }
-            
+
+
             catch (Exception)
             {
 
@@ -1463,19 +1633,60 @@ namespace MMSystem.Services.ReceivedMail
         public async Task<PagenationSendedEmail<Sended_Maill>> GetIncomingRecevidMail(DateTime? myday, int? daycheck, 
             int? mailnum_bool, int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string ? summary, 
             int? mail_Readed, int? mailReaded, int? mailnot_readed, DateTime? Day_sended1,
-            DateTime? Day_sended2, int? Typeof_send, int? mail_type, string? replaytext , int? userid , int pagenum, int size)
+            DateTime? Day_sended2, int? Typeof_send, int? mail_type, string? replaytext , int? userid ,
+            int pagenum, int size, int? Measure_filter, int? Department_filter, int? Classfication, 
+            int? WhiteDraw_filter, int? Replay_filter)
         {
             try
             {
 
 
+
                 DateTime day = DateTime.Now;
+
+                bool dep_filter = false;
+                bool clasf_filter = false;
+                bool meas_filter = false;
                 bool mail_accept = false;
                 bool daysended = false;
-                bool sendedType_exsist = false;
+                bool whitdr_filter = false;
+                bool rep_filter = false;
                 // myday = day.Date;
 
-                
+                if (WhiteDraw_filter == null)
+                {
+                    whitdr_filter = true;
+                }
+                else { whitdr_filter = false; }
+
+                if (Replay_filter == null)
+                {
+                    rep_filter = true;
+                }
+                else { rep_filter = false; }
+
+                if (Classfication == null)
+                {
+                    clasf_filter = true;
+                }
+                else { clasf_filter = false; }
+
+
+                if (Measure_filter == null)
+                {
+                    meas_filter = true;
+                }
+                else { meas_filter = false; }
+
+                if (Department_filter == null)
+                {
+
+                    dep_filter = true;
+
+                }
+                else { dep_filter = false; }
+
+
 
                 if (summary == null)
                 { summary = " "; }
@@ -1535,110 +1746,123 @@ namespace MMSystem.Services.ReceivedMail
                     daysended = false;
                 }
 
-                if (Typeof_send == null)
+
+                if (replaytext == null)
                 {
-                    sendedType_exsist = true;
+                    replaytext = " ";
                 }
-                else
-                {
-                    sendedType_exsist = false;
-                }
+
+                //if (mailNumType == 1 && (user_role_num == 10 || user_role_num == 17))
+                //{
+                //    mail_type = "داخلي";
+                //}
 
                 //if (user_role_num == 10)
                 //{
                 //    mail_type = "خ";
                 //}
-                //else if (user_role_num == 17)
-                //{
-                //    mail_type = "داخلي";
-                //}
-                //else if (user_role_num == 18)
+                ////else if (user_role_num == 17)
+                ////{
+                ////    mail_type = "داخلي";
+                ////}
+                //else if (mailNumType == 3 && (user_role_num == 18 || user_role_num == 10))
                 //{
                 //    mail_type = "وارد خارجي";
                 //}
-                //else if (user_role_num == 19)
+                //else if (mailNumType == 2 && (user_role_num == 19 || user_role_num == 10))
                 //{
                 //    mail_type = "صادر خارجي";
                 //}
-                //if (replaytext == null)
-                //{
-                //    replaytext = " ";
-                //}
+
+                if (replaytext == null)
+                {
+                    replaytext = " ";
+                }
+                var m = await dbcon.Departments.FindAsync(mangment);
 
                 PagenationSendedEmail<Sended_Maill> pag = new PagenationSendedEmail<Sended_Maill>();
 
-                var m = await dbcon.Departments.FindAsync(mangment);
 
-               
+                var c = await (from mail in dbcon.Mails.Where(x => (
+                                           x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
+                                           && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type && (x.clasification == Classfication || clasf_filter == true)).OrderByDescending(x => x.MailID)
 
-                
-
-                var c = await(from mail in dbcon.Mails.Where(x => (
-                                              x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
-                                              && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type).OrderByDescending(x => x.MailID)
-
-                                              join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment && (daycheck == 1 || x.Send_time.Date == myday) &&
-                                              ((x.flag >= mailReaded && x.flag <=  mailnot_readed) || mail_accept == true) &&
-                                              ((x.Send_time.Date >= Day_sended1 && x.Send_time.Date <= Day_sended2 && x.flag == 5) || daysended == true) &&
-                                              (x.type_of_send == Typeof_send || sendedType_exsist == true))
-                                              on mail.MailID equals ex.MailID
-                                              join dx in dbcon.measures on ex.type_of_send equals dx.MeasuresId
-
-                                             // join rep in dbcon.Replies on ex.Id equals rep.ReplyId
-                                              // join cx in dbcon.Replies.Where(x=> x.ReplyId)
-                                              select new Sended_Maill()
-                                              {
-                                                  mail_id = mail.MailID,
-                                                  State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
-                                                  type_of_mail = mail.Mail_Type,
-                                                  Mail_Number = mail.Mail_Number,
-                                                  date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                                  Masure_type=dx.MeasuresName,
-                                                  mangment_sender = m.DepartmentName,
-                                                  Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                                  time = ex.Send_time.ToString("HH-mm-ss"),
-                                                  summary = mail.Mail_Summary,
-                                                  Sends_id = ex.Id
-
-
-
-                                              }).OrderByDescending(v => v.mail_id).ToListAsync();
-
-               pag.mail = await (from mail in dbcon.Mails.Where(x => (
-                                            x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
-                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type).OrderByDescending(x => x.MailID)
-
-                               join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment && (daycheck == 1 || x.Send_time.Date == myday) &&
+                                   //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
+                               join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment &&
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                               ((x.Send_time.Date >= Day_sended1 && x.Send_time.Date <= Day_sended2 && x.flag == 5) || daysended == true) &&
-                               (x.type_of_send == Typeof_send || sendedType_exsist == true))
+                               (x.flag == WhiteDraw_filter || whitdr_filter == true) &&
+                               (x.flag == Replay_filter || rep_filter == true))
                                on mail.MailID equals ex.MailID
-                               join dx in dbcon.measures on ex.type_of_send equals dx.MeasuresId
+                               join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
+                               join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
 
-                                 // join rep in dbcon.Replies on ex.Id equals rep.ReplyId
-                                 // join cx in dbcon.Replies.Where(x=> x.ReplyId)
-                                 select new Sended_Maill()
+
+                               //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
+
+                               // join cx in dbcon.Replies.Where(x=> x.ReplyId)
+                               select new Sended_Maill()
                                {
                                    mail_id = mail.MailID,
                                    State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
-                                   Masure_type=dx.MeasuresName,
-                                   mangment_sender = m.DepartmentName,
+                                   Masure_type = dx.MeasuresName,
+                                   mangment_sender = n.DepartmentName,
+                                   mangment_sender_id = mail.Department_Id,
                                    Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
                                    time = ex.Send_time.ToString("HH-mm-ss"),
                                    summary = mail.Mail_Summary,
+                                   flag = ex.flag,
                                    Sends_id = ex.Id
 
 
+                               }).OrderByDescending(v => v.mail_id).ToListAsync();
+                pag.mail = await (from mail in dbcon.Mails.Where(x => (
+              x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
+              && (mailnum_bool == 1 || x.Mail_Number == mailnum)&& x.Mail_Type == mail_type && (x.clasification == Classfication || clasf_filter == true)).OrderByDescending(x => x.MailID)
 
-                               }).OrderByDescending(v => v.mail_id).Skip((pagenum - 1) * size).Take(size).ToListAsync();
+                                      //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
+                                  join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment &&
+                                  ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
+                                  (x.flag == WhiteDraw_filter || whitdr_filter == true) &&
+                                  (x.flag == Replay_filter || rep_filter == true))
+                                  on mail.MailID equals ex.MailID
+                                  join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
+                                  join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+
+
+                                  //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
+
+                                  // join cx in dbcon.Replies.Where(x=> x.ReplyId)
+                                  select new Sended_Maill()
+                                  {
+                                      mail_id = mail.MailID,
+                                      State = (ex.flag >= 2) ? "قرأت" : "لم تقرأ",
+                                      type_of_mail = mail.Mail_Type,
+                                      Mail_Number = mail.Mail_Number,
+                                      date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                      Masure_type = dx.MeasuresName,
+                                      mangment_sender = n.DepartmentName,
+                                      mangment_sender_id = mail.Department_Id,
+                                      Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
+                                      time = ex.Send_time.ToString("HH-mm-ss"),
+                                      flag = ex.flag,
+                                      summary = mail.Mail_Summary,
+                                      Sends_id = ex.Id
+
+
+
+                                  }).OrderByDescending(v => v.mail_id).Skip((pagenum - 1) * size).Take(size).ToListAsync();
                 pag.Total = c.Count;
 
                 return pag;
+
+
+
             }
-            
+
+
             catch (Exception)
             {
 
@@ -2035,6 +2259,39 @@ namespace MMSystem.Services.ReceivedMail
                 throw;
             }
             
+        }
+
+        public async Task<int> GetState(int mail_id)
+        {
+            try
+            {
+                var c = await dbcon.Sends.LastOrDefaultAsync(x => x.MailID == mail_id);
+                return c.flag;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+          
+        }
+
+        public async Task<int> GetFlag(int mail_id, int department_Id)
+        {
+
+
+            var c = await dbcon.Sends.OrderBy(x=> x.Id).LastOrDefaultAsync(x => x.MailID == mail_id&&department_Id==x.to);
+            if (c != null) {
+                c.flag = 2;
+                dbcon.Sends.Update(c);
+                await dbcon.SaveChangesAsync();
+                return c.flag;
+            }
+            return 0;
+
+
+            return c.flag;
+
         }
     }
 }

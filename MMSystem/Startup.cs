@@ -43,23 +43,24 @@ namespace MMSystem
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
             services.AddDbContext<AppDbCon>(option => option.UseSqlServer(Configuration.GetConnectionString("AppContext")));
-            services.AddTransient<IMailInterface, MookMail>();
-            services.AddTransient<IExternalMailcs, MookExternalMail>();
-            services.AddTransient<IExtrenal_inbox, MooKExernalnbox>();
-            services.AddTransient<IMail_Resourcescs, MooKMail_Resourcescs>();
-            services.AddTransient<IAdministratorInterface, MockAdministrator>();
-            services.AddTransient<ISender, MookSender>();
-            services.AddTransient<IRportInterface,MockReports>();
-            services.AddTransient<GenericInterface<Measures, MeasuresDto>, MookMeasures>();
-            services.AddTransient<IReplay, MookReplay>();
-            services.AddTransient<GenericInterface<Role, RoleDto>, MockRole>();
-            services.AddTransient<GenericInterface<ClasificationSubject, ClasificationSubjectDto>, MookClasificationSubject>();
-            services.AddTransient<Idepartment, MocDepartment>();
-            services.AddTransient<Generic2<Extrmal_Section, Extrmal_SectionDto>, MocSection>();
-            services.AddTransient<IHistory, MokHistory>();
-            services.AddTransient<IDashBord, MokDashBord>();
-            services.AddTransient<IArchives, MokArchives>();
+            services.AddScoped<IMailInterface, MookMail>();
+            services.AddScoped<IExternalMailcs, MookExternalMail>();
+            services.AddScoped<IExtrenal_inbox, MooKExernalnbox>();
+            services.AddScoped<IMail_Resourcescs, MooKMail_Resourcescs>();
+            services.AddScoped<IAdministratorInterface, MockAdministrator>();
+            services.AddScoped<ISender, MookSender>();
+            services.AddScoped<IRportInterface,MockReports>();
+            services.AddScoped<GenericInterface<Measures, MeasuresDto>, MookMeasures>();
+            services.AddScoped<IReplay, MookReplay>();
+            services.AddScoped<GenericInterface<Role, RoleDto>, MockRole>();
+            services.AddScoped<GenericInterface<ClasificationSubject, ClasificationSubjectDto>, MookClasificationSubject>();
+            services.AddScoped<Idepartment, MocDepartment>();
+            services.AddScoped<Generic2<Extrmal_Section, Extrmal_SectionDto>, MocSection>();
+            services.AddScoped<IHistory, MokHistory>();
+            services.AddScoped<IDashBord, MokDashBord>();
+            services.AddScoped<IArchives, MokArchives>();
             services.AddScoped<IReceived, MookRecevied>();
+            services.AddScoped<GetMailServices, MookGetMail>();
 
 
         }

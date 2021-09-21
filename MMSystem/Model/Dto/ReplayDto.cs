@@ -7,5 +7,16 @@ namespace MMSystem.Model.Dto
 {
     public class ReplayDto
     {
+        public int ReplyId { get; set; }
+     
+        public int send_ToId { get; set; }
+   
+        public string mail_detail { get; set; }
+        public DateTime Date { get; set; }
+        public int To { get; set; }
+        public bool state { get; set; }
+        public int UserId { get; set; }
+
+
     }
 }

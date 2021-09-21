@@ -131,7 +131,7 @@ namespace MMSystem.Services.ReplayServeic
                 bool result = await Add(model.reply);
                 if (result) {
 
-                    return false;
+                    return true;
                 }
                 return false;
             
@@ -240,13 +240,18 @@ namespace MMSystem.Services.ReplayServeic
 
 
             {
+                bool result = false;
+
                 string year = DateTime.Now.Year.ToString();
                 string Month = DateTime.Now.Month.ToString();
+                string day = DateTime.Now.Day.ToString();
+
                 string name = "ReplyResources";
               
-                string x = Path.Combine(this.iwebHostEnvironment.WebRootPath, "images").ToLower();
+                string x = Path.Combine(this.iwebHostEnvironment.WebRootPath, name).ToLower();
                 string y = Path.Combine(x, year);
-
+                string z = Path.Combine(y, Month);
+                string last = Path.Combine(z, day);
 
                 if (Directory.Exists(x))
                     if (!Directory.Exists(y)) {
@@ -254,36 +259,51 @@ namespace MMSystem.Services.ReplayServeic
 
                     }
 
+                if (!Directory.Exists(z))
+                    Directory.CreateDirectory(z);
 
 
+                if (!Directory.Exists(last))
+                    Directory.CreateDirectory(last);
+
+                if (file.list.Count > 0)
+                {
+                    foreach (var item in file.list)
+                    {
+                        var index = item.baseAs64.IndexOf(',');
+                        var bsee64string = item.baseAs64.Substring(index + 1);
+                        index = item.baseAs64.IndexOf(';');
+                        var base64signtuer = item.baseAs64.Substring(0, index);
+                        index = item.baseAs64.IndexOf('/');
+                        var extention = base64signtuer.Substring(index + 1);
+                        byte[] bytes = Convert.FromBase64String(bsee64string);
+                        Guid guid = Guid.NewGuid();
+                        string xx = guid.ToString();
+                        var path = Path.Combine(last, xx + ".");
 
 
+                        await File.WriteAllBytesAsync(path + extention, bytes);
+                        Reply_Resources reply = new Reply_Resources();
+                        reply.ReplyId = file.mail_id;
+                        reply.path = path + extention;
+                        reply.order = item.index;
+                        bool res = await AddResources(reply);
+                        if (res)
+                        {
+
+                            result= true;
+                        }
+                        else {
+                            File.Delete(reply.path);
+                            result = false;
 
 
-                //foreach (var item in file.list)
-                //{
-                //    var index = item.baseAs64.IndexOf(',');
-                //    var bsee64string = item.baseAs64.Substring(index + 1);
-                //    index = item.baseAs64.IndexOf(';');
-                //    var base64signtuer = item.baseAs64.Substring(0, index);
-                //    index = item.baseAs64.IndexOf('/');
-                //    var extention = base64signtuer.Substring(index + 1);
-                //    byte[] bytes = Convert.FromBase64String(bsee64string);
-                //    Guid guid = Guid.NewGuid();
-                //    string x = guid.ToString();
-                //    var path = Path.Combine(_environment.WebRootPath, name + "/" + year + "/" + "/" + Month, x + ".");
+                        }
+                    }
 
+                }
 
-                //    await File.WriteAllBytesAsync(path + extention, bytes);
-                //    Reply_Resources reply = new Reply_Resources();
-                //    reply.ReplyId = file.mail_id;
-                //    reply.path = path + extention;
-                //    reply.order = item.index;
-                //    bool res = await AddResources(reply);
-
-
-                // }
-                return true;
+                return result;
 
             }
             catch (Exception)
