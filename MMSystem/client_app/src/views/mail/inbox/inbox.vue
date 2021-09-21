@@ -119,7 +119,6 @@
                             </button>
 
                             <div v-if="filter" class="rounded-b-md shadow-md absolute border border-t-0 z-40 w-full bg-white px-4 py-8">
-                                
                                 <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 max-w-4xl mx-auto">
                                     <div class="sm:col-span-2">
                                         <label
@@ -151,6 +150,10 @@
                                             </button>
 
                                             <div v-if="departmentselect" class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md">
+                                                <button class="block focus:outline-none w-full my-1 text-right" @click="selectdepartment('', 'الكل'); departmentselect = !departmentselect">
+                                                    الكل    
+                                                </button>
+                                                
                                                 <button class="block focus:outline-none w-full my-1 text-right" @click="selectdepartment(department.id, department.departmentName); departmentselect = !departmentselect" v-for="department in departments" :key="department.id">
                                                     {{ department.departmentName }}    
                                                 </button>
@@ -174,6 +177,10 @@
                                             </button>
 
                                             <div v-if="measureselect" class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md">
+                                                <button class="block focus:outline-none w-full my-1 text-right" @click="selectmeasure('', 'الكل'); measureselect = !measureselect">
+                                                    الكل    
+                                                </button>
+                                                
                                                 <button class="block focus:outline-none w-full my-1 text-right" @click="selectmeasure(measure.measuresId, measure.measuresName); measureselect = !measureselect" v-for="measure in measures" :key="measure.measuresId">
                                                     {{ measure.measuresName }}    
                                                 </button>
@@ -196,6 +203,10 @@
                                             </button>
 
                                             <div v-if="mail_caseselect" class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md">
+                                                <button class="block focus:outline-none w-full my-1 text-right" @click="select_mail_case('', 'الكل'); mail_caseselect = !mail_caseselect">
+                                                    الكل    
+                                                </button>
+                                                
                                                 <button class="block focus:outline-none w-full my-1 text-right" @click="select_mail_case(mail_case.id, mail_case.name); mail_caseselect = !mail_caseselect" v-for="mail_case in mail_cases" :key="mail_case.id">
                                                     {{ mail_case.name }}    
                                                 </button>
@@ -218,6 +229,10 @@
                                             </button>
 
                                             <div v-if="classificationselect" class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md">
+                                                <button class="block focus:outline-none w-full my-1 text-right" @click="selectClassification('', 'الكل'); classificationselect = !classificationselect">
+                                                    الكل    
+                                                </button>
+                                                
                                                 <button class="block focus:outline-none w-full my-1 text-right" @click="selectClassification(classification.id, classification.name); classificationselect = !classificationselect" v-for="classification in classifications" :key="classification.id">
                                                     {{ classification.name }}    
                                                 </button>
@@ -241,11 +256,10 @@
                                         />
                                     </div>
                                 </div>
-
                             </div>
                         </div>
 
-                        <div class="w-full mt-4 rounded-md  divide-y-2 divide-gray-200">
+                        <div class="w-full mt-4 rounded-md divide-y-2 divide-gray-200">
 
                             <div class="flex items-center bg-white w-full text-sm">
                                 <div class="w-1/9 py-4 pr-6">
@@ -340,7 +354,9 @@
                                 </div>
                             </div>
 
-                            <div class=" flex justify-end mt-4  mx-auto px-4 sm:px-6 lg:px-8" >
+                            <div class="flex justify-end mt-4  mx-auto px-4 sm:px-6 lg:px-8 bg-white">
+
+                                <pagination dir="rtl" v-model="page_num" :per-page="page_size" :records="total_of_transaction" @paginate="GetInboxs"/>
                               <!-- <el-pagination
                                 background
                                 :small="false"
@@ -422,7 +438,20 @@ export default {
             },
             summary: function () {
                 this.GetInboxs()
-            }
+            },
+            departmentIdSelected: function () {
+                this.GetInboxs()
+            },
+            measureIdSelected: function () {
+                this.GetInboxs()
+            },
+            classificationIdSelected: function () {
+                this.GetInboxs()
+            },
+
+            mail_caseIdSelected: function () {
+                this.GetInboxs()
+            },
     },
 
   components: {
@@ -433,6 +462,8 @@ export default {
 
   data() {
     return {
+
+        total_of_transaction : 0,
         my_user_id: '',
         my_department_id: '',
 
@@ -472,7 +503,7 @@ export default {
         date_from:'',
         date_to:'',
 
-        page_size: 8,
+        page_size: 4,
         page_num: 1
     };
   },
@@ -484,10 +515,11 @@ export default {
             this.loading = true;
             this.inboxMails = []
             this.$http.mailService
-                .inboxs(this.my_user_id, this.mailType, this.my_department_id, this.date_from, this.date_to, this.mail_id, this.summary, this.page_num, this.page_size)
+                .inboxs(this.my_user_id, this.mailType, this.my_department_id, this.date_from, this.date_to, this.mail_id, this.summary, this.departmentIdSelected, this.measureIdSelected, this.classificationIdSelected, this.mail_caseIdSelected, this.page_num, this.page_size)
                 .then((res) => {
                     console.log(res)
                     this.inboxMails = res.data.mail;
+                    this.total_of_transaction = res.data.total
                     setTimeout(() => {
                         this.screenFreeze = false;
                         this.loading = false;
@@ -542,18 +574,20 @@ export default {
             this.mail_cases = [
                 {
                     id : 1,
-                    name : 'ayoub'
+                    name : 'read it'
                 },
                 {
                     id : 2,
-                    name : 'ahmed'
+                    name : 'not read it'
+                },
+                {
+                    id : 3,
+                    name : 'aaaa'
                 }
             ] 
         },
 
         select_mail_case(id, name){
-
-            console.log(id,name)
             this.mail_caseNameSelected = name;
             this.mail_caseIdSelected = id;
         },
@@ -574,6 +608,7 @@ export default {
             this.classificationNameSelected = name;
             this.classificationIdSelected = id;
         },
+        
 
         // add_to_array_of_side_measure(){
         //     this.consignees.push({
@@ -592,9 +627,66 @@ export default {
 </script>
 
 <style >
-  
-  .el-pagination.is-background .el-pager li:not(.disabled).active{
-    background: RGB(15, 116, 144);
-  }
+    .VuePagination{
+        width: 100%;
+    }
+
+    .VuePagination nav {
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .pagination{
+        display:flex;
+    }
+
+    .page-link{
+        background-color:red;
+    }
+
+    .page-item{
+        /* margin-left: .5rem;
+        margin-right: .5rem;*/
+    }
+
+    .page-link {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+
+        font-weight: 500;
+        border-width: 1px;
+
+        --tw-border-opacity: 1;
+        border-color: rgba(209, 213, 219, var(--tw-border-opacity));
+
+        --tw-bg-opacity: 1;
+        background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+
+        --tw-text-opacity: 1;
+        color: rgba(107, 114, 128, var(--tw-text-opacity));
+    }
+
+    .page-link:hover{
+        --tw-bg-opacity: 1;
+        background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
+    }
+
+    .active{
+        background-color: #152b67;
+        color: #fff;
+    }
+
+    .VuePagination nav ul{
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-radius: 0.375rem;
+        overflow: hidden;
+    }
   
 </style>

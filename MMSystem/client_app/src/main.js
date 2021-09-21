@@ -6,12 +6,12 @@ import DataService from './services/DataService.js';
 import './shared/GlobalFilters'
 import 'element-ui/lib/theme-chalk/index.css';
 
-import { Pagination } from 'element-ui';
+import Pagination from 'vue-pagination-2';
+Vue.component('pagination', Pagination);
 
 
 import scanner from 'scanner.js'
 Vue.use(scanner)
-Vue.use(Pagination)
 
 Vue.config.productionTip = false
 
