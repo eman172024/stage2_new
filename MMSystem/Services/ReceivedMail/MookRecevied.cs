@@ -208,7 +208,7 @@ namespace MMSystem.Services.ReceivedMail
             int? mailnum_bool, int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string summary, int? mail_Readed,
             int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int? Typeof_send
             , int? mail_type, string replaytext, int? userid , int pagenum,int size, int? Measure_filter,
-            int?  Department_filter, int? Classfication ,int? WhiteDraw_filter,int? Replay_filter)
+            int?  Department_filter, int? Classfication, int? mail_state)
         {
             try
             {
@@ -222,21 +222,16 @@ namespace MMSystem.Services.ReceivedMail
                 bool meas_filter = false;
                 bool mail_accept = false;
                 bool daysended = false;
-                bool whitdr_filter = false;
-                bool rep_filter = false;
+                bool State_filter = false;
                 // myday = day.Date;
 
-                if(WhiteDraw_filter == null)
+                if( mail_state == null)
                 {
-                    whitdr_filter = true;
+                    State_filter = true;
                 }
-                else { whitdr_filter = false; }
+                else { State_filter = false; }
 
-                if(Replay_filter == null)
-                {
-                    rep_filter = true;
-                }
-                else { rep_filter = false; }
+               
 
                 if (Classfication ==null)
                 {
@@ -363,8 +358,7 @@ namespace MMSystem.Services.ReceivedMail
                                                             //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                                             join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment && 
                                                             ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                                                            ( x.flag == WhiteDraw_filter || whitdr_filter == true) &&
-                                                            (x.flag == Replay_filter || rep_filter == true))
+                                                            ( x.flag == mail_state || State_filter == true))
                                                             on mail.MailID equals ex.MailID
                                                              join dx in dbcon.measures.Where(x=> (x.MeasuresId ==Measure_filter || meas_filter ==true) ) on ex.type_of_send equals dx.MeasuresId
                                                              join n in dbcon.Departments.Where(x=> (x.Id== Department_filter || dep_filter == true) ) on mail.Department_Id equals n.Id
@@ -398,8 +392,7 @@ namespace MMSystem.Services.ReceivedMail
                                                                     //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                                                 join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment &&
                                                                 ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                                                                (x.flag == WhiteDraw_filter || whitdr_filter == true) &&
-                                                                (x.flag == Replay_filter || rep_filter == true))
+                                                                (x.flag == mail_state || State_filter == true))
                                                                 on mail.MailID equals ex.MailID
                                                                 join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                                                 join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
@@ -458,7 +451,7 @@ namespace MMSystem.Services.ReceivedMail
             int? mail_Readed, int? mailReaded, int? mailnot_readed, DateTime? Day_sended1,
             DateTime? Day_sended2, int? Typeof_send, int? userid, int? mailNumType, 
             int? mail_type, string? replaytext, int pagenum, int size, int? Measure_filter,
-            int? Department_filter, int? Classfication, int? WhiteDraw_filter, int? Replay_filter)
+            int? Department_filter, int? Classfication, int? mail_state)
         {
             var role_id = await dbcon.userRoles.Where(x => x.UserId == userid).ToListAsync();
 
@@ -475,7 +468,7 @@ namespace MMSystem.Services.ReceivedMail
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed, Day_sended1, Day_sended2,
            Typeof_send, mail_type, replaytext, userid, pagenum, size,  Measure_filter, 
-           Department_filter,  Classfication, WhiteDraw_filter,  Replay_filter);
+           Department_filter,  Classfication,  mail_state);
                         d = c0;
                         break;
                     }else if(role_id.Any(x => x.RoleId == 17))
@@ -485,7 +478,7 @@ namespace MMSystem.Services.ReceivedMail
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed, Day_sended1, Day_sended2,
            Typeof_send, mail_type, replaytext, userid, pagenum, size,
-           Measure_filter, Department_filter, Classfication, WhiteDraw_filter, Replay_filter);
+           Measure_filter, Department_filter, Classfication,  mail_state);
                         d = a;
                         break;
                     }else if (role_id.Any(x => x.RoleId == 19))
@@ -496,7 +489,7 @@ namespace MMSystem.Services.ReceivedMail
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed, Day_sended1, Day_sended2,
            Typeof_send, mail_type, replaytext, userid, pagenum, size,
-           Measure_filter, Department_filter, Classfication, WhiteDraw_filter, Replay_filter);
+           Measure_filter, Department_filter, Classfication,  mail_state);
                         d = a2;
                         break;
                     }else if(role_id.Any(x => x.RoleId == 18))
@@ -507,7 +500,7 @@ namespace MMSystem.Services.ReceivedMail
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed, Day_sended1, Day_sended2,
            Typeof_send, mail_type, replaytext, userid, pagenum, size,
-           Measure_filter, Department_filter, Classfication, WhiteDraw_filter, Replay_filter);
+           Measure_filter, Department_filter, Classfication,  mail_state);
                         d = a3;
 
 
@@ -527,7 +520,7 @@ namespace MMSystem.Services.ReceivedMail
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed, Day_sended1, Day_sended2,
            Typeof_send, mail_type, replaytext, userid,  pagenum,  size, 
-           Measure_filter,  Department_filter,  Classfication,  WhiteDraw_filter,  Replay_filter);
+           Measure_filter,  Department_filter,  Classfication,  mail_state);
                         d = c;
                         break;
                     }
@@ -542,7 +535,7 @@ namespace MMSystem.Services.ReceivedMail
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed, Day_sended1, Day_sended2,
            Typeof_send, mail_type, replaytext, userid, pagenum,size,
-           Measure_filter,  Department_filter,  Classfication,  WhiteDraw_filter,  Replay_filter);
+           Measure_filter,  Department_filter,  Classfication,  mail_state);
                         d = cc;
                         break;
                     }
@@ -557,7 +550,7 @@ namespace MMSystem.Services.ReceivedMail
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed, Day_sended1, Day_sended2,
            Typeof_send, mail_type, replaytext, userid , pagenum,size,
-           Measure_filter,  Department_filter,  Classfication,  WhiteDraw_filter,  Replay_filter);
+           Measure_filter,  Department_filter,  Classfication, mail_state);
                         d = ccc;
 
 
@@ -1154,7 +1147,7 @@ namespace MMSystem.Services.ReceivedMail
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
            int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
            Typeof_send, int? mail_type, string? replaytext, int? userid ,int pagenum,int size, 
-           int? Measure_filter, int? Department_filter, int? Classfication, int? WhiteDraw_filter, int? Replay_filter)
+           int? Measure_filter, int? Department_filter, int? Classfication, int? mail_state)
         {
             try
             {
@@ -1168,21 +1161,16 @@ namespace MMSystem.Services.ReceivedMail
                 bool meas_filter = false;
                 bool mail_accept = false;
                 bool daysended = false;
-                bool whitdr_filter = false;
-                bool rep_filter = false;
+                bool State_filter = false;
                 // myday = day.Date;
 
-                if (WhiteDraw_filter == null)
+                if (mail_state == null)
                 {
-                    whitdr_filter = true;
+                    State_filter = true;
                 }
-                else { whitdr_filter = false; }
+                else { State_filter = false; }
 
-                if (Replay_filter == null)
-                {
-                    rep_filter = true;
-                }
-                else { rep_filter = false; }
+                
 
                 if (Classfication == null)
                 {
@@ -1309,8 +1297,7 @@ namespace MMSystem.Services.ReceivedMail
                                    //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment &&
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                               (x.flag == WhiteDraw_filter || whitdr_filter == true) &&
-                               (x.flag == Replay_filter || rep_filter == true))
+                               (x.flag == mail_state || State_filter == true))
                                on mail.MailID equals ex.MailID
                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
@@ -1344,8 +1331,7 @@ namespace MMSystem.Services.ReceivedMail
                                       //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                   join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment &&
                                   ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                                  (x.flag == WhiteDraw_filter || whitdr_filter == true) &&
-                                  (x.flag == Replay_filter || rep_filter == true))
+                                  (x.flag == mail_state || State_filter == true))
                                   on mail.MailID equals ex.MailID
                                   join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                   join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
@@ -1393,7 +1379,7 @@ namespace MMSystem.Services.ReceivedMail
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
            int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
            Typeof_send, int? mail_type, string? replaytext, int? userid ,int pagenum ,int size,
-           int? Measure_filter, int? Department_filter, int? Classfication, int? WhiteDraw_filter, int? Replay_filter)
+           int? Measure_filter, int? Department_filter, int? Classfication, int? mail_state)
         {
             try
             {
@@ -1407,21 +1393,16 @@ namespace MMSystem.Services.ReceivedMail
                 bool meas_filter = false;
                 bool mail_accept = false;
                 bool daysended = false;
-                bool whitdr_filter = false;
-                bool rep_filter = false;
+                bool State_filter = false;
                 // myday = day.Date;
 
-                if (WhiteDraw_filter == null)
+                if (mail_state == null)
                 {
-                    whitdr_filter = true;
+                    State_filter = true;
                 }
-                else { whitdr_filter = false; }
+                else { State_filter = false; }
 
-                if (Replay_filter == null)
-                {
-                    rep_filter = true;
-                }
-                else { rep_filter = false; }
+                
 
                 if (Classfication == null)
                 {
@@ -1548,8 +1529,7 @@ namespace MMSystem.Services.ReceivedMail
                                    //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment &&
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                               (x.flag == WhiteDraw_filter || whitdr_filter == true) &&
-                               (x.flag == Replay_filter || rep_filter == true))
+                               (x.flag == mail_state || State_filter == true) )
                                on mail.MailID equals ex.MailID
                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
@@ -1583,8 +1563,7 @@ namespace MMSystem.Services.ReceivedMail
                                       //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                   join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment &&
                                   ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                                  (x.flag == WhiteDraw_filter || whitdr_filter == true) &&
-                                  (x.flag == Replay_filter || rep_filter == true))
+                                  (x.flag == mail_state || State_filter == true))
                                   on mail.MailID equals ex.MailID
                                   join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                   join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
@@ -1634,8 +1613,8 @@ namespace MMSystem.Services.ReceivedMail
             int? mailnum_bool, int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string ? summary, 
             int? mail_Readed, int? mailReaded, int? mailnot_readed, DateTime? Day_sended1,
             DateTime? Day_sended2, int? Typeof_send, int? mail_type, string? replaytext , int? userid ,
-            int pagenum, int size, int? Measure_filter, int? Department_filter, int? Classfication, 
-            int? WhiteDraw_filter, int? Replay_filter)
+            int pagenum, int size, int? Measure_filter, int? Department_filter, int? Classfication
+            , int? mail_state)
         {
             try
             {
@@ -1649,21 +1628,16 @@ namespace MMSystem.Services.ReceivedMail
                 bool meas_filter = false;
                 bool mail_accept = false;
                 bool daysended = false;
-                bool whitdr_filter = false;
-                bool rep_filter = false;
+                bool State_filter = false;
                 // myday = day.Date;
 
-                if (WhiteDraw_filter == null)
+                if (mail_state == null)
                 {
-                    whitdr_filter = true;
+                    State_filter = true;
                 }
-                else { whitdr_filter = false; }
+                else { State_filter = false; }
 
-                if (Replay_filter == null)
-                {
-                    rep_filter = true;
-                }
-                else { rep_filter = false; }
+                
 
                 if (Classfication == null)
                 {
@@ -1790,8 +1764,7 @@ namespace MMSystem.Services.ReceivedMail
                                    //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment &&
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                               (x.flag == WhiteDraw_filter || whitdr_filter == true) &&
-                               (x.flag == Replay_filter || rep_filter == true))
+                               (x.flag == mail_state || State_filter == true))
                                on mail.MailID equals ex.MailID
                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
@@ -1825,8 +1798,7 @@ namespace MMSystem.Services.ReceivedMail
                                       //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                   join ex in dbcon.Sends.Where(x => (x.flag != 0) && x.to == mangment &&
                                   ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                                  (x.flag == WhiteDraw_filter || whitdr_filter == true) &&
-                                  (x.flag == Replay_filter || rep_filter == true))
+                                  (x.flag == mail_state || State_filter == true))
                                   on mail.MailID equals ex.MailID
                                   join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                   join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id

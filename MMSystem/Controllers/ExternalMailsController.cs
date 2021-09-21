@@ -91,7 +91,7 @@ namespace MMSystem.Controllers
             int? mailnum_bool, int? mangment, DateTime? date_from, DateTime? date_to, int? mailnum, string? summary,
             int? mail_Readed, int? mailReaded, int? mailnot_readed, DateTime? Day_sended1,
             DateTime? Day_sended2, int? Typeof_send, int? mail_type, string? replaytext, int? userid,int mailNumType, int page_num,
-            int page_size, int? Measure_filter, int? Department_filter, int? Classfication, int? WhiteDraw_filter, int? Replay_filter)
+            int page_size, int? Measure_filter, int? Department_filter, int? Classfication, int? mail_state)
 
         {
 
@@ -100,7 +100,7 @@ namespace MMSystem.Controllers
             mail_Readed,  mailReaded,  mailnot_readed,  Day_sended1,
              Day_sended2,Typeof_send,  userid,  mailNumType,
              mail_type, replaytext, page_num, page_size,
-             Measure_filter,  Department_filter,  Classfication,  WhiteDraw_filter,  Replay_filter);
+             Measure_filter,  Department_filter,  Classfication, mail_state);
             if(c!=null)
             return Ok(c);
             return Unauthorized("غير مسموح لك بدخول  ");

@@ -24,6 +24,8 @@ namespace MMSystem.Model
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRoles> userRoles { get; set; }
         public DbSet<Historyes> History { get; set; }
+        public DbSet<MailStatus> MailStatuses { get; set; }
+
 
         public AppDbCon(DbContextOptions<AppDbCon>options):base(options)
         {
@@ -206,7 +208,47 @@ namespace MMSystem.Model
                     state = true
                 }
 
-                ); 
+                );
+
+            modelBuilder.Entity<MailStatus>().HasData(
+            new MailStatus { 
+            
+            flag=1,flag_Name="حفظ",state=true
+            },
+            new MailStatus
+            {
+
+                flag = 2,
+                flag_Name = "ارسال",
+                state = true
+            }, 
+            new MailStatus
+            {
+
+                flag = 3,
+                flag_Name = "تم القراءة",
+                state = true
+            },
+            new MailStatus
+            {
+
+                flag = 4,
+                flag_Name = "تم الرد",
+                state = true
+            }, new MailStatus
+            {
+
+                flag = 5,
+                flag_Name = "تم الرد من قبلك",
+                state = true
+            },
+            new MailStatus
+            {
+
+                flag = 6,
+                flag_Name = "تم السحب",
+                state = true
+            });
 
             base.OnModelCreating(modelBuilder);
         }
