@@ -9,4 +9,12 @@ export default {
             }
         });
     },
+
+
+    test() {
+        return axios.get('/api/WeatherForecast/test');
+    },
+
+
+
 }
