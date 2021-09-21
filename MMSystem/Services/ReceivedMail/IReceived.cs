@@ -79,11 +79,6 @@ namespace MMSystem.Services.ReceivedMail
          Typeof_send, int? mail_type, string? replaytext, int? userid ,int pagenum, int size);
          Task<int> GetMailState(int mailid);
 
-<<<<<<< HEAD
         Task<int> GetFlag(int mail_id, int department_Id);
-=======
-        Task<int> GetFlag(int mail_id,int department_Id);
-
->>>>>>> 1316693f6a267110c2b1c6661987829cae64d48b
     }
 }
