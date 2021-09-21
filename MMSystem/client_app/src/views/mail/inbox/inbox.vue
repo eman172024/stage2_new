@@ -19,90 +19,90 @@
 
                                 <span class="flex items-center mr-4">
                                     من 
-                                    <input type="date" class="block mr-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2">
+                                    <input type="date" id="date_from" v-model="date_from" class="block mr-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2">
                                 </span>
 
                                 <span class="flex items-center mr-4">
                                     إلي
-                                    <input type="date" class="block mr-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2">
+                                    <input type="date" id="date_to" v-model="date_to" class="block mr-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2">
                                 </span>
                             </div>
 
-                                <fieldset class="">
-                                    <div class=" flex items-center">
-                                        <legend class=" text-base font-medium text-gray-800 w-16">
-                                        نوع البريد
-                                        </legend>
+                            <fieldset class="">
+                                <div class=" flex items-center">
+                                    <legend class=" text-base font-medium text-gray-800 w-16">
+                                    نوع البريد
+                                    </legend>
 
-                                        <div class="flex items-center mr-6">
-                                            <input
-                                                v-model="mailType"
-                                                id="internal"
-                                                type="radio"
-                                                name="type"
-                                                class="h-4 w-4"
-                                                value="0"
-                                            />
-                                            <label
-                                                for="internal"
-                                                class="mr-2 block  text-gray-800"
-                                            >
-                                                الكل
-                                            </label>
-                                        </div>
-
-                                        <div class="flex items-center mr-6">
-                                            <input
-                                                v-model="mailType"
-                                                id="internal"
-                                                type="radio"
-                                                name="type"
-                                                class="h-4 w-4"
-                                                value="1"
-                                            />
-                                            <label
-                                                for="internal"
-                                                class="mr-2 block  text-gray-800"
-                                            >
-                                                داخلي
-                                            </label>
-                                        </div>
-
-                                        <div class="flex items-center mr-6">
-                                            <input
-                                                v-model="mailType"
-                                                id="internal_export"
-                                                type="radio"
-                                                name="type"
-                                                class="h-4 w-4"
-                                                value="2"
-                                            />
-                                            <label
-                                                for="internal_export"
-                                                class="mr-2 block  text-gray-800"
-                                            >
-                                                صادر خارجي
-                                            </label>
-                                        </div>
-
-                                        <div class="flex items-center mr-6">
-                                            <input
-                                                v-model="mailType"
-                                                id="external_incoming"
-                                                type="radio"
-                                                name="type"
-                                                class="h-4 w-4"
-                                                value="3"
-                                            />
-                                            <label
-                                                for="external_incoming"
-                                                class="mr-2 block  text-gray-800"
-                                            >
-                                                وارد خارجي 
-                                            </label>
-                                        </div>
+                                    <div class="flex items-center mr-6">
+                                        <input
+                                            v-model="mailType"
+                                            id="internal"
+                                            type="radio"
+                                            name="type"
+                                            class="h-4 w-4"
+                                            value="0"
+                                        />
+                                        <label
+                                            for="internal"
+                                            class="mr-2 block  text-gray-800"
+                                        >
+                                            الكل
+                                        </label>
                                     </div>
-                                </fieldset>
+
+                                    <div class="flex items-center mr-6">
+                                        <input
+                                            v-model="mailType"
+                                            id="internal"
+                                            type="radio"
+                                            name="type"
+                                            class="h-4 w-4"
+                                            value="1"
+                                        />
+                                        <label
+                                            for="internal"
+                                            class="mr-2 block  text-gray-800"
+                                        >
+                                            داخلي
+                                        </label>
+                                    </div>
+
+                                    <div class="flex items-center mr-6">
+                                        <input
+                                            v-model="mailType"
+                                            id="internal_export"
+                                            type="radio"
+                                            name="type"
+                                            class="h-4 w-4"
+                                            value="2"
+                                        />
+                                        <label
+                                            for="internal_export"
+                                            class="mr-2 block  text-gray-800"
+                                        >
+                                            صادر خارجي
+                                        </label>
+                                    </div>
+
+                                    <div class="flex items-center mr-6">
+                                        <input
+                                            v-model="mailType"
+                                            id="external_incoming"
+                                            type="radio"
+                                            name="type"
+                                            class="h-4 w-4"
+                                            value="3"
+                                        />
+                                        <label
+                                            for="external_incoming"
+                                            class="mr-2 block  text-gray-800"
+                                        >
+                                            وارد خارجي 
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
 
                         </div>
 
@@ -133,7 +133,7 @@
                                             type="number"
                                             id="mail_id"
                                             class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
-                                            required
+                                            
                                         />
                                     </div>
 
@@ -286,19 +286,19 @@
                                         {{ mail.type_of_mail }}
                                     </div>
                                     <div class="w-2/9">
-                                        {{ mail.mangment_sender}}
+                                        {{ mail.mangment_sender }}
                                     </div>
                                     <div class="w-1/9">
-                                        نوع الإجراء
+                                        {{ mail.masure_type }}
                                     </div>
                                     <div class="w-1/9">
-                                        {{ mail.date_Of_Mail }}
+                                        {{ mail.send_time }}
                                     </div>
                                     <div class="w-1/9">
-                                        {{ mail.date_Of_Mail }}
+                                        {{ mail.time }}
                                     </div>
                                     <div class="w-1/9 flex justify-between items-center pl-4">
-                                        <router-link title="عرض التفصيل" :to="{ name: 'inbox-show', params: { mail: mail.mailID, type:mail.mail_Type },}"  class="">
+                                        <router-link title="عرض التفصيل" :to="{ name: 'inbox-show', params: { mail: mail.mail_id, type:mail.type_of_mail },}"  class="">
                                             <svg class="w-5 h-5 fill-current hover:text-green-500" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 18.453 18.453"  xml:space="preserve">
                                                 <rect x="2.711" y="4.058" width="8.23" height="1.334"/>
                                                 <path d="M14.972,14.088c0.638-1.127,0.453-2.563-0.475-3.49c-0.549-0.549-1.279-0.852-2.058-0.852
@@ -333,7 +333,7 @@
                                             </p>
 
                                             <p class="mt-2">
-                                                {{ mail.action_Required }}
+                                                {{ mail.summary }}
                                             </p>
                                         </div>
                                     </div>
@@ -381,6 +381,19 @@ export default {
 
   mounted() {
 
+    var date = new Date();
+
+    var month = date.getMonth() +1;
+
+    if (month < 10) month = "0" + month;
+
+    this.date_from = date.getFullYear()+ "-" +month+ "-" +date.getDate()
+    this.date_to = date.getFullYear()+ "-" +month+ "-" +date.getDate()
+
+
+
+    console.log(this.date_from)
+
       this.my_user_id = localStorage.getItem('userId')
       this.my_department_id = localStorage.getItem('departmentId')
 
@@ -393,6 +406,25 @@ export default {
 
   },
 
+    watch: {
+         
+            mailType: function () {
+                this.GetInboxs()
+            },
+            date_from: function () {
+                this.GetInboxs()
+            },
+            date_to: function () {
+                this.GetInboxs()
+            },
+            mail_id: function () {
+                this.GetInboxs()
+            },
+            summary: function () {
+                this.GetInboxs()
+            }
+    },
+
   components: {
       asideComponent,
       navComponent,
@@ -404,7 +436,7 @@ export default {
         my_user_id: '',
         my_department_id: '',
 
-        inboxMails:{},
+        inboxMails:[],
 
         mail_id:'',
 
@@ -437,24 +469,29 @@ export default {
         loading: false,
         screenFreeze: false,
 
+        date_from:'',
+        date_to:'',
+
         page_size: 8,
         page_num: 1
     };
   },
+
   methods: {
 
         GetInboxs() {
             this.screenFreeze = true;
             this.loading = true;
+            this.inboxMails = []
             this.$http.mailService
-                .inboxs(this.my_user_id, this.mailType, this.my_department_id, this.page_num, this.page_size)
+                .inboxs(this.my_user_id, this.mailType, this.my_department_id, this.date_from, this.date_to, this.mail_id, this.summary, this.page_num, this.page_size)
                 .then((res) => {
                     console.log(res)
-                     this.inboxMails = res.data.mail;
-                    // setTimeout(() => {
-                    //     this.screenFreeze = false;
-                    // this.loading = false;
-                    // }, 300);
+                    this.inboxMails = res.data.mail;
+                    setTimeout(() => {
+                        this.screenFreeze = false;
+                        this.loading = false;
+                    }, 300);
                 })
                 .catch((err) => {
                     setTimeout(() => {
