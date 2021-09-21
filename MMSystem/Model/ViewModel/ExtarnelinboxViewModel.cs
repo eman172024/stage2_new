@@ -17,6 +17,7 @@ namespace MMSystem.Model.ViewModel
 
         public string mangment_sender { get; set; }
 
+        public int mangment_sender_id { get; set; }
 
         public int flag { get; set; }
 

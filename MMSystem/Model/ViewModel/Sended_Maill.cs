@@ -2,12 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MMSystem.Model.ViewModel
 {
     public class Sended_Maill
     {
+
+     
 
         public int mail_id { get; set; }
         public int Mail_Number { get; set; }
@@ -17,6 +20,8 @@ namespace MMSystem.Model.ViewModel
         public String Masure_type { get; set; }
 
         public string mangment_sender { get; set; }
+
+        public int mangment_sender_id { get; set; }
 
         public int type_of_mail { get; set; }
 

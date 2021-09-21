@@ -90,16 +90,17 @@ namespace MMSystem.Controllers
         public async Task<IActionResult> GetIncomingMail(DateTime? myday, int? daycheck,
             int? mailnum_bool, int? mangment, DateTime? date_from, DateTime? date_to, int? mailnum, string? summary,
             int? mail_Readed, int? mailReaded, int? mailnot_readed, DateTime? Day_sended1,
-            DateTime? Day_sended2, int? Typeof_send, int? mail_type, string? replaytext, int? userid,int mailNumType, int page_num, int page_size)
+            DateTime? Day_sended2, int? Typeof_send, int? mail_type, string? replaytext, int? userid,int mailNumType, int page_num,
+            int page_size, int? Measure_filter, int? Department_filter, int? Classfication, int? WhiteDraw_filter, int? Replay_filter)
 
         {
 
             var c = await _re.GetDynamic( myday, daycheck, mailnum_bool,
              mangment, date_from, date_to, mailnum, summary,
             mail_Readed,  mailReaded,  mailnot_readed,  Day_sended1,
-
              Day_sended2,Typeof_send,  userid,  mailNumType,
-             mail_type, replaytext, page_num, page_size);
+             mail_type, replaytext, page_num, page_size,
+             Measure_filter,  Department_filter,  Classfication,  WhiteDraw_filter,  Replay_filter);
             if(c!=null)
             return Ok(c);
             return Unauthorized("غير مسموح لك بدخول  ");
