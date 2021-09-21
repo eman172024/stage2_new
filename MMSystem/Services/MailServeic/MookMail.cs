@@ -1227,7 +1227,22 @@ namespace MMSystem.Services.MailServeic
 
         }
 
+        public async Task<List<MailStatus>> GetMailStatuses()
+        {
+            try
+            {
+                List<MailStatus> list = await _appContext.MailStatuses.ToListAsync();
+                
 
+
+                return list;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
 
