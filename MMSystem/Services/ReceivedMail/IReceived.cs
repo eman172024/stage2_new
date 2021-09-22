@@ -80,5 +80,6 @@ namespace MMSystem.Services.ReceivedMail
          Task<int> GetMailState(int mailid);
 
         Task<int> GetFlag(int mail_id, int department_Id);
+
     }
 }
