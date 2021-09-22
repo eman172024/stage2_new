@@ -72,12 +72,12 @@ namespace MMSystem.Services.MailServeic
                 List<Mail_ResourcescsDto> mail_ResourcescsDtos = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(_Resourcescs);
 
 
-                foreach (var xx in mail_ResourcescsDtos)
-                {
-                    string x = xx.path;
-                    xx.path = await tobase64(x);
+                //foreach (var xx in mail_ResourcescsDtos)
+                //{
+                //    string x = xx.path;
+                //    xx.path = await tobase64(x);
 
-                }
+                //}
 
 
                 return mail_ResourcescsDtos;
