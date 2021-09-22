@@ -1005,12 +1005,6 @@ namespace MMSystem.Services.MailServeic
                     mail.resourcescs = await _resourcescs.GetAll(mail.mail.MailID);
 
 
-                    foreach (var xx in mail.resourcescs)
-                    {
-                        string x = xx.path;
-                        xx.path = await tobase64(x);
-
-                    }
              
 
                     return mail;
