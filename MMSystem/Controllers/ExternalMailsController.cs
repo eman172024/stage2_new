@@ -126,11 +126,10 @@ namespace MMSystem.Controllers
 
             var c = await _re.GetFlag(mail_id, department_Id);
             if (c >0)
-                return Ok(new
-                {
-                    flag = c,
-                    State="قرأت"
-                });
+                return Ok(
+                
+                     c  
+                );
             return BadRequest("فشلت العملية");
         }
 
