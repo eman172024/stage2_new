@@ -288,7 +288,7 @@
                                 </div>
                             </div>
 
-                            <div class="min-h-72">
+                            <div class="min-h-72 ">
                                 <div v-for="mail in inboxMails" :key="mail.mail_id" :class="mail.flag | mail_state_inbox"  class="group relative border-r-8 border-red-500 flex items-center bg-white">
                                     <div class="w-1/9 pr-4 py-3">
                                         {{ mail.mail_Number }}
