@@ -248,7 +248,19 @@ namespace MMSystem.Controllers
         }
 
 
+        [HttpGet("Get_Mail_resources")]
+        public async Task<IActionResult> Get_Mail_resources(int mail_id)
+        {
 
+
+
+            List<MailStatus> list = await _Imail.GetMailStatuses();
+            if (list.Count > 0)
+                return Ok(list);
+            return NotFound(new Result() { message = "لايوجد حالات", statusCode = 404 });
+
+
+        }
 
 
 

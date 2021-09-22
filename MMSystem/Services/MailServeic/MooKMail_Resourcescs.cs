@@ -71,6 +71,15 @@ namespace MMSystem.Services.MailServeic
                 List<Mail_Resourcescs> _Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == id).ToListAsync();
                 List<Mail_ResourcescsDto> mail_ResourcescsDtos = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(_Resourcescs);
 
+
+                foreach (var xx in mail_ResourcescsDtos)
+                {
+                    string x = xx.path;
+                    xx.path = await tobase64(x);
+
+                }
+
+
                 return mail_ResourcescsDtos;
 
             }
@@ -100,6 +109,26 @@ namespace MMSystem.Services.MailServeic
 
                 throw;
             }
+        }
+        public async Task<string> tobase64(string patj)
+        {
+
+            try
+            {
+                var attachmentType = System.IO.Path.GetExtension(patj);
+                var Type = attachmentType.Substring(1, attachmentType.Length - 1);
+                var filePath = System.IO.Path.Combine(patj);
+                byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+                var ImageBase64 = "data:image/" + Type + ";base64," + Convert.ToBase64String(fileBytes);
+                return ImageBase64;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
         }
 
 

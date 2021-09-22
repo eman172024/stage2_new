@@ -2251,18 +2251,27 @@ namespace MMSystem.Services.ReceivedMail
         public async Task<int> GetFlag(int mail_id, int department_Id)
         {
 
-
-            var c = await dbcon.Sends.OrderBy(x=> x.Id).LastOrDefaultAsync(x => x.MailID == mail_id&&department_Id==x.to);
-            if (c != null) {
-                c.flag = 2;
-                dbcon.Sends.Update(c);
-                await dbcon.SaveChangesAsync();
-                return c.flag;
+            try
+            {
+                var c = await dbcon.Sends.OrderBy(x => x.Id).LastOrDefaultAsync(x => x.MailID == mail_id && department_Id == x.to);
+                if (c != null)
+                {
+                    c.flag = 2;
+                    dbcon.Sends.Update(c);
+                    await dbcon.SaveChangesAsync();
+                    return c.flag;
+                }
+                return 0;
             }
-            return 0;
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
 
 
-            return c.flag;
+         //   return c.flag;
 
         }
     }
