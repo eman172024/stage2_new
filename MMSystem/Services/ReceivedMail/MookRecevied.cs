@@ -2284,7 +2284,7 @@ namespace MMSystem.Services.ReceivedMail
 
 
 
-                string stateName = d.flag_Name;
+                string stateName = d.inbox;
 
                 return stateName;
 

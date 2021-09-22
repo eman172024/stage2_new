@@ -213,41 +213,44 @@ namespace MMSystem.Model
             modelBuilder.Entity<MailStatus>().HasData(
             new MailStatus { 
             
-            flag=1,flag_Name="حفظ",state=true
+            flag=1,sent="حفظ",state=true,inbox="",
             },
             new MailStatus
             {
 
                 flag = 2,
-                flag_Name = "ارسال",
-                state = true
+                sent = "ارسال",
+                state = true,inbox="لم يتم قراءة البريد"
             }, 
             new MailStatus
             {
 
                 flag = 3,
-                flag_Name = "تم القراءة",
-                state = true
+                sent = "تم القراءة",
+                state = true,inbox = "تم قراءة البريد"
             },
             new MailStatus
             {
 
                 flag = 4,
-                flag_Name = "تم الرد",
-                state = true
+                sent = "تم الرد",
+                state = true,
+                inbox = "تم الرد من قيلك "
             }, new MailStatus
             {
 
                 flag = 5,
-                flag_Name = "تم الرد من قبلك",
-                state = true
+                sent = "تم الرد من قبلك",
+                state = true ,
+                inbox = "يوجد رد جديد من الادارة المرسلة"
             },
             new MailStatus
             {
 
                 flag = 6,
-                flag_Name = "تم السحب",
-                state = true
+                sent = "تم السحب",
+                state = true,
+                inbox = "تم سحب البريد من قبلك"
             });
 
             base.OnModelCreating(modelBuilder);

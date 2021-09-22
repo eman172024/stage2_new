@@ -11,7 +11,10 @@ namespace MMSystem.Model
     {
         [Key]
         public int flag { get; set; }
-        public string flag_Name { get; set; }
+       // public string flag_Name { get; set; }
+
+        public string inbox { get; set; }
+        public string sent { get; set; }
 
         public bool state { get; set; }
 
