@@ -1270,13 +1270,14 @@ export default {
 
                 this.consignees = res.data.actionSenders
 
-                this.imagesToShow = res.data.resourcescsDto
+                this.imagesToShow = res.data.resourcescs
 
 
                 console.log(this.imagesToShow)
 
                 if (this.imagesToShow.length > 0)
-                {
+                {   
+                    console.log("FFFFFFFFFFFFFFFFFFf")
                     this.testimage = this.imagesToShow[0].path
                 }
 

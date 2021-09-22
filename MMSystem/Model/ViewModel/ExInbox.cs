@@ -12,7 +12,7 @@ namespace MMSystem.Model.ViewModel
         public MailDto mail { get; set; }
         public Extrenal_inboxDto external { get; set; }
 
-        public List<Mail_ResourcescsDto> resourcescsDto { get; set; }
+        public List<Mail_ResourcescsDto> resourcescs { get; set; }
         public List<ActionSender> actionSenders { get; set; }
 
 
@@ -21,7 +21,7 @@ namespace MMSystem.Model.ViewModel
         public ExInbox()
         {
             actionSenders = new List<ActionSender>();
-            resourcescsDto = new List<Mail_ResourcescsDto>() { };
+            resourcescs = new List<Mail_ResourcescsDto>() { };
             side = new List<Extrmal_Section>() { };
             sector = new List<Extrmal_Section>() { };
 

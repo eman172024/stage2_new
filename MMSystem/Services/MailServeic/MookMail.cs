@@ -1005,7 +1005,7 @@ namespace MMSystem.Services.MailServeic
                     mail.resourcescs = await _resourcescs.GetAll(mail.mail.MailID);
 
 
-                    foreach (var xx in mail.resourcescsDto)
+                    foreach (var xx in mail.resourcescs)
                     {
                         string x = xx.path;
                         xx.path = await tobase64(x);
@@ -1088,10 +1088,10 @@ namespace MMSystem.Services.MailServeic
 
                             );
                         }
-                        ex.resourcescsDto = await _resourcescs.GetAll(id);
+                        ex.resourcescs = await _resourcescs.GetAll(id);
 
 
-                        foreach (var xx in ex.resourcescsDto)
+                        foreach (var xx in ex.resourcescs)
                         {
                             string x = xx.path;
                             xx.path = await tobase64(x);
@@ -1161,10 +1161,10 @@ namespace MMSystem.Services.MailServeic
 
                         );
                     }
-                    ex.resourcescsDto = await _resourcescs.GetAll(id);
+                    ex.resourcescs = await _resourcescs.GetAll(id);
 
 
-                    foreach (var xx in ex.resourcescsDto)
+                    foreach (var xx in ex.resourcescs)
                     {
                         string x = xx.path;
                         xx.path = await tobase64(x);
