@@ -102,7 +102,7 @@ namespace MMSystem.Services.MailServeic
 
                                 sender.MailID = mail.mail.MailID;
                                 sender.to = item.departmentId;
-                                sender.flag = 0;
+                                sender.flag = 1;
                                 sender.type_of_send = item.measureId;
                                 bool send = await _sender.Add(sender);
                             }
@@ -138,7 +138,7 @@ namespace MMSystem.Services.MailServeic
 
                                         sender.MailID = mail.mail.MailID;
                                         sender.to = item.departmentId;
-                                        sender.flag = 0;
+                                        sender.flag = 1;
                                         sender.type_of_send = item.measureId;
                                         bool send = await _sender.Add(sender);
                                     }
@@ -179,7 +179,7 @@ namespace MMSystem.Services.MailServeic
 
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = item.departmentId;
-                                    sender.flag = 0;
+                                    sender.flag = 1;
                                     sender.type_of_send = item.measureId;
                                     bool send = await _sender.Add(sender);
                                 }
@@ -447,7 +447,7 @@ namespace MMSystem.Services.MailServeic
 
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = item.departmentId;
-                                    sender.flag = 0;
+                                    sender.flag = 1;
                                     sender.type_of_send = item.measureId;
                                     bool send = await _sender.Add(sender);
                                 }
@@ -498,7 +498,7 @@ namespace MMSystem.Services.MailServeic
 
                                         sender.MailID = mail.mail.MailID;
                                         sender.to = item.departmentId;
-                                        sender.flag = 0;
+                                        sender.flag = 1;
                                         sender.type_of_send = item.measureId;
                                         bool send = await _sender.Add(sender);
                                     }
@@ -554,7 +554,7 @@ namespace MMSystem.Services.MailServeic
 
                                         sender.MailID = mail.mail.MailID;
                                         sender.to = item.departmentId;
-                                        sender.flag = 0;
+                                        sender.flag = 1;
                                         sender.type_of_send = item.measureId;
                                         bool send = await _sender.Add(sender);
                                     }

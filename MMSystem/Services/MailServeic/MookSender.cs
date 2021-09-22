@@ -81,7 +81,7 @@ namespace MMSystem.Services.MailServeic
                     {
                         foreach (var item in send_)
                         {
-                            item.flag = 1;
+                            item.flag = 2;
                             item.Send_time = DateTime.Now;
 
                             _data.Sends.Update(item);
