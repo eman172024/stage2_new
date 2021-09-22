@@ -446,7 +446,8 @@
                                     <button @click="previousImage()" class="w-12 h-8 bg-gray-300 rounded flex justify-center items-center">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                     </button>
-                                        {{indextotest +1}} / {{ imagesToShow.length }}
+                                        {{indextotest +1}} / 
+                                        <!-- {{ imagesToShow.length }} -->
 
                                         <button title="next" @click="nextImage()" class="w-12 h-8 bg-gray-300 rounded flex justify-center items-center">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
@@ -1256,6 +1257,9 @@ export default {
 
                 this.mail_Number = res.data.mail.mail_Number
                 this.department_Id = res.data.mail.department_Id
+                this.mail_year = res.data.mail.mail_year
+
+                
                 this.releaseDate = res.data.mail.date_Of_Mail
                 this.summary = res.data.mail.mail_Summary
                 this.classification = res.data.mail.clasification
@@ -1266,13 +1270,17 @@ export default {
 
                 this.consignees = res.data.actionSenders
 
-                this.imagesToShow = res.data.resourcescs
+                this.imagesToShow = res.data.resourcescsDto
 
 
-                this.testimage = this.imagesToShow[0].path
+                console.log(this.imagesToShow)
+
+                if (this.imagesToShow.length > 0)
+                {
+                    this.testimage = this.imagesToShow[0].path
+                }
 
                 if(this.to_test_passing_mail_type == '2'){
-
                     this.external_mailId = res.data.external.id
 
                     this.action_required_by_the_entity = res.data.external.action_required_by_the_entity
@@ -1289,6 +1297,8 @@ export default {
                     this.sideIdSelected = res.data.side[0].id
                 }
                 if(this.to_test_passing_mail_type == '3'){
+                    console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
+
 
                     this.external_mailId = res.data.external.id
                    
