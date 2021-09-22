@@ -1,46 +1,33 @@
 import Vue from "vue";
 
-Vue.filter("flagMassageCC", function(status) {
+Vue.filter("mail_type", function(status) {
     if (status === null) return "-";
     let statusName = "";
-    if (status === 1) statusName = "لم تقرأ";
-    else if (status === 2) statusName = "تم قراتها";
-    else if (status === 3) statusName = "تم الرد";
-    else if (status === 4) statusName = "تم عرض الرد";
+    if (status === 1) statusName = "داخلي";
+    else if (status === 2) statusName = "صادر خارجي";
+    else if (status === 3) statusName = "وارد خارجي";
     else status = "-";
     return statusName;
 });
 
-Vue.filter("flagColorCC", function(status) {
+
+
+
+
+
+
+
+
+
+Vue.filter("mail_state_inbox", function(status) {
     if (status === null) return "-";
     let statusName = "";
-    if (status === 1) statusName = "bg-yellow-400 text-black";
-    else if (status === 2) statusName = "bg-yellow-600 text-green-800";
-    else if (status === 3) statusName = "bg-green-500 text-black";
-    else if (status === 4) statusName = "bg-green-800 text-black";
+    if (status === 1) statusName = "border-blue-200 ";
+    else if (status === 2) statusName = "border-red-600 ";
+    else if (status === 3) statusName = "border-red-300 ";
+    else if (status === 4) statusName = "border-blue-800 ";
+    else if (status === 5) statusName = "border-yellow-800 ";
+    else if (status === 6) statusName = "border-green-800 ";
     return statusName;
 });
 
-
-Vue.filter("flagMassageOM", function(status) {
-    if (status === null) return "-";
-    let statusName = "";
-    if (status === 0) statusName = "لم ترسل";
-    else if (status === 1) statusName = "تم الارسال";
-    else if (status === 2) statusName = "تم عرض البريد";
-    else if (status === 3) statusName = "تم الرد";
-    else if (status === 4) statusName = "تم عرض الرد";
-    else status = "-";
-    return statusName;
-});
-
-Vue.filter("flagColorOM", function(status) {
-    if (status === null) return "-";
-    let statusName = "";
-    if (status === 0) statusName = "bg-yellow-400 text-black";
-    else if (status === 1) statusName = "bg-yellow-600 text-green-800";
-    else if (status === 2) statusName = "bg-yellow-800 text-black";
-    else if (status === 3) statusName = "bg-red-600 text-white";
-    else if (status === 4) statusName = "bg-green-800 text-black";
-    return statusName;
-});

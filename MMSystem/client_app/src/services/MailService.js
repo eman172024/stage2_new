@@ -70,6 +70,12 @@ export default {
 
 
 
+    read_it_mail(id, department_id) {
+        return axios.put(`/api/ExternalMails/read_it_mail?mail_id=${id}&department_Id=${department_id}`);
+    },
+
+
+
 
 
 

@@ -112,15 +112,15 @@ namespace MMSystem.Controllers
         {
 
             var c = await _re.GetMailState(mailid);
-            if (c != null)
+            if (c != 0)
                 return Ok(new {
                 flag=c
                 });
             return NotFound();
         }
 
-        [HttpPut("GetMailFlag")]
-        public async Task<IActionResult> GetMailFlag(int mail_id,int  department_Id)
+        [HttpPut("read_it_mail")]
+        public async Task<IActionResult> read_it_mail(int mail_id,int  department_Id)
 
         {
 
