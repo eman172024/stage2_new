@@ -47,10 +47,10 @@ namespace MMSystem.Controllers
 
 
         [HttpGet("GetMailInfo")]
-        public async Task<IActionResult> GetMailInfo(int mail_id, int Depa)
+        public async Task<IActionResult> GetMailInfo(int mail_id, int Department_Id, int type)
         {
 
-            var c = await _getMailServices.GetMail(mail_id,Depa);
+            var c = await _getMailServices.GetMail(mail_id, Department_Id, type);
             return Ok(c);
 
         }

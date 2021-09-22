@@ -21,14 +21,64 @@ namespace MMSystem.Services.MailServeic
            _mapper = mapper;
         }
 
-        public async Task<MVM> GetMail(int mail_id,int  department_Id)
+        public async Task<EMVM> GetExternalMail(int mail_id, int Depa,int type)
+        {
+            try
+            {
+
+                EMVM model = new EMVM();
+                //   Mail mail = await _dbCon.Mails.FindAsync(mail_id);
+                model.mail =await Getdto(mail_id, type);
+                External_Mail external_Mail = await _dbCon.External_Mails.OrderBy(x => x.ID).FirstOrDefaultAsync(x => x.MailID == mail_id);
+
+                model.External = _mapper.Map<External_Mail, ExternalDto>(external_Mail);
+                List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id).ToListAsync();
+                Send_to c = await _dbCon.Sends.Where(x => x.to == Depa && x.MailID == mail_id).FirstOrDefaultAsync();
+                model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
+                model.list = await(from x in _dbCon.Replies.Where(x => x.ReplyId == c.Id)
+                                   join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
+                                   select new RViewModel
+                                   {
+                                       reply = _mapper.Map<Reply, ReplayDto>(x),
+                                       Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(_dbCon.Reply_Resources.Where(x => x.ReplyId == x.ID).ToList())
+                                   }).ToListAsync();
+
+                foreach (var xx in model.mail_Resourcescs)
+                {
+                    string x = xx.path;
+                    xx.path = await tobase64(x);
+
+                }
+
+                foreach (var item in model.list)
+                {
+                    foreach (var item2 in item.Resources)
+                    {
+                        string x1 = item2.path;
+                        item2.path = await tobase64(x1);
+                    }
+                }
+
+
+                return model;
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<MVM> GetMail(int mail_id,int  department_Id,int tybe)
         {
             try
             {
 
                 MVM model = new MVM();
-                Mail mail = await _dbCon.Mails.FindAsync(mail_id);
-                model.mail = _mapper.Map<Mail, MailDto>(mail);
+
+                model.mail = await Getdto(mail_id, tybe);
                  List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id).ToListAsync();
                 Send_to c =  await _dbCon.Sends.Where(x => x.to == department_Id && x.MailID == mail_id).FirstOrDefaultAsync();
                 model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>,List<Mail_ResourcescsDto>>(mail_Resourcescs);
@@ -88,5 +138,43 @@ namespace MMSystem.Services.MailServeic
 
 
         }
+
+        public async Task<MailDto> Getdto(int id, int type)
+        {
+            try
+            {
+                MailDto dto1 = new MailDto();
+
+                switch (type)
+                {
+
+                    case 1:
+                        Mail mail = await _dbCon.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 1);
+                        dto1 = _mapper.Map<Mail, MailDto>(mail);
+
+                        break;
+                    case 2:
+                        Mail mail1 = await _dbCon.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 2);
+                        dto1 = _mapper.Map<Mail, MailDto>(mail1);
+
+                        break;
+                    case 3:
+                        Mail mail2 = await _dbCon.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 3);
+                        dto1 = _mapper.Map<Mail, MailDto>(mail2);
+                        break;
+                    default: break;
+
+                }
+
+
+                return dto1;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }
