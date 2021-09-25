@@ -14,7 +14,7 @@ namespace MMSystem.Services.MailServeic
 
         Task<string> tobase64(string patj);
 
-        Task<List<Mail_ResourcescsDto>> GetAllRes(int id)
+        Task<List<Mail_ResourcescsDto>> GetAllRes(int id);
 
 
     }

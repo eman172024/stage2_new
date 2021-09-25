@@ -82,7 +82,7 @@ namespace MMSystem.Services.MailServeic
                  List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id).ToListAsync();
                 Send_to c =  await _dbCon.Sends.Where(x => x.to == department_Id && x.MailID == mail_id).FirstOrDefaultAsync();
                 model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>,List<Mail_ResourcescsDto>>(mail_Resourcescs);
-              model.list = await (from x in _dbCon.Replies.Where(x => x.ReplyId == c.Id)
+              model.list = await (from x in _dbCon.Replies.Where(x => x.send_ToId == c.Id)
                                join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
                                select new RViewModel { 
                                reply=_mapper.Map<Reply,ReplayDto>(x),
@@ -191,7 +191,7 @@ namespace MMSystem.Services.MailServeic
                 List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id).ToListAsync();
                 Send_to c = await _dbCon.Sends.Where(x => x.to == Depa && x.MailID == mail_id).FirstOrDefaultAsync();
                 model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
-                model.list = await(from x in _dbCon.Replies.Where(x => x.ReplyId == c.Id)
+                model.list = await(from x in _dbCon.Replies.Where(x => x.send_ToId == c.Id)
                                    join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
                                    select new RViewModel
                                    {
@@ -219,6 +219,36 @@ namespace MMSystem.Services.MailServeic
                 return model;
 
 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<List<RViewModel>> GetResourse(int id)
+        {
+            try
+            {
+               List <RViewModel> list= await (from x in _dbCon.Replies.Where(x => x.send_ToId == id)
+                      join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
+                      select new RViewModel
+                      {
+                          reply = _mapper.Map<Reply, ReplayDto>(x),
+                          Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(_dbCon.Reply_Resources.Where(x => x.ReplyId == x.ID).ToList())
+                      }).ToListAsync();
+
+                foreach (var item in list)
+                {
+                    foreach (var item2 in item.Resources)
+                    {
+                        string x1 = item2.path;
+                        item2.path = await tobase64(x1);
+                    }
+                }
+
+                return list;
             }
             catch (Exception)
             {

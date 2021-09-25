@@ -2,6 +2,7 @@
 using MMSystem.Model;
 using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel;
+using MMSystem.Model.ViewModel.MailVModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,6 +18,8 @@ namespace MMSystem.Services.ReplayServeic
         Task<bool> AddResources(Reply_Resources resources);
 
         Task<bool> Upload(int id, List<IFormFile> listOfPhotes);
+
+        Task<List<RViewModel>> GetResourse(int id);
 
 
     }

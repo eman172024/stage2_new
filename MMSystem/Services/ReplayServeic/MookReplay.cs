@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MMSystem.Model;
 using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel;
+using MMSystem.Model.ViewModel.MailVModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -124,6 +125,7 @@ namespace MMSystem.Services.ReplayServeic
             Send_to send = await _data.Sends.FindAsync(model.send_ToId);
 
             if (send != null) {
+                
                 model.reply.send_ToId = model.send_ToId;
                 model.reply.Date = DateTime.Now;
                 model.reply.state = true;
@@ -314,5 +316,56 @@ namespace MMSystem.Services.ReplayServeic
 
         }
 
+        public async Task<List<RViewModel>> GetResourse(int id)
+        {
+            try
+            {
+                List<RViewModel> list = await(from x in _data.Replies.Where(x => x.send_ToId == id)
+                                              join y in _data.Reply_Resources on x.ReplyId equals y.ReplyId
+                                              select new RViewModel
+                                              {
+                                                  reply = _mapper.Map<Reply, ReplayDto>(x),
+                                                  Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(_data.Reply_Resources.Where(x => x.ReplyId == x.ID).ToList())
+                                              }).ToListAsync();
+
+                foreach (var item in list)
+                {
+                    foreach (var item2 in item.Resources)
+                    {
+                        string x1 = item2.path;
+                        item2.path = await tobase64(x1);
+                    }
+                }
+
+                return list;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+        public async Task<string> tobase64(string patj)
+        {
+
+            try
+            {
+                var attachmentType = System.IO.Path.GetExtension(patj);
+                var Type = attachmentType.Substring(1, attachmentType.Length - 1);
+                var filePath = System.IO.Path.Combine(patj);
+                byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+                var ImageBase64 = "data:image/" + Type + ";base64," + Convert.ToBase64String(fileBytes);
+                return ImageBase64;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
     }
 }

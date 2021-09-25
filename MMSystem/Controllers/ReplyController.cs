@@ -24,15 +24,15 @@ namespace MMSystem.Controllers
         private readonly IReplay _Replay ;
 
         [HttpPost("AddReply")]
-        public async Task<IActionResult> AddReply([FromBody] Reply  mail)
+        public async Task<IActionResult> AddReply([FromBody] ReplyViewModel  mail)
         {
-            var result = await _Replay.Add(mail);
+            var result = await _Replay.AddReplay(mail);
             if (result)
                 return Created("AddMail", new
                 {
                     message = "تمت العملية بنجاح",
                     statusCode = 201,
-                    ReplyId = mail.ReplyId
+                    ReplyId = mail.reply.ReplyId
                 }) ;
             return BadRequest(new Result()
             {
@@ -63,6 +63,18 @@ namespace MMSystem.Controllers
             List<ReplayDto> result = await _Replay.GetAllReplay(id);
             if(result.Count>0)
             return Ok(result);
+            return BadRequest(new Result()
+            {
+                message = "فشلت العملية",
+                statusCode = 400
+            });
+        }
+        [HttpGet("GetReplyWithRessourses/{id}")]
+        public async Task<IActionResult> GetReplyWithRessourses(int id)
+        {
+           var  result = await _Replay.GetResourse(id);
+            if (result.Count > 0)
+                return Ok(result);
             return BadRequest(new Result()
             {
                 message = "فشلت العملية",

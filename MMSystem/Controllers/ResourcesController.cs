@@ -31,6 +31,17 @@ namespace MMSystem.Controllers
             return NotFound("لايوجد صور ");
         }
 
+        // GetResourse
+
+        [HttpGet("GetMailReplyResources")]
+        public async Task<IActionResult> GetMailReplyResources(int id)
+        {
+
+            List<Mail_ResourcescsDto> list = await _resourcescs.GetAllRes(id);
+            if (list.Count > 0)
+                return Ok(list);
+            return NotFound("لايوجد صور ");
+        }
 
     }
 }
