@@ -25,8 +25,10 @@ namespace MMSystem.Controllers
         public async Task<IActionResult> GetMailResources(int id)
         {
 
-           List< Mail_ResourcescsDto >list = await _resourcescs.GetAll(id);
+           List< Mail_ResourcescsDto >list = await _resourcescs.GetAllRes(id);
+                if(list.Count>0)
             return Ok(list);
+            return NotFound("لايوجد صور ");
         }
 
 

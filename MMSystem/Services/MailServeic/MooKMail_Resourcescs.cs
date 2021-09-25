@@ -131,7 +131,28 @@ namespace MMSystem.Services.MailServeic
 
         }
 
+        public async Task<List<Mail_ResourcescsDto>> GetAllRes(int id)
+        {
+            try
+            {
+                var list = await GetAll(id);
+
+               foreach (var xx in list)
+               {
+                string x = xx.path;
+               xx.path = await tobase64(x);
+}
 
 
+                return list;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+        }
     }
 }

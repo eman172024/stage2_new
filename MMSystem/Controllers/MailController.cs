@@ -248,8 +248,8 @@ namespace MMSystem.Controllers
         }
 
 
-        [HttpGet("Get_Mail_resources")]
-        public async Task<IActionResult> Get_Mail_resources(int mail_id)
+        [HttpGet("GetMailStatuses")]
+        public async Task<IActionResult> GetMailStatuses(int mail_id)
         {
 
 

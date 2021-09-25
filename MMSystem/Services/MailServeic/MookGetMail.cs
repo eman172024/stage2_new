@@ -118,6 +118,7 @@ namespace MMSystem.Services.MailServeic
 
         }
 
+
         public async Task<string> tobase64(string patj)
         {
 
@@ -176,5 +177,54 @@ namespace MMSystem.Services.MailServeic
             }
         }
 
+        public async Task<EIMVM> GetExternalbox(int mail_id, int Depa, int type)
+        {
+            try
+            {
+
+                EIMVM model = new EIMVM();
+                //   Mail mail = await _dbCon.Mails.FindAsync(mail_id);
+                model.mail = await Getdto(mail_id, type);
+                Extrenal_inbox external_Mail = await _dbCon.Extrenal_Inboxes.OrderBy(x => x.Id).FirstOrDefaultAsync(x => x.MailID == mail_id);
+
+                model.Inbox = _mapper.Map<Extrenal_inbox, Extrenal_inboxDto>(external_Mail);
+                List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id).ToListAsync();
+                Send_to c = await _dbCon.Sends.Where(x => x.to == Depa && x.MailID == mail_id).FirstOrDefaultAsync();
+                model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
+                model.list = await(from x in _dbCon.Replies.Where(x => x.ReplyId == c.Id)
+                                   join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
+                                   select new RViewModel
+                                   {
+                                       reply = _mapper.Map<Reply, ReplayDto>(x),
+                                       Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(_dbCon.Reply_Resources.Where(x => x.ReplyId == x.ID).ToList())
+                                   }).ToListAsync();
+
+                foreach (var xx in model.mail_Resourcescs)
+                {
+                    string x = xx.path;
+                    xx.path = await tobase64(x);
+
+                }
+
+                foreach (var item in model.list)
+                {
+                    foreach (var item2 in item.Resources)
+                    {
+                        string x1 = item2.path;
+                        item2.path = await tobase64(x1);
+                    }
+                }
+
+
+                return model;
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
