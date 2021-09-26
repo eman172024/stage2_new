@@ -72,6 +72,10 @@ export default {
         return axios.get(`/api/WeatherForecast/GetMailInfo?mail_id=${id}&Department_Id=${department}&type=${type}`);
     },
 
+    GetAllDocuments(id) {
+        return axios.get(`/api/Resources/GetMailResources/${id}`);
+    },
+
 
     AddReply(ReplyViewModel) {
         return axios.post(`/api/Reply/AddReply`, ReplyViewModel)

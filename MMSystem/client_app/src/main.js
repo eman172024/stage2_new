@@ -10,6 +10,11 @@ import Pagination from 'vue-pagination-2';
 Vue.component('pagination', Pagination);
 
 
+import Print from 'vue-print-nb'
+// Global instruction 
+Vue.use(Print);
+
+
 import scanner from 'scanner.js'
 Vue.use(scanner)
 
