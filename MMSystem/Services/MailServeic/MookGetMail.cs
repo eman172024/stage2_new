@@ -154,6 +154,9 @@ namespace MMSystem.Services.MailServeic
                     case 1:
                         Mail mail = await _dbCon.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 1);
                         dto1 = _mapper.Map<Mail, MailDto>(mail);
+                        var dd= _dbCon.clasifications.FirstOrDefault(x=>x.Id==int .Parse(dto1.clasification));
+                        dto1.classification_name = dd.Name;
+                        
 
                         break;
                     case 2:
