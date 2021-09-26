@@ -154,7 +154,7 @@ namespace MMSystem.Services.MailServeic
                     case 1:
                         Mail mail = await _dbCon.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 1);
                         dto1 = _mapper.Map<Mail, MailDto>(mail);
-                        var dd= _dbCon.clasifications.FirstOrDefault(x=>x.Id==int .Parse(dto1.clasification));
+                        var dd=await  _dbCon.clasifications.OrderBy(x=>x.Id).FirstOrDefaultAsync(x=>x.Id==int .Parse(dto1.clasification));
                         dto1.classification_name = dd.Name;
                         
 
@@ -162,11 +162,16 @@ namespace MMSystem.Services.MailServeic
                     case 2:
                         Mail mail1 = await _dbCon.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 2);
                         dto1 = _mapper.Map<Mail, MailDto>(mail1);
+                        var clasification =await _dbCon.clasifications.OrderBy(x=>x.Id).FirstOrDefaultAsync(x => x.Id == int.Parse(dto1.clasification));
+                        dto1.classification_name = clasification.Name;
 
                         break;
                     case 3:
                         Mail mail2 = await _dbCon.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 3);
                         dto1 = _mapper.Map<Mail, MailDto>(mail2);
+                        var clasificationx =await _dbCon.clasifications.OrderBy(x=>x.Id).FirstOrDefaultAsync(x => x.Id == int.Parse(dto1.clasification));
+                        dto1.classification_name = clasificationx.Name;
+
                         break;
                     default: break;
 
