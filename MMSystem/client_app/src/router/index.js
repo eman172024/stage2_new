@@ -64,7 +64,7 @@ const routes = [{
     },
 
     {
-        path: "/inbox/:mail",
+        path: "/inbox/:mail/:department/:type/:sends_id",
         name: "inbox-show",
         // route level code-splitting
         // this generates a separate chunk (dashboard.[hash].js) for this route

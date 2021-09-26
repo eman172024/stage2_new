@@ -68,6 +68,19 @@ export default {
         // return axios.get(`api/ExternalMails/GetIncomingMail?userid=1&mailNumType=1&mangment=2&pagenum=1&size=1`);  
     },
 
+    GetInboxMailById(id, department, type) {
+        return axios.get(`/api/WeatherForecast/GetMailInfo?mail_id=${id}&Department_Id=${department}&type=${type}`);
+    },
+
+
+    AddReply(ReplyViewModel) {
+        return axios.post(`/api/Reply/AddReply`, ReplyViewModel)
+    },
+
+    AddReplyDocument(ReplyViewModel) {
+        return axios.post(`/api/Reply/Uplode`, ReplyViewModel)
+    },
+
 
 
     read_it_mail(id, department_id) {

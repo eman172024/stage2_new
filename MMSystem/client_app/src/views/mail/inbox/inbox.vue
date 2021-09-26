@@ -319,7 +319,7 @@
 
                                     <div class="w-1/9 flex justify-between items-center">
                                         <div class="w-1/3 flex justify-center items-center">
-                                            <router-link title="عرض التفصيل" :to="{ name: 'inbox-show', params: { mail: mail.mail_id, type:mail.type_of_mail },}"  class="">
+                                            <router-link title="عرض التفصيل" :to="{ name: 'inbox-show', params: { mail: mail.mail_id, department:my_department_id, type:mail.type_of_mail, sends_id:mail.sends_id },}"  class="">
                                                 <svg class="w-5 h-5 fill-current hover:text-green-500" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 18.453 18.453"  xml:space="preserve">
                                                     <rect x="2.711" y="4.058" width="8.23" height="1.334"/>
                                                     <path d="M14.972,14.088c0.638-1.127,0.453-2.563-0.475-3.49c-0.549-0.549-1.279-0.852-2.058-0.852

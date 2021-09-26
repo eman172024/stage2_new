@@ -21,3 +21,40 @@ Vue.filter("mail_state_inbox", function(status) {
     else if (status === 6) statusName = "border-green-800 ";
     return statusName;
 });
+
+
+
+
+Vue.filter("mail_forwarding_sector_side_filter", function(status) {
+    if (status === null) return "-";
+    let statusName = "";
+    if (status === 1) statusName = "فروع الرقابة";
+    else if (status === 2) statusName = "جهات عامة";
+    else if (status === 3) statusName = "جهات خاصة";
+    return statusName;
+});
+
+
+Vue.filter("ward_to_filter", function(status) {
+    if (status === null) return "-";
+    let statusName = "";
+    if (status === 1) statusName = "رئيس الهيئة";
+    else if (status === 2) statusName = "وكيل الهيئة";
+    return statusName;
+});
+
+Vue.filter("mail_ward_type_filter", function(status) {
+    if (status === null) return "-";
+    let statusName = "";
+    if (status === 1) statusName = "مباشرة";
+    else if (status === 2) statusName = "صورة";
+    return statusName;
+});
+
+Vue.filter("procedure_type_filter", function(status) {
+    if (status === null) return "-";
+    let statusName = "";
+    if (status === 1) statusName = "لم تعرض";
+    else if (status === 2) statusName = "عرضت";
+    return statusName;
+});

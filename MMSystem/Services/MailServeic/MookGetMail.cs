@@ -38,11 +38,11 @@ namespace MMSystem.Services.MailServeic
                 Send_to c = await _dbCon.Sends.Where(x => x.to == Depa && x.MailID == mail_id).FirstOrDefaultAsync();
                 model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
                 model.list = await(from x in _dbCon.Replies.Where(x => x.ReplyId == c.Id)
-                                   join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
+                                  
                                    select new RViewModel
                                    {
                                        reply = _mapper.Map<Reply, ReplayDto>(x),
-                                       Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(_dbCon.Reply_Resources.Where(x => x.ReplyId == x.ID).ToList())
+                                      Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(_dbCon.Reply_Resources.Where(x => x.ReplyId == x.ID).ToList())
                                    }).ToListAsync();
 
                 foreach (var xx in model.mail_Resourcescs)
@@ -85,10 +85,10 @@ namespace MMSystem.Services.MailServeic
                 Send_to c =  await _dbCon.Sends.Where(x => x.to == department_Id && x.MailID == mail_id).FirstOrDefaultAsync();
                 model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>,List<Mail_ResourcescsDto>>(mail_Resourcescs);
               model.list = await (from x in _dbCon.Replies.Where(x => x.send_ToId == c.Id)
-                               join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
+                             //  join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
                                select new RViewModel { 
                                reply=_mapper.Map<Reply,ReplayDto>(x),
-                               Resources=_mapper.Map<List<Reply_Resources>,List<Reply_ResourcesDto>>(  _dbCon.Reply_Resources.Where(x=>x.ReplyId==x.ID).ToList())
+                             Resources=_mapper.Map<List<Reply_Resources>,List<Reply_ResourcesDto>>(  _dbCon.Reply_Resources.Where(x=>x.ReplyId==x.ID).ToList())
                                }).ToListAsync();
 
                 foreach (var xx in model.mail_Resourcescs)
@@ -196,11 +196,11 @@ namespace MMSystem.Services.MailServeic
                 Send_to c = await _dbCon.Sends.Where(x => x.to == Depa && x.MailID == mail_id).FirstOrDefaultAsync();
                 model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
                 model.list = await(from x in _dbCon.Replies.Where(x => x.send_ToId == c.Id)
-                                   join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
+                                 //  join y in _dbCon.Reply_Resources.Where(x=>x.ReplyId==x.ID)
                                    select new RViewModel
                                    {
                                        reply = _mapper.Map<Reply, ReplayDto>(x),
-                                       Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(_dbCon.Reply_Resources.Where(x => x.ReplyId == x.ID).ToList())
+                                      Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(_dbCon.Reply_Resources.Where(x => x.ReplyId == x.ID).ToList())
                                    }).ToListAsync();
 
                 foreach (var xx in model.mail_Resourcescs)

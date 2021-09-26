@@ -694,7 +694,7 @@
                                         type="radio"
                                         name="ward_to"
                                         class="h-4 w-4"
-                                        value="3"
+                                        value="2"
                                     />
                                     <label
                                         for="proxy"
