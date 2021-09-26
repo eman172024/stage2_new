@@ -21,6 +21,8 @@ namespace MMSystem.Model.Dto
         public bool is_send { get; set; }
         public int mail_year { get; set; }
 
+        public string classification_name { get; set; }
+
 
 
     }
