@@ -93,6 +93,17 @@ const routes = [{
     },
 
 
+    {
+        path: "/sent/:mail/:type",
+        name: "sent-show",
+        // route level code-splitting
+        // this generates a separate chunk (mail.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import ( /* webpackChunkName: "mail" */ "../views/mail/sent/sent_form.vue"),
+    },
+
+
 
 
 
