@@ -58,16 +58,16 @@ namespace MMSystem.Controllers
             });
         }
         [HttpGet("GetReplyById")]
-        public async Task<IActionResult> GetAllReplay(int department_id,int mail_id)
+        public async Task<IActionResult> GetReplyById(int department_id,int mail_id)
         {
             List<ReplayDto> result = await _Replay.GetAllReplay(department_id,mail_id);
-            if(result.Count>0)
+           
             return Ok(result);
-            return BadRequest(new Result()
-            {
-                message = "فشلت العملية",
-                statusCode = 400
-            });
+            //return BadRequest(new Result()
+            //{
+            //    message = "فشلت العملية",
+            //    statusCode = 400
+            //});
         }
         [HttpGet("GetReplyWithRessourses/{id}")]
         public async Task<IActionResult> GetReplyWithRessourses(int id)

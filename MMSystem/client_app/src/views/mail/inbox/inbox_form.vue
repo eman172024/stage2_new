@@ -16,8 +16,8 @@
               <div class="float-left text-base font-semibold text-gray-800">
                 رقم الرسالة
                 <span class="mr-4 underline font-bold text-2xl">
-                         {{mailId}} - {{department_Id}} - {{mail_year}}
-                    </span>
+                  {{ mailId }} - {{ department_Id }} - {{ mail_year }}
+                </span>
               </div>
             </div>
 
@@ -225,62 +225,132 @@
                     </h3>
                   </div>
 
-                    <div class="relative h-64 w-full " v-if="testimage" >
+                  <div class="relative h-64 w-full " v-if="testimage">
+                    <img
+                      :src="testimage"
+                      alt="image"
+                      class="w-full h-full rounded object-contain"
+                    />
 
-                        <img :src="testimage" alt="image" class="w-full h-full rounded object-contain">
+                    <div
+                      class="absolute inset-0 flex justify-center items-center"
+                    >
+                      <button
+                        type="button"
+                        class="bg-green-600 hover:bg-green-500 duration-500 p-2 rounded-full focus:outline-none"
+                      >
+                        <svg
+                          class="w-4 h-4 text-white  mx-auto"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+                          ></path>
+                        </svg>
+                      </button>
 
-                        <div class="absolute inset-0 flex justify-center items-center">
+                      <button
+                        type="button"
+                        class="bg-blue-600 hover:bg-blue-500 duration-500 p-2 rounded-full focus:outline-none mx-4"
+                      >
+                        <svg
+                          class="w-4 h-4 text-white  mx-auto"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
+                          ></path>
+                        </svg>
+                      </button>
 
-                            <button type="button" class="bg-green-600 hover:bg-green-500 duration-500 p-2 rounded-full focus:outline-none">
-                                <svg class="w-4 h-4 text-white  mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
-                            </button>
-
-                            <button type="button" class="bg-blue-600 hover:bg-blue-500 duration-500 p-2 rounded-full focus:outline-none mx-4">
-                                <svg class="w-4 h-4 text-white  mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                            </button>
-
-                            <button
-                                type="button"
-                                class="bg-red-600 hover:bg-red-500 duration-500 p-2 rounded-full focus:outline-none"
-                                @click="deleteDocument(image.id, index)"
-                                >
-                                <svg
-                                    class="w-4 h-4 text-white fill-current mx-auto"
-                                    height="427pt"
-                                    viewBox="-40 0 427 427.00131"
-                                    width="427pt"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                    d="m232.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
-                                    />
-                                    <path
-                                    d="m114.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
-                                    />
-                                    <path
-                                    d="m28.398438 127.121094v246.378906c0 14.5625 5.339843 28.238281 14.667968 38.050781 9.285156 9.839844 22.207032 15.425781 35.730469 15.449219h189.203125c13.527344-.023438 26.449219-5.609375 35.730469-15.449219 9.328125-9.8125 14.667969-23.488281 14.667969-38.050781v-246.378906c18.542968-4.921875 30.558593-22.835938 28.078124-41.863282-2.484374-19.023437-18.691406-33.253906-37.878906-33.257812h-51.199218v-12.5c.058593-10.511719-4.097657-20.605469-11.539063-28.03125-7.441406-7.421875-17.550781-11.5546875-28.0625-11.46875h-88.796875c-10.511719-.0859375-20.621094 4.046875-28.0625 11.46875-7.441406 7.425781-11.597656 17.519531-11.539062 28.03125v12.5h-51.199219c-19.1875.003906-35.394531 14.234375-37.878907 33.257812-2.480468 19.027344 9.535157 36.941407 28.078126 41.863282zm239.601562 279.878906h-189.203125c-17.097656 0-30.398437-14.6875-30.398437-33.5v-245.5h250v245.5c0 18.8125-13.300782 33.5-30.398438 33.5zm-158.601562-367.5c-.066407-5.207031 1.980468-10.21875 5.675781-13.894531 3.691406-3.675781 8.714843-5.695313 13.925781-5.605469h88.796875c5.210937-.089844 10.234375 1.929688 13.925781 5.605469 3.695313 3.671875 5.742188 8.6875 5.675782 13.894531v12.5h-128zm-71.199219 32.5h270.398437c9.941406 0 18 8.058594 18 18s-8.058594 18-18 18h-270.398437c-9.941407 0-18-8.058594-18-18s8.058593-18 18-18zm0 0"
-                                    />
-                                    <path
-                                    d="m173.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
-                                    />
-                                </svg>
-                            </button>
-                        
-                        </div>
-
+                      <button
+                        type="button"
+                        class="bg-red-600 hover:bg-red-500 duration-500 p-2 rounded-full focus:outline-none"
+                        @click="deleteDocument(image.id, index)"
+                      >
+                        <svg
+                          class="w-4 h-4 text-white fill-current mx-auto"
+                          height="427pt"
+                          viewBox="-40 0 427 427.00131"
+                          width="427pt"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="m232.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
+                          />
+                          <path
+                            d="m114.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
+                          />
+                          <path
+                            d="m28.398438 127.121094v246.378906c0 14.5625 5.339843 28.238281 14.667968 38.050781 9.285156 9.839844 22.207032 15.425781 35.730469 15.449219h189.203125c13.527344-.023438 26.449219-5.609375 35.730469-15.449219 9.328125-9.8125 14.667969-23.488281 14.667969-38.050781v-246.378906c18.542968-4.921875 30.558593-22.835938 28.078124-41.863282-2.484374-19.023437-18.691406-33.253906-37.878906-33.257812h-51.199218v-12.5c.058593-10.511719-4.097657-20.605469-11.539063-28.03125-7.441406-7.421875-17.550781-11.5546875-28.0625-11.46875h-88.796875c-10.511719-.0859375-20.621094 4.046875-28.0625 11.46875-7.441406 7.425781-11.597656 17.519531-11.539062 28.03125v12.5h-51.199219c-19.1875.003906-35.394531 14.234375-37.878907 33.257812-2.480468 19.027344 9.535157 36.941407 28.078126 41.863282zm239.601562 279.878906h-189.203125c-17.097656 0-30.398437-14.6875-30.398437-33.5v-245.5h250v245.5c0 18.8125-13.300782 33.5-30.398438 33.5zm-158.601562-367.5c-.066407-5.207031 1.980468-10.21875 5.675781-13.894531 3.691406-3.675781 8.714843-5.695313 13.925781-5.605469h88.796875c5.210937-.089844 10.234375 1.929688 13.925781 5.605469 3.695313 3.671875 5.742188 8.6875 5.675782 13.894531v12.5h-128zm-71.199219 32.5h270.398437c9.941406 0 18 8.058594 18 18s-8.058594 18-18 18h-270.398437c-9.941407 0-18-8.058594-18-18s8.058593-18 18-18zm0 0"
+                          />
+                          <path
+                            d="m173.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
+                          />
+                        </svg>
+                      </button>
                     </div>
+                  </div>
 
-                    <div v-if="testimage" class="flex justify-between items-center mt-4">
-                        <button @click="previousImage()" class="w-12 h-8 bg-gray-300 rounded flex justify-center items-center">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </button>
-                            {{indextotest +1}} /  {{ imagesToShow.length }}
-                            <!--  -->
+                  <div
+                    v-if="testimage"
+                    class="flex justify-between items-center mt-4"
+                  >
+                    <button
+                      @click="previousImage()"
+                      class="w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
+                    >
+                      <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 5l7 7-7 7"
+                        ></path>
+                      </svg>
+                    </button>
+                    {{ indextotest + 1 }} / {{ imagesToShow.length }}
+                    <!--  -->
 
-                            <button title="next" @click="nextImage()" class="w-12 h-8 bg-gray-300 rounded flex justify-center items-center">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                        </button>
-                    </div>
+                    <button
+                      title="next"
+                      @click="nextImage()"
+                      class="w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
+                    >
+                      <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M15 19l-7-7 7-7"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
 
                   <!-- <div class="h-72 w-full bg-gray-100 rounded-md mt-4">
                     <div
@@ -391,7 +461,10 @@
                       p-2
                     "
                   >
-                    {{ mail_forwarding_sector_side | mail_forwarding_sector_side_filter }}
+                    {{
+                      mail_forwarding_sector_side
+                        | mail_forwarding_sector_side_filter
+                    }}
                   </div>
                 </div>
 
@@ -588,7 +661,7 @@
                 </p>
 
                 <div
-                    id="scroll"
+                  id="scroll"
                   class="
                     h-72
                     overflow-y-scroll
@@ -598,9 +671,22 @@
                     border border-gray-300
                   "
                 >
-                  <div v-for="reply in replies" :key="reply.replyId" :class="reply.reply.to == my_department_id ? 'justify-start' : 'justify-end' " class="w-full my-2 flex px-4">
+                  <div
+                    v-for="reply in replies"
+                    :key="reply.replyId"
+                    :class="
+                      reply.reply.to == my_department_id
+                        ? 'justify-start'
+                        : 'justify-end'
+                    "
+                    class="w-full my-2 flex px-4"
+                  >
                     <div
-                        :class="reply.reply.to == my_department_id ? 'bg-blue-700' : 'bg-gray-700' "
+                      :class="
+                        reply.reply.to == my_department_id
+                          ? 'bg-blue-700'
+                          : 'bg-gray-700'
+                      "
                       class="
                         
                         text-white
@@ -614,8 +700,6 @@
                       {{ reply.reply.mail_detail }}
                     </div>
                   </div>
-
-                 
                 </div>
 
                 <div class="flex justify-between items-center mt-4">
@@ -747,7 +831,7 @@
                   </div> -->
                   <div class="w-2/12 mr-4">
                     <button
-                        @click="AddReply()"
+                      @click="AddReply()"
                       class="
                         w-full
                         flex
@@ -809,11 +893,8 @@
         <svgLoadingComponent></svgLoadingComponent>
       </div>
     </div>
-
   </div>
 </template>
-
-
 
 <script
   type="text/javascript"
@@ -847,8 +928,6 @@ export default {
       this.getMailById();
     } else {
     }
-
-    
   },
 
   components: {
@@ -859,10 +938,10 @@ export default {
 
   data() {
     return {
-        testimage:'',
-        indextotest: 0,
+      testimage: "",
+      indextotest: 0,
 
-        reply_to_add: "",
+      reply_to_add: "",
       to_test_passing_mail_type: "",
 
       my_user_id: "",
@@ -929,11 +1008,10 @@ export default {
       loading: false,
       screenFreeze: false,
 
-      replies:[],
+      replies: [],
     };
   },
   methods: {
-
     getMailById() {
       this.$http.mailService
         .GetInboxMailById(
@@ -942,72 +1020,71 @@ export default {
           this.to_test_passing_mail_type
         )
         .then((res) => {
-            this.mail_Number = res.data.mail.mail_Number;
-            this.department_Id = res.data.mail.department_Id;
-            this.mail_year = res.data.mail.mail_year;
+          this.mail_Number = res.data.mail.mail_Number;
+          this.department_Id = res.data.mail.department_Id;
+          this.mail_year = res.data.mail.mail_year;
 
-            this.releaseDate = res.data.mail.date_Of_Mail;
-            this.summary = res.data.mail.mail_Summary;
-            this.classification = res.data.mail.clasification;
-            this.mailType = res.data.mail.mail_Type;
-            this.general_incoming_number = res.data.mail.genaral_inbox_Number;
-            this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
-            this.required_action = res.data.mail.action_Required;
+          this.releaseDate = res.data.mail.date_Of_Mail;
+          this.summary = res.data.mail.mail_Summary;
+          this.classification = res.data.mail.clasification;
+          this.mailType = res.data.mail.mail_Type;
+          this.general_incoming_number = res.data.mail.genaral_inbox_Number;
+          this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
+          this.required_action = res.data.mail.action_Required;
 
-            this.replies = res.data.list
+          this.replies = res.data.list;
 
-            setTimeout(() => {
-                document.getElementById('scroll').scrollTop =  document.getElementById('scroll').scrollHeight
-            }, 100);
+          setTimeout(() => {
+            document.getElementById(
+              "scroll"
+            ).scrollTop = document.getElementById("scroll").scrollHeight;
+          }, 100);
 
-            this.consignees = res.data.actionSenders;
+          this.consignees = res.data.actionSenders;
 
-            this.imagesToShow = res.data.mail_Resourcescs;
+          this.imagesToShow = res.data.mail_Resourcescs;
 
-            if (this.imagesToShow.length > 0) {
-            
-                this.testimage = this.imagesToShow[0].path;
-            }
+          if (this.imagesToShow.length > 0) {
+            this.testimage = this.imagesToShow[0].path;
+          }
 
-            if (this.to_test_passing_mail_type == "2") {
-                this.external_mailId = res.data.external.id;
+          if (this.to_test_passing_mail_type == "2") {
+            this.external_mailId = res.data.external.id;
 
-                this.action_required_by_the_entity =
-                res.data.external.action_required_by_the_entity;
+            this.action_required_by_the_entity =
+              res.data.external.action_required_by_the_entity;
 
-                this.mail_forwarding = res.data.external.action;
+            this.mail_forwarding = res.data.external.action;
 
-                this.mail_forwarding_sector_side = res.data.sector.type;
+            this.mail_forwarding_sector_side = res.data.sector.type;
 
-                this.sectorNameSelected = res.data.sector.section_Name;
+            this.sectorNameSelected = res.data.sector.section_Name;
 
-                this.sideNameSelected = res.data.side.section_Name;
-            }
-            if (this.to_test_passing_mail_type == "3") {
-            
-                this.external_mailId = res.data.inbox.id;
+            this.sideNameSelected = res.data.side.section_Name;
+          }
+          if (this.to_test_passing_mail_type == "3") {
+            this.external_mailId = res.data.inbox.id;
 
-                this.mail_forwarding = res.data.inbox.action;
+            this.mail_forwarding = res.data.inbox.action;
 
-                this.mail_forwarding_sector_side = res.data.sector.type;
+            this.mail_forwarding_sector_side = res.data.sector.type;
 
-                this.sectorNameSelected = res.data.sector.section_Name;
+            this.sectorNameSelected = res.data.sector.section_Name;
 
-                this.sideNameSelected = res.data.side.section_Name;
+            this.sideNameSelected = res.data.side.section_Name;
 
-                this.ward_to = res.data.inbox.to;
+            this.ward_to = res.data.inbox.to;
 
-                this.mail_ward_type = res.data.inbox.type;
+            this.mail_ward_type = res.data.inbox.type;
 
-                this.entity_mail_date = res.data.inbox.send_time;
+            this.entity_mail_date = res.data.inbox.send_time;
 
-                this.entity_reference_number =
-                res.data.inbox.entity_reference_number;
+            this.entity_reference_number =
+              res.data.inbox.entity_reference_number;
 
-                this.procedure_type = res.data.inbox.procedure_type;
-            }
+            this.procedure_type = res.data.inbox.procedure_type;
+          }
 
-            
           //   this.GetDocmentForMail();
           //   this.GetDocmentForMailToShow();
 
@@ -1018,19 +1095,19 @@ export default {
         });
     },
 
-    previousImage(){
-            if ( this.indextotest > 0 ) {
-                this.indextotest--
-                this.testimage = this.imagesToShow[this.indextotest].path
-            }  
-        },
+    previousImage() {
+      if (this.indextotest > 0) {
+        this.indextotest--;
+        this.testimage = this.imagesToShow[this.indextotest].path;
+      }
+    },
 
-        nextImage(){
-            if ( this.indextotest < this.imagesToShow.length-1 ) {
-                this.indextotest++
-                this.testimage = this.imagesToShow[this.indextotest].path
-            }
-        },
+    nextImage() {
+      if (this.indextotest < this.imagesToShow.length - 1) {
+        this.indextotest++;
+        this.testimage = this.imagesToShow[this.indextotest].path;
+      }
+    },
 
     scanToJpg() {
       scanner.scan(this.displayImagesOnPage, {
@@ -1075,56 +1152,47 @@ export default {
         });
       }
 
-
-      this.AddReplyDocument()
+      this.AddReplyDocument();
     },
 
-    AddReplyDocument(){
-        console.log("Ayoub")
+    AddReplyDocument() {
+      console.log("Ayoub");
     },
-
 
     AddReply() {
-            
-            this.screenFreeze = true;
-            this.loading = true;
+      this.screenFreeze = true;
+      this.loading = true;
 
-                var ReplyViewModel = {
-                    "send_ToId": Number(this.sends_id),
-                    "reply": {
-                        "mail_detail": this.reply_to_add,
-                        "To": Number(this.my_department_id)
-                    },
-                }
-            this.$http.mailService
-                .AddReply(ReplyViewModel)
-                .then((res) => {
-                    setTimeout(() => {
-                        console.log(res)
-                        // this.documentSection = true;
-                        // this.proceduresSection = true;
-
-                        this.loading = false;
-                        this.screenFreeze = false;
-                        
-                        this.reply_to_add = '';
-                        this.getMailById()
-
-                       
-
-                       
-
-                    }, 500);
-                })
-                .catch((err) => {
-                    setTimeout(() => {
-                        this.loading = false;
-                        this.screenFreeze = false;
-                        
-                    }, 500);
-                });
+      var ReplyViewModel = {
+        send_ToId: Number(this.sends_id),
+        reply: {
+          mail_detail: this.reply_to_add,
+          To: Number(this.my_department_id),
+          from: Number(2),
         },
+      };
+      this.$http.mailService
+        .AddReply(ReplyViewModel)
+        .then((res) => {
+          setTimeout(() => {
+            console.log(res);
+            // this.documentSection = true;
+            // this.proceduresSection = true;
 
+            this.loading = false;
+            this.screenFreeze = false;
+
+            this.reply_to_add = "";
+            this.getMailById();
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+        });
+    },
   },
 };
 </script>

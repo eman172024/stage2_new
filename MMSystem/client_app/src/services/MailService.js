@@ -100,6 +100,11 @@ export default {
     },
 
 
+    GetReplyByDepartment(department, mail) {
+        return axios.get(`/api/Reply/GetReplyById?department_id=${department}&mail_id=${mail}`);
+    },
+
+
 
 
 
