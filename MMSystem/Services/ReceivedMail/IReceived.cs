@@ -84,7 +84,10 @@ namespace MMSystem.Services.ReceivedMail
           int? Measure_filter, int? Department_filter, int? Classfication, int? mail_state, int? genral_incoming_num);
          Task<int> GetMailState(int mailid);
 
+       
+
         Task<int> GetFlag(int mail_id, int department_Id);
+      //  Task<MailState> GetNamOfState(int flag);
 
     }
 }

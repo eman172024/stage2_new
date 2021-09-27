@@ -95,6 +95,10 @@ export default {
         // return axios.get(`api/ExternalMails/GetIncomingMail?userid=1&mailNumType=1&mangment=2&pagenum=1&size=1`);  
     },
 
+    GetSentMailById(id, type) {
+        return axios.get(`/api/Mail/GetMailById?id=${id}&type=${type}`);
+    },
+
 
 
 
