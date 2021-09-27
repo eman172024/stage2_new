@@ -39,7 +39,7 @@ namespace MMSystem.Services.ReceivedMail
                 bool State_filter = false;
                 // myday = day.Date;
 
-                if(genral_incoming_num == null)
+                if (genral_incoming_num == null)
                 {
                     incoing_num_filter = true;
                 }
@@ -177,7 +177,7 @@ namespace MMSystem.Services.ReceivedMail
                 var c = await (from mail in dbcon.Mails.Where(x => (x.Department_Id == mangment &&
                                            x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) &&
-                                           (x.clasification == Classfication || clasf_filter == true) && 
+                                           (x.clasification == Classfication || clasf_filter == true) &&
                                            (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true)).OrderByDescending(x => x.MailID)
 
                                    //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
@@ -187,6 +187,7 @@ namespace MMSystem.Services.ReceivedMail
                                on mail.MailID equals ex.MailID
                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                               join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
                                //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
@@ -195,7 +196,7 @@ namespace MMSystem.Services.ReceivedMail
                                select new Sended_Maill()
                                {
                                    mail_id = mail.MailID,
-                                   State =GetNamOfState(ex.flag),
+                                   State = z.sent,
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -213,7 +214,7 @@ namespace MMSystem.Services.ReceivedMail
                 pag.mail = await (from mail in dbcon.Mails.Where(x => (x.Department_Id == mangment &&
               x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && (x.clasification == Classfication || clasf_filter == true)
-              && (x.Genaral_inbox_Number== genral_incoming_num || incoing_num_filter == true)).OrderByDescending(x => x.MailID)
+              && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true)).OrderByDescending(x => x.MailID)
 
                                       //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                   join ex in dbcon.Sends.Where(x => (x.flag != 0) &&
@@ -222,6 +223,7 @@ namespace MMSystem.Services.ReceivedMail
                                   on mail.MailID equals ex.MailID
                                   join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                   join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                                  join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
                                   //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
@@ -230,7 +232,7 @@ namespace MMSystem.Services.ReceivedMail
                                   select new Sended_Maill()
                                   {
                                       mail_id = mail.MailID,
-                                      State = GetNamOfState(ex.flag),
+                                      State = z.sent,
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -420,7 +422,7 @@ namespace MMSystem.Services.ReceivedMail
                                on mail.MailID equals ex.MailID
                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
-
+                               join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
                                //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
 
@@ -428,7 +430,7 @@ namespace MMSystem.Services.ReceivedMail
                                select new Sended_Maill()
                                {
                                    mail_id = mail.MailID,
-                                   State = "",
+                                   State = z.inbox,
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -454,7 +456,7 @@ namespace MMSystem.Services.ReceivedMail
                                   on mail.MailID equals ex.MailID
                                   join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                   join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
-
+                                  join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
                                   //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
 
@@ -462,7 +464,7 @@ namespace MMSystem.Services.ReceivedMail
                                   select new Sended_Maill()
                                   {
                                       mail_id = mail.MailID,
-                                      State = "",
+                                      State = z.inbox,
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -529,7 +531,8 @@ namespace MMSystem.Services.ReceivedMail
            Department_filter, Classfication, mail_state);
                         d = c0;
                         break;
-                    } else if (role_id.Any(x => x.RoleId == 17))
+                    }
+                    else if (role_id.Any(x => x.RoleId == 17))
                     {
                         mail_type = 1;
                         var a = await GetIncomingRecevidMail(myday, daycheck, mailnum_bool,
@@ -539,7 +542,8 @@ namespace MMSystem.Services.ReceivedMail
            Measure_filter, Department_filter, Classfication, mail_state);
                         d = a;
                         break;
-                    } else if (role_id.Any(x => x.RoleId == 19))
+                    }
+                    else if (role_id.Any(x => x.RoleId == 19))
                     {
                         mail_type = 2;
 
@@ -550,7 +554,8 @@ namespace MMSystem.Services.ReceivedMail
            Measure_filter, Department_filter, Classfication, mail_state);
                         d = a2;
                         break;
-                    } else if (role_id.Any(x => x.RoleId == 18))
+                    }
+                    else if (role_id.Any(x => x.RoleId == 18))
                     {
 
                         mail_type = 3;
@@ -647,7 +652,7 @@ namespace MMSystem.Services.ReceivedMail
                 // myday = day.Date;
 
 
-                if(genral_incoming_num == null)
+                if (genral_incoming_num == null)
                 {
                     incoing_num_filter = true;
 
@@ -789,7 +794,7 @@ namespace MMSystem.Services.ReceivedMail
                                            x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
                                            (x.clasification == Classfication || clasf_filter == true)
-                                           &&(x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true)).OrderByDescending(x => x.MailID)
+                                           && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true)).OrderByDescending(x => x.MailID)
 
                                join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                join ex in dbcon.Sends.Where(x => (x.flag != 0) &&
@@ -798,6 +803,7 @@ namespace MMSystem.Services.ReceivedMail
                                on mail.MailID equals ex.MailID
                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                               join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
                                //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
@@ -806,7 +812,7 @@ namespace MMSystem.Services.ReceivedMail
                                select new ExtarnelinboxViewModel()
                                {
                                    mail_id = mail.MailID,
-                                   State = "",
+                                   State = z.sent,
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -835,6 +841,7 @@ namespace MMSystem.Services.ReceivedMail
                                   on mail.MailID equals ex.MailID
                                   join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                   join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                                  join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
                                   //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
@@ -843,7 +850,7 @@ namespace MMSystem.Services.ReceivedMail
                                   select new ExtarnelinboxViewModel()
                                   {
                                       mail_id = mail.MailID,
-                                      State = "",
+                                      State = z.sent,
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -883,7 +890,7 @@ namespace MMSystem.Services.ReceivedMail
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
            int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
            Typeof_send, int? mail_type, string? replaytext, int? userid, int pagenum, int size, int? Measure_filter,
-           int? Department_filter, int? Classfication, int? mail_state , int? genral_incoming_num)
+           int? Department_filter, int? Classfication, int? mail_state, int? genral_incoming_num)
         {
             try
             {
@@ -1053,6 +1060,7 @@ namespace MMSystem.Services.ReceivedMail
                                on mail.MailID equals ex.MailID
                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                               join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
                                //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
@@ -1061,7 +1069,7 @@ namespace MMSystem.Services.ReceivedMail
                                select new ExtarnelinboxViewModel()
                                {
                                    mail_id = mail.MailID,
-                                   State = GetNamOfState(ex.flag),
+                                   State = z.sent,
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -1090,6 +1098,7 @@ namespace MMSystem.Services.ReceivedMail
                                   on mail.MailID equals ex.MailID
                                   join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                   join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                                  join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
                                   //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
@@ -1098,7 +1107,7 @@ namespace MMSystem.Services.ReceivedMail
                                   select new ExtarnelinboxViewModel()
                                   {
                                       mail_id = mail.MailID,
-                                      State = GetNamOfState(ex.flag),
+                                      State = z.sent,
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -1147,11 +1156,12 @@ namespace MMSystem.Services.ReceivedMail
                 var c2 = await (from mail in dbcon.Mails.Where(x => x.Department_Id == depid && x.Mail_Type == 2)
                                 join y in dbcon.Sends.Where(n => n.flag != 0) on mail.MailID equals y.MailID
                                 join Extr in dbcon.External_Mails on mail.MailID equals Extr.MailID
+                                join z in dbcon.MailStatuses.Where(x => x.state == true) on y.flag equals z.flag
 
                                 select new ExtarnelinboxViewModel()
                                 {
                                     mail_id = mail.MailID,
-                                    State = "",
+                                    State = z.sent,
                                     type_of_mail = mail.Mail_Type,
                                     Mail_Number = mail.Mail_Number,
                                     date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -1192,11 +1202,12 @@ namespace MMSystem.Services.ReceivedMail
                 var c2 = await (from mail in dbcon.Mails.Where(x => x.Department_Id == depid && x.Mail_Type == 2)
                                 join y in dbcon.Sends.Where(n => n.flag != 0) on mail.MailID equals y.MailID
                                 join Extr in dbcon.External_Mails on mail.MailID equals Extr.MailID
+                                join z in dbcon.MailStatuses.Where(x => x.state == true) on y.flag equals z.flag
 
                                 select new ExtarnelinboxViewModel()
                                 {
                                     mail_id = mail.MailID,
-                                    State = "",
+                                    State = z.inbox,
                                     type_of_mail = mail.Mail_Type,
                                     Mail_Number = mail.Mail_Number,
                                     date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -1238,11 +1249,12 @@ namespace MMSystem.Services.ReceivedMail
                 var c2 = await (from mail in dbcon.Mails.Where(x => x.Department_Id == depid && x.Mail_Type == 3)
                                 join y in dbcon.Sends on mail.MailID equals y.MailID
                                 join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
+                                join z in dbcon.MailStatuses.Where(x => x.state == true) on y.flag equals z.flag
 
                                 select new ExtarnelinboxViewModel()
                                 {
                                     mail_id = mail.MailID,
-                                    State ="",
+                                    State = z.sent,
                                     type_of_mail = mail.Mail_Type,
                                     Mail_Number = mail.Mail_Number,
                                     date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -1284,11 +1296,12 @@ namespace MMSystem.Services.ReceivedMail
                 var c2 = await (from mail in dbcon.Mails.Where(x => x.Department_Id == depid && x.Mail_Type == 3)
                                 join y in dbcon.Sends on mail.MailID equals y.MailID
                                 join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
+                                join z in dbcon.MailStatuses.Where(x => x.state == true) on y.flag equals z.flag
 
                                 select new ExtarnelinboxViewModel()
                                 {
                                     mail_id = mail.MailID,
-                                    State = "",
+                                    State = z.inbox,
                                     type_of_mail = mail.Mail_Type,
                                     Mail_Number = mail.Mail_Number,
                                     date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -1473,6 +1486,7 @@ namespace MMSystem.Services.ReceivedMail
                                on mail.MailID equals ex.MailID
                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                               join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
                                //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
@@ -1481,7 +1495,7 @@ namespace MMSystem.Services.ReceivedMail
                                select new ExtarnelinboxViewModel()
                                {
                                    mail_id = mail.MailID,
-                                   State = "",
+                                   State = z.inbox,
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -1507,6 +1521,7 @@ namespace MMSystem.Services.ReceivedMail
                                   on mail.MailID equals ex.MailID
                                   join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                   join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                                  join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
                                   //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
@@ -1515,7 +1530,7 @@ namespace MMSystem.Services.ReceivedMail
                                   select new ExtarnelinboxViewModel()
                                   {
                                       mail_id = mail.MailID,
-                                      State = "",
+                                      State = z.inbox,
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -1705,6 +1720,7 @@ namespace MMSystem.Services.ReceivedMail
                                on mail.MailID equals ex.MailID
                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                               join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
                                //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
@@ -1713,7 +1729,7 @@ namespace MMSystem.Services.ReceivedMail
                                select new ExtarnelinboxViewModel()
                                {
                                    mail_id = mail.MailID,
-                                   State ="",
+                                   State = z.inbox,
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -1739,6 +1755,7 @@ namespace MMSystem.Services.ReceivedMail
                                   on mail.MailID equals ex.MailID
                                   join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                   join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                                  join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
                                   //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
@@ -1747,7 +1764,7 @@ namespace MMSystem.Services.ReceivedMail
                                   select new ExtarnelinboxViewModel()
                                   {
                                       mail_id = mail.MailID,
-                                      State ="",
+                                      State = z.inbox,
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -1940,6 +1957,7 @@ namespace MMSystem.Services.ReceivedMail
                                on mail.MailID equals ex.MailID
                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                               join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
                                //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
@@ -1948,7 +1966,7 @@ namespace MMSystem.Services.ReceivedMail
                                select new Sended_Maill()
                                {
                                    mail_id = mail.MailID,
-                                   State = "",
+                                   State = z.inbox,
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -1974,6 +1992,7 @@ namespace MMSystem.Services.ReceivedMail
                                   on mail.MailID equals ex.MailID
                                   join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                   join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                                  join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
                                   //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
@@ -1982,7 +2001,7 @@ namespace MMSystem.Services.ReceivedMail
                                   select new Sended_Maill()
                                   {
                                       mail_id = mail.MailID,
-                                      State = "",
+                                      State = z.inbox,
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -2039,7 +2058,7 @@ namespace MMSystem.Services.ReceivedMail
                 mangment, d1, d2, mailnum, summary, mail_Readed,
                 mailReaded, mailnot_readed, Day_sended1, Day_sended2,
                Typeof_send, mail_type, replaytext, userid, pagenum, size, Measure_filter,
-               Department_filter, Classfication, mail_state,  genral_incoming_num);
+               Department_filter, Classfication, mail_state, genral_incoming_num);
                             d = c0;
                             break;
                         }
@@ -2050,7 +2069,7 @@ namespace MMSystem.Services.ReceivedMail
                 mangment, d1, d2, mailnum, summary, mail_Readed,
                 mailReaded, mailnot_readed, Day_sended1, Day_sended2,
                Typeof_send, mail_type, replaytext, userid, pagenum, size,
-               Measure_filter, Department_filter, Classfication, mail_state,  genral_incoming_num);
+               Measure_filter, Department_filter, Classfication, mail_state, genral_incoming_num);
                             d = a;
                             break;
                         }
@@ -2062,7 +2081,7 @@ namespace MMSystem.Services.ReceivedMail
                 mangment, d1, d2, mailnum, summary, mail_Readed,
                 mailReaded, mailnot_readed, Day_sended1, Day_sended2,
                Typeof_send, mail_type, replaytext, userid, pagenum, size,
-               Measure_filter, Department_filter, Classfication, mail_state,  genral_incoming_num);
+               Measure_filter, Department_filter, Classfication, mail_state, genral_incoming_num);
                             d = a2;
                             break;
                         }
@@ -2074,7 +2093,7 @@ namespace MMSystem.Services.ReceivedMail
                 mangment, d1, d2, mailnum, summary, mail_Readed,
                 mailReaded, mailnot_readed, Day_sended1, Day_sended2,
                Typeof_send, mail_type, replaytext, userid, pagenum, size,
-               Measure_filter, Department_filter, Classfication, mail_state,  genral_incoming_num);
+               Measure_filter, Department_filter, Classfication, mail_state, genral_incoming_num);
                             d = a3;
 
 
@@ -2178,10 +2197,12 @@ namespace MMSystem.Services.ReceivedMail
 
                 var c2 = await (from mail in dbcon.Mails.Where(x => x.Department_Id == depid && x.Mail_Type == 1)
                                 join y in dbcon.Sends.Where(n => n.flag != 0) on mail.MailID equals y.MailID
+                                join z in dbcon.MailStatuses.Where(x => x.state == true) on y.flag equals z.flag
+
                                 select new Sended_Maill()
                                 {
                                     mail_id = mail.MailID,
-                                    State ="",
+                                    State = z.sent,
                                     type_of_mail = mail.Mail_Type,
                                     Mail_Number = mail.Mail_Number,
                                     date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -2241,10 +2262,12 @@ namespace MMSystem.Services.ReceivedMail
 
                 var c2 = await (from mail in dbcon.Mails.Where(x => x.Department_Id == depid && x.Mail_Type == 1)
                                 join y in dbcon.Sends.Where(n => n.flag != 0) on mail.MailID equals y.MailID
+                                join z in dbcon.MailStatuses.Where(x => x.state == true) on y.flag equals z.flag
+
                                 select new Sended_Maill()
                                 {
                                     mail_id = mail.MailID,
-                                    State = "",
+                                    State = z.inbox,
                                     type_of_mail = mail.Mail_Type,
                                     Mail_Number = mail.Mail_Number,
                                     date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -2437,7 +2460,7 @@ namespace MMSystem.Services.ReceivedMail
                                            x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
                                            (x.clasification == Classfication || clasf_filter == true)
-                                           && (x.Genaral_inbox_Number== genral_incoming_num || incoing_num_filter == true)).OrderByDescending(x => x.MailID)
+                                           && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true)).OrderByDescending(x => x.MailID)
 
                                join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                join ex in dbcon.Sends.Where(x => (x.flag != 0) &&
@@ -2446,6 +2469,7 @@ namespace MMSystem.Services.ReceivedMail
                                on mail.MailID equals ex.MailID
                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                               join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
                                //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
@@ -2454,7 +2478,7 @@ namespace MMSystem.Services.ReceivedMail
                                select new Sended_Maill()
                                {
                                    mail_id = mail.MailID,
-                                   State = GetNamOfState(ex.flag),
+                                   State = z.sent,
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -2481,6 +2505,7 @@ namespace MMSystem.Services.ReceivedMail
                                   on mail.MailID equals ex.MailID
                                   join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                   join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                                  join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
                                   //  join rep in dbcon.Replies on ex.Id equals rep.ReplyId
@@ -2489,7 +2514,7 @@ namespace MMSystem.Services.ReceivedMail
                                   select new Sended_Maill()
                                   {
                                       mail_id = mail.MailID,
-                                      State = GetNamOfState(ex.flag),
+                                      State = z.sent,
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -2564,49 +2589,8 @@ namespace MMSystem.Services.ReceivedMail
             //   return c.flag;
 
         }
-        public  string GetNameOfState(int id, int mailid) {
-
-            try
-            {
-                var c = dbcon.Sends.Where(x => x.to == id && x.MailID == mailid).FirstOrDefault();
-
-                var d = dbcon.MailStatuses.FirstOrDefault(x=>x.flag==c.flag);
 
 
 
-                string stateName = d.inbox;
-
-                return stateName;
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-
-        public string GetNamOfState( int flag)
-        {
-
-            try
-            {
-              //  var c = dbcon.Sends.Where(x => x.MailID == mailid).FirstOrDefault();
-
-                var d = dbcon.MailStatuses.Find(flag);
-
-
-
-                string stateName = d.sent;
-
-                return stateName;
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
     }
 }
