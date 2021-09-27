@@ -12,7 +12,7 @@ namespace MMSystem.Services.ReplayServeic
     {
      
         Task<bool> AddReplay(ReplyViewModel model);
-        Task<List<ReplayDto>> GetAllReplay(int id);
+        Task<List<ReplayDto>> GetAllReplay(int depid, int mailId);
 
         Task<bool> Uplode(Uplode file);
         Task<bool> AddResources(Reply_Resources resources);
