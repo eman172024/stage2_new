@@ -57,10 +57,10 @@ namespace MMSystem.Controllers
                 statusCode = 400
             });
         }
-        [HttpGet("GetReplyById/{id}")]
-        public async Task<IActionResult> GetRepliesById(int id)
+        [HttpGet("GetReplyById")]
+        public async Task<IActionResult> GetAllReplay(int department_id,int mail_id)
         {
-            List<ReplayDto> result = await _Replay.GetAllReplay(id);
+            List<ReplayDto> result = await _Replay.GetAllReplay(department_id,mail_id);
             if(result.Count>0)
             return Ok(result);
             return BadRequest(new Result()

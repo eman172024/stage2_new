@@ -145,11 +145,14 @@ namespace MMSystem.Services.ReplayServeic
             return false;
         }
 
-        public async Task<List<ReplayDto>> GetAllReplay(int id)
+        public async Task<List<ReplayDto>> GetAllReplay( int depid,int mailId)
         {
             try
             {
-                List<Reply> list = await _data.Replies.Where(x => x.send_ToId == id).ToListAsync();
+
+                Send_to send_ = await _data.Sends.FirstOrDefaultAsync(x => x.MailID == mailId &&x.to==depid);
+
+                List<Reply> list = await _data.Replies.Where(x=>x.send_ToId==send_.Id).ToListAsync();
                 List<ReplayDto> replays = _mapper.Map<List<Reply>, List<ReplayDto>>(list);
                 return replays;
             }

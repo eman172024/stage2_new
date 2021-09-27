@@ -30,7 +30,7 @@ namespace MMSystem.Services
             CreateMap<Extrmal_Section, Extrmal_SectionDto>();
             
             CreateMap<Mail_Resourcescs, Mail_ResourcescsDto>();
-            CreateMap<Reply,ReplayDto>();
+         //   CreateMap<Reply,ReplayDto>();
             CreateMap<ClasificationSubject, ClasificationSubjectDto>();
             CreateMap<Measures, MeasuresDto>();
             CreateMap<Reply, ReplayDto>();
