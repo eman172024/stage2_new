@@ -1248,7 +1248,7 @@
                   @click="GetReplyByDepartment(consignee.departmentId)"
                   class="border border-blue-400 hover:bg-blue-400 hover:text-white duration-300 focus:outline-none rounded-md text-sm p-2 m-0.5"
                 >
-                  {{ consignee.departmentName }}
+                  {{ consignee.departmentName }} - {{consignee.departmentId}}
                 </button>
               </section>
 
@@ -1273,16 +1273,16 @@
                     :key="reply.replyId"
                     :class="
                       reply.to == my_department_id
-                        ? 'justify-start'
-                        : 'justify-end'
+                        ? 'justify-end'
+                        : 'justify-start'
                     "
                     class="w-full my-2 flex px-4"
                   >
                     <div
                       :class="
                         reply.to == my_department_id
-                          ? 'bg-blue-700'
-                          : 'bg-gray-700'
+                          ? 'bg-gray-700'
+                          : 'bg-blue-700'
                       "
                       class="
                           
@@ -1656,10 +1656,11 @@ export default {
 
       var ReplyViewModel = {
         send_ToId: Number(this.sends_id),
+        from: Number(1),
         reply: {
           mail_detail: this.reply_to_add,
-          To: Number(this.my_department_id),
-          from: Number(1),
+          To: Number(this.replyByDepartmenId),
+          
         },
       };
       this.$http.mailService

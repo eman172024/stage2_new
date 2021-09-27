@@ -143,6 +143,7 @@ namespace MMSystem.Services.ReplayServeic
                 model.reply.send_ToId = model.send_ToId;
                 model.reply.Date = DateTime.Now;
                 model.reply.state = true;
+                
                 _data.Update(send);
                 await _data.SaveChangesAsync();
 

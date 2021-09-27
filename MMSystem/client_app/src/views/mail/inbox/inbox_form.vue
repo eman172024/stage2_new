@@ -1165,10 +1165,11 @@ export default {
 
       var ReplyViewModel = {
         send_ToId: Number(this.sends_id),
+        from: Number(2),
         reply: {
           mail_detail: this.reply_to_add,
-          To: Number(this.my_department_id),
-          from: Number(2),
+          To: Number(this.department_Id),
+          
         },
       };
       this.$http.mailService
