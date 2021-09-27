@@ -19,7 +19,7 @@ namespace MMSystem.Services.ReplayServeic
     {
         private IWebHostEnvironment iwebHostEnvironment;
 
-
+       public int flag;
         public MookReplay(AppDbCon data, IMapper mapper, IWebHostEnvironment environment)
         {
             _data = data;
@@ -123,10 +123,22 @@ namespace MMSystem.Services.ReplayServeic
         public async Task<bool> AddReplay(ReplyViewModel model)
         {
             Send_to send = await _data.Sends.FindAsync(model.send_ToId);
+           
+            switch (model.from)
+            {
+                case 1:
+                  flag = 5;
+                    break;
+                case 2:
+                    flag = 4;
+                    break;
+                default:break;
+            }
+
 
             if (send != null) {
 
-                send.flag = 4;
+                send.flag =flag;
 
                 model.reply.send_ToId = model.send_ToId;
                 model.reply.Date = DateTime.Now;
@@ -152,7 +164,7 @@ namespace MMSystem.Services.ReplayServeic
 
                 Send_to send_ = await _data.Sends.FirstOrDefaultAsync(x => x.MailID == mailId &&x.to==depid);
 
-                List<Reply> list = await _data.Replies.Where(x=>x.send_ToId==send_.Id).ToListAsync();
+                List<Reply> list = await _data.Replies.OrderBy(x=>x.ReplyId).Where(x=>x.send_ToId==send_.Id).ToListAsync();
                 List<ReplayDto> replays = _mapper.Map<List<Reply>, List<ReplayDto>>(list);
                 return replays;
             }
