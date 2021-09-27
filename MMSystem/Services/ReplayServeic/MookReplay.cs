@@ -126,7 +126,7 @@ namespace MMSystem.Services.ReplayServeic
 
             if (send != null) {
 
-                send.flag = 3;
+                send.flag = 4;
 
                 model.reply.send_ToId = model.send_ToId;
                 model.reply.Date = DateTime.Now;
