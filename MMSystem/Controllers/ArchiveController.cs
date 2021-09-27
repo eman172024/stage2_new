@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MMSystem.Model.ViewModel.ArchivesReport;
+using MMSystem.Model.ViewModel.ArchiveVM;
 using MMSystem.Services.Archives;
 using System;
 using System.Collections.Generic;
@@ -21,10 +22,10 @@ namespace MMSystem.Controllers
         }
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll(int page, int pagesize,int Depid )
-        {if (Depid ==25 )
+        {
 
-            {
-                List<ArchivesViewModel> mail = await _archives.GetAll(page, pagesize);
+            
+                ArchiveVModelWithPag mail = await _archives.GetAll(page, pagesize);
                 if (mail != null)
                     return Ok(mail);
 
@@ -34,14 +35,13 @@ namespace MMSystem.Controllers
                     statusCode = 404
                 });
 
-            }
-            else {
-                return Unauthorized();
+            
+          
             }
             
 
 
-        }
+        
         [HttpPut("Update")]
         public async Task<IActionResult> Update([FromBody] UpdateArchiveViewModel model)
         {

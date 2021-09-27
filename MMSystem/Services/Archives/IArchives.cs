@@ -1,4 +1,5 @@
 ﻿using MMSystem.Model.ViewModel.ArchivesReport;
+using MMSystem.Model.ViewModel.ArchiveVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace MMSystem.Services.Archives
 {
    public interface IArchives
     {
-        Task<List<ArchivesViewModel>> GetAll(int page,int pageSize);
+        Task<ArchiveVModelWithPag> GetAll(int page,int pageSize);
 
         Task<bool> UpdateExternal(UpdateArchiveViewModel model);
         Task<List<ArchivesViewModel>> GetByNum(int id);

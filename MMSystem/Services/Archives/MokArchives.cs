@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MMSystem.Model;
 using MMSystem.Model.ViewModel.ArchivesReport;
+using MMSystem.Model.ViewModel.ArchiveVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +18,30 @@ namespace MMSystem.Services.Archives
             _db = db;
         }
 
-        public async Task<List<ArchivesViewModel>> GetAll(int page, int pageSize)
+        public async Task<ArchiveVModelWithPag> GetAll(int page, int pageSize)
         {
             try
             {
-                List<ArchivesViewModel> lsit = await (from x in _db.Mails.Where(x => x.Mail_Type == 2)
+                ArchiveVModelWithPag model = new ArchiveVModelWithPag();
+
+
+                var list = await (from x in _db.Mails.Where(x => x.Mail_Type == 2)
+                                    join y in _db.External_Mails on x.MailID equals y.MailID
+
+                                    select new ArchivesViewModel()
+                                    {
+                                        id = y.ID,
+                                        Date_Of_Mail = x.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                        DateTime_of_read = y.Send_of_Ex_mail.ToString("yyyy-MM-dd"),
+                                        Time_of_read = y.Send_of_Ex_mail.ToString("hh-mm-ss"),
+                                        delivery = y.delivery,
+                                        Mail_Number = x.Mail_Number,
+                                        Section_Name = y.sectionName,
+                                    }).ToListAsync();
+                model.total = list.Count();
+
+
+                model.list  = await (from x in _db.Mails.Where(x => x.Mail_Type == 2)
                                                       join y in _db.External_Mails on x.MailID equals y.MailID
                                                       
                                                       select new ArchivesViewModel() 
@@ -35,7 +55,7 @@ namespace MMSystem.Services.Archives
                                                       }).OrderByDescending(x=>x.id).Skip((page-1)&pageSize).Take(pageSize).ToListAsync();
      
  
-                return lsit;
+                return model;
                     
             }
             catch (Exception)
