@@ -14,6 +14,8 @@ namespace MMSystem.Services.MailServeic
         Task<string> tobase64(string patj);
         Task<EMVM> GetExternalMail(int mail_id, int Depa, int type);
         Task<MailDto> Getdto(int id, int type);
+        Task<EIMVM> GetExternalbox(int mail_id, int Depa, int type);
 
+        Task<List<RViewModel>> GetResourse(int id);
     }
 }

@@ -30,17 +30,19 @@ namespace MMSystem.Services.MailServeic
                 //   Mail mail = await _dbCon.Mails.FindAsync(mail_id);
                 model.mail =await Getdto(mail_id, type);
                 External_Mail external_Mail = await _dbCon.External_Mails.OrderBy(x => x.ID).FirstOrDefaultAsync(x => x.MailID == mail_id);
-
+           model.side= await _dbCon.Extrmal_Sections.FindAsync(external_Mail.Sectionid);
+                model.Sector = await _dbCon.Extrmal_Sections.FirstOrDefaultAsync(x => x.perent == 0 && x.type == model.side.type);
+              
                 model.External = _mapper.Map<External_Mail, ExternalDto>(external_Mail);
                 List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id).ToListAsync();
                 Send_to c = await _dbCon.Sends.Where(x => x.to == Depa && x.MailID == mail_id).FirstOrDefaultAsync();
                 model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
                 model.list = await(from x in _dbCon.Replies.Where(x => x.ReplyId == c.Id)
-                                   join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
+                                  
                                    select new RViewModel
                                    {
                                        reply = _mapper.Map<Reply, ReplayDto>(x),
-                                       Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(_dbCon.Reply_Resources.Where(x => x.ReplyId == x.ID).ToList())
+                                      Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(_dbCon.Reply_Resources.Where(x => x.ReplyId == x.ID).ToList())
                                    }).ToListAsync();
 
                 foreach (var xx in model.mail_Resourcescs)
@@ -82,11 +84,11 @@ namespace MMSystem.Services.MailServeic
                  List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id).ToListAsync();
                 Send_to c =  await _dbCon.Sends.Where(x => x.to == department_Id && x.MailID == mail_id).FirstOrDefaultAsync();
                 model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>,List<Mail_ResourcescsDto>>(mail_Resourcescs);
-              model.list = await (from x in _dbCon.Replies.Where(x => x.ReplyId == c.Id)
-                               join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
+              model.list = await (from x in _dbCon.Replies.Where(x => x.send_ToId == c.Id)
+                             //  join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
                                select new RViewModel { 
                                reply=_mapper.Map<Reply,ReplayDto>(x),
-                               Resources=_mapper.Map<List<Reply_Resources>,List<Reply_ResourcesDto>>(  _dbCon.Reply_Resources.Where(x=>x.ReplyId==x.ID).ToList())
+                             Resources=_mapper.Map<List<Reply_Resources>,List<Reply_ResourcesDto>>(  _dbCon.Reply_Resources.Where(x=>x.ReplyId==x.ID).ToList())
                                }).ToListAsync();
 
                 foreach (var xx in model.mail_Resourcescs)
@@ -117,6 +119,7 @@ namespace MMSystem.Services.MailServeic
             }
 
         }
+
 
         public async Task<string> tobase64(string patj)
         {
@@ -151,16 +154,24 @@ namespace MMSystem.Services.MailServeic
                     case 1:
                         Mail mail = await _dbCon.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 1);
                         dto1 = _mapper.Map<Mail, MailDto>(mail);
+                        var dd=await  _dbCon.clasifications.OrderBy(x=>x.Id).FirstOrDefaultAsync(x=>x.Id==int .Parse(dto1.clasification));
+                        dto1.classification_name = dd.Name;
+                        
 
                         break;
                     case 2:
                         Mail mail1 = await _dbCon.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 2);
                         dto1 = _mapper.Map<Mail, MailDto>(mail1);
+                        var clasification =await _dbCon.clasifications.OrderBy(x=>x.Id).FirstOrDefaultAsync(x => x.Id == int.Parse(dto1.clasification));
+                        dto1.classification_name = clasification.Name;
 
                         break;
                     case 3:
                         Mail mail2 = await _dbCon.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 3);
                         dto1 = _mapper.Map<Mail, MailDto>(mail2);
+                        var clasificationx =await _dbCon.clasifications.OrderBy(x=>x.Id).FirstOrDefaultAsync(x => x.Id == int.Parse(dto1.clasification));
+                        dto1.classification_name = clasificationx.Name;
+
                         break;
                     default: break;
 
@@ -176,5 +187,86 @@ namespace MMSystem.Services.MailServeic
             }
         }
 
+        public async Task<EIMVM> GetExternalbox(int mail_id, int Depa, int type)
+        {
+            try
+            {
+
+                EIMVM model = new EIMVM();
+                //   Mail mail = await _dbCon.Mails.FindAsync(mail_id);
+                model.mail = await Getdto(mail_id, type);
+                Extrenal_inbox external_Mail = await _dbCon.Extrenal_Inboxes.OrderBy(x => x.Id).FirstOrDefaultAsync(x => x.MailID == mail_id);
+                model.side = await _dbCon.Extrmal_Sections.FindAsync(external_Mail.SectionId);
+                model.Sector = await _dbCon.Extrmal_Sections.FirstOrDefaultAsync(x => x.perent == 0 && x.type == model.side.type);
+
+                model.Inbox = _mapper.Map<Extrenal_inbox, Extrenal_inboxDto>(external_Mail);
+                List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id).ToListAsync();
+                Send_to c = await _dbCon.Sends.Where(x => x.to == Depa && x.MailID == mail_id).FirstOrDefaultAsync();
+                model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
+                model.list = await(from x in _dbCon.Replies.Where(x => x.send_ToId == c.Id)
+                                 //  join y in _dbCon.Reply_Resources.Where(x=>x.ReplyId==x.ID)
+                                   select new RViewModel
+                                   {
+                                       reply = _mapper.Map<Reply, ReplayDto>(x),
+                                      Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(_dbCon.Reply_Resources.Where(x => x.ReplyId == x.ID).ToList())
+                                   }).ToListAsync();
+
+                foreach (var xx in model.mail_Resourcescs)
+                {
+                    string x = xx.path;
+                    xx.path = await tobase64(x);
+
+                }
+
+                foreach (var item in model.list)
+                {
+                    foreach (var item2 in item.Resources)
+                    {
+                        string x1 = item2.path;
+                        item2.path = await tobase64(x1);
+                    }
+                }
+
+
+                return model;
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<List<RViewModel>> GetResourse(int id)
+        {
+            try
+            {
+               List <RViewModel> list= await (from x in _dbCon.Replies.Where(x => x.send_ToId == id)
+                      join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
+                      select new RViewModel
+                      {
+                          reply = _mapper.Map<Reply, ReplayDto>(x),
+                          Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(_dbCon.Reply_Resources.Where(x => x.ReplyId == x.ID).ToList())
+                      }).ToListAsync();
+
+                foreach (var item in list)
+                {
+                    foreach (var item2 in item.Resources)
+                    {
+                        string x1 = item2.path;
+                        item2.path = await tobase64(x1);
+                    }
+                }
+
+                return list;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

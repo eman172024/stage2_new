@@ -34,6 +34,10 @@ module.exports = {
                 cyan: colors.cyan,
             },
 
+            height: {
+                'screen-85': '85vh',
+            },
+
             animation: {
                 'arrow': 'arrow-effect .6s infinite',
                 'spin-once': 'spin .5s linear',

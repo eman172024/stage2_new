@@ -26,6 +26,7 @@ namespace MMSystem.Controllers
     {
         private readonly AppDbCon appDb;
         private readonly GetMailServices _getMailServices;
+      public  dynamic obj;
 
         public string sub { set; get; }
         public WeatherForecastController(AppDbCon appDb, GetMailServices getMailServices)
@@ -49,9 +50,28 @@ namespace MMSystem.Controllers
         [HttpGet("GetMailInfo")]
         public async Task<IActionResult> GetMailInfo(int mail_id, int Department_Id, int type)
         {
+          
 
-            var c = await _getMailServices.GetMail(mail_id, Department_Id, type);
-            return Ok(c);
+            switch (type)
+            {
+                case 1:
+                    var mail = await _getMailServices.GetMail(mail_id, Department_Id, type);
+                    obj = mail;
+                    break;
+                case 2:
+                    var External = await _getMailServices.GetExternalMail(mail_id, Department_Id,type);
+                    obj = External;
+                    break;
+                case 3:
+                    var ExternalInbox = await _getMailServices.GetExternalbox(mail_id, Department_Id, type);
+                    obj = ExternalInbox;
+                    break;
+                default:
+                    break;
+            }
+
+          
+            return Ok(obj);
 
         }
 

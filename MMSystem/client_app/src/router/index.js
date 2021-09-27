@@ -64,7 +64,7 @@ const routes = [{
     },
 
     {
-        path: "/inbox/:mail",
+        path: "/inbox/:mail/:department/:type/:sends_id",
         name: "inbox-show",
         // route level code-splitting
         // this generates a separate chunk (dashboard.[hash].js) for this route
@@ -74,6 +74,33 @@ const routes = [{
                 /* webpackChunkName: "dashboard" */
                 "../views/mail/inbox/inbox_form.vue"
             ),
+    },
+
+
+
+    // sent
+    {
+        path: "/sent",
+        name: "sent",
+        // route level code-splitting
+        // this generates a separate chunk (dashboard.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import (
+                /* webpackChunkName: "dashboard" */
+                "../views/mail/sent/sent.vue"
+            ),
+    },
+
+
+    {
+        path: "/sent/:mail/:type",
+        name: "sent-show",
+        // route level code-splitting
+        // this generates a separate chunk (mail.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import ( /* webpackChunkName: "mail" */ "../views/mail/sent/sent_form.vue"),
     },
 
 

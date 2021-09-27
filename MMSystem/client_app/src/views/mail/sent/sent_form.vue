@@ -1059,7 +1059,7 @@ export default {
         this.deleteButton = true;
         this.saveButton = false;
 
-        this.getMailById();
+        this.GetSentMailById();
 
     }else{
 
@@ -1243,9 +1243,9 @@ export default {
             }
         },
 
-        getMailById(){
+        GetSentMailById(){
             this.$http.mailService
-            .GetMailById(this.mailId, this.to_test_passing_mail_type)
+            .GetSentMailById(this.mailId, this.to_test_passing_mail_type)
             .then((res) => {
 
                 if(res.data.mail.is_send == true){
