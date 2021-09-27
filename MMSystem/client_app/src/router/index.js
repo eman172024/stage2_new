@@ -94,7 +94,7 @@ const routes = [{
 
 
     {
-        path: "/sent/:mail/:type",
+        path: "/sent/:mail/:type/:sends_id",
         name: "sent-show",
         // route level code-splitting
         // this generates a separate chunk (mail.[hash].js) for this route
