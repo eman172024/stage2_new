@@ -125,10 +125,14 @@ namespace MMSystem.Services.ReplayServeic
             Send_to send = await _data.Sends.FindAsync(model.send_ToId);
 
             if (send != null) {
-                
+
+                send.flag = 3;
+
                 model.reply.send_ToId = model.send_ToId;
                 model.reply.Date = DateTime.Now;
                 model.reply.state = true;
+                _data.Update(send);
+                await _data.SaveChangesAsync();
 
                 bool result = await Add(model.reply);
                 if (result) {
