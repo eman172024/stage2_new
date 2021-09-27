@@ -87,6 +87,18 @@ export default {
 
 
 
+
+
+
+    sent(id, mailType, mangment_id, date_from, date_to, mail_id, summary, department_id, measure_id, classification_id, mail_case_id, page_num, page_size) {
+        return axios.get(`/api/ExternalMails/GetMail?userid=${id}&mailNumType=${mailType}&mangment=${mangment_id}&date_from=${date_from}&date_to=${date_to}&mailnum=${mail_id}&summary=${summary}&Department_filter=${department_id}&Measure_filter=${measure_id}&Classfication=${classification_id}&mail_state=${mail_case_id}&page_num=${page_num}&page_size=${page_size}`);
+        // return axios.get(`api/ExternalMails/GetIncomingMail?userid=1&mailNumType=1&mangment=2&pagenum=1&size=1`);  
+    },
+
+
+
+
+
     read_it_mail(id, department_id) {
         return axios.put(`/api/ExternalMails/read_it_mail?mail_id=${id}&department_Id=${department_id}`);
     },

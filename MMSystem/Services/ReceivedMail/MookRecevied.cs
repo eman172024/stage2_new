@@ -195,7 +195,7 @@ namespace MMSystem.Services.ReceivedMail
                                select new Sended_Maill()
                                {
                                    mail_id = mail.MailID,
-                                   State = GetNamOfState( mail.MailID),
+                                   State ="",
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -230,7 +230,7 @@ namespace MMSystem.Services.ReceivedMail
                                   select new Sended_Maill()
                                   {
                                       mail_id = mail.MailID,
-                                      State = GetNamOfState( mail.MailID),
+                                      State = "",
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -806,7 +806,7 @@ namespace MMSystem.Services.ReceivedMail
                                select new ExtarnelinboxViewModel()
                                {
                                    mail_id = mail.MailID,
-                                   State = GetNamOfState( mail.MailID),
+                                   State = "",
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -1061,7 +1061,7 @@ namespace MMSystem.Services.ReceivedMail
                                select new ExtarnelinboxViewModel()
                                {
                                    mail_id = mail.MailID,
-                                   State = GetNamOfState( mail.MailID),
+                                   State = "",
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -1098,7 +1098,7 @@ namespace MMSystem.Services.ReceivedMail
                                   select new ExtarnelinboxViewModel()
                                   {
                                       mail_id = mail.MailID,
-                                      State = GetNamOfState( mail.MailID),
+                                      State = "",
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -2454,7 +2454,7 @@ namespace MMSystem.Services.ReceivedMail
                                select new Sended_Maill()
                                {
                                    mail_id = mail.MailID,
-                                   State = GetNamOfState( mail.MailID),
+                                   State ="",
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -2489,7 +2489,7 @@ namespace MMSystem.Services.ReceivedMail
                                   select new Sended_Maill()
                                   {
                                       mail_id = mail.MailID,
-                                      State = GetNamOfState( mail.MailID),
+                                      State = "",
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
