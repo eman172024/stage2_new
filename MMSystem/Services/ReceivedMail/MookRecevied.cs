@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Services.ReceivedMail
 {
-    public class MookRecevied : IReceived
+    public class MookRecevied :  IReceived
     {
         private readonly AppDbCon dbcon;
         dynamic d;
@@ -195,7 +195,7 @@ namespace MMSystem.Services.ReceivedMail
                                select new Sended_Maill()
                                {
                                    mail_id = mail.MailID,
-                                   State =GetNamOfState(ex.flag),
+                                   State = "",
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -230,7 +230,7 @@ namespace MMSystem.Services.ReceivedMail
                                   select new Sended_Maill()
                                   {
                                       mail_id = mail.MailID,
-                                      State = GetNamOfState(ex.flag),
+                                      State = "",
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -1061,7 +1061,7 @@ namespace MMSystem.Services.ReceivedMail
                                select new ExtarnelinboxViewModel()
                                {
                                    mail_id = mail.MailID,
-                                   State = GetNamOfState(ex.flag),
+                                   State = "",
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -1098,7 +1098,7 @@ namespace MMSystem.Services.ReceivedMail
                                   select new ExtarnelinboxViewModel()
                                   {
                                       mail_id = mail.MailID,
-                                      State = GetNamOfState(ex.flag),
+                                      State ="",
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -2454,7 +2454,7 @@ namespace MMSystem.Services.ReceivedMail
                                select new Sended_Maill()
                                {
                                    mail_id = mail.MailID,
-                                   State = GetNamOfState(ex.flag),
+                                   State ="",
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -2489,7 +2489,7 @@ namespace MMSystem.Services.ReceivedMail
                                   select new Sended_Maill()
                                   {
                                       mail_id = mail.MailID,
-                                      State = GetNamOfState(ex.flag),
+                                      State = "",
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
@@ -2586,20 +2586,20 @@ namespace MMSystem.Services.ReceivedMail
             }
         }
 
-        public string GetNamOfState( int flag)
+        public async Task <MailStatus> GetNamOfState( int flag)
         {
 
             try
             {
               //  var c = dbcon.Sends.Where(x => x.MailID == mailid).FirstOrDefault();
 
-                var d = dbcon.MailStatuses.Find(flag);
+                var d =await  dbcon.MailStatuses.FindAsync(flag);
 
 
 
                 string stateName = d.sent;
 
-                return stateName;
+                return   d;
 
             }
             catch (Exception)
