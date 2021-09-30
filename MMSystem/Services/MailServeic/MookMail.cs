@@ -386,13 +386,13 @@ namespace MMSystem.Services.MailServeic
                 //  _mail.classification = mail.classification;
 
                 _mail.Date_Of_Mail = mail.Date_Of_Mail;
-                _mail.Mail_Summary = mail.Mail_Summary;
+                _mail.Mail_Summary = mail.Mail_Summary+" ";
                 _mail.state = mail.state;
                 _mail.userId = mail.userId;
                 _mail.Genaral_inbox_year = mail.Genaral_inbox_year;
                 _mail.Genaral_inbox_Number = mail.Genaral_inbox_Number;
                 _mail.Date_Of_Mail = mail.Date_Of_Mail;
-                _mail.Mail_Number = mail.Mail_Number;
+             
                 _mail.clasification = mail.clasification;
                 _mail.ActionRequired = mail.ActionRequired;
 
@@ -420,54 +420,56 @@ namespace MMSystem.Services.MailServeic
 
                 int port = mail.mail.Mail_Type;
 
-                switch (port) {
+                switch (port)
+                {
                     case 1:
 
                         Email = await Update(mail.mail);
-                        if (Email) {
+                        if (Email)
+                        {
 
-                            var list = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID).ToListAsync();
+                            //var list = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID).ToListAsync();
 
-                            if (list.Count > 0)
-                            {
+                            //if (list.Count > 0)
+                            //{
 
-                                _appContext.Sends.RemoveRange(list);
-                                await _appContext.SaveChangesAsync();
+                            //    _appContext.Sends.RemoveRange(list);
+                            //    await _appContext.SaveChangesAsync();
 
-                            }
-                            else { }
+                            //}
+                            //else { }
 
 
 
-                            if (mail.actionSenders != null){
+                            //if (mail.actionSenders != null){
 
-                                foreach (var item in mail.actionSenders)
-                                {
-                                    Send_to sender = new Send_to();
+                            //    foreach (var item in mail.actionSenders)
+                            //    {
+                            //        Send_to sender = new Send_to();
 
-                                    sender.MailID = mail.mail.MailID;
-                                    sender.to = item.departmentId;
-                                    sender.flag = 1;
-                                    sender.type_of_send = item.measureId;
-                                    bool send = await _sender.Add(sender);
-                                }
+                            //        sender.MailID = mail.mail.MailID;
+                            //        sender.to = item.departmentId;
+                            //        sender.flag = 1;
+                            //        sender.type_of_send = item.measureId;
+                            //        bool send = await _sender.Add(sender);
+                            //    }
 
-                                result = true;
-                                break;
+                            //    result = true;
+                            //    break;
 
-                            }
+                            //}
 
 
                             result = true;
                             break;
-                            
+
 
 
 
                         }
-                        
-                        
-                        
+
+
+
                         break;
                     case 2:
 
@@ -476,37 +478,38 @@ namespace MMSystem.Services.MailServeic
                         {
 
                             Exmail = await _external.Update(mail.external_Mail);
-                            if (Exmail) {
+                            if (Exmail)
+                            {
 
 
-                                var list = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID).ToListAsync();
+                                //var list = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID).ToListAsync();
 
-                                if (list.Count > 0)
-                                {
+                                //if (list.Count > 0)
+                                //{
 
-                                    _appContext.Sends.RemoveRange(list);
-                                    await _appContext.SaveChangesAsync();
+                                //    _appContext.Sends.RemoveRange(list);
+                                //    await _appContext.SaveChangesAsync();
 
-                                }
-                             
-
-                                if (mail.actionSenders !=null) {
-
-                                    foreach (var item in mail.actionSenders)
-                                    {
-                                        Send_to sender = new Send_to();
-
-                                        sender.MailID = mail.mail.MailID;
-                                        sender.to = item.departmentId;
-                                        sender.flag = 1;
-                                        sender.type_of_send = item.measureId;
-                                        bool send = await _sender.Add(sender);
-                                    }
-                                    result = true;
-                                    break;
+                                //}
 
 
-                                }
+                                //if (mail.actionSenders !=null) {
+
+                                //    foreach (var item in mail.actionSenders)
+                                //    {
+                                //        Send_to sender = new Send_to();
+
+                                //        sender.MailID = mail.mail.MailID;
+                                //        sender.to = item.departmentId;
+                                //        sender.flag = 1;
+                                //        sender.type_of_send = item.measureId;
+                                //        bool send = await _sender.Add(sender);
+                                //    }
+                                //    result = true;
+                                //   break;
+
+
+                                //  }
 
 
                                 result = true;
@@ -525,67 +528,66 @@ namespace MMSystem.Services.MailServeic
                     case 3:
 
                         Email = await Update(mail.mail);
-                        if (Email) {
+                        if (Email)
+                        {
 
                             mail.extrenal_Inbox.MailID = mail.mail.MailID;
                             Ex_inboxmail = await _extrenal_Inbox.Update(mail.extrenal_Inbox);
-                            if (Ex_inboxmail) {
+                            if (Ex_inboxmail)
+                            {
 
 
-                                var list = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID).ToListAsync();
+                                //    var list = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID).ToListAsync();
 
-                                if (list.Count > 0)
-                                {
+                                //    if (list.Count > 0)
+                                //    {
 
-                                    _appContext.Sends.RemoveRange(list);
-                                    await _appContext.SaveChangesAsync();
+                                //        _appContext.Sends.RemoveRange(list);
+                                //        await _appContext.SaveChangesAsync();
 
-                                }
-                                else { }
+                                //    }
+                                //    else { }
 
 
 
-                                if (mail.actionSenders.Count > 0)
-                                {
+                                //    if (mail.actionSenders.Count > 0)
+                                //    {
 
-                                    foreach (var item in mail.actionSenders)
-                                    {
-                                        Send_to sender = new Send_to();
+                                //        foreach (var item in mail.actionSenders)
+                                //        {
+                                //            Send_to sender = new Send_to();
 
-                                        sender.MailID = mail.mail.MailID;
-                                        sender.to = item.departmentId;
-                                        sender.flag = 1;
-                                        sender.type_of_send = item.measureId;
-                                        bool send = await _sender.Add(sender);
-                                    }
-                                    result = true;
-                                    break;
-                                }
+                                //            sender.MailID = mail.mail.MailID;
+                                //            sender.to = item.departmentId;
+                                //            sender.flag = 1;
+                                //            sender.type_of_send = item.measureId;
+                                //            bool send = await _sender.Add(sender);
+                                //        }
+                                //        result = true;
+                                //        break;
+                                //    }
+                                //    result = true;
+                                //    break;
+
+
+                                //}
+                                //break;
                                 result = true;
-                                break;
-                            
-                            
                             }
-                            break;
-
+                            result = false;
+                           
                         }
+                        break;
+                       
+                    default:
                         break;
 
 
-                        
-                        
-                        
-                        
-                     
-                    default:break;
-
-
+                      
                 }
-
-
                 return result;
-
             }
+
             catch (Exception)
             {
 
