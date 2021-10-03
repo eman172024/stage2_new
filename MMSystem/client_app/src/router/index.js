@@ -46,7 +46,7 @@ const routes = [{
         // this generates a separate chunk (mail.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-            import ( /* webpackChunkName: "mail" */ "../views/mail/mail_form.vue"),
+            import ( /* webpackChunkName: "mail" */ "../views/mail/sent/sent_form.vue"),
     },
 
     // inbox

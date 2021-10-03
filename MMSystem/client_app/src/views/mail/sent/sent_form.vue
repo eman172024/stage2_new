@@ -3,7 +3,7 @@
     <div class="h-screen bg-gray-50 overflow-hidden flex">
       <asideComponent></asideComponent>
       <div class="flex-1 bg-gray-100 w-0 overflow-y-auto">
-        <div class="max-w-screen-2xl  mx-auto flex flex-col md:px-8">
+        <div class="max-w-screen-2xl mx-auto flex flex-col md:px-8">
           <navComponent></navComponent>
           <main class="flex-1 relative focus:outline-none py-6">
             <div class="flex justify-between items-center">
@@ -15,7 +15,7 @@
                  -->
               <div
                 v-if="mailId"
-                class="float-left text-base font-semibold text-gray-800 "
+                class="float-left text-base font-semibold text-gray-800"
               >
                 رقم الرسالة
 
@@ -25,16 +25,25 @@
               </div>
             </div>
 
-            <div class="mt-6 space-y-6 ">
+            <div class="mt-6 space-y-6">
               <div class="grid grid-cols-7 gap-6">
                 <section class="col-span-5 flex justify-between items-stretch">
                   <section
-                    class="w-6/12 ml-3 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 bg-gray-50 rounded-md p-6"
+                    class="
+                      w-6/12
+                      ml-3
+                      grid grid-cols-1
+                      gap-y-6 gap-x-4
+                      sm:grid-cols-6
+                      bg-gray-50
+                      rounded-md
+                      p-6
+                    "
                   >
                     <fieldset class="sm:col-span-6">
-                      <div class=" flex items-center">
+                      <div class="flex items-center">
                         <legend
-                          class=" text-base font-semibold text-gray-800 w-24"
+                          class="text-base font-semibold text-gray-800 w-24"
                         >
                           نوع البريد
                         </legend>
@@ -49,7 +58,7 @@
                           />
                           <label
                             for="internal"
-                            class="mr-2 block  text-gray-800"
+                            class="mr-2 block text-gray-800"
                           >
                             داخلي
                           </label>
@@ -66,7 +75,7 @@
                           />
                           <label
                             for="internal_export"
-                            class="mr-2 block  text-gray-800"
+                            class="mr-2 block text-gray-800"
                           >
                             صادر خارجي
                           </label>
@@ -83,7 +92,7 @@
                           />
                           <label
                             for="external_incoming"
-                            class="mr-2 block  text-gray-800"
+                            class="mr-2 block text-gray-800"
                           >
                             وارد خارجي
                           </label>
@@ -102,7 +111,18 @@
                         v-model="summary"
                         id="summary"
                         rows="3"
-                        class="block mt-2 w-full text-sm rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        class="
+                          block
+                          mt-2
+                          w-full
+                          text-sm
+                          rounded-md
+                          border border-gray-200
+                          hover:shadow-sm
+                          focus:outline-none
+                          focus:border-gray-300
+                          p-2
+                        "
                       >
                       </textarea>
                     </div>
@@ -117,7 +137,19 @@
                       <select
                         v-model="classification"
                         id="classification"
-                        class="block mt-2 w-full h-10 text-sm rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        class="
+                          block
+                          mt-2
+                          w-full
+                          h-10
+                          text-sm
+                          rounded-md
+                          border border-gray-200
+                          hover:shadow-sm
+                          focus:outline-none
+                          focus:border-gray-300
+                          p-2
+                        "
                       >
                         <option disabled selected value="0">
                           إختر التصنيف
@@ -143,7 +175,19 @@
                         v-model="releaseDate"
                         type="date"
                         id="date"
-                        class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        class="
+                          block
+                          mt-2
+                          w-full
+                          rounded-md
+                          h-10
+                          text-sm
+                          border border-gray-200
+                          hover:shadow-sm
+                          focus:outline-none
+                          focus:border-gray-300
+                          p-2
+                        "
                       />
                     </div>
 
@@ -158,7 +202,19 @@
                         v-model="general_incoming_number"
                         type="number"
                         id="general_incoming_number"
-                        class="block mt-2 h-10 text-sm w-full rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                        class="
+                          block
+                          mt-2
+                          h-10
+                          text-sm
+                          w-full
+                          rounded-md
+                          border border-gray-200
+                          hover:shadow-sm
+                          focus:outline-none
+                          focus:border-gray-300
+                          px-2
+                        "
                         required
                       />
                     </div>
@@ -177,13 +233,34 @@
                         max="2100"
                         v-model="genaral_inbox_year"
                         id="year"
-                        class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        class="
+                          block
+                          mt-2
+                          w-full
+                          rounded-md
+                          h-10
+                          text-sm
+                          border border-gray-200
+                          hover:shadow-sm
+                          focus:outline-none
+                          focus:border-gray-300
+                          p-2
+                        "
                       />
                     </div>
                   </section>
 
                   <section
-                    class="w-6/12 mr-3 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 bg-gray-50 rounded-md p-6"
+                    class="
+                      w-6/12
+                      mr-3
+                      grid grid-cols-1
+                      gap-y-6 gap-x-4
+                      sm:grid-cols-6
+                      bg-gray-50
+                      rounded-md
+                      p-6
+                    "
                   >
                     <div class="sm:col-span-6">
                       <label
@@ -196,13 +273,29 @@
                         v-model="required_action"
                         id="action_required"
                         rows="3"
-                        class="block mt-2 w-full text-sm rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        class="
+                          block
+                          mt-2
+                          w-full
+                          text-sm
+                          rounded-md
+                          border border-gray-200
+                          hover:shadow-sm
+                          focus:outline-none
+                          focus:border-gray-300
+                          p-2
+                        "
                       >
                       </textarea>
                     </div>
 
                     <div
-                      class="sm:col-span-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6"
+                      class="
+                        sm:col-span-6
+                        grid grid-cols-1
+                        gap-y-6 gap-x-4
+                        sm:grid-cols-6
+                      "
                     >
                       <div class="sm:col-span-3">
                         <label
@@ -216,17 +309,51 @@
                           <button
                             @click="departmentselect = !departmentselect"
                             id="department"
-                            class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                            class="
+                              text-right
+                              block
+                              mt-2
+                              w-full
+                              rounded-md
+                              h-10
+                              border
+                              text-sm
+                              bg-white
+                              border-gray-200
+                              hover:shadow-sm
+                              focus:outline-none
+                              focus:border-gray-300
+                              p-2
+                            "
                           >
                             {{ departmentNameSelected }}
                           </button>
 
                           <div
                             v-if="departmentselect"
-                            class="border text-sm bg-white border-gray-200 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md"
+                            class="
+                              border
+                              text-sm
+                              bg-white
+                              border-gray-200
+                              p-2
+                              absolute
+                              w-full
+                              z-20
+                              shadow
+                              h-40
+                              overflow-y-scroll
+                              rounded-b-md
+                            "
                           >
                             <button
-                              class="block focus:outline-none w-full my-1 text-right"
+                              class="
+                                block
+                                focus:outline-none
+                                w-full
+                                my-1
+                                text-right
+                              "
                               @click="
                                 selectdepartment(
                                   department.id,
@@ -255,17 +382,51 @@
                           <button
                             @click="measureselect = !measureselect"
                             id="measure"
-                            class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                            class="
+                              text-right
+                              block
+                              mt-2
+                              w-full
+                              rounded-md
+                              h-10
+                              border
+                              text-sm
+                              bg-white
+                              border-gray-200
+                              hover:shadow-sm
+                              focus:outline-none
+                              focus:border-gray-300
+                              p-2
+                            "
                           >
                             {{ measureNameSelected }}
                           </button>
 
                           <div
                             v-if="measureselect"
-                            class="border text-sm bg-white border-gray-200 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md"
+                            class="
+                              border
+                              text-sm
+                              bg-white
+                              border-gray-200
+                              p-2
+                              absolute
+                              w-full
+                              z-20
+                              shadow
+                              h-40
+                              overflow-y-scroll
+                              rounded-b-md
+                            "
                           >
                             <button
-                              class="block focus:outline-none w-full my-1 text-right"
+                              class="
+                                block
+                                focus:outline-none
+                                w-full
+                                my-1
+                                text-right
+                              "
                               @click="
                                 selectmeasure(
                                   measure.measuresId,
@@ -286,7 +447,17 @@
                         <button
                           v-if="add_button_consignees"
                           @click="add_to_array_of_side_measure()"
-                          class="mt-10 rounded-md text-green-400 duration-200 hover:text-green-500 text-base font-semibold w-8 h-8"
+                          class="
+                            mt-10
+                            rounded-md
+                            text-green-400
+                            duration-200
+                            hover:text-green-500
+                            text-base
+                            font-semibold
+                            w-8
+                            h-8
+                          "
                         >
                           <svg
                             class="fill-current w-full h-full"
@@ -295,7 +466,7 @@
                             x="0px"
                             y="0px"
                             viewBox="0 0 512 512"
-                            style="enable-background:new 0 0 512 512;"
+                            style="enable-background: new 0 0 512 512"
                             xml:space="preserve"
                           >
                             <g>
@@ -329,12 +500,30 @@
                         المرسل إليهم
                       </label>
                       <div
-                        class="mt-2 w-full rounded-md border border-gray-200 p-2 h-24 overflow-y-scroll flex flex-wrap items-center"
+                        class="
+                          mt-2
+                          w-full
+                          rounded-md
+                          border border-gray-200
+                          p-2
+                          h-24
+                          overflow-y-scroll
+                          flex flex-wrap
+                          items-center
+                        "
                       >
                         <div
                           v-for="consignee in consignees"
                           :key="consignee.side"
-                          class="border border-gary-200 rounded-md text-sm flex items-center p-2 m-0.5"
+                          class="
+                            border border-gary-200
+                            rounded-md
+                            text-sm
+                            flex
+                            items-center
+                            p-2
+                            m-0.5
+                          "
                         >
                           {{ consignee.departmentName }} ,
                           {{ consignee.measureName }}
@@ -353,7 +542,14 @@
                               focusable="false"
                               data-prefix="far"
                               data-icon="times-circle"
-                              class="w-5 h-5 stroke-current text-red-400 hover:text-red-500 duration-200"
+                              class="
+                                w-5
+                                h-5
+                                stroke-current
+                                text-red-400
+                                hover:text-red-500
+                                duration-200
+                              "
                               role="img"
                               xmlns="http://www.w3.org/2000/svg"
                               viewBox="0 0 512 512"
@@ -381,7 +577,22 @@
 
                     <label
                       v-if="mailId"
-                      class="w-48 flex justify-center items-center py-2 bg-white rounded-lg tracking-wide border border-green-600 cursor-pointer hover:text-white hover:bg-green-600 focus:outline-none duration-300"
+                      class="
+                        w-48
+                        flex
+                        justify-center
+                        items-center
+                        py-2
+                        bg-white
+                        rounded-lg
+                        tracking-wide
+                        border border-green-600
+                        cursor-pointer
+                        hover:text-white
+                        hover:bg-green-600
+                        focus:outline-none
+                        duration-300
+                      "
                     >
                       <svg
                         class="w-5 h-5 ml-2"
@@ -473,257 +684,528 @@
                   <div class="h-72 w-full bg-gray-100 rounded-md mt-4">
                     <div
                       v-if="imagesToSend != '' || imagesToShow != ''"
-                      class="mt-4 px-4 pt-4 pb-4 rounded-md"
+                      class="mt-4 pt-4 pb-4 rounded-md"
                     >
-                      <div
-                        v-for="(image, index) in imagesToSend"
-                        :key="image.indexOfimagesToShow"
-                        class="relative h-60 overflow-x-scroll w-full"
-                      >
-                        <div
-                          class="absolute inset-x-0 bottom-2 flex justify-center items-center"
-                        >
-                          <button
-                            type="button"
-                            class="bg-red-600 hover:bg-red-500 duration-500 p-2 flex justify-center items-center rounded-full focus:outline-none ml-2"
-                            @click="removeImage(index)"
-                          >
-                            <svg
-                              class="w-5 h-5 stroke-current text-white"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                              ></path>
-                            </svg>
-                          </button>
+                      <div v-if="testimageToSend" class="">
+                        <div class="relative h-64 w-full">
+                          <img
+                            :src="testimageToSend"
+                            alt="image"
+                            class="w-full h-full rounded object-contain"
+                          />
 
-                          <button
-                            class="bg-green-600 hover:bg-green-500 duration-500 p-2 flex justify-center items-center rounded-full focus:outline-none mr-2"
+                          <div
+                            class="
+                              absolute
+                              inset-0
+                              flex
+                              justify-center
+                              items-center
+                            "
                           >
-                            <svg
-                              class="w-5 h-5 stroke-current text-white"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <button
+                              type="button"
+                              class="
+                                bg-green-600
+                                hover:bg-green-500
+                                duration-500
+                                p-2
+                                rounded-full
+                                focus:outline-none
+                              "
                             >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-                              ></path>
-                            </svg>
-                          </button>
+                              <svg
+                                class="w-4 h-4 text-white mx-auto"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+                                ></path>
+                              </svg>
+                            </button>
+
+                            <button
+                              type="button"
+                              class="
+                                bg-blue-600
+                                hover:bg-blue-500
+                                duration-500
+                                p-2
+                                rounded-full
+                                focus:outline-none
+                                mx-4
+                              "
+                            >
+                              <svg
+                                class="w-4 h-4 text-white mx-auto"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
+                                ></path>
+                              </svg>
+                            </button>
+
+                            <button
+                              type="button"
+                              class="
+                                bg-red-600
+                                hover:bg-red-500
+                                duration-500
+                                p-2
+                                rounded-full
+                                focus:outline-none
+                              "
+                            >
+                              <!--@click="deleteDocument(image.id, index)"  -->
+                              <svg
+                                class="w-4 h-4 text-white fill-current mx-auto"
+                                height="427pt"
+                                viewBox="-40 0 427 427.00131"
+                                width="427pt"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="m232.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
+                                />
+                                <path
+                                  d="m114.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
+                                />
+                                <path
+                                  d="m28.398438 127.121094v246.378906c0 14.5625 5.339843 28.238281 14.667968 38.050781 9.285156 9.839844 22.207032 15.425781 35.730469 15.449219h189.203125c13.527344-.023438 26.449219-5.609375 35.730469-15.449219 9.328125-9.8125 14.667969-23.488281 14.667969-38.050781v-246.378906c18.542968-4.921875 30.558593-22.835938 28.078124-41.863282-2.484374-19.023437-18.691406-33.253906-37.878906-33.257812h-51.199218v-12.5c.058593-10.511719-4.097657-20.605469-11.539063-28.03125-7.441406-7.421875-17.550781-11.5546875-28.0625-11.46875h-88.796875c-10.511719-.0859375-20.621094 4.046875-28.0625 11.46875-7.441406 7.425781-11.597656 17.519531-11.539062 28.03125v12.5h-51.199219c-19.1875.003906-35.394531 14.234375-37.878907 33.257812-2.480468 19.027344 9.535157 36.941407 28.078126 41.863282zm239.601562 279.878906h-189.203125c-17.097656 0-30.398437-14.6875-30.398437-33.5v-245.5h250v245.5c0 18.8125-13.300782 33.5-30.398438 33.5zm-158.601562-367.5c-.066407-5.207031 1.980468-10.21875 5.675781-13.894531 3.691406-3.675781 8.714843-5.695313 13.925781-5.605469h88.796875c5.210937-.089844 10.234375 1.929688 13.925781 5.605469 3.695313 3.671875 5.742188 8.6875 5.675782 13.894531v12.5h-128zm-71.199219 32.5h270.398437c9.941406 0 18 8.058594 18 18s-8.058594 18-18 18h-270.398437c-9.941407 0-18-8.058594-18-18s8.058593-18 18-18zm0 0"
+                                />
+                                <path
+                                  d="m173.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
+                                />
+                              </svg>
+                            </button>
+                          </div>
                         </div>
-                        <img
-                          :src="image.baseAs64"
-                          class="w-full h-full rounded"
-                        />
-                      </div>
 
-                      <div class="relative h-64 w-full ">
-                        <img
-                          :src="testimage"
-                          alt="image"
-                          class="w-full h-full rounded object-contain"
-                        />
-
-                        <div
-                          class="absolute inset-0 flex justify-center items-center"
-                        >
-                          <button
-                            type="button"
-                            class="bg-green-600 hover:bg-green-500 duration-500 p-2 rounded-full focus:outline-none"
+                        <div class="flex justify-between items-center mt-4">
+                          <div
+                            class="ml-2 flex justify-between items-center w-1/2"
                           >
-                            <svg
-                              class="w-4 h-4 text-white  mx-auto"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <button
+                              @click="previousImageToSend()"
+                              class="
+                                w-8
+                                h-8
+                                bg-gray-300
+                                rounded
+                                flex
+                                justify-center
+                                items-center
+                              "
                             >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-                              ></path>
-                            </svg>
-                          </button>
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M9 5l7 7-7 7"
+                                ></path>
+                              </svg>
+                            </button>
 
-                          <button
-                            type="button"
-                            class="bg-blue-600 hover:bg-blue-500 duration-500 p-2 rounded-full focus:outline-none mx-4"
-                          >
-                            <svg
-                              class="w-4 h-4 text-white  mx-auto"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
-                              ></path>
-                            </svg>
-                          </button>
+                            <div class="">
+                              {{ indextotestToSend + 1 }} /
+                              {{ imagesToSend.length }}
+                            </div>
 
-                          <button
-                            type="button"
-                            class="bg-red-600 hover:bg-red-500 duration-500 p-2 rounded-full focus:outline-none"
-                            @click="deleteDocument(image.id, index)"
-                          >
-                            <svg
-                              class="w-4 h-4 text-white fill-current mx-auto"
-                              height="427pt"
-                              viewBox="-40 0 427 427.00131"
-                              width="427pt"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <button
+                              title="next"
+                              @click="nextImageToSend()"
+                              class="
+                                w-8
+                                h-8
+                                bg-gray-300
+                                rounded
+                                flex
+                                justify-center
+                                items-center
+                              "
                             >
-                              <path
-                                d="m232.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
-                              />
-                              <path
-                                d="m114.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
-                              />
-                              <path
-                                d="m28.398438 127.121094v246.378906c0 14.5625 5.339843 28.238281 14.667968 38.050781 9.285156 9.839844 22.207032 15.425781 35.730469 15.449219h189.203125c13.527344-.023438 26.449219-5.609375 35.730469-15.449219 9.328125-9.8125 14.667969-23.488281 14.667969-38.050781v-246.378906c18.542968-4.921875 30.558593-22.835938 28.078124-41.863282-2.484374-19.023437-18.691406-33.253906-37.878906-33.257812h-51.199218v-12.5c.058593-10.511719-4.097657-20.605469-11.539063-28.03125-7.441406-7.421875-17.550781-11.5546875-28.0625-11.46875h-88.796875c-10.511719-.0859375-20.621094 4.046875-28.0625 11.46875-7.441406 7.425781-11.597656 17.519531-11.539062 28.03125v12.5h-51.199219c-19.1875.003906-35.394531 14.234375-37.878907 33.257812-2.480468 19.027344 9.535157 36.941407 28.078126 41.863282zm239.601562 279.878906h-189.203125c-17.097656 0-30.398437-14.6875-30.398437-33.5v-245.5h250v245.5c0 18.8125-13.300782 33.5-30.398438 33.5zm-158.601562-367.5c-.066407-5.207031 1.980468-10.21875 5.675781-13.894531 3.691406-3.675781 8.714843-5.695313 13.925781-5.605469h88.796875c5.210937-.089844 10.234375 1.929688 13.925781 5.605469 3.695313 3.671875 5.742188 8.6875 5.675782 13.894531v12.5h-128zm-71.199219 32.5h270.398437c9.941406 0 18 8.058594 18 18s-8.058594 18-18 18h-270.398437c-9.941407 0-18-8.058594-18-18s8.058593-18 18-18zm0 0"
-                              />
-                              <path
-                                d="m173.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
-                              />
-                            </svg>
-                          </button>
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M15 19l-7-7 7-7"
+                                ></path>
+                              </svg>
+                            </button>
+                          </div>
+
+                          <div class="mr-2 w-1/2">
+                            <button
+                              @click="UploadImagesMail"
+                              type="button"
+                              class="
+                                flex
+                                justify-center
+                                items-center
+                                py-2
+                                px-2
+                                border border-transparent
+                                shadow-sm
+                                text-xs
+                                font-semibold
+                                rounded-md
+                                text-white
+                                bg-cyan-600
+                                hover:bg-cyan-700
+                                focus:outline-none
+                                focus:ring-cyan-700
+                              "
+                            >
+                              <svg
+                                class="
+                                  w-4
+                                  h-4
+                                  stroke-current
+                                  text-white
+                                  ml-2
+                                  fill-current
+                                "
+                                height="512"
+                                viewBox="0 0 55 60"
+                                width="512"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <g id="Page-1" fill-rule="evenodd">
+                                  <g id="040---Save-File" fill-rule="nonzero">
+                                    <path
+                                      id="Shape"
+                                      d="m53 5v39h-7c-2.7600532.0033061-4.9966939 2.2399468-5 5v7h-3c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1h4c.2651948-.0000566.5195073-.1054506.707-.293l12-12c.1875494-.1874927.2929434-.4418052.293-.707v-40c-.0033061-2.76005315-2.2399468-4.99669388-5-5h-40c-2.76005315.00330612-4.99669388 2.23994685-5 5v17c0 .5522847.44771525 1 1 1s1-.4477153 1-1v-17c0-1.65685425 1.34314575-3 3-3h40c1.6568542 0 3 1.34314575 3 3zm-7 41h5.586l-8.586 8.586v-5.586c0-1.6568542 1.3431458-3 3-3z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m14 6h-2c-.5522847 0-1 .44771525-1 1s.4477153 1 1 1h2c.5522847 0 1-.44771525 1-1s-.4477153-1-1-1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m48 6h-30c-.5522847 0-1 .44771525-1 1s.4477153 1 1 1h30c.5522847 0 1-.44771525 1-1s-.4477153-1-1-1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m14 12h-2c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1h2c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m18 14h23c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1h-23c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m14 18h-2c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1h2c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m18 20h16c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1h-16c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m51 21c0-.5522847-.4477153-1-1-1s-1 .4477153-1 1v14c0 .5522847.4477153 1 1 1s1-.4477153 1-1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m50 38c-.5522847 0-1 .4477153-1 1v2c0 .5522847.4477153 1 1 1s1-.4477153 1-1v-2c0-.5522847-.4477153-1-1-1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m3 60h28c1.6568542 0 3-1.3431458 3-3v-28c0-1.6568542-1.3431458-3-3-3h-28c-1.65685425 0-3 1.3431458-3 3v28c0 1.6568542 1.34314575 3 3 3zm4-2v-2h20v2zm6-23v-7h14v7c0 .5522847-.4477153 1-1 1h-12c-.5522847 0-1-.4477153-1-1zm-2-7v7c.0033144.3414397.0655622.679743.184 1h-3.184c-.55228475 0-1-.4477153-1-1v-7zm-9 1c0-.5522847.44771525-1 1-1h2v7c0 1.6568542 1.34314575 3 3 3h18c1.6568542 0 3-1.3431458 3-3v-7h2c.5522847 0 1 .4477153 1 1v28c0 .5522847-.4477153 1-1 1h-2v-2c0-1.1045695-.8954305-2-2-2h-20c-1.1045695 0-2 .8954305-2 2v2h-2c-.55228475 0-1-.4477153-1-1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m17 52c3.3137085 0 6-2.6862915 6-6s-2.6862915-6-6-6-6 2.6862915-6 6c.0033074 3.3123376 2.6876624 5.9966926 6 6zm0-10c2.209139 0 4 1.790861 4 4s-1.790861 4-4 4-4-1.790861-4-4 1.790861-4 4-4z"
+                                    ></path>
+                                    <circle
+                                      id="Oval"
+                                      cx="16"
+                                      cy="45"
+                                      r="1"
+                                    ></circle>
+                                  </g>
+                                </g>
+                              </svg>
+
+                              حفظ المستندات
+                            </button>
+                          </div>
                         </div>
                       </div>
 
-                      <div class="flex justify-between items-center mt-4">
-                        <button
-                          @click="previousImage()"
-                          class="w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
-                        >
-                          <svg
-                            class="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M9 5l7 7-7 7"
-                            ></path>
-                          </svg>
-                        </button>
-                        {{ indextotest + 1 }} /
-                        <!-- {{ imagesToShow.length }} -->
+                      <div v-if="testimage" class="">
+                        <div class="relative h-64 w-full">
+                          <img
+                            :src="testimage"
+                            alt="image"
+                            class="w-full h-full rounded object-contain"
+                          />
 
-                        <button
-                          title="next"
-                          @click="nextImage()"
-                          class="w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
-                        >
-                          <svg
-                            class="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
+                          <div
+                            class="
+                              absolute
+                              inset-0
+                              flex
+                              justify-center
+                              items-center
+                            "
                           >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M15 19l-7-7 7-7"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
+                            <button
+                              type="button"
+                              class="
+                                bg-green-600
+                                hover:bg-green-500
+                                duration-500
+                                p-2
+                                rounded-full
+                                focus:outline-none
+                              "
+                            >
+                              <svg
+                                class="w-4 h-4 text-white mx-auto"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+                                ></path>
+                              </svg>
+                            </button>
 
-                      <div class="flex justify-center mt-10">
-                        <button
-                          @click="UploadImagesMail"
-                          type="button"
-                          class="mr-3 flex justify-center items-center py-2 px-4 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-700"
-                        >
-                          <svg
-                            class="w-4 h-4 stroke-current text-white ml-2 fill-current"
-                            height="512"
-                            viewBox="0 0 55 60"
-                            width="512"
-                            xmlns="http://www.w3.org/2000/svg"
+                            <button
+                              type="button"
+                              class="
+                                bg-blue-600
+                                hover:bg-blue-500
+                                duration-500
+                                p-2
+                                rounded-full
+                                focus:outline-none
+                                mx-4
+                              "
+                            >
+                              <svg
+                                class="w-4 h-4 text-white mx-auto"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
+                                ></path>
+                              </svg>
+                            </button>
+
+                            <button
+                              type="button"
+                              class="
+                                bg-red-600
+                                hover:bg-red-500
+                                duration-500
+                                p-2
+                                rounded-full
+                                focus:outline-none
+                              "
+                            >
+                              <!--  @click="deleteDocument(image.id, index)" -->
+                              <svg
+                                class="w-4 h-4 text-white fill-current mx-auto"
+                                height="427pt"
+                                viewBox="-40 0 427 427.00131"
+                                width="427pt"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="m232.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
+                                />
+                                <path
+                                  d="m114.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
+                                />
+                                <path
+                                  d="m28.398438 127.121094v246.378906c0 14.5625 5.339843 28.238281 14.667968 38.050781 9.285156 9.839844 22.207032 15.425781 35.730469 15.449219h189.203125c13.527344-.023438 26.449219-5.609375 35.730469-15.449219 9.328125-9.8125 14.667969-23.488281 14.667969-38.050781v-246.378906c18.542968-4.921875 30.558593-22.835938 28.078124-41.863282-2.484374-19.023437-18.691406-33.253906-37.878906-33.257812h-51.199218v-12.5c.058593-10.511719-4.097657-20.605469-11.539063-28.03125-7.441406-7.421875-17.550781-11.5546875-28.0625-11.46875h-88.796875c-10.511719-.0859375-20.621094 4.046875-28.0625 11.46875-7.441406 7.425781-11.597656 17.519531-11.539062 28.03125v12.5h-51.199219c-19.1875.003906-35.394531 14.234375-37.878907 33.257812-2.480468 19.027344 9.535157 36.941407 28.078126 41.863282zm239.601562 279.878906h-189.203125c-17.097656 0-30.398437-14.6875-30.398437-33.5v-245.5h250v245.5c0 18.8125-13.300782 33.5-30.398438 33.5zm-158.601562-367.5c-.066407-5.207031 1.980468-10.21875 5.675781-13.894531 3.691406-3.675781 8.714843-5.695313 13.925781-5.605469h88.796875c5.210937-.089844 10.234375 1.929688 13.925781 5.605469 3.695313 3.671875 5.742188 8.6875 5.675782 13.894531v12.5h-128zm-71.199219 32.5h270.398437c9.941406 0 18 8.058594 18 18s-8.058594 18-18 18h-270.398437c-9.941407 0-18-8.058594-18-18s8.058593-18 18-18zm0 0"
+                                />
+                                <path
+                                  d="m173.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+
+                        <div class="flex justify-between items-center mt-4">
+                          <div
+                            class="ml-2 flex justify-between items-center w-1/2"
                           >
-                            <g id="Page-1" fill-rule="evenodd">
-                              <g id="040---Save-File" fill-rule="nonzero">
+                            <button
+                              @click="previousImage()"
+                              class="
+                                w-8
+                                h-8
+                                bg-gray-300
+                                rounded
+                                flex
+                                justify-center
+                                items-center
+                              "
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
                                 <path
-                                  id="Shape"
-                                  d="m53 5v39h-7c-2.7600532.0033061-4.9966939 2.2399468-5 5v7h-3c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1h4c.2651948-.0000566.5195073-.1054506.707-.293l12-12c.1875494-.1874927.2929434-.4418052.293-.707v-40c-.0033061-2.76005315-2.2399468-4.99669388-5-5h-40c-2.76005315.00330612-4.99669388 2.23994685-5 5v17c0 .5522847.44771525 1 1 1s1-.4477153 1-1v-17c0-1.65685425 1.34314575-3 3-3h40c1.6568542 0 3 1.34314575 3 3zm-7 41h5.586l-8.586 8.586v-5.586c0-1.6568542 1.3431458-3 3-3z"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M9 5l7 7-7 7"
                                 ></path>
-                                <path
-                                  id="Shape"
-                                  d="m14 6h-2c-.5522847 0-1 .44771525-1 1s.4477153 1 1 1h2c.5522847 0 1-.44771525 1-1s-.4477153-1-1-1z"
-                                ></path>
-                                <path
-                                  id="Shape"
-                                  d="m48 6h-30c-.5522847 0-1 .44771525-1 1s.4477153 1 1 1h30c.5522847 0 1-.44771525 1-1s-.4477153-1-1-1z"
-                                ></path>
-                                <path
-                                  id="Shape"
-                                  d="m14 12h-2c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1h2c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1z"
-                                ></path>
-                                <path
-                                  id="Shape"
-                                  d="m18 14h23c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1h-23c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1z"
-                                ></path>
-                                <path
-                                  id="Shape"
-                                  d="m14 18h-2c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1h2c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1z"
-                                ></path>
-                                <path
-                                  id="Shape"
-                                  d="m18 20h16c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1h-16c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1z"
-                                ></path>
-                                <path
-                                  id="Shape"
-                                  d="m51 21c0-.5522847-.4477153-1-1-1s-1 .4477153-1 1v14c0 .5522847.4477153 1 1 1s1-.4477153 1-1z"
-                                ></path>
-                                <path
-                                  id="Shape"
-                                  d="m50 38c-.5522847 0-1 .4477153-1 1v2c0 .5522847.4477153 1 1 1s1-.4477153 1-1v-2c0-.5522847-.4477153-1-1-1z"
-                                ></path>
-                                <path
-                                  id="Shape"
-                                  d="m3 60h28c1.6568542 0 3-1.3431458 3-3v-28c0-1.6568542-1.3431458-3-3-3h-28c-1.65685425 0-3 1.3431458-3 3v28c0 1.6568542 1.34314575 3 3 3zm4-2v-2h20v2zm6-23v-7h14v7c0 .5522847-.4477153 1-1 1h-12c-.5522847 0-1-.4477153-1-1zm-2-7v7c.0033144.3414397.0655622.679743.184 1h-3.184c-.55228475 0-1-.4477153-1-1v-7zm-9 1c0-.5522847.44771525-1 1-1h2v7c0 1.6568542 1.34314575 3 3 3h18c1.6568542 0 3-1.3431458 3-3v-7h2c.5522847 0 1 .4477153 1 1v28c0 .5522847-.4477153 1-1 1h-2v-2c0-1.1045695-.8954305-2-2-2h-20c-1.1045695 0-2 .8954305-2 2v2h-2c-.55228475 0-1-.4477153-1-1z"
-                                ></path>
-                                <path
-                                  id="Shape"
-                                  d="m17 52c3.3137085 0 6-2.6862915 6-6s-2.6862915-6-6-6-6 2.6862915-6 6c.0033074 3.3123376 2.6876624 5.9966926 6 6zm0-10c2.209139 0 4 1.790861 4 4s-1.790861 4-4 4-4-1.790861-4-4 1.790861-4 4-4z"
-                                ></path>
-                                <circle
-                                  id="Oval"
-                                  cx="16"
-                                  cy="45"
-                                  r="1"
-                                ></circle>
-                              </g>
-                            </g>
-                          </svg>
+                              </svg>
+                            </button>
 
-                          حفظ المستندات
-                        </button>
+                            <div class="">
+                              {{ indextotest + 1 }} / {{ imagesToShow.length }}
+                            </div>
+
+                            <button
+                              title="next"
+                              @click="nextImage()"
+                              class="
+                                w-8
+                                h-8
+                                bg-gray-300
+                                rounded
+                                flex
+                                justify-center
+                                items-center
+                              "
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M15 19l-7-7 7-7"
+                                ></path>
+                              </svg>
+                            </button>
+                          </div>
+
+                          <!-- <div class="mr-2 w-1/2">
+                            <button
+                              @click="UploadImagesMail"
+                              type="button"
+                              class="flex justify-center items-center py-2 px-2 border border-transparent shadow-sm text-xs font-semibold rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-cyan-700"
+                            >
+                              <svg
+                                class="w-4 h-4 stroke-current text-white ml-2 fill-current"
+                                height="512"
+                                viewBox="0 0 55 60"
+                                width="512"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <g id="Page-1" fill-rule="evenodd">
+                                  <g id="040---Save-File" fill-rule="nonzero">
+                                    <path
+                                      id="Shape"
+                                      d="m53 5v39h-7c-2.7600532.0033061-4.9966939 2.2399468-5 5v7h-3c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1h4c.2651948-.0000566.5195073-.1054506.707-.293l12-12c.1875494-.1874927.2929434-.4418052.293-.707v-40c-.0033061-2.76005315-2.2399468-4.99669388-5-5h-40c-2.76005315.00330612-4.99669388 2.23994685-5 5v17c0 .5522847.44771525 1 1 1s1-.4477153 1-1v-17c0-1.65685425 1.34314575-3 3-3h40c1.6568542 0 3 1.34314575 3 3zm-7 41h5.586l-8.586 8.586v-5.586c0-1.6568542 1.3431458-3 3-3z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m14 6h-2c-.5522847 0-1 .44771525-1 1s.4477153 1 1 1h2c.5522847 0 1-.44771525 1-1s-.4477153-1-1-1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m48 6h-30c-.5522847 0-1 .44771525-1 1s.4477153 1 1 1h30c.5522847 0 1-.44771525 1-1s-.4477153-1-1-1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m14 12h-2c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1h2c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m18 14h23c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1h-23c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m14 18h-2c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1h2c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m18 20h16c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1h-16c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m51 21c0-.5522847-.4477153-1-1-1s-1 .4477153-1 1v14c0 .5522847.4477153 1 1 1s1-.4477153 1-1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m50 38c-.5522847 0-1 .4477153-1 1v2c0 .5522847.4477153 1 1 1s1-.4477153 1-1v-2c0-.5522847-.4477153-1-1-1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m3 60h28c1.6568542 0 3-1.3431458 3-3v-28c0-1.6568542-1.3431458-3-3-3h-28c-1.65685425 0-3 1.3431458-3 3v28c0 1.6568542 1.34314575 3 3 3zm4-2v-2h20v2zm6-23v-7h14v7c0 .5522847-.4477153 1-1 1h-12c-.5522847 0-1-.4477153-1-1zm-2-7v7c.0033144.3414397.0655622.679743.184 1h-3.184c-.55228475 0-1-.4477153-1-1v-7zm-9 1c0-.5522847.44771525-1 1-1h2v7c0 1.6568542 1.34314575 3 3 3h18c1.6568542 0 3-1.3431458 3-3v-7h2c.5522847 0 1 .4477153 1 1v28c0 .5522847-.4477153 1-1 1h-2v-2c0-1.1045695-.8954305-2-2-2h-20c-1.1045695 0-2 .8954305-2 2v2h-2c-.55228475 0-1-.4477153-1-1z"
+                                    ></path>
+                                    <path
+                                      id="Shape"
+                                      d="m17 52c3.3137085 0 6-2.6862915 6-6s-2.6862915-6-6-6-6 2.6862915-6 6c.0033074 3.3123376 2.6876624 5.9966926 6 6zm0-10c2.209139 0 4 1.790861 4 4s-1.790861 4-4 4-4-1.790861-4-4 1.790861-4 4-4z"
+                                    ></path>
+                                    <circle
+                                      id="Oval"
+                                      cx="16"
+                                      cy="45"
+                                      r="1"
+                                    ></circle>
+                                  </g>
+                                </g>
+                              </svg>
+
+                              حفظ المستندات
+                            </button>
+                          </div> -->
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -732,23 +1214,32 @@
 
               <section
                 v-if="mailType == '2' || mailType == '3'"
-                class="col-span-2 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 bg-gray-50 rounded-md p-6"
+                class="
+                  col-span-2
+                  grid grid-cols-1
+                  gap-y-6 gap-x-4
+                  sm:grid-cols-6
+                  bg-gray-50
+                  rounded-md
+                  p-6
+                "
               >
                 <div
-                  class="sm:col-span-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6"
+                  class="
+                    sm:col-span-6
+                    grid grid-cols-1
+                    gap-y-6 gap-x-4
+                    sm:grid-cols-6
+                  "
                 >
                   <fieldset class="sm:col-span-3">
                     <div class="flex items-center">
                       <legend
                         class="block text-base font-semibold text-gray-800 w-24"
                       >
-                        <div v-if="mailType == '2'">
-                          توجيه البريد
-                        </div>
+                        <div v-if="mailType == '2'">توجيه البريد</div>
 
-                        <div v-if="mailType == '3'">
-                          وارد من
-                        </div>
+                        <div v-if="mailType == '3'">وارد من</div>
                       </legend>
 
                       <div class="flex items-center w-32">
@@ -818,17 +1309,51 @@
                       <button
                         @click="sectorselect = !sectorselect"
                         id="department"
-                        class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        class="
+                          text-right
+                          block
+                          mt-2
+                          w-full
+                          rounded-md
+                          h-10
+                          border
+                          text-sm
+                          bg-white
+                          border-gray-200
+                          hover:shadow-sm
+                          focus:outline-none
+                          focus:border-gray-300
+                          p-2
+                        "
                       >
                         {{ sectorNameSelected }}
                       </button>
 
                       <div
                         v-if="sectorselect"
-                        class="border text-sm bg-white border-gray-200 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md"
+                        class="
+                          border
+                          text-sm
+                          bg-white
+                          border-gray-200
+                          p-2
+                          absolute
+                          w-full
+                          z-20
+                          shadow
+                          h-40
+                          overflow-y-scroll
+                          rounded-b-md
+                        "
                       >
                         <button
-                          class="block focus:outline-none w-full my-1 text-right"
+                          class="
+                            block
+                            focus:outline-none
+                            w-full
+                            my-1
+                            text-right
+                          "
                           @click="
                             get_sides(sector.id, sector.section_Name);
                             sectorselect = !sectorselect;
@@ -854,17 +1379,51 @@
                       <button
                         @click="sideselect = !sideselect"
                         id="department"
-                        class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        class="
+                          text-right
+                          block
+                          mt-2
+                          w-full
+                          rounded-md
+                          h-10
+                          border
+                          text-sm
+                          bg-white
+                          border-gray-200
+                          hover:shadow-sm
+                          focus:outline-none
+                          focus:border-gray-300
+                          p-2
+                        "
                       >
                         {{ sideNameSelected }}
                       </button>
 
                       <div
                         v-if="sideselect"
-                        class="border text-sm bg-white border-gray-200 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md"
+                        class="
+                          border
+                          text-sm
+                          bg-white
+                          border-gray-200
+                          p-2
+                          absolute
+                          w-full
+                          z-20
+                          shadow
+                          h-40
+                          overflow-y-scroll
+                          rounded-b-md
+                        "
                       >
                         <button
-                          class="block focus:outline-none w-full my-1 text-right"
+                          class="
+                            block
+                            focus:outline-none
+                            w-full
+                            my-1
+                            text-right
+                          "
                           @click="
                             pass_side(side.id, side.section_Name);
                             sideselect = !sideselect;
@@ -890,14 +1449,32 @@
                     v-model="action_required_by_the_entity"
                     id="action_required"
                     rows="3"
-                    class="block mt-2 w-full text-sm rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                    class="
+                      block
+                      mt-2
+                      w-full
+                      text-sm
+                      rounded-md
+                      border border-gray-200
+                      hover:shadow-sm
+                      focus:outline-none
+                      focus:border-gray-300
+                      p-2
+                    "
                   >
                   </textarea>
                 </div>
 
                 <div
                   v-if="mailType == '3'"
-                  class="sm:col-span-6 grid grid-cols-1 mt-6 gap-y-6 gap-x-4 sm:grid-cols-6 rounded-md"
+                  class="
+                    sm:col-span-6
+                    grid grid-cols-1
+                    mt-6
+                    gap-y-6 gap-x-4
+                    sm:grid-cols-6
+                    rounded-md
+                  "
                 >
                   <fieldset class="sm:col-span-3">
                     <div class="flex items-center">
@@ -984,7 +1561,18 @@
                       v-model="entity_mail_date"
                       type="date"
                       id="entity_mail_date"
-                      class="block mt-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                      class="
+                        block
+                        mt-2
+                        w-full
+                        rounded-md
+                        h-10
+                        border border-gray-200
+                        hover:shadow-sm
+                        focus:outline-none
+                        focus:border-gray-300
+                        px-2
+                      "
                       required
                     />
                   </div>
@@ -1000,7 +1588,18 @@
                       v-model="entity_reference_number"
                       type="number"
                       id="entity_reference_number"
-                      class="block mt-2 h-10 w-full rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                      class="
+                        block
+                        mt-2
+                        h-10
+                        w-full
+                        rounded-md
+                        border border-gray-200
+                        hover:shadow-sm
+                        focus:outline-none
+                        focus:border-gray-300
+                        px-2
+                      "
                       required
                     />
                   </div>
@@ -1015,14 +1614,21 @@
                     <select
                       v-model="procedure_type"
                       id="procedure_type"
-                      class="block mt-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                      class="
+                        block
+                        mt-2
+                        w-full
+                        rounded-md
+                        h-10
+                        border border-gray-200
+                        hover:shadow-sm
+                        focus:outline-none
+                        focus:border-gray-300
+                        p-2
+                      "
                     >
-                      <option value="1">
-                        لم تعرض
-                      </option>
-                      <option value="2">
-                        عرضت
-                      </option>
+                      <option value="1">لم تعرض</option>
+                      <option value="2">عرضت</option>
                     </select>
                   </div>
                 </div>
@@ -1033,7 +1639,24 @@
                   <div class="flex justify-end ml-6">
                     <!-- @click="saveMail()" -->
                     <button
-                      class="flex justify-center items-center py-2 px-8 border border-transparent shadow-sm text-sm font-medium rounded-md border-green-600 text-green-600 hover:shadow-lg focus:shadow-none duration-300 focus:outline-none"
+                      class="
+                        flex
+                        justify-center
+                        items-center
+                        py-2
+                        px-8
+                        border border-transparent
+                        shadow-sm
+                        text-sm
+                        font-medium
+                        rounded-md
+                        border-green-600
+                        text-green-600
+                        hover:shadow-lg
+                        focus:shadow-none
+                        duration-300
+                        focus:outline-none
+                      "
                     >
                       <svg
                         class="w-5 h-5 stroke-current ml-2 fill-current"
@@ -1064,11 +1687,39 @@
                       @click="updateMail"
                       type="button"
                       id="edit"
-                      class="w-full sm:w-auto sm:mr-3 flex justify-center items-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md border-green-600 text-white bg-green-600 hover:shadow-lg focus:shadow-none duration-300 focus:outline-none"
+                      class="
+                        w-full
+                        sm:w-auto
+                        sm:mr-3
+                        flex
+                        justify-center
+                        items-center
+                        py-2
+                        px-4
+                        border border-transparent
+                        shadow-sm
+                        text-sm
+                        font-medium
+                        rounded-md
+                        border-green-600
+                        text-white
+                        bg-green-600
+                        hover:shadow-lg
+                        focus:shadow-none
+                        duration-300
+                        focus:outline-none
+                      "
                     >
                       <!-- onclick="change();" -->
                       <svg
-                        class="w-4 h-4 stroke-current text-white ml-2 fill-current"
+                        class="
+                          w-4
+                          h-4
+                          stroke-current
+                          text-white
+                          ml-2
+                          fill-current
+                        "
                         version="1.1"
                         id="Capa_1"
                         xmlns="http://www.w3.org/2000/svg"
@@ -1111,11 +1762,39 @@
                       @click="deleteMail"
                       type="button"
                       id="edit"
-                      class="w-full sm:w-auto sm:mr-3 flex justify-center items-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md border-green-600 text-white bg-green-600 hover:shadow-lg focus:shadow-none duration-300 focus:outline-none"
+                      class="
+                        w-full
+                        sm:w-auto
+                        sm:mr-3
+                        flex
+                        justify-center
+                        items-center
+                        py-2
+                        px-4
+                        border border-transparent
+                        shadow-sm
+                        text-sm
+                        font-medium
+                        rounded-md
+                        border-green-600
+                        text-white
+                        bg-green-600
+                        hover:shadow-lg
+                        focus:shadow-none
+                        duration-300
+                        focus:outline-none
+                      "
                     >
                       <!-- onclick="change();" -->
                       <svg
-                        class="w-4 h-4 stroke-current text-white ml-2 fill-current"
+                        class="
+                          w-4
+                          h-4
+                          stroke-current
+                          text-white
+                          ml-2
+                          fill-current
+                        "
                         version="1.1"
                         id="Capa_1"
                         xmlns="http://www.w3.org/2000/svg"
@@ -1155,7 +1834,25 @@
 
                   <div v-if="saveButton" class="flex justify-end">
                     <button
-                      class="flex justify-center items-center py-2 px-8 border border-transparent shadow-sm text-sm font-medium rounded-md border-green-600 text-white bg-green-600 hover:shadow-lg focus:shadow-none duration-300 focus:outline-none"
+                      class="
+                        flex
+                        justify-center
+                        items-center
+                        py-2
+                        px-8
+                        border border-transparent
+                        shadow-sm
+                        text-sm
+                        font-medium
+                        rounded-md
+                        border-green-600
+                        text-white
+                        bg-green-600
+                        hover:shadow-lg
+                        focus:shadow-none
+                        duration-300
+                        focus:outline-none
+                      "
                       @click="saveMail()"
                     >
                       <svg
@@ -1198,7 +1895,25 @@
 
                   <div v-if="sendButton" class="flex justify-end">
                     <button
-                      class="flex justify-center items-center py-2 px-8 border border-transparent shadow-sm text-sm font-medium rounded-md border-green-600 text-white bg-green-600 hover:shadow-lg focus:shadow-none duration-300 focus:outline-none"
+                      class="
+                        flex
+                        justify-center
+                        items-center
+                        py-2
+                        px-8
+                        border border-transparent
+                        shadow-sm
+                        text-sm
+                        font-medium
+                        rounded-md
+                        border-green-600
+                        text-white
+                        bg-green-600
+                        hover:shadow-lg
+                        focus:shadow-none
+                        duration-300
+                        focus:outline-none
+                      "
                       @click="sendMail()"
                     >
                       <svg
@@ -1246,9 +1961,19 @@
                   v-for="consignee in consignees"
                   :key="consignee.side"
                   @click="GetReplyByDepartment(consignee.departmentId)"
-                  class="border border-blue-400 hover:bg-blue-400 hover:text-white duration-300 focus:outline-none rounded-md text-sm p-2 m-0.5"
+                  class="
+                    border border-blue-400
+                    hover:bg-blue-400
+                    hover:text-white
+                    duration-300
+                    focus:outline-none
+                    rounded-md
+                    text-sm
+                    p-2
+                    m-0.5
+                  "
                 >
-                  {{ consignee.departmentName }} - {{consignee.departmentId}}
+                  {{ consignee.departmentName }} - {{ consignee.departmentId }}
                 </button>
               </section>
 
@@ -1260,13 +1985,13 @@
                 <div
                   id="scroll"
                   class="
-                      h-72
-                      overflow-y-scroll
-                      mt-4
-                      rounded-lg
-                      py-2
-                      border border-gray-300
-                    "
+                    h-72
+                    overflow-y-scroll
+                    mt-4
+                    rounded-lg
+                    py-2
+                    border border-gray-300
+                  "
                 >
                   <div
                     v-for="reply in replies"
@@ -1285,14 +2010,13 @@
                           : 'bg-blue-700'
                       "
                       class="
-                          
-                          text-white
-                          max-w-10/12
-                          py-4
-                          leading-9
-                          px-4
-                          rounded-2xl
-                        "
+                        text-white
+                        max-w-10/12
+                        py-4
+                        leading-9
+                        px-4
+                        rounded-2xl
+                      "
                     >
                       {{ reply.mail_detail }}
                     </div>
@@ -1304,17 +2028,17 @@
                     <textarea
                       id=""
                       class="
-                          block
-                          w-full
-                          h-20
-                          text-sm
-                          rounded-md
-                          border border-gray-200
-                          hover:shadow-sm
-                          focus:outline-none
-                          focus:border-gray-300
-                          p-2
-                        "
+                        block
+                        w-full
+                        h-20
+                        text-sm
+                        rounded-md
+                        border border-gray-200
+                        hover:shadow-sm
+                        focus:outline-none
+                        focus:border-gray-300
+                        p-2
+                      "
                       v-model="reply_to_add"
                     >
                     </textarea>
@@ -1430,23 +2154,23 @@
                     <button
                       @click="AddReply()"
                       class="
-                          w-full
-                          flex
-                          items-center
-                          justify-center
-                          h-20
-                          py-2
-                          bg-white
-                          rounded-lg
-                          text-blue-600
-                          tracking-wide
-                          border border-blue-600
-                          cursor-pointer
-                          hover:text-white
-                          hover:bg-blue-600
-                          focus:outline-none
-                          duration-300
-                        "
+                        w-full
+                        flex
+                        items-center
+                        justify-center
+                        h-20
+                        py-2
+                        bg-white
+                        rounded-lg
+                        text-blue-600
+                        tracking-wide
+                        border border-blue-600
+                        cursor-pointer
+                        hover:text-white
+                        hover:bg-blue-600
+                        focus:outline-none
+                        duration-300
+                      "
                     >
                       <span class="leading-normal">إرسال</span>
                       <svg
@@ -1484,7 +2208,17 @@
 
     <div
       v-if="screenFreeze"
-      class="w-screen h-screen bg-black bg-opacity-30 absolute inset-0 z-50 flex justify-center items-center"
+      class="
+        w-screen
+        h-screen
+        bg-black bg-opacity-30
+        absolute
+        inset-0
+        z-50
+        flex
+        justify-center
+        items-center
+      "
     >
       <div v-if="loading" class="">
         <svgLoadingComponent></svgLoadingComponent>
@@ -1547,6 +2281,9 @@ export default {
       reply_to_add: "",
       sends_id: this.$route.params.sends_id,
       replyByDepartmenId: "",
+
+      testimageToSend: "",
+      indextotestToSend: 0,
 
       testimage: "",
       indextotest: 0,
@@ -1660,7 +2397,6 @@ export default {
         reply: {
           mail_detail: this.reply_to_add,
           To: Number(this.replyByDepartmenId),
-          
         },
       };
       this.$http.mailService
@@ -1700,6 +2436,31 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+
+    previousImageToSend() {
+      console.log("IN previousImageToSend");
+      if (this.indextotestToSend > 0) {
+        console.log("IN previousImageToSend if");
+
+        this.indextotestToSend--;
+        this.testimageToSend = this.imagesToSend[
+          this.indextotestToSend
+        ].baseAs64;
+      }
+    },
+
+    nextImageToSend() {
+      console.log("IN nextImageToSend ");
+
+      if (this.indextotestToSend < this.imagesToSend.length - 1) {
+        console.log("IN nextImageToSend if");
+
+        this.indextotestToSend++;
+        this.testimageToSend = this.imagesToSend[
+          this.indextotestToSend
+        ].baseAs64;
+      }
     },
 
     previousImage() {
@@ -2101,6 +2862,11 @@ export default {
           baseAs64: scannedImage.src,
           index: this.indexOfimagesToShow,
         });
+
+        // if (this.imagesToSend.length > 0) {
+        //     console.log("FFFFFFFFFFFFFFFFFFf");
+        this.testimageToSend = this.imagesToSend[0].baseAs64;
+        // }
       }
     },
 
