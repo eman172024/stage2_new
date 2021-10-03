@@ -181,12 +181,12 @@ namespace MMSystem.Services.ReceivedMail
                                            (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true)).OrderByDescending(x => x.MailID)
 
                                    //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
-                               join ex in dbcon.Sends.Where(x => (x.flag != 0) &&
+                               join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                               (x.flag == mail_state || State_filter == true))
+                               (x.flag == mail_state || State_filter == true) && x.isMulti == true)
                                on mail.MailID equals ex.MailID
                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
-                               join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                               join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on ex.to equals n.Id
                                join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
@@ -204,7 +204,7 @@ namespace MMSystem.Services.ReceivedMail
                                    mangment_sender = n.DepartmentName,
                                    mangment_sender_id = mail.Department_Id,
                                    Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                   time = ex.Send_time.ToString("HH-mm-ss"),
+                                   time = ex.Send_time.ToString("HH:mm:ss"),
                                    summary = mail.Mail_Summary,
                                    flag = ex.flag,
                                    Sends_id = ex.Id
@@ -217,12 +217,12 @@ namespace MMSystem.Services.ReceivedMail
               && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true)).OrderByDescending(x => x.MailID)
 
                                       //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
-                                  join ex in dbcon.Sends.Where(x => (x.flag != 0) &&
+                                  join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
                                   ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                                  (x.flag == mail_state || State_filter == true))
+                                  (x.flag == mail_state || State_filter == true) && x.isMulti == true)
                                   on mail.MailID equals ex.MailID
                                   join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
-                                  join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                                  join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on ex.to equals n.Id
                                   join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
@@ -240,7 +240,7 @@ namespace MMSystem.Services.ReceivedMail
                                       mangment_sender = n.DepartmentName,
                                       mangment_sender_id = mail.Department_Id,
                                       Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                      time = ex.Send_time.ToString("HH-mm-ss"),
+                                      time = ex.Send_time.ToString("HH:mm:ss"),
                                       flag = ex.flag,
                                       summary = mail.Mail_Summary,
                                       Sends_id = ex.Id
@@ -438,7 +438,7 @@ namespace MMSystem.Services.ReceivedMail
                                    mangment_sender = n.DepartmentName,
                                    mangment_sender_id = mail.Department_Id,
                                    Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                   time = ex.Send_time.ToString("HH-mm-ss"),
+                                   time = ex.Send_time.ToString("HH:mm:ss"),
                                    summary = mail.Mail_Summary,
                                    flag = ex.flag,
                                    Sends_id = ex.Id
@@ -472,7 +472,7 @@ namespace MMSystem.Services.ReceivedMail
                                       mangment_sender = n.DepartmentName,
                                       mangment_sender_id = mail.Department_Id,
                                       Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                      time = ex.Send_time.ToString("HH-mm-ss"),
+                                      time = ex.Send_time.ToString("HH:mm:ss"),
                                       flag = ex.flag,
                                       summary = mail.Mail_Summary,
                                       Sends_id = ex.Id
@@ -797,12 +797,12 @@ namespace MMSystem.Services.ReceivedMail
                                            && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true)).OrderByDescending(x => x.MailID)
 
                                join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
-                               join ex in dbcon.Sends.Where(x => (x.flag != 0) &&
+                               join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                               (x.flag == mail_state || State_filter == true))
+                               (x.flag == mail_state || State_filter == true) && x.isMulti == true)
                                on mail.MailID equals ex.MailID
                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
-                               join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                               join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on ex.to equals n.Id
                                join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
@@ -820,7 +820,7 @@ namespace MMSystem.Services.ReceivedMail
                                    mangment_sender = n.DepartmentName,
                                    mangment_sender_id = mail.Department_Id,
                                    Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                   time = ex.Send_time.ToString("HH-mm-ss"),
+                                   time = ex.Send_time.ToString("HH:mm:ss"),
                                    summary = mail.Mail_Summary,
                                    flag = ex.flag,
                                    Sends_id = ex.Id,
@@ -835,12 +835,12 @@ namespace MMSystem.Services.ReceivedMail
               && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true)).OrderByDescending(x => x.MailID)
 
                                   join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
-                                  join ex in dbcon.Sends.Where(x => (x.flag != 0) &&
+                                  join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
                                   ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                                  (x.flag == mail_state || State_filter == true))
+                                  (x.flag == mail_state || State_filter == true) && x.isMulti == true)
                                   on mail.MailID equals ex.MailID
                                   join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
-                                  join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                                  join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on ex.to equals n.Id
                                   join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
@@ -858,7 +858,7 @@ namespace MMSystem.Services.ReceivedMail
                                       mangment_sender = n.DepartmentName,
                                       mangment_sender_id = mail.Department_Id,
                                       Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                      time = ex.Send_time.ToString("HH-mm-ss"),
+                                      time = ex.Send_time.ToString("HH:mm:ss"),
                                       flag = ex.flag,
                                       summary = mail.Mail_Summary,
                                       Sends_id = ex.Id,
@@ -1054,12 +1054,12 @@ namespace MMSystem.Services.ReceivedMail
                                            && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true)).OrderByDescending(x => x.MailID)
 
                                join Extr in dbcon.External_Mails on mail.MailID equals Extr.MailID
-                               join ex in dbcon.Sends.Where(x => (x.flag != 0) &&
+                               join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                               (x.flag == mail_state || State_filter == true))
+                               (x.flag == mail_state || State_filter == true) && x.isMulti == true)
                                on mail.MailID equals ex.MailID
                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
-                               join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                               join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on ex.to equals n.Id
                                join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
@@ -1077,7 +1077,7 @@ namespace MMSystem.Services.ReceivedMail
                                    mangment_sender = n.DepartmentName,
                                    mangment_sender_id = mail.Department_Id,
                                    Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                   time = ex.Send_time.ToString("HH-mm-ss"),
+                                   time = ex.Send_time.ToString("HH:mm:ss"),
                                    summary = mail.Mail_Summary,
                                    flag = ex.flag,
                                    Sends_id = ex.Id,
@@ -1092,12 +1092,12 @@ namespace MMSystem.Services.ReceivedMail
               && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true)).OrderByDescending(x => x.MailID)
 
                                   join Extr in dbcon.External_Mails on mail.MailID equals Extr.MailID
-                                  join ex in dbcon.Sends.Where(x => (x.flag != 0) &&
+                                  join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
                                   ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                                  (x.flag == mail_state || State_filter == true))
+                                  (x.flag == mail_state || State_filter == true) && x.isMulti == true)
                                   on mail.MailID equals ex.MailID
                                   join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
-                                  join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                                  join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on ex.to equals n.Id
                                   join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
@@ -1115,7 +1115,7 @@ namespace MMSystem.Services.ReceivedMail
                                       mangment_sender = n.DepartmentName,
                                       mangment_sender_id = mail.Department_Id,
                                       Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                      time = ex.Send_time.ToString("HH-mm-ss"),
+                                      time = ex.Send_time.ToString("HH:mm:ss"),
                                       flag = ex.flag,
                                       summary = mail.Mail_Summary,
                                       Sends_id = ex.Id,
@@ -1168,7 +1168,7 @@ namespace MMSystem.Services.ReceivedMail
                                     //procedure_type = mail.clasification,
                                     mangment_sender = m.DepartmentName,
                                     Send_time = y.Send_time.ToString("yyyy-MM-dd"),
-                                    time = y.Send_time.ToString("HH-mm-ss"),
+                                    time = y.Send_time.ToString("HH:mm:ss"),
                                     summary = mail.Mail_Summary,
                                     Sends_id = y.Id,
                                     sectionName = Extr.sectionName
@@ -1214,7 +1214,7 @@ namespace MMSystem.Services.ReceivedMail
                                     //procedure_type = mail.clasification,
                                     mangment_sender = m.DepartmentName,
                                     Send_time = y.Send_time.ToString("yyyy-MM-dd"),
-                                    time = y.Send_time.ToString("HH-mm-ss"),
+                                    time = y.Send_time.ToString("HH:mm:ss"),
                                     summary = mail.Mail_Summary,
                                     Sends_id = y.Id,
                                     sectionName = Extr.sectionName
@@ -1261,7 +1261,7 @@ namespace MMSystem.Services.ReceivedMail
                                     //procedure_type = mail.clasification,
                                     mangment_sender = m.DepartmentName,
                                     Send_time = y.Send_time.ToString("yyyy-MM-dd"),
-                                    time = y.Send_time.ToString("HH-mm-ss"),
+                                    time = y.Send_time.ToString("HH:mm:ss"),
                                     summary = mail.Mail_Summary,
                                     Sends_id = y.Id,
                                     sectionName = Extr.section_Name
@@ -1308,7 +1308,7 @@ namespace MMSystem.Services.ReceivedMail
                                     //procedure_type = mail.clasification,
                                     mangment_sender = m.DepartmentName,
                                     Send_time = y.Send_time.ToString("yyyy-MM-dd"),
-                                    time = y.Send_time.ToString("HH-mm-ss"),
+                                    time = y.Send_time.ToString("HH:mm:ss"),
                                     summary = mail.Mail_Summary,
                                     Sends_id = y.Id,
                                     sectionName = Extr.section_Name
@@ -1503,7 +1503,7 @@ namespace MMSystem.Services.ReceivedMail
                                    mangment_sender = n.DepartmentName,
                                    mangment_sender_id = mail.Department_Id,
                                    Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                   time = ex.Send_time.ToString("HH-mm-ss"),
+                                   time = ex.Send_time.ToString("HH:mm:ss"),
                                    summary = mail.Mail_Summary,
                                    flag = ex.flag,
                                    Sends_id = ex.Id
@@ -1538,7 +1538,7 @@ namespace MMSystem.Services.ReceivedMail
                                       mangment_sender = n.DepartmentName,
                                       mangment_sender_id = mail.Department_Id,
                                       Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                      time = ex.Send_time.ToString("HH-mm-ss"),
+                                      time = ex.Send_time.ToString("HH:mm:ss"),
                                       flag = ex.flag,
                                       summary = mail.Mail_Summary,
                                       Sends_id = ex.Id
@@ -1737,7 +1737,7 @@ namespace MMSystem.Services.ReceivedMail
                                    mangment_sender = n.DepartmentName,
                                    mangment_sender_id = mail.Department_Id,
                                    Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                   time = ex.Send_time.ToString("HH-mm-ss"),
+                                   time = ex.Send_time.ToString("HH:mm:ss"),
                                    summary = mail.Mail_Summary,
                                    flag = ex.flag,
                                    Sends_id = ex.Id
@@ -1772,7 +1772,7 @@ namespace MMSystem.Services.ReceivedMail
                                       mangment_sender = n.DepartmentName,
                                       mangment_sender_id = mail.Department_Id,
                                       Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                      time = ex.Send_time.ToString("HH-mm-ss"),
+                                      time = ex.Send_time.ToString("HH:mm:ss"),
                                       flag = ex.flag,
                                       summary = mail.Mail_Summary,
                                       Sends_id = ex.Id
@@ -1974,7 +1974,7 @@ namespace MMSystem.Services.ReceivedMail
                                    mangment_sender = n.DepartmentName,
                                    mangment_sender_id = mail.Department_Id,
                                    Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                   time = ex.Send_time.ToString("HH-mm-ss"),
+                                   time = ex.Send_time.ToString("HH:mm:ss"),
                                    summary = mail.Mail_Summary,
                                    flag = ex.flag,
                                    Sends_id = ex.Id
@@ -2009,7 +2009,7 @@ namespace MMSystem.Services.ReceivedMail
                                       mangment_sender = n.DepartmentName,
                                       mangment_sender_id = mail.Department_Id,
                                       Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                      time = ex.Send_time.ToString("HH-mm-ss"),
+                                      time = ex.Send_time.ToString("HH:mm:ss"),
                                       flag = ex.flag,
                                       summary = mail.Mail_Summary,
                                       Sends_id = ex.Id
@@ -2209,7 +2209,7 @@ namespace MMSystem.Services.ReceivedMail
                                     //procedure_type = mail.clasification,
                                     mangment_sender = m.DepartmentName,
                                     Send_time = y.Send_time.ToString("yyyy-MM-dd"),
-                                    time = y.Send_time.ToString("HH-mm-ss"),
+                                    time = y.Send_time.ToString("HH:mm:ss"),
                                     summary = mail.Mail_Summary,
                                     Sends_id = y.Id
 
@@ -2274,7 +2274,7 @@ namespace MMSystem.Services.ReceivedMail
                                     //procedure_type = mail.clasification,
                                     mangment_sender = m.DepartmentName,
                                     Send_time = y.Send_time.ToString("yyyy-MM-dd"),
-                                    time = y.Send_time.ToString("HH-mm-ss"),
+                                    time = y.Send_time.ToString("HH:mm:ss"),
                                     summary = mail.Mail_Summary,
                                     Sends_id = y.Id
 
@@ -2463,12 +2463,12 @@ namespace MMSystem.Services.ReceivedMail
                                            && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true)).OrderByDescending(x => x.MailID)
 
                                join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
-                               join ex in dbcon.Sends.Where(x => (x.flag != 0) &&
+                               join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                               (x.flag == mail_state || State_filter == true))
+                               (x.flag == mail_state || State_filter == true) && x.isMulti == true)
                                on mail.MailID equals ex.MailID
                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
-                               join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                               join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on ex.to equals n.Id
                                join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
@@ -2486,7 +2486,7 @@ namespace MMSystem.Services.ReceivedMail
                                    mangment_sender = n.DepartmentName,
                                    mangment_sender_id = mail.Department_Id,
                                    Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                   time = ex.Send_time.ToString("HH-mm-ss"),
+                                   time = ex.Send_time.ToString("HH:mm:ss"),
                                    summary = mail.Mail_Summary,
                                    flag = ex.flag,
                                    Sends_id = ex.Id,
@@ -2499,12 +2499,12 @@ namespace MMSystem.Services.ReceivedMail
               (x.clasification == Classfication || clasf_filter == true)
               && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true)).OrderByDescending(x => x.MailID)
 
-                                  join ex in dbcon.Sends.Where(x => (x.flag != 0) &&
+                                  join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
                                   ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                                  (x.flag == mail_state || State_filter == true))
+                                  (x.flag == mail_state || State_filter == true) && x.isMulti == true)
                                   on mail.MailID equals ex.MailID
                                   join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
-                                  join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
+                                  join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on ex.to equals n.Id
                                   join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
 
 
@@ -2522,7 +2522,7 @@ namespace MMSystem.Services.ReceivedMail
                                       mangment_sender = n.DepartmentName,
                                       mangment_sender_id = mail.Department_Id,
                                       Send_time = ex.Send_time.ToString("yyyy-MM-dd"),
-                                      time = ex.Send_time.ToString("HH-mm-ss"),
+                                      time = ex.Send_time.ToString("HH:mm:ss"),
                                       flag = ex.flag,
                                       summary = mail.Mail_Summary,
                                       Sends_id = ex.Id,

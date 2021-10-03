@@ -24,7 +24,7 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                t.flag = 0;
+            
                 t.Send_time = DateTime.Now;
                 await _data.Sends.AddAsync(t);
                 await _data.SaveChangesAsync();
