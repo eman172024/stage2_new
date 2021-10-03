@@ -21,6 +21,7 @@ namespace MMSystem.Model
         public DateTime time_of_read { get; set; }
         public DateTime update_At { get; set; }
         public List<Reply> replies { get; set; }
+        public bool isMulti { get; set; }
 
     }
 }

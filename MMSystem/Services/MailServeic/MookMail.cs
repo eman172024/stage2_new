@@ -96,18 +96,37 @@ namespace MMSystem.Services.MailServeic
                         mailViewModel.mail = mail.mail;
                         if (Email)
                         {
-                            foreach (var item in mail.actionSenders)
+                            //for (var item in mail.actionSenders)
+                            //{
+                            //    Send_to sender = new Send_to();
+
+
+
+                            //    sender.MailID = mail.mail.MailID;
+                            //    sender.to = item.departmentId;
+                            //    sender.flag = 1;
+                            //    sender.type_of_send = item.measureId;
+                            //    bool send = await _sender.Add(sender);
+                            //}
+
+                            for (int i = 0; i < mail.actionSenders.Count; i++)
                             {
                                 Send_to sender = new Send_to();
 
+
+                                if (i == (mail.actionSenders.Count - 1))
+                                {
+                                    sender.isMulti = true;
+                                }
+                                else {
+                                    sender.isMulti = false;
+                                }
                                 sender.MailID = mail.mail.MailID;
-                                sender.to = item.departmentId;
+                                sender.to = mail.actionSenders[i].departmentId;
                                 sender.flag = 1;
-                                sender.type_of_send = item.measureId;
+                                sender.type_of_send = mail.actionSenders[i].measureId;
                                 bool send = await _sender.Add(sender);
                             }
-
-
                             result = true;
                             break;
                         }
@@ -132,16 +151,37 @@ namespace MMSystem.Services.MailServeic
 
                                 if (Exmail)
                                 {
-                                    foreach (var item in mail.actionSenders)
-                                    {
-                                        Send_to sender = new Send_to();
+                                    //foreach (var item in mail.actionSenders)
+                                    //{
+                                    //    Send_to sender = new Send_to();
 
-                                        sender.MailID = mail.mail.MailID;
-                                        sender.to = item.departmentId;
-                                        sender.flag = 1;
-                                        sender.type_of_send = item.measureId;
-                                        bool send = await _sender.Add(sender);
-                                    }
+                                    //    sender.MailID = mail.mail.MailID;
+                                    //    sender.to = item.departmentId;
+                                    //    sender.flag = 1;
+                                    //    sender.type_of_send = item.measureId;
+                                    //    bool send = await _sender.Add(sender);
+                                    //}
+
+                                    
+                            for (int i = 0; i < mail.actionSenders.Count; i++)
+                            {
+                                Send_to sender = new Send_to();
+
+
+                                if (i == (mail.actionSenders.Count - 1))
+                                {
+                                    sender.isMulti = true;
+                                }
+                                else {
+                                    sender.isMulti = false;
+                                }
+                                sender.MailID = mail.mail.MailID;
+                                sender.to = mail.actionSenders[i].departmentId;
+                                sender.flag = 1;
+                                sender.type_of_send = mail.actionSenders[i].measureId;
+                                bool send = await _sender.Add(sender);
+                            }
+
                                     result = true;
                                     break;
                                 }
@@ -173,14 +213,34 @@ namespace MMSystem.Services.MailServeic
 
                             if (Ex_inboxmail)
                             {
-                                foreach (var item in mail.actionSenders)
+                                //foreach (var item in mail.actionSenders)
+                                //{
+                                //    Send_to sender = new Send_to();
+
+                                //    sender.MailID = mail.mail.MailID;
+                                //    sender.to = item.departmentId;
+                                //    sender.flag = 1;
+                                //    sender.type_of_send = item.measureId;
+                                //    bool send = await _sender.Add(sender);
+                                //}
+
+                                for (int i = 0; i < mail.actionSenders.Count; i++)
                                 {
                                     Send_to sender = new Send_to();
 
+
+                                    if (i == (mail.actionSenders.Count - 1))
+                                    {
+                                        sender.isMulti = true;
+                                    }
+                                    else
+                                    {
+                                        sender.isMulti = false;
+                                    }
                                     sender.MailID = mail.mail.MailID;
-                                    sender.to = item.departmentId;
+                                    sender.to = mail.actionSenders[i].departmentId;
                                     sender.flag = 1;
-                                    sender.type_of_send = item.measureId;
+                                    sender.type_of_send = mail.actionSenders[i].measureId;
                                     bool send = await _sender.Add(sender);
                                 }
                                 result = true;

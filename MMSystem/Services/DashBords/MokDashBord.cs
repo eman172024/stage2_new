@@ -22,12 +22,12 @@ namespace MMSystem.Services.DashBords
             Dashbord Dashbord = new Dashbord();
 
             var send = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId)
-                           join y in DbCon.Sends.Where(y => y.flag == 1) on x.MailID equals y.MailID
+                           join y in DbCon.Sends.Where(y => y.flag >0) on x.MailID equals y.MailID
 
                            select y).ToListAsync();
             int sends = send.Count();
 
-            var Received = await DbCon.Sends.Where(x => x.to == ManagementId && x.flag == 1).ToListAsync();
+            var Received = await DbCon.Sends.Where(x => x.to == ManagementId && x.flag >0).ToListAsync();
             int Receive = Received.Count();
 
             var NotSend = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId)
