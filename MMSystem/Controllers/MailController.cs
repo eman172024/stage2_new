@@ -138,10 +138,10 @@ namespace MMSystem.Controllers
         //}
 
         [HttpGet("GetLastMails")]
-        public async Task<IActionResult> GetLastMails()
+        public async Task<IActionResult> GetLastMails(int departmentId, int type)
         {
 
-            List<MailDto> list = await _Imail.GetSevenMail();
+            List<Sended_Maill> list = await _Imail.GetSevenMail(departmentId,type);
            // if (list.Count>0)
                 return Ok(list);
             //return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });

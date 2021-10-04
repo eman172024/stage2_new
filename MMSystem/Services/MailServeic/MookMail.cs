@@ -952,23 +952,90 @@ namespace MMSystem.Services.MailServeic
 
         }
 
-        public async Task<List<MailDto>> GetSevenMail()
+        public async Task<List<Sended_Maill>> GetSevenMail(int  departmentId,int type)
         {
             try
             {
-                var list = await _appContext.Mails.Where(x => x.state == true).Take(6).OrderByDescending(x => x.MailID).ToListAsync();
+                List<Sended_Maill> list = new List<Sended_Maill>() { };
 
-                if (list.Count > 0)
+                switch (type)
                 {
+                    case 1:
+                        var c = await (from mail in _appContext.Mails.Where(x => x.Department_Id == departmentId)
+                                       join send in _appContext.Sends.Where(x => x.isMulti == true && x.flag >= 1)
+                                       on mail.MailID equals send.MailID
+                                       join measures in _appContext.measures on send.type_of_send equals measures.MeasuresId
+                                       join Departments in _appContext.Departments on send.to equals Departments.Id
+                                       join mailStatuses in _appContext.MailStatuses.Where(x => x.state == true) on send.flag equals mailStatuses.flag
 
-                    List<MailDto> mailDtos = _mapper.Map<List<Mail>, List<MailDto>>(list);
+                                       select new Sended_Maill()
+                                       {
+                                           mail_id = mail.MailID,
+                                           State = mailStatuses.sent,
+                                           type_of_mail = mail.Mail_Type,
+                                           Mail_Number = mail.Mail_Number,
+                                           date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                           Masure_type = measures.MeasuresName,
+                                           mangment_sender = Departments.DepartmentName,
+                                           mangment_sender_id = mail.Department_Id,
+                                           Send_time = send.Send_time.ToString("yyyy-MM-dd"),
+                                           time = send.Send_time.ToString("HH:mm:ss"),
+                                           summary = mail.Mail_Summary,
+                                           flag = send.flag,
+                                           Sends_id = send.Id
 
-                    return mailDtos;
+
+                                       }).OrderByDescending(v => v.mail_id).Take(7).ToListAsync();
+                        list = c;
+
+                        break;
+                    case 2:
+
+                        var c1 = await (from mail in _appContext.Mails
+                                       join send in _appContext.Sends.Where(x=>x.to==departmentId&& x.flag >= 1)
+                                       on mail.MailID equals send.MailID
+                                       join measures in _appContext.measures on send.type_of_send equals measures.MeasuresId
+                                       join Departments in _appContext.Departments on mail.Department_Id equals Departments.Id
+                                       join mailStatuses in _appContext.MailStatuses.Where(x => x.state == true) on send.flag equals mailStatuses.flag
+
+                                       select new Sended_Maill()
+                                       {
+                                           mail_id = mail.MailID,
+                                           State = mailStatuses.sent,
+                                           type_of_mail = mail.Mail_Type,
+                                           Mail_Number = mail.Mail_Number,
+                                           date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                           Masure_type = measures.MeasuresName,
+                                           mangment_sender = Departments.DepartmentName,
+                                           mangment_sender_id = mail.Department_Id,
+                                           Send_time = send.Send_time.ToString("yyyy-MM-dd"),
+                                           time = send.Send_time.ToString("HH:mm:ss"),
+                                           summary = mail.Mail_Summary,
+                                           flag = send.flag,
+                                           Sends_id = send.Id
+
+
+                                       }).OrderByDescending(v => v.mail_id).Take(7).ToListAsync();
+                        list = c1;
+
+                        break;
+                    default:
+                        break;
+
 
                 }
-                return null;
 
 
+              
+
+
+
+
+
+
+
+
+                return list;
 
             }
             catch (Exception)
