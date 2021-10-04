@@ -9,70 +9,46 @@
                 <div class="flex-grow mt-5 flex flex-col">
                     <nav class="flex-1 bg-gray-50 px-2 space-y-1">
                         <!-- Current: "bg-gray-100 text-gray-900", Default: "text-gray-600 hover:bg-gray-50 hover:text-gray-900" -->
-                        <router-link :to="{ name: 'dashboard' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
+                        <router-link title="لوحة التحكم" :to="{ name: 'dashboard' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
                             <!--
                                 Heroicon name: outline/home
-
                                 Current: "text-gray-500", Default: "text-gray-400 group-hover:text-gray-500"
                             -->
-                            <svg class="text-gray-500 ml-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                            </svg>
-                            <span v-if="toggle_nav">
-                                لوحة التحكم
-                            </span>
-                            
-                        </router-link>
-
-                        <router-link :to="{ name: 'login' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
-                            <!-- Heroicon name: outlineAdministrators -->
-                            <svg class="text-gray-400 group-hover:text-gray-500 ml-3 h-6 w-6 fill-current" viewBox="0 0 512.002 512.002" >
-                                <path d="M360.241,384.596l-213.365-0.031c-5.885,0-10.667,4.771-10.667,10.667c0,5.885,4.771,10.667,10.667,10.667l213.365,0.031
-                                    c5.885,0,10.667-4.771,10.667-10.667C370.907,389.377,366.137,384.596,360.241,384.596z"/>
-                                <path d="M317.543,427.263h-128c-5.896,0-10.667,4.771-10.667,10.667c0,5.896,4.771,10.667,10.667,10.667h128
-                                    c5.896,0,10.667-4.771,10.667-10.667C328.209,432.033,323.439,427.263,317.543,427.263z"/>
-                                <path d="M256.001,128.002c-64.698,0-117.333,52.635-117.333,117.333s52.635,117.333,117.333,117.333
-                                    s117.333-52.635,117.333-117.333S320.699,128.002,256.001,128.002z M161.079,256.002h41.807
-                                    c1.181,29.056,7.182,57.952,17.599,78.342C188.316,321.461,165.091,291.665,161.079,256.002z M202.887,234.669h-41.807
-                                    c4.012-35.663,27.237-65.458,59.406-78.342C210.069,176.717,204.068,205.613,202.887,234.669z M256.001,341.336
-                                    c-12.221,0-29.409-33.047-31.573-85.333h63.146C285.41,308.289,268.222,341.336,256.001,341.336z M224.428,234.669
-                                    c2.164-52.286,19.352-85.333,31.573-85.333s29.409,33.047,31.573,85.333H224.428z M291.517,334.345
-                                    c10.417-20.391,16.418-49.286,17.599-78.342h41.807C346.911,291.665,323.686,321.461,291.517,334.345z M309.116,234.669
-                                    c-1.181-29.056-7.182-57.952-17.599-78.342c32.169,12.884,55.395,42.68,59.406,78.342H309.116z"/>
-                                <path d="M405.334,64.002h-21.333V41.96c0-23.306-19.721-42.193-42.667-41.958c-3.278,0.034-6.147,0.488-9.531,1.344
-                                    L104.383,64.233c-22.452,1.216-40.382,19.688-40.382,42.436v362.667c0,23.531,19.135,42.667,42.667,42.667h298.667
-                                    c23.531,0,42.667-19.135,42.667-42.667V106.669C448.001,83.138,428.866,64.002,405.334,64.002z M337.282,21.96
-                                    c12.448-3.177,25.385,6.906,25.385,20v22.042H185.259L337.282,21.96z M426.668,469.336c0,11.76-9.573,21.333-21.333,21.333
-                                    H106.668c-11.76,0-21.333-9.573-21.333-21.333V106.669c0-11.76,9.573-21.333,21.333-21.333h298.667
-                                    c11.76,0,21.333,9.573,21.333,21.333V469.336z"/>
-                            </svg>
-                            
+                            <svg class="text-gray-400 group-hover:text-gray-500 ml-3 h-6 w-6  " fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path></svg>
                             <span v-if="toggle_nav">
                                 لوحة التحكم
                             </span>
                         </router-link>
 
-                        <router-link :to="{ name: 'login' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
-                            <!-- Heroicon name: outline/Administrators -->
-                            <svg class="text-gray-400 group-hover:text-gray-500 ml-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                            </svg>
+                        <router-link title="البريد الوارد" :to="{ name: 'inbox' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
+                            <svg class="text-gray-400 group-hover:text-gray-500 ml-3 h-6 w-6 " fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
                             <span v-if="toggle_nav">
-                                المستخدمين
+                                البريد الوارد
                             </span>
-                            
                         </router-link>
 
-                        <router-link :to="{ name: 'login' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
-                            <!-- Heroicon name: outline/chart-bar -->
+                        <router-link title="البريد الصادر" :to="{ name: 'sent' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
+                            <svg class="text-gray-400 group-hover:text-gray-500 ml-3 h-6 w-6 fill-current stroke-current "  fill="none" stroke="currentColor" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
+                                <g transform="translate(128 128) scale(0.72 0.72)" style="">
+                                    <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill-rule: nonzero; opacity: 1;" transform="translate(-175.05 -175.05000000000004) scale(3.89 3.89)" >
+                                        <path d="M 89.999 3.075 C 90 3.02 90 2.967 89.999 2.912 c -0.004 -0.134 -0.017 -0.266 -0.038 -0.398 c -0.007 -0.041 -0.009 -0.081 -0.018 -0.122 c -0.034 -0.165 -0.082 -0.327 -0.144 -0.484 c -0.018 -0.046 -0.041 -0.089 -0.061 -0.134 c -0.053 -0.119 -0.113 -0.234 -0.182 -0.346 C 89.528 1.382 89.5 1.336 89.469 1.29 c -0.102 -0.147 -0.212 -0.288 -0.341 -0.417 c -0.13 -0.13 -0.273 -0.241 -0.421 -0.344 c -0.042 -0.029 -0.085 -0.056 -0.129 -0.082 c -0.118 -0.073 -0.239 -0.136 -0.364 -0.191 c -0.039 -0.017 -0.076 -0.037 -0.116 -0.053 c -0.161 -0.063 -0.327 -0.113 -0.497 -0.147 c -0.031 -0.006 -0.063 -0.008 -0.094 -0.014 c -0.142 -0.024 -0.285 -0.038 -0.429 -0.041 C 87.03 0 86.983 0 86.936 0.001 c -0.141 0.003 -0.282 0.017 -0.423 0.041 c -0.035 0.006 -0.069 0.008 -0.104 0.015 c -0.154 0.031 -0.306 0.073 -0.456 0.129 L 1.946 31.709 c -1.124 0.422 -1.888 1.473 -1.943 2.673 c -0.054 1.199 0.612 2.316 1.693 2.838 l 34.455 16.628 l 16.627 34.455 C 53.281 89.344 54.334 90 55.481 90 c 0.046 0 0.091 -0.001 0.137 -0.003 c 1.199 -0.055 2.251 -0.819 2.673 -1.943 L 89.815 4.048 c 0.056 -0.149 0.097 -0.3 0.128 -0.453 c 0.008 -0.041 0.011 -0.081 0.017 -0.122 C 89.982 3.341 89.995 3.208 89.999 3.075 z M 75.086 10.672 L 37.785 47.973 L 10.619 34.864 L 75.086 10.672 z M 55.136 79.381 L 42.027 52.216 l 37.302 -37.302 L 55.136 79.381 z" style=""  transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                                    </g>
+                                </g>
+                            </svg>
+                            <span v-if="toggle_nav">
+                                البريد الصادر
+                            </span>
+                        </router-link>
+
+                        <!-- <router-link :to="{ name: 'login' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
                             <svg class="text-gray-400 group-hover:text-gray-500 ml-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                             </svg>
+
                             <span v-if="toggle_nav">
                                التقرير  
                             </span>
-                            
-                        </router-link>
+                        </router-link> -->
                     </nav>
                 </div>
             </div>

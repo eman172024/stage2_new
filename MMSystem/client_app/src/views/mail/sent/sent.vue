@@ -8,7 +8,7 @@
                     <main class="flex-1 relative focus:outline-none py-6">
                         <div class="flex justify-between items-center">
                             <div class="">
-                                <h1 class="text-xl font-semibold text-gray-900">البريد الوارد</h1>
+                                <h1 class="text-xl font-semibold text-gray-900">البريد الصادر</h1>
                             </div>
 
                             <div class=" flex items-center">
