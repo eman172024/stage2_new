@@ -906,6 +906,31 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
+                string year = DateTime.Now.Year.ToString();
+                string Month = DateTime.Now.Month.ToString();
+                string day = DateTime.Now.Day.ToString();
+
+                string name = "images";
+
+                string x = Path.Combine(this.iwebHostEnvironment.WebRootPath, name).ToLower();
+                string y = Path.Combine(x, year);
+                string z = Path.Combine(y, Month);
+                string last = Path.Combine(z, day);
+
+                if (Directory.Exists(x))
+                    if (!Directory.Exists(y))
+                    {
+                        Directory.CreateDirectory(y);
+
+                    }
+
+                if (!Directory.Exists(z))
+                    Directory.CreateDirectory(z);
+
+
+                if (!Directory.Exists(last))
+                    Directory.CreateDirectory(last);
+
                 bool result=false;
                 foreach (var item in file.list)
                 {
@@ -917,8 +942,8 @@ namespace MMSystem.Services.MailServeic
                     var extention = base64signtuer.Substring(index + 1);
                     byte[] bytes = Convert.FromBase64String(bsee64string);
                     Guid guid = Guid.NewGuid();
-                    string x = guid.ToString();
-                    var path = Path.Combine(this.iwebHostEnvironment.WebRootPath, "images", x+".");
+                    string x1 = guid.ToString();
+                    var path = Path.Combine(last+ x+".");
 
 
                     await File.WriteAllBytesAsync(path + extention, bytes);
