@@ -11,5 +11,7 @@ namespace MMSystem.Model.ViewModel
         public string departmentName { get; set; }
         public int measureId { get; set; }
         public string measureName { get; set; }
+
+        public int send_ToId { get; set; }
     }
 }

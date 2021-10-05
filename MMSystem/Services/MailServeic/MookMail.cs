@@ -1131,7 +1131,8 @@ namespace MMSystem.Services.MailServeic
                             departmentName = departments.DepartmentName,
                             measureId = item.type_of_send,
                             measureName = measures.MeasuresName,
-                            departmentId = departments.Id
+                            departmentId = departments.Id,
+                            send_ToId = item.Id
                         }
 
                         );
@@ -1217,7 +1218,8 @@ namespace MMSystem.Services.MailServeic
                                 departmentName = departments.DepartmentName,
                                 measureId = item.type_of_send,
                                 measureName = measures.MeasuresName,
-                                departmentId = departments.Id
+                                departmentId = departments.Id,
+                                send_ToId=item.Id
                             }
 
                             );
@@ -1290,7 +1292,8 @@ namespace MMSystem.Services.MailServeic
                             departmentName = departments.DepartmentName,
                             measureId = item.type_of_send,
                             measureName = measures.MeasuresName,
-                            departmentId = departments.Id
+                            departmentId = departments.Id,
+                            send_ToId = item.Id
                         }
 
                         );

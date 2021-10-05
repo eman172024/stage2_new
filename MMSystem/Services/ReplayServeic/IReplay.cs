@@ -19,6 +19,8 @@ namespace MMSystem.Services.ReplayServeic
 
         Task<bool> Upload(int id, List<IFormFile> listOfPhotes);
 
+        Task<List<ReplayDto>> GetAllReplay(int depid, int mailId, int to);
+
         Task<List<RViewModel>> GetResourse(int id);
 
 

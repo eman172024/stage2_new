@@ -178,6 +178,27 @@ namespace MMSystem.Services.ReplayServeic
             
         }
 
+
+        public async Task<List<ReplayDto>> GetAllReplay(int depid, int mailId,int to)
+        {
+            try
+            {
+
+                Send_to send_ = await _data.Sends.FirstOrDefaultAsync(x => x.MailID == mailId && x.to == depid&&x.to==to);
+
+                List<Reply> list = await _data.Replies.OrderBy(x => x.ReplyId).Where(x => x.send_ToId == send_.Id).ToListAsync();
+                List<ReplayDto> replays = _mapper.Map<List<Reply>, List<ReplayDto>>(list);
+                return replays;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
         public Task<bool> Update(Reply model)
         {
             throw new NotImplementedException();
