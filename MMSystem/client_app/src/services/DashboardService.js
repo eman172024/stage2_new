@@ -2,8 +2,8 @@ import axios from 'axios';
 
 export default {
 
-    LastMails() {
-        return axios.get(`api/Mail/GetLastMails`);
+    LastMails(id) {
+        return axios.get(`api/Mail/GetLastMails?department_Id=${id}`);
     },
 
     NumbersOfReports(id) {
