@@ -14,7 +14,7 @@ namespace MMSystem.Services.MailServeic
     {
         Task<MailDto> Getdto(int id, int type);
 
-        Task<List<Sended_Maill>> GetSevenMail(int departmentId,int type);
+        Task<List<VModelForSendAndRecived>> GetSevenMail(int departmentId);
 
         Task<bool> addMail( MailViewModel mail);
       
