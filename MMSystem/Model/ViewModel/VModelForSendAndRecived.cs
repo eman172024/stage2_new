@@ -31,6 +31,7 @@ namespace MMSystem.Model.ViewModel
         public string summary { get; set; }
 
         public bool inbox_send { get; set; }
+        public int Sends_id { get; set; }
 
 
 

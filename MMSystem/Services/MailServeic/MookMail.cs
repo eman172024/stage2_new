@@ -1005,7 +1005,9 @@ namespace MMSystem.Services.MailServeic
                                            time = send.Send_time.ToString("HH:mm:ss"),
                                            summary = mail.Mail_Summary,
                                            flag = send.flag,
-                                           inbox_send=true,DateTocompare=mail.Date_Of_Mail
+                                           inbox_send=true,DateTocompare=mail.Date_Of_Mail,
+
+                                           Sends_id=send.Id
                                           
 
 
@@ -1036,8 +1038,9 @@ namespace MMSystem.Services.MailServeic
                                            summary = mail.Mail_Summary,
                                            flag = send.flag,
                                            inbox_send=false,
-                                           DateTocompare=mail.Date_Of_Mail
-                                    
+                                           DateTocompare=mail.Date_Of_Mail,
+                                           Sends_id = send.Id
+
 
 
                                        }).OrderByDescending(v => v.mail_id).Take(7).ToListAsync();
