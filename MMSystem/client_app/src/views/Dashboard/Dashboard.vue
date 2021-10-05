@@ -33,12 +33,29 @@
                                         <router-link :to="{ name: 'sent' }" class="bg-white p-4 hover:shadow focus:outline-none group">
                                             <div class="flex justify-between items-start">
                                                 <div class="">
-                                                    <p class="text-gray-900">بريد صادر</p>
+                                                    <p class="text-gray-900">بريد وارد </p>
                                                     <p class="font-bold text-gray-600 text-3xl mt-2 text-right">
                                                         {{ Reports.totaleReceived }}
                                                     </p>
                                                 </div>
 
+                                                <div class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center">
+                                                    
+
+                                                    <svg class="text-gray-100 group-hover:text-red-600 h-6 w-6 " fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
+
+                                                </div>
+                                            </div>
+                                        </router-link>
+
+                                        <router-link :to="{ name: 'inbox' }" class="bg-white p-4 hover:shadow focus:outline-none group">
+                                            <div class="flex justify-between items-start">
+                                                <div class="">
+                                                    <p class="text-gray-900"> بريد صادر </p>
+                                                    <p class="font-bold text-gray-600 text-3xl mt-2 text-right">
+                                                        {{ Reports.totaleSender }}
+                                                    </p>
+                                                </div>
                                                 <div class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center">
                                                     <svg class="text-gray-100 group-hover:text-red-600 h-6 w-6 fill-current stroke-current "  fill="none" stroke="currentColor" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
                                                         <g transform="translate(128 128) scale(0.72 0.72)" style="">
@@ -47,20 +64,7 @@
                                                             </g>
                                                         </g>
                                                     </svg>
-                                                </div>
-                                            </div>
-                                        </router-link>
 
-                                        <router-link :to="{ name: 'inbox' }" class="bg-white p-4 hover:shadow focus:outline-none group">
-                                            <div class="flex justify-between items-start">
-                                                <div class="">
-                                                    <p class="text-gray-900">بريد وارد</p>
-                                                    <p class="font-bold text-gray-600 text-3xl mt-2 text-right">
-                                                        {{ Reports.totaleSender }}
-                                                    </p>
-                                                </div>
-                                                <div class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center">
-                                                    <svg class="text-gray-100 group-hover:text-red-600 h-6 w-6 " fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
                                                 </div>
                                             </div>
                                         </router-link>
@@ -111,7 +115,20 @@
 
                                 <div class="min-h-72 ">
                                     <div v-for="mail in LastMails" :key="mail.mailID" :class="mail.flag | mail_state_inbox"  class="group relative border-r-8 border-red-500 flex items-center bg-white">
-                                        <div class="w-1/9 pr-4 py-3">
+                                        <div class="w-1/9 pr-4 py-3 flex items-center">
+                                            <span v-if="mail.inbox_send">
+
+                                                <svg class="text-gray-900 group-hover:text-red-600 h-4 w-4 ml-1 fill-current stroke-current "  fill="none" stroke="currentColor" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
+                                                    <g transform="translate(128 128) scale(0.72 0.72)" style="">
+                                                        <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill-rule: nonzero; opacity: 1;" transform="translate(-175.05 -175.05000000000004) scale(3.89 3.89)" >
+                                                            <path d="M 89.999 3.075 C 90 3.02 90 2.967 89.999 2.912 c -0.004 -0.134 -0.017 -0.266 -0.038 -0.398 c -0.007 -0.041 -0.009 -0.081 -0.018 -0.122 c -0.034 -0.165 -0.082 -0.327 -0.144 -0.484 c -0.018 -0.046 -0.041 -0.089 -0.061 -0.134 c -0.053 -0.119 -0.113 -0.234 -0.182 -0.346 C 89.528 1.382 89.5 1.336 89.469 1.29 c -0.102 -0.147 -0.212 -0.288 -0.341 -0.417 c -0.13 -0.13 -0.273 -0.241 -0.421 -0.344 c -0.042 -0.029 -0.085 -0.056 -0.129 -0.082 c -0.118 -0.073 -0.239 -0.136 -0.364 -0.191 c -0.039 -0.017 -0.076 -0.037 -0.116 -0.053 c -0.161 -0.063 -0.327 -0.113 -0.497 -0.147 c -0.031 -0.006 -0.063 -0.008 -0.094 -0.014 c -0.142 -0.024 -0.285 -0.038 -0.429 -0.041 C 87.03 0 86.983 0 86.936 0.001 c -0.141 0.003 -0.282 0.017 -0.423 0.041 c -0.035 0.006 -0.069 0.008 -0.104 0.015 c -0.154 0.031 -0.306 0.073 -0.456 0.129 L 1.946 31.709 c -1.124 0.422 -1.888 1.473 -1.943 2.673 c -0.054 1.199 0.612 2.316 1.693 2.838 l 34.455 16.628 l 16.627 34.455 C 53.281 89.344 54.334 90 55.481 90 c 0.046 0 0.091 -0.001 0.137 -0.003 c 1.199 -0.055 2.251 -0.819 2.673 -1.943 L 89.815 4.048 c 0.056 -0.149 0.097 -0.3 0.128 -0.453 c 0.008 -0.041 0.011 -0.081 0.017 -0.122 C 89.982 3.341 89.995 3.208 89.999 3.075 z M 75.086 10.672 L 37.785 47.973 L 10.619 34.864 L 75.086 10.672 z M 55.136 79.381 L 42.027 52.216 l 37.302 -37.302 L 55.136 79.381 z" style=""  transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                            <span v-else>
+                                                <svg class="text-gray-900 group-hover:text-red-600 h-4 w-4 ml-1 " fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
+                                            </span>
                                             {{ mail.mail_Number }}
                                         </div>
                                         <div class="w-1/9">
@@ -141,7 +158,7 @@
                                         <div class="w-1/9 flex justify-between items-center">
                                             <div class="w-1/3 flex justify-center items-center">
                                                 <router-link v-if="mail.inbox_send" title="عرض التفصيل" :to="{ name: 'sent-show', params: { mail: mail.mail_id, type:mail.type_of_mail, sends_id:mail.sends_id},}"  class="">
-                                                    <!-- <svg class="w-5 h-5 fill-current hover:text-green-500" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 18.453 18.453"  xml:space="preserve">
+                                                    <svg class="w-5 h-5 fill-current hover:text-green-500" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 18.453 18.453"  xml:space="preserve">
                                                         <rect x="2.711" y="4.058" width="8.23" height="1.334"/>
                                                         <path d="M14.972,14.088c0.638-1.127,0.453-2.563-0.475-3.49c-0.549-0.549-1.279-0.852-2.058-0.852
                                                             c-0.779,0-1.51,0.303-2.059,0.852s-0.852,1.279-0.852,2.059c0,0.777,0.303,1.508,0.852,2.059c0.549,0.547,1.279,0.85,2.057,0.85
@@ -153,13 +170,12 @@
                                                             C0.954,0,0.219,0.735,0.219,1.638v14.334c0,0.902,0.735,1.637,1.638,1.637h11.475c0.685,0,1.009-0.162,1.253-0.76l-0.594-0.594
                                                             C13.772,16.347,13.426,16.3,13.332,16.3z"/>
                                                         <rect x="2.711" y="7.818" width="8.23" height="1.334"/>
-                                                    </svg> -->
-                                                    sent
+                                                    </svg>
                                                 </router-link>
 
 
                                                 <router-link v-else title="عرض التفصيل" :to="{ name: 'inbox-show', params: { mail: mail.mail_id, department:my_department_id, type:mail.type_of_mail, sends_id:mail.sends_id },}"  class="">
-                                                    <!-- <svg class="w-5 h-5 fill-current hover:text-green-500" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 18.453 18.453"  xml:space="preserve">
+                                                    <svg class="w-5 h-5 fill-current hover:text-green-500" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 18.453 18.453"  xml:space="preserve">
                                                         <rect x="2.711" y="4.058" width="8.23" height="1.334"/>
                                                         <path d="M14.972,14.088c0.638-1.127,0.453-2.563-0.475-3.49c-0.549-0.549-1.279-0.852-2.058-0.852
                                                             c-0.779,0-1.51,0.303-2.059,0.852s-0.852,1.279-0.852,2.059c0,0.777,0.303,1.508,0.852,2.059c0.549,0.547,1.279,0.85,2.057,0.85
@@ -171,7 +187,7 @@
                                                             C0.954,0,0.219,0.735,0.219,1.638v14.334c0,0.902,0.735,1.637,1.638,1.637h11.475c0.685,0,1.009-0.162,1.253-0.76l-0.594-0.594
                                                             C13.772,16.347,13.426,16.3,13.332,16.3z"/>
                                                         <rect x="2.711" y="7.818" width="8.23" height="1.334"/>
-                                                    </svg> -->inbox
+                                                    </svg>
                                                 </router-link>
                                             </div>
 

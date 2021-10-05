@@ -42,60 +42,60 @@
                   >
                     <fieldset class="sm:col-span-6">
                       <div class="flex items-center">
-                        <legend
-                          class="text-base font-semibold text-gray-800 w-24"
-                        >
+                        <legend class="text-base font-semibold text-gray-800 w-1/5 ml-4">
                           نوع البريد
                         </legend>
-                        <div class="flex items-center w-28">
-                          <input
-                            v-model="mailType"
-                            id="internal"
-                            type="radio"
-                            name="type"
-                            class="h-4 w-4"
-                            value="1"
-                          />
-                          <label
-                            for="internal"
-                            class="mr-2 block text-gray-800"
-                          >
-                            داخلي
-                          </label>
-                        </div>
+                        <div class="flex justify-between items-center w-4/5">
+                          <div class="flex items-center">
+                            <input
+                              v-model="mailType"
+                              id="internal"
+                              type="radio"
+                              name="type"
+                              class="h-4 w-4"
+                              value="1"
+                            />
+                            <label
+                              for="internal"
+                              class="mr-2 block text-gray-800"
+                            >
+                              داخلي
+                            </label>
+                          </div>
 
-                        <div class="flex items-center w-28">
-                          <input
-                            v-model="mailType"
-                            id="internal_export"
-                            type="radio"
-                            name="type"
-                            class="h-4 w-4"
-                            value="2"
-                          />
-                          <label
-                            for="internal_export"
-                            class="mr-2 block text-gray-800"
-                          >
-                            صادر خارجي
-                          </label>
-                        </div>
+                          <div class="flex items-center">
+                            <input
+                              v-model="mailType"
+                              id="internal_export"
+                              type="radio"
+                              name="type"
+                              class="h-4 w-4"
+                              value="2"
+                            />
+                            <label
+                              for="internal_export"
+                              class="mr-2 block text-gray-800"
+                            >
+                              صادر خارجي
+                            </label>
+                          </div>
 
-                        <div class="flex items-center w-28">
-                          <input
-                            v-model="mailType"
-                            id="external_incoming"
-                            type="radio"
-                            name="type"
-                            class="h-4 w-4"
-                            value="3"
-                          />
-                          <label
-                            for="external_incoming"
-                            class="mr-2 block text-gray-800"
-                          >
-                            وارد خارجي
-                          </label>
+                          <div class="flex items-center">
+                            <input
+                              v-model="mailType"
+                              id="external_incoming"
+                              type="radio"
+                              name="type"
+                              class="h-4 w-4"
+                              value="3"
+                            />
+                            <label
+                              for="external_incoming"
+                              class="mr-2 block text-gray-800"
+                            >
+                              وارد خارجي
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </fieldset>
@@ -310,6 +310,7 @@
                             @click="departmentselect = !departmentselect"
                             id="department"
                             class="
+                            overflow-hidden
                               text-right
                               block
                               mt-2
@@ -317,7 +318,7 @@
                               rounded-md
                               h-10
                               border
-                              text-sm
+                              text-xs
                               bg-white
                               border-gray-200
                               hover:shadow-sm
