@@ -24,31 +24,6 @@ const routes = [{
             ),
     },
 
-    // mail
-    {
-        path: "/mail",
-        name: "mail",
-        // route level code-splitting
-        // this generates a separate chunk (dashboard.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-            import (
-                /* webpackChunkName: "dashboard" */
-                "../views/mail/mail_form.vue"
-            ),
-    },
-
-    // mail form
-    {
-        path: "/mail/:mail/:type",
-        name: "mail-show",
-        // route level code-splitting
-        // this generates a separate chunk (mail.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-            import ( /* webpackChunkName: "mail" */ "../views/mail/sent/sent_form.vue"),
-    },
-
     // inbox
     {
         path: "/inbox",
@@ -76,8 +51,6 @@ const routes = [{
             ),
     },
 
-
-
     // sent
     {
         path: "/sent",
@@ -92,6 +65,15 @@ const routes = [{
             ),
     },
 
+    {
+        path: "/sent",
+        name: "sent-add",
+        // route level code-splitting
+        // this generates a separate chunk (mail.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import ( /* webpackChunkName: "mail" */ "../views/mail/sent/sent_form.vue"),
+    },
 
     {
         path: "/sent/:mail/:type/:sends_id",
@@ -102,9 +84,6 @@ const routes = [{
         component: () =>
             import ( /* webpackChunkName: "mail" */ "../views/mail/sent/sent_form.vue"),
     },
-
-
-
 
 
 
