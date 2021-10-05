@@ -15,8 +15,8 @@
                                 <!-- Replace with your content -->
                                 <div class="py-4">
                                     <div class="grid grid-cols-3 gap-8">
+                                        <router-link :to="{ name: 'sent' }" class="bg-white p-4 hover:shadow focus:outline-none group">
 
-                                        <button class="bg-white p-4 hover:shadow focus:outline-none group">
                                             <div class="flex justify-between items-start">
                                                 <div class="">
                                                     <p class="text-gray-900"> البريد الذي لم يتم إرسالة</p>
@@ -28,9 +28,9 @@
                                                     <svg class="h-6 w-6 fill-current  text-gray-100 group-hover:text-red-600" fill="none" stroke="currentColor" viewBox="0 0 32 32"><path d="M28,3H4A1,1,0,0,0,3,4V28a1,1,0,0,0,1,1H28a1,1,0,0,0,1-1V4A1,1,0,0,0,28,3ZM27,15H17V5H27ZM15,5V15H5V5ZM5,17H15V27H5ZM17,27V17H27V27Z" data-name="select all"/></svg>
                                                 </div>
                                             </div>
-                                        </button>
+                                        </router-link>
 
-                                        <button class="bg-white p-4 hover:shadow focus:outline-none group">
+                                        <router-link :to="{ name: 'sent' }" class="bg-white p-4 hover:shadow focus:outline-none group">
                                             <div class="flex justify-between items-start">
                                                 <div class="">
                                                     <p class="text-gray-900">بريد صادر</p>
@@ -49,9 +49,9 @@
                                                     </svg>
                                                 </div>
                                             </div>
-                                        </button>
+                                        </router-link>
 
-                                        <button class="bg-white p-4 hover:shadow focus:outline-none group">
+                                        <router-link :to="{ name: 'inbox' }" class="bg-white p-4 hover:shadow focus:outline-none group">
                                             <div class="flex justify-between items-start">
                                                 <div class="">
                                                     <p class="text-gray-900">بريد وارد</p>
@@ -63,8 +63,7 @@
                                                     <svg class="text-gray-100 group-hover:text-red-600 h-6 w-6 " fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
                                                 </div>
                                             </div>
-                                        </button>
-                                    
+                                        </router-link>
                                     </div>
                                 </div>
                                 <!-- /End replace -->
@@ -74,7 +73,7 @@
                         <section>
                             <div class="px-4 sm:px-6 md:px-0 flex justify-between items-center">
                                 <h1 class="text-xl font-semibold text-gray-900">أحدث البريد</h1>
-                                <router-link :to="{ name: 'mail' }" class="border border-g100text-gray-100 hover:text-g5bg-green-500 hover:border-g5bg-green-500 duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-medium focus:outline-none">
+                                <router-link :to="{ name: 'sent-add' }" class="border border-g100text-gray-100 hover:text-g5bg-green-500 hover:border-g5bg-green-500 duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-medium focus:outline-none">
                                     إضافة +
                                 </router-link>
                             </div>
