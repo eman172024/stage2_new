@@ -904,34 +904,12 @@ namespace MMSystem.Services.MailServeic
 
         public async Task<bool> Uplode(Uplode file)
         {
+
+
+
             try
             {
-                string year = DateTime.Now.Year.ToString();
-                string Month = DateTime.Now.Month.ToString();
-                string day = DateTime.Now.Day.ToString();
-
-                string name = "images";
-
-                string x = Path.Combine(this.iwebHostEnvironment.WebRootPath, name).ToLower();
-                string y = Path.Combine(x, year);
-                string z = Path.Combine(y, Month);
-                string last = Path.Combine(z, day);
-
-                if (Directory.Exists(x))
-                    if (!Directory.Exists(y))
-                    {
-                        Directory.CreateDirectory(y);
-
-                    }
-
-                if (!Directory.Exists(z))
-                    Directory.CreateDirectory(z);
-
-
-                if (!Directory.Exists(last))
-                    Directory.CreateDirectory(last);
-
-                bool result=false;
+                bool result = false;
                 foreach (var item in file.list)
                 {
                     var index = item.baseAs64.IndexOf(',');
@@ -942,22 +920,24 @@ namespace MMSystem.Services.MailServeic
                     var extention = base64signtuer.Substring(index + 1);
                     byte[] bytes = Convert.FromBase64String(bsee64string);
                     Guid guid = Guid.NewGuid();
-                    string x1 = guid.ToString();
-                    var path = Path.Combine(last+ x+".");
+                    string x = guid.ToString();
+                    var path = Path.Combine(this.iwebHostEnvironment.WebRootPath, "images", x + ".");
 
 
                     await File.WriteAllBytesAsync(path + extention, bytes);
                     Mail_Resourcescs mail = new Mail_Resourcescs();
-                    mail.MailID =file.mail_id ;
-                    mail.path = path+ extention;
+                    mail.MailID = file.mail_id;
+                    mail.path = path + extention;
                     mail.order = item.index;
                     bool res = await _resourcescs.Add(mail);
-                    if (res) {
+                    if (res)
+                    {
                         result = true;
                     }
-                   else {
+                    else
+                    {
                         File.Delete(mail.path);
-                    
+
                     }
 
                 }
@@ -970,8 +950,6 @@ namespace MMSystem.Services.MailServeic
 
                 throw;
             }
-
-
 
 
 
