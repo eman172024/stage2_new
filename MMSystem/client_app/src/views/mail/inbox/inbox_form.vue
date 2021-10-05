@@ -676,16 +676,16 @@
                     :key="reply.replyId"
                     :class="
                       reply.reply.to == my_department_id
-                        ? 'justify-start'
-                        : 'justify-end'
+                        ? ' justify-end'
+                        : 'justify-start'
                     "
                     class="w-full my-2 flex px-4"
                   >
                     <div
                       :class="
                         reply.reply.to == my_department_id
-                          ? 'bg-blue-700'
-                          : 'bg-gray-700'
+                          ? 'bg-gray-700'
+                          : 'bg-blue-700'
                       "
                       class="
                         
