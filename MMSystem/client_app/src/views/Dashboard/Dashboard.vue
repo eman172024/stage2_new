@@ -9,7 +9,7 @@
 
                         <div class="py-6">
                             <div class="px-4 sm:px-6 md:px-0">
-                                <h1 class="text-xl font-semibold text-gray-900">لوحة التحكم</h1>
+                                <h1 class="text-xl font-semibold text-black">لوحة التحكم</h1>
                             </div>
                             <div class="px-4 sm:px-6 md:px-0">
                                 <!-- Replace with your content -->
@@ -19,9 +19,9 @@
                                         <button class="bg-white p-4 hover:shadow focus:outline-none group">
                                             <div class="flex justify-between items-start">
                                                 <div class="">
-                                                    <p class="text-gray-900">إجمالي البريد</p>
-                                                    <p class="font-bold text-gray-100 text-3xl mt-2 text-right">
-                                                        {{ Reports.count_Of_all_transaction }}
+                                                    <p class="text-gray-900"> البريد الذي لم يتم إرسالة</p>
+                                                    <p class="font-bold text-gray-600 text-3xl mt-2 text-right">
+                                                        {{ Reports.totaleExpord }}
                                                     </p>
                                                 </div>
                                                 <div class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center">
@@ -34,8 +34,8 @@
                                             <div class="flex justify-between items-start">
                                                 <div class="">
                                                     <p class="text-gray-900">بريد صادر</p>
-                                                    <p class="font-bold text-gray-100 text-3xl mt-2 text-right">
-                                                        {{ Reports.count_Of_received }}
+                                                    <p class="font-bold text-gray-600 text-3xl mt-2 text-right">
+                                                        {{ Reports.totaleReceived }}
                                                     </p>
                                                 </div>
 
@@ -55,8 +55,8 @@
                                             <div class="flex justify-between items-start">
                                                 <div class="">
                                                     <p class="text-gray-900">بريد وارد</p>
-                                                    <p class="font-bold text-gray-100 text-3xl mt-2 text-right">
-                                                        {{ Reports.count_Of_booking }}
+                                                    <p class="font-bold text-gray-600 text-3xl mt-2 text-right">
+                                                        {{ Reports.totaleSender }}
                                                     </p>
                                                 </div>
                                                 <div class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center">
@@ -141,7 +141,7 @@
 
                                         <div class="w-1/9 flex justify-between items-center">
                                             <div class="w-1/3 flex justify-center items-center">
-                                                <router-link title="عرض التفصيل" :to="{ name: 'sent-show', params: { mail: mail.mail_id, type:mail.type_of_mail, sends_id:mail.sends_id},}"  class="">
+                                                <!-- <router-link title="عرض التفصيل" :to="{ name: 'sent-show', params: { mail: mail.mail_id, type:mail.type_of_mail, sends_id:mail.sends_id},}"  class="">
                                                     <svg class="w-5 h-5 fill-current hover:text-green-500" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 18.453 18.453"  xml:space="preserve">
                                                         <rect x="2.711" y="4.058" width="8.23" height="1.334"/>
                                                         <path d="M14.972,14.088c0.638-1.127,0.453-2.563-0.475-3.49c-0.549-0.549-1.279-0.852-2.058-0.852
@@ -155,7 +155,7 @@
                                                             C13.772,16.347,13.426,16.3,13.332,16.3z"/>
                                                         <rect x="2.711" y="7.818" width="8.23" height="1.334"/>
                                                     </svg>
-                                                </router-link>
+                                                </router-link> -->
 
 
                                                 <router-link title="عرض التفصيل" :to="{ name: 'inbox-show', params: { mail: mail.mail_id, department:my_department_id, type:mail.type_of_mail, sends_id:mail.sends_id },}"  class="">
@@ -289,11 +289,14 @@ export default {
   created() {},
 
   mounted() {
+    this.my_user_id = localStorage.getItem("userId");
+    this.my_department_id = localStorage.getItem("departmentId");
+
       this.GetLastMails();
 
     //   this.test();
 
-    //this.GetNumbersOfReports();
+    this.GetNumbersOfReports();
     
   },
 
@@ -309,13 +312,11 @@ export default {
         //name: this.$authenticatedUser.name,
        // userName: this.$authenticatedUser.userName,
        // validity: this.$authenticatedUser.validity,
-
+       
+       my_user_id: '',
+       my_department_id: '',
         LastMails:{},
-        Reports:{
-            count_Of_all_transaction:0,
-            count_Of_received:0,
-            count_Of_booking:0
-        },
+        Reports:{},
         loading: false,
         screenFreeze: false,
     };
@@ -388,13 +389,15 @@ export default {
             });
     },
 
-    test() {
+    GetNumbersOfReports() {
 
         console.log("SSSSSSSSSSSSSSSSS")
         this.$http.DashboardService
-            .NumbersOfReports()
+            .NumbersOfReports(this.my_department_id)
             .then((res) => {
                 console.log(res)
+                this.Reports = res.data
+              
             })
             .catch((err) => {
                 console.log(err)

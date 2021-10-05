@@ -6,8 +6,8 @@ export default {
         return axios.get(`api/Mail/GetLastMails`);
     },
 
-    NumbersOfReports() {
-        return axios.get(`api/Service/GetAllClassFication`);
+    NumbersOfReports(id) {
+        return axios.get(`api/DashBords/GetTotal?ManagementId=${id}`);
     },
 
     // NumbersOfReports() {
