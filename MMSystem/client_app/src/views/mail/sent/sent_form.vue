@@ -1961,7 +1961,7 @@
                 <button
                   v-for="consignee in consignees"
                   :key="consignee.side"
-                  @click="GetReplyByDepartment(consignee.departmentId)"
+                  @click="GetReplyByDepartment(consignee.departmentId, consignee.send_ToId, consignee.departmentName)"
                   class="
                     border border-blue-400
                     hover:bg-blue-400
@@ -1974,13 +1974,13 @@
                     m-0.5
                   "
                 >
-                  {{ consignee.departmentName }} - {{ consignee.departmentId }}
+                  {{ consignee.departmentName }}
                 </button>
               </section>
 
               <section class="bg-gray-50 rounded-md p-6">
                 <p class="block text-base font-semibold text-gray-800">
-                  الردود
+                  ردود  - {{ departmentName }}
                 </p>
 
                 <div
@@ -2300,6 +2300,7 @@ export default {
       departmentselect: false,
       departmentNameSelected: "",
       departmentIdSelected: "",
+      departmentName: '',
 
       consignees: [],
 
@@ -2412,7 +2413,7 @@ export default {
             this.screenFreeze = false;
 
             this.reply_to_add = "";
-            this.GetReplyByDepartment(this.replyByDepartmenId);
+            this.GetReplyByDepartment(this.replyByDepartmenId, this.sends_id, this.departmentName);
           }, 500);
         })
         .catch((err) => {
@@ -2423,8 +2424,10 @@ export default {
         });
     },
 
-    GetReplyByDepartment(id) {
+    GetReplyByDepartment(id,send_ToId, name) {
       this.replyByDepartmenId = id;
+      this.sends_id = send_ToId;
+      this.departmentName = name;
 
       this.mailId;
 
