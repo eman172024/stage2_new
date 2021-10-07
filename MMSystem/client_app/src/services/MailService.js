@@ -60,6 +60,11 @@ export default {
     },
 
 
+    GetUsersOfDepartment(id) {
+        return axios.get(`/api/Administrator/GetByDepartmentId?department=${id}`);
+    },
+
+
 
 
 
