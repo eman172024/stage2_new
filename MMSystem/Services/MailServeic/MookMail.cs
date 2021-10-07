@@ -17,6 +17,7 @@ namespace MMSystem.Services.MailServeic
 
     {
         dynamic c;
+        dynamic serch;
 
         private readonly AppDbCon _appContext;
 
@@ -360,15 +361,55 @@ namespace MMSystem.Services.MailServeic
         }
 
 
+        public async Task<MailDto> Getdto(int id, int type,int date,int departmentId)
+        {
+            try
+            {
+                MailDto dto1 = new MailDto();
+
+                switch (type)
+                {
+
+                    case 1:
+                        Mail mail = await _appContext.Mails.FirstOrDefaultAsync(x => x.Mail_Number == id && x.Mail_Type == 1&&x.Date_Of_Mail.Year==date&&x.Department_Id==departmentId);
+                        dto1 = _mapper.Map<Mail, MailDto>(mail);
+
+                        break;
+                    case 2:
+                        Mail mail1 = await _appContext.Mails.FirstOrDefaultAsync(x => x.Mail_Number == id && x.Mail_Type ==2 && x.Date_Of_Mail.Year == date && x.Department_Id == departmentId);
+
+                        dto1 = _mapper.Map<Mail, MailDto>(mail1);
+
+                        break;
+                    case 3:
+                        Mail mail2 = await _appContext.Mails.FirstOrDefaultAsync(x => x.Mail_Number == id && x.Mail_Type == 3 && x.Date_Of_Mail.Year == date && x.Department_Id == departmentId);
+                        dto1 = _mapper.Map<Mail, MailDto>(mail2);
+                        break;
+                    default: break;
+
+                }
+
+
+                return dto1;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
         public async Task<int> GetLastMailNumber(int id, int MailType)
         {
             try
             {
+                int year = DateTime.Now.Year;
                 int LastNumber = 0;
                 switch (MailType)
                 {
                     case 1:
-                        Mail mail = await _appContext.Mails.OrderBy(x => x.MailID).Where(x => x.Department_Id == id && x.Mail_Type==1).LastOrDefaultAsync();
+                        Mail mail = await _appContext.Mails.OrderBy(x => x.MailID).Where(x => x.Department_Id == id && x.Mail_Type==1&&x.Date_Of_Mail.Year==year).LastOrDefaultAsync();
                         if (mail != null)
                         {
                             LastNumber = mail.Mail_Number + 1;
@@ -1099,7 +1140,49 @@ namespace MMSystem.Services.MailServeic
         }
 
 
+        public async Task<dynamic> DynamicGet(int id, int type,int year,int departmentId) {
+            try
+            {
+                MailDto mail =await Getdto(id, type, year, departmentId);
 
+
+                switch (type) {
+
+                    case 1:
+                        MailVM mailn = await GetMailById(id, type,year,departmentId);
+                        if (mail != null)
+                            serch = mailn;
+                        break;
+                    case 2:
+
+
+                        var ddc = await GetMailById1(id, type,year,departmentId);
+                        if (ddc != null)
+
+                            serch = ddc;
+                        break;
+                    case 3:
+
+                        var ddd = GetMailById2(id, type, year, departmentId);
+                        if (ddd != null)
+                            serch = ddd;
+
+                        break;
+                    default:break;
+
+                
+                }
+
+
+                return serch;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
 
         public async Task<MailVM> GetMailById(int id,int type)
@@ -1166,6 +1249,73 @@ namespace MMSystem.Services.MailServeic
 
 
         }
+
+        public async Task<MailVM> GetMailById(int id, int type,int date,int departmentid)
+        {
+
+            try
+            {
+                MailVM mail = new MailVM();
+                ExMail ex = new ExMail();
+                ExInbox inbox = new ExInbox();
+
+
+                MailDto dto = await Getdto(id, type,date,departmentid);
+                if (dto != null)
+                {
+
+                    mail.mail = dto;
+                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID).ToListAsync();
+
+                    ActionSender sender = new ActionSender();
+                    foreach (var item in sends)
+                    {
+                        Department departments = await _appContext.Departments.FindAsync(item.to);
+                        Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
+
+                        mail.actionSenders.Add(new ActionSender()
+                        {
+
+                            departmentName = departments.DepartmentName,
+                            measureId = item.type_of_send,
+                            measureName = measures.MeasuresName,
+                            departmentId = departments.Id,
+                            send_ToId = item.Id
+                        }
+
+                        );
+                    }
+                    mail.resourcescs = await _resourcescs.GetAll(mail.mail.MailID);
+
+
+                    foreach (var xx in mail.resourcescs)
+                    {
+                        string x = xx.path;
+                        xx.path = await tobase64(x);
+
+                    }
+
+
+
+
+                    return mail;
+                }
+                return null;
+            }
+
+
+            catch (Exception)
+            {
+
+                throw;
+
+
+            }
+
+
+        }
+
+
 
         public async Task<ExMail> GetMailById1(int id,int type)
         {
@@ -1253,6 +1403,94 @@ namespace MMSystem.Services.MailServeic
             }
         }
 
+
+        public async Task<ExMail> GetMailById1(int id, int type,int year,int departmentID)
+        {
+
+            try
+            {
+
+
+                MailVM mail = new MailVM();
+                ExMail ex = new ExMail();
+
+
+                MailDto dto = await Getdto(id, type,year,departmentID);
+                if (dto != null)
+                {
+
+                    ex.mail = dto;
+                    ex.External = await _external.Get(dto.MailID);
+
+                    if (ex.External == null)
+                    {
+
+                        return null;
+                    }
+                    else
+                    {
+
+                        var side = await _appContext.Extrmal_Sections.FindAsync(ex.External.Sectionid);
+
+                        ex.side.Add(side);
+
+                        var sector = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.perent == 0 && x.type == side.type);
+                        ex.sector.Add(sector);
+
+
+
+
+
+
+                        List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == ex.mail.MailID).ToListAsync();
+
+
+                        foreach (var item in sends)
+                        {
+                            Department departments = await _appContext.Departments.FindAsync(item.to);
+                            Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
+
+                            ex.actionSenders.Add(new ActionSender()
+                            {
+
+                                departmentName = departments.DepartmentName,
+                                measureId = item.type_of_send,
+                                measureName = measures.MeasuresName,
+                                departmentId = departments.Id,
+                                send_ToId = item.Id
+                            }
+
+                            );
+                        }
+                        ex.resourcescs = await _resourcescs.GetAll(id);
+
+
+                        foreach (var xx in ex.resourcescs)
+                        {
+                            string x = xx.path;
+                            xx.path = await tobase64(x);
+
+                        }
+
+
+                        return ex;
+
+                    }
+
+                }
+                return null;
+            }
+
+
+            catch (Exception)
+            {
+
+                throw;
+
+
+            }
+        }
+
         public async Task<ExInbox> GetMailById2(int id,int type)
         {
 
@@ -1279,6 +1517,77 @@ namespace MMSystem.Services.MailServeic
 
 
                     List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == id).ToListAsync();
+
+
+                    foreach (var item in sends)
+                    {
+                        Department departments = await _appContext.Departments.FindAsync(item.to);
+                        Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
+
+                        ex.actionSenders.Add(new ActionSender()
+                        {
+
+                            departmentName = departments.DepartmentName,
+                            measureId = item.type_of_send,
+                            measureName = measures.MeasuresName,
+                            departmentId = departments.Id,
+                            send_ToId = item.Id
+                        }
+
+                        );
+                    }
+                    ex.resourcescs = await _resourcescs.GetAll(id);
+
+
+                    foreach (var xx in ex.resourcescs)
+                    {
+                        string x = xx.path;
+                        xx.path = await tobase64(x);
+
+                    }
+
+
+                    return ex;
+                }
+                return null;
+            }
+
+
+            catch (Exception)
+            {
+
+                throw;
+
+
+            }
+        }
+
+        public async Task<ExInbox> GetMailById2(int id, int type,int year,int department)
+        {
+
+            try
+            {
+
+
+                MailVM mail = new MailVM();
+                ExInbox ex = new ExInbox();
+
+                MailDto dto = await Getdto(id, type,year,department);
+                if (dto != null)
+                {
+
+                    ex.mail = dto;
+
+                    ex.external = await _extrenal_Inbox.Get(dto.MailID);
+                    var side = await _appContext.Extrmal_Sections.FindAsync(ex.external.SectionId);
+
+                    ex.side.Add(side);
+
+                    var sector = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.perent == 0 && x.type == side.type);
+                    ex.sector.Add(sector);
+
+
+                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == dto.MailID).ToListAsync();
 
 
                     foreach (var item in sends)
