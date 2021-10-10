@@ -12,15 +12,77 @@
               </h3>
               <!-- 
                     animate-bounce
+                    v-if="mailId"
                  -->
-              <div
-                v-if="mailId"
-                class="float-left text-base font-semibold text-gray-800"
-              >
+
+              <fieldset class="">
+                <div class="flex items-center">
+                  <legend
+                    class="text-base font-semibold text-gray-800 ml-6"
+                  >
+                    نوع البريد
+                  </legend>
+                  <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                      <input
+                        v-model="mailType"
+                        id="internal"
+                        type="radio"
+                        name="type"
+                        class="h-4 w-4"
+                        value="1"
+                      />
+                      <label for="internal" class="mr-2 block text-gray-800">
+                        داخلي
+                      </label>
+                    </div>
+
+                    <div class="flex items-center mx-4">
+                      <input
+                        v-model="mailType"
+                        id="internal_export"
+                        type="radio"
+                        name="type"
+                        class="h-4 w-4"
+                        value="2"
+                      />
+                      <label
+                        for="internal_export"
+                        class="mr-2 block text-gray-800"
+                      >
+                        صادر خارجي
+                      </label>
+                    </div>
+
+                    <div class="flex items-center">
+                      <input
+                        v-model="mailType"
+                        id="external_incoming"
+                        type="radio"
+                        name="type"
+                        class="h-4 w-4"
+                        value="3"
+                      />
+                      <label
+                        for="external_incoming"
+                        class="mr-2 block text-gray-800"
+                      >
+                        وارد خارجي
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+
+              <div class="float-left text-base font-semibold text-gray-800">
                 رقم الرسالة
 
                 <span class="mr-4 underline font-bold text-2xl">
-                  {{ mailId }} - {{ department_Id }} - {{ mail_year }}
+                  <input type="number" class="w-16 px-1 rounded-md focus:outline-none" v-model="mailId">
+                  <input type="number" class="w-16 px-1 rounded-md focus:outline-none mx-4" v-model="my_department_id">
+                  <input type="number" class="w-20 px-1 rounded-md focus:outline-none" v-model="mail_year">
+
+                  <!-- {{ mailId }} - {{ my_department_id }} - {{ mail_year }} -->
                 </span>
               </div>
             </div>
@@ -40,66 +102,6 @@
                       p-6
                     "
                   >
-                    <fieldset class="sm:col-span-6">
-                      <div class="flex items-center">
-                        <legend class="text-base font-semibold text-gray-800 w-1/5 ml-4">
-                          نوع البريد
-                        </legend>
-                        <div class="flex justify-between items-center w-4/5">
-                          <div class="flex items-center">
-                            <input
-                              v-model="mailType"
-                              id="internal"
-                              type="radio"
-                              name="type"
-                              class="h-4 w-4"
-                              value="1"
-                            />
-                            <label
-                              for="internal"
-                              class="mr-2 block text-gray-800"
-                            >
-                              داخلي
-                            </label>
-                          </div>
-
-                          <div class="flex items-center">
-                            <input
-                              v-model="mailType"
-                              id="internal_export"
-                              type="radio"
-                              name="type"
-                              class="h-4 w-4"
-                              value="2"
-                            />
-                            <label
-                              for="internal_export"
-                              class="mr-2 block text-gray-800"
-                            >
-                              صادر خارجي
-                            </label>
-                          </div>
-
-                          <div class="flex items-center">
-                            <input
-                              v-model="mailType"
-                              id="external_incoming"
-                              type="radio"
-                              name="type"
-                              class="h-4 w-4"
-                              value="3"
-                            />
-                            <label
-                              for="external_incoming"
-                              class="mr-2 block text-gray-800"
-                            >
-                              وارد خارجي
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-
                     <div class="sm:col-span-6">
                       <label
                         for="summary"
@@ -1961,7 +1963,13 @@
                 <button
                   v-for="consignee in consignees"
                   :key="consignee.side"
-                  @click="GetReplyByDepartment(consignee.departmentId, consignee.send_ToId, consignee.departmentName)"
+                  @click="
+                    GetReplyByDepartment(
+                      consignee.departmentId,
+                      consignee.send_ToId,
+                      consignee.departmentName
+                    )
+                  "
                   class="
                     border border-blue-400
                     hover:bg-blue-400
@@ -1980,7 +1988,7 @@
 
               <section class="bg-gray-50 rounded-md p-6">
                 <p class="block text-base font-semibold text-gray-800">
-                  ردود  - {{ departmentName }}
+                  ردود - {{ departmentName }}
                 </p>
 
                 <div
@@ -2241,6 +2249,8 @@ export default {
   created() {},
 
   mounted() {
+    var date = new Date();
+    this.mail_year = date.getFullYear();
     this.my_user_id = localStorage.getItem("userId");
     this.my_department_id = localStorage.getItem("departmentId");
 
@@ -2300,7 +2310,7 @@ export default {
       departmentselect: false,
       departmentNameSelected: "",
       departmentIdSelected: "",
-      departmentName: '',
+      departmentName: "",
 
       consignees: [],
 
@@ -2413,7 +2423,11 @@ export default {
             this.screenFreeze = false;
 
             this.reply_to_add = "";
-            this.GetReplyByDepartment(this.replyByDepartmenId, this.sends_id, this.departmentName);
+            this.GetReplyByDepartment(
+              this.replyByDepartmenId,
+              this.sends_id,
+              this.departmentName
+            );
           }, 500);
         })
         .catch((err) => {
@@ -2424,7 +2438,7 @@ export default {
         });
     },
 
-    GetReplyByDepartment(id,send_ToId, name) {
+    GetReplyByDepartment(id, send_ToId, name) {
       this.replyByDepartmenId = id;
       this.sends_id = send_ToId;
       this.departmentName = name;
