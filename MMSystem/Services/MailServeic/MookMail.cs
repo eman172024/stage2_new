@@ -276,10 +276,52 @@ namespace MMSystem.Services.MailServeic
             }
         }
 
+        public async Task<bool> Delete(int id,int userid,int mailId)
+        {
+            try
+            {
+                var c = await (from user in _appContext.Administrator
+                               join userRol in _appContext.userRoles
+                               on user.UserId equals userRol.UserId
+                               select new
+                               {
+
+                                   rolr = userRol.RoleId
+                               }).ToListAsync();
+                if (c.Any(x=>x.rolr==20))
+                {
+
+
+                    Mail mail = await _appContext.Mails.Where(x=>x.Department_Id==id&&x.MailID==mailId).FirstOrDefaultAsync();
+                    if (mail != null)
+                    {
+
+                        mail.state = false;
+                        _appContext.Mails.Update(mail);
+                        await _appContext.SaveChangesAsync();
+                        return true;
+                    }
+                    return false;
+
+                }
+                return false;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public async Task<bool> Delete(int id)
         {
             try
             {
+              
+
+
+
                 Mail mail = await _appContext.Mails.FindAsync(id);
                 if (mail != null)
                 {
@@ -333,17 +375,17 @@ namespace MMSystem.Services.MailServeic
                 {
 
                     case 1:
-                        Mail mail = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 1);
+                        Mail mail = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 1&&x.state==true);
                         dto1 = _mapper.Map<Mail, MailDto>(mail);
 
                         break;
                     case 2:
-                        Mail mail1 = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type ==  2);
+                        Mail mail1 = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type ==  2 && x.state == true);
                         dto1 = _mapper.Map<Mail, MailDto>(mail1);
 
                         break;
                     case 3:
-                        Mail mail2 = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 3);
+                        Mail mail2 = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 3 && x.state == true);
                         dto1 = _mapper.Map<Mail, MailDto>(mail2);
                         break;
                     default: break;
@@ -371,18 +413,18 @@ namespace MMSystem.Services.MailServeic
                 {
 
                     case 1:
-                        Mail mail = await _appContext.Mails.FirstOrDefaultAsync(x => x.Mail_Number == id && x.Mail_Type == 1&&x.Date_Of_Mail.Year==date&&x.Department_Id==departmentId);
+                        Mail mail = await _appContext.Mails.FirstOrDefaultAsync(x => x.Mail_Number == id && x.Mail_Type == 1&&x.Date_Of_Mail.Year==date&&x.Department_Id==departmentId && x.state == true);
                         dto1 = _mapper.Map<Mail, MailDto>(mail);
 
                         break;
                     case 2:
-                        Mail mail1 = await _appContext.Mails.FirstOrDefaultAsync(x => x.Mail_Number == id && x.Mail_Type ==2 && x.Date_Of_Mail.Year == date && x.Department_Id == departmentId);
+                        Mail mail1 = await _appContext.Mails.FirstOrDefaultAsync(x => x.Mail_Number == id && x.Mail_Type ==2 && x.Date_Of_Mail.Year == date && x.Department_Id == departmentId && x.state == true);
 
                         dto1 = _mapper.Map<Mail, MailDto>(mail1);
 
                         break;
                     case 3:
-                        Mail mail2 = await _appContext.Mails.FirstOrDefaultAsync(x => x.Mail_Number == id && x.Mail_Type == 3 && x.Date_Of_Mail.Year == date && x.Department_Id == departmentId);
+                        Mail mail2 = await _appContext.Mails.FirstOrDefaultAsync(x => x.Mail_Number == id && x.Mail_Type == 3 && x.Date_Of_Mail.Year == date && x.Department_Id == departmentId && x.state == true);
                         dto1 = _mapper.Map<Mail, MailDto>(mail2);
                         break;
                     default: break;

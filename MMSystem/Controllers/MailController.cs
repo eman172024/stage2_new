@@ -124,11 +124,11 @@ namespace MMSystem.Controllers
 
 
         // DELETE api/<MailController>/5
-        [HttpDelete("Delete/{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("Delete")]
+        public async Task<IActionResult> Delete(int department_id,int userId,int mail_id)
         {
 
-            bool state = await _Imail.Delete(id);
+            bool state = await _Imail.Delete(department_id,userId,mail_id);
             if (state)
                 return StatusCode(203, new Result() { message = "تمت عملية الحذف بنجاح", statusCode = 203 });
             return BadRequest(new Result() { message = "غشلت العملية", statusCode = 404 });

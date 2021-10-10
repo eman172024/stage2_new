@@ -17,7 +17,9 @@ namespace MMSystem.Services.MailServeic
         Task<List<VModelForSendAndRecived>> GetSevenMail(int departmentId);
 
         Task<bool> addMail( MailViewModel mail);
-      
+
+        Task<bool> Delete(int id, int userid,int MailId);
+
      //   Task<bool> Upload(int id,List<IFormFile> listOfPhotes );
         Task<bool> UpdateFile(int id, List<IFormFile> listOfPhotes);
      Task<int> GetLastMailNumber(int id,int mailType);
