@@ -8,10 +8,17 @@
                     <main class="flex-1 relative focus:outline-none ">
 
                         <div class="py-6">
-                            <div class="px-4 sm:px-6 md:px-0">
-                                <h1 class="text-xl font-semibold text-black">لوحة التحكم</h1>
+                            <div class="flex justify-end">
+                                <router-link :to="{ name: 'sent-add' }" class="border border-black duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-bold hover:bg-green-600 hover:text-white focus:outline-none">
+                                    إضافة بريد جديد +
+                                </router-link>
                             </div>
-                            <div class="px-4 sm:px-6 md:px-0">
+                            <div class="px-4 sm:px-6 md:px-0 flex justify-between items-center mt-6">
+                                <h1 class="text-xl font-semibold text-black"> البريد في أرقام</h1>
+
+                                
+                            </div>
+                            <div class="mt-0 px-4 sm:px-6 md:px-0">
                                 <!-- Replace with your content -->
                                 <div class="py-4">
                                     <div class="grid grid-cols-3 gap-8">
@@ -77,9 +84,7 @@
                         <section>
                             <div class="px-4 sm:px-6 md:px-0 flex justify-between items-center">
                                 <h1 class="text-xl font-semibold text-gray-900">أحدث البريد</h1>
-                                <router-link :to="{ name: 'sent-add' }" class="border border-g100text-gray-100 hover:text-g5bg-green-500 hover:border-g5bg-green-500 duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-medium focus:outline-none">
-                                    إضافة +
-                                </router-link>
+                                
                             </div>
 
                             <div class="w-full mt-4 rounded-md divide-y-2 divide-gray-200">

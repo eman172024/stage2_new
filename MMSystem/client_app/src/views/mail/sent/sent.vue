@@ -261,103 +261,117 @@
 
                         <div class="w-full mt-4 rounded-md divide-y-2 divide-gray-200">
 
-                            <div class="flex items-center bg-white w-full text-sm">
-                                <div class="w-1/9 py-4 pr-6">
-                                    رقم الرسالة
-                                </div>
-                                <div class="w-1/9">
-                                    الحالة
-                                </div>
-                                <div class="w-1/9">
-                                    النوع
-                                </div>
-                                <div class="w-2/9">
-                                    الإدارة المرسلة
-                                </div>
-                                <div class="w-1/9">
-                                    نوع الإجراء
-                                </div>
-                                <div class="w-1/9">
-                                    تاريخ الارسال
-                                </div>
-                                <div class="w-1/9">
-                                    وقت الارسال
-                                </div>
-                                <div class="w-1/9">
-                                    الإجراءات
-                                </div>
-                            </div>
-
-                            <div class="min-h-72 ">
-                                <div v-for="mail in inboxMails" :key="mail.mail_id" :class="mail.flag | mail_state_inbox"  class="group relative border-r-8 border-red-500 flex items-center bg-white">
-                                    <div class="w-1/9 pr-4 py-3">
-                                        {{ mail.mail_Number }}
-                                    </div>
-                                    <div class="w-1/9">
-                                        {{ mail.state }}
-                                    </div>
-
-                                    <div class="w-1/9">
-                                        {{ mail.type_of_mail | mail_type }}
-                                    </div>
-
-                                    <div class="w-2/9">
-                                        {{ mail.mangment_sender }}
-                                    </div>
-
-                                    <div class="w-1/9">
-                                        {{ mail.masure_type }}
-                                    </div>
-
-                                    <div class="w-1/9">
-                                        {{ mail.send_time }}
-                                    </div>
-
-                                    <div class="w-1/9">
-                                        {{ mail.time }}
-                                    </div>
-
-                                    <div class="w-1/9 flex justify-between items-center">
-                                        <div class="w-1/3 flex justify-center items-center">
-                                            <router-link title="عرض التفصيل" :to="{ name: 'sent-show', params: { mail: mail.mail_id, type:mail.type_of_mail, sends_id:mail.sends_id},}"  class="">
-                                                <svg class="w-5 h-5 fill-current hover:text-green-500" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 18.453 18.453"  xml:space="preserve">
-                                                    <rect x="2.711" y="4.058" width="8.23" height="1.334"/>
-                                                    <path d="M14.972,14.088c0.638-1.127,0.453-2.563-0.475-3.49c-0.549-0.549-1.279-0.852-2.058-0.852
-                                                        c-0.779,0-1.51,0.303-2.059,0.852s-0.852,1.279-0.852,2.059c0,0.777,0.303,1.508,0.852,2.059c0.549,0.547,1.279,0.85,2.057,0.85
-                                                        c0.507,0,0.998-0.129,1.434-0.375l3.262,3.262l1.101-1.102L14.972,14.088z M13.664,13.881c-0.652,0.652-1.796,0.652-2.448,0
-                                                        c-0.675-0.676-0.675-1.773,0-2.449c0.326-0.326,0.762-0.506,1.225-0.506s0.897,0.18,1.224,0.506s0.507,0.762,0.507,1.225
-                                                        S13.991,13.554,13.664,13.881z"/>
-                                                    <path d="M13.332,16.3H1.857c-0.182,0-0.329-0.148-0.329-0.328V1.638c0-0.182,0.147-0.329,0.329-0.329
-                                                        h11.475c0.182,0,0.328,0.147,0.328,0.329V8.95c0.475,0.104,0.918,0.307,1.31,0.597V1.638C14.97,0.735,14.236,0,13.332,0H1.857
-                                                        C0.954,0,0.219,0.735,0.219,1.638v14.334c0,0.902,0.735,1.637,1.638,1.637h11.475c0.685,0,1.009-0.162,1.253-0.76l-0.594-0.594
-                                                        C13.772,16.347,13.426,16.3,13.332,16.3z"/>
-                                                    <rect x="2.711" y="7.818" width="8.23" height="1.334"/>
-                                                </svg>
-                                            </router-link>
+                            <div class="flex justify-between">
+                                <div class="w-7/12">
+                                    <div class="flex items-center bg-white w-full text-sm">
+                                        <div class="w-1/6 py-4 pr-6">
+                                            رقم الرسالة
                                         </div>
-
-                                        <div class="w-1/3 flex justify-center items-center">
-                                            <button @click="GetAllDocuments(mail.mail_id)" title="طباعة المستندات" class="focus:outline-none">
-                                                <svg class="w-5 h-5 fill-current hover:text-blue-500" id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><g><path d="m437 129h-14v-54c0-41.355-33.645-75-75-75h-184c-41.355 0-75 33.645-75 75v54h-14c-41.355 0-75 33.645-75 75v120c0 41.355 33.645 75 75 75h14v68c0 24.813 20.187 45 45 45h244c24.813 0 45-20.187 45-45v-68h14c41.355 0 75-33.645 75-75v-120c0-41.355-33.645-75-75-75zm-318-54c0-24.813 20.187-45 45-45h184c24.813 0 45 20.187 45 45v54h-274zm274 392c0 8.271-6.729 15-15 15h-244c-8.271 0-15-6.729-15-15v-148h274zm89-143c0 24.813-20.187 45-45 45h-14v-50h9c8.284 0 15-6.716 15-15s-6.716-15-15-15h-352c-8.284 0-15 6.716-15 15s6.716 15 15 15h9v50h-14c-24.813 0-45-20.187-45-45v-120c0-24.813 20.187-45 45-45h362c24.813 0 45 20.187 45 45z"/><path d="m296 353h-80c-8.284 0-15 6.716-15 15s6.716 15 15 15h80c8.284 0 15-6.716 15-15s-6.716-15-15-15z"/><path d="m296 417h-80c-8.284 0-15 6.716-15 15s6.716 15 15 15h80c8.284 0 15-6.716 15-15s-6.716-15-15-15z"/><path d="m128 193h-48c-8.284 0-15 6.716-15 15s6.716 15 15 15h48c8.284 0 15-6.716 15-15s-6.716-15-15-15z"/></g></svg>
-                                            </button>
+                                        <div class="w-2/6 pr-12">
+                                            الحالة
+                                        </div>
+                                        <div class="w-1/6 pr-1">
+                                            النوع
+                                        </div>
+                                        <!-- <div class="w-4/6">
+                                            الإدارة المرسلة
+                                        </div>
+                                        <div class="w-1/6">
+                                            نوع الإجراء
+                                        </div> -->
+                                        <div class="w-1/6">
+                                            تاريخ الارسال
+                                        </div>
+                                        <div class="w-1/6">
+                                            وقت الارسال
+                                        </div>
+                                        <div class="w-1/6 text-center">
+                                            الإجراءات
                                         </div>
                                     </div>
 
-                                    <div class="group-hover:flex items-end hidden absolute z-50 w-8/12  my-2 bottom-1 left-0 right-0 mx-auto min-h-64 h-full  ">
-                                        <svg class="w-6 h-6 font-bold stroke-2 stroke-current text-red-500 animate-arrow" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                    <div class="min-h-72 text-sm">
+                                        <div v-for="mail in inboxMails" :key="mail.mail_id" :class="mail.flag | mail_state_inbox"  class="group relative border-r-8 border-red-500 flex items-center bg-white hover:bg-gray-100 ">
+                                            <div class="w-1/6 pr-4 py-1">
+                                                {{ mail.mail_Number }}
+                                            </div>
+                                            <div class="w-2/6  pr-11">
+                                                {{ mail.state }}
+                                            </div>
 
-                                        
-                                        <div class="bg-white p-2 border-4 rounded-md w-full h-full">
-                                            <p class="font-bold">
-                                                ملخص الرسالة
-                                            </p>
+                                            <div class="w-1/6">
+                                                {{ mail.type_of_mail | mail_type }}
+                                            </div>
 
-                                            <p class="mt-2">
-                                                {{ mail.summary }}
-                                            </p>
+                                            <!-- <div class="w-4/12 truncate pl-2">
+                                                {{ mail.mangment_sender }}
+                                            </div>
+
+                                            <div class="w-1/12">
+                                                {{ mail.masure_type }}
+                                            </div> -->
+
+                                            <div class="w-1/6">
+                                                {{ mail.send_time }}
+                                            </div>
+
+                                            <div class="w-1/6">
+                                                {{ mail.time }}
+                                            </div>
+
+                                            <div class="w-1/6 flex justify-between items-center">
+                                                <div class="w-1/3 flex justify-center items-center">
+                                                    <router-link title="عرض التفصيل" :to="{ name: 'sent-show', params: { mail: mail.mail_id, type:mail.type_of_mail, sends_id:mail.sends_id},}"  class="">
+                                                        <svg class="w-5 h-5 fill-current hover:text-green-500" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 18.453 18.453"  xml:space="preserve">
+                                                            <rect x="2.711" y="4.058" width="8.23" height="1.334"/>
+                                                            <path d="M14.972,14.088c0.638-1.127,0.453-2.563-0.475-3.49c-0.549-0.549-1.279-0.852-2.058-0.852
+                                                                c-0.779,0-1.51,0.303-2.059,0.852s-0.852,1.279-0.852,2.059c0,0.777,0.303,1.508,0.852,2.059c0.549,0.547,1.279,0.85,2.057,0.85
+                                                                c0.507,0,0.998-0.129,1.434-0.375l3.262,3.262l1.101-1.102L14.972,14.088z M13.664,13.881c-0.652,0.652-1.796,0.652-2.448,0
+                                                                c-0.675-0.676-0.675-1.773,0-2.449c0.326-0.326,0.762-0.506,1.225-0.506s0.897,0.18,1.224,0.506s0.507,0.762,0.507,1.225
+                                                                S13.991,13.554,13.664,13.881z"/>
+                                                            <path d="M13.332,16.3H1.857c-0.182,0-0.329-0.148-0.329-0.328V1.638c0-0.182,0.147-0.329,0.329-0.329
+                                                                h11.475c0.182,0,0.328,0.147,0.328,0.329V8.95c0.475,0.104,0.918,0.307,1.31,0.597V1.638C14.97,0.735,14.236,0,13.332,0H1.857
+                                                                C0.954,0,0.219,0.735,0.219,1.638v14.334c0,0.902,0.735,1.637,1.638,1.637h11.475c0.685,0,1.009-0.162,1.253-0.76l-0.594-0.594
+                                                                C13.772,16.347,13.426,16.3,13.332,16.3z"/>
+                                                            <rect x="2.711" y="7.818" width="8.23" height="1.334"/>
+                                                        </svg>
+                                                    </router-link>
+                                                </div>
+
+                                                <div class="w-1/3 flex justify-center items-center">
+                                                    <button @click="GetAllDocuments(mail.mail_id)" title="طباعة المستندات" class="focus:outline-none">
+                                                        <svg class="w-5 h-5 fill-current hover:text-blue-500" id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><g><path d="m437 129h-14v-54c0-41.355-33.645-75-75-75h-184c-41.355 0-75 33.645-75 75v54h-14c-41.355 0-75 33.645-75 75v120c0 41.355 33.645 75 75 75h14v68c0 24.813 20.187 45 45 45h244c24.813 0 45-20.187 45-45v-68h14c41.355 0 75-33.645 75-75v-120c0-41.355-33.645-75-75-75zm-318-54c0-24.813 20.187-45 45-45h184c24.813 0 45 20.187 45 45v54h-274zm274 392c0 8.271-6.729 15-15 15h-244c-8.271 0-15-6.729-15-15v-148h274zm89-143c0 24.813-20.187 45-45 45h-14v-50h9c8.284 0 15-6.716 15-15s-6.716-15-15-15h-352c-8.284 0-15 6.716-15 15s6.716 15 15 15h9v50h-14c-24.813 0-45-20.187-45-45v-120c0-24.813 20.187-45 45-45h362c24.813 0 45 20.187 45 45z"/><path d="m296 353h-80c-8.284 0-15 6.716-15 15s6.716 15 15 15h80c8.284 0 15-6.716 15-15s-6.716-15-15-15z"/><path d="m296 417h-80c-8.284 0-15 6.716-15 15s6.716 15 15 15h80c8.284 0 15-6.716 15-15s-6.716-15-15-15z"/><path d="m128 193h-48c-8.284 0-15 6.716-15 15s6.716 15 15 15h48c8.284 0 15-6.716 15-15s-6.716-15-15-15z"/></g></svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="group-hover:flex items-end hidden absolute z-50 w-11/12 pr-12  my-2 bottom-4 left-0  min-h-32 h-full  ">
+                                                <!-- <svg class="w-6 h-6 font-bold stroke-2 stroke-current text-red-500 animate-arrow" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg> -->
+
+                                                
+                                                <div class="bg-white p-2 border-4 rounded-md w-full h-full overflow-y-scroll">
+                                                
+                                                    <p class="font-bold">
+                                                        ملخص الرسالة
+                                                    </p>
+
+                                                    <p class="mt-2">
+                                                        {{ mail.summary }}
+                                                    </p>
+                                                </div>
+
+                                                
+                                            </div>
+
                                         </div>
                                     </div>
+                                </div>
+                                <div class="w-5/12 bg-white pl-2 pr-4 py-2 border-r-8">
+                                      الجهات المرسل إليها- رقم البريد 17 
 
+                                    <div class="text-sm">
+                                         الإدارة العامة للرقابة علي القطاعات الخدمية والأمنية 
+                                    </div>
                                 </div>
                             </div>
 
@@ -569,7 +583,7 @@ export default {
         date_from:'',
         date_to:'',
 
-        page_size: 4,
+        page_size: 10,
         page_num: 1
     };
   },

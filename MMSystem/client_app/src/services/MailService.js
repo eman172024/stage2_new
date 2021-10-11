@@ -117,6 +117,10 @@ export default {
         return axios.put(`/api/ExternalMails/read_it_mail?mail_id=${id}&department_Id=${department_id}`);
     },
 
+    search(id, mailType, mangment_id, year) {
+        return axios.get(`/api/Mail/search?id=${id}&type=${mailType}&year=${year}&department_Id=${mangment_id}`);
+    },
+
 
 
 

@@ -1,8 +1,8 @@
 <template>
   <div class="">
-    <div class="h-screen bg-gray-50 overflow-hidden flex">
+    <div class="h-screen bg-gray-100 overflow-hidden flex">
       <asideComponent></asideComponent>
-      <div class="flex-1 bg-gray-100 w-0 overflow-y-auto">
+      <div class="flex-1 bg-gray-200 w-0 overflow-y-auto">
         <div class="max-w-screen-2xl mx-auto flex flex-col md:px-8">
           <navComponent></navComponent>
           <main class="flex-1 relative focus:outline-none py-6">
@@ -18,7 +18,7 @@
               <fieldset class="">
                 <div class="flex items-center">
                   <legend
-                    class="text-base font-semibold text-gray-800 ml-6"
+                    class="text-sm font-semibold text-gray-800 ml-6"
                   >
                     نوع البريد
                   </legend>
@@ -74,13 +74,16 @@
                 </div>
               </fieldset>
 
-              <div class="float-left text-base font-semibold text-gray-800">
+              <div class="float-left text-sm font-semibold text-gray-800 flex items-center">
                 رقم الرسالة
 
-                <span class="mr-4 underline font-bold text-2xl">
-                  <input type="number" class="w-16 px-1 rounded-md focus:outline-none" v-model="mailId">
-                  <input type="number" class="w-16 px-1 rounded-md focus:outline-none mx-4" v-model="my_department_id">
-                  <input type="number" class="w-20 px-1 rounded-md focus:outline-none" v-model="mail_year">
+                <span class="mr-4 underline font-bold text-2xl flex items-center">
+                  <input type="number" @keypress.enter="mail_search()" class="w-16 px-1 rounded-md focus:outline-none" v-model="mailId">
+                  <div class="w-16 px-1 rounded-md font-normal focus:outline-none mx-4 bg-white">
+                    {{ my_department_id }}
+                  </div>
+                  <!-- <input type="number" @keypress.enter="mail_search()" class="w-16 px-1 rounded-md focus:outline-none mx-4" v-model="my_department_id"> -->
+                  <input type="number" @keypress.enter="mail_search()" class="w-20 px-1 rounded-md focus:outline-none" v-model="mail_year">
 
                   <!-- {{ mailId }} - {{ my_department_id }} - {{ mail_year }} -->
                 </span>
@@ -97,7 +100,7 @@
                       grid grid-cols-1
                       gap-y-6 gap-x-4
                       sm:grid-cols-6
-                      bg-gray-50
+                      bg-gray-100
                       rounded-md
                       p-6
                     "
@@ -105,7 +108,7 @@
                     <div class="sm:col-span-6">
                       <label
                         for="summary"
-                        class="block text-base font-semibold text-gray-800"
+                        class="block text-sm font-semibold text-gray-800"
                       >
                         الملخص
                       </label>
@@ -132,7 +135,7 @@
                     <div class="sm:col-span-3">
                       <label
                         for="classification"
-                        class="block text-base font-semibold text-gray-800"
+                        class="block text-sm font-semibold text-gray-800"
                       >
                         التصنيف
                       </label>
@@ -169,7 +172,7 @@
                     <div class="sm:col-span-3">
                       <label
                         for="date"
-                        class="block text-base font-semibold text-gray-800"
+                        class="block text-sm font-semibold text-gray-800"
                       >
                         التاريخ
                       </label>
@@ -196,7 +199,7 @@
                     <div class="sm:col-span-3">
                       <label
                         for="general_incoming_number"
-                        class="block text-base font-semibold text-gray-800"
+                        class="block text-sm font-semibold text-gray-800"
                       >
                         رقم الوارد العام
                       </label>
@@ -224,7 +227,7 @@
                     <div class="sm:col-span-3">
                       <label
                         for="year"
-                        class="block text-base font-semibold text-gray-800"
+                        class="block text-sm font-semibold text-gray-800"
                       >
                         السنة
                       </label>
@@ -259,7 +262,7 @@
                       grid grid-cols-1
                       gap-y-6 gap-x-4
                       sm:grid-cols-6
-                      bg-gray-50
+                      bg-gray-100
                       rounded-md
                       p-6
                     "
@@ -267,7 +270,7 @@
                     <div class="sm:col-span-6">
                       <label
                         for="action_required"
-                        class="block text-base font-semibold text-gray-800"
+                        class="block text-sm font-semibold text-gray-800"
                       >
                         الإجراء المطلوب
                       </label>
@@ -302,7 +305,7 @@
                       <div class="sm:col-span-3">
                         <label
                           for="department"
-                          class="block text-base font-semibold text-gray-800"
+                          class="block text-sm font-semibold text-gray-800"
                         >
                           الإدارات
                         </label>
@@ -376,7 +379,7 @@
                       <div class="sm:col-span-2">
                         <label
                           for="measure"
-                          class="block text-base font-semibold text-gray-800"
+                          class="block text-sm font-semibold text-gray-800"
                         >
                           الإجراء
                         </label>
@@ -498,7 +501,7 @@
                     <div class="sm:col-span-6">
                       <label
                         for="consignees"
-                        class="block text-base font-semibold text-gray-800"
+                        class="block text-sm font-semibold text-gray-800"
                       >
                         المرسل إليهم
                       </label>
@@ -571,10 +574,10 @@
 
                 <section
                   v-if="documentSection"
-                  class="col-span-2 bg-gray-50 rounded-md p-6"
+                  class="col-span-2 bg-gray-100 rounded-md p-6"
                 >
                   <div class="flex justify-between items-center">
-                    <h3 class="block text-base font-semibold text-gray-800">
+                    <h3 class="block text-sm font-semibold text-gray-800">
                       المستندات
                     </h3>
 
@@ -1238,7 +1241,7 @@
                   <fieldset class="sm:col-span-3">
                     <div class="flex items-center">
                       <legend
-                        class="block text-base font-semibold text-gray-800 w-24"
+                        class="block text-sm font-semibold text-gray-800 w-24"
                       >
                         <div v-if="mailType == '2'">توجيه البريد</div>
 
@@ -1303,7 +1306,7 @@
                   <div class="sm:col-span-3">
                     <label
                       for="send_to_sector"
-                      class="block text-base font-semibold text-gray-800"
+                      class="block text-sm font-semibold text-gray-800"
                     >
                       القطاع
                     </label>
@@ -1373,7 +1376,7 @@
                   <div class="sm:col-span-3">
                     <label
                       for="sideIdSelected"
-                      class="block text-base font-semibold text-gray-800"
+                      class="block text-sm font-semibold text-gray-800"
                     >
                       الجهة
                     </label>
@@ -1444,7 +1447,7 @@
                 <div v-if="mailType == '2'" class="sm:col-span-6">
                   <label
                     for="action_required"
-                    class="block text-base font-semibold text-gray-800"
+                    class="block text-sm font-semibold text-gray-800"
                   >
                     الإجراء المطلوب من الجهة
                   </label>
@@ -1482,7 +1485,7 @@
                   <fieldset class="sm:col-span-3">
                     <div class="flex items-center">
                       <legend
-                        class="block text-base font-semibold text-gray-800 w-24"
+                        class="block text-sm font-semibold text-gray-800 w-24"
                       >
                         وارد إلي
                       </legend>
@@ -1519,7 +1522,7 @@
                   <fieldset class="sm:col-span-3">
                     <div class="flex items-center">
                       <legend
-                        class="block text-base font-semibold text-gray-800 w-24"
+                        class="block text-sm font-semibold text-gray-800 w-24"
                       >
                         نوعها
                       </legend>
@@ -1556,7 +1559,7 @@
                   <div class="sm:col-span-2">
                     <label
                       for="entity_mail_date"
-                      class="block text-base font-semibold text-gray-800"
+                      class="block text-sm font-semibold text-gray-800"
                     >
                       تاريخ رسالة الجهة
                     </label>
@@ -1583,7 +1586,7 @@
                   <div class="sm:col-span-2">
                     <label
                       for="entity_reference_number"
-                      class="block text-base font-semibold text-gray-800"
+                      class="block text-sm font-semibold text-gray-800"
                     >
                       رقم إشارة الجهة
                     </label>
@@ -1610,7 +1613,7 @@
                   <div class="sm:col-span-2">
                     <label
                       for="procedure_type"
-                      class="block text-base font-semibold text-gray-800"
+                      class="block text-sm font-semibold text-gray-800"
                     >
                       نوع الإجراء
                     </label>
@@ -1959,7 +1962,7 @@
                 </div>
               </section>
 
-              <section class="bg-gray-50 rounded-md p-6 flex items-center">
+              <section class="bg-gray-100 rounded-md p-6 flex items-center">
                 <button
                   v-for="consignee in consignees"
                   :key="consignee.side"
@@ -1982,12 +1985,13 @@
                     m-0.5
                   "
                 >
-                  {{ consignee.departmentName }}
+                  {{ consignee.departmentName }} ,
+                          {{ consignee.measureName }} 
                 </button>
               </section>
 
-              <section class="bg-gray-50 rounded-md p-6">
-                <p class="block text-base font-semibold text-gray-800">
+              <section v-if="replies.length != 0" class="bg-gray-100 rounded-md p-6">
+                <p class="block text-sm font-semibold text-gray-800">
                   ردود - {{ departmentName }}
                 </p>
 
@@ -2002,29 +2006,23 @@
                     border border-gray-300
                   "
                 >
-                  <div
-                    v-for="reply in replies"
-                    :key="reply.replyId"
-                    :class="
-                      reply.to == my_department_id
+                  <div  v-for="reply in replies" :key="reply.replyId" :class=" reply.to == my_department_id
                         ? 'justify-end'
                         : 'justify-start'
                     "
-                    class="w-full my-2 flex px-4"
+                    class="w-full my-0.5 flex px-2"
                   >
-                    <div
-                      :class="
-                        reply.to == my_department_id
+                    <div :class="reply.to == my_department_id
                           ? 'bg-gray-700'
                           : 'bg-blue-700'
                       "
                       class="
                         text-white
                         max-w-10/12
-                        py-4
+                        py-0
                         leading-9
-                        px-4
-                        rounded-2xl
+                        px-2
+                        rounded
                       "
                     >
                       {{ reply.mail_detail }}
@@ -2399,6 +2397,208 @@ export default {
     };
   },
   methods: {
+
+    // mail_search(){
+    //   console.log(" mailId "+this.mailId)
+    //   console.log(" my_department_id "+this.my_department_id)
+    //   console.log(" mail_year "+this.mail_year)
+    // },
+
+
+    GetSentMailById() {
+      this.$http.mailService
+        .GetSentMailById(this.mailId, this.to_test_passing_mail_type)
+        .then((res) => {
+          if (res.data.mail.is_send == true) {
+            this.sendButton = false;
+            this.deleteButton = false;
+            this.remove_button_consignees = false;
+            this.add_button_consignees = false;
+          }
+
+          this.mail_Number = res.data.mail.mail_Number;
+          this.department_Id = res.data.mail.department_Id;
+          this.mail_year = res.data.mail.mail_year;
+
+          this.releaseDate = res.data.mail.date_Of_Mail;
+          this.summary = res.data.mail.mail_Summary;
+          this.classification = res.data.mail.clasification;
+          this.mailType = res.data.mail.mail_Type;
+          this.general_incoming_number = res.data.mail.genaral_inbox_Number;
+          this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
+          this.required_action = res.data.mail.action_Required;
+
+          this.consignees = res.data.actionSenders;
+
+          this.imagesToShow = res.data.resourcescs;
+
+          console.log(this.imagesToShow);
+
+          if (this.imagesToShow.length > 0) {
+            console.log("FFFFFFFFFFFFFFFFFFf");
+            this.testimage = this.imagesToShow[0].path;
+          }
+
+          if (this.to_test_passing_mail_type == "2") {
+            this.external_mailId = res.data.external.id;
+
+            this.action_required_by_the_entity =
+              res.data.external.action_required_by_the_entity;
+
+            this.mail_forwarding = res.data.external.action;
+
+            this.get_sectors(this.mail_forwarding);
+
+            this.sectorNameSelected = res.data.sector[0].section_Name;
+            this.sectorIdSelected = res.data.sector[0].id;
+
+            this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
+            this.sideNameSelected = res.data.side[0].section_Name;
+            this.sideIdSelected = res.data.side[0].id;
+          }
+          if (this.to_test_passing_mail_type == "3") {
+            console.log(
+              "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
+            );
+
+            this.external_mailId = res.data.external.id;
+
+            this.mail_forwarding = res.data.external.action;
+
+            this.get_sectors(this.mail_forwarding);
+
+            this.sectorNameSelected = res.data.sector[0].section_Name;
+            this.sectorIdSelected = res.data.sector[0].id;
+
+            this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
+            this.sideNameSelected = res.data.side[0].section_Name;
+            this.sideIdSelected = res.data.side[0].id;
+
+            this.ward_to = res.data.external.to;
+
+            this.mail_ward_type = res.data.external.type;
+
+            this.entity_mail_date = res.data.external.send_time;
+
+            this.entity_reference_number =
+              res.data.external.entity_reference_number;
+
+            this.procedure_type = res.data.external.procedure_type;
+          }
+
+          //   this.GetDocmentForMail();
+          //   this.GetDocmentForMailToShow();
+
+          //   this.GetProcessingResponses()
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+
+
+    mail_search() {
+            this.screenFreeze = true;
+            this.loading = true;
+            this.$http.mailService
+                .search(this.mailId, this.mailType, this.my_department_id, this.mail_year)
+                .then((res) => {
+                     if (res.data.mail.is_send == true) {
+            this.sendButton = false;
+            this.deleteButton = false;
+            this.remove_button_consignees = false;
+            this.add_button_consignees = false;
+          }
+
+          this.mail_Number = res.data.mail.mail_Number;
+          this.department_Id = res.data.mail.department_Id;
+          this.mail_year = res.data.mail.mail_year;
+
+          this.releaseDate = res.data.mail.date_Of_Mail;
+          this.summary = res.data.mail.mail_Summary;
+          this.classification = res.data.mail.clasification;
+          this.mailType = res.data.mail.mail_Type;
+          this.general_incoming_number = res.data.mail.genaral_inbox_Number;
+          this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
+          this.required_action = res.data.mail.action_Required;
+
+          this.consignees = res.data.actionSenders;
+
+          this.imagesToShow = res.data.resourcescs;
+
+          console.log(this.imagesToShow);
+
+          if (this.imagesToShow.length > 0) {
+            console.log("FFFFFFFFFFFFFFFFFFf");
+            this.testimage = this.imagesToShow[0].path;
+          }
+
+          if (this.to_test_passing_mail_type == "2") {
+            this.external_mailId = res.data.external.id;
+
+            this.action_required_by_the_entity =
+              res.data.external.action_required_by_the_entity;
+
+            this.mail_forwarding = res.data.external.action;
+
+            this.get_sectors(this.mail_forwarding);
+
+            this.sectorNameSelected = res.data.sector[0].section_Name;
+            this.sectorIdSelected = res.data.sector[0].id;
+
+            this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
+            this.sideNameSelected = res.data.side[0].section_Name;
+            this.sideIdSelected = res.data.side[0].id;
+          }
+          if (this.to_test_passing_mail_type == "3") {
+            console.log(
+              "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
+            );
+
+            this.external_mailId = res.data.external.id;
+
+            this.mail_forwarding = res.data.external.action;
+
+            this.get_sectors(this.mail_forwarding);
+
+            this.sectorNameSelected = res.data.sector[0].section_Name;
+            this.sectorIdSelected = res.data.sector[0].id;
+
+            this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
+            this.sideNameSelected = res.data.side[0].section_Name;
+            this.sideIdSelected = res.data.side[0].id;
+
+            this.ward_to = res.data.external.to;
+
+            this.mail_ward_type = res.data.external.type;
+
+            this.entity_mail_date = res.data.external.send_time;
+
+            this.entity_reference_number =
+              res.data.external.entity_reference_number;
+
+            this.procedure_type = res.data.external.procedure_type;
+          }
+                   
+                    setTimeout(() => {
+                        this.screenFreeze = false;
+                        this.loading = false;
+                    }, 300);
+                })
+                .catch((err) => {
+                    setTimeout(() => {
+                        this.screenFreeze = false;
+                        this.loading = false;
+                        console.log(err);
+                    }, 100);
+                    
+                    
+                });
+        },
+
+
+
     AddReply() {
       this.screenFreeze = true;
       this.loading = true;
@@ -2495,96 +2695,7 @@ export default {
       }
     },
 
-    GetSentMailById() {
-      this.$http.mailService
-        .GetSentMailById(this.mailId, this.to_test_passing_mail_type)
-        .then((res) => {
-          if (res.data.mail.is_send == true) {
-            this.sendButton = false;
-            this.deleteButton = false;
-            this.remove_button_consignees = false;
-            this.add_button_consignees = false;
-          }
-
-          this.mail_Number = res.data.mail.mail_Number;
-          this.department_Id = res.data.mail.department_Id;
-          this.mail_year = res.data.mail.mail_year;
-
-          this.releaseDate = res.data.mail.date_Of_Mail;
-          this.summary = res.data.mail.mail_Summary;
-          this.classification = res.data.mail.clasification;
-          this.mailType = res.data.mail.mail_Type;
-          this.general_incoming_number = res.data.mail.genaral_inbox_Number;
-          this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
-          this.required_action = res.data.mail.action_Required;
-
-          this.consignees = res.data.actionSenders;
-
-          this.imagesToShow = res.data.resourcescs;
-
-          console.log(this.imagesToShow);
-
-          if (this.imagesToShow.length > 0) {
-            console.log("FFFFFFFFFFFFFFFFFFf");
-            this.testimage = this.imagesToShow[0].path;
-          }
-
-          if (this.to_test_passing_mail_type == "2") {
-            this.external_mailId = res.data.external.id;
-
-            this.action_required_by_the_entity =
-              res.data.external.action_required_by_the_entity;
-
-            this.mail_forwarding = res.data.external.action;
-
-            this.get_sectors(this.mail_forwarding);
-
-            this.sectorNameSelected = res.data.sector[0].section_Name;
-            this.sectorIdSelected = res.data.sector[0].id;
-
-            this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
-            this.sideNameSelected = res.data.side[0].section_Name;
-            this.sideIdSelected = res.data.side[0].id;
-          }
-          if (this.to_test_passing_mail_type == "3") {
-            console.log(
-              "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
-            );
-
-            this.external_mailId = res.data.external.id;
-
-            this.mail_forwarding = res.data.external.action;
-
-            this.get_sectors(this.mail_forwarding);
-
-            this.sectorNameSelected = res.data.sector[0].section_Name;
-            this.sectorIdSelected = res.data.sector[0].id;
-
-            this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
-            this.sideNameSelected = res.data.side[0].section_Name;
-            this.sideIdSelected = res.data.side[0].id;
-
-            this.ward_to = res.data.external.to;
-
-            this.mail_ward_type = res.data.external.type;
-
-            this.entity_mail_date = res.data.external.send_time;
-
-            this.entity_reference_number =
-              res.data.external.entity_reference_number;
-
-            this.procedure_type = res.data.external.procedure_type;
-          }
-
-          //   this.GetDocmentForMail();
-          //   this.GetDocmentForMailToShow();
-
-          //   this.GetProcessingResponses()
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+    
 
     pass_side(id, name) {
       this.sideNameSelected = name;
