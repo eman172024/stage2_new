@@ -208,6 +208,7 @@ namespace MMSystem.Services.ReceivedMail
                                    summary = mail.Mail_Summary,
                                    flag = ex.flag,
                                    Sends_id = ex.Id
+                                   
 
 
                                }).OrderByDescending(v => v.mail_id).ToListAsync();
@@ -249,6 +250,10 @@ namespace MMSystem.Services.ReceivedMail
 
                                   }).OrderByDescending(v => v.mail_id).Skip((pagenum - 1) * size).Take(size).ToListAsync();
                 pag.Total = c.Count;
+
+            
+
+             
 
                 return pag;
 

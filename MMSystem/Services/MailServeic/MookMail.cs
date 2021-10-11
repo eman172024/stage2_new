@@ -1733,6 +1733,40 @@ namespace MMSystem.Services.MailServeic
                 throw;
             }
         }
+
+        public async Task<List<SendsDetalies>> GetDetalies(int mail_id)
+        {
+
+            try
+            {
+
+
+                List<SendsDetalies> list = await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true)
+                                  join send in _appContext.Sends on mail.MailID equals send.MailID
+                                  join department in _appContext.Departments on send.to equals department.Id
+                                  join measures in _appContext.measures on send.type_of_send equals measures.MeasuresId
+                                  join mailState in _appContext.MailStatuses on send.flag equals mailState.flag
+                                  select new SendsDetalies() {
+                                  Department_id=send.to,
+                                  Department_name=department.DepartmentName,
+                                  flag=mailState.sent,
+                                  MesureName= measures.MeasuresName
+                                  
+                                  }).ToListAsync();
+
+
+
+
+                return list;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+        }
     }
 }
 

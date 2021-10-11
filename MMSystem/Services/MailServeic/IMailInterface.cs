@@ -50,6 +50,9 @@ namespace MMSystem.Services.MailServeic
         Task<List<MailStatus>> GetMailStatuses();
 
 
+        Task<List<SendsDetalies>> GetDetalies(int mail_id);
+
+
 
 
     }

@@ -281,6 +281,16 @@ namespace MMSystem.Controllers
 
 
 
+        [HttpGet("GetDetalies")]
+        public async Task<IActionResult> GetDetalies(int mail_id)
+        {
+
+            var c = await _Imail.GetDetalies(mail_id);
+            if (c.Count>0)
+                return Ok(c);
+            return NotFound("لايوجد بريد ");
+        }
+
 
 
 
