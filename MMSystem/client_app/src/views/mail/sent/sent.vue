@@ -5,7 +5,7 @@
             <div class="flex-1 bg-gray-100 w-0 overflow-y-auto">
                 <div class="max-w-screen-2xl  mx-auto flex flex-col md:px-8">
                     <navComponent></navComponent>
-                    <main class="flex-1 relative focus:outline-none py-6">
+                    <main class="flex-1 relative focus:outline-none pt-2 pb-6">
                         <div class="flex justify-between items-center">
                             <div class="">
                                 <h1 class="text-xl font-semibold text-gray-900">البريد الصادر</h1>
@@ -106,7 +106,7 @@
 
                         </div>
 
-                        <div class="relative mt-4">
+                        <div class="relative mt-2">
                             <button @click="filter = !filter" :class="filter ? 'shadow-md':''" class="rounded-t-md border border-b-0 hover:text-blue-600 hover:font-bold group w-full p-2 bg-white flex items-center justify-between focus:outline-none">
                                 <span class="flex items-center">
                                     <svg class="w-6 h-6 ml-2 stroke-current group-hover:stroke-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round"  d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
@@ -259,67 +259,60 @@
                             </div>
                         </div>
 
-                        <div class="w-full mt-4 rounded-md divide-y-2 divide-gray-200">
+                        <div class="w-full mt-2 rounded-md divide-y-2 divide-gray-200">
 
                             <div class="flex justify-between">
-                                <div class="w-7/12">
-                                    <div class="flex items-center bg-white w-full text-sm">
-                                        <div class="w-1/6 py-4 pr-6">
-                                            رقم الرسالة
+                                <div class="w-7/12 ml-2">
+                                    البريد
+                                    <div class="flex items-center bg-white w-full text-sm pl-2 mt-2">
+
+
+                                         <div class="w-10/12 flex items-center">
+                                            <div class="w-2/6 pr-4 py-1">
+                                                رقم الرسالة
+                                            </div>
+                                            <div class="w-1/6 pr-2">
+                                               النوع
+                                            </div>
+
+                                            <div class="w-2/6">
+                                               تاريخ الارسال
+                                            </div>
+
+                                            <div class="w-1/6">
+                                                وقت الارسال
+                                            </div>
                                         </div>
-                                        <div class="w-2/6 pr-12">
-                                            الحالة
-                                        </div>
-                                        <div class="w-1/6 pr-1">
-                                            النوع
-                                        </div>
-                                        <!-- <div class="w-4/6">
-                                            الإدارة المرسلة
-                                        </div>
-                                        <div class="w-1/6">
-                                            نوع الإجراء
-                                        </div> -->
-                                        <div class="w-1/6">
-                                            تاريخ الارسال
-                                        </div>
-                                        <div class="w-1/6">
-                                            وقت الارسال
-                                        </div>
-                                        <div class="w-1/6 text-center">
+
+                                        <div class="w-2/12 text-center">
                                             الإجراءات
                                         </div>
+
+
+                                     
                                     </div>
 
-                                    <div class="min-h-72 text-sm">
-                                        <div v-for="mail in inboxMails" :key="mail.mail_id" :class="mail.flag | mail_state_inbox"  class="group relative border-r-8 border-red-500 flex items-center bg-white hover:bg-gray-100 ">
-                                            <div class="w-1/6 pr-4 py-1">
-                                                {{ mail.mail_Number }}
-                                            </div>
-                                            <div class="w-2/6  pr-11">
-                                                {{ mail.state }}
-                                            </div>
+                                    <div class="min-h-64 text-sm bg-white">
+                                        <div v-for="mail in inboxMails" :key="mail.mail_id" :class="mail.flag | mail_state_inbox"  class="group relative border-r-8 border-red-500 flex items-center bg-white hover:bg-gray-100  pl-2">
 
-                                            <div class="w-1/6">
-                                                {{ mail.type_of_mail | mail_type }}
-                                            </div>
+                                            <button @click="show_senders(mail.mail_id)" class="w-10/12 flex items-center">
+                                                <div class="w-2/6 pr-4 py-1 text-right">
+                                                    {{ mail.mail_Number }}
+                                                </div>
+                                                <div class="w-1/6 text-right">
+                                                    {{ mail.type_of_mail | mail_type }}
+                                                </div>
 
-                                            <!-- <div class="w-4/12 truncate pl-2">
-                                                {{ mail.mangment_sender }}
-                                            </div>
+                                                <div class="w-2/6 text-right">
+                                                    {{ mail.send_time }}
+                                                </div>
 
-                                            <div class="w-1/12">
-                                                {{ mail.masure_type }}
-                                            </div> -->
+                                                <div class="w-1/6 text-right">
+                                                    {{ mail.time }}
+                                                </div>
+                                            </button>
 
-                                            <div class="w-1/6">
-                                                {{ mail.send_time }}
-                                            </div>
-
-                                            <div class="w-1/6">
-                                                {{ mail.time }}
-                                            </div>
-
-                                            <div class="w-1/6 flex justify-between items-center">
+                                            <div class="w-2/12 flex justify-between items-center px-4">
                                                 <div class="w-1/3 flex justify-center items-center">
                                                     <router-link title="عرض التفصيل" :to="{ name: 'sent-show', params: { mail: mail.mail_id, type:mail.type_of_mail, sends_id:mail.sends_id},}"  class="">
                                                         <svg class="w-5 h-5 fill-current hover:text-green-500" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 18.453 18.453"  xml:space="preserve">
@@ -345,11 +338,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="group-hover:flex items-end hidden absolute z-50 w-11/12 pr-12  my-2 bottom-4 left-0  min-h-32 h-full  ">
-                                                <!-- <svg class="w-6 h-6 font-bold stroke-2 stroke-current text-red-500 animate-arrow" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg> -->
-
-                                                
-                                                <div class="bg-white p-2 border-4 rounded-md w-full h-full overflow-y-scroll">
+                                            <div class="group-hover:block items-end hidden absolute z-50 w-10/12  bottom-4 left-0  min-h-32 h-full bg-white p-2 border-4 rounded-md  overflow-y-auto ">
                                                 
                                                     <p class="font-bold">
                                                         ملخص الرسالة
@@ -358,24 +347,46 @@
                                                     <p class="mt-2">
                                                         {{ mail.summary }}
                                                     </p>
-                                                </div>
-
-                                                
                                             </div>
 
                                         </div>
                                     </div>
                                 </div>
-                                <div class="w-5/12 bg-white pl-2 pr-4 py-2 border-r-8">
-                                      الجهات المرسل إليها- رقم البريد 17 
 
-                                    <div class="text-sm">
-                                         الإدارة العامة للرقابة علي القطاعات الخدمية والأمنية 
+                                <div class="w-5/12 mr-2">
+                                      الجهات المرسل إليها <span v-if="show_senders_mail">  - رقم البريد <span class="font-bold">{{ show_senders_mail }}</span> </span>
+                                    <div class="flex items-center bg-white w-full text-sm pl-2 mt-2">
+                                        <div class="w-4/6 py-4 pr-6">
+                                            رقم الرسالة
+                                        </div>
+                                        <div class="w-1/6">
+                                            الإجراء
+                                        </div>
+                                        <div class="w-1/6">
+                                            الحالة
+                                        </div>
+                                    </div>
+
+                                    <div class="min-h-64  text-sm bg-white">
+                                        <div v-for="sender in senders" :key="sender.department_id" :class="sender.flag | mail_state_inbox"  class=" relative border-r-8 border-red-500 flex items-center bg-white pl-2 overflow-y-auto">
+                                            <div class="w-4/6 pr-4 py-1">
+                                                {{ sender.department_name }}
+                                            </div>
+                                            
+                                            <div class="w-1/6">
+                                                {{ sender.mesureName }}
+                                            </div>
+
+                                            <div class="w-1/6">
+                                                {{ sender.state }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                               
                             </div>
 
-                            <div class="flex justify-end mt-4  mx-auto px-4 sm:px-6 lg:px-8 bg-white">
+                            <div class="flex justify-end mt-8  mx-auto px-4 sm:px-6 lg:px-8 bg-white">
 
                                 <pagination dir="rtl" v-model="page_num" :per-page="page_size" :records="total_of_transaction" @paginate="GetSentMail"/>
                               <!-- <el-pagination
@@ -534,6 +545,8 @@ export default {
 
   data() {
     return {
+        show_senders_mail : '',
+        senders: [],
         to_test_print: false,
 
 
@@ -589,6 +602,33 @@ export default {
   },
 
   methods: {
+
+      show_senders(id){
+        this.screenFreeze = true;
+        this.loading = true;
+        this.$http.mailService
+            .show_senders(id)
+            .then((res) => {
+                this.show_senders_mail = id
+                console.log(res)
+
+                this.senders = res.data
+                
+                setTimeout(() => {
+                    this.screenFreeze = false;
+                    this.loading = false;
+                }, 300);
+            })
+            .catch((err) => {
+                setTimeout(() => {
+                    this.screenFreeze = false;
+                    this.loading = false;
+                    console.log(err);
+                }, 100);
+                
+                
+            });
+      },
 
       previousImage(){
             if ( this.indextotest > 0 ) {

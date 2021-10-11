@@ -1749,8 +1749,9 @@ namespace MMSystem.Services.MailServeic
                                   select new SendsDetalies() {
                                   Department_id=send.to,
                                   Department_name=department.DepartmentName,
-                                  flag=mailState.sent,
-                                  MesureName= measures.MeasuresName
+                                  flag= mailState.flag,
+                                  MesureName= measures.MeasuresName,
+                                  State=mailState.sent
                                   
                                   }).ToListAsync();
 
