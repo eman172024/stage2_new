@@ -11,6 +11,7 @@ namespace MMSystem.Model.ViewModel
 
         public string Department_name { get; set; }
         public string MesureName { get; set; }
-        public string flag { get; set; }
+        public string State { get; set; }
+        public int flag { get; set; }
     }
 }

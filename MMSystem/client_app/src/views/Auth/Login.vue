@@ -16,12 +16,12 @@
       <div class="max-w-md w-full space-y-8">
         <div>
           <img
-            class="mx-auto h-12 w-auto"
+            class="mx-auto h-36 w-auto object-cover"
             src="../../assets/img/logo-aca.png"
             alt="logo"
           />
           <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            تسجيل الدخول
+            منظومة البريد الداخلي
           </h2>
         </div>
         <div class="mt-8 space-y-6">
@@ -212,15 +212,16 @@
               class="
                 group
                 relative
-                w-full
+                w-8/12
+                mx-auto
                 flex
                 justify-center
-                py-2
+                py-3
                 px-4
                 border border-transparent
                 shadow-sm
                 text-sm
-                font-medium
+                font-bold
                 rounded-md
                 border-green-600
                 text-white
