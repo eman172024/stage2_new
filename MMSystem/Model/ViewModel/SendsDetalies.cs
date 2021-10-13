@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MMSystem.Model.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,5 +14,8 @@ namespace MMSystem.Model.ViewModel
         public string MesureName { get; set; }
         public string State { get; set; }
         public int flag { get; set; }
+
+
+        public List<ReplayDto> Replies { get; set; } = new List<ReplayDto>();
     }
 }

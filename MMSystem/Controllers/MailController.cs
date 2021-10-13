@@ -282,11 +282,11 @@ namespace MMSystem.Controllers
 
 
         [HttpGet("GetDetalies")]
-        public async Task<IActionResult> GetDetalies(int mail_id)
+        public async Task<IActionResult> GetDetalies(int mail_id,int page,int page_size)
         {
             
-            var c = await _Imail.GetDetalies(mail_id);
-            if (c.Count>0)
+            var c = await _Imail.GetDetalies(mail_id,page,page_size);
+            if (c.sendsDetalies.Count>0)
                 return Ok(c);
             return NotFound("لايوجد بريد ");
         }

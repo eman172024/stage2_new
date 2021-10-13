@@ -2,6 +2,7 @@
 using MMSystem.Model;
 using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel;
+using MMSystem.Model.ViewModel.MailVModels;
 using MMSystem.Services.MailServeic;
 using System;
 using System.Collections.Generic;
@@ -50,7 +51,7 @@ namespace MMSystem.Services.MailServeic
         Task<List<MailStatus>> GetMailStatuses();
 
 
-        Task<List<SendsDetalies>> GetDetalies(int mail_id);
+        Task<DetalisVModel> GetDetalies(int mail_id, int page, int page_size);
 
 
 

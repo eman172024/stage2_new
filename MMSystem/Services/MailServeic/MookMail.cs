@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MMSystem.Model;
 using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel;
+using MMSystem.Model.ViewModel.MailVModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -1734,31 +1735,55 @@ namespace MMSystem.Services.MailServeic
             }
         }
 
-        public async Task<List<SendsDetalies>> GetDetalies(int mail_id)
+        public async Task<DetalisVModel> GetDetalies(int mail_id, int page, int page_size)
         {
 
             try
             {
+                DetalisVModel detalis = new DetalisVModel();
+var c= await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true)
+                                      join send in _appContext.Sends on mail.MailID equals send.MailID
+                                      join department in _appContext.Departments on send.to equals department.Id
+                                      join measures in _appContext.measures on send.type_of_send equals measures.MeasuresId
+                                      join mailState in _appContext.MailStatuses on send.flag equals mailState.flag
 
 
-                List<SendsDetalies> list = await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true)
+
+                                      select new SendsDetalies()
+                                      {
+                                          Department_id = send.to,
+                                          Department_name = department.DepartmentName,
+                                          flag = mailState.flag,
+                                          MesureName = measures.MeasuresName,
+                                          State = mailState.sent,
+                                          Replies = _mapper.Map<List<Reply>, List<ReplayDto>>(_appContext.Replies.OrderBy(x => x.ReplyId).Where(x => x.send_ToId == send.Id).ToList())
+
+                                      }).ToListAsync();
+                detalis.total = c.Count;
+
+
+                detalis.sendsDetalies = await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true)
                                   join send in _appContext.Sends on mail.MailID equals send.MailID
                                   join department in _appContext.Departments on send.to equals department.Id
                                   join measures in _appContext.measures on send.type_of_send equals measures.MeasuresId
                                   join mailState in _appContext.MailStatuses on send.flag equals mailState.flag
+               
+
+
                                   select new SendsDetalies() {
                                   Department_id=send.to,
                                   Department_name=department.DepartmentName,
                                   flag= mailState.flag,
                                   MesureName= measures.MeasuresName,
-                                  State=mailState.sent
+                                  State=mailState.sent,
+                                  Replies= _mapper.Map<List<Reply>,List<ReplayDto>>(_appContext.Replies.OrderBy(x=>x.ReplyId).Where(x=>x.send_ToId==send.Id).ToList())
                                   
-                                  }).ToListAsync();
+                                  }).Skip((page - 1) * page_size).Take(page_size).ToListAsync();
 
 
 
 
-                return list;
+                return detalis;
 
             }
             catch (Exception)
