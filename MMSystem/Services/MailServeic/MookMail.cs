@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MMSystem.Model;
 using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel;
+using MMSystem.Model.ViewModel.MailVModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -992,7 +993,42 @@ namespace MMSystem.Services.MailServeic
 
             try
             {
-                bool result = false;
+
+                string year = DateTime.Now.Year.ToString();
+                string Month = DateTime.Now.Month.ToString();
+                string day = DateTime.Now.Day.ToString();
+
+                string name = "Mail_photos";
+
+             
+
+
+                string x1 = Path.Combine(this.iwebHostEnvironment.WebRootPath, name).ToLower();
+              
+                string y = Path.Combine(x1, year);
+                string z = Path.Combine(y, Month);
+                string last = Path.Combine(z, day);
+
+                if (!Directory.Exists(x1)) {
+                    Directory.CreateDirectory(x1);
+                }
+
+                    if (!Directory.Exists(y))
+                    {
+                        Directory.CreateDirectory(y);
+
+                    }
+
+                if (!Directory.Exists(z))
+                    Directory.CreateDirectory(z);
+
+
+                if (!Directory.Exists(last))
+                    Directory.CreateDirectory(last);
+
+
+
+               bool result = false;
                 foreach (var item in file.list)
                 {
                     var index = item.baseAs64.IndexOf(',');
@@ -1004,7 +1040,7 @@ namespace MMSystem.Services.MailServeic
                     byte[] bytes = Convert.FromBase64String(bsee64string);
                     Guid guid = Guid.NewGuid();
                     string x = guid.ToString();
-                    var path = Path.Combine(this.iwebHostEnvironment.WebRootPath, "images", x + ".");
+                    var path = Path.Combine(last + x + ".");
 
 
                     await File.WriteAllBytesAsync(path + extention, bytes);
@@ -1734,31 +1770,55 @@ namespace MMSystem.Services.MailServeic
             }
         }
 
-        public async Task<List<SendsDetalies>> GetDetalies(int mail_id)
+        public async Task<DetalisVModel> GetDetalies(int mail_id, int page, int page_size)
         {
 
             try
             {
+                DetalisVModel detalis = new DetalisVModel();
+var c= await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true)
+                                      join send in _appContext.Sends on mail.MailID equals send.MailID
+                                      join department in _appContext.Departments on send.to equals department.Id
+                                      join measures in _appContext.measures on send.type_of_send equals measures.MeasuresId
+                                      join mailState in _appContext.MailStatuses on send.flag equals mailState.flag
 
 
-                List<SendsDetalies> list = await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true)
+
+                                      select new SendsDetalies()
+                                      {
+                                          Department_id = send.to,
+                                          Department_name = department.DepartmentName,
+                                          flag = mailState.flag,
+                                          MesureName = measures.MeasuresName,
+                                          State = mailState.sent,
+                                          Replies = _mapper.Map<List<Reply>, List<ReplayDto>>(_appContext.Replies.OrderBy(x => x.ReplyId).Where(x => x.send_ToId == send.Id).ToList())
+
+                                      }).ToListAsync();
+                detalis.total = c.Count;
+
+
+                detalis.sendsDetalies = await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true)
                                   join send in _appContext.Sends on mail.MailID equals send.MailID
                                   join department in _appContext.Departments on send.to equals department.Id
                                   join measures in _appContext.measures on send.type_of_send equals measures.MeasuresId
                                   join mailState in _appContext.MailStatuses on send.flag equals mailState.flag
+               
+
+
                                   select new SendsDetalies() {
                                   Department_id=send.to,
                                   Department_name=department.DepartmentName,
                                   flag= mailState.flag,
                                   MesureName= measures.MeasuresName,
-                                  State=mailState.sent
+                                  State=mailState.sent,
+                                  Replies= _mapper.Map<List<Reply>,List<ReplayDto>>(_appContext.Replies.OrderBy(x=>x.ReplyId).Where(x=>x.send_ToId==send.Id).ToList())
                                   
-                                  }).ToListAsync();
+                                  }).Skip((page - 1) * page_size).Take(page_size).ToListAsync();
 
 
 
 
-                return list;
+                return detalis;
 
             }
             catch (Exception)
