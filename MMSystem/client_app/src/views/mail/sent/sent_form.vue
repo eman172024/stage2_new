@@ -2248,6 +2248,13 @@ export default {
 
   mounted() {
     var date = new Date();
+
+    var month = date.getMonth() +1;
+
+    if (month < 10) month = "0" + month;
+
+    this.releaseDate = date.getFullYear()+ "-" +month+ "-" +date.getDate()
+
     this.mail_year = date.getFullYear();
     this.my_user_id = localStorage.getItem("userId");
     this.my_department_id = localStorage.getItem("departmentId");
@@ -2315,7 +2322,7 @@ export default {
       releaseDate: "",
       summary: "",
       classification: "",
-      mailType: "",
+      mailType: 1,
       general_incoming_number: "",
       genaral_inbox_year: "",
       required_action: "",

@@ -1,11 +1,11 @@
 <template >
     <div class="">
-        <div class="h-screen bg-white overflow-hidden flex">
+        <div class="h-screen bg-gray-100 overflow-hidden flex">
             <asideComponent></asideComponent>
-            <div class="flex-1 bg-gray-100 w-0 overflow-y-auto">
+            <div class="flex-1 bg-gray-200 w-0 overflow-y-auto">
                 <div class="max-w-screen-2xl  mx-auto flex flex-col md:px-8">
                     <navComponent></navComponent>
-                    <main class="flex-1 relative focus:outline-none py-6">
+                    <main class="flex-1 relative focus:outline-none pt-2 pb-6">
                         <div class="flex justify-between items-center">
                             <div class="">
                                 <h1 class="text-xl font-semibold text-gray-900">البريد الوارد</h1>
@@ -260,64 +260,65 @@
                         </div>
 
                         <div class="w-full mt-4 rounded-md divide-y-2 divide-gray-200">
-
-                            <div class="flex items-center bg-white w-full text-sm">
-                                <div class="w-1/9 py-4 pr-6">
+                                
+                            <div class="flex items-center bg-gray-100 w-full text-sm pl-2 mt-2">
+                                <div class="w-1/12 py-1 pr-4">
                                     رقم الرسالة
                                 </div>
-                                <div class="w-1/9">
+                                <div class="w-3/12">
                                     الحالة
                                 </div>
-                                <div class="w-1/9">
+                                <div class="w-1/12">
                                     النوع
                                 </div>
-                                <div class="w-2/9">
+                                <div class="w-3/12">
                                     الإدارة المرسلة
                                 </div>
-                                <div class="w-1/9">
+                                <div class="w-1/12">
                                     نوع الإجراء
                                 </div>
-                                <div class="w-1/9">
+                                <div class="w-1/12">
                                     تاريخ الارسال
                                 </div>
-                                <div class="w-1/9">
+                                <div class="w-1/12">
                                     وقت الارسال
                                 </div>
-                                <div class="w-1/9">
+                                <div class="w-1/12 text-center">
                                     الإجراءات
                                 </div>
                             </div>
 
-                            <div class="min-h-72 ">
-                                <div v-for="mail in inboxMails" :key="mail.mail_id" :class="mail.flag | mail_state_inbox"  class="group relative border-r-8 border-red-500 flex items-center bg-white">
-                                    <div class="w-1/9 pr-4 py-3">
+                            <div class="min-h-64 text-sm bg-gray-100">
+                                <div v-for="mail in inboxMails" :key="mail.mail_id" :class="mail.flag | mail_state_inbox"  class="group relative border-r-8 border-red-500 flex items-center bg-white hover:bg-gray-100  pl-2">
+
+                                    <div class="w-1/12 pr-4 py-1">
                                         {{ mail.mail_Number }}
                                     </div>
-                                    <div class="w-1/9">
+                                    <div class="w-3/12">
                                         {{ mail.state }}
                                     </div>
 
-                                    <div class="w-1/9">
+                                    <div class="w-1/12">
                                         {{ mail.type_of_mail | mail_type }}
                                     </div>
 
-                                    <div class="w-2/9">
+                                    <div class="w-3/12">
                                         {{ mail.mangment_sender }}
                                     </div>
 
-                                    <div class="w-1/9">
+                                    <div class="w-1/12">
                                         {{ mail.masure_type }}
                                     </div>
 
-                                    <div class="w-1/9">
+                                    <div class="w-1/12">
                                         {{ mail.send_time }}
                                     </div>
 
-                                    <div class="w-1/9">
+                                    <div class="w-1/12">
                                         {{ mail.time }}
                                     </div>
 
-                                    <div class="w-1/9 flex justify-between items-center">
+                                    <div class="w-1/12 flex justify-between items-center">
                                         <div class="w-1/3 flex justify-center items-center">
                                             <router-link title="عرض التفصيل" :to="{ name: 'inbox-show', params: { mail: mail.mail_id, department:my_department_id, type:mail.type_of_mail, sends_id:mail.sends_id },}"  class="">
                                                 <svg class="w-5 h-5 fill-current hover:text-green-500" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 18.453 18.453"  xml:space="preserve">
@@ -349,42 +350,21 @@
                                         </div>
                                     </div>
 
-                                    <div class="group-hover:flex items-end hidden absolute z-50 w-8/12  my-2 bottom-1 left-0 right-0 mx-auto min-h-64 h-full  ">
-                                        <svg class="w-6 h-6 font-bold stroke-2 stroke-current text-red-500 animate-arrow" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                    <div class="group-hover:block items-end hidden absolute z-50 w-10/12  bottom-6 left-0  min-h-32 h-full bg-white p-2 border-4 rounded-md  overflow-y-auto ">
+                                        <p class="font-bold">
+                                            ملخص الرسالة
+                                        </p>
 
-                                        
-                                        <div class="bg-white p-2 border-4 rounded-md w-full h-full">
-                                            <p class="font-bold">
-                                                ملخص الرسالة
-                                            </p>
-
-                                            <p class="mt-2">
-                                                {{ mail.summary }}
-                                            </p>
-                                        </div>
+                                        <p class="mt-2">
+                                            {{ mail.summary }}
+                                        </p>
                                     </div>
 
                                 </div>
                             </div>
 
-                            <div class="flex justify-end mt-4  mx-auto px-4 sm:px-6 lg:px-8 bg-white">
-
+                            <div class="flex justify-end mt-8  mx-auto px-4 sm:px-6 lg:px-8 bg-white">
                                 <pagination dir="rtl" v-model="page_num" :per-page="page_size" :records="total_of_transaction" @paginate="GetInboxs"/>
-                              <!-- <el-pagination
-                                background
-                                :small="false"
-                                :pager-count="5"
-                                :page-size="filter.pageSize"
-                                layout="prev, pager, next"
-                                prev-text="<"
-                                next-text=">"
-                                :hide-on-single-page="true"
-                                :total="total"
-                                :current-page.sync="filter.pageNo"
-                                @current-change="PageChanged"
-                                class="pagination justify-content-center pagination-sm "
-                              >
-                              </el-pagination> -->
                             </div>
 
                         </div>
@@ -575,7 +555,7 @@ export default {
         date_from:'',
         date_to:'',
 
-        page_size: 4,
+        page_size: 10,
         page_num: 1
     };
   },
@@ -795,39 +775,41 @@ export default {
     }
 
     .page-link {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
 
-        font-size: 0.875rem;
-        line-height: 1.25rem;
+        font-size: 0.75rem;
+        /* line-height: 1.25rem; */
 
         font-weight: 500;
         border-width: 1px;
 
-        --tw-border-opacity: 1;
+        --tw-border-opacity: 0;
         border-color: rgba(209, 213, 219, var(--tw-border-opacity));
 
         --tw-bg-opacity: 1;
         background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
 
         --tw-text-opacity: 1;
-        color: rgba(107, 114, 128, var(--tw-text-opacity));
+        color: rgba(0, 0, 0, var(--tw-text-opacity));
     }
 
     .page-link:hover{
         --tw-bg-opacity: 1;
-        background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
+        background-color: rgba(52, 211, 153, var(--tw-bg-opacity));
+        --tw-text-opacity: 1;
+        color: rgba(255, 255, 255, var(--tw-text-opacity));
     }
 
     .active{
-        background-color: #152b67;
+        background-color: rgba(16, 185, 129);
         color: #fff;
     }
 
     .VuePagination nav ul{
-        padding-top: 0.5rem;
+        padding-top: 0.3rem;
         padding-bottom: 0.5rem;
         border-radius: 0.375rem;
         overflow: hidden;

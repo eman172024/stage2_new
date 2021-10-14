@@ -1,8 +1,8 @@
 <template >
     <div class="">
-        <div class="h-screen bg-white overflow-hidden flex">
+        <div class="h-screen bg-gray-100 overflow-hidden flex">
             <asideComponent></asideComponent>
-            <div class="flex-1 bg-gray-100 w-0 overflow-y-auto">
+            <div class="flex-1 bg-gray-200 w-0 overflow-y-auto">
                 <div class="max-w-screen-2xl  mx-auto flex flex-col md:px-8">
                     <navComponent></navComponent>
                     <main class="flex-1 relative focus:outline-none pt-2 pb-6">
@@ -264,7 +264,7 @@
                             <div class="flex justify-between">
                                 <div class="w-7/12 ml-2">
                                     البريد
-                                    <div class="flex items-center bg-white w-full text-sm pl-2 mt-2">
+                                    <div class="flex items-center bg-gray-100 w-full text-sm pl-2 mt-2">
 
 
                                          <div class="w-10/12 flex items-center">
@@ -292,7 +292,7 @@
                                      
                                     </div>
 
-                                    <div class="min-h-64 text-sm bg-white">
+                                    <div class="min-h-64 text-sm bg-gray-100">
                                         <div v-for="mail in inboxMails" :key="mail.mail_id" :class="mail.flag | mail_state_inbox"  class="group relative border-r-8 border-red-500 flex items-center bg-white hover:bg-gray-100  pl-2">
 
                                             <button @click="show_senders(mail.mail_id)" class="w-10/12 flex items-center">
@@ -338,7 +338,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="group-hover:block items-end hidden absolute z-50 w-10/12  bottom-4 left-0  min-h-32 h-full bg-white p-2 border-4 rounded-md  overflow-y-auto ">
+                                            <div class="group-hover:block items-end hidden absolute z-50 w-10/12  bottom-6 left-0  min-h-32 h-full bg-white p-2 border-4 rounded-md  overflow-y-auto ">
                                                 
                                                     <p class="font-bold">
                                                         ملخص الرسالة
@@ -351,12 +351,17 @@
 
                                         </div>
                                     </div>
+
+
+                                     <div class="flex justify-end mt-8  mx-auto px-4 sm:px-6 lg:px-8 bg-white">
+                                        <pagination dir="rtl" v-model="page_num" :per-page="page_size" :records="total_of_transaction" @paginate="GetSentMail"/>
+                                    </div>
                                 </div>
 
                                 <div class="w-5/12 mr-2">
                                       الجهات المرسل إليها <span v-if="show_senders_mail">  - رقم البريد <span class="font-bold">{{ show_senders_mail }}</span> </span>
-                                    <div class="flex items-center bg-white w-full text-sm pl-2 mt-2">
-                                        <div class="w-4/6 py-4 pr-6">
+                                    <div class="flex items-center bg-gray-100 w-full text-sm pl-2 mt-2">
+                                        <div class="w-4/6 py-1 pr-4">
                                             رقم الرسالة
                                         </div>
                                         <div class="w-1/6">
@@ -367,8 +372,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="min-h-64  text-sm bg-white">
-                                        <div v-for="sender in senders" :key="sender.department_id" :class="sender.flag | mail_state_inbox"  class=" relative border-r-8 border-red-500 flex items-center bg-white pl-2 overflow-y-auto">
+                                    <div class="min-h-64 h-full max-h-64 text-sm bg-gray-100  ">
+                                        <div v-for="sender in senders" :key="sender.department_id" :class="sender.flag | mail_state_inbox"  class="group relative border-r-8 border-red-500 flex items-center bg-white hover:bg-gray-100  pl-2 ">
                                             <div class="w-4/6 pr-4 py-1">
                                                 {{ sender.department_name }}
                                             </div>
@@ -380,31 +385,25 @@
                                             <div class="w-1/6">
                                                 {{ sender.state }}
                                             </div>
+
+
+                                            <div class="group-hover:block items-end hidden absolute z-50 w-10/12  bottom-6 left-0  min-h-32 h-full bg-white p-2 border-4 rounded-md  overflow-y-auto ">
+                                                
+                                                    <p class="font-bold">
+                                                        الردود
+                                                    </p>
+
+                                                    <p class="mt-2">
+                                                        الردود
+                                                    </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                
                             </div>
 
-                            <div class="flex justify-end mt-8  mx-auto px-4 sm:px-6 lg:px-8 bg-white">
-
-                                <pagination dir="rtl" v-model="page_num" :per-page="page_size" :records="total_of_transaction" @paginate="GetSentMail"/>
-                              <!-- <el-pagination
-                                background
-                                :small="false"
-                                :pager-count="5"
-                                :page-size="filter.pageSize"
-                                layout="prev, pager, next"
-                                prev-text="<"
-                                next-text=">"
-                                :hide-on-single-page="true"
-                                :total="total"
-                                :current-page.sync="filter.pageNo"
-                                @current-change="PageChanged"
-                                class="pagination justify-content-center pagination-sm "
-                              >
-                              </el-pagination> -->
-                            </div>
+                           
 
                         </div>
                     </main>
@@ -843,39 +842,41 @@ export default {
     }
 
     .page-link {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
 
-        font-size: 0.875rem;
-        line-height: 1.25rem;
+        font-size: 0.75rem;
+        /* line-height: 1.25rem; */
 
         font-weight: 500;
         border-width: 1px;
 
-        --tw-border-opacity: 1;
+        --tw-border-opacity: 0;
         border-color: rgba(209, 213, 219, var(--tw-border-opacity));
 
         --tw-bg-opacity: 1;
         background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
 
         --tw-text-opacity: 1;
-        color: rgba(107, 114, 128, var(--tw-text-opacity));
+        color: rgba(0, 0, 0, var(--tw-text-opacity));
     }
 
     .page-link:hover{
         --tw-bg-opacity: 1;
-        background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
+        background-color: rgba(52, 211, 153, var(--tw-bg-opacity));
+        --tw-text-opacity: 1;
+        color: rgba(255, 255, 255, var(--tw-text-opacity));
     }
 
     .active{
-        background-color: #152b67;
+        background-color: rgba(16, 185, 129);
         color: #fff;
     }
 
     .VuePagination nav ul{
-        padding-top: 0.5rem;
+        padding-top: 0.3rem;
         padding-bottom: 0.5rem;
         border-radius: 0.375rem;
         overflow: hidden;
