@@ -214,20 +214,20 @@ namespace MMSystem.Model
             modelBuilder.Entity<MailStatus>().HasData(
             new MailStatus { 
             
-            flag=1,sent="حفظ",state=true,inbox="",
+            flag=1,sent="لم ترسل",state=true,inbox="",
             },
             new MailStatus
             {
 
                 flag = 2,
-                sent = "ارسال",
+                sent = "لم تقرأ",
                 state = true,inbox="لم يتم قراءة البريد"
             }, 
             new MailStatus
             {
 
                 flag = 3,
-                sent = "تم القراءة",
+                sent = "قرأت ",
                 state = true,inbox = "تم قراءة البريد"
             },
             new MailStatus

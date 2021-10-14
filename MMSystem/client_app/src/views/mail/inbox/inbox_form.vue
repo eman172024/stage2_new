@@ -1,11 +1,11 @@
 <template>
   <div class="">
-    <div class="h-screen bg-white overflow-hidden flex">
+    <div class="h-screen bg-gray-100 overflow-hidden flex">
       <asideComponent></asideComponent>
-      <div class="flex-1 bg-gray-100 w-0 overflow-y-auto pb-20">
+      <div class="flex-1 bg-gray-200 w-0 overflow-y-auto pb-20">
         <div class="max-w-screen-2xl mx-auto flex flex-col md:px-8">
           <navComponent></navComponent>
-          <main class="flex-1 relative focus:outline-none py-6">
+          <main class="flex-1 relative focus:outline-none pt-2 pb-6">
             <div class="flex justify-between items-center">
               <h3 class="text-xl font-semibold text-gray-900">
                 معلومات البريد
@@ -31,7 +31,7 @@
                       grid grid-cols-1
                       gap-y-6 gap-x-4
                       sm:grid-cols-6
-                      bg-gray-50
+                      bg-gray-100
                       rounded-md
                       p-6
                     "
@@ -164,7 +164,7 @@
                       grid grid-cols-1
                       gap-y-6 gap-x-4
                       sm:grid-cols-6
-                      bg-gray-50
+                      bg-gray-100
                       rounded-md
                       p-6
                     "
@@ -218,7 +218,7 @@
                   </section>
                 </section>
 
-                <section class="col-span-2 bg-gray-50 rounded-md p-6">
+                <section class="col-span-2 bg-gray-100 rounded-md p-6">
                   <div class="flex justify-between items-center">
                     <h3 class="block text-base font-semibold text-gray-800">
                       المستندات
@@ -435,7 +435,7 @@
                   grid grid-cols-1
                   gap-y-6 gap-x-4
                   sm:grid-cols-8
-                  bg-gray-50
+                  bg-gray-100
                   rounded-md
                   p-6
                 "
@@ -655,7 +655,7 @@
                 </div>
               </section>
 
-              <section class="bg-gray-50 rounded-md p-6">
+              <section class="bg-gray-100 rounded-md p-6">
                 <p class="block text-base font-semibold text-gray-800">
                   الردود
                 </p>

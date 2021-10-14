@@ -300,7 +300,7 @@
 
             <div class="">
               <router-link
-                :to="{ name: 'dashboard' }"
+                :to="{ name: 'sent' }"
                 class="
                   py-2
                   px-8
