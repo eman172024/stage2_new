@@ -1071,9 +1071,9 @@ export default {
           this.show_senders_mail = id;
           console.log(res);
 
-          // this.senders = res.data
+          this.senders = res.data
 
-          this.senders = res.data.sendsDetalies;
+          // this.senders = res.data.sendsDetalies;
 
           setTimeout(() => {
             this.screenFreeze = false;
