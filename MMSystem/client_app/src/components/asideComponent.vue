@@ -2,7 +2,7 @@
     <div class="hidden md:flex md:flex-shrink-0 bg-gray-50">
         <div :class="toggle_nav ? 'w-64' : 'w-20'" class=" flex flex-col">
             <!-- Sidebar component, swap this element with another sidebar if you like -->
-            <div class="border-l border-gray-200 pt-5 pb-4 flex flex-col flex-grow overflow-y-auto">
+            <div class="border-l border-gray-200 z-10 pt-5 pb-4 flex flex-col flex-grow overflow-y-auto">
                 <div :class="toggle_nav ? 'px-4' : ''" class="flex-shrink-0  flex items-center">
                     <img class="h-10 w-auto" src="../assets/img/logo-aca.png" alt="logo" />
                 </div>
@@ -42,17 +42,7 @@
                             </router-link>
                         </div>
 
-                        <div class="mb-6 px-1 text-center text-sm">
-
-
-                            <div class="">
-                                08:30 AM
-                            </div>
-
-                            <div class="">
-                                12-05-2020  
-                            </div>
-                        </div>
+                     
 
                         <!-- <router-link :to="{ name: 'login' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
                             <svg class="text-gray-400 group-hover:text-gray-500 ml-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
