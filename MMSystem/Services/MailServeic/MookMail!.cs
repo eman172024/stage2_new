@@ -1782,12 +1782,11 @@ namespace MMSystem.Services.MailServeic
             }
         }
 
-        public async Task<DetalisVModel> GetDetalies(int mail_id, int page, int page_size)
+        public async Task<List<SendsDetalies>> GetDetalies(int mail_id)
         {
 
             try
             {
-                DetalisVModel detalis = new DetalisVModel();
                 var c = await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true)
                                join send in _appContext.Sends on mail.MailID equals send.MailID
                                join department in _appContext.Departments on send.to equals department.Id
@@ -1803,35 +1802,19 @@ namespace MMSystem.Services.MailServeic
                                    flag = mailState.flag,
                                    MesureName = measures.MeasuresName,
                                    State = mailState.sent,
-                                   Replies = _mapper.Map<List<Reply>, List<ReplayDto>>(_appContext.Replies.OrderBy(x => x.ReplyId).Where(x => x.send_ToId == send.Id).ToList())
+                                   send_ToId=send.Id
+                               
 
                                }).ToListAsync();
-                detalis.total = c.Count;
+              
 
 
-                detalis.sendsDetalies = await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true)
-                                               join send in _appContext.Sends on mail.MailID equals send.MailID
-                                               join department in _appContext.Departments on send.to equals department.Id
-                                               join measures in _appContext.measures on send.type_of_send equals measures.MeasuresId
-                                               join mailState in _appContext.MailStatuses on send.flag equals mailState.flag
-
-
-
-                                               select new SendsDetalies()
-                                               {
-                                                   Department_id = send.to,
-                                                   Department_name = department.DepartmentName,
-                                                   flag = mailState.flag,
-                                                   MesureName = measures.MeasuresName,
-                                                   State = mailState.sent,
-                                                   Replies = _mapper.Map<List<Reply>, List<ReplayDto>>(_appContext.Replies.OrderBy(x => x.ReplyId).Where(x => x.send_ToId == send.Id).ToList())
-
-                                               }).Skip((page - 1) * page_size).Take(page_size).ToListAsync();
+               
 
 
 
 
-                return detalis;
+                return c;
 
             }
             catch (Exception)
