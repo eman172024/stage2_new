@@ -51,7 +51,7 @@ namespace MMSystem.Services.MailServeic
         Task<List<MailStatus>> GetMailStatuses();
 
 
-        Task<DetalisVModel> GetDetalies(int mail_id, int page, int page_size);
+        Task<List<SendsDetalies>> GetDetalies(int mail_id);
 
 
 

@@ -14,8 +14,8 @@ namespace MMSystem.Model.ViewModel
         public string MesureName { get; set; }
         public string State { get; set; }
         public int flag { get; set; }
+        public int send_ToId { get; set; }
 
-
-        public List<ReplayDto> Replies { get; set; } = new List<ReplayDto>();
+       // public List<ReplayDto> Replies { get; set; } = new List<ReplayDto>();
     }
 }
