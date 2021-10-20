@@ -125,7 +125,7 @@ export default {
 
 
     show_senders(id) {
-        return axios.get(`/api/Mail/GetDetalies?mail_id=${id}`);
+        return axios.get(`/api/Mail/GetDetalies?mail_id=${id}&page=1&page_size=10`);
     },
 
 
