@@ -585,7 +585,7 @@
                     >
                       <button
                         @click="
-                          to_pass_data_to_get_mail_by_id(sender.department_id, sender.send_ToId)
+                          to_pass_data_to_get_mail_by_id(sender.department_id, sender.send_ToId, sender.department_name)
                         "
                         class="flex items-center w-full text-right"
                       >
@@ -607,7 +607,7 @@
               </div>
 
               <section
-                v-if="replies.length != 0"
+                
                 class="bg-gray-100 rounded-md p-6 mt-6"
               >
                 <p class="block text-sm font-semibold text-gray-800">
@@ -951,6 +951,7 @@ export default {
       departmentselect: false,
       departmentNameSelected: "",
       departmentIdSelected: "",
+      departmentName: "",
 
       measures: [],
       measureselect: false,
@@ -1032,9 +1033,10 @@ export default {
           });
       },
 
-    to_pass_data_to_get_mail_by_id(my_department_id_to_get_mail_by_id, sends_id) {
+    to_pass_data_to_get_mail_by_id(my_department_id_to_get_mail_by_id, sends_id, departmentName) {
       this.my_department_id_to_get_mail_by_id = my_department_id_to_get_mail_by_id;
       this.sends_id = sends_id
+      this.departmentName = departmentName
 
       // this.sends_id_to_get_mail_by_id = sends_id_to_get_mail_by_id
       // this.mangment_sender_to_get_mail_by_id = mangment_sender_to_get_mail_by_id

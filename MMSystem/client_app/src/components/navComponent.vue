@@ -121,6 +121,7 @@
               focus:outline-none
               focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
             "
+            @click="Logout"
             id="user-menu-button"
             aria-expanded="false"
             aria-haspopup="true"
@@ -254,6 +255,11 @@ export default {
   },
 
   methods: {
+    Logout(){
+      localStorage.removeItem('userId');
+      localStorage.removeItem('departmentId');
+      this.$router.push('/')
+    },
     search() {
       this.closeSearchMenu = true;
 
