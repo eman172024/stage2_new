@@ -420,7 +420,7 @@
                       class="group relative border-r-8 border-red-500 flex items-center bg-white hover:bg-gray-100  pl-2"
                     >
                       <button
-                        @click="show_senders(mail.mail_id, mail.type_of_mail, mail.sends_id)"
+                        @click="show_senders(mail.mail_id, mail.type_of_mail)"
                         class="w-10/12 flex items-center"
                       >
                         <div class="w-2/6 pr-4 py-1 text-right">
@@ -585,7 +585,7 @@
                     >
                       <button
                         @click="
-                          to_pass_data_to_get_mail_by_id(sender.department_id)
+                          to_pass_data_to_get_mail_by_id(sender.department_id, sender.send_ToId)
                         "
                         class="flex items-center w-full text-right"
                       >
@@ -990,47 +990,51 @@ export default {
 
 
       AddReply() {
-      this.screenFreeze = true;
-      this.loading = true;
+        this.screenFreeze = true;
+        this.loading = true;
 
-      var ReplyViewModel = {
-        send_ToId: Number(this.sends_id),
-        from: Number(1),
-        reply: {
-          mail_detail: this.reply_to_add,
-          To: Number(this.my_department_id_to_get_mail_by_id),
-        },
-      };
-      this.$http.mailService
-        .AddReply(ReplyViewModel)
-        .then((res) => {
-          setTimeout(() => {
-            console.log(res);
-            // this.documentSection = true;
-            // this.proceduresSection = true;
+        var ReplyViewModel = {
+          send_ToId: Number(this.sends_id),
+          from: Number(1),
+          reply: {
+            mail_detail: this.reply_to_add,
+            To: Number(this.my_department_id_to_get_mail_by_id),
+          },
+        };
+        this.$http.mailService
+          .AddReply(ReplyViewModel)
+          .then((res) => {
+            setTimeout(() => {
+              console.log(res);
+              // this.documentSection = true;
+              // this.proceduresSection = true;
 
-            this.loading = false;
-            this.screenFreeze = false;
+              this.loading = false;
+              this.screenFreeze = false;
 
-            this.reply_to_add = "";
-            // this.GetReplyByDepartment(
-            //   this.replyByDepartmenId,
-            //   this.sends_id,
-            //   this.departmentName
-            // );
-          }, 500);
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.screenFreeze = false;
-          }, 500);
-          console.log(err)
-        });
-    },
+              this.reply_to_add = "";
 
-    to_pass_data_to_get_mail_by_id(my_department_id_to_get_mail_by_id) {
+
+              this.getMailById();
+              // this.GetReplyByDepartment(
+              //   this.replyByDepartmenId,
+              //   this.sends_id,
+              //   this.departmentName
+              // );
+            }, 500);
+          })
+          .catch((err) => {
+            setTimeout(() => {
+              this.loading = false;
+              this.screenFreeze = false;
+            }, 500);
+            console.log(err)
+          });
+      },
+
+    to_pass_data_to_get_mail_by_id(my_department_id_to_get_mail_by_id, sends_id) {
       this.my_department_id_to_get_mail_by_id = my_department_id_to_get_mail_by_id;
+      this.sends_id = sends_id
 
       // this.sends_id_to_get_mail_by_id = sends_id_to_get_mail_by_id
       // this.mangment_sender_to_get_mail_by_id = mangment_sender_to_get_mail_by_id
@@ -1056,14 +1060,14 @@ export default {
         });
     },
 
-    show_senders(id, mail_type, sends_id) {
+    show_senders(id, mail_type) {
       this.screenFreeze = true;
       this.loading = true;
       this.mailId_to_get_mail_by_id = id;
       this.to_test_passing_mail_type_to_get_mail_by_id = mail_type;
 
       this.replies = [];
-      this.sends_id = sends_id
+      
 
       this.$http.mailService
         .show_senders(id)
