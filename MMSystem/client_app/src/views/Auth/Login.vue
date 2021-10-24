@@ -451,8 +451,8 @@ export default {
 
   data() {
     return {
-      loading: false,
-      screenFreeze: false,
+      loading: true,
+      screenFreeze: true,
       loginSuccess: false,
 
       UserName: "",
@@ -481,13 +481,19 @@ export default {
 
     GetUsersOfDepartment(){
       // console.log(this.departmentIdSelected)
-
+      this.loading = true;
+      this.screenFreeze = true;
 
       this.$http.mailService
         .GetUsersOfDepartment(this.departmentIdSelected)
         .then((res) => {
-          console.log(res.data)
+
+          this.loading = false;
+          this.screenFreeze = false;
+
           this.users = res.data;
+
+          
         })
         .catch((err) => {
           console.log(err);
@@ -506,9 +512,13 @@ export default {
       this.$http.mailService
         .AllDepartments()
         .then((res) => {
+          this.loading = false;
+          this.screenFreeze = false;
           this.departments = res.data;
         })
         .catch((err) => {
+          this.loading = false;
+          this.screenFreeze = false;
           console.log(err);
         });
     },
@@ -556,7 +566,7 @@ export default {
 
             // this.$authenticatedUser.userName = this.user.username
             // this.$authenticatedUser.validity = this.user.validity
-          }, 100);
+          }, 10);
         })
         .catch((err) => {
           setTimeout(() => {
@@ -566,7 +576,7 @@ export default {
             this.loginSuccess = false;
 
             console.log(err);
-          }, 100);
+          }, 10);
         });
     },
   },
