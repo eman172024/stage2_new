@@ -21,22 +21,22 @@ namespace MMSystem.Services.DashBords
         {
             Dashbord Dashbord = new Dashbord();
 
-            var send = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId)
-                           join y in DbCon.Sends.Where(y => y.flag >1 && y.isMulti == true) on x.MailID equals y.MailID
+            //var send = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId)
+            //               join y in DbCon.Sends.Where(y => y.flag >1 && y.isMulti == true) on x.MailID equals y.MailID
 
-                           select x).ToListAsync();
-            int sends = send.Count();
+            //               select x).ToListAsync();
+            //int sends = send.Count();
 
-            var Received = await (from x in DbCon.Mails
-                                  join y in DbCon.Sends.Where(x => x.to == ManagementId && x.flag >= 2 ) on x.MailID equals y.MailID
-                                  select y).ToListAsync();
-            int Receive = Received.Count();
+            //var Received = await (from x in DbCon.Mails
+            //                      join y in DbCon.Sends.Where(x => x.to == ManagementId && x.flag >= 2 ) on x.MailID equals y.MailID
+            //                      select y).ToListAsync();
+            //int Receive = Received.Count();
 
-            var NotSend = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId)
-                           join y in DbCon.Sends.Where(y => y.flag ==1 && y.isMulti == true) on x.MailID equals y.MailID
+            //var NotSend = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId)
+            //               join y in DbCon.Sends.Where(y => y.flag ==1 && y.isMulti == true) on x.MailID equals y.MailID
 
-                           select x).ToListAsync();
-            int NotSends = NotSend.Count();
+            //               select x).ToListAsync();
+            //int NotSends = NotSend.Count();
 
 
 
@@ -133,9 +133,9 @@ namespace MMSystem.Services.DashBords
             int not_resexIn = idint_responde_extrinlIn.Count();
 
 
-            Dashbord.TotaleReceived = Receive;
-            Dashbord.TotaleSender = sends;
-            Dashbord.TotaleExpord = NotSends;
+            //Dashbord.TotaleReceived = Receive;
+            //Dashbord.TotaleSender = sends;
+            //Dashbord.TotaleExpord = NotSends;
 
             Dashbord.Totale_Internal = inern;
             Dashbord.not_sended = notsende;
