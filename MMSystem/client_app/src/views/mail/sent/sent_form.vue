@@ -736,35 +736,10 @@
                               </svg>
                             </button>
 
-                            <button
-                              type="button"
-                              class="
-                                bg-blue-600
-                                hover:bg-blue-500
-                                duration-500
-                                p-2
-                                rounded-full
-                                focus:outline-none
-                                mx-4
-                              "
-                            >
-                              <svg
-                                class="w-4 h-4 text-white mx-auto"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
-                                ></path>
-                              </svg>
-                            </button>
+                          
 
-                            <button
+                            <!-- <button
+                            @click="deleteDocument(image.id, index)"
                               type="button"
                               class="
                                 bg-red-600
@@ -775,7 +750,6 @@
                                 focus:outline-none
                               "
                             >
-                              <!--@click="deleteDocument(image.id, index)"  -->
                               <svg
                                 class="w-4 h-4 text-white fill-current mx-auto"
                                 height="427pt"
@@ -796,14 +770,12 @@
                                   d="m173.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
                                 />
                               </svg>
-                            </button>
+                            </button> -->
                           </div>
                         </div>
 
                         <div class="flex justify-between items-center mt-4">
-                          <div
-                            class="ml-2 flex justify-between items-center w-1/2"
-                          >
+                          <div class="ml-2 flex justify-between items-center w-1/2">
                             <button
                               @click="previousImageToSend()"
                               class="
@@ -868,7 +840,7 @@
                           </div>
 
                           <div class="mr-2 w-1/2">
-                            <button
+                            <button v-if="ButtonUploadImagesMail"
                               @click="UploadImagesMail"
                               type="button"
                               class="
@@ -983,6 +955,7 @@
                             "
                           >
                             <button
+                            @click="GetAllDocuments(mailId)"
                               type="button"
                               class="
                                 bg-green-600
@@ -991,6 +964,7 @@
                                 p-2
                                 rounded-full
                                 focus:outline-none
+                                ml-2
                               "
                             >
                               <svg
@@ -1009,7 +983,7 @@
                               </svg>
                             </button>
 
-                            <button
+                            <!-- <button
                               type="button"
                               class="
                                 bg-blue-600
@@ -1035,11 +1009,13 @@
                                   d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
                                 ></path>
                               </svg>
-                            </button>
+                            </button> -->
 
-                            <button
+                            <!-- <button
+                            @click="deleteDocument(image.id, index)"
                               type="button"
                               class="
+                                mr-2
                                 bg-red-600
                                 hover:bg-red-500
                                 duration-500
@@ -1048,7 +1024,6 @@
                                 focus:outline-none
                               "
                             >
-                              <!--  @click="deleteDocument(image.id, index)" -->
                               <svg
                                 class="w-4 h-4 text-white fill-current mx-auto"
                                 height="427pt"
@@ -1069,14 +1044,12 @@
                                   d="m173.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
                                 />
                               </svg>
-                            </button>
+                            </button> -->
                           </div>
                         </div>
 
-                        <div class="flex justify-between items-center mt-4">
-                          <div
-                            class="ml-2 flex justify-between items-center w-1/2"
-                          >
+                        <div class="flex justify-between items-center pt-2">
+                          <div class="ml-2 flex justify-between items-center w-full">
                             <button
                               @click="previousImage()"
                               class="
@@ -1138,79 +1111,6 @@
                               </svg>
                             </button>
                           </div>
-
-                          <!-- <div class="mr-2 w-1/2">
-                            <button
-                              @click="UploadImagesMail"
-                              type="button"
-                              class="flex justify-center items-center py-2 px-2 border border-transparent shadow-sm text-xs font-semibold rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-cyan-700"
-                            >
-                              <svg
-                                class="w-4 h-4 stroke-current text-white ml-2 fill-current"
-                                height="512"
-                                viewBox="0 0 55 60"
-                                width="512"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <g id="Page-1" fill-rule="evenodd">
-                                  <g id="040---Save-File" fill-rule="nonzero">
-                                    <path
-                                      id="Shape"
-                                      d="m53 5v39h-7c-2.7600532.0033061-4.9966939 2.2399468-5 5v7h-3c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1h4c.2651948-.0000566.5195073-.1054506.707-.293l12-12c.1875494-.1874927.2929434-.4418052.293-.707v-40c-.0033061-2.76005315-2.2399468-4.99669388-5-5h-40c-2.76005315.00330612-4.99669388 2.23994685-5 5v17c0 .5522847.44771525 1 1 1s1-.4477153 1-1v-17c0-1.65685425 1.34314575-3 3-3h40c1.6568542 0 3 1.34314575 3 3zm-7 41h5.586l-8.586 8.586v-5.586c0-1.6568542 1.3431458-3 3-3z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m14 6h-2c-.5522847 0-1 .44771525-1 1s.4477153 1 1 1h2c.5522847 0 1-.44771525 1-1s-.4477153-1-1-1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m48 6h-30c-.5522847 0-1 .44771525-1 1s.4477153 1 1 1h30c.5522847 0 1-.44771525 1-1s-.4477153-1-1-1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m14 12h-2c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1h2c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m18 14h23c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1h-23c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m14 18h-2c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1h2c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m18 20h16c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1h-16c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m51 21c0-.5522847-.4477153-1-1-1s-1 .4477153-1 1v14c0 .5522847.4477153 1 1 1s1-.4477153 1-1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m50 38c-.5522847 0-1 .4477153-1 1v2c0 .5522847.4477153 1 1 1s1-.4477153 1-1v-2c0-.5522847-.4477153-1-1-1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m3 60h28c1.6568542 0 3-1.3431458 3-3v-28c0-1.6568542-1.3431458-3-3-3h-28c-1.65685425 0-3 1.3431458-3 3v28c0 1.6568542 1.34314575 3 3 3zm4-2v-2h20v2zm6-23v-7h14v7c0 .5522847-.4477153 1-1 1h-12c-.5522847 0-1-.4477153-1-1zm-2-7v7c.0033144.3414397.0655622.679743.184 1h-3.184c-.55228475 0-1-.4477153-1-1v-7zm-9 1c0-.5522847.44771525-1 1-1h2v7c0 1.6568542 1.34314575 3 3 3h18c1.6568542 0 3-1.3431458 3-3v-7h2c.5522847 0 1 .4477153 1 1v28c0 .5522847-.4477153 1-1 1h-2v-2c0-1.1045695-.8954305-2-2-2h-20c-1.1045695 0-2 .8954305-2 2v2h-2c-.55228475 0-1-.4477153-1-1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m17 52c3.3137085 0 6-2.6862915 6-6s-2.6862915-6-6-6-6 2.6862915-6 6c.0033074 3.3123376 2.6876624 5.9966926 6 6zm0-10c2.209139 0 4 1.790861 4 4s-1.790861 4-4 4-4-1.790861-4-4 1.790861-4 4-4z"
-                                    ></path>
-                                    <circle
-                                      id="Oval"
-                                      cx="16"
-                                      cy="45"
-                                      r="1"
-                                    ></circle>
-                                  </g>
-                                </g>
-                              </svg>
-
-                              حفظ المستندات
-                            </button>
-                          </div> -->
                         </div>
                       </div>
                     </div>
@@ -2231,6 +2131,116 @@
         <svgLoadingComponent></svgLoadingComponent>
       </div>
     </div>
+
+    <div
+      v-if="show_images_model"
+      class="w-screen h-full absolute inset-0 z-50 overflow-hidden "
+    >
+      <div class="relative">
+        <div
+          v-if="to_test_print_images_model"
+          id="printMe"
+          class="bg-black bg-opacity-50 h-screen-85"
+        >
+          <div v-for="image in show_images_images_model" :key="image.id" class="h-screen-85">
+            <img
+              :src="image.path"
+              alt=""
+              class="h-full w-full object-contain"
+            />
+          </div>
+        </div>
+
+        <div class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full">
+          <div class="max-w-3xl mx-auto">
+            <div class="flex justify-between items-center w-full">
+              <button @click="show_images_model = false">
+                <svg
+                  class="w-8 h-8 stroke-current text-red-500 hover:text-red-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </button>
+
+              <button
+                @click="to_test_print_images_model = true"
+                v-print="'#printMe'"
+                class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+              >
+                طباعة كافة المستندات
+              </button>
+            </div>
+
+            <div class="h-screen-85 mt-4">
+              <img
+                :src="testimage_images_model"
+                alt="image"
+                class="h-full w-full object-contain"
+              />
+            </div>
+
+            <div
+              v-if="testimage_images_model"
+              class="flex justify-between items-center max-w-xs mx-auto w-full mt-4"
+            >
+              <button
+                @click="previousImage_images_model()"
+                class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  ></path>
+                </svg>
+              </button>
+
+              {{ indextotest_images_model + 1 }} / {{ show_images_images_model.length }}
+
+              <button
+                title="next"
+                @click="nextImage_images_model()"
+                class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 19l-7-7 7-7"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- w-full h-full rounded object-contain -->
+    </div>
   </div>
 </template>
 
@@ -2293,6 +2303,14 @@ export default {
 
   data() {
     return {
+      to_test_print_images_model : false,
+      show_images_model: false,
+
+      testimage_images_model: "",
+      indextotest_images_model: 0,
+
+      show_images_images_model : [],
+
       replies: [],
       reply_to_add: "",
       sends_id: this.$route.params.sends_id,
@@ -2334,6 +2352,7 @@ export default {
       sendButton: false,
       updataButton: false,
       deleteButton: false,
+      ButtonUploadImagesMail: false,
 
       mail_Number: "",
       department_Id: "",
@@ -2664,10 +2683,7 @@ export default {
     },
 
     previousImageToSend() {
-      console.log("IN previousImageToSend");
       if (this.indextotestToSend > 0) {
-        console.log("IN previousImageToSend if");
-
         this.indextotestToSend--;
         this.testimageToSend = this.imagesToSend[
           this.indextotestToSend
@@ -2700,6 +2716,52 @@ export default {
         this.indextotest++;
         this.testimage = this.imagesToShow[this.indextotest].path;
       }
+    },
+
+
+    previousImage_images_model() {
+      if (this.indextotest_images_model > 0) {
+        this.indextotest_images_model--;
+        this.testimage_images_model = this.show_images_images_model[this.indextotest_images_model].path;
+      }
+    },
+
+    nextImage_images_model() {
+      if (this.indextotest_images_model < this.show_images_images_model.length - 1) {
+        this.indextotest_images_model++;
+        this.testimage_images_model = this.show_images_images_model[this.indextotest_images_model].path;
+      }
+    },
+
+
+    GetAllDocuments(id) {
+      this.screenFreeze = true;
+      this.loading = true;
+      this.$http.mailService
+        .GetAllDocuments(id)
+        .then((res) => {
+
+          console.log(res);
+
+          this.show_images_images_model = res.data;
+
+          this.testimage_images_model = this.show_images_images_model[0].path;
+
+          setTimeout(() => {
+            this.show_images_model = true;
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 300);
+        })
+        .catch((err) => {
+          this.loading = false;
+          this.there_are_no_documents = true
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.there_are_no_documents = false
+            console.log(err);
+          }, 700);
+        });
     },
 
     
@@ -3002,6 +3064,7 @@ export default {
         // if (this.imagesToSend.length > 0) {
         //     console.log("FFFFFFFFFFFFFFFFFFf");
         this.testimageToSend = this.imagesToSend[0].baseAs64;
+        this.ButtonUploadImagesMail = true
         // }
       }
     },
@@ -3014,6 +3077,7 @@ export default {
         .UploadImagesMail(this.mailId, this.imagesToSend)
         .then((res) => {
           setTimeout(() => {
+            this.ButtonUploadImagesMail = false;
             this.loading = false;
             this.screenFreeze = false;
             console.log(res);

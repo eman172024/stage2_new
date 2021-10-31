@@ -236,6 +236,7 @@
                       class="absolute inset-0 flex justify-center items-center"
                     >
                       <button
+                      @click="GetAllDocuments(mailId)"
                         type="button"
                         class="bg-green-600 hover:bg-green-500 duration-500 p-2 rounded-full focus:outline-none"
                       >
@@ -255,52 +256,9 @@
                         </svg>
                       </button>
 
-                      <button
-                        type="button"
-                        class="bg-blue-600 hover:bg-blue-500 duration-500 p-2 rounded-full focus:outline-none mx-4"
-                      >
-                        <svg
-                          class="w-4 h-4 text-white  mx-auto"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
-                          ></path>
-                        </svg>
-                      </button>
+                      
 
-                      <button
-                        type="button"
-                        class="bg-red-600 hover:bg-red-500 duration-500 p-2 rounded-full focus:outline-none"
-                        @click="deleteDocument(image.id, index)"
-                      >
-                        <svg
-                          class="w-4 h-4 text-white fill-current mx-auto"
-                          height="427pt"
-                          viewBox="-40 0 427 427.00131"
-                          width="427pt"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="m232.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
-                          />
-                          <path
-                            d="m114.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
-                          />
-                          <path
-                            d="m28.398438 127.121094v246.378906c0 14.5625 5.339843 28.238281 14.667968 38.050781 9.285156 9.839844 22.207032 15.425781 35.730469 15.449219h189.203125c13.527344-.023438 26.449219-5.609375 35.730469-15.449219 9.328125-9.8125 14.667969-23.488281 14.667969-38.050781v-246.378906c18.542968-4.921875 30.558593-22.835938 28.078124-41.863282-2.484374-19.023437-18.691406-33.253906-37.878906-33.257812h-51.199218v-12.5c.058593-10.511719-4.097657-20.605469-11.539063-28.03125-7.441406-7.421875-17.550781-11.5546875-28.0625-11.46875h-88.796875c-10.511719-.0859375-20.621094 4.046875-28.0625 11.46875-7.441406 7.425781-11.597656 17.519531-11.539062 28.03125v12.5h-51.199219c-19.1875.003906-35.394531 14.234375-37.878907 33.257812-2.480468 19.027344 9.535157 36.941407 28.078126 41.863282zm239.601562 279.878906h-189.203125c-17.097656 0-30.398437-14.6875-30.398437-33.5v-245.5h250v245.5c0 18.8125-13.300782 33.5-30.398438 33.5zm-158.601562-367.5c-.066407-5.207031 1.980468-10.21875 5.675781-13.894531 3.691406-3.675781 8.714843-5.695313 13.925781-5.605469h88.796875c5.210937-.089844 10.234375 1.929688 13.925781 5.605469 3.695313 3.671875 5.742188 8.6875 5.675782 13.894531v12.5h-128zm-71.199219 32.5h270.398437c9.941406 0 18 8.058594 18 18s-8.058594 18-18 18h-270.398437c-9.941407 0-18-8.058594-18-18s8.058593-18 18-18zm0 0"
-                          />
-                          <path
-                            d="m173.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0"
-                          />
-                        </svg>
-                      </button>
+                     
                     </div>
                   </div>
 
@@ -893,6 +851,121 @@
         <svgLoadingComponent></svgLoadingComponent>
       </div>
     </div>
+
+
+
+
+
+    <div
+      v-if="show_images_model"
+      class="w-screen h-full absolute inset-0 z-50 overflow-hidden "
+    >
+      <div class="relative">
+        <div
+          v-if="to_test_print_images_model"
+          id="printMe"
+          class="bg-black bg-opacity-50 h-screen-85"
+        >
+          <div v-for="image in show_images_images_model" :key="image.id" class="h-screen-85">
+            <img
+              :src="image.path"
+              alt=""
+              class="h-full w-full object-contain"
+            />
+          </div>
+        </div>
+
+        <div class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full">
+          <div class="max-w-3xl mx-auto">
+            <div class="flex justify-between items-center w-full">
+              <button @click="show_images_model = false">
+                <svg
+                  class="w-8 h-8 stroke-current text-red-500 hover:text-red-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </button>
+
+              <button
+                @click="to_test_print_images_model = true"
+                v-print="'#printMe'"
+                class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+              >
+                طباعة كافة المستندات
+              </button>
+            </div>
+
+            <div class="h-screen-85 mt-4">
+              <img
+                :src="testimage_images_model"
+                alt="image"
+                class="h-full w-full object-contain"
+              />
+            </div>
+
+            <div
+              v-if="testimage_images_model"
+              class="flex justify-between items-center max-w-xs mx-auto w-full mt-4"
+            >
+              <button
+                @click="previousImage_images_model()"
+                class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  ></path>
+                </svg>
+              </button>
+
+              {{ indextotest_images_model + 1 }} / {{ show_images_images_model.length }}
+
+              <button
+                title="next"
+                @click="nextImage_images_model()"
+                class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 19l-7-7 7-7"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- w-full h-full rounded object-contain -->
+    </div>
+
   </div>
 </template>
 
@@ -938,6 +1011,17 @@ export default {
 
   data() {
     return {
+
+      to_test_print_images_model : false,
+      show_images_model: false,
+
+      testimage_images_model: "",
+      indextotest_images_model: 0,
+
+      show_images_images_model : [],
+
+
+
       testimage: "",
       indextotest: 0,
 
@@ -1012,6 +1096,53 @@ export default {
     };
   },
   methods: {
+
+    previousImage_images_model() {
+      if (this.indextotest_images_model > 0) {
+        this.indextotest_images_model--;
+        this.testimage_images_model = this.show_images_images_model[this.indextotest_images_model].path;
+      }
+    },
+
+    nextImage_images_model() {
+      if (this.indextotest_images_model < this.show_images_images_model.length - 1) {
+        this.indextotest_images_model++;
+        this.testimage_images_model = this.show_images_images_model[this.indextotest_images_model].path;
+      }
+    },
+
+
+    GetAllDocuments(id) {
+      this.screenFreeze = true;
+      this.loading = true;
+      this.$http.mailService
+        .GetAllDocuments(id)
+        .then((res) => {
+
+          console.log(res);
+
+          this.show_images_images_model = res.data;
+
+          this.testimage_images_model = this.show_images_images_model[0].path;
+
+          setTimeout(() => {
+            this.show_images_model = true;
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 300);
+        })
+        .catch((err) => {
+          this.loading = false;
+          this.there_are_no_documents = true
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.there_are_no_documents = false
+            console.log(err);
+          }, 700);
+        });
+    },
+
+
     getMailById() {
       this.$http.mailService
         .GetInboxMailById(
