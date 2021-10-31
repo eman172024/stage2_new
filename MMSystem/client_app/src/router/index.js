@@ -66,7 +66,7 @@ const routes = [{
     },
 
     {
-        path: "/sent",
+        path: "/sent-form",
         name: "sent-add",
         // route level code-splitting
         // this generates a separate chunk (mail.[hash].js) for this route
@@ -76,7 +76,7 @@ const routes = [{
     },
 
     {
-        path: "/sent/:mail/:type/:sends_id",
+        path: "/sent-form/:mail/:type/:sends_id",
         name: "sent-show",
         // route level code-splitting
         // this generates a separate chunk (mail.[hash].js) for this route

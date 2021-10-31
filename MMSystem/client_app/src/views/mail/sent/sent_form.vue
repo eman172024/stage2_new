@@ -17,9 +17,7 @@
 
               <fieldset class="">
                 <div class="flex items-center">
-                  <legend
-                    class="text-sm font-semibold text-gray-800 ml-6"
-                  >
+                  <legend class="text-sm font-semibold text-gray-800 ml-6">
                     نوع البريد
                   </legend>
                   <div class="flex justify-between items-center">
@@ -74,16 +72,32 @@
                 </div>
               </fieldset>
 
-              <div class="float-left text-sm font-semibold text-gray-800 flex items-center">
+              <div
+                class="float-left text-sm font-semibold text-gray-800 flex items-center"
+              >
                 رقم الرسالة
 
-                <span class="mr-4 underline font-bold text-2xl flex items-center">
-                  <input type="number" @keypress.enter="mail_search()" class="w-16 px-1 rounded-md focus:outline-none" v-model="mailId">
-                  <div class="w-16 px-1 rounded-md font-normal focus:outline-none mx-4 bg-white">
+                <span
+                  class="mr-4 underline font-bold text-2xl flex items-center"
+                >
+                  <input
+                    type="number"
+                    @keypress.enter="mail_search()"
+                    class="w-16 px-1 rounded-md focus:outline-none"
+                    v-model="mailId"
+                  />
+                  <div
+                    class="w-16 px-1 rounded-md font-normal focus:outline-none mx-4 bg-white"
+                  >
                     {{ my_department_id }}
                   </div>
                   <!-- <input type="number" @keypress.enter="mail_search()" class="w-16 px-1 rounded-md focus:outline-none mx-4" v-model="my_department_id"> -->
-                  <input type="number" @keypress.enter="mail_search()" class="w-20 px-1 rounded-md focus:outline-none" v-model="mail_year">
+                  <input
+                    type="number"
+                    @keypress.enter="mail_search()"
+                    class="w-20 px-1 rounded-md focus:outline-none"
+                    v-model="mail_year"
+                  />
 
                   <!-- {{ mailId }} - {{ my_department_id }} - {{ mail_year }} -->
                 </span>
@@ -736,8 +750,6 @@
                               </svg>
                             </button>
 
-                          
-
                             <!-- <button
                             @click="deleteDocument(image.id, index)"
                               type="button"
@@ -775,7 +787,9 @@
                         </div>
 
                         <div class="flex justify-between items-center mt-4">
-                          <div class="ml-2 flex justify-between items-center w-1/2">
+                          <div
+                            class="ml-2 flex justify-between items-center w-1/2"
+                          >
                             <button
                               @click="previousImageToSend()"
                               class="
@@ -840,7 +854,8 @@
                           </div>
 
                           <div class="mr-2 w-1/2">
-                            <button v-if="ButtonUploadImagesMail"
+                            <button
+                              v-if="ButtonUploadImagesMail"
                               @click="UploadImagesMail"
                               type="button"
                               class="
@@ -955,7 +970,7 @@
                             "
                           >
                             <button
-                            @click="GetAllDocuments(mailId)"
+                              @click="GetAllDocuments(mailId)"
                               type="button"
                               class="
                                 bg-green-600
@@ -1049,7 +1064,9 @@
                         </div>
 
                         <div class="flex justify-between items-center pt-2">
-                          <div class="ml-2 flex justify-between items-center w-full">
+                          <div
+                            class="ml-2 flex justify-between items-center w-full"
+                          >
                             <button
                               @click="previousImage()"
                               class="
@@ -1543,8 +1560,8 @@
               <section>
                 <div class="sm:col-span-6 flex items-center justify-end mt-10">
                   <div class="flex justify-end ml-6">
-                    <!-- @click="saveMail()" -->
-                    <button
+                    <a
+                      :href="$router.resolve({ name: 'sent-add' }).href"
                       class="
                         flex
                         justify-center
@@ -1585,7 +1602,7 @@
                         </g>
                       </svg>
                       جديد
-                    </button>
+                    </a>
                   </div>
 
                   <div v-if="updataButton" class="flex justify-end ml-6">
@@ -1886,11 +1903,14 @@
                   "
                 >
                   {{ consignee.departmentName }} ,
-                          {{ consignee.measureName }} 
+                  {{ consignee.measureName }}
                 </button>
               </section>
 
-              <section v-if="replies.length != 0" class="bg-gray-100 rounded-md p-6">
+              <section
+                v-if="replies.length != 0"
+                class="bg-gray-100 rounded-md p-6"
+              >
                 <p class="block text-sm font-semibold text-gray-800">
                   ردود - {{ departmentName }}
                 </p>
@@ -1906,13 +1926,19 @@
                     border border-gray-300
                   "
                 >
-                  <div  v-for="reply in replies" :key="reply.replyId" :class=" reply.to == my_department_id
+                  <div
+                    v-for="reply in replies"
+                    :key="reply.replyId"
+                    :class="
+                      reply.to == my_department_id
                         ? 'justify-end'
                         : 'justify-start'
                     "
                     class="w-full my-0.5 flex px-2"
                   >
-                    <div :class="reply.to == my_department_id
+                    <div
+                      :class="
+                        reply.to == my_department_id
                           ? 'bg-gray-700'
                           : 'bg-blue-700'
                       "
@@ -2142,7 +2168,11 @@
           id="printMe"
           class="bg-black bg-opacity-50 h-screen-85"
         >
-          <div v-for="image in show_images_images_model" :key="image.id" class="h-screen-85">
+          <div
+            v-for="image in show_images_images_model"
+            :key="image.id"
+            class="h-screen-85"
+          >
             <img
               :src="image.path"
               alt=""
@@ -2151,7 +2181,9 @@
           </div>
         </div>
 
-        <div class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full">
+        <div
+          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
+        >
           <div class="max-w-3xl mx-auto">
             <div class="flex justify-between items-center w-full">
               <button @click="show_images_model = false">
@@ -2212,7 +2244,8 @@
                 </svg>
               </button>
 
-              {{ indextotest_images_model + 1 }} / {{ show_images_images_model.length }}
+              {{ indextotest_images_model + 1 }} /
+              {{ show_images_images_model.length }}
 
               <button
                 title="next"
@@ -2259,11 +2292,11 @@ export default {
   mounted() {
     var date = new Date();
 
-    var month = date.getMonth() +1;
+    var month = date.getMonth() + 1;
 
     if (month < 10) month = "0" + month;
 
-    this.releaseDate = date.getFullYear()+ "-" +month+ "-" +date.getDate()
+    this.releaseDate = date.getFullYear() + "-" + month + "-" + date.getDate();
 
     this.mail_year = date.getFullYear();
     this.my_user_id = localStorage.getItem("userId");
@@ -2303,13 +2336,13 @@ export default {
 
   data() {
     return {
-      to_test_print_images_model : false,
+      to_test_print_images_model: false,
       show_images_model: false,
 
       testimage_images_model: "",
       indextotest_images_model: 0,
 
-      show_images_images_model : [],
+      show_images_images_model: [],
 
       replies: [],
       reply_to_add: "",
@@ -2393,8 +2426,6 @@ export default {
 
       isThisMobile: false,
 
-      mail_num: "1955 - 12 -2021",
-
       send_to_sector_ward: "",
 
       side: 0,
@@ -2423,13 +2454,11 @@ export default {
     };
   },
   methods: {
-
     // mail_search(){
     //   console.log(" mailId "+this.mailId)
     //   console.log(" my_department_id "+this.my_department_id)
     //   console.log(" mail_year "+this.mail_year)
     // },
-
 
     GetSentMailById() {
       this.$http.mailService
@@ -2522,15 +2551,18 @@ export default {
         });
     },
 
-
-
     mail_search() {
-            this.screenFreeze = true;
-            this.loading = true;
-            this.$http.mailService
-                .search(this.mailId, this.mailType, this.my_department_id, this.mail_year)
-                .then((res) => {
-                     if (res.data.mail.is_send == true) {
+      this.screenFreeze = true;
+      this.loading = true;
+      this.$http.mailService
+        .search(
+          this.mailId,
+          this.mailType,
+          this.my_department_id,
+          this.mail_year
+        )
+        .then((res) => {
+          if (res.data.mail.is_send == true) {
             this.sendButton = false;
             this.deleteButton = false;
             this.remove_button_consignees = false;
@@ -2606,24 +2638,20 @@ export default {
 
             this.procedure_type = res.data.external.procedure_type;
           }
-                   
-                    setTimeout(() => {
-                        this.screenFreeze = false;
-                        this.loading = false;
-                    }, 300);
-                })
-                .catch((err) => {
-                    setTimeout(() => {
-                        this.screenFreeze = false;
-                        this.loading = false;
-                        console.log(err);
-                    }, 100);
-                    
-                    
-                });
-        },
 
-
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 300);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+            console.log(err);
+          }, 100);
+        });
+    },
 
     AddReply() {
       this.screenFreeze = true;
@@ -2718,21 +2746,26 @@ export default {
       }
     },
 
-
     previousImage_images_model() {
       if (this.indextotest_images_model > 0) {
         this.indextotest_images_model--;
-        this.testimage_images_model = this.show_images_images_model[this.indextotest_images_model].path;
+        this.testimage_images_model = this.show_images_images_model[
+          this.indextotest_images_model
+        ].path;
       }
     },
 
     nextImage_images_model() {
-      if (this.indextotest_images_model < this.show_images_images_model.length - 1) {
+      if (
+        this.indextotest_images_model <
+        this.show_images_images_model.length - 1
+      ) {
         this.indextotest_images_model++;
-        this.testimage_images_model = this.show_images_images_model[this.indextotest_images_model].path;
+        this.testimage_images_model = this.show_images_images_model[
+          this.indextotest_images_model
+        ].path;
       }
     },
-
 
     GetAllDocuments(id) {
       this.screenFreeze = true;
@@ -2740,7 +2773,6 @@ export default {
       this.$http.mailService
         .GetAllDocuments(id)
         .then((res) => {
-
           console.log(res);
 
           this.show_images_images_model = res.data;
@@ -2755,16 +2787,14 @@ export default {
         })
         .catch((err) => {
           this.loading = false;
-          this.there_are_no_documents = true
+          this.there_are_no_documents = true;
           setTimeout(() => {
             this.screenFreeze = false;
-            this.there_are_no_documents = false
+            this.there_are_no_documents = false;
             console.log(err);
           }, 700);
         });
     },
-
-    
 
     pass_side(id, name) {
       this.sideNameSelected = name;
@@ -3064,7 +3094,7 @@ export default {
         // if (this.imagesToSend.length > 0) {
         //     console.log("FFFFFFFFFFFFFFFFFFf");
         this.testimageToSend = this.imagesToSend[0].baseAs64;
-        this.ButtonUploadImagesMail = true
+        this.ButtonUploadImagesMail = true;
         // }
       }
     },
