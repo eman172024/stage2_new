@@ -23,7 +23,7 @@
                       <p
                         class="font-bold text-gray-600 text-3xl mt-2 text-right"
                       >
-                        {{ Reports.totaleReceived }}
+                        {{ Reports.totale_Internal }}
                       </p>
                     </div>
 
@@ -71,7 +71,7 @@
                       <p
                         class="font-bold text-gray-600 text-3xl mt-2 text-right"
                       >
-                        {{ Reports.totaleExpord }}
+                        {{ Reports.not_sended }}
                       </p>
                     </div>
 
@@ -125,7 +125,7 @@
                       <p
                         class="font-bold text-gray-600 text-3xl mt-2 text-right"
                       >
-                        {{ Reports.totaleExpord }}
+                        {{ Reports.not_response_to_me }}
                       </p>
                     </div>
                     <div
@@ -172,7 +172,7 @@
                       <p
                         class="font-bold text-gray-600 text-3xl mt-2 text-right"
                       >
-                        {{ Reports.totaleSender }}
+                        {{ Reports.incoming }}
                       </p>
                     </div>
                     <div
@@ -206,7 +206,7 @@
                       <p
                         class="font-bold text-gray-600 text-3xl mt-2 text-right"
                       >
-                        {{ Reports.totaleExpord }}
+                        {{ Reports.not_response_from_you }}
                       </p>
                     </div>
                     <div
@@ -260,7 +260,7 @@
                       <p
                         class="font-bold text-gray-600 text-3xl mt-2 text-right"
                       >
-                        {{ Reports.totaleReceived }}
+                        {{ Reports.extirnel }}
                       </p>
                     </div>
 
@@ -308,7 +308,7 @@
                       <p
                         class="font-bold text-gray-600 text-3xl mt-2 text-right"
                       >
-                        {{ Reports.totaleExpord }}
+                        {{ Reports.not_sended_externl }}
                       </p>
                     </div>
 
@@ -362,7 +362,7 @@
                       <p
                         class="font-bold text-gray-600 text-3xl mt-2 text-right"
                       >
-                        {{ Reports.totaleExpord }}
+                        {{ Reports.not_response_to_me_external }}
                       </p>
                     </div>
                     <div
@@ -409,7 +409,7 @@
                       <p
                         class="font-bold text-gray-600 text-3xl mt-2 text-right"
                       >
-                        {{ Reports.totaleSender }}
+                        {{ Reports.incoming_externil }}
                       </p>
                     </div>
                     <div
@@ -443,7 +443,7 @@
                       <p
                         class="font-bold text-gray-600 text-3xl mt-2 text-right"
                       >
-                        {{ Reports.totaleExpord }}
+                        {{ Reports.not_response_from_you_externil }}
                       </p>
                     </div>
                     <div
@@ -497,7 +497,7 @@
                       <p
                         class="font-bold text-gray-600 text-3xl mt-2 text-right"
                       >
-                        {{ Reports.totaleReceived }}
+                        {{ Reports.extirnelInbox }}
                       </p>
                     </div>
 
@@ -545,7 +545,7 @@
                       <p
                         class="font-bold text-gray-600 text-3xl mt-2 text-right"
                       >
-                        {{ Reports.totaleExpord }}
+                        {{ Reports.not_sended_externlInbox }}
                       </p>
                     </div>
 
@@ -599,7 +599,7 @@
                       <p
                         class="font-bold text-gray-600 text-3xl mt-2 text-right"
                       >
-                        {{ Reports.totaleExpord }}
+                        {{ Reports.not_response_to_me_externlInbox }}
                       </p>
                     </div>
                     <div
@@ -646,7 +646,7 @@
                       <p
                         class="font-bold text-gray-600 text-3xl mt-2 text-right"
                       >
-                        {{ Reports.totaleSender }}
+                        {{ Reports.incoming_externilInbox }}
                       </p>
                     </div>
                     <div
@@ -680,7 +680,7 @@
                       <p
                         class="font-bold text-gray-600 text-3xl mt-2 text-right"
                       >
-                        {{ Reports.totaleExpord }}
+                        {{ Reports.not_response_from_you_extrinlInbox }}
                       </p>
                     </div>
                     <div
@@ -771,6 +771,7 @@ export default {
     GetNumbersOfReports() {
       this.$http.DashboardService.NumbersOfReports(this.my_department_id)
         .then((res) => {
+          console.log(res.data)
           this.Reports = res.data;
         })
         .catch((err) => {
