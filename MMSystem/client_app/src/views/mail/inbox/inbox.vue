@@ -602,12 +602,16 @@
                 </div>
             </div>
         </div>
+        
         <div v-if="screenFreeze" class="w-screen h-screen bg-black bg-opacity-30 absolute inset-0 z-50 flex justify-center items-center">
             <div v-if="loading" class="">
                 <svgLoadingComponent></svgLoadingComponent>
             </div>
-        </div>
 
+            <div v-if="there_are_no_documents" class="bg-white w-96 h-32 flex justify-center items-center">
+                لا توجد مستندات لهذا البريد.
+            </div>
+        </div>
 
         <div v-if="show_images_model" class="w-screen h-full absolute inset-0 z-50 overflow-hidden ">
             <div class="relative ">
@@ -785,6 +789,7 @@ export default {
         filter: false,
         loading: false,
         screenFreeze: false,
+        there_are_no_documents: false,
 
         date_from:'',
         date_to:'',
@@ -960,13 +965,13 @@ export default {
                     }, 300);
                 })
                 .catch((err) => {
+                    this.loading = false;
+                    this.there_are_no_documents = true
                     setTimeout(() => {
                         this.screenFreeze = false;
-                        this.loading = false;
+                        this.there_are_no_documents = false
                         console.log(err);
-                    }, 100);
-                    
-                    
+                    }, 700);
                 });
       },
 

@@ -738,6 +738,10 @@
       <div v-if="loading" class="">
         <svgLoadingComponent></svgLoadingComponent>
       </div>
+
+      <div v-if="there_are_no_documents" class="bg-white w-96 h-32 flex justify-center items-center">
+        لا توجد مستندات لهذا البريد.
+      </div>
     </div>
 
     <div
@@ -759,9 +763,7 @@
           </div>
         </div>
 
-        <div
-          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-50 absolute top-0 inset-0 z-50 w-full"
-        >
+        <div class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-50 absolute top-0 inset-0 z-50 w-full">
           <div class="max-w-3xl mx-auto">
             <div class="flex justify-between items-center w-full">
               <button @click="show_images_model = false">
@@ -924,6 +926,8 @@ export default {
 
   data() {
     return {
+      
+
       show_senders_mail: "",
       senders: [],
       to_test_print: false,
@@ -970,6 +974,7 @@ export default {
       filter: false,
       loading: false,
       screenFreeze: false,
+      there_are_no_documents: false,
 
       date_from: "",
       date_to: "",
@@ -988,50 +993,48 @@ export default {
   },
 
   methods: {
+    AddReply() {
+      this.screenFreeze = true;
+      this.loading = true;
+
+      var ReplyViewModel = {
+        send_ToId: Number(this.sends_id),
+        from: Number(1),
+        reply: {
+          mail_detail: this.reply_to_add,
+          To: Number(this.my_department_id_to_get_mail_by_id),
+        },
+      };
+      this.$http.mailService
+        .AddReply(ReplyViewModel)
+        .then((res) => {
+          setTimeout(() => {
+            console.log(res);
+            // this.documentSection = true;
+            // this.proceduresSection = true;
+
+            this.loading = false;
+            this.screenFreeze = false;
+
+            this.reply_to_add = "";
 
 
-      AddReply() {
-        this.screenFreeze = true;
-        this.loading = true;
-
-        var ReplyViewModel = {
-          send_ToId: Number(this.sends_id),
-          from: Number(1),
-          reply: {
-            mail_detail: this.reply_to_add,
-            To: Number(this.my_department_id_to_get_mail_by_id),
-          },
-        };
-        this.$http.mailService
-          .AddReply(ReplyViewModel)
-          .then((res) => {
-            setTimeout(() => {
-              console.log(res);
-              // this.documentSection = true;
-              // this.proceduresSection = true;
-
-              this.loading = false;
-              this.screenFreeze = false;
-
-              this.reply_to_add = "";
-
-
-              this.getMailById();
-              // this.GetReplyByDepartment(
-              //   this.replyByDepartmenId,
-              //   this.sends_id,
-              //   this.departmentName
-              // );
-            }, 500);
-          })
-          .catch((err) => {
-            setTimeout(() => {
-              this.loading = false;
-              this.screenFreeze = false;
-            }, 500);
-            console.log(err)
-          });
-      },
+            this.getMailById();
+            // this.GetReplyByDepartment(
+            //   this.replyByDepartmenId,
+            //   this.sends_id,
+            //   this.departmentName
+            // );
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+          console.log(err)
+        });
+    },
 
     to_pass_data_to_get_mail_by_id(my_department_id_to_get_mail_by_id, sends_id, departmentName) {
       this.my_department_id_to_get_mail_by_id = my_department_id_to_get_mail_by_id;
@@ -1115,6 +1118,7 @@ export default {
       this.$http.mailService
         .GetAllDocuments(id)
         .then((res) => {
+
           console.log(res);
 
           this.show_images = res.data;
@@ -1128,11 +1132,13 @@ export default {
           }, 300);
         })
         .catch((err) => {
+          this.loading = false;
+          this.there_are_no_documents = true
           setTimeout(() => {
             this.screenFreeze = false;
-            this.loading = false;
+            this.there_are_no_documents = false
             console.log(err);
-          }, 100);
+          }, 700);
         });
     },
 
@@ -1269,13 +1275,6 @@ export default {
       this.classificationIdSelected = id;
     },
 
-    // add_to_array_of_side_measure(){
-    //     this.consignees.push({
-    //         departmentId : this.departmentIdSelected,
-    //         departmentName : this.departmentNameSelected,
-
-    //     })
-    // },
   },
 };
 </script>
