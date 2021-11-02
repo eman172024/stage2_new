@@ -367,6 +367,24 @@
                             "
                           >
                             <button
+                            v-if="allDepartmentButton"
+                              class="
+                                block
+                                focus:outline-none
+                                w-full
+                                my-1
+                                text-right
+                              "
+                              @click="selectAllDepartment(departments, 'الكل');
+                                departmentselect = !departmentselect;"
+                            
+                            
+                            >
+                            <!--    -->
+                              الكل
+                            </button>
+
+                            <button
                               class="
                                 block
                                 focus:outline-none
@@ -377,11 +395,12 @@
                               @click="
                                 selectdepartment(
                                   department.id,
-                                  department.departmentName
+                                  department.departmentName,
+                                  index
                                 );
                                 departmentselect = !departmentselect;
                               "
-                              v-for="department in departments"
+                              v-for="(department, index) in departments"
                               :key="department.id"
                             >
                               {{ department.departmentName }}
@@ -464,6 +483,7 @@
                       </div>
 
                       <div class="sm:col-span-1 flex justify-end">
+                        <!-- add_to_array_of_side_measure -->
                         <button
                           v-if="add_button_consignees"
                           @click="add_to_array_of_side_measure()"
@@ -552,7 +572,8 @@
                             v-if="remove_button_consignees"
                             @click="
                               remove_to_array_of_side_measure(
-                                consignee.departmentId
+                                consignee.departmentId,
+                                consignee.departmentName,
                               )
                             "
                             class="mr-1 rounded-full"
@@ -1879,7 +1900,7 @@
                 </div>
               </section>
 
-              <section class="bg-gray-100 rounded-md p-6 flex items-center">
+              <section class="bg-gray-100 rounded-md p-6 flex flex-wrap items-center">
                 <button
                   v-for="consignee in consignees"
                   :key="consignee.side"
@@ -2336,6 +2357,10 @@ export default {
 
   data() {
     return {
+      indexOfDepartment: '',
+      allDepartment: false,
+      allDepartmentButton: true,
+      blblbl:[],
       to_test_print_images_model: false,
       show_images_model: false,
 
@@ -2454,11 +2479,94 @@ export default {
     };
   },
   methods: {
-    // mail_search(){
-    //   console.log(" mailId "+this.mailId)
-    //   console.log(" my_department_id "+this.my_department_id)
-    //   console.log(" mail_year "+this.mail_year)
-    // },
+
+    selectAllDepartment(x, name){
+      this.departmentNameSelected = name;
+
+      this.allDepartment = true
+      this.blblbl = x
+    },
+
+    add_to_array_of_side_measure() {
+
+      if(this.allDepartment){
+        for (let index = 0; index < this.blblbl.length; index++) {
+
+          this.consignees.push({
+            departmentId: this.blblbl[index].id,
+            departmentName: this.blblbl[index].departmentName,
+            measureId: this.measureIdSelected,
+            measureName: this.measureNameSelected,
+          });
+
+         
+
+        }
+
+          this.departmentNameSelected = '';
+          this.departmentIdSelected = '';
+
+          this.measureIdSelected = '';
+          this.measureNameSelected = '';
+
+          this.departments = [];
+          this.allDepartmentButton = false;
+
+      }else{
+
+        // array.includes('🍰');
+
+
+        this.consignees.push({
+          departmentId: this.departmentIdSelected,
+          departmentName: this.departmentNameSelected,
+          measureId: this.measureIdSelected,
+          measureName: this.measureNameSelected,
+        });
+
+        this.departmentNameSelected = '';
+        this.departmentIdSelected = '';
+
+        this.measureIdSelected = '';
+        this.measureNameSelected = '';
+
+        console.log("befor")
+        console.log(this.departments)
+
+        this.departments.splice(this.indexOfDepartment, 1)
+
+        console.log(this.departments)
+        console.log("after")
+      }
+
+      
+      
+    },
+
+    remove_to_array_of_side_measure(consignee, name) {
+
+      console.log(consignee)
+      console.log(name)
+
+      const index = this.consignees.findIndex((element, index) => {
+        if (element.departmentId === consignee) {
+          return true;
+        }
+      });
+      this.consignees.splice(index, 1);
+
+
+      this.departments.push({
+          id: consignee,
+          departmentName: name,
+         
+        });
+
+
+      this.allDepartmentButton = true;
+    },
+
+
 
     GetSentMailById() {
       this.$http.mailService
@@ -2840,28 +2948,19 @@ export default {
       this.measureIdSelected = id;
     },
 
-    selectdepartment(id, name) {
+    selectdepartment(id, name, index) {
+      this.allDepartment = false;
       this.departmentNameSelected = name;
       this.departmentIdSelected = id;
+
+
+      this.indexOfDepartment = index;
+      console.log(index)
+      // this.departments
+
     },
 
-    add_to_array_of_side_measure() {
-      this.consignees.push({
-        departmentId: this.departmentIdSelected,
-        departmentName: this.departmentNameSelected,
-        measureId: this.measureIdSelected,
-        measureName: this.measureNameSelected,
-      });
-    },
-
-    remove_to_array_of_side_measure(consignee) {
-      const index = this.consignees.findIndex((element, index) => {
-        if (element.departmentId === consignee) {
-          return true;
-        }
-      });
-      this.consignees.splice(index, 1);
-    },
+    
 
     GetAllClassifications() {
       this.$http.mailService
