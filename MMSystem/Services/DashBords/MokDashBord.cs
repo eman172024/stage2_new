@@ -72,7 +72,7 @@ namespace MMSystem.Services.DashBords
 
 
             var idint_responde = await (from x in DbCon.Mails.Where(x =>  x.Mail_Type == 1)
-                                  join y in DbCon.Sends.Where(y => y.flag < 4 && y.isMulti == true && y.to == ManagementId) on x.MailID equals y.MailID
+                                  join y in DbCon.Sends.Where(y => y.flag < 4  && y.to == ManagementId) on x.MailID equals y.MailID
                                   select x).ToListAsync();
             int not_res = idint_responde.Count();
 
@@ -100,7 +100,7 @@ namespace MMSystem.Services.DashBords
 
 
             var idint_responde_extrinl = await (from x in DbCon.Mails.Where(x =>  x.Mail_Type == 2)
-                                        join y in DbCon.Sends.Where(y => y.flag < 4 && y.isMulti == true && y.to == ManagementId) on x.MailID equals y.MailID
+                                        join y in DbCon.Sends.Where(y => y.flag < 4  && y.to == ManagementId) on x.MailID equals y.MailID
                                         select x).ToListAsync();
             int not_resex = idint_responde_extrinl.Count();
 
@@ -128,7 +128,7 @@ namespace MMSystem.Services.DashBords
 
 
             var idint_responde_extrinlIn = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 3)
-                                                join y in DbCon.Sends.Where(y => y.flag < 4 && y.isMulti == true && y.to == ManagementId) on x.MailID equals y.MailID
+                                                join y in DbCon.Sends.Where(y => y.flag < 4  && y.to == ManagementId) on x.MailID equals y.MailID
                                                 select x).ToListAsync();
             int not_resexIn = idint_responde_extrinlIn.Count();
 
