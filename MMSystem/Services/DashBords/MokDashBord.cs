@@ -79,7 +79,7 @@ namespace MMSystem.Services.DashBords
 
 
             var extirnel = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 2)
-                                  join y in DbCon.Sends.Where(y => y.flag >= 1 && y.isMulti == true) on x.MailID equals y.MailID
+                                  join y in DbCon.Sends.Where(y => y.flag > 1 && y.isMulti == true) on x.MailID equals y.MailID
                                   select x).ToListAsync();
             int ex = extirnel.Count();
 
@@ -107,7 +107,7 @@ namespace MMSystem.Services.DashBords
 
 
             var extirnelIn = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 3)
-                                  join y in DbCon.Sends.Where(y => y.flag >= 1 && y.isMulti == true) on x.MailID equals y.MailID
+                                  join y in DbCon.Sends.Where(y => y.flag > 1 && y.isMulti == true) on x.MailID equals y.MailID
                                   select x).ToListAsync();
             int exIn = extirnelIn.Count();
 
