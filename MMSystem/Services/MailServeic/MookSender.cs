@@ -130,8 +130,28 @@ namespace MMSystem.Services.MailServeic
 
         public async Task<bool> UpdateSenderList(UpdateVM update)
         {
-            List<Send_to> list = await _data.Sends.Where(x=>x.MailID==update.mail_id&& x.flag==1).ToListAsync();
-            return true;
+
+            Mail mail = await _data.Mails.FindAsync(update.mail_id);
+
+
+
+            if (mail != null) {
+                for (int i = 0; i < update.actionSenders.Count; i++)
+                {
+                    Send_to sender = new Send_to();
+
+                    
+                    sender.MailID = mail.MailID;
+                    sender.to = update.actionSenders[i].departmentId;
+                    sender.flag = 2;
+                    sender.type_of_send = update.actionSenders[i].measureId;
+                    bool send = await Add(sender);
+                }
+                return true;
+
+            }
+            return false;
+
         }
     }
 }
