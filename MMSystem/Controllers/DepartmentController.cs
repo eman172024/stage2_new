@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MMSystem.Model;
+using MMSystem.Model.Dto;
 using MMSystem.Services;
 using MMSystem.Services.Depart;
 
@@ -136,5 +137,20 @@ namespace MMSystem.Controllers
             return NotFound(new Result() { message = "هذه الادارة غير موجود", statusCode = 404 });
 
         }
+
+        [HttpGet]
+        // [Route("Delete/{id}")]
+        [Route("Show_all_departments_except_the_current_one")]
+        public async Task<IActionResult> GetDepartmentWithOutYours(int department_id)
+        {
+            List<DepartmentDto> departments = await _data.GetDepartment(department_id);
+
+            if (departments.Count > 0) 
+
+                return Ok(departments);
+            return NotFound("لايوجد اقسام");
+           
+        }
+
     }
 }

@@ -17,6 +17,8 @@ namespace MMSystem.Services.Depart
         Task<bool> addsub(int par, Department department);
 
         Task<Department> find(int id);
-       
+
+        Task<List<DepartmentDto>> GetDepartment(int id);
+
     }
 }

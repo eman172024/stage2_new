@@ -105,6 +105,23 @@ namespace MMSystem.Services.Depart
             }
         }
 
+        public async Task<List<DepartmentDto>> GetDepartment(int id)
+        {
+            try
+            {
+
+                List<Department> departs = await _db.Departments.Where(x => x.Id != id).ToListAsync();
+                var list = _mapper.Map<List<Department>, List<DepartmentDto>>(departs);
+
+                return list;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public async Task<List<DepartmentDto>> getsub(int par)
         {
             try
