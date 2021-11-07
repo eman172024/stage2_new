@@ -867,14 +867,14 @@ export default {
   mounted() {
     var date = new Date();
 
-    var month = date.getMonth() + 1;
+    var month = date.getMonth() +1;
+    var day = date.getDate();
 
     if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
 
-    this.date_from = date.getFullYear() + "-" + month + "-" + date.getDate();
-    this.date_to = date.getFullYear() + "-" + month + "-" + date.getDate();
-
-    console.log(this.date_from);
+    this.date_from = date.getFullYear()+ "-" +month+ "-" +day
+    this.date_to = date.getFullYear()+ "-" +month+ "-" +day
 
     this.my_user_id = localStorage.getItem("userId");
     this.my_department_id = localStorage.getItem("departmentId");
