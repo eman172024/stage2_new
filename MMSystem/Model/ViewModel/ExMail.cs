@@ -17,7 +17,7 @@ namespace MMSystem.Model.ViewModel
         public List<Extrmal_Section> side { get; set; }
         public List<Extrmal_Section> sector { get; set; }
 
-       
+        public List<Department> departments { get; set; } = new List<Department> { };
 
         public ExMail()
         {

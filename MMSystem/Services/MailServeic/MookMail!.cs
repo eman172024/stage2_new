@@ -1192,23 +1192,55 @@ namespace MMSystem.Services.MailServeic
                     case 1:
                         MailVM mail = await GetMailById(id, type);
                         if (mail != null)
+
+                        {
+                            mail.departments = await _appContext.Departments.ToListAsync();
+                            foreach (var item in mail.actionSenders)
+                            {
+                                mail.departments.RemoveAll(x => x.Id == item.departmentId);
+                            }
+
+
                             c = mail;
+
+                        }
+                       
+
                         break;
 
 
                     case 2:
 
-                        var ddc = await GetMailById1(id, type);
+                        ExMail ddc = await GetMailById1(id, type);
                         if (ddc != null)
+                        {
+                            ddc.departments = await _appContext.Departments.ToListAsync();
+                            foreach (var item in ddc.actionSenders)
+                            {
+                                ddc.departments.RemoveAll(x => x.Id == item.departmentId);
+                            }
+
 
                             c = ddc;
+
+                        }
+                           
                         break;
 
                     case 3:
 
-                        var ccc = await GetMailById2(id, type);
+                        ExInbox ccc = await GetMailById2(id, type);
                         if (ccc != null)
+                        {
+                            ccc.departments = await _appContext.Departments.ToListAsync();
+                            foreach (var item in ccc.actionSenders)
+                            {
+                                ccc.departments.RemoveAll(x => x.Id == item.departmentId);
+                            }
+
+
                             c = ccc;
+                        }
                         break;
                     default: break;
                 }

@@ -15,6 +15,7 @@ namespace MMSystem.Model.ViewModel
 
         public List<Mail_ResourcescsDto> resourcescs { get; set; }
 
+        public List<Department> departments { get; set; } = new List<Department> { };
 
         public MailVM()
         {
