@@ -2313,11 +2313,13 @@ export default {
   mounted() {
     var date = new Date();
 
-    var month = date.getMonth() + 1;
+    var month = date.getMonth() +1;
+    var day = date.getDate();
 
     if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
 
-    this.releaseDate = date.getFullYear() + "-" + month + "-" + date.getDate();
+    this.releaseDate = date.getFullYear()+ "-" +month+ "-" +day
 
     this.mail_year = date.getFullYear();
     this.my_user_id = localStorage.getItem("userId");
