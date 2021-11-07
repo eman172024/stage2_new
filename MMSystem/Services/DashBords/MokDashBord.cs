@@ -51,7 +51,7 @@ namespace MMSystem.Services.DashBords
 
 
             var internil =await (from x in DbCon.Mails.Where(x=> x.Department_Id == ManagementId && x.Mail_Type==1 )
-                  join y in DbCon.Sends.Where(y => y.flag >= 1 && y.isMulti == true ) on x.MailID equals y.MailID
+                  join y in DbCon.Sends.Where(y => y.flag > 1 && y.isMulti == true ) on x.MailID equals y.MailID
                                  select x).ToListAsync();
             int inern = internil.Count();
 
@@ -94,7 +94,7 @@ namespace MMSystem.Services.DashBords
             int notResmeex = not_response_tome_externil.Count();
 
             var incoming_externil = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 2)
-                                  join y in DbCon.Sends.Where(y => y.flag > 1 && y.to == ManagementId) on x.MailID equals y.MailID
+                                  join y in DbCon.Sends.Where(y => y.flag >= 2 && y.to == ManagementId) on x.MailID equals y.MailID
                                   select x).ToListAsync();
             int incomex = incoming_externil.Count();
 
