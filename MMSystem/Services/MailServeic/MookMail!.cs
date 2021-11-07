@@ -561,6 +561,7 @@ namespace MMSystem.Services.MailServeic
             try
             {
                 bool Email, Exmail, Ex_inboxmail, result = false;
+                int flag = 0;
 
 
 
@@ -572,38 +573,41 @@ namespace MMSystem.Services.MailServeic
 
                         Email = await Update(mail.mail);
                         if (Email)
+                
+                        
                         {
+                            var obj = await _appContext.Sends.FirstOrDefaultAsync(x=>x.MailID==mail.mail.MailID);
+                            if (obj.flag > 1)
+                            {
+                                flag = 2;
+                            }
+                            else {
+                                flag = 1;
+                            
+                            }
+                            
 
-                            //var list = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID).ToListAsync();
-
-                            //if (list.Count > 0)
-                            //{
-
-                            //    _appContext.Sends.RemoveRange(list);
-                            //    await _appContext.SaveChangesAsync();
-
-                            //}
-                            //else { }
+                            if (mail.newactionSenders.Count > 0)
+                            {
+                                for (int i = 0; i < mail.actionSenders.Count; i++)
+                                {
+                                    Send_to sender = new Send_to();
 
 
+                                    sender.MailID = mail.mail.MailID;
+                                    sender.to = mail.newactionSenders[i].departmentId;
+                                    sender.flag = flag;
+                                    sender.type_of_send = mail.newactionSenders[i].measureId;
+                                    bool send = await _sender.Add(sender);
+                                }
 
-                            //if (mail.actionSenders != null){
 
-                            //    foreach (var item in mail.actionSenders)
-                            //    {
-                            //        Send_to sender = new Send_to();
+                            }
+                            else { }
+                          
+                           
 
-                            //        sender.MailID = mail.mail.MailID;
-                            //        sender.to = item.departmentId;
-                            //        sender.flag = 1;
-                            //        sender.type_of_send = item.measureId;
-                            //        bool send = await _sender.Add(sender);
-                            //    }
 
-                            //    result = true;
-                            //    break;
-
-                            //}
 
 
                             result = true;
@@ -623,40 +627,38 @@ namespace MMSystem.Services.MailServeic
                         if (Email)
                         {
 
+                            var obj = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail.mail.MailID);
+                            if (obj.flag > 1)
+                            {
+                                flag = 2;
+                            }
+                            else
+                            {
+                                flag = 1;
+
+                            }
+
+
                             Exmail = await _external.Update(mail.external_Mail);
                             if (Exmail)
                             {
+                                if (mail.newactionSenders.Count > 0)
+                                {
+                                    for (int i = 0; i < mail.actionSenders.Count; i++)
+                                    {
+                                        Send_to sender = new Send_to();
 
 
-                                //var list = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID).ToListAsync();
-
-                                //if (list.Count > 0)
-                                //{
-
-                                //    _appContext.Sends.RemoveRange(list);
-                                //    await _appContext.SaveChangesAsync();
-
-                                //}
+                                        sender.MailID = mail.mail.MailID;
+                                        sender.to = mail.newactionSenders[i].departmentId;
+                                        sender.flag = flag;
+                                        sender.type_of_send = mail.newactionSenders[i].measureId;
+                                        bool send = await _sender.Add(sender);
+                                    }
 
 
-                                //if (mail.actionSenders !=null) {
-
-                                //    foreach (var item in mail.actionSenders)
-                                //    {
-                                //        Send_to sender = new Send_to();
-
-                                //        sender.MailID = mail.mail.MailID;
-                                //        sender.to = item.departmentId;
-                                //        sender.flag = 1;
-                                //        sender.type_of_send = item.measureId;
-                                //        bool send = await _sender.Add(sender);
-                                //    }
-                                //    result = true;
-                                //   break;
-
-
-                                //  }
-
+                                }
+                                else { }
 
                                 result = true;
                                 break;
@@ -676,48 +678,39 @@ namespace MMSystem.Services.MailServeic
                         Email = await Update(mail.mail);
                         if (Email)
                         {
+                            var obj = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail.mail.MailID);
+                            if (obj.flag > 1)
+                            {
+                                flag = 2;
+                            }
+                            else
+                            {
+                                flag = 1;
 
+                            }
                             mail.extrenal_Inbox.MailID = mail.mail.MailID;
                             Ex_inboxmail = await _extrenal_Inbox.Update(mail.extrenal_Inbox);
                             if (Ex_inboxmail)
                             {
 
-
-                                //    var list = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID).ToListAsync();
-
-                                //    if (list.Count > 0)
-                                //    {
-
-                                //        _appContext.Sends.RemoveRange(list);
-                                //        await _appContext.SaveChangesAsync();
-
-                                //    }
-                                //    else { }
+                                if (mail.newactionSenders.Count > 0)
+                                {
+                                    for (int i = 0; i < mail.actionSenders.Count; i++)
+                                    {
+                                        Send_to sender = new Send_to();
 
 
-
-                                //    if (mail.actionSenders.Count > 0)
-                                //    {
-
-                                //        foreach (var item in mail.actionSenders)
-                                //        {
-                                //            Send_to sender = new Send_to();
-
-                                //            sender.MailID = mail.mail.MailID;
-                                //            sender.to = item.departmentId;
-                                //            sender.flag = 1;
-                                //            sender.type_of_send = item.measureId;
-                                //            bool send = await _sender.Add(sender);
-                                //        }
-                                //        result = true;
-                                //        break;
-                                //    }
-                                //    result = true;
-                                //    break;
+                                        sender.MailID = mail.mail.MailID;
+                                        sender.to = mail.newactionSenders[i].departmentId;
+                                        sender.flag = 2;
+                                        sender.type_of_send = mail.newactionSenders[i].measureId;
+                                        bool send = await _sender.Add(sender);
+                                    }
 
 
-                                //}
-                                //break;
+                                }
+                                else { }
+
                                 result = true;
                             }
                             result = false;

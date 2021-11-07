@@ -16,6 +16,8 @@ namespace MMSystem.Model.ViewModel
         public Extrenal_inbox extrenal_Inbox { get; set; }
         public List<ActionSender> actionSenders { get; set; }
 
+        public List<ActionSender> newactionSenders { get; set; }
+
 
 
 
