@@ -106,7 +106,8 @@ namespace MMSystem.Controllers
             return Created("AddMail",new  {
             message="تمت العملية بنجاح",statusCode=201,
                 mailId = mail.mail.MailID,
-                Department_Id=mail.mail.Department_Id,
+                Mail_Number = mail.mail.Mail_Number,
+                Department_Id =mail.mail.Department_Id,
                 mail_year=mail.mail.Date_Of_Mail.Year
 
             });

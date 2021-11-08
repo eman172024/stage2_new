@@ -20,7 +20,12 @@
                   <legend class="text-sm font-semibold text-gray-800 ml-6">
                     نوع البريد
                   </legend>
-                  <div class="flex justify-between items-center">
+<!-- 
+                  <div v-if="mail_Number" class="underline">
+                    {{mailType | mail_type}}
+                  </div> -->
+
+                  <div  class="flex justify-between items-center">
                     <div class="flex items-center">
                       <input
                         v-model="mailType"
@@ -84,7 +89,7 @@
                     type="number"
                     @keypress.enter="mail_search()"
                     class="w-16 px-1 rounded-md focus:outline-none"
-                    v-model="mailId"
+                    v-model="mail_Number"
                   />
                   <div
                     class="w-16 px-1 rounded-md font-normal focus:outline-none mx-4 bg-white"
@@ -1582,6 +1587,7 @@
                 <div class="sm:col-span-6 flex items-center justify-end mt-10">
                   <div class="flex justify-end ml-6">
                     <a
+                      v-if="summary"
                       :href="$router.resolve({ name: 'sent-add' }).href"
                       class="
                         flex
@@ -1778,6 +1784,7 @@
 
                   <div v-if="saveButton" class="flex justify-end">
                     <button
+                     v-if="summary"
                       class="
                         flex
                         justify-center
@@ -2656,19 +2663,28 @@ export default {
       this.loading = true;
       this.$http.mailService
         .search(
-          this.mailId,
+          this.mail_Number,
           this.mailType,
           this.my_department_id,
           this.mail_year
         )
         .then((res) => {
           if (res.data.mail.is_send == true) {
-            this.sendButton = false;
+            this.saveButton = false;
+            this.updataButton = true;
             this.deleteButton = false;
+            this.sendButton = false;
+
             this.remove_button_consignees = false;
             this.add_button_consignees = false;
+          }else{
+            this.deleteButton = true;
+            this.updataButton = true;
+            this.saveButton = false;
+            this.sendButton = true;
           }
 
+          this.mailId = res.data.mail.mailID;
           this.mail_Number = res.data.mail.mail_Number;
           this.department_Id = res.data.mail.department_Id;
           this.mail_year = res.data.mail.mail_year;
@@ -2685,10 +2701,7 @@ export default {
 
           this.imagesToShow = res.data.resourcescs;
 
-          console.log(this.imagesToShow);
-
           if (this.imagesToShow.length > 0) {
-            console.log("FFFFFFFFFFFFFFFFFFf");
             this.testimage = this.imagesToShow[0].path;
           }
 
@@ -2710,9 +2723,6 @@ export default {
             this.sideIdSelected = res.data.side[0].id;
           }
           if (this.to_test_passing_mail_type == "3") {
-            console.log(
-              "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
-            );
 
             this.external_mailId = res.data.external.id;
 
@@ -3079,6 +3089,10 @@ export default {
             this.sendButton = true;
             this.updataButton = true;
             this.deleteButton = true;
+
+            console.log(res.data)
+
+            this.mail_Number = res.data.mail_Number
 
             this.mailId = res.data.mailId;
             this.department_Id = res.data.department_Id;
