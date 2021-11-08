@@ -2345,10 +2345,11 @@ export default {
 
       this.GetSentMailById();
     } else {
+      this.GetAllDepartments();
     }
     this.GetAllClassifications();
     this.GetAllMeasures();
-    this.GetAllDepartments();
+    
   },
 
   components: {
@@ -2501,8 +2502,6 @@ export default {
             measureName: this.measureNameSelected,
           });
 
-         
-
         }
 
           this.departmentNameSelected = '';
@@ -2515,10 +2514,7 @@ export default {
           this.allDepartmentButton = false;
 
       }else{
-
         // array.includes('🍰');
-
-
         this.consignees.push({
           departmentId: this.departmentIdSelected,
           departmentName: this.departmentNameSelected,
@@ -2532,13 +2528,8 @@ export default {
         this.measureIdSelected = '';
         this.measureNameSelected = '';
 
-        console.log("befor")
-        console.log(this.departments)
-
         this.departments.splice(this.indexOfDepartment, 1)
-
-        console.log(this.departments)
-        console.log("after")
+      
       }
 
       
@@ -2568,8 +2559,6 @@ export default {
       this.allDepartmentButton = true;
     },
 
-
-
     GetSentMailById() {
       this.$http.mailService
         .GetSentMailById(this.mailId, this.to_test_passing_mail_type)
@@ -2594,6 +2583,7 @@ export default {
           this.required_action = res.data.mail.action_Required;
 
           this.consignees = res.data.actionSenders;
+          this.departments = res.data.departments
 
           this.imagesToShow = res.data.resourcescs;
 
