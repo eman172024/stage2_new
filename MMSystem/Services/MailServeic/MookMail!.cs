@@ -589,7 +589,7 @@ namespace MMSystem.Services.MailServeic
 
                             if (mail.newactionSenders.Count > 0)
                             {
-                                for (int i = 0; i < mail.actionSenders.Count; i++)
+                                for (int i = 0; i < mail.newactionSenders.Count; i++)
                                 {
                                     Send_to sender = new Send_to();
 
@@ -644,7 +644,7 @@ namespace MMSystem.Services.MailServeic
                             {
                                 if (mail.newactionSenders.Count > 0)
                                 {
-                                    for (int i = 0; i < mail.actionSenders.Count; i++)
+                                    for (int i = 0; i < mail.newactionSenders.Count; i++)
                                     {
                                         Send_to sender = new Send_to();
 
@@ -695,7 +695,7 @@ namespace MMSystem.Services.MailServeic
 
                                 if (mail.newactionSenders.Count > 0)
                                 {
-                                    for (int i = 0; i < mail.actionSenders.Count; i++)
+                                    for (int i = 0; i < mail.newactionSenders.Count; i++)
                                     {
                                         Send_to sender = new Send_to();
 
