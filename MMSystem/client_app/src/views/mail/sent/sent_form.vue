@@ -607,6 +607,61 @@
                             </svg>
                           </button>
                         </div>
+
+
+
+
+                        <div
+                          v-for="consignee in newactionSenders"
+                          :key="consignee.side"
+                          class="
+                            border border-gary-200
+                            rounded-md
+                            text-sm
+                            flex
+                            items-center
+                            p-2
+                            m-0.5
+                          "
+                        >
+                          {{ consignee.departmentName }} ,
+                          {{ consignee.measureName }}
+                          <!--  -->
+                          <button
+                            v-if="remove_button_consignees"
+                            @click="
+                              remove_to_array_of_side_measure(
+                                consignee.departmentId,
+                                consignee.departmentName,
+                              )
+                            "
+                            class="mr-1 rounded-full"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              focusable="false"
+                              data-prefix="far"
+                              data-icon="times-circle"
+                              class="
+                                w-5
+                                h-5
+                                stroke-current
+                                text-red-400
+                                hover:text-red-500
+                                duration-200
+                              "
+                              role="img"
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 512 512"
+                            >
+                              <path
+                                fill="currentColor"
+                                d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"
+                              ></path>
+                            </svg>
+                          </button>
+                        </div>
+
                       </div>
                     </div>
                   </section>
@@ -2404,6 +2459,7 @@ export default {
       departmentName: "",
 
       consignees: [],
+      newactionSenders: [],
 
       releaseDate: "",
       summary: "",
@@ -2499,17 +2555,37 @@ export default {
 
     add_to_array_of_side_measure() {
 
-      if(this.allDepartment){
-        for (let index = 0; index < this.blblbl.length; index++) {
+      if(this.mail_Number){
 
-          this.consignees.push({
-            departmentId: this.blblbl[index].id,
-            departmentName: this.blblbl[index].departmentName,
+        if(this.allDepartment){
+          for (let index = 0; index < this.blblbl.length; index++) {
+
+            this.newactionSenders.push({
+              departmentId: this.blblbl[index].id,
+              departmentName: this.blblbl[index].departmentName,
+              measureId: this.measureIdSelected,
+              measureName: this.measureNameSelected,
+            });
+
+          }
+
+            this.departmentNameSelected = '';
+            this.departmentIdSelected = '';
+
+            this.measureIdSelected = '';
+            this.measureNameSelected = '';
+
+            this.departments = [];
+            this.allDepartmentButton = false;
+
+        }else{
+          // array.includes('🍰');
+          this.newactionSenders.push({
+            departmentId: this.departmentIdSelected,
+            departmentName: this.departmentNameSelected,
             measureId: this.measureIdSelected,
             measureName: this.measureNameSelected,
           });
-
-        }
 
           this.departmentNameSelected = '';
           this.departmentIdSelected = '';
@@ -2517,27 +2593,53 @@ export default {
           this.measureIdSelected = '';
           this.measureNameSelected = '';
 
-          this.departments = [];
-          this.allDepartmentButton = false;
+          this.departments.splice(this.indexOfDepartment, 1)
+        
+        }
 
       }else{
-        // array.includes('🍰');
-        this.consignees.push({
-          departmentId: this.departmentIdSelected,
-          departmentName: this.departmentNameSelected,
-          measureId: this.measureIdSelected,
-          measureName: this.measureNameSelected,
-        });
+        if(this.allDepartment){
+          for (let index = 0; index < this.blblbl.length; index++) {
 
-        this.departmentNameSelected = '';
-        this.departmentIdSelected = '';
+            this.consignees.push({
+              departmentId: this.blblbl[index].id,
+              departmentName: this.blblbl[index].departmentName,
+              measureId: this.measureIdSelected,
+              measureName: this.measureNameSelected,
+            });
 
-        this.measureIdSelected = '';
-        this.measureNameSelected = '';
+          }
 
-        this.departments.splice(this.indexOfDepartment, 1)
-      
+            this.departmentNameSelected = '';
+            this.departmentIdSelected = '';
+
+            this.measureIdSelected = '';
+            this.measureNameSelected = '';
+
+            this.departments = [];
+            this.allDepartmentButton = false;
+
+        }else{
+          // array.includes('🍰');
+          this.consignees.push({
+            departmentId: this.departmentIdSelected,
+            departmentName: this.departmentNameSelected,
+            measureId: this.measureIdSelected,
+            measureName: this.measureNameSelected,
+          });
+
+          this.departmentNameSelected = '';
+          this.departmentIdSelected = '';
+
+          this.measureIdSelected = '';
+          this.measureNameSelected = '';
+
+          this.departments.splice(this.indexOfDepartment, 1)
+        
+        }
       }
+
+      
 
       
       
@@ -2545,23 +2647,28 @@ export default {
 
     remove_to_array_of_side_measure(consignee, name) {
 
-      console.log(consignee)
-      console.log(name)
+      if(this.mail_Number){
+        const index = this.newactionSenders.findIndex((element, index) => {
+          if (element.departmentId === consignee) {
+            return true;
+          }
+        });
+        this.newactionSenders.splice(index, 1);
 
-      const index = this.consignees.findIndex((element, index) => {
-        if (element.departmentId === consignee) {
-          return true;
-        }
-      });
-      this.consignees.splice(index, 1);
-
+      }else{
+        const index = this.consignees.findIndex((element, index) => {
+          if (element.departmentId === consignee) {
+            return true;
+          }
+        });
+        this.consignees.splice(index, 1);
+      }
 
       this.departments.push({
-          id: consignee,
-          departmentName: name,
-         
-        });
-
+        id: consignee,
+        departmentName: name,
+        
+      });
 
       this.allDepartmentButton = true;
     },
@@ -2573,9 +2680,11 @@ export default {
           if (res.data.mail.is_send == true) {
             this.sendButton = false;
             this.deleteButton = false;
-            this.remove_button_consignees = false;
-            this.add_button_consignees = false;
+            // this.add_button_consignees = false;
           }
+
+            this.remove_button_consignees = false;
+
 
           this.mail_Number = res.data.mail.mail_Number;
           this.department_Id = res.data.mail.department_Id;
@@ -2594,10 +2703,8 @@ export default {
 
           this.imagesToShow = res.data.resourcescs;
 
-          console.log(this.imagesToShow);
 
           if (this.imagesToShow.length > 0) {
-            console.log("FFFFFFFFFFFFFFFFFFf");
             this.testimage = this.imagesToShow[0].path;
           }
 
@@ -2619,10 +2726,7 @@ export default {
             this.sideIdSelected = res.data.side[0].id;
           }
           if (this.to_test_passing_mail_type == "3") {
-            console.log(
-              "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
-            );
-
+         
             this.external_mailId = res.data.external.id;
 
             this.mail_forwarding = res.data.external.action;
@@ -2813,7 +2917,6 @@ export default {
         .GetReplyByDepartment(this.replyByDepartmenId, this.mailId)
         .then((res) => {
           this.replies = res.data;
-          console.log(res);
         })
         .catch((err) => {
           console.log(err);
@@ -2830,11 +2933,7 @@ export default {
     },
 
     nextImageToSend() {
-      console.log("IN nextImageToSend ");
-
       if (this.indextotestToSend < this.imagesToSend.length - 1) {
-        console.log("IN nextImageToSend if");
-
         this.indextotestToSend++;
         this.testimageToSend = this.imagesToSend[
           this.indextotestToSend
@@ -2883,7 +2982,6 @@ export default {
       this.$http.mailService
         .GetAllDocuments(id)
         .then((res) => {
-          console.log(res);
 
           this.show_images_images_model = res.data;
 
@@ -2919,7 +3017,6 @@ export default {
       this.$http.sectorsService
         .GetSides(sector)
         .then((res) => {
-          console.log(res);
           this.sides = res.data;
         })
         .catch((err) => {
@@ -2955,11 +3052,7 @@ export default {
       this.departmentNameSelected = name;
       this.departmentIdSelected = id;
 
-
       this.indexOfDepartment = index;
-      console.log(index)
-      // this.departments
-
     },
 
     
@@ -3090,8 +3183,6 @@ export default {
             this.updataButton = true;
             this.deleteButton = true;
 
-            console.log(res.data)
-
             this.mail_Number = res.data.mail_Number
 
             this.mailId = res.data.mailId;
@@ -3197,7 +3288,6 @@ export default {
         });
 
         // if (this.imagesToSend.length > 0) {
-        //     console.log("FFFFFFFFFFFFFFFFFFf");
         this.testimageToSend = this.imagesToSend[0].baseAs64;
         this.ButtonUploadImagesMail = true;
         // }
@@ -3207,7 +3297,6 @@ export default {
     UploadImagesMail() {
       this.screenFreeze = true;
       this.loading = true;
-      console.log(this.imagesToSend);
       this.$http.mailService
         .UploadImagesMail(this.mailId, this.imagesToSend)
         .then((res) => {
@@ -3260,6 +3349,7 @@ export default {
           },
 
           actionSenders: this.consignees,
+          newactionSenders: this.newactionSenders,
         };
       }
 
@@ -3280,6 +3370,7 @@ export default {
           },
 
           actionSenders: this.consignees,
+          newactionSenders: this.newactionSenders,
 
           external_Mail: {
             id: Number(this.external_mailId),
@@ -3308,6 +3399,7 @@ export default {
           },
 
           actionSenders: this.consignees,
+          newactionSenders: this.newactionSenders,
 
           extrenal_Inbox: {
             Id: Number(this.external_mailId),
