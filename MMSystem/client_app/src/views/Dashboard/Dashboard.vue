@@ -15,7 +15,7 @@
               <div class="py-4 px-4 sm:px-6 md:px-0 grid grid-cols-5 gap-8">
                 <router-link
                   :to="{ name: 'sent' }"
-                  class="bg-white p-4 hover:shadow focus:outline-none group"
+                  class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
                 >
                   <div class="flex justify-between items-start">
                     <div class="">
@@ -27,8 +27,8 @@
                       </p>
                     </div>
 
-                    <div
-                      class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
+                    <!-- <div
+                      class="w-16 h-16 -mt-8 bg-red-500 flex justify-center items-center"
                     >
                       <svg
                         class="text-gray-100 group-hover:text-red-600 h-6 w-6 fill-current stroke-current "
@@ -57,13 +57,13 @@
                           </g>
                         </g>
                       </svg>
-                    </div>
+                    </div> -->
                   </div>
                 </router-link>
 
                 <router-link
                   :to="{ name: 'sent' }"
-                  class="bg-white p-4 hover:shadow focus:outline-none group"
+                  class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-200"
                 >
                   <div class="flex justify-between items-start">
                     <div class="">
@@ -75,7 +75,7 @@
                       </p>
                     </div>
 
-                    <div
+                    <!-- <div
                       class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                     >
                       <svg
@@ -111,13 +111,13 @@
                           stroke-linejoin="round"
                         />
                       </svg>
-                    </div>
+                    </div> -->
                   </div>
                 </router-link>
 
                 <router-link
                   :to="{ name: 'sent' }"
-                  class="bg-white p-4 hover:shadow focus:outline-none group"
+                  class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
                 >
                   <div class="flex justify-between items-start">
                     <div class="">
@@ -128,7 +128,7 @@
                         {{ Reports.not_response_to_me }}
                       </p>
                     </div>
-                    <div
+                    <!-- <div
                       class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                     >
                       <svg
@@ -158,13 +158,13 @@
                           stroke-linejoin="round"
                         />
                       </svg>
-                    </div>
+                    </div> -->
                   </div>
                 </router-link>
 
                 <router-link
                   :to="{ name: 'inbox' }"
-                  class="bg-white p-4 hover:shadow focus:outline-none group"
+                  class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-700"
                 >
                   <div class="flex justify-between items-start">
                     <div class="">
@@ -175,7 +175,7 @@
                         {{ Reports.incoming }}
                       </p>
                     </div>
-                    <div
+                    <!-- <div
                       class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                     >
                       <svg
@@ -192,13 +192,13 @@
                           d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
                         ></path>
                       </svg>
-                    </div>
+                    </div> -->
                   </div>
                 </router-link>
 
                 <router-link
                   :to="{ name: 'sent' }"
-                  class="bg-white p-4 hover:shadow focus:outline-none group"
+                  class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-200"
                 >
                   <div class="flex justify-between items-start">
                     <div class="">
@@ -209,7 +209,7 @@
                         {{ Reports.not_response_from_you }}
                       </p>
                     </div>
-                    <div
+                    <!-- <div
                       class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                     >
                       <svg
@@ -239,7 +239,7 @@
                           stroke-linejoin="round"
                         />
                       </svg>
-                    </div>
+                    </div> -->
                   </div>
                 </router-link>
               </div>
@@ -252,7 +252,7 @@
               <div class="py-4 px-4 sm:px-6 md:px-0 grid grid-cols-5 gap-8">
                 <router-link
                   :to="{ name: 'sent' }"
-                  class="bg-white p-4 hover:shadow focus:outline-none group"
+                  class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
                 >
                   <div class="flex justify-between items-start">
                     <div class="">
@@ -264,7 +264,7 @@
                       </p>
                     </div>
 
-                    <div
+                    <!-- <div
                       class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                     >
                       <svg
@@ -294,13 +294,13 @@
                           </g>
                         </g>
                       </svg>
-                    </div>
+                    </div> -->
                   </div>
                 </router-link>
 
                 <router-link
                   :to="{ name: 'sent' }"
-                  class="bg-white p-4 hover:shadow focus:outline-none group"
+                  class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-200"
                 >
                   <div class="flex justify-between items-start">
                     <div class="">
@@ -312,7 +312,7 @@
                       </p>
                     </div>
 
-                    <div
+                    <!-- <div
                       class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                     >
                       <svg
@@ -348,13 +348,13 @@
                           stroke-linejoin="round"
                         />
                       </svg>
-                    </div>
+                    </div> -->
                   </div>
                 </router-link>
 
                 <router-link
                   :to="{ name: 'sent' }"
-                  class="bg-white p-4 hover:shadow focus:outline-none group"
+                  class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
                 >
                   <div class="flex justify-between items-start">
                     <div class="">
@@ -365,7 +365,7 @@
                         {{ Reports.not_response_to_me_external }}
                       </p>
                     </div>
-                    <div
+                    <!-- <div
                       class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                     >
                       <svg
@@ -395,13 +395,13 @@
                           stroke-linejoin="round"
                         />
                       </svg>
-                    </div>
+                    </div> -->
                   </div>
                 </router-link>
 
                 <router-link
                   :to="{ name: 'inbox' }"
-                  class="bg-white p-4 hover:shadow focus:outline-none group"
+                  class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-700"
                 >
                   <div class="flex justify-between items-start">
                     <div class="">
@@ -412,7 +412,7 @@
                         {{ Reports.incoming_externil }}
                       </p>
                     </div>
-                    <div
+                    <!-- <div
                       class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                     >
                       <svg
@@ -429,13 +429,13 @@
                           d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
                         ></path>
                       </svg>
-                    </div>
+                    </div> -->
                   </div>
                 </router-link>
 
                 <router-link
                   :to="{ name: 'sent' }"
-                  class="bg-white p-4 hover:shadow focus:outline-none group"
+                  class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-200"
                 >
                   <div class="flex justify-between items-start">
                     <div class="">
@@ -446,7 +446,7 @@
                         {{ Reports.not_response_from_you_externil }}
                       </p>
                     </div>
-                    <div
+                    <!-- <div
                       class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                     >
                       <svg
@@ -476,7 +476,7 @@
                           stroke-linejoin="round"
                         />
                       </svg>
-                    </div>
+                    </div> -->
                   </div>
                 </router-link>
               </div>
@@ -489,7 +489,7 @@
               <div class="py-4 px-4 sm:px-6 md:px-0 grid grid-cols-5 gap-8">
                 <router-link
                   :to="{ name: 'sent' }"
-                  class="bg-white p-4 hover:shadow focus:outline-none group"
+                  class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
                 >
                   <div class="flex justify-between items-start">
                     <div class="">
@@ -501,7 +501,7 @@
                       </p>
                     </div>
 
-                    <div
+                    <!-- <div
                       class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                     >
                       <svg
@@ -531,13 +531,13 @@
                           </g>
                         </g>
                       </svg>
-                    </div>
+                    </div> -->
                   </div>
                 </router-link>
 
                 <router-link
                   :to="{ name: 'sent' }"
-                  class="bg-white p-4 hover:shadow focus:outline-none group"
+                  class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-200"
                 >
                   <div class="flex justify-between items-start">
                     <div class="">
@@ -549,7 +549,7 @@
                       </p>
                     </div>
 
-                    <div
+                    <!-- <div
                       class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                     >
                       <svg
@@ -585,13 +585,13 @@
                           stroke-linejoin="round"
                         />
                       </svg>
-                    </div>
+                    </div> -->
                   </div>
                 </router-link>
 
                 <router-link
                   :to="{ name: 'sent' }"
-                  class="bg-white p-4 hover:shadow focus:outline-none group"
+                  class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
                 >
                   <div class="flex justify-between items-start">
                     <div class="">
@@ -602,7 +602,7 @@
                         {{ Reports.not_response_to_me_externlInbox }}
                       </p>
                     </div>
-                    <div
+                    <!-- <div
                       class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                     >
                       <svg
@@ -632,13 +632,13 @@
                           stroke-linejoin="round"
                         />
                       </svg>
-                    </div>
+                    </div> -->
                   </div>
                 </router-link>
 
                 <router-link
                   :to="{ name: 'inbox' }"
-                  class="bg-white p-4 hover:shadow focus:outline-none group"
+                  class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-700"
                 >
                   <div class="flex justify-between items-start">
                     <div class="">
@@ -649,7 +649,7 @@
                         {{ Reports.incoming_externilInbox }}
                       </p>
                     </div>
-                    <div
+                    <!-- <div
                       class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                     >
                       <svg
@@ -666,13 +666,13 @@
                           d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
                         ></path>
                       </svg>
-                    </div>
+                    </div> -->
                   </div>
                 </router-link>
 
                 <router-link
                   :to="{ name: 'sent' }"
-                  class="bg-white p-4 hover:shadow focus:outline-none group"
+                  class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-200"
                 >
                   <div class="flex justify-between items-start">
                     <div class="">
@@ -683,7 +683,7 @@
                         {{ Reports.not_response_from_you_extrinlInbox }}
                       </p>
                     </div>
-                    <div
+                    <!-- <div
                       class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                     >
                       <svg
@@ -713,7 +713,7 @@
                           stroke-linejoin="round"
                         />
                       </svg>
-                    </div>
+                    </div> -->
                   </div>
                 </router-link>
               </div>
