@@ -2544,6 +2544,33 @@ export default {
       screenFreeze: false,
     };
   },
+
+  watch: {
+    mailType: function() {
+      this.mail_Number = ''
+      this.summary = ''
+      this.classification = ''
+      this.general_incoming_number = ''
+      this.genaral_inbox_year = ''
+      this.required_action = ''
+      this.mailId = ''
+      this.mail_forwarding = ''
+
+      this.sideNameSelected = '';
+      this.sideIdSelected = '';
+
+      this.action_required_by_the_entity = '';
+      this.mail_ward_type = '';
+      this.ward_to = '';
+      this.entity_mail_date = '';
+      this.entity_reference_number = '';
+      this.procedure_type = '';
+      
+      this.consignees= []
+      this.replies= []
+      this.imagesToShow= []
+    },
+  },
   methods: {
 
     selectAllDepartment(x, name){
