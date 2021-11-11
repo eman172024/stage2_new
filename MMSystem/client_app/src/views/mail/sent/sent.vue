@@ -420,7 +420,7 @@
                       class="group relative border-r-8 border-red-500 flex items-center bg-white hover:bg-gray-100  pl-2"
                     >
                       <button
-                        @click="show_senders(mail.mail_id, mail.type_of_mail)"
+                        @click="show_senders(mail.mail_id, mail.type_of_mail, mail.mail_Number)"
                         class="w-10/12 flex items-center"
                       >
                         <div class="w-2/6 pr-4 py-1 text-right">
@@ -1065,7 +1065,7 @@ export default {
         });
     },
 
-    show_senders(id, mail_type) {
+    show_senders(id, mail_type, number) {
       this.screenFreeze = true;
       this.loading = true;
       this.mailId_to_get_mail_by_id = id;
@@ -1077,7 +1077,7 @@ export default {
       this.$http.mailService
         .show_senders(id)
         .then((res) => {
-          this.show_senders_mail = id;
+          this.show_senders_mail = number;
           console.log(res);
 
           this.senders = res.data
