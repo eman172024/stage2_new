@@ -1827,8 +1827,11 @@ namespace MMSystem.Services.MailServeic
                                    flag = mailState.flag,
                                    MesureName = measures.MeasuresName,
                                    State = mailState.sent,
-                                   send_ToId=send.Id
-                               
+                                   send_ToId=send.Id,
+
+                                   date = send.Send_time.ToString("yyyy-MM-dd"),
+                                   date_read = send.time_of_read.ToString("yyyy-MM-dd")
+
 
                                }).ToListAsync();
               

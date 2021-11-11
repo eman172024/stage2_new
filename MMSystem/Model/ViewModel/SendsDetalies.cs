@@ -15,7 +15,12 @@ namespace MMSystem.Model.ViewModel
         public string State { get; set; }
         public int flag { get; set; }
         public int send_ToId { get; set; }
+        public string date { get; set; }
+        public string date_read { get; set; }
 
-       // public List<ReplayDto> Replies { get; set; } = new List<ReplayDto>();
+
+        
+
+        // public List<ReplayDto> Replies { get; set; } = new List<ReplayDto>();
     }
 }

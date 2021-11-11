@@ -1642,7 +1642,7 @@
                 <div class="sm:col-span-6 flex items-center justify-end mt-10">
                   <div class="flex justify-end ml-6">
                     <a
-                      v-if="summary"
+                      v-if="summary && classification"
                       :href="$router.resolve({ name: 'sent-add' }).href"
                       class="
                         flex
@@ -1839,7 +1839,7 @@
 
                   <div v-if="saveButton" class="flex justify-end">
                     <button
-                     v-if="summary"
+                     v-if="summary && classification"
                       class="
                         flex
                         justify-center
