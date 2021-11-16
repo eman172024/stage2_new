@@ -534,7 +534,7 @@
                   </div>
 
                   <div
-                    class="flex justify-end mt-8  mx-auto px-4 sm:px-6 lg:px-8 bg-white"
+                    class="flex justify-end mt-8  mx-auto px-4 sm:px-6 lg:px-8 bg-white relative"
                   >
                     <pagination
                       dir="rtl"
@@ -543,6 +543,14 @@
                       :records="total_of_transaction"
                       @paginate="GetSentMail"
                     />
+
+                    <div v-if="total_of_transaction > 0" class="absolute z-10 top-0 left-0 w-32 text-left p-1 flex items-center justify-end">
+                      <span class="text-xs ml-1">
+                        المجموع  
+                      </span> 
+                      {{ total_of_transaction }}
+                    </div>
+                    
                   </div>
                 </div>
 
@@ -1317,6 +1325,12 @@ export default {
 </script>
 
 <style>
+
+.VuePagination__count {
+  display: none;
+}
+
+
 .VuePagination {
   width: 100%;
 }
