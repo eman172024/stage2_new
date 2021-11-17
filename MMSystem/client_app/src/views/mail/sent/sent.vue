@@ -385,29 +385,25 @@
 
             <div class="w-full mt-2 rounded-md divide-y-2 divide-gray-200">
               <div class="flex justify-between">
-                <div class="w-7/12 ml-2">
+                <div class="w-5/12 ml-2">
                   البريد
                   <div
                     class="flex items-center bg-gray-100 w-full text-sm pl-2 mt-2"
                   >
-                    <div class="w-10/12 flex items-center">
+                    <div class="w-9/12 flex items-center">
                       <div class="w-2/6 pr-4 py-1">
                         رقم الرسالة
                       </div>
-                      <div class="w-1/6 pr-2">
+                      <div class="w-2/6 pr-2">
                         النوع
                       </div>
 
                       <div class="w-2/6">
-                        تاريخ الارسال
-                      </div>
-
-                      <div class="w-1/6">
-                        وقت الارسال
+                        تاريخ البريد
                       </div>
                     </div>
 
-                    <div class="w-2/12 text-center">
+                    <div class="w-3/12 text-center">
                       الإجراءات
                     </div>
                   </div>
@@ -420,27 +416,23 @@
                       class="group relative border-r-8 border-red-500 flex items-center bg-white hover:bg-gray-100  pl-2"
                     >
                       <button
-                        @click="show_senders(mail.mail_id, mail.type_of_mail)"
-                        class="w-10/12 flex items-center"
+                        @click="show_senders(mail.mail_id, mail.type_of_mail, mail.mail_Number)"
+                        class="w-9/12 flex items-center"
                       >
                         <div class="w-2/6 pr-4 py-1 text-right">
                           {{ mail.mail_Number }}
                         </div>
-                        <div class="w-1/6 text-right">
+                        <div class="w-2/6 text-right">
                           {{ mail.type_of_mail | mail_type }}
                         </div>
 
                         <div class="w-2/6 text-right">
-                          {{ mail.send_time }}
-                        </div>
-
-                        <div class="w-1/6 text-right">
-                          {{ mail.time }}
+                          {{ mail.date }}
                         </div>
                       </button>
 
                       <div
-                        class="w-2/12 flex justify-between items-center px-4"
+                        class="w-3/12 flex justify-between items-center px-4"
                       >
                         <div class="w-1/3 flex justify-center items-center">
                           <router-link
@@ -542,7 +534,7 @@
                   </div>
 
                   <div
-                    class="flex justify-end mt-8  mx-auto px-4 sm:px-6 lg:px-8 bg-white"
+                    class="flex justify-end mt-8  mx-auto px-4 sm:px-6 lg:px-8 bg-white relative"
                   >
                     <pagination
                       dir="rtl"
@@ -551,10 +543,18 @@
                       :records="total_of_transaction"
                       @paginate="GetSentMail"
                     />
+
+                    <div v-if="total_of_transaction > 0" class="absolute z-10 top-0 left-0 w-32 text-left p-1 flex items-center justify-end">
+                      <span class="text-xs ml-1">
+                        المجموع  
+                      </span> 
+                      {{ total_of_transaction }}
+                    </div>
+                    
                   </div>
                 </div>
 
-                <div class="w-5/12 mr-2">
+                <div class="w-7/12 mr-2">
                   الجهات المرسل إليها
                   <span v-if="show_senders_mail">
                     - رقم البريد
@@ -563,13 +563,19 @@
                   <div
                     class="flex items-center bg-gray-100 w-full text-sm pl-2 mt-2"
                   >
-                    <div class="w-4/6 py-1 pr-4">
-                      رقم الرسالة
+                    <div class="w-6/12 py-1 pr-4">
+                      اسم الإدارة
                     </div>
-                    <div class="w-1/6">
+                    <div class="w-2/12">
+                      تاريخ الإرسال
+                    </div>
+                    <div class="w-2/12">
+                      تاريخ الرد
+                    </div>
+                    <div class="w-1/12">
                       الإجراء
                     </div>
-                    <div class="w-1/6">
+                    <div class="w-1/12">
                       الحالة
                     </div>
                   </div>
@@ -589,15 +595,23 @@
                         "
                         class="flex items-center w-full text-right"
                       >
-                        <div class="w-4/6 pr-4 py-1">
+                        <div class="w-6/12 pr-4 py-1">
                           {{ sender.department_name }}
                         </div>
 
-                        <div class="w-1/6">
+                        <div class="w-2/12">
+                          {{ sender.date }}
+                        </div>
+
+                        <div class="w-2/12">
+                          {{ sender.date_read }}
+                        </div>
+
+                        <div class="w-1/12">
                           {{ sender.mesureName }}
                         </div>
 
-                        <div class="w-1/6">
+                        <div class="w-1/12">
                           {{ sender.state }}
                         </div>
                       </button>
@@ -889,31 +903,58 @@ export default {
 
   watch: {
     mailType: function() {
+      this.senders = []
+      this.show_senders_mail = ''
+      this.page_num = 1
       this.GetSentMail();
     },
     date_from: function() {
+      this.senders = []
+      this.show_senders_mail = ''
+      this.page_num = 1
       this.GetSentMail();
     },
     date_to: function() {
+      this.senders = []
+      this.show_senders_mail = ''
+      this.page_num = 1
       this.GetSentMail();
     },
     mail_id: function() {
+      this.senders = []
+      this.show_senders_mail = ''
+      this.page_num = 1
       this.GetSentMail();
     },
     summary: function() {
+      this.senders = []
+      this.show_senders_mail = ''
+      this.page_num = 1
       this.GetSentMail();
     },
     departmentIdSelected: function() {
+      this.senders = []
+      this.show_senders_mail = ''
+      this.page_num = 1
       this.GetSentMail();
     },
     measureIdSelected: function() {
+      this.senders = []
+      this.show_senders_mail = ''
+      this.page_num = 1
       this.GetSentMail();
     },
     classificationIdSelected: function() {
+      this.senders = []
+      this.show_senders_mail = ''
+      this.page_num = 1
       this.GetSentMail();
     },
 
     mail_caseIdSelected: function() {
+      this.senders = []
+      this.show_senders_mail = ''
+      this.page_num = 1
       this.GetSentMail();
     },
   },
@@ -1065,7 +1106,7 @@ export default {
         });
     },
 
-    show_senders(id, mail_type) {
+    show_senders(id, mail_type, number) {
       this.screenFreeze = true;
       this.loading = true;
       this.mailId_to_get_mail_by_id = id;
@@ -1077,7 +1118,7 @@ export default {
       this.$http.mailService
         .show_senders(id)
         .then((res) => {
-          this.show_senders_mail = id;
+          this.show_senders_mail = number;
           console.log(res);
 
           this.senders = res.data
@@ -1143,6 +1184,10 @@ export default {
     },
 
     GetSentMail() {
+      
+      this.senders = []
+      this.show_senders_mail = ''
+
       this.screenFreeze = true;
       this.loading = true;
       this.inboxMails = [];
@@ -1280,6 +1325,12 @@ export default {
 </script>
 
 <style>
+
+.VuePagination__count {
+  display: none;
+}
+
+
 .VuePagination {
   width: 100%;
 }

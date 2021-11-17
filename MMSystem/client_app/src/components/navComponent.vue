@@ -41,9 +41,15 @@
     </button>
     <div class="flex-1 flex justify-between items-center px-4 md:px-0">
 
-      <a :href="$router.resolve({ name: 'sent-add' }).href"  class="border border-black duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-bold hover:bg-green-600 hover:text-white focus:outline-none">
+      <!-- <a :href="$router.resolve({ name: 'sent-add' }).href"  class="border border-black duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-bold hover:bg-green-600 hover:text-white focus:outline-none">
         إضافة بريد جديد +
-      </a>
+      </a> -->
+
+
+      <router-link :to="{ name: 'sent-add' }" class="border border-black duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-bold hover:bg-green-600 hover:text-white focus:outline-none">
+        إضافة بريد جديد +
+      </router-link>
+
       <!-- search -->
 
       <!-- <div class="w-full flex items-center ">
