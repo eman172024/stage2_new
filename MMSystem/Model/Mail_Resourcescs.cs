@@ -16,6 +16,7 @@ namespace MMSystem.Model
         public string path { get; set; }
 
         public int order { get; set; }
+        public bool State { get; set; }
 
 
     }

@@ -27,7 +27,7 @@ namespace MMSystem.Services.MailServeic
 
                 if (mail != null) {
 
-
+                    t.State = true;
                     await _dbCon.Mail_Resourcescs.AddAsync(t);
                     await _dbCon.SaveChangesAsync();
                     return true;
@@ -41,9 +41,30 @@ namespace MMSystem.Services.MailServeic
             }
         }
 
-        public Task<bool> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                Mail_Resourcescs mailResourse = await _dbCon.Mail_Resourcescs.FindAsync(id);
+                if (mailResourse != null)
+                {
+                    mailResourse.State = false;
+                    _dbCon.Mail_Resourcescs.Update(mailResourse);
+                    await _dbCon.SaveChangesAsync();
+                    return true;
+
+                }
+                return false;
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        
         }
 
         public async Task<Mail_ResourcescsDto> Get(int id)
@@ -68,7 +89,7 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                List<Mail_Resourcescs> _Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == id).ToListAsync();
+                List<Mail_Resourcescs> _Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == id&&x.State==true).ToListAsync();
                 List<Mail_ResourcescsDto> mail_ResourcescsDtos = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(_Resourcescs);
 
 

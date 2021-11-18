@@ -17,5 +17,6 @@ namespace MMSystem.Services.MailServeic
         Task<List<Mail_ResourcescsDto>> GetAllRes(int id);
 
 
+
     }
 }

@@ -14,6 +14,7 @@ namespace MMSystem.Model
         public Reply Reply { get; set; }
         public string path { get; set; }
         public int order { get; set; }
+        public bool State { get; set; }
 
 
 
