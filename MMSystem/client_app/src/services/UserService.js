@@ -24,4 +24,11 @@ export default {
         return axios.put(`/api/Users/EditUser`, userInfo)
     },
 
+    GetUsersByName() {
+        // UserName
+        console.log("ddddddddddddd")
+        // return axios.get(`/api/Administrator/GetByUserName?username=${UserName}`);
+    },
+
+
 }

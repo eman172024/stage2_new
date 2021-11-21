@@ -91,7 +91,7 @@ namespace MMSystem.Controllers
         {
             bool results = await _data.Delete(id);
             if (results)
-                return Accepted(new Result() { message = "تمت عملية الحذف", statusCode = 202 });
+                return Accepted(new Result() { message = "تم إيقاف المستخدم", statusCode = 202 });
 
             return NotFound(new Result() { message = "هذا المستخدم غير موجود", statusCode = 404 });
 
@@ -146,7 +146,7 @@ namespace MMSystem.Controllers
             }
             else
             {
-                return NotFound(new Result() { message = "لايوجد مستخدم بهذا الاسم  ", statusCode = 400 });
+                return NotFound(new Result() { message = "لايوجد مستخدم بهذا الاسم", statusCode = 400 });
 
             }
         }

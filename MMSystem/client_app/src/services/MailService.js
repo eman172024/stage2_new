@@ -2,6 +2,17 @@ import axios from 'axios';
 
 export default {
 
+    Add_user(user){
+
+        return axios.post(`/api/Administrator/Add`,user);
+
+    },
+
+    GetAllRoles() {
+
+        return axios.get(`/api/Role/GetAll`);
+    },
+
     AllClassifications() {
         return axios.get(`/api/Service/GetAllClassification`);
     },

@@ -1,6 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/Auth/Login.vue";
+import Show from "../views/users/ShowUsers.vue";
+import Add from "../views/users/UsersForm.vue";
+
 
 Vue.use(VueRouter);
 
@@ -166,6 +169,20 @@ const routes = [{
                 "../views/test_pages/test.vue"
             ),
     },
+
+    {
+        path: "/UsersForm",
+        name: "Add",
+        component: Add,
+    
+      },
+     
+      {
+        path: "/Show",
+        name: "Show",
+       component: Show
+      },
+    
 
 ];
 
