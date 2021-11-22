@@ -13,7 +13,10 @@ namespace MMSystem.Model.Dto
         public string SecandMACAddress { get; set; }
         public string nationalNumber { get; set; }
         public int DepartmentId { get; set; }
+        public string userNetwork { get; set; }
+        public string password { get; set; }
+        public bool state { get; set; }
 
-       // public List<UserRoles> UserRoles { get; set; }
+        // public List<UserRoles> UserRoles { get; set; }
     }
 }

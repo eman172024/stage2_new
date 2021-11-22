@@ -7,6 +7,7 @@ import DashboardService from './DashboardService.js';
 import processingResponsesService from './processingResponsesService.js';
 import UserService from './UserService.js';
 import SectorsService from './SectorsService';
+import UsersService from './UsersService';
 
 
 export default {
@@ -18,6 +19,7 @@ export default {
     DashboardService: DashboardService,
     processingResponsesService: processingResponsesService,
     userService: UserService,
-    sectorsService: SectorsService
+    sectorsService: SectorsService,
+    usersService: UsersService,
 
 }

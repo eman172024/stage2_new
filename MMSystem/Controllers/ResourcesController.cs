@@ -42,6 +42,15 @@ namespace MMSystem.Controllers
                 return Ok(list);
             return NotFound("لايوجد صور ");
         }
+        
+            [HttpDelete("DeletePhoto")]
+        public async Task<IActionResult> DeletePhoto(int id)
+        {
 
+         bool resulte = await _resourcescs.Delete(id);
+            if (resulte)
+                return Ok("تمت عملية الحدف بنجاح");
+            return NotFound("فشلت العملية ");
+        }
     }
 }
