@@ -2295,12 +2295,16 @@ export default {
     if (this.$route.params.mail) {
       if (this.$route.params.type == "1") {
         this.to_test_passing_mail_type = 1;
+        this.mailType = 1;
       }
       if (this.$route.params.type == "2") {
         this.to_test_passing_mail_type = 2;
+        this.mailType = 2;
       }
       if (this.$route.params.type == "3") {
         this.to_test_passing_mail_type = 3;
+        this.mailType = 3;
+
       }
 
       this.mailId = this.$route.params.mail;
@@ -2609,11 +2613,18 @@ export default {
       this.$http.mailService
         .GetSentMailById(this.mailId, this.to_test_passing_mail_type)
         .then((res) => {
+                // this.mailType = res.data.mail.mail_Type;
           if (res.data.mail.is_send == true) {
             this.sendButton = false;
             this.deleteButton = false;
             // this.add_button_consignees = false;
           }
+
+          this.summary = res.data.mail.mail_Summary;
+
+
+
+          console.log(res.data)
 
             this.remove_button_consignees = false;
 
@@ -2623,9 +2634,8 @@ export default {
           this.mail_year = res.data.mail.mail_year;
 
           this.releaseDate = res.data.mail.date_Of_Mail;
-          this.summary = res.data.mail.mail_Summary;
           this.classification = res.data.mail.clasification;
-          this.mailType = res.data.mail.mail_Type;
+    
           this.general_incoming_number = res.data.mail.genaral_inbox_Number;
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
@@ -2684,10 +2694,10 @@ export default {
             this.procedure_type = res.data.external.procedure_type;
           }
 
-          //   this.GetDocmentForMail();
-          //   this.GetDocmentForMailToShow();
+            this.GetDocmentForMail();
+            this.GetDocmentForMailToShow();
 
-          //   this.GetProcessingResponses()
+            this.GetProcessingResponses()
         })
         .catch((err) => {
           console.log(err);
