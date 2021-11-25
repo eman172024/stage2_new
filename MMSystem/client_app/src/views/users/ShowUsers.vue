@@ -1,5 +1,9 @@
 <template>
-  <div class="bg-gray-200 h-screen overflow-hidden" dir="rtl">
+
+<div class="h-screen bg-gray-100 overflow-hidden flex">
+  <asideComponent></asideComponent>
+
+  <div class="bg-gray-200 h-screen w-full overflow-hidden" dir="rtl">
     <div
       class="min-h-full mx-auto max-w-4xl p-2 flex flex-col mt-4 items-center"
     >
@@ -200,10 +204,17 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
+
+import asideComponent from "@/components/asideComponent.vue";
+
 export default {
+
+  
+
   watch: {
 
     
@@ -233,7 +244,9 @@ export default {
   },
 
   name: "Show",
-
+ components: {
+    asideComponent,
+  },
   data() {
     return {
       users: [],
