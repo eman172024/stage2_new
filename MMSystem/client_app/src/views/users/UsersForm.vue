@@ -1,5 +1,9 @@
 <template>
-  <div class="bg-gray-200 h-screen overflow-hidden" dir="rtl">
+
+<div class="h-screen bg-gray-100 overflow-hidden flex">
+  <asideComponent></asideComponent>
+
+  <div class="bg-gray-200 h-screen w-full overflow-hidden" dir="rtl">
     <div
       class="
         min-h-full
@@ -450,9 +454,12 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
+import asideComponent from "@/components/asideComponent.vue";
+
 export default {
   name: "Add",
 
@@ -467,7 +474,9 @@ export default {
     }
   },
 
-  
+   components: {
+    asideComponent,
+  },
 
   data() {
     return {
