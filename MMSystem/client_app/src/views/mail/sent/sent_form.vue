@@ -18,7 +18,7 @@
               <fieldset class="">
                 <div class="flex items-center">
                   <legend class="text-sm font-semibold text-gray-800 ml-6">
-                    نوع البريد
+                    نوع البريد {{mailId}}
                   </legend>
 <!-- 
                   <div v-if="mail_Number" class="underline">
@@ -2293,6 +2293,10 @@ export default {
     this.my_department_id = localStorage.getItem("departmentId");
 
     if (this.$route.params.mail) {
+
+      this.screenFreeze = true;
+      this.loading = true;
+
       if (this.$route.params.type == "1") {
         this.to_test_passing_mail_type = 1;
         this.mailType = 1;
@@ -2304,17 +2308,24 @@ export default {
       if (this.$route.params.type == "3") {
         this.to_test_passing_mail_type = 3;
         this.mailType = 3;
-
       }
 
-      this.mailId = this.$route.params.mail;
+      setTimeout(() => {
+          this.mailId = this.$route.params.mail;
+          this.GetSentMailById();
 
-      this.sendButton = true;
-      this.updataButton = true;
-      this.deleteButton = true;
-      this.saveButton = false;
+          this.sendButton = true;
+          this.updataButton = true;
+          this.deleteButton = true;
+          this.saveButton = false;
 
-      this.GetSentMailById();
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 100);
+
+        }, 500);
+
     } else {
       this.GetAllDepartments();
     }
@@ -2853,7 +2864,7 @@ export default {
       this.sends_id = send_ToId;
       this.departmentName = name;
 
-      this.mailId;
+
 
       this.$http.mailService
         .GetReplyByDepartment(this.replyByDepartmenId, this.mailId)
@@ -3142,6 +3153,13 @@ export default {
     },
 
     sendMail() {
+
+      console.log(this.mailId)
+      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+      console.log(this.mailId)
+      console.log(this.mail_Number)
+
+      
       this.screenFreeze = true;
       this.loading = true;
 
@@ -3272,6 +3290,7 @@ export default {
     },
 
     updateMail() {
+      
       this.screenFreeze = true;
       this.loading = true;
 
