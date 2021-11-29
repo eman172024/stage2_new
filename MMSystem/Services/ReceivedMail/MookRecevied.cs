@@ -653,21 +653,21 @@ namespace MMSystem.Services.ReceivedMail
                 bool meas_filter = false;
                 bool mail_accept = false;
                 bool incoing_num_filter = false;
-
                 bool daysended = false;
                 bool State_filter = false;
                 // myday = day.Date;
 
 
+
                 if (genral_incoming_num == null)
                 {
                     incoing_num_filter = true;
+                }
+                else { incoing_num_filter = false; }
 
-                }
-                else
-                {
-                    incoing_num_filter = false;
-                }
+
+
+
 
 
 
@@ -677,7 +677,7 @@ namespace MMSystem.Services.ReceivedMail
                 }
                 else { State_filter = false; }
 
-                incoing_num_filter = false;
+
 
                 if (Classfication == null)
                 {
@@ -798,12 +798,11 @@ namespace MMSystem.Services.ReceivedMail
 
 
                 var c = await (from mail in dbcon.Mails.Where(x => (x.Department_Id == mangment &&
-                                           x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
-                                           && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
-                                           (x.clasification == Classfication || clasf_filter == true)
-                                           && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state== true).OrderByDescending(x => x.MailID)
+             x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
+             && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
+             (x.clasification == Classfication || clasf_filter == true)
+             && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
 
-                               join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                (x.flag == mail_state || State_filter == true) && x.isMulti == true)
@@ -831,7 +830,6 @@ namespace MMSystem.Services.ReceivedMail
                                    summary = mail.Mail_Summary,
                                    flag = ex.flag,
                                    Sends_id = ex.Id,
-                                   sectionName = Extr.section_Name
 
 
                                }).OrderByDescending(v => v.mail_id).ToListAsync();
@@ -839,9 +837,8 @@ namespace MMSystem.Services.ReceivedMail
               x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
               (x.clasification == Classfication || clasf_filter == true)
-              && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state==true).OrderByDescending(x => x.MailID)
+              && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
 
-                                  join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                   join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
                                   ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                   (x.flag == mail_state || State_filter == true) && x.isMulti == true)
@@ -869,7 +866,6 @@ namespace MMSystem.Services.ReceivedMail
                                       flag = ex.flag,
                                       summary = mail.Mail_Summary,
                                       Sends_id = ex.Id,
-                                      sectionName = Extr.section_Name
 
 
 
@@ -884,6 +880,21 @@ namespace MMSystem.Services.ReceivedMail
             }
 
 
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        public async Task<int> GetState(int mail_id)
+        {
+            try
+            {
+                var c = await dbcon.Sends.LastOrDefaultAsync(x => x.MailID == mail_id);
+                return c.flag;
+            }
             catch (Exception)
             {
 
@@ -2560,20 +2571,20 @@ namespace MMSystem.Services.ReceivedMail
 
         }
 
-        public async Task<int> GetState(int mail_id)
-        {
-            try
-            {
-                var c = await dbcon.Sends.LastOrDefaultAsync(x => x.MailID == mail_id);
-                return c.flag;
-            }
-            catch (Exception)
-            {
+        //public async Task<int> GetState(int mail_id)
+        //{
+        //    try
+        //    {
+        //        var c = await dbcon.Sends.LastOrDefaultAsync(x => x.MailID == mail_id);
+        //        return c.flag;
+        //    }
+        //    catch (Exception)
+        //    {
 
-                throw;
-            }
+        //        throw;
+        //    }
 
-        }
+        //}
 
         public async Task<int> GetFlag(int mail_id, int department_Id)
         {
