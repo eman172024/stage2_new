@@ -109,7 +109,7 @@ namespace MMSystem.Services.MailServeic
 
         public async Task<bool> Update(Extrenal_inbox model)
         {
-            Extrenal_inbox _Inbox = await _dbCon.Extrenal_Inboxes.FindAsync(model.Id);
+            Extrenal_inbox _Inbox = await _dbCon.Extrenal_Inboxes.FirstOrDefaultAsync(x=>x.MailID==model.MailID);
 
             if (_Inbox != null) {
                 _Inbox.action = model.action;
