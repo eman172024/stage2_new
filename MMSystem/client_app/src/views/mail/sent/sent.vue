@@ -590,9 +590,7 @@
                     </div>
                   </div>
 
-                  <div
-                    class="min-h-64 h-full overflow-y-auto max-h-64 text-sm bg-gray-100  "
-                  >
+                  <div class="min-h-64 h-full overflow-y-auto max-h-64 text-sm bg-gray-100">
                     <div
                       v-for="sender in senders"
                       :key="sender.department_id"
@@ -634,7 +632,7 @@
                 </div>
               </div>
 
-              <section class="bg-gray-100 rounded-md p-6 mt-6">
+              <section v-if="replies.length > 0" class="bg-gray-100 rounded-md p-6 mt-6">
                 <p class="block text-sm font-semibold text-gray-800">
                   ردود - {{ departmentName }}
                 </p>
@@ -915,6 +913,11 @@ export default {
     this.GetAllClassifications();
     this.GetAllDepartments();
     this.GetAllMeasures();
+
+
+
+    console.log('this.replies')
+    console.log(this.replies.length)
   },
 
   watch: {
@@ -972,6 +975,13 @@ export default {
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetSentMail();
+    },
+
+    show_senders_mail: function() {
+      // this.senders = [];
+      // this.show_senders_mail = "";
+      // this.page_num = 1;
+      // this.GetSentMail();
     },
   },
 
