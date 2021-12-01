@@ -199,6 +199,7 @@
                       </label>
                       <input
                         v-model="releaseDate"
+                        min="2000-01-01" max="2040-12-30"
                         type="date"
                         id="date"
                         class="
@@ -1467,6 +1468,7 @@
                     <input
                       v-model="entity_mail_date"
                       type="date"
+                      min="2000-01-01" max="2040-12-30"
                       id="entity_mail_date"
                       class="
                         block
