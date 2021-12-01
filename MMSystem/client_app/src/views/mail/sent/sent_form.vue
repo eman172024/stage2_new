@@ -2489,6 +2489,11 @@ export default {
       this.consignees= []
       this.replies= []
       this.imagesToShow= []
+
+      this.saveButton = false;
+      this.updataButton = false;
+      this.deleteButton = false;
+      this.sendButton = false;
     },
   },
   methods: {
