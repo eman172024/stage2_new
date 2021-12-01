@@ -5,6 +5,11 @@
       <div class="flex-1 bg-gray-200 w-0 overflow-y-auto">
         <div class="max-w-screen-2xl mx-auto flex flex-col md:px-8">
           <navComponent></navComponent>
+          <div class="-mt-14 py-0.5 z-20">
+            <button @click="clear_page()" class=" border border-black duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-bold hover:bg-green-600 hover:text-white focus:outline-none">
+              إضافة بريد جديد +
+            </button>
+          </div>
           <main class="flex-1 relative focus:outline-none py-6">
             <div class="flex justify-between items-center">
               <h3 class="text-xl font-semibold text-gray-900">
@@ -1546,9 +1551,10 @@
               <section>
                 <div class="sm:col-span-6 flex items-center justify-end mt-10">
                   <div class="flex justify-end ml-6">
+                    <!--  :href="$router.resolve({ name: 'sent-add' }).href" -->
                     <a
                       v-if="summary && classification"
-                      :href="$router.resolve({ name: 'sent-add' }).href"
+                      @click="clear_page()"
                       class="
                         flex
                         justify-center
@@ -1594,6 +1600,7 @@
 
                   <div v-if="updataButton" class="flex justify-end ml-6">
                     <button
+                    v-if="summary && classification"
                       @click="updateMail"
                       type="button"
                       id="edit"
@@ -1669,6 +1676,7 @@
 
                   <div v-if="deleteButton" class="flex justify-end ml-6">
                     <button
+                    v-if="summary && classification"
                       @click="deleteMail"
                       type="button"
                       id="edit"
@@ -1806,6 +1814,7 @@
 
                   <div v-if="sendButton" class="flex justify-end">
                     <button
+                      v-if="summary && classification"
                       class="
                         flex
                         justify-center
@@ -2490,14 +2499,27 @@ export default {
       this.replies= []
       this.imagesToShow= []
 
-      this.saveButton = false;
+
+
+       this.saveButton = true;
+      this.sendButton = false;
       this.updataButton = false;
       this.deleteButton = false;
-      this.sendButton = false;
+      this.ButtonUploadImagesMail = false;
+
+
     },
   },
   methods: {
 
+    clear_page(){
+      this.mailType = 1
+      this.saveButton = true;
+      this.sendButton = false;
+      this.updataButton = false;
+      this.deleteButton = false;
+      this.ButtonUploadImagesMail = false;
+    },
     selectAllDepartment(x, name){
       this.departmentNameSelected = name;
 
