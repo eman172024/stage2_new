@@ -3186,15 +3186,13 @@ export default {
       this.loading = true;
 
       this.$http.mailService
-        .DeleteMail(this.mailId)
+        .DeleteMail(this.my_department_id, this.my_user_id, this.mailId)
         .then((res) => {
           setTimeout(() => {
             this.loading = false;
             this.screenFreeze = false;
 
-            setTimeout(() => {
-              this.$router.replace("/dashboard");
-            }, 500);
+              this.$router.replace("/sent");
           }, 500);
         })
         .catch((err) => {
