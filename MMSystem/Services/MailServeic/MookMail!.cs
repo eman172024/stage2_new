@@ -619,6 +619,8 @@ namespace MMSystem.Services.MailServeic
                         }
 
 
+                        result = true;
+
 
                         break;
                     case 2:
@@ -637,7 +639,7 @@ namespace MMSystem.Services.MailServeic
                                 flag = 1;
 
                             }
-
+                            mail.external_Mail.MailID = mail.mail.MailID;
 
                             Exmail = await _external.Update(mail.external_Mail);
                             if (Exmail)
@@ -655,7 +657,8 @@ namespace MMSystem.Services.MailServeic
                                         sender.type_of_send = mail.newactionSenders[i].measureId;
                                         bool send = await _sender.Add(sender);
                                     }
-
+                                    result = true;
+                                    break;
 
                                 }
                                 else { }
@@ -712,10 +715,13 @@ namespace MMSystem.Services.MailServeic
                                 else { }
 
                                 result = true;
+                                break;
                             }
-                            result = false;
+                           
 
                         }
+
+                        result = false;
                         break;
 
                     default:
