@@ -5,6 +5,15 @@
       <div class="flex-1 bg-gray-200 w-0 overflow-y-auto">
         <div class="max-w-screen-2xl mx-auto flex flex-col md:px-8">
           <navComponent></navComponent>
+
+          <div class="-mt-14 py-0.5 z-20">
+            <button
+              @click="clear_page()"
+              class=" border border-black duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-bold hover:bg-green-600 hover:text-white focus:outline-none"
+            >
+              إضافة بريد جديد +
+            </button>
+          </div>
           <main class="flex-1 relative focus:outline-none py-6">
             <div class="flex justify-between items-center">
               <h3 class="text-xl font-semibold text-gray-900">
@@ -18,14 +27,10 @@
               <fieldset class="">
                 <div class="flex items-center">
                   <legend class="text-sm font-semibold text-gray-800 ml-6">
-                    نوع البريد {{mailId}}
+                    نوع البريد
                   </legend>
-<!-- 
-                  <div v-if="mail_Number" class="underline">
-                    {{mailType | mail_type}}
-                  </div> -->
 
-                  <div  class="flex justify-between items-center">
+                  <div class="flex justify-between items-center">
                     <div class="flex items-center">
                       <input
                         v-model="mailType"
@@ -96,15 +101,12 @@
                   >
                     {{ my_department_id }}
                   </div>
-                  <!-- <input type="number" @keypress.enter="mail_search()" class="w-16 px-1 rounded-md focus:outline-none mx-4" v-model="my_department_id"> -->
                   <input
                     type="number"
                     @keypress.enter="mail_search()"
                     class="w-20 px-1 rounded-md focus:outline-none"
                     v-model="mail_year"
                   />
-
-                  <!-- {{ mailId }} - {{ my_department_id }} - {{ mail_year }} -->
                 </span>
               </div>
             </div>
@@ -197,6 +199,7 @@
                       </label>
                       <input
                         v-model="releaseDate"
+                        min="2000-01-01" max="2040-12-30"
                         type="date"
                         id="date"
                         class="
@@ -372,7 +375,7 @@
                             "
                           >
                             <button
-                            v-if="allDepartmentButton"
+                              v-if="allDepartmentButton"
                               class="
                                 block
                                 focus:outline-none
@@ -380,12 +383,12 @@
                                 my-1
                                 text-right
                               "
-                              @click="selectAllDepartment(departments, 'الكل');
-                                departmentselect = !departmentselect;"
-                            
-                            
+                              @click="
+                                selectAllDepartment(departments, 'الكل');
+                                departmentselect = !departmentselect;
+                              "
                             >
-                            <!--    -->
+                              <!--    -->
                               الكل
                             </button>
 
@@ -578,7 +581,7 @@
                             @click="
                               remove_to_array_of_side_measure(
                                 consignee.departmentId,
-                                consignee.departmentName,
+                                consignee.departmentName
                               )
                             "
                             class="mr-1 rounded-full"
@@ -607,9 +610,6 @@
                             </svg>
                           </button>
                         </div>
-
-
-
 
                         <div
                           v-for="consignee in newactionSenders"
@@ -632,7 +632,7 @@
                             @click="
                               remove_to_array_of_side_measure(
                                 consignee.departmentId,
-                                consignee.departmentName,
+                                consignee.departmentName
                               )
                             "
                             class="mr-1 rounded-full"
@@ -661,7 +661,6 @@
                             </svg>
                           </button>
                         </div>
-
                       </div>
                     </div>
                   </section>
@@ -795,7 +794,7 @@
                             class="w-full h-full rounded object-contain"
                           />
 
-                           <div
+                          <div
                             class="
                               absolute
                               inset-0
@@ -832,7 +831,6 @@
                                 ></path>
                               </svg>
                             </button>
-
                           </div>
                         </div>
 
@@ -1047,12 +1045,13 @@
                                 ></path>
                               </svg>
                             </button>
-
                           </div>
                         </div>
 
                         <div class="flex justify-between items-center pt-2">
-                          <div class="ml-2 flex justify-between items-center w-full">
+                          <div
+                            class="ml-2 flex justify-between items-center w-full"
+                          >
                             <button
                               @click="previousImage()"
                               class="
@@ -1469,6 +1468,7 @@
                     <input
                       v-model="entity_mail_date"
                       type="date"
+                      min="2000-01-01" max="2040-12-30"
                       id="entity_mail_date"
                       class="
                         block
@@ -1546,9 +1546,10 @@
               <section>
                 <div class="sm:col-span-6 flex items-center justify-end mt-10">
                   <div class="flex justify-end ml-6">
+                    <!--  :href="$router.resolve({ name: 'sent-add' }).href" -->
                     <a
                       v-if="summary && classification"
-                      :href="$router.resolve({ name: 'sent-add' }).href"
+                      @click="clear_page()"
                       class="
                         flex
                         justify-center
@@ -1594,6 +1595,7 @@
 
                   <div v-if="updataButton" class="flex justify-end ml-6">
                     <button
+                      v-if="summary && classification"
                       @click="updateMail"
                       type="button"
                       id="edit"
@@ -1669,6 +1671,7 @@
 
                   <div v-if="deleteButton" class="flex justify-end ml-6">
                     <button
+                      v-if="summary && classification"
                       @click="deleteMail"
                       type="button"
                       id="edit"
@@ -1744,7 +1747,7 @@
 
                   <div v-if="saveButton" class="flex justify-end">
                     <button
-                     v-if="summary && classification"
+                      v-if="summary && classification"
                       class="
                         flex
                         justify-center
@@ -1806,6 +1809,7 @@
 
                   <div v-if="sendButton" class="flex justify-end">
                     <button
+                      v-if="summary && classification"
                       class="
                         flex
                         justify-center
@@ -1867,7 +1871,9 @@
                 </div>
               </section>
 
-              <section class="bg-gray-100 rounded-md p-6 flex flex-wrap items-center">
+              <section
+                class="bg-gray-100 rounded-md p-6 flex flex-wrap items-center"
+              >
                 <button
                   v-for="consignee in consignees"
                   :key="consignee.side"
@@ -2259,8 +2265,6 @@
           </div>
         </div>
       </div>
-
-      <!-- w-full h-full rounded object-contain -->
     </div>
   </div>
 </template>
@@ -2277,23 +2281,28 @@ import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 export default {
   created() {},
 
+  components: {
+    asideComponent,
+    navComponent,
+    svgLoadingComponent,
+  },
+
   mounted() {
     var date = new Date();
 
-    var month = date.getMonth() +1;
+    var month = date.getMonth() + 1;
     var day = date.getDate();
 
     if (month < 10) month = "0" + month;
     if (day < 10) day = "0" + day;
 
-    this.releaseDate = date.getFullYear()+ "-" +month+ "-" +day
+    this.releaseDate = date.getFullYear() + "-" + month + "-" + day;
 
     this.mail_year = date.getFullYear();
     this.my_user_id = localStorage.getItem("userId");
     this.my_department_id = localStorage.getItem("departmentId");
 
     if (this.$route.params.mail) {
-
       this.screenFreeze = true;
       this.loading = true;
 
@@ -2311,41 +2320,32 @@ export default {
       }
 
       setTimeout(() => {
-          this.mailId = this.$route.params.mail;
-          this.GetSentMailById();
+        this.mailId = this.$route.params.mail;
+        this.GetSentMailById();
 
-          this.sendButton = true;
-          this.updataButton = true;
-          this.deleteButton = true;
-          this.saveButton = false;
+        this.sendButton = true;
+        this.updataButton = true;
+        this.deleteButton = true;
+        this.saveButton = false;
 
-          setTimeout(() => {
-            this.screenFreeze = false;
-            this.loading = false;
-          }, 100);
-
-        }, 500);
-
+        setTimeout(() => {
+          this.screenFreeze = false;
+          this.loading = false;
+        }, 100);
+      }, 500);
     } else {
       this.GetAllDepartments();
     }
     this.GetAllClassifications();
     this.GetAllMeasures();
-    
-  },
-
-  components: {
-    asideComponent,
-    navComponent,
-    svgLoadingComponent,
   },
 
   data() {
     return {
-      indexOfDepartment: '',
+      indexOfDepartment: "",
       allDepartment: false,
       allDepartmentButton: true,
-      blblbl:[],
+      blblbl: [],
       to_test_print_images_model: false,
       show_images_model: false,
 
@@ -2467,65 +2467,92 @@ export default {
 
   watch: {
     mailType: function() {
-      this.mail_Number = ''
-      this.summary = ''
-      this.classification = ''
-      this.general_incoming_number = ''
-      this.genaral_inbox_year = ''
-      this.required_action = ''
-      this.mailId = ''
-      this.mail_forwarding = ''
+      this.mail_Number = "";
+      this.summary = "";
+      this.classification = "";
+      this.general_incoming_number = "";
+      this.genaral_inbox_year = "";
+      this.required_action = "";
+      this.mailId = "";
+      this.mail_forwarding = "";
 
-      this.sideNameSelected = '';
-      this.sideIdSelected = '';
+      this.sideNameSelected = "";
+      this.sideIdSelected = "";
 
-      this.action_required_by_the_entity = '';
-      this.mail_ward_type = '';
-      this.ward_to = '';
-      this.entity_mail_date = '';
-      this.entity_reference_number = '';
-      this.procedure_type = '';
-      
-      this.consignees= []
-      this.replies= []
-      this.imagesToShow= []
+      this.action_required_by_the_entity = "";
+      this.mail_ward_type = "";
+      this.ward_to = "";
+      this.entity_mail_date = "";
+      this.entity_reference_number = "";
+      this.procedure_type = "";
+
+      this.consignees = [];
+      this.replies = [];
+      this.imagesToShow = [];
+
+      this.saveButton = true;
+      this.sendButton = false;
+      this.updataButton = false;
+      this.deleteButton = false;
+      this.ButtonUploadImagesMail = false;
     },
   },
   methods: {
+    clear_page() {
+      if (this.mailType == 1) {
+        this.mailType = "";
+        setTimeout(() => {
+          this.mailType = 1;
+        }, 100);
+      }
+      if (this.mailType == 2) {
+        this.mailType = "";
 
-    selectAllDepartment(x, name){
+        setTimeout(() => {
+          this.mailType = 2;
+        }, 100);
+      }
+      if (this.mailType == 3) {
+        this.mailType = "";
+
+        setTimeout(() => {
+          this.mailType = 3;
+        }, 100);
+      }
+      this.saveButton = true;
+      this.sendButton = false;
+      this.updataButton = false;
+      this.deleteButton = false;
+      this.ButtonUploadImagesMail = false;
+    },
+    selectAllDepartment(x, name) {
       this.departmentNameSelected = name;
 
-      this.allDepartment = true
-      this.blblbl = x
+      this.allDepartment = true;
+      this.blblbl = x;
     },
 
     add_to_array_of_side_measure() {
-
-      if(this.mail_Number){
-
-        if(this.allDepartment){
+      if (this.mail_Number) {
+        if (this.allDepartment) {
           for (let index = 0; index < this.blblbl.length; index++) {
-
             this.newactionSenders.push({
               departmentId: this.blblbl[index].id,
               departmentName: this.blblbl[index].departmentName,
               measureId: this.measureIdSelected,
               measureName: this.measureNameSelected,
             });
-
           }
 
-            this.departmentNameSelected = '';
-            this.departmentIdSelected = '';
+          this.departmentNameSelected = "";
+          this.departmentIdSelected = "";
 
-            this.measureIdSelected = '';
-            this.measureNameSelected = '';
+          this.measureIdSelected = "";
+          this.measureNameSelected = "";
 
-            this.departments = [];
-            this.allDepartmentButton = false;
-
-        }else{
+          this.departments = [];
+          this.allDepartmentButton = false;
+        } else {
           // array.includes('🍰');
           this.newactionSenders.push({
             departmentId: this.departmentIdSelected,
@@ -2534,39 +2561,34 @@ export default {
             measureName: this.measureNameSelected,
           });
 
-          this.departmentNameSelected = '';
-          this.departmentIdSelected = '';
+          this.departmentNameSelected = "";
+          this.departmentIdSelected = "";
 
-          this.measureIdSelected = '';
-          this.measureNameSelected = '';
+          this.measureIdSelected = "";
+          this.measureNameSelected = "";
 
-          this.departments.splice(this.indexOfDepartment, 1)
-        
+          this.departments.splice(this.indexOfDepartment, 1);
         }
-
-      }else{
-        if(this.allDepartment){
+      } else {
+        if (this.allDepartment) {
           for (let index = 0; index < this.blblbl.length; index++) {
-
             this.consignees.push({
               departmentId: this.blblbl[index].id,
               departmentName: this.blblbl[index].departmentName,
               measureId: this.measureIdSelected,
               measureName: this.measureNameSelected,
             });
-
           }
 
-            this.departmentNameSelected = '';
-            this.departmentIdSelected = '';
+          this.departmentNameSelected = "";
+          this.departmentIdSelected = "";
 
-            this.measureIdSelected = '';
-            this.measureNameSelected = '';
+          this.measureIdSelected = "";
+          this.measureNameSelected = "";
 
-            this.departments = [];
-            this.allDepartmentButton = false;
-
-        }else{
+          this.departments = [];
+          this.allDepartmentButton = false;
+        } else {
           // array.includes('🍰');
           this.consignees.push({
             departmentId: this.departmentIdSelected,
@@ -2575,34 +2597,26 @@ export default {
             measureName: this.measureNameSelected,
           });
 
-          this.departmentNameSelected = '';
-          this.departmentIdSelected = '';
+          this.departmentNameSelected = "";
+          this.departmentIdSelected = "";
 
-          this.measureIdSelected = '';
-          this.measureNameSelected = '';
+          this.measureIdSelected = "";
+          this.measureNameSelected = "";
 
-          this.departments.splice(this.indexOfDepartment, 1)
-        
+          this.departments.splice(this.indexOfDepartment, 1);
         }
       }
-
-      
-
-      
-      
     },
 
     remove_to_array_of_side_measure(consignee, name) {
-
-      if(this.mail_Number){
+      if (this.mail_Number) {
         const index = this.newactionSenders.findIndex((element, index) => {
           if (element.departmentId === consignee) {
             return true;
           }
         });
         this.newactionSenders.splice(index, 1);
-
-      }else{
+      } else {
         const index = this.consignees.findIndex((element, index) => {
           if (element.departmentId === consignee) {
             return true;
@@ -2614,7 +2628,6 @@ export default {
       this.departments.push({
         id: consignee,
         departmentName: name,
-        
       });
 
       this.allDepartmentButton = true;
@@ -2624,7 +2637,7 @@ export default {
       this.$http.mailService
         .GetSentMailById(this.mailId, this.to_test_passing_mail_type)
         .then((res) => {
-                // this.mailType = res.data.mail.mail_Type;
+          // this.mailType = res.data.mail.mail_Type;
           if (res.data.mail.is_send == true) {
             this.sendButton = false;
             this.deleteButton = false;
@@ -2633,12 +2646,9 @@ export default {
 
           this.summary = res.data.mail.mail_Summary;
 
+          console.log(res.data);
 
-
-          console.log(res.data)
-
-            this.remove_button_consignees = false;
-
+          this.remove_button_consignees = false;
 
           this.mail_Number = res.data.mail.mail_Number;
           this.department_Id = res.data.mail.department_Id;
@@ -2646,16 +2656,15 @@ export default {
 
           this.releaseDate = res.data.mail.date_Of_Mail;
           this.classification = res.data.mail.clasification;
-    
+
           this.general_incoming_number = res.data.mail.genaral_inbox_Number;
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
 
           this.consignees = res.data.actionSenders;
-          this.departments = res.data.departments
+          this.departments = res.data.departments;
 
           this.imagesToShow = res.data.resourcescs;
-
 
           if (this.imagesToShow.length > 0) {
             this.testimage = this.imagesToShow[0].path;
@@ -2679,7 +2688,6 @@ export default {
             this.sideIdSelected = res.data.side[0].id;
           }
           if (this.to_test_passing_mail_type == "3") {
-         
             this.external_mailId = res.data.external.id;
 
             this.mail_forwarding = res.data.external.action;
@@ -2705,10 +2713,10 @@ export default {
             this.procedure_type = res.data.external.procedure_type;
           }
 
-            this.GetDocmentForMail();
-            this.GetDocmentForMailToShow();
+          this.GetDocmentForMail();
+          this.GetDocmentForMailToShow();
 
-            this.GetProcessingResponses()
+          this.GetProcessingResponses();
         })
         .catch((err) => {
           console.log(err);
@@ -2734,7 +2742,7 @@ export default {
 
             this.remove_button_consignees = false;
             this.add_button_consignees = false;
-          }else{
+          } else {
             this.deleteButton = true;
             this.updataButton = true;
             this.saveButton = false;
@@ -2749,7 +2757,7 @@ export default {
           this.releaseDate = res.data.mail.date_Of_Mail;
           this.summary = res.data.mail.mail_Summary;
           this.classification = res.data.mail.clasification;
-          this.mailType = res.data.mail.mail_Type;
+          // this.mailType = res.data.mail.mail_Type;
           this.general_incoming_number = res.data.mail.genaral_inbox_Number;
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
@@ -2762,7 +2770,7 @@ export default {
             this.testimage = this.imagesToShow[0].path;
           }
 
-          if (this.to_test_passing_mail_type == "2") {
+          if (this.mailType == "2") {
             this.external_mailId = res.data.external.id;
 
             this.action_required_by_the_entity =
@@ -2779,8 +2787,7 @@ export default {
             this.sideNameSelected = res.data.side[0].section_Name;
             this.sideIdSelected = res.data.side[0].id;
           }
-          if (this.to_test_passing_mail_type == "3") {
-
+          if (this.mailType == "3") {
             this.external_mailId = res.data.external.id;
 
             this.mail_forwarding = res.data.external.action;
@@ -2864,8 +2871,6 @@ export default {
       this.sends_id = send_ToId;
       this.departmentName = name;
 
-
-
       this.$http.mailService
         .GetReplyByDepartment(this.replyByDepartmenId, this.mailId)
         .then((res) => {
@@ -2930,13 +2935,11 @@ export default {
     },
 
     GetAllDocuments(id) {
-
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
         .GetAllDocuments(id)
         .then((res) => {
-
           this.show_images_images_model = res.data;
 
           this.testimage_images_model = this.show_images_images_model[0].path;
@@ -3008,8 +3011,6 @@ export default {
 
       this.indexOfDepartment = index;
     },
-
-    
 
     GetAllClassifications() {
       this.$http.mailService
@@ -3137,7 +3138,7 @@ export default {
             this.updataButton = true;
             this.deleteButton = true;
 
-            this.mail_Number = res.data.mail_Number
+            this.mail_Number = res.data.mail_Number;
 
             this.mailId = res.data.mailId;
             this.department_Id = res.data.department_Id;
@@ -3153,13 +3154,11 @@ export default {
     },
 
     sendMail() {
+      console.log(this.mailId);
+      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+      console.log(this.mailId);
+      console.log(this.mail_Number);
 
-      console.log(this.mailId)
-      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-      console.log(this.mailId)
-      console.log(this.mail_Number)
-
-      
       this.screenFreeze = true;
       this.loading = true;
 
@@ -3187,15 +3186,13 @@ export default {
       this.loading = true;
 
       this.$http.mailService
-        .DeleteMail(this.mailId)
+        .DeleteMail(this.my_department_id, this.my_user_id, this.mailId)
         .then((res) => {
           setTimeout(() => {
             this.loading = false;
             this.screenFreeze = false;
 
-            setTimeout(() => {
-              this.$router.replace("/dashboard");
-            }, 500);
+              this.$router.replace("/sent");
           }, 500);
         })
         .catch((err) => {
@@ -3290,7 +3287,6 @@ export default {
     },
 
     updateMail() {
-      
       this.screenFreeze = true;
       this.loading = true;
 

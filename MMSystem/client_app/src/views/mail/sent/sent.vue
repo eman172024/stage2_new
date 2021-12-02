@@ -22,6 +22,7 @@
                   من
                   <input
                     type="date"
+                    min="2000-01-01" max="2040-12-30"
                     id="date_from"
                     v-model="date_from"
                     class="block mr-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
@@ -32,6 +33,7 @@
                   إلي
                   <input
                     type="date"
+                    min="2000-01-01" max="2040-12-30"
                     id="date_to"
                     v-model="date_to"
                     class="block mr-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
@@ -416,7 +418,13 @@
                       class="group relative border-r-8 border-red-500 flex items-center bg-white hover:bg-gray-100  pl-2"
                     >
                       <button
-                        @click="show_senders(mail.mail_id, mail.type_of_mail, mail.mail_Number)"
+                        @click="
+                          show_senders(
+                            mail.mail_id,
+                            mail.type_of_mail,
+                            mail.mail_Number
+                          )
+                        "
                         class="w-9/12 flex items-center"
                       >
                         <div class="w-2/6 pr-4 py-1 text-right">
@@ -544,13 +552,15 @@
                       @paginate="GetSentMail"
                     />
 
-                    <div v-if="total_of_transaction > 0" class="absolute z-10 top-0 left-0 w-32 text-left p-1 flex items-center justify-end">
+                    <div
+                      v-if="total_of_transaction > 9"
+                      class="absolute z-10 top-0 left-0 w-32 text-left p-1 flex items-center justify-end"
+                    >
                       <span class="text-xs ml-1">
-                        المجموع  
-                      </span> 
+                        المجموع
+                      </span>
                       {{ total_of_transaction }}
                     </div>
-                    
                   </div>
                 </div>
 
@@ -580,9 +590,7 @@
                     </div>
                   </div>
 
-                  <div
-                    class="min-h-64 h-full overflow-y-auto max-h-64 text-sm bg-gray-100  "
-                  >
+                  <div class="min-h-64 h-full overflow-y-auto max-h-64 text-sm bg-gray-100">
                     <div
                       v-for="sender in senders"
                       :key="sender.department_id"
@@ -591,7 +599,11 @@
                     >
                       <button
                         @click="
-                          to_pass_data_to_get_mail_by_id(sender.department_id, sender.send_ToId, sender.department_name)
+                          to_pass_data_to_get_mail_by_id(
+                            sender.department_id,
+                            sender.send_ToId,
+                            sender.department_name
+                          )
                         "
                         class="flex items-center w-full text-right"
                       >
@@ -620,10 +632,7 @@
                 </div>
               </div>
 
-              <section
-                
-                class="bg-gray-100 rounded-md p-6 mt-6"
-              >
+              <section v-if="replies.length > 0" class="bg-gray-100 rounded-md p-6 mt-6">
                 <p class="block text-sm font-semibold text-gray-800">
                   ردود - {{ departmentName }}
                 </p>
@@ -689,7 +698,7 @@
                     >
                     </textarea>
                   </div>
-            
+
                   <div class="w-2/12 mr-4">
                     <button
                       @click="AddReply()"
@@ -753,7 +762,10 @@
         <svgLoadingComponent></svgLoadingComponent>
       </div>
 
-      <div v-if="there_are_no_documents" class="bg-white w-96 h-32 flex justify-center items-center">
+      <div
+        v-if="there_are_no_documents"
+        class="bg-white w-96 h-32 flex justify-center items-center"
+      >
         لا توجد مستندات لهذا البريد.
       </div>
     </div>
@@ -777,7 +789,9 @@
           </div>
         </div>
 
-        <div class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-50 absolute top-0 inset-0 z-50 w-full">
+        <div
+          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-50 absolute top-0 inset-0 z-50 w-full"
+        >
           <div class="max-w-3xl mx-auto">
             <div class="flex justify-between items-center w-full">
               <button @click="show_images_model = false">
@@ -881,14 +895,14 @@ export default {
   mounted() {
     var date = new Date();
 
-    var month = date.getMonth() +1;
+    var month = date.getMonth() + 1;
     var day = date.getDate();
 
     if (month < 10) month = "0" + month;
     if (day < 10) day = "0" + day;
 
-    this.date_from = date.getFullYear()+ "-" +month+ "-" +day
-    this.date_to = date.getFullYear()+ "-" +month+ "-" +day
+    this.date_from = date.getFullYear() + "-" + month + "-" + day;
+    this.date_to = date.getFullYear() + "-" + month + "-" + day;
 
     this.my_user_id = localStorage.getItem("userId");
     this.my_department_id = localStorage.getItem("departmentId");
@@ -899,63 +913,75 @@ export default {
     this.GetAllClassifications();
     this.GetAllDepartments();
     this.GetAllMeasures();
+
+
+
+    console.log('this.replies')
+    console.log(this.replies.length)
   },
 
   watch: {
     mailType: function() {
-      this.senders = []
-      this.show_senders_mail = ''
-      this.page_num = 1
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.page_num = 1;
       this.GetSentMail();
     },
     date_from: function() {
-      this.senders = []
-      this.show_senders_mail = ''
-      this.page_num = 1
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.page_num = 1;
       this.GetSentMail();
     },
     date_to: function() {
-      this.senders = []
-      this.show_senders_mail = ''
-      this.page_num = 1
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.page_num = 1;
       this.GetSentMail();
     },
     mail_id: function() {
-      this.senders = []
-      this.show_senders_mail = ''
-      this.page_num = 1
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.page_num = 1;
       this.GetSentMail();
     },
     summary: function() {
-      this.senders = []
-      this.show_senders_mail = ''
-      this.page_num = 1
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.page_num = 1;
       this.GetSentMail();
     },
     departmentIdSelected: function() {
-      this.senders = []
-      this.show_senders_mail = ''
-      this.page_num = 1
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.page_num = 1;
       this.GetSentMail();
     },
     measureIdSelected: function() {
-      this.senders = []
-      this.show_senders_mail = ''
-      this.page_num = 1
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.page_num = 1;
       this.GetSentMail();
     },
     classificationIdSelected: function() {
-      this.senders = []
-      this.show_senders_mail = ''
-      this.page_num = 1
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.page_num = 1;
       this.GetSentMail();
     },
 
     mail_caseIdSelected: function() {
-      this.senders = []
-      this.show_senders_mail = ''
-      this.page_num = 1
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.page_num = 1;
       this.GetSentMail();
+    },
+
+    show_senders_mail: function() {
+      // this.senders = [];
+      // this.show_senders_mail = "";
+      // this.page_num = 1;
+      // this.GetSentMail();
     },
   },
 
@@ -967,8 +993,6 @@ export default {
 
   data() {
     return {
-      
-
       show_senders_mail: "",
       senders: [],
       to_test_print: false,
@@ -1059,7 +1083,6 @@ export default {
 
             this.reply_to_add = "";
 
-
             this.getMailById();
             // this.GetReplyByDepartment(
             //   this.replyByDepartmenId,
@@ -1073,14 +1096,18 @@ export default {
             this.loading = false;
             this.screenFreeze = false;
           }, 500);
-          console.log(err)
+          console.log(err);
         });
     },
 
-    to_pass_data_to_get_mail_by_id(my_department_id_to_get_mail_by_id, sends_id, departmentName) {
+    to_pass_data_to_get_mail_by_id(
+      my_department_id_to_get_mail_by_id,
+      sends_id,
+      departmentName
+    ) {
       this.my_department_id_to_get_mail_by_id = my_department_id_to_get_mail_by_id;
-      this.sends_id = sends_id
-      this.departmentName = departmentName
+      this.sends_id = sends_id;
+      this.departmentName = departmentName;
 
       // this.sends_id_to_get_mail_by_id = sends_id_to_get_mail_by_id
       // this.mangment_sender_to_get_mail_by_id = mangment_sender_to_get_mail_by_id
@@ -1113,7 +1140,6 @@ export default {
       this.to_test_passing_mail_type_to_get_mail_by_id = mail_type;
 
       this.replies = [];
-      
 
       this.$http.mailService
         .show_senders(id)
@@ -1121,7 +1147,7 @@ export default {
           this.show_senders_mail = number;
           console.log(res);
 
-          this.senders = res.data
+          this.senders = res.data;
 
           // this.senders = res.data.sendsDetalies;
 
@@ -1159,7 +1185,6 @@ export default {
       this.$http.mailService
         .GetAllDocuments(id)
         .then((res) => {
-
           console.log(res);
 
           this.show_images = res.data;
@@ -1174,19 +1199,18 @@ export default {
         })
         .catch((err) => {
           this.loading = false;
-          this.there_are_no_documents = true
+          this.there_are_no_documents = true;
           setTimeout(() => {
             this.screenFreeze = false;
-            this.there_are_no_documents = false
+            this.there_are_no_documents = false;
             console.log(err);
           }, 700);
         });
     },
 
     GetSentMail() {
-      
-      this.senders = []
-      this.show_senders_mail = ''
+      this.senders = [];
+      this.show_senders_mail = "";
 
       this.screenFreeze = true;
       this.loading = true;
@@ -1319,17 +1343,14 @@ export default {
       this.classificationNameSelected = name;
       this.classificationIdSelected = id;
     },
-
   },
 };
 </script>
 
 <style>
-
 .VuePagination__count {
   display: none;
 }
-
 
 .VuePagination {
   width: 100%;
