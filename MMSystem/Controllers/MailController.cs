@@ -301,12 +301,24 @@ namespace MMSystem.Controllers
 
             bool state = await _sender.UpdateSenderList(mailid);
             if (state)
-                return Created("Send", new Result() { message = "تمت عملية الارسال بنجاح", statusCode = 203 });
+                return StatusCode(203, new Result() { message = "تمت عملية التعديل بنجاح", statusCode = 203 });
             return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
 
 
         }
+        //test
 
+        [HttpPut("Delete_Mail")]
+        public async Task<IActionResult> Delete_Mail(int departmentId,int userid, int mail_id)
+        {
+
+            bool state = await _Imail.Delete(departmentId,userid,mail_id);
+            if (state)
+                return StatusCode(203, new Result() { message = "تمت عملية التعديل بنجاح", statusCode = 203 });
+            return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
+
+
+        }
 
 
 

@@ -283,19 +283,9 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                var c = await (from user in _appContext.Administrator
-                               join userRol in _appContext.userRoles
-                               on user.UserId equals userRol.UserId
-                               select new
-                               {
+              
 
-                                   rolr = userRol.RoleId
-                               }).ToListAsync();
-                if (c.Any(x => x.rolr == 20))
-                {
-
-
-                    Mail mail = await _appContext.Mails.Where(x => x.Department_Id == id && x.MailID == mailId).FirstOrDefaultAsync();
+                    Mail mail = await _appContext.Mails.Where(x => x.Department_Id == id && x.MailID == mailId&&x.userId==userid).FirstOrDefaultAsync();
                     if (mail != null)
                     {
 
@@ -306,8 +296,8 @@ namespace MMSystem.Services.MailServeic
                     }
                     return false;
 
-                }
-                return false;
+               
+               
 
             }
             catch (Exception)
