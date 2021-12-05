@@ -1548,7 +1548,7 @@
                   <div class="flex justify-end ml-6">
                     <!--  :href="$router.resolve({ name: 'sent-add' }).href" -->
                     <a
-                      v-if="summary && classification"
+                      v-if="summary && classification && consignees.length != 0"
                       @click="clear_page()"
                       class="
                         flex
@@ -1595,7 +1595,7 @@
 
                   <div v-if="updataButton" class="flex justify-end ml-6">
                     <button
-                      v-if="summary && classification"
+                      v-if="summary && classification && consignees.length != 0"
                       @click="updateMail"
                       type="button"
                       id="edit"
@@ -1671,7 +1671,7 @@
 
                   <div v-if="deleteButton" class="flex justify-end ml-6">
                     <button
-                      v-if="summary && classification"
+                      v-if="summary && classification && consignees.length != 0"
                       @click="deleteMail"
                       type="button"
                       id="edit"
@@ -1747,7 +1747,7 @@
 
                   <div v-if="saveButton" class="flex justify-end">
                     <button
-                      v-if="summary && classification"
+                      v-if="summary && classification && consignees.length != 0"
                       class="
                         flex
                         justify-center
@@ -1809,7 +1809,7 @@
 
                   <div v-if="sendButton" class="flex justify-end">
                     <button
-                      v-if="summary && classification"
+                      v-if="summary && classification && consignees.length != 0"
                       class="
                         flex
                         justify-center
