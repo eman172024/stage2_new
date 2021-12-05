@@ -3192,7 +3192,8 @@ export default {
             this.loading = false;
             this.screenFreeze = false;
 
-              this.$router.replace("/sent");
+            this.clear_page()
+              // this.$router.replace("/sent");
           }, 500);
         })
         .catch((err) => {
