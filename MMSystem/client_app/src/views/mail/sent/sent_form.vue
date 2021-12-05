@@ -490,7 +490,7 @@
                         </div>
                       </div>
 
-                      <div class="sm:col-span-1 flex justify-end">
+                      <div class="sm:col-span-1 flex justify-end" v-if="measureNameSelected && departmentNameSelected">
                         <!-- add_to_array_of_side_measure -->
                         <button
                           v-if="add_button_consignees"
