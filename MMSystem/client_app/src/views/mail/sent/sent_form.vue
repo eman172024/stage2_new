@@ -1547,7 +1547,7 @@
                 <div class="sm:col-span-6 flex items-center justify-end mt-10">
                   <div class="flex justify-end ml-6">
                     <!--  :href="$router.resolve({ name: 'sent-add' }).href" -->
-                    <a
+                    <button
                       v-if="summary && classification && consignees.length != 0"
                       @click="clear_page()"
                       class="
@@ -1590,7 +1590,7 @@
                         </g>
                       </svg>
                       جديد
-                    </a>
+                    </button>
                   </div>
 
                   <div v-if="updataButton" class="flex justify-end ml-6">
@@ -1746,65 +1746,192 @@
                   </div>
 
                   <div v-if="saveButton" class="flex justify-end">
-                    <button
-                      v-if="summary && classification && consignees.length != 0"
-                      class="
-                        flex
-                        justify-center
-                        items-center
-                        py-2
-                        px-8
-                        border border-transparent
-                        shadow-sm
-                        text-sm
-                        font-medium
-                        rounded-md
-                        border-green-600
-                        text-white
-                        bg-green-600
-                        hover:shadow-lg
-                        focus:shadow-none
-                        duration-300
-                        focus:outline-none
-                      "
-                      @click="saveMail()"
-                    >
-                      <svg
-                        class="w-4 h-4 stroke-current ml-2 fill-current"
-                        version="1.1"
-                        id="Capa_1"
-                        xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                        x="0px"
-                        y="0px"
-                        viewBox="0 0 512 512"
-                        style="enable-background: new 0 0 512 512"
-                        xml:space="preserve"
+                    <div v-if="mailType == '1'" class="">
+                      <button
+                        v-if="summary && classification && consignees.length != 0"
+                        class="
+                          flex
+                          justify-center
+                          items-center
+                          py-2
+                          px-8
+                          border border-transparent
+                          shadow-sm
+                          text-sm
+                          font-medium
+                          rounded-md
+                          border-green-600
+                          text-white
+                          bg-green-600
+                          hover:shadow-lg
+                          focus:shadow-none
+                          duration-300
+                          focus:outline-none
+                        "
+                        @click="saveMail()"
                       >
-                        <g>
+                        <svg
+                          class="w-4 h-4 stroke-current ml-2 fill-current"
+                          version="1.1"
+                          id="Capa_1"
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          x="0px"
+                          y="0px"
+                          viewBox="0 0 512 512"
+                          style="enable-background: new 0 0 512 512"
+                          xml:space="preserve"
+                        >
                           <g>
                             <g>
-                              <path
-                                d="M166,332h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,332,166,332z"
-                              ></path>
-                              <path
-                                d="M166,392h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,392,166,392z"
-                              ></path>
-                              <path
-                                d="M507.606,84.394l-80-80C424.793,1.58,420.978,0,417,0H15C6.716,0,0,6.716,0,15v482c0,8.284,6.716,15,15,15
-                                            c6.912,0,477.495,0,482,0c8.284,0,15-6.716,15-15V95C512,91.021,510.419,87.206,507.606,84.394z M121,30h210v100H121V30z
-                                            M391,482H121V272h270V482z M482,482h-61V257c0-8.284-6.716-15-15-15H106c-8.284,0-15,6.716-15,15v225H30V30h61v115
-                                            c0,8.284,6.716,15,15,15h240c8.284,0,15-6.716,15-15V30h49.787L482,101.213V482z"
-                              ></path>
-                              <path
-                                d="M166,452h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,452,166,452z"
-                              ></path>
+                              <g>
+                                <path
+                                  d="M166,332h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,332,166,332z"
+                                ></path>
+                                <path
+                                  d="M166,392h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,392,166,392z"
+                                ></path>
+                                <path
+                                  d="M507.606,84.394l-80-80C424.793,1.58,420.978,0,417,0H15C6.716,0,0,6.716,0,15v482c0,8.284,6.716,15,15,15
+                                              c6.912,0,477.495,0,482,0c8.284,0,15-6.716,15-15V95C512,91.021,510.419,87.206,507.606,84.394z M121,30h210v100H121V30z
+                                              M391,482H121V272h270V482z M482,482h-61V257c0-8.284-6.716-15-15-15H106c-8.284,0-15,6.716-15,15v225H30V30h61v115
+                                              c0,8.284,6.716,15,15,15h240c8.284,0,15-6.716,15-15V30h49.787L482,101.213V482z"
+                                ></path>
+                                <path
+                                  d="M166,452h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,452,166,452z"
+                                ></path>
+                              </g>
                             </g>
                           </g>
-                        </g>
-                      </svg>
-                      حفظ
-                    </button>
+                        </svg>
+                        حفظ
+                      </button>
+                    </div>
+
+                    <div v-if="mailType == '2'" class="">
+                      <button
+                        v-if="summary && classification && consignees.length != 0 && mail_forwarding && sectorNameSelected && sideNameSelected && action_required_by_the_entity"
+                        class="
+                          flex
+                          justify-center
+                          items-center
+                          py-2
+                          px-8
+                          border border-transparent
+                          shadow-sm
+                          text-sm
+                          font-medium
+                          rounded-md
+                          border-green-600
+                          text-white
+                          bg-green-600
+                          hover:shadow-lg
+                          focus:shadow-none
+                          duration-300
+                          focus:outline-none
+                        "
+                        @click="saveMail()"
+                      >
+                        <svg
+                          class="w-4 h-4 stroke-current ml-2 fill-current"
+                          version="1.1"
+                          id="Capa_1"
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          x="0px"
+                          y="0px"
+                          viewBox="0 0 512 512"
+                          style="enable-background: new 0 0 512 512"
+                          xml:space="preserve"
+                        >
+                          <g>
+                            <g>
+                              <g>
+                                <path
+                                  d="M166,332h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,332,166,332z"
+                                ></path>
+                                <path
+                                  d="M166,392h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,392,166,392z"
+                                ></path>
+                                <path
+                                  d="M507.606,84.394l-80-80C424.793,1.58,420.978,0,417,0H15C6.716,0,0,6.716,0,15v482c0,8.284,6.716,15,15,15
+                                              c6.912,0,477.495,0,482,0c8.284,0,15-6.716,15-15V95C512,91.021,510.419,87.206,507.606,84.394z M121,30h210v100H121V30z
+                                              M391,482H121V272h270V482z M482,482h-61V257c0-8.284-6.716-15-15-15H106c-8.284,0-15,6.716-15,15v225H30V30h61v115
+                                              c0,8.284,6.716,15,15,15h240c8.284,0,15-6.716,15-15V30h49.787L482,101.213V482z"
+                                ></path>
+                                <path
+                                  d="M166,452h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,452,166,452z"
+                                ></path>
+                              </g>
+                            </g>
+                          </g>
+                        </svg>
+                        حفظ
+                      </button>
+                    </div>
+
+
+                    <div v-if="mailType == '3'" class="">
+                      <button
+                        v-if="summary && classification && consignees.length != 0 && sectorNameSelected && sideNameSelected && ward_to && mail_ward_type && entity_mail_date && entity_reference_number && procedure_type"
+                        class="
+                          flex
+                          justify-center
+                          items-center
+                          py-2
+                          px-8
+                          border border-transparent
+                          shadow-sm
+                          text-sm
+                          font-medium
+                          rounded-md
+                          border-green-600
+                          text-white
+                          bg-green-600
+                          hover:shadow-lg
+                          focus:shadow-none
+                          duration-300
+                          focus:outline-none
+                        "
+                        @click="saveMail()"
+                      >
+                        <svg
+                          class="w-4 h-4 stroke-current ml-2 fill-current"
+                          version="1.1"
+                          id="Capa_1"
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          x="0px"
+                          y="0px"
+                          viewBox="0 0 512 512"
+                          style="enable-background: new 0 0 512 512"
+                          xml:space="preserve"
+                        >
+                          <g>
+                            <g>
+                              <g>
+                                <path
+                                  d="M166,332h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,332,166,332z"
+                                ></path>
+                                <path
+                                  d="M166,392h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,392,166,392z"
+                                ></path>
+                                <path
+                                  d="M507.606,84.394l-80-80C424.793,1.58,420.978,0,417,0H15C6.716,0,0,6.716,0,15v482c0,8.284,6.716,15,15,15
+                                              c6.912,0,477.495,0,482,0c8.284,0,15-6.716,15-15V95C512,91.021,510.419,87.206,507.606,84.394z M121,30h210v100H121V30z
+                                              M391,482H121V272h270V482z M482,482h-61V257c0-8.284-6.716-15-15-15H106c-8.284,0-15,6.716-15,15v225H30V30h61v115
+                                              c0,8.284,6.716,15,15,15h240c8.284,0,15-6.716,15-15V30h49.787L482,101.213V482z"
+                                ></path>
+                                <path
+                                  d="M166,452h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,452,166,452z"
+                                ></path>
+                              </g>
+                            </g>
+                          </g>
+                        </svg>
+                        حفظ
+                      </button>
+                    </div>
                   </div>
 
                   <div v-if="sendButton" class="flex justify-end">
@@ -2466,6 +2593,7 @@ export default {
   },
 
   watch: {
+
     mailType: function() {
       this.mail_Number = "";
       this.summary = "";
@@ -2489,14 +2617,54 @@ export default {
       this.consignees = [];
       this.replies = [];
       this.imagesToShow = [];
+      this.newactionSenders = [];
 
       this.saveButton = true;
       this.sendButton = false;
       this.updataButton = false;
       this.deleteButton = false;
       this.ButtonUploadImagesMail = false;
+      this.add_button_consignees = true;
+
+      this.GetAllDepartments();
+
+      setTimeout(() => {
+        if(this.mailType == 2){
+
+          for (let index = 0; index < this.departments.length; index++) {
+
+            if(this.departments[index].departmentName.includes('مكتب رئيس الهيئة')){
+
+              this.consignees.push({
+                departmentId: this.departments[index].id,
+                departmentName: this.departments[index].departmentName,
+                measureId: this.measures[0].measuresId,
+                measureName: this.measures[0].measuresName,
+              });
+              this.departments.splice(index,1)
+            }
+
+            if(this.departments[index].departmentName.includes('المحفوظات')){
+
+              this.consignees.push({
+                departmentId: this.departments[index].id,
+                departmentName: this.departments[index].departmentName,
+                measureId: this.measures[0].measuresId,
+                measureName: this.measures[0].measuresName,
+              });
+              this.departments.splice(index,1)
+
+            }
+
+          }
+
+        }
+      }, 500);
+
     },
+   
   },
+
   methods: {
     clear_page() {
       if (this.mailType == 1) {
@@ -2739,9 +2907,9 @@ export default {
             this.updataButton = true;
             this.deleteButton = false;
             this.sendButton = false;
+            this.add_button_consignees = true;
 
             this.remove_button_consignees = false;
-            this.add_button_consignees = false;
           } else {
             this.deleteButton = true;
             this.updataButton = true;
@@ -2822,6 +2990,9 @@ export default {
           setTimeout(() => {
             this.screenFreeze = false;
             this.loading = false;
+            this.clear_page()
+
+            alert("لا يوحد بريد بهذا الرقم.")
             console.log(err);
           }, 100);
         });
