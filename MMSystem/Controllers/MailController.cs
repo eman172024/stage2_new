@@ -89,7 +89,7 @@ namespace MMSystem.Controllers
         public async Task<IActionResult> search(int id, int type,int year,int department_Id)
         {
         
-            var c = await _Imail.DynamicGet(id, type,year,department_Id);
+            var c = await _Imail.search(id, type,year,department_Id);
             if (c != null)
                 return Ok(c);
             return NotFound("لايوجد بريد ");

@@ -52,6 +52,10 @@ namespace MMSystem.Services.MailServeic
 
 
         Task<List<SendsDetalies>> GetDetalies(int mail_id);
+        Task<dynamic> search(int id, int type, int year, int departmentId);
+
+
+
 
 
 

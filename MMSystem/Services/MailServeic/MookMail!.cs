@@ -1848,6 +1848,188 @@ namespace MMSystem.Services.MailServeic
             }
 
         }
+
+        public async Task<dynamic> search(int id, int type, int year, int departmentId)
+        {
+            try
+            {
+                MailDto dto = new MailDto();
+                switch (type)
+                {
+                    case 1:
+                        MailVM mail = new MailVM();
+                        dto = await Getdto(id, type, year, departmentId);
+
+                        if (dto != null) {
+
+                            mail.mail = dto;
+                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID).ToListAsync();
+
+                            ActionSender sender = new ActionSender();
+                            foreach (var item in sends)
+                            {
+                                Department departments = await _appContext.Departments.FindAsync(item.to);
+                                Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
+
+                                mail.actionSenders.Add(new ActionSender()
+                                {
+
+                                    departmentName = departments.DepartmentName,
+                                    measureId = item.type_of_send,
+                                    measureName = measures.MeasuresName,
+                                    departmentId = departments.Id,
+                                    send_ToId = item.Id
+                                }
+
+                                );
+                            }
+                            mail.resourcescs = await _resourcescs.GetAll(mail.mail.MailID);
+
+
+                            foreach (var xx in mail.resourcescs)
+                            {
+                                string x = xx.path;
+                                xx.path = await tobase64(x);
+
+                            }
+
+
+                            serch = mail;
+
+                            break;
+
+
+                        }
+                        serch = null;
+
+                        break;
+                    case 2:
+                        dto = await Getdto(id, type, year, departmentId);
+                        ExMail ex = new ExMail();
+                        if (dto != null) {
+                            ex.mail = dto;
+                            ex.External = await _external.Get(dto.MailID);
+
+                            var side = await _appContext.Extrmal_Sections.FindAsync(ex.External.Sectionid);
+
+                            ex.side.Add(side);
+
+                            var sector = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.perent == 0 && x.type == side.type);
+                            ex.sector.Add(sector);
+
+
+
+
+
+
+                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == ex.mail.MailID).ToListAsync();
+
+
+                            foreach (var item in sends)
+                            {
+                                Department departments = await _appContext.Departments.FindAsync(item.to);
+                                Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
+
+                                ex.actionSenders.Add(new ActionSender()
+                                {
+
+                                    departmentName = departments.DepartmentName,
+                                    measureId = item.type_of_send,
+                                    measureName = measures.MeasuresName,
+                                    departmentId = departments.Id,
+                                    send_ToId = item.Id
+                                }
+
+                                );
+                            }
+                            ex.resourcescs = await _resourcescs.GetAll(dto.MailID);
+
+
+                            foreach (var xx in ex.resourcescs)
+                            {
+                                string x = xx.path;
+                                xx.path = await tobase64(x);
+
+                            }
+
+
+                            serch= ex;
+                            break;
+
+                        }
+
+
+                        serch = null;
+
+                        break;
+                    case 3:
+                        dto = await Getdto(id, type, year, departmentId);
+
+                        if (dto != null) {
+                            ExInbox ex1 = new ExInbox();
+
+                            ex1.mail = dto;
+
+                            ex1.external = await _extrenal_Inbox.Get(dto.MailID);
+                            var side = await _appContext.Extrmal_Sections.FindAsync(ex1.external.SectionId);
+
+                            ex1.side.Add(side);
+
+                            var sector = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.perent == 0 && x.type == side.type);
+                            ex1.sector.Add(sector);
+
+
+                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == dto.MailID).ToListAsync();
+
+
+                            foreach (var item in sends)
+                            {
+                                Department departments = await _appContext.Departments.FindAsync(item.to);
+                                Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
+
+                                ex1.actionSenders.Add(new ActionSender()
+                                {
+
+                                    departmentName = departments.DepartmentName,
+                                    measureId = item.type_of_send,
+                                    measureName = measures.MeasuresName,
+                                    departmentId = departments.Id,
+                                    send_ToId = item.Id
+                                }
+
+                                );
+                            }
+                            ex1.resourcescs = await _resourcescs.GetAll(dto.MailID);
+
+
+                            foreach (var xx in ex1.resourcescs)
+                            {
+                                string x = xx.path;
+                                xx.path = await tobase64(x);
+
+                            }
+
+
+                            serch = ex1;
+                            break;
+
+                        }
+                        serch = null;
+                        break;
+
+                    default:
+                        break;
+                       
+                      
+                }
+                return serch;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
 
