@@ -786,219 +786,7 @@
                       v-if="imagesToSend != '' || imagesToShow != ''"
                       class="mt-4 pt-4 pb-4 rounded-md"
                     >
-                      <div v-if="testimageToSend" class="">
-                        <div class="relative h-64 w-full">
-                          <img
-                            :src="testimageToSend"
-                            alt="image"
-                            class="w-full h-full rounded object-contain"
-                          />
-
-                          <div
-                            class="
-                              absolute
-                              inset-0
-                              flex
-                              justify-center
-                              items-center
-                            "
-                          >
-                            <button
-                              @click="GetAllDocuments(mailId)"
-                              type="button"
-                              class="
-                                bg-green-600
-                                hover:bg-green-500
-                                duration-500
-                                p-2
-                                rounded-full
-                                focus:outline-none
-                                ml-2
-                              "
-                            >
-                              <svg
-                                class="w-4 h-4 text-white mx-auto"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-                                ></path>
-                              </svg>
-                            </button>
-                          </div>
-                        </div>
-
-                        <div class="flex justify-between items-center mt-4">
-                          <div
-                            class="ml-2 flex justify-between items-center w-1/2"
-                          >
-                            <button
-                              @click="previousImageToSend()"
-                              class="
-                                w-8
-                                h-8
-                                bg-gray-300
-                                rounded
-                                flex
-                                justify-center
-                                items-center
-                              "
-                            >
-                              <svg
-                                class="w-4 h-4"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M9 5l7 7-7 7"
-                                ></path>
-                              </svg>
-                            </button>
-
-                            <div class="">
-                              {{ indextotestToSend + 1 }} /
-                              {{ imagesToSend.length }}
-                            </div>
-
-                            <button
-                              title="next"
-                              @click="nextImageToSend()"
-                              class="
-                                w-8
-                                h-8
-                                bg-gray-300
-                                rounded
-                                flex
-                                justify-center
-                                items-center
-                              "
-                            >
-                              <svg
-                                class="w-4 h-4"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M15 19l-7-7 7-7"
-                                ></path>
-                              </svg>
-                            </button>
-                          </div>
-
-                          <div class="mr-2 w-1/2">
-                            <button
-                              v-if="ButtonUploadImagesMail"
-                              @click="UploadImagesMail"
-                              type="button"
-                              class="
-                                flex
-                                justify-center
-                                items-center
-                                py-2
-                                px-2
-                                border border-transparent
-                                shadow-sm
-                                text-xs
-                                font-semibold
-                                rounded-md
-                                text-white
-                                bg-cyan-600
-                                hover:bg-cyan-700
-                                focus:outline-none
-                                focus:ring-cyan-700
-                              "
-                            >
-                              <svg
-                                class="
-                                  w-4
-                                  h-4
-                                  stroke-current
-                                  text-white
-                                  ml-2
-                                  fill-current
-                                "
-                                height="512"
-                                viewBox="0 0 55 60"
-                                width="512"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <g id="Page-1" fill-rule="evenodd">
-                                  <g id="040---Save-File" fill-rule="nonzero">
-                                    <path
-                                      id="Shape"
-                                      d="m53 5v39h-7c-2.7600532.0033061-4.9966939 2.2399468-5 5v7h-3c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1h4c.2651948-.0000566.5195073-.1054506.707-.293l12-12c.1875494-.1874927.2929434-.4418052.293-.707v-40c-.0033061-2.76005315-2.2399468-4.99669388-5-5h-40c-2.76005315.00330612-4.99669388 2.23994685-5 5v17c0 .5522847.44771525 1 1 1s1-.4477153 1-1v-17c0-1.65685425 1.34314575-3 3-3h40c1.6568542 0 3 1.34314575 3 3zm-7 41h5.586l-8.586 8.586v-5.586c0-1.6568542 1.3431458-3 3-3z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m14 6h-2c-.5522847 0-1 .44771525-1 1s.4477153 1 1 1h2c.5522847 0 1-.44771525 1-1s-.4477153-1-1-1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m48 6h-30c-.5522847 0-1 .44771525-1 1s.4477153 1 1 1h30c.5522847 0 1-.44771525 1-1s-.4477153-1-1-1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m14 12h-2c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1h2c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m18 14h23c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1h-23c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m14 18h-2c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1h2c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m18 20h16c.5522847 0 1-.4477153 1-1s-.4477153-1-1-1h-16c-.5522847 0-1 .4477153-1 1s.4477153 1 1 1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m51 21c0-.5522847-.4477153-1-1-1s-1 .4477153-1 1v14c0 .5522847.4477153 1 1 1s1-.4477153 1-1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m50 38c-.5522847 0-1 .4477153-1 1v2c0 .5522847.4477153 1 1 1s1-.4477153 1-1v-2c0-.5522847-.4477153-1-1-1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m3 60h28c1.6568542 0 3-1.3431458 3-3v-28c0-1.6568542-1.3431458-3-3-3h-28c-1.65685425 0-3 1.3431458-3 3v28c0 1.6568542 1.34314575 3 3 3zm4-2v-2h20v2zm6-23v-7h14v7c0 .5522847-.4477153 1-1 1h-12c-.5522847 0-1-.4477153-1-1zm-2-7v7c.0033144.3414397.0655622.679743.184 1h-3.184c-.55228475 0-1-.4477153-1-1v-7zm-9 1c0-.5522847.44771525-1 1-1h2v7c0 1.6568542 1.34314575 3 3 3h18c1.6568542 0 3-1.3431458 3-3v-7h2c.5522847 0 1 .4477153 1 1v28c0 .5522847-.4477153 1-1 1h-2v-2c0-1.1045695-.8954305-2-2-2h-20c-1.1045695 0-2 .8954305-2 2v2h-2c-.55228475 0-1-.4477153-1-1z"
-                                    ></path>
-                                    <path
-                                      id="Shape"
-                                      d="m17 52c3.3137085 0 6-2.6862915 6-6s-2.6862915-6-6-6-6 2.6862915-6 6c.0033074 3.3123376 2.6876624 5.9966926 6 6zm0-10c2.209139 0 4 1.790861 4 4s-1.790861 4-4 4-4-1.790861-4-4 1.790861-4 4-4z"
-                                    ></path>
-                                    <circle
-                                      id="Oval"
-                                      cx="16"
-                                      cy="45"
-                                      r="1"
-                                    ></circle>
-                                  </g>
-                                </g>
-                              </svg>
-
-                              حفظ المستندات
-                            </button>
-                          </div>
-                        </div>
-                      </div>
+                     
 
                       <div v-if="testimage" class="">
                         <div class="relative h-64 w-full">
@@ -2558,7 +2346,7 @@ export default {
       mail_ward_type: "",
       ward_to: "",
 
-      to_test_passing_mail_type: "",
+      to_test_passing_mail_type: 1,
       remove_button_consignees: true,
       add_button_consignees: true,
 
@@ -2615,6 +2403,8 @@ export default {
       this.procedure_type = "";
 
       this.consignees = [];
+
+      
       this.replies = [];
       this.imagesToShow = [];
       this.newactionSenders = [];
@@ -2802,6 +2592,13 @@ export default {
     },
 
     GetSentMailById() {
+
+      console.log(this.to_test_passing_mail_type)
+      console.log('this.to_test_passing_mail_type')
+
+      this.screenFreeze = true;
+      this.loading = true;
+
       this.$http.mailService
         .GetSentMailById(this.mailId, this.to_test_passing_mail_type)
         .then((res) => {
@@ -2881,12 +2678,22 @@ export default {
             this.procedure_type = res.data.external.procedure_type;
           }
 
-          this.GetDocmentForMail();
-          this.GetDocmentForMailToShow();
+          // this.GetDocmentForMail();
+          // this.GetDocmentForMailToShow();
 
-          this.GetProcessingResponses();
+          // this.GetProcessingResponses();
+
+
+          setTimeout(() => {
+              this.screenFreeze = false;
+      this.loading = false;
+          }, 200);
+
         })
         .catch((err) => {
+
+          this.screenFreeze = false;
+      this.loading = false;
           console.log(err);
         });
     },
@@ -3052,23 +2859,6 @@ export default {
         });
     },
 
-    previousImageToSend() {
-      if (this.indextotestToSend > 0) {
-        this.indextotestToSend--;
-        this.testimageToSend = this.imagesToSend[
-          this.indextotestToSend
-        ].baseAs64;
-      }
-    },
-
-    nextImageToSend() {
-      if (this.indextotestToSend < this.imagesToSend.length - 1) {
-        this.indextotestToSend++;
-        this.testimageToSend = this.imagesToSend[
-          this.indextotestToSend
-        ].baseAs64;
-      }
-    },
 
     previousImage() {
       if (this.indextotest > 0) {
@@ -3418,10 +3208,30 @@ export default {
         });
 
         // if (this.imagesToSend.length > 0) {
-        this.testimageToSend = this.imagesToSend[0].baseAs64;
-        this.ButtonUploadImagesMail = true;
+        // this.testimageToSend = this.imagesToSend[0].baseAs64;
+        // this.ButtonUploadImagesMail = true;
         // }
       }
+
+
+
+      this.UploadImagesMail()
+
+
+      if (this.mailType == 1) {
+        this.to_test_passing_mail_type = 1;
+      }
+      if (this.mailType == 2) {
+        this.to_test_passing_mail_type = 2;
+      }
+      if (this.mailType == 3) {
+        this.to_test_passing_mail_type = 3;
+      }
+
+
+      setTimeout(() => {
+        this.GetSentMailById();
+      }, 1000);
     },
 
     UploadImagesMail() {
@@ -3434,6 +3244,9 @@ export default {
             this.ButtonUploadImagesMail = false;
             this.loading = false;
             this.screenFreeze = false;
+
+
+            this.imagesToSend =[]
             console.log(res);
           }, 500);
         })
@@ -3561,9 +3374,7 @@ export default {
         });
     },
 
-    removeImage(index) {
-      this.imagesToSend.splice(index, 1);
-    },
+
 
     GetDocmentForMailToShow() {
       this.$http.documentService
@@ -3576,16 +3387,6 @@ export default {
         });
     },
 
-    GetDocmentForMailMarginalized() {
-      this.$http.documentService
-        .GetDocmentForMail(Number(this.mailId), 2)
-        .then((res) => {
-          this.marginalizedDocuments = res.data.result.documents;
-        })
-        .catch((err) => {
-          this.addErorr = err.message;
-        });
-    },
 
     printImage(img) {
       var Pagelink = "هيئة الرقابة الادارية ليبيا";
@@ -3614,51 +3415,7 @@ export default {
       );
     },
 
-    //  onFileChange(e) {
-    //   var files = e.target.files || e.dataTransfer.files;
-    //   if (!files.length) return;
-    //   this.createImage(files);
-    // },
-
-    // createImage(files) {
-    //   var vm = this;
-    //   for (var index = 0; index < files.length; index++) {
-    //     var reader = new FileReader();
-    //     reader.onload = function (event) {
-    //       const imageUrl = event.target.result;
-    //       vm.imagesToSend.push({baseAs64:imageUrl});
-    //     };
-    //     reader.readAsDataURL(files[index]);
-    //   }
-    // },
-
-    // addDocuments() {
-    //   this.screenFreeze = true;
-    //   this.loading = true;
-
-    //    var documenInfo = {
-    //     mailId: Number(this.mailId),
-    //     images: this.imagesToSend,
-    //   };
-
-    //   this.$http.documentService
-    //     .AddDocument(documenInfo)
-    //     .then((res) => {
-    //       setTimeout(() => {
-    //         this.loading = false;
-    //
-
-    //         this.imagesToSend = [];
-    //         this.GetDocmentForMailToShow()
-    //       }, 500);
-    //     })
-    //     .catch((err) => {
-    //       setTimeout(() => {
-    //         this.loading = false;
-    //
-    //       }, 500);
-    //     });
-    // },
+  
   },
 };
 </script>
