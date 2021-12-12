@@ -1805,15 +1805,20 @@ namespace MMSystem.Services.MailServeic
 
         public async Task<List<SendsDetalies>> GetDetalies(int mail_id)
         {
-
             try
             {
+
+           
+                      
+           
+                string date;
                 var c = await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true)
                                join send in _appContext.Sends on mail.MailID equals send.MailID
                                join department in _appContext.Departments on send.to equals department.Id
                                join measures in _appContext.measures on send.type_of_send equals measures.MeasuresId
                                join mailState in _appContext.MailStatuses on send.flag equals mailState.flag
 
+                               
 
 
                                select new SendsDetalies()
@@ -1824,10 +1829,9 @@ namespace MMSystem.Services.MailServeic
                                    MesureName = measures.MeasuresName,
                                    State = mailState.sent,
                                    send_ToId=send.Id,
-
-                                   date = send.Send_time.ToString("yyyy-MM-dd"),
-                                   date_read = send.time_of_read.ToString("yyyy-MM-dd")
-
+                                   
+                                  date = send.Send_time.ToString("yyyy-MM-dd"),
+                                date_read=(send.time_of_read.ToString().StartsWith("0001"))?"لم يتم الرد" : send.time_of_read.ToString("yyyy-MM-dd")
 
                                }).ToListAsync();
               

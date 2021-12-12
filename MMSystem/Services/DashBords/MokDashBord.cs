@@ -50,8 +50,8 @@ namespace MMSystem.Services.DashBords
 
 
 
-            var internil =await (from x in DbCon.Mails.Where(x=> x.Department_Id == ManagementId && x.Mail_Type==1 )
-                  join y in DbCon.Sends.Where(y => y.flag >= 1 && y.isMulti == true ) on x.MailID equals y.MailID
+            var internil =await (from x in DbCon.Mails.Where(x=> x.Department_Id == ManagementId && x.Mail_Type==1 && x.state == true )
+                  join y in DbCon.Sends.Where(y => y.flag >= 1 && y.isMulti == true  ) on x.MailID equals y.MailID
                                  select x).ToListAsync();
             int inern = internil.Count();
 
@@ -65,7 +65,7 @@ namespace MMSystem.Services.DashBords
                                     select x).ToListAsync();
             int notResme = not_response_tome.Count();
 
-            var incoming = await (from x in DbCon.Mails.Where(x =>  x.Mail_Type == 1)
+            var incoming = await (from x in DbCon.Mails.Where(x =>  x.Mail_Type == 1 )
                                            join y in DbCon.Sends.Where(y => y.flag >=2  && y.to== ManagementId) on x.MailID equals y.MailID
                                            select x).ToListAsync();
             int incom = incoming.Count();
@@ -78,7 +78,7 @@ namespace MMSystem.Services.DashBords
 
 
 
-            var extirnel = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 2)
+            var extirnel = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 2 && x.state == true)
                                   join y in DbCon.Sends.Where(y => y.flag >= 1 && y.isMulti == true) on x.MailID equals y.MailID
                                   select x).ToListAsync();
             int ex = extirnel.Count();
@@ -106,7 +106,7 @@ namespace MMSystem.Services.DashBords
 
 
 
-            var extirnelIn = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 3)
+            var extirnelIn = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 3 && x.state == true)
                                   join y in DbCon.Sends.Where(y => y.flag >= 1 && y.isMulti == true) on x.MailID equals y.MailID
                                   select x).ToListAsync();
             int exIn = extirnelIn.Count();

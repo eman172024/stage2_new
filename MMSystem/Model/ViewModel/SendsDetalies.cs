@@ -19,7 +19,6 @@ namespace MMSystem.Model.ViewModel
         public string date_read { get; set; }
 
 
-        
 
         // public List<ReplayDto> Replies { get; set; } = new List<ReplayDto>();
     }
