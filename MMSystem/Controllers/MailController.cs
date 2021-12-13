@@ -170,7 +170,7 @@ namespace MMSystem.Controllers
             bool result = await _Imail.deleteSender(mail_id,departmentId);
             if (result)
                 return StatusCode(203, new Result() { message = "تمت عملية الحذف بنجاح", statusCode = 203 });
-            return BadRequest(new Result() { message = "غشلت العملية", statusCode = 404 });
+            return BadRequest(new Result() { message = "لايمكنك حذف الادارة ", statusCode = 404 });
 
         }
 

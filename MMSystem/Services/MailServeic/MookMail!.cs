@@ -1832,7 +1832,7 @@ namespace MMSystem.Services.MailServeic
                 Send_to send_ = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail_id && x.to == departmentId);
                 if (send_ != null)
                 {
-                    if (send_.flag > 2)
+                    if (send_.flag <= 2)
                     {
                         _appContext.Sends.Remove(send_);
                         await _appContext.SaveChangesAsync();
