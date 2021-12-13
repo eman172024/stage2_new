@@ -491,7 +491,7 @@
                       </div>
 
                       <div class="sm:col-span-1 flex justify-end" v-if="measureNameSelected && departmentNameSelected">
-                        <!-- add_to_array_of_side_measure -->
+                      
                         <button
                           v-if="add_button_consignees"
                           @click="add_to_array_of_side_measure()"
@@ -575,11 +575,9 @@
                         >
                           {{ consignee.departmentName }} ,
                           {{ consignee.measureName }}
-                          <!--  -->
                           <button
-                            v-if="remove_button_consignees"
                             @click="
-                              remove_to_array_of_side_measure(
+                              delete_side_measure(
                                 consignee.departmentId,
                                 consignee.departmentName
                               )
@@ -628,7 +626,7 @@
                           {{ consignee.measureName }}
                           <!--  -->
                           <button
-                            v-if="remove_button_consignees"
+                           
                             @click="
                               remove_to_array_of_side_measure(
                                 consignee.departmentId,
@@ -1336,7 +1334,7 @@
                   <div class="flex justify-end ml-6">
                     <!--  :href="$router.resolve({ name: 'sent-add' }).href" -->
                     <button
-                      v-if="summary && classification && consignees.length != 0"
+                      v-if="summary && classification && (consignees.length != 0 || newactionSenders.length != 0) "
                       @click="clear_page()"
                       class="
                         flex
@@ -1383,7 +1381,7 @@
 
                   <div v-if="updataButton" class="flex justify-end ml-6">
                     <button
-                      v-if="summary && classification && consignees.length != 0"
+                      v-if="summary && classification && (consignees.length != 0 || newactionSenders.length != 0)"
                       @click="updateMail"
                       type="button"
                       id="edit"
@@ -1459,7 +1457,7 @@
 
                   <div v-if="deleteButton" class="flex justify-end ml-6">
                     <button
-                      v-if="summary && classification && consignees.length != 0"
+                      v-if="summary && classification && (consignees.length != 0 || newactionSenders.length != 0)"
                       @click="deleteMail"
                       type="button"
                       id="edit"
@@ -1536,7 +1534,7 @@
                   <div v-if="saveButton" class="flex justify-end">
                     <div v-if="mailType == '1'" class="">
                       <button
-                        v-if="summary && classification && consignees.length != 0"
+                        v-if="summary && classification && (consignees.length != 0 || newactionSenders.length != 0)"
                         class="
                           flex
                           justify-center
@@ -1598,7 +1596,7 @@
 
                     <div v-if="mailType == '2'" class="">
                       <button
-                        v-if="summary && classification && consignees.length != 0 && mail_forwarding && sectorNameSelected && sideNameSelected && action_required_by_the_entity"
+                        v-if="summary && classification && (consignees.length != 0 || newactionSenders.length != 0) && mail_forwarding && sectorNameSelected && sideNameSelected && action_required_by_the_entity"
                         class="
                           flex
                           justify-center
@@ -1661,7 +1659,7 @@
 
                     <div v-if="mailType == '3'" class="">
                       <button
-                        v-if="summary && classification && consignees.length != 0 && sectorNameSelected && sideNameSelected && ward_to && mail_ward_type && entity_mail_date && entity_reference_number && procedure_type"
+                        v-if="summary && classification && (consignees.length != 0 || newactionSenders.length != 0) && sectorNameSelected && sideNameSelected && ward_to && mail_ward_type && entity_mail_date && entity_reference_number && procedure_type"
                         class="
                           flex
                           justify-center
@@ -1724,7 +1722,7 @@
 
                   <div v-if="sendButton" class="flex justify-end">
                     <button
-                      v-if="summary && classification && consignees.length != 0"
+                      v-if="summary && classification && (consignees.length != 0 || newactionSenders.length != 0)"
                       class="
                         flex
                         justify-center
@@ -2530,7 +2528,7 @@ export default {
       } else {
         if (this.allDepartment) {
           for (let index = 0; index < this.blblbl.length; index++) {
-            this.consignees.push({
+            this.newactionSenders.push({
               departmentId: this.blblbl[index].id,
               departmentName: this.blblbl[index].departmentName,
               measureId: this.measureIdSelected,
@@ -2548,7 +2546,7 @@ export default {
           this.allDepartmentButton = false;
         } else {
           // array.includes('🍰');
-          this.consignees.push({
+          this.newactionSenders.push({
             departmentId: this.departmentIdSelected,
             departmentName: this.departmentNameSelected,
             measureId: this.measureIdSelected,
@@ -2575,12 +2573,12 @@ export default {
         });
         this.newactionSenders.splice(index, 1);
       } else {
-        const index = this.consignees.findIndex((element, index) => {
+        const index = this.newactionSenders.findIndex((element, index) => {
           if (element.departmentId === consignee) {
             return true;
           }
         });
-        this.consignees.splice(index, 1);
+        this.newactionSenders.splice(index, 1);
       }
 
       this.departments.push({
@@ -2589,6 +2587,12 @@ export default {
       });
 
       this.allDepartmentButton = true;
+    },
+
+
+
+    delete_side_measure(){
+      
     },
 
     GetSentMailById() {
@@ -3024,7 +3028,7 @@ export default {
             ActionRequired: this.required_action,
           },
 
-          actionSenders: this.consignees,
+          actionSenders: this.newactionSenders,
         };
       }
 
@@ -3042,7 +3046,7 @@ export default {
             ActionRequired: this.required_action,
           },
 
-          actionSenders: this.consignees,
+          actionSenders: this.newactionSenders,
 
           external_Mail: {
             action: Number(this.mail_forwarding),
@@ -3067,7 +3071,7 @@ export default {
             ActionRequired: this.required_action,
           },
 
-          actionSenders: this.consignees,
+          actionSenders: this.newactionSenders,
 
           extrenal_Inbox: {
             action: Number(this.mail_forwarding),
