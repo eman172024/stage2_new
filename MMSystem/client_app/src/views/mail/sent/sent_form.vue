@@ -831,6 +831,23 @@
                                 ></path>
                               </svg>
                             </button>
+
+                            <button type="button"
+                              class="
+                                bg-red-600
+                                hover:bg-red-500
+                                duration-500
+                                p-2
+                                rounded-full
+                                focus:outline-none
+                                ml-2
+                              " @click="deleteDocument()">
+
+                              <svg  class="w-4 h-4 stroke-current text-white mx-auto" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 6.5H5H21"  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8 6.5V4.5C8 3.96957 8.21071 3.46086 8.58579 3.08579C8.96086 2.71071 9.46957 2.5 10 2.5H14C14.5304 2.5 15.0391 2.71071 15.4142 3.08579C15.7893 3.46086 16 3.96957 16 4.5V6.5M19 6.5V20.5C19 21.0304 18.7893 21.5391 18.4142 21.9142C18.0391 22.2893 17.5304 22.5 17 22.5H7C6.46957 22.5 5.96086 22.2893 5.58579 21.9142C5.21071 21.5391 5 21.0304 5 20.5V6.5H19Z"  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>
+                            </button>
                           </div>
                         </div>
 
@@ -2276,6 +2293,7 @@ export default {
       indextotestToSend: 0,
 
       testimage: "",
+      test_image_id: "",
       indextotest: 0,
 
       classifications: [],
@@ -2481,6 +2499,7 @@ export default {
       this.deleteButton = false;
       this.ButtonUploadImagesMail = false;
     },
+
     selectAllDepartment(x, name) {
       this.departmentNameSelected = name;
 
@@ -2589,19 +2608,7 @@ export default {
       this.allDepartmentButton = true;
     },
 
-
-
     delete_side_measure(department_id, name){
-        console.log(this.mailId)
-        console.log(department_id)
-        console.log(name)
-
-
-
-
-
-
-
       this.screenFreeze = true;
       this.loading = true;
 
@@ -2626,11 +2633,6 @@ export default {
             this.screenFreeze = false;
           }, 500);
         });
-
-
-
-       
-        
     },
 
     GetSentMailById() {
@@ -2675,6 +2677,7 @@ export default {
 
           if (this.imagesToShow.length > 0) {
             this.testimage = this.imagesToShow[0].path;
+            this.test_image_id = this.imagesToShow[0].id;
           }
 
           if (this.to_test_passing_mail_type == "2") {
@@ -2785,6 +2788,7 @@ export default {
 
           if (this.imagesToShow.length > 0) {
             this.testimage = this.imagesToShow[0].path;
+            this.test_image_id = this.imagesToShow[0].id;
           }
 
           if (this.mailType == "2") {
@@ -2901,11 +2905,11 @@ export default {
         });
     },
 
-
     previousImage() {
       if (this.indextotest > 0) {
         this.indextotest--;
         this.testimage = this.imagesToShow[this.indextotest].path;
+        this.test_image_id = this.imagesToShow[this.indextotest].id;
       }
     },
 
@@ -2913,6 +2917,8 @@ export default {
       if (this.indextotest < this.imagesToShow.length - 1) {
         this.indextotest++;
         this.testimage = this.imagesToShow[this.indextotest].path;
+        this.test_image_id = this.imagesToShow[this.indextotest].id;
+
       }
     },
 
@@ -3300,11 +3306,16 @@ export default {
         });
     },
 
-    deleteDocument(documentId, index) {
+    deleteDocument() {
+
+
       this.$http.mailService
-        .DeleteDocument(Number(documentId))
+        .DeleteDocument(Number(this.test_image_id))
         .then((res) => {
-          this.imagesToShow.splice(index, 1);
+
+          console.log("SSSSSSSSSSSSSSSSSSSSSS")
+          // this.imagesToShow.splice(index, 1);
+          this.mail_search()
           console.log(res);
           // this.imagesToShow = res.data.result.documents
         })
