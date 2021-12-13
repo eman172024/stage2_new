@@ -1334,7 +1334,17 @@ namespace MMSystem.Services.MailServeic
                     foreach (var xx in mail.resourcescs)
                     {
                         string x = xx.path;
-                        xx.path = await tobase64(x);
+
+                        if (File.Exists(xx.path))
+                        {
+                            xx.path = await tobase64(x);
+
+                        }
+                        else
+                        {
+
+
+                        }
 
                     }
 
@@ -1399,7 +1409,17 @@ namespace MMSystem.Services.MailServeic
                     foreach (var xx in mail.resourcescs)
                     {
                         string x = xx.path;
-                        xx.path = await tobase64(x);
+
+                        if (File.Exists(xx.path))
+                        {
+                            xx.path = await tobase64(x);
+
+                        }
+                        else
+                        {
+
+
+                        }
 
                     }
 
@@ -1489,7 +1509,17 @@ namespace MMSystem.Services.MailServeic
                         foreach (var xx in ex.resourcescs)
                         {
                             string x = xx.path;
-                            xx.path = await tobase64(x);
+
+                            if (File.Exists(xx.path))
+                            {
+                                xx.path = await tobase64(x);
+
+                            }
+                            else
+                            {
+
+
+                            }
 
                         }
 
@@ -1577,7 +1607,17 @@ namespace MMSystem.Services.MailServeic
                         foreach (var xx in ex.resourcescs)
                         {
                             string x = xx.path;
-                            xx.path = await tobase64(x);
+
+                            if (File.Exists(xx.path))
+                            {
+                                xx.path = await tobase64(x);
+
+                            }
+                            else
+                            {
+
+
+                            }
 
                         }
 
@@ -1651,7 +1691,17 @@ namespace MMSystem.Services.MailServeic
                     foreach (var xx in ex.resourcescs)
                     {
                         string x = xx.path;
-                        xx.path = await tobase64(x);
+
+                        if (File.Exists(xx.path))
+                        {
+                            xx.path = await tobase64(x);
+
+                        }
+                        else
+                        {
+
+
+                        }
 
                     }
 
@@ -1722,7 +1772,17 @@ namespace MMSystem.Services.MailServeic
                     foreach (var xx in ex.resourcescs)
                     {
                         string x = xx.path;
-                        xx.path = await tobase64(x);
+
+                        if (File.Exists(xx.path))
+                        {
+                            xx.path = await tobase64(x);
+
+                        }
+                        else
+                        {
+
+
+                        }
 
                     }
 
@@ -1772,9 +1832,16 @@ namespace MMSystem.Services.MailServeic
                 Send_to send_ = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail_id && x.to == departmentId);
                 if (send_ != null)
                 {
-                    _appContext.Sends.Remove(send_);
-                    await _appContext.SaveChangesAsync();
-                    return true;
+                    if (send_.flag > 2)
+                    {
+                        _appContext.Sends.Remove(send_);
+                        await _appContext.SaveChangesAsync();
+                        return true;
+
+
+                    }
+                    return false;
+                   
                 }
                 return false;
             }
@@ -1893,7 +1960,17 @@ namespace MMSystem.Services.MailServeic
                             foreach (var xx in mail.resourcescs)
                             {
                                 string x = xx.path;
-                                xx.path = await tobase64(x);
+
+                                if (File.Exists(xx.path))
+                                {
+                                    xx.path = await tobase64(x);
+
+                                }
+                                else {
+
+                                  
+                                }
+                                
 
                             }
 
@@ -1952,7 +2029,17 @@ namespace MMSystem.Services.MailServeic
                             foreach (var xx in ex.resourcescs)
                             {
                                 string x = xx.path;
-                                xx.path = await tobase64(x);
+
+                                if (File.Exists(xx.path))
+                                {
+                                    xx.path = await tobase64(x);
+
+                                }
+                                else
+                                {
+
+
+                                }
 
                             }
 
@@ -2009,7 +2096,17 @@ namespace MMSystem.Services.MailServeic
                             foreach (var xx in ex1.resourcescs)
                             {
                                 string x = xx.path;
-                                xx.path = await tobase64(x);
+
+                                if (File.Exists(xx.path))
+                                {
+                                    xx.path = await tobase64(x);
+
+                                }
+                                else
+                                {
+
+
+                                }
 
                             }
 
