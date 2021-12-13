@@ -50,11 +50,22 @@ export default {
         return axios.post(`/api/Mail/Uplode`, { mail_id: Number(id), list: list, })
     },
 
+    cancel_sending_to_department(mailId, department_id) {
+        // return axios.delete(`/api/Mail/Delete` , { department_id: Number(mailId), userId: Number(userId), mail_id: Number(mail_id)});
+        return axios.delete(`/api/Mail/DeleteMangament?mail_id=${mailId}&departmentId=${department_id}`);
+        
+    },
+
+
+
+
+
     DeleteMail(my_department_id, userId, mail_id) {
         // return axios.delete(`/api/Mail/Delete` , { department_id: Number(my_department_id), userId: Number(userId), mail_id: Number(mail_id)});
         return axios.delete(`/api/Mail/Delete?department_id=${my_department_id}&userId=${userId}&mail_id=${mail_id}`);
         
     },
+
 
     // GetMailById(mailId) {
     //     return axios.get(`/api/Mail/GetMailById/${mailId}`);

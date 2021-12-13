@@ -2591,8 +2591,46 @@ export default {
 
 
 
-    delete_side_measure(){
-      
+    delete_side_measure(department_id, name){
+        console.log(this.mailId)
+        console.log(department_id)
+        console.log(name)
+
+
+
+
+
+
+
+      this.screenFreeze = true;
+      this.loading = true;
+
+      this.$http.mailService
+        .cancel_sending_to_department(this.mailId, department_id)
+        .then((res) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+
+            const index = this.consignees.findIndex((element, index) => {
+              if (element.departmentId === department_id) {
+                return true;
+              }
+            });
+            this.consignees.splice(index, 1);
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+        });
+
+
+
+       
+        
     },
 
     GetSentMailById() {
