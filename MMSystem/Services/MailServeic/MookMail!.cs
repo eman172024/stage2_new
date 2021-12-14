@@ -2150,7 +2150,7 @@ namespace MMSystem.Services.MailServeic
                         break;
                     case 2:
 
-                        list = await (from mailstate in _appContext.MailStatuses
+                        list = await (from mailstate in _appContext.MailStatuses.Where(x=>x.flag>1)
                                       select new MailStateViewModel()
                                       {
                                           flag = mailstate.flag,
