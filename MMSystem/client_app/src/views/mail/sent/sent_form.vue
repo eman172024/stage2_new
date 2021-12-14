@@ -2632,6 +2632,7 @@ export default {
             this.loading = false;
             this.screenFreeze = false;
           }, 500);
+          alert("لا يمكن إلغاء الإدارة بعد القراءة")
         });
     },
 

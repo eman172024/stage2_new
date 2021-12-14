@@ -372,7 +372,7 @@
                       for="summary"
                       class="block text-base font-semibold text-gray-800"
                     >
-                      جزاء من الملخص
+                      جزء من الملخص
                     </label>
                     <input
                       type="text"
