@@ -372,7 +372,7 @@
                       for="summary"
                       class="block text-base font-semibold text-gray-800"
                     >
-                      جزاء من الملخص
+                      جزء من الملخص
                     </label>
                     <input
                       type="text"
@@ -542,7 +542,7 @@
                   </div>
 
                   <div
-                    class="flex justify-end mt-8  mx-auto px-4 sm:px-6 lg:px-8 bg-white relative"
+                    class="flex justify-end mt-8  mx-auto px-4 sm:px-6 lg:px-8 w-full bg-white relative"
                   >
                     <pagination
                       dir="rtl"
@@ -550,16 +550,16 @@
                       :per-page="page_size"
                       :records="total_of_transaction"
                       @paginate="GetSentMail"
+                      class="z-10"
                     />
-
-                    <div
-                      v-if="total_of_transaction > 9"
-                      class="absolute z-10 top-0 left-0 w-32 text-left p-1 flex items-center justify-end"
-                    >
+                    <div class="">
+                      <div class="absolute z-0 top-0 py-2 left-0 w-full text-left p-1 flex bg-white items-center justify-end">
                       <span class="text-xs ml-1">
                         المجموع
                       </span>
                       {{ total_of_transaction }}
+                    </div>
+
                     </div>
                   </div>
                 </div>
