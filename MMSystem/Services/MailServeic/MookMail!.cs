@@ -2131,6 +2131,45 @@ namespace MMSystem.Services.MailServeic
                 throw;
             }
         }
+
+        public async Task<List<MailStateViewModel>> GetAllState(int number)
+        {
+            try
+            {
+                List<MailStateViewModel> list = new List<MailStateViewModel>();
+                switch (number)
+                {
+                    case 1:
+                        list = await (from mailstate in _appContext.MailStatuses
+                                select new MailStateViewModel()
+                                {flag=mailstate.flag,
+                                statename=mailstate.sent
+                                }).ToListAsync();
+
+
+                        break;
+                    case 2:
+
+                        list = await (from mailstate in _appContext.MailStatuses
+                                      select new MailStateViewModel()
+                                      {
+                                          flag = mailstate.flag,
+                                          statename = mailstate.inbox
+                                      }).ToListAsync();
+
+
+                        break;
+                    default:
+                        break;
+                }
+                return list;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
 
