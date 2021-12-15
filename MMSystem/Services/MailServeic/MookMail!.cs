@@ -592,6 +592,7 @@ namespace MMSystem.Services.MailServeic
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = mail.newactionSenders[i].departmentId;
                                     sender.flag = flag;
+                                    sender.State = true;
                                     sender.type_of_send = mail.newactionSenders[i].measureId;
                                     bool send = await _sender.Add(sender);
                                 }
@@ -645,6 +646,7 @@ namespace MMSystem.Services.MailServeic
                                     {
                                         Send_to sender = new Send_to();
 
+                                        sender.State = true;
 
                                         sender.MailID = mail.mail.MailID;
                                         sender.to = mail.newactionSenders[i].departmentId;
@@ -697,6 +699,7 @@ namespace MMSystem.Services.MailServeic
                                     {
                                         Send_to sender = new Send_to();
 
+                                        sender.State = true;
 
                                         sender.MailID = mail.mail.MailID;
                                         sender.to = mail.newactionSenders[i].departmentId;
