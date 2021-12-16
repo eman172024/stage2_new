@@ -434,9 +434,15 @@ namespace MMSystem.Services.ReplayServeic
 
             try
             {
-                replay.file.mail_id = replay.reply.send_ToId;
+                ReplyViewModel reply = new ReplyViewModel();
+                reply.send_ToId = reply.send_ToId;
+                reply.from = reply.from;
 
-                bool result = await Add(replay.reply);
+
+
+                reply.reply = replay.reply;
+
+                bool result = await AddReplay(reply);
 
                 if (result) {
 
