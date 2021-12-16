@@ -321,6 +321,19 @@ namespace MMSystem.Controllers
         }
 
 
+        [HttpGet("GetAllMailStateWithId")]
+        public async Task<IActionResult> GetAllMailStateWithId(int flag)
+        {
+
+            List<MailStateViewModel> list = await _Imail.GetAllState(flag);
+            if (list.Count>0)
+                return Ok(list);
+            return BadRequest(new Result() { message = "لايوجد حالات للبريد", statusCode = 404 });
+
+
+        }
+
+       
 
     }
 }

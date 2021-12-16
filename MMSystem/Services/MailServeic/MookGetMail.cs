@@ -5,6 +5,7 @@ using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel.MailVModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -82,7 +83,7 @@ namespace MMSystem.Services.MailServeic
 
                 model.mail = await Getdto(mail_id, tybe);
                  List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id).ToListAsync();
-                Send_to c =  await _dbCon.Sends.Where(x => x.to == department_Id && x.MailID == mail_id).FirstOrDefaultAsync();
+                Send_to c =  await _dbCon.Sends.Where(x => x.to == department_Id && x.MailID == mail_id&&x.State==true).FirstOrDefaultAsync();
                 model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>,List<Mail_ResourcescsDto>>(mail_Resourcescs);
               model.list = await (from x in _dbCon.Replies.Where(x => x.send_ToId == c.Id)
                              //  join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
@@ -94,7 +95,11 @@ namespace MMSystem.Services.MailServeic
                 foreach (var xx in model.mail_Resourcescs)
                 {
                     string x = xx.path;
-                    xx.path = await tobase64(x);
+                    if (File.Exists(x))
+                    {
+                        xx.path = await tobase64(x);
+
+                    }
 
                 }
 
@@ -200,7 +205,7 @@ namespace MMSystem.Services.MailServeic
                 model.Sector = await _dbCon.Extrmal_Sections.FirstOrDefaultAsync(x => x.perent == 0 && x.type == model.side.type);
 
                 model.Inbox = _mapper.Map<Extrenal_inbox, Extrenal_inboxDto>(external_Mail);
-                List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id).ToListAsync();
+                List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id&&x.State==true).ToListAsync();
                 Send_to c = await _dbCon.Sends.Where(x => x.to == Depa && x.MailID == mail_id).FirstOrDefaultAsync();
                 model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
                 model.list = await(from x in _dbCon.Replies.Where(x => x.send_ToId == c.Id)
@@ -214,7 +219,11 @@ namespace MMSystem.Services.MailServeic
                 foreach (var xx in model.mail_Resourcescs)
                 {
                     string x = xx.path;
-                    xx.path = await tobase64(x);
+                    if (File.Exists(x))
+                    {
+                        xx.path = await tobase64(x);
+
+                    }
 
                 }
 
@@ -223,7 +232,13 @@ namespace MMSystem.Services.MailServeic
                     foreach (var item2 in item.Resources)
                     {
                         string x1 = item2.path;
-                        item2.path = await tobase64(x1);
+                        if (File.Exists(x1))
+                        {
+                            item2.path = await tobase64(x1);
+
+                        }
+
+
                     }
                 }
 
@@ -255,8 +270,12 @@ namespace MMSystem.Services.MailServeic
                 {
                     foreach (var item2 in item.Resources)
                     {
-                        string x1 = item2.path;
-                        item2.path = await tobase64(x1);
+                        string x = item2.path;
+                        if (File.Exists(x))
+                        {
+                            item2.path = await tobase64(x);
+
+                        }
                     }
                 }
 

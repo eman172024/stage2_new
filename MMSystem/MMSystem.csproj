@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\Mail_photos\2021\12\15\" />
     <Folder Include="wwwroot\Reply_photos\" />
   </ItemGroup>
 

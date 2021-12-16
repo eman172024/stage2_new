@@ -127,6 +127,7 @@ namespace MMSystem.Services.MailServeic
                                 sender.MailID = mail.mail.MailID;
                                 sender.to = mail.actionSenders[i].departmentId;
                                 sender.flag = 1;
+                                sender.State = true;
                                 sender.type_of_send = mail.actionSenders[i].measureId;
                                 bool send = await _sender.Add(sender);
                             }
@@ -182,6 +183,8 @@ namespace MMSystem.Services.MailServeic
                                         sender.MailID = mail.mail.MailID;
                                         sender.to = mail.actionSenders[i].departmentId;
                                         sender.flag = 1;
+                                        sender.State = true;
+
                                         sender.type_of_send = mail.actionSenders[i].measureId;
                                         bool send = await _sender.Add(sender);
                                     }
@@ -244,6 +247,8 @@ namespace MMSystem.Services.MailServeic
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = mail.actionSenders[i].departmentId;
                                     sender.flag = 1;
+                                    sender.State = true;
+
                                     sender.type_of_send = mail.actionSenders[i].measureId;
                                     bool send = await _sender.Add(sender);
                                 }
@@ -587,6 +592,7 @@ namespace MMSystem.Services.MailServeic
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = mail.newactionSenders[i].departmentId;
                                     sender.flag = flag;
+                                    sender.State = true;
                                     sender.type_of_send = mail.newactionSenders[i].measureId;
                                     bool send = await _sender.Add(sender);
                                 }
@@ -640,6 +646,7 @@ namespace MMSystem.Services.MailServeic
                                     {
                                         Send_to sender = new Send_to();
 
+                                        sender.State = true;
 
                                         sender.MailID = mail.mail.MailID;
                                         sender.to = mail.newactionSenders[i].departmentId;
@@ -692,6 +699,7 @@ namespace MMSystem.Services.MailServeic
                                     {
                                         Send_to sender = new Send_to();
 
+                                        sender.State = true;
 
                                         sender.MailID = mail.mail.MailID;
                                         sender.to = mail.newactionSenders[i].departmentId;
@@ -1308,7 +1316,7 @@ namespace MMSystem.Services.MailServeic
                 {
 
                     mail.mail = dto;
-                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID).ToListAsync();
+                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID&&x.State==true).ToListAsync();
 
                     ActionSender sender = new ActionSender();
                     foreach (var item in sends)
@@ -1483,7 +1491,7 @@ namespace MMSystem.Services.MailServeic
 
 
 
-                        List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == id).ToListAsync();
+                        List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == id&&x.State==true).ToListAsync();
 
 
                         foreach (var item in sends)
@@ -1665,7 +1673,7 @@ namespace MMSystem.Services.MailServeic
                     ex.sector.Add(sector);
 
 
-                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == id).ToListAsync();
+                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == id&&x.State==true).ToListAsync();
 
 
                     foreach (var item in sends)
@@ -1833,8 +1841,9 @@ namespace MMSystem.Services.MailServeic
                 if (send_ != null)
                 {
                     if (send_.flag <= 2)
+                        send_.State = false;
                     {
-                        _appContext.Sends.Remove(send_);
+                        _appContext.Sends.Update(send_);
                         await _appContext.SaveChangesAsync();
                         return true;
 
@@ -1880,7 +1889,7 @@ namespace MMSystem.Services.MailServeic
            
                 string date;
                 var c = await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true)
-                               join send in _appContext.Sends on mail.MailID equals send.MailID
+                               join send in _appContext.Sends.Where(x=>x.State==true) on mail.MailID equals send.MailID
                                join department in _appContext.Departments on send.to equals department.Id
                                join measures in _appContext.measures on send.type_of_send equals measures.MeasuresId
                                join mailState in _appContext.MailStatuses on send.flag equals mailState.flag
@@ -1934,7 +1943,7 @@ namespace MMSystem.Services.MailServeic
                         if (dto != null) {
 
                             mail.mail = dto;
-                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID).ToListAsync();
+                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID&&x.State==true).ToListAsync();
 
                             ActionSender sender = new ActionSender();
                             foreach (var item in sends)
@@ -2003,7 +2012,7 @@ namespace MMSystem.Services.MailServeic
 
 
 
-                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == ex.mail.MailID).ToListAsync();
+                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == ex.mail.MailID&&x.State==true).ToListAsync();
 
 
                             foreach (var item in sends)
@@ -2070,7 +2079,7 @@ namespace MMSystem.Services.MailServeic
                             ex1.sector.Add(sector);
 
 
-                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == dto.MailID).ToListAsync();
+                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == dto.MailID && x.State == true).ToListAsync();
 
 
                             foreach (var item in sends)
@@ -2124,6 +2133,45 @@ namespace MMSystem.Services.MailServeic
                       
                 }
                 return serch;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<List<MailStateViewModel>> GetAllState(int number)
+        {
+            try
+            {
+                List<MailStateViewModel> list = new List<MailStateViewModel>();
+                switch (number)
+                {
+                    case 1:
+                        list = await (from mailstate in _appContext.MailStatuses
+                                select new MailStateViewModel()
+                                {flag=mailstate.flag,
+                                statename=mailstate.sent
+                                }).ToListAsync();
+
+
+                        break;
+                    case 2:
+
+                        list = await (from mailstate in _appContext.MailStatuses.Where(x=>x.flag>1)
+                                      select new MailStateViewModel()
+                                      {
+                                          flag = mailstate.flag,
+                                          statename = mailstate.inbox
+                                      }).ToListAsync();
+
+
+                        break;
+                    default:
+                        break;
+                }
+                return list;
             }
             catch (Exception)
             {
