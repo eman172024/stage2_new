@@ -439,7 +439,7 @@ namespace MMSystem.Services.ReplayServeic
 
                 ReplyViewModel reply = new ReplyViewModel();
                 reply.send_ToId = replay.send_ToId;
-                reply.from = reply.from;
+                reply.from = replay.from;
 
                
 
