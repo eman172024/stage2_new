@@ -631,8 +631,8 @@
                   </div>
                 </div>
               </div>
-
-              <section v-if="replies.length > 0" class="bg-gray-100 rounded-md p-6 mt-16">
+<!-- v-if="replies.length > 0" -->
+              <section  class="bg-gray-100 rounded-md p-6 mt-16">
                 <p class="block text-sm font-semibold text-gray-800">
                   ردود - {{ departmentName }}
                 </p>
@@ -1265,10 +1265,12 @@ export default {
           mail_detail: this.reply_to_add,
           To: Number(this.my_department_id_to_get_mail_by_id),
         },
-        file : this.imagesToSend
+        file : {
+          "list" : this.imagesToSend
+        }
       };
       this.$http.mailService
-        .AddReply(ReplyViewModel)
+        .NewAddReply(ReplyViewModel)
         .then((res) => {
           setTimeout(() => {
             console.log(res);

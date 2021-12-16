@@ -106,13 +106,34 @@ export default {
     },
 
 
-    AddReply(ReplyViewModel) {
-        return axios.post(`/api/Reply/AddReply`, ReplyViewModel)
-    },
+    
 
     AddReplyDocument(ReplyViewModel) {
         return axios.post(`/api/Reply/Uplode`, ReplyViewModel)
     },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    AddReply(ReplyViewModel) {
+        return axios.post(`/api/Reply/AddReply`, ReplyViewModel)
+    },
+
+    NewAddReply(ReplyViewModel) {
+        return axios.post(`/api/Reply/AddReplyWithPhoto`, ReplyViewModel)
+    },
+
 
 
 
