@@ -429,16 +429,18 @@ namespace MMSystem.Services.ReplayServeic
 
         }
 
-        public async Task<bool> AddReplayWithPhoto(ReplayPhotoVM replay)
+        public async Task<int> AddReplayWithPhoto(ReplayPhotoVM replay)
         {
 
             try
             {
+              
+
                 ReplyViewModel reply = new ReplyViewModel();
-                reply.send_ToId = reply.send_ToId;
+                reply.send_ToId = replay.send_ToId;
                 reply.from = reply.from;
 
-
+               
 
                 reply.reply = replay.reply;
 
@@ -446,24 +448,24 @@ namespace MMSystem.Services.ReplayServeic
 
                 if (result) {
 
+                    replay.file.mail_id = reply.reply.ReplyId;
                     if (replay.file.list.Count > 0) {
 
                         bool res = await Uplode(replay.file);
                         if (res)
                     {
-                        return true;
+                            return 1;
 
                     }
-                        return false;
+                        return 2;
 
                     }
 
 
-                    return true;
 
                 
                 }
-                return false;
+                return 3;
 
             }
             catch (Exception)

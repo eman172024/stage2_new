@@ -88,18 +88,26 @@ namespace MMSystem.Controllers
         public async Task<IActionResult> AddReplyWithPhoto([FromBody] ReplayPhotoVM mail)
         {
             var result = await _Replay.AddReplayWithPhoto(mail);
-            if (result)
-                return Created("AddMail", new
-                {
-                    message = "تمت العملية بنجاح",
-                    statusCode = 201
+            string massege;
+            switch (result) {
+                case 1:
+                    massege = "تمت الاضافة بنجاح";
+                    break;
+                case 2:
 
-                });
-            return BadRequest(new Result()
-            {
-                message = "فشلت العملية",
-                statusCode = 400
-            });
+                    massege = "تمت اضافة رد من غير مرفق";
+                    break;
+                case 3:
+                 massege = "فشلت العملية";
+                    break;
+               
+                default:
+                    massege = "حدث خطأ ";
+
+                    break;
+            };
+
+            return Ok(massege);
 
         }
     }
