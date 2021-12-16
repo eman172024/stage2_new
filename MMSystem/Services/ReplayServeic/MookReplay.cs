@@ -345,6 +345,7 @@ namespace MMSystem.Services.ReplayServeic
                         reply.ReplyId = file.mail_id;
                         reply.path = path + extention;
                         reply.order = item.index;
+                        reply.State = true;
                         bool res = await AddResources(reply);
                         if (res)
                         {

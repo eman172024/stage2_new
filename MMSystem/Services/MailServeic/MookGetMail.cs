@@ -89,7 +89,7 @@ namespace MMSystem.Services.MailServeic
                              //  join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
                                select new RViewModel { 
                                reply=_mapper.Map<Reply,ReplayDto>(x),
-                             Resources=_mapper.Map<List<Reply_Resources>,List<Reply_ResourcesDto>>(  _dbCon.Reply_Resources.Where(x=>x.ReplyId==x.ID).ToList())
+                             Resources=_mapper.Map<List<Reply_Resources>,List<Reply_ResourcesDto>>(  _dbCon.Reply_Resources.Where(x=>x.ReplyId==c.Id).ToList())
                                }).ToListAsync();
 
                 foreach (var xx in model.mail_Resourcescs)
