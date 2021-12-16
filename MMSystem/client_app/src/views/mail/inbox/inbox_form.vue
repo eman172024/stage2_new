@@ -16,7 +16,7 @@
               <div class="float-left text-base font-semibold text-gray-800">
                 رقم الرسالة
                 <span class="mr-4 underline font-bold text-2xl">
-                  {{ mailId }} - {{ department_Id }} - {{ mail_year }}
+                  {{ mail_Number }} - {{ department_Id }} - {{ mail_year }}
                 </span>
               </div>
             </div>
@@ -81,7 +81,7 @@
                           p-2
                         "
                       >
-                        مقال صحفي
+                        {{ classification }}
                       </div>
                     </div>
 
@@ -1157,7 +1157,7 @@ export default {
 
           this.releaseDate = res.data.mail.date_Of_Mail;
           this.summary = res.data.mail.mail_Summary;
-          this.classification = res.data.mail.clasification;
+          this.classification = res.data.mail.classification_name;
           this.mailType = res.data.mail.mail_Type;
           this.general_incoming_number = res.data.mail.genaral_inbox_Number;
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;

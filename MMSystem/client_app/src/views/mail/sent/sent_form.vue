@@ -2441,7 +2441,7 @@ export default {
 
             if(this.departments[index].departmentName.includes('مكتب رئيس الهيئة')){
 
-              this.consignees.push({
+              this.newactionSenders.push({
                 departmentId: this.departments[index].id,
                 departmentName: this.departments[index].departmentName,
                 measureId: this.measures[0].measuresId,
@@ -2452,7 +2452,7 @@ export default {
 
             if(this.departments[index].departmentName.includes('المحفوظات')){
 
-              this.consignees.push({
+              this.newactionSenders.push({
                 departmentId: this.departments[index].id,
                 departmentName: this.departments[index].departmentName,
                 measureId: this.measures[0].measuresId,
