@@ -279,29 +279,37 @@ namespace MMSystem.Services.ReplayServeic
         }
 
         public async Task<bool> Uplode(Uplode file)
-        {
+      {
             try
 
 
             {
-                bool result = false;
+                
 
+                bool result = false;
+              
                 string year = DateTime.Now.Year.ToString();
                 string Month = DateTime.Now.Month.ToString();
                 string day = DateTime.Now.Day.ToString();
 
-                string name = "ReplyResources";
-              
-                string x = Path.Combine(this.iwebHostEnvironment.WebRootPath, name).ToLower();
-                string y = Path.Combine(x, year);
+                string name = "Reply_photos";
+
+                string x1 = Path.Combine(this.iwebHostEnvironment.WebRootPath, name).ToLower();
+
+                string y = Path.Combine(x1, year);
                 string z = Path.Combine(y, Month);
                 string last = Path.Combine(z, day);
 
-                if (Directory.Exists(x))
-                    if (!Directory.Exists(y)) {
-                        Directory.CreateDirectory(y);
+                if (!Directory.Exists(x1))
+                {
+                    Directory.CreateDirectory(x1);
+                }
 
-                    }
+                if (!Directory.Exists(y))
+                {
+                    Directory.CreateDirectory(y);
+
+                }
 
                 if (!Directory.Exists(z))
                     Directory.CreateDirectory(z);
@@ -309,6 +317,12 @@ namespace MMSystem.Services.ReplayServeic
 
                 if (!Directory.Exists(last))
                     Directory.CreateDirectory(last);
+
+             
+
+                else { }
+
+               
 
                 if (file.list.Count > 0)
                 {
@@ -335,9 +349,10 @@ namespace MMSystem.Services.ReplayServeic
                         if (res)
                         {
 
-                            result= true;
+                            result = true;
                         }
-                        else {
+                        else
+                        {
                             File.Delete(reply.path);
                             result = false;
 
@@ -355,6 +370,10 @@ namespace MMSystem.Services.ReplayServeic
 
                 throw;
             }
+
+
+
+
 
         }
 
@@ -407,6 +426,45 @@ namespace MMSystem.Services.ReplayServeic
                 throw;
             }
 
+
+        }
+
+        public async Task<bool> AddReplayWithPhoto(ReplayPhotoVM replay)
+        {
+
+            try
+            {
+                replay.file.mail_id = replay.reply.send_ToId;
+
+                bool result = await Add(replay.reply);
+
+                if (result) {
+
+                    if (replay.file.list.Count > 0) {
+
+                        bool res = await Uplode(replay.file);
+                        if (res)
+                    {
+                        return true;
+
+                    }
+                        return false;
+
+                    }
+
+
+                    return true;
+
+                
+                }
+                return false;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
 
         }
     }
