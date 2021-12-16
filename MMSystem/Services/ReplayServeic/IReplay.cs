@@ -24,5 +24,8 @@ namespace MMSystem.Services.ReplayServeic
         Task<List<RViewModel>> GetResourse(int id);
 
 
+        Task<bool> AddReplayWithPhoto(ReplayPhotoVM replay);
+
+
     }
 }

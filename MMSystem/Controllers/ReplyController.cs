@@ -21,10 +21,10 @@ namespace MMSystem.Controllers
             _Replay = replay;
         }
 
-        private readonly IReplay _Replay ;
+        private readonly IReplay _Replay;
 
         [HttpPost("AddReply")]
-        public async Task<IActionResult> AddReply([FromBody] ReplyViewModel  mail)
+        public async Task<IActionResult> AddReply([FromBody] ReplyViewModel mail)
         {
             var result = await _Replay.AddReplay(mail);
             if (result)
@@ -33,7 +33,7 @@ namespace MMSystem.Controllers
                     message = "تمت العملية بنجاح",
                     statusCode = 201,
                     ReplyId = mail.reply.ReplyId
-                }) ;
+                });
             return BadRequest(new Result()
             {
                 message = "فشلت العملية",
@@ -49,7 +49,7 @@ namespace MMSystem.Controllers
                 {
                     message = "تمت العملية بنجاح",
                     statusCode = 203,
-                   
+
                 });
             return BadRequest(new Result()
             {
@@ -58,10 +58,10 @@ namespace MMSystem.Controllers
             });
         }
         [HttpGet("GetReplyById")]
-        public async Task<IActionResult> GetReplyById(int department_id,int mail_id)
+        public async Task<IActionResult> GetReplyById(int department_id, int mail_id)
         {
-            List<ReplayDto> result = await _Replay.GetAllReplay(department_id,mail_id);
-           
+            List<ReplayDto> result = await _Replay.GetAllReplay(department_id, mail_id);
+
             return Ok(result);
             //return BadRequest(new Result()
             //{
@@ -72,7 +72,7 @@ namespace MMSystem.Controllers
         [HttpGet("GetReplyWithRessourses/{id}")]
         public async Task<IActionResult> GetReplyWithRessourses(int id)
         {
-           var  result = await _Replay.GetResourse(id);
+            var result = await _Replay.GetResourse(id);
             if (result.Count > 0)
                 return Ok(result);
             return BadRequest(new Result()
@@ -84,6 +84,23 @@ namespace MMSystem.Controllers
 
 
 
+        [HttpPost("AddReplyWithPhoto")]
+        public async Task<IActionResult> AddReplyWithPhoto([FromBody] ReplayPhotoVM mail)
+        {
+            var result = await _Replay.AddReplayWithPhoto(mail);
+            if (result)
+                return Created("AddMail", new
+                {
+                    message = "تمت العملية بنجاح",
+                    statusCode = 201
 
+                });
+            return BadRequest(new Result()
+            {
+                message = "فشلت العملية",
+                statusCode = 400
+            });
+
+        }
     }
 }
