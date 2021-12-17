@@ -43,7 +43,7 @@ namespace MMSystem.Services.MailServeic
                                    select new RViewModel
                                    {
                                        reply = _mapper.Map<Reply, ReplayDto>(x),
-                                      Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(_dbCon.Reply_Resources.Where(x => x.ReplyId == x.ID).ToList())
+                                      Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(x._Resources)
                                    }).ToListAsync();
 
                 foreach (var xx in model.mail_Resourcescs)
@@ -89,7 +89,7 @@ namespace MMSystem.Services.MailServeic
                       //       join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
                                select new RViewModel { 
                                reply=_mapper.Map<Reply,ReplayDto>(x),
-                             Resources=_mapper.Map<List<Reply_Resources>,List<Reply_ResourcesDto>>(  _dbCon.Reply_Resources.Where(x=>x.ReplyId==x.ReplyId).ToList())
+                             Resources=_mapper.Map<List<Reply_Resources>,List<Reply_ResourcesDto>>( x._Resources)
                                }).ToListAsync();
 
                 foreach (var xx in model.mail_Resourcescs)
@@ -107,8 +107,13 @@ namespace MMSystem.Services.MailServeic
                 {
                     foreach (var item2 in item.Resources)
                     {
-                        string x1 =item2.path;
-                        item2.path = await tobase64(x1);
+                        string x = item2.path;
+                        if (File.Exists(x))
+                        {
+                            item2.path = await tobase64(x);
+
+                        }
+
                     }
                 }
             
@@ -213,7 +218,7 @@ namespace MMSystem.Services.MailServeic
                                    select new RViewModel
                                    {
                                        reply = _mapper.Map<Reply, ReplayDto>(x),
-                                      Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(_dbCon.Reply_Resources.Where(x => x.ReplyId == x.ID).ToList())
+                                      Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(x._Resources)
                                    }).ToListAsync();
 
                 foreach (var xx in model.mail_Resourcescs)
