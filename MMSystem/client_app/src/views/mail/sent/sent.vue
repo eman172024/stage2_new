@@ -602,7 +602,8 @@
                           to_pass_data_to_get_mail_by_id(
                             sender.department_id,
                             sender.send_ToId,
-                            sender.department_name
+                            sender.department_name,
+                            sender.flag
                           )
                         "
                         class="flex items-center w-full text-right"
@@ -632,7 +633,7 @@
                 </div>
               </div>
 <!-- v-if="replies.length > 0" -->
-              <section  class="bg-gray-100 rounded-md p-6 mt-16">
+              <section v-if="departmentflag > 2" class="bg-gray-100 rounded-md p-6 mt-16">
                 <p class="block text-sm font-semibold text-gray-800">
                   ردود - {{ departmentName }}
                 </p>
@@ -648,32 +649,25 @@
                     border border-gray-300
                   "
                 >
-                  <div
-                    v-for="reply in replies"
-                    :key="reply.replyId"
-                    :class="
-                      reply.reply.to == my_department_id
-                        ? 'justify-end'
-                        : 'justify-start'
-                    "
+                  <div v-for="(reply, index) in replies" :key="index" :class="reply.reply.to == my_department_id ? ' flex-row-reverse justify-start' : 'justify-start'"
                     class="w-full my-0.5 flex px-2"
                   >
-                    <div
-                      :class="
-                        reply.reply.to == my_department_id
-                          ? 'bg-gray-700'
-                          : 'bg-blue-700'
-                      "
-                      class="
-                        text-white
-                        max-w-10/12
-                        py-0
-                        leading-9
-                        px-2
-                        rounded
-                      "
+                    <div :class="reply.reply.to == my_department_id ? 'bg-gray-700' : 'bg-blue-700'"
+                      class=" text-white max-w-10/12 py-0 leading-9 px-2 rounded "
                     >
                       {{ reply.reply.mail_detail }}
+                     
+                    </div>
+
+                    <div v-if="reply.resources != 0" class=" mx-2">
+                        <button @click="show_reply_images(index)" class="px-2 text-xs rounded leading-9 text-white bg-red-400 flex items-center">
+                          عرض الصور
+                          <svg class="stroke-current mr-2 w-6 h-6" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"  stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8.5 10C9.32843 10 10 9.32843 10 8.5C10 7.67157 9.32843 7 8.5 7C7.67157 7 7 7.67157 7 8.5C7 9.32843 7.67157 10 8.5 10Z"  stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M21 15L16 10L5 21"  stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </button>
                     </div>
                   </div>
                 </div>
@@ -963,7 +957,9 @@
                 </svg>
               </button>
 
-              {{ indextotest + 1 }} / {{ show_images.length }}
+              <div class="text-white">
+                {{ indextotest + 1 }} / {{ show_images.length }}
+              </div>
 
               <button
                 title="next"
@@ -1030,11 +1026,6 @@ export default {
     this.GetAllClassifications();
     this.GetAllDepartments();
     this.GetAllMeasures();
-
-
-
-    console.log('this.replies')
-    console.log(this.replies.length)
   },
 
   watch: {
@@ -1144,6 +1135,7 @@ export default {
       departmentNameSelected: "",
       departmentIdSelected: "",
       departmentName: "",
+      departmentflag: 0,
 
       measures: [],
       measureselect: false,
@@ -1181,9 +1173,23 @@ export default {
   },
 
   methods: {
+    
+    show_reply_images(index) {
 
+      this.show_images = []
+      this.indextotest = 0
 
+      this.screenFreeze = true;
+      this.loading = true;
+      this.show_images = this.replies[index].resources
+      this.testimage = this.show_images[0].path;
+      setTimeout(() => {
+        this.show_images_model = true;
+        this.screenFreeze = false;
+        this.loading = false;
+      }, 300);
 
+    },
 
     scanToJpg() {
       scanner.scan(this.displayImagesOnPage, {
@@ -1302,11 +1308,17 @@ export default {
     to_pass_data_to_get_mail_by_id(
       my_department_id_to_get_mail_by_id,
       sends_id,
-      departmentName
+      departmentName,
+      flag
     ) {
+      this.departmentflag = 0
       this.my_department_id_to_get_mail_by_id = my_department_id_to_get_mail_by_id;
       this.sends_id = sends_id;
       this.departmentName = departmentName;
+      this.departmentflag = flag;
+
+
+      console.log(this.departmentflag)
 
       // this.sends_id_to_get_mail_by_id = sends_id_to_get_mail_by_id
       // this.mangment_sender_to_get_mail_by_id = mangment_sender_to_get_mail_by_id
@@ -1339,16 +1351,13 @@ export default {
       this.to_test_passing_mail_type_to_get_mail_by_id = mail_type;
 
       this.replies = [];
+      this.departmentflag = 0
 
       this.$http.mailService
         .show_senders(id)
         .then((res) => {
           this.show_senders_mail = number;
-          console.log(res);
-
           this.senders = res.data;
-
-          // this.senders = res.data.sendsDetalies;
 
           setTimeout(() => {
             this.screenFreeze = false;
@@ -1384,8 +1393,6 @@ export default {
       this.$http.mailService
         .GetAllDocuments(id)
         .then((res) => {
-          console.log(res);
-
           this.show_images = res.data;
 
           this.testimage = this.show_images[0].path;
@@ -1431,38 +1438,12 @@ export default {
           this.page_size
         )
         .then((res) => {
-          console.log(res);
           this.inboxMails = res.data.mail;
           this.total_of_transaction = res.data.total;
           setTimeout(() => {
             this.screenFreeze = false;
             this.loading = false;
           }, 300);
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.screenFreeze = false;
-            this.loading = false;
-            console.log(err);
-          }, 100);
-        });
-    },
-
-    read_it_mail(id) {
-      // this.screenFreeze = true;
-      // this.loading = true;
-      this.$http.mailService
-        .read_it_mail(id, this.my_department_id)
-        .then((res) => {
-          console.log(res);
-          // this.inboxMails = res.data.mail;
-          // this.total_of_transaction = res.data.total
-          // setTimeout(() => {
-          //     this.screenFreeze = false;
-          //     this.loading = false;
-
-          this.GetSentMail();
-          // }, 300);
         })
         .catch((err) => {
           setTimeout(() => {

@@ -13,5 +13,7 @@ namespace MMSystem.Model.ViewModel
         public string measureName { get; set; }
 
         public int send_ToId { get; set; }
+
+        public int flag { get; set; }
     }
 }

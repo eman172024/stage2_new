@@ -159,24 +159,64 @@ namespace MMSystem.Services.ReplayServeic
             return false;
         }
 
-        public async Task<List<ReplayDto>> GetAllReplay( int depid,int mailId)
+        public async Task<MVM> GetAllReplay( int depid,int mailId)
         {
+            //  try
+            //   {
+
+            //    Send_to send_ = await _data.Sends.FirstOrDefaultAsync(x => x.MailID == mailId &&x.to==depid);
+            //    MVM mVM = new MVM();
+            //    mVM.list = await _data.Replies.OrderBy(x=>x.ReplyId).Where(x=>x.send_ToId==send_.Id).ToListAsync();
+            //    List<ReplayDto> replays = _mapper.Map<List<Reply>, List<ReplayDto>>(list);
+            //    return replays;
+            //}
+            //catch (Exception)
+            //{
+
+            //    throw;
+            //}
             try
             {
 
-                Send_to send_ = await _data.Sends.FirstOrDefaultAsync(x => x.MailID == mailId &&x.to==depid);
+                MVM model = new MVM();
 
-                List<Reply> list = await _data.Replies.OrderBy(x=>x.ReplyId).Where(x=>x.send_ToId==send_.Id).ToListAsync();
-                List<ReplayDto> replays = _mapper.Map<List<Reply>, List<ReplayDto>>(list);
-                return replays;
+               
+                Send_to c = await _data.Sends.Where(x => x.to == depid && x.MailID == mailId && x.State == true).FirstOrDefaultAsync();
+            
+                model.list = await (from x in _data.Replies.Where(x => x.send_ToId == c.Id)
+                                        //       join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
+                                    select new RViewModel
+                                    {
+                                        reply = _mapper.Map<Reply, ReplayDto>(x),
+                                        Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(x._Resources)
+                                    }).ToListAsync();
+
+              
+                foreach (var item in model.list)
+                {
+                    foreach (var item2 in item.Resources)
+                    {
+                        string x = item2.path;
+                        if (File.Exists(x))
+                        {
+                            item2.path = await tobase64(x);
+
+                        }
+
+                    }
+                }
+
+
+                return model;
+
+
             }
             catch (Exception)
             {
 
                 throw;
             }
-      
-            
+
         }
 
 

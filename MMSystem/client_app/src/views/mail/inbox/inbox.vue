@@ -632,26 +632,22 @@
               <div class="w-5/12 mr-2 ">
                 الردود - {{ mangment_sender_to_get_mail_by_id }}
 
-                <div class=" bg-gray-100 w-full text-sm p-2 mt-2">
+                <div v-if="mangment_sender_to_get_mail_by_id != ''" class=" bg-gray-100 w-full text-sm p-2 mt-2">
                   <div
                     id="scroll"
                     class="
-                                        h-56
-                                        overflow-y-scroll
-                                        mt-3
-                                        rounded-lg
-                                        py-
-                                        border border-gray-300
-                                    "
+                          h-56
+                          overflow-y-scroll
+                          mt-3
+                          rounded-lg
+                          py-
+                          border border-gray-300
+                      "
                   >
                     <div
-                      v-for="reply in replies"
-                      :key="reply.replyId"
-                      :class="
-                        reply.reply.to == my_department_id
-                          ? ' justify-start'
-                          : 'justify-end'
-                      "
+                      v-for="(reply, index) in replies"
+                      :key="index"
+                      :class="reply.reply.to == my_department_id ? ' flex-row-reverse justify-start' : 'justify-start'"
                       class="w-full my-0.5 flex px-2"
                     >
                       <div
@@ -661,16 +657,27 @@
                             : 'bg-gray-700'
                         "
                         class="
-                                                
-                                                text-white
-                                                max-w-10/12
-                                                leading-9
-                                                px-2
-                                                rounded-lg
-                                            "
+                              text-white
+                              max-w-10/12
+                              leading-9
+                              px-2
+                              rounded-lg
+                          "
                       >
                         {{ reply.reply.mail_detail }}
                       </div>
+
+                      <div v-if="reply.resources != 0" class=" mx-2">
+                        <button @click="show_reply_images(index)" class="px-2 text-xs rounded leading-9 text-white bg-red-400 flex items-center">
+                          عرض الصور
+                          <svg class="stroke-current mr-2 w-6 h-6" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"  stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8.5 10C9.32843 10 10 9.32843 10 8.5C10 7.67157 9.32843 7 8.5 7C7.67157 7 7 7.67157 7 8.5C7 9.32843 7.67157 10 8.5 10Z"  stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M21 15L16 10L5 21"  stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </button>
+                    </div>
+
                     </div>
                   </div>
 
@@ -956,7 +963,9 @@
                 </svg>
               </button>
 
-              {{ indextotest + 1 }} / {{ show_images.length }}
+              <div class="text-white">
+                {{ indextotest + 1 }} / {{ show_images.length }}
+              </div>
 
               <button
                 title="next"
@@ -1123,6 +1132,30 @@ export default {
   },
 
   methods: {
+
+    show_reply_images(index) {
+
+      this.show_images=[]
+      this.indextotest = 0
+
+      this.screenFreeze = true;
+      this.loading = true;
+      this.show_images = this.replies[index].resources
+
+      
+
+      this.testimage = this.show_images[0].path;
+
+      console.log(this.testimage_images_model)
+
+      setTimeout(() => {
+        this.show_images_model = true;
+        this.screenFreeze = false;
+        this.loading = false;
+      }, 300);
+
+    },
+
     AddReply() {
       this.screenFreeze = true;
       this.loading = true;

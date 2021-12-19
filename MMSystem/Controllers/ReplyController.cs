@@ -60,7 +60,7 @@ namespace MMSystem.Controllers
         [HttpGet("GetReplyById")]
         public async Task<IActionResult> GetReplyById(int department_id, int mail_id)
         {
-            List<ReplayDto> result = await _Replay.GetAllReplay(department_id, mail_id);
+            var result = await _Replay.GetAllReplay(department_id, mail_id);
 
             return Ok(result);
             //return BadRequest(new Result()
