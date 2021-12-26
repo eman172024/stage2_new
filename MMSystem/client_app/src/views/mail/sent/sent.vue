@@ -306,13 +306,13 @@
                         <button
                           class="block focus:outline-none w-full my-1 text-right"
                           @click="
-                            select_mail_case(mail_case.id, mail_case.name);
+                            select_mail_case(mail_case.flag, mail_case.statename);
                             mail_caseselect = !mail_caseselect;
                           "
                           v-for="mail_case in mail_cases"
-                          :key="mail_case.id"
+                          :key="mail_case.flag"
                         >
-                          {{ mail_case.name }}
+                          {{ mail_case.statename }}
                         </button>
                       </div>
                     </div>
@@ -1487,20 +1487,15 @@ export default {
     },
 
     GetAllmail_cases() {
-      this.mail_cases = [
-        {
-          id: 1,
-          name: "read it",
-        },
-        {
-          id: 2,
-          name: "not read it",
-        },
-        {
-          id: 3,
-          name: "aaaa",
-        },
-      ];
+      this.$http.mailService
+        .AllStateSent()
+        .then((res) => {
+          this.mail_cases = res.data;
+
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     select_mail_case(id, name) {
