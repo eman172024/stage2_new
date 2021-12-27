@@ -1917,8 +1917,8 @@ namespace MMSystem.Services.MailServeic
                                    State = mailState.sent,
                                    send_ToId=send.Id,
                                    
-                                  date = send.Send_time.ToString("yyyy-MM-dd"),
-                                date_read=(send.time_of_read.ToString().StartsWith("0001"))?"لم يتم الرد" : send.time_of_read.ToString("yyyy-MM-dd")
+                                  date = (send.Send_time.ToString().StartsWith("0001")) ? "لم يتم الارسال" : send.Send_time.ToString("yyyy-MM-dd"),
+                                date_read =(send.time_of_read.ToString().StartsWith("0001"))?"لم يتم الرد" : send.time_of_read.ToString("yyyy-MM-dd")
 
                                }).ToListAsync();
               
