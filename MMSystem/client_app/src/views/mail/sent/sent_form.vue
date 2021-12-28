@@ -2671,6 +2671,7 @@ export default {
 
       console.log(this.to_test_passing_mail_type)
       console.log('this.to_test_passing_mail_type')
+this.newactionSenders = []
 
       this.screenFreeze = true;
       this.loading = true;
