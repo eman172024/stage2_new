@@ -2504,6 +2504,21 @@ export default {
     },
 
     clear_page() {
+
+
+      var date = new Date();
+
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    this.releaseDate = date.getFullYear() + "-" + month + "-" + day;
+
+    this.mail_year = date.getFullYear();
+
+    
       if (this.mailType == 1) {
         this.mailType = "";
         setTimeout(() => {
