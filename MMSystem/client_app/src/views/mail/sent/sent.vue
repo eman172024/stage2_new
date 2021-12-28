@@ -179,7 +179,7 @@
                       for="department"
                       class="block text-base font-semibold text-gray-800"
                     >
-                      الإدارات المرسلة
+                      الإدارات المرسل إليها
                     </label>
 
                     <div class="relative">
@@ -555,7 +555,7 @@
                     <div class="">
                       <div class="absolute z-0 top-0 py-2 left-0 w-full text-left p-1 flex bg-white items-center justify-end">
                       <span class="text-xs ml-1">
-                        المجموع
+                        عدد الرسائل
                       </span>
                       {{ total_of_transaction }}
                     </div>
