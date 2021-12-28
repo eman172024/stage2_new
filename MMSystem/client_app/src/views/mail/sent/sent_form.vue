@@ -3546,6 +3546,8 @@ export default {
           setTimeout(() => {
             this.loading = false;
             this.screenFreeze = false;
+
+            this.newactionSenders = []
           }, 500);
         })
         .catch((err) => {
