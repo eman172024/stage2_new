@@ -3,7 +3,8 @@ import VueRouter from "vue-router";
 import Login from "../views/Auth/Login.vue";
 import Show from "../views/users/ShowUsers.vue";
 import Add from "../views/users/UsersForm.vue";
-
+import Archives from "../views/Archives/Archives.vue";
+import report from "../views/Archives/report.vue";
 
 Vue.use(VueRouter);
 
@@ -182,6 +183,19 @@ const routes = [{
         name: "Show",
        component: Show
       },
+
+      {
+        path: "/Archives",
+        name: "Archives",
+       component: Archives
+      },
+    
+      {
+        path: "/report",
+        name: "report",
+       component: report
+      },
+    
     
 
 ];
