@@ -8,7 +8,7 @@ namespace MMSystem.Model.ViewModel.ArchivesReport
     public class ArchivesViewModel
     {
         //الحالة
-        public string Flag { get; set; }
+        public int Flag { get; set; }
 
         public int id { get; set; }
         //رقم الصادر
@@ -16,12 +16,12 @@ namespace MMSystem.Model.ViewModel.ArchivesReport
         //تاريخ الصادر
         public string Date_Of_Mail { get; set; }
         //الادارة المرسل اليها 
-        public string To { get; set; }
+        public int To { get; set; }
         //الجهة الموجه اليها 
         public string Section_Name { get; set; }
         //القطاع التابع له
         //**********************هل المقصود الجهات خاصة /عامة / فرع رقابة **************************
-        public string Perent { get; set; }
+        public int Perent { get; set; }
         //تاريخ استلام الرسالة
         public string DateTime_of_read { get; set; }
         //وقت استلام الرسالة

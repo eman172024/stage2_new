@@ -21,25 +21,25 @@ namespace MMSystem.Controllers
             _archives = archives;
         }
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll(int page, int pagesize,int Depid )
+        public async Task<IActionResult> GetAll(int page, int pageSize, int? mail_number, DateTime? date_time_of_day, DateTime? date_time_from, int? department_id, int? side_id, string? mail_summary, int? get_all)
         {
-
             
-                ArchiveVModelWithPag mail = await _archives.GetAll(page, pagesize);
-                if (mail != null)
-                    return Ok(mail);
 
-                return NotFound(new
-                {
-                    message = "لايوجد بريد ",
-                    statusCode = 404
-                });
+            ArchiveVModelWithPag mail = await _archives.GetAll( page,  pageSize,   mail_number,   date_time_of_day,   date_time_from,   department_id,   side_id,   mail_summary,   get_all);
+            if (mail != null)
+                return Ok(mail);
 
+            return NotFound(new
+            {
+                message = "لايوجد بريد ",
+                statusCode = 404
+            });
+            return null;
             
           
             }
             
-
+        
 
         
         [HttpPut("Update")]
