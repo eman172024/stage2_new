@@ -179,7 +179,7 @@
                       for="department"
                       class="block text-base font-semibold text-gray-800"
                     >
-                      الإدارات المرسلة
+                      الإدارات المرسل إليها
                     </label>
 
                     <div class="relative">
@@ -306,13 +306,13 @@
                         <button
                           class="block focus:outline-none w-full my-1 text-right"
                           @click="
-                            select_mail_case(mail_case.id, mail_case.name);
+                            select_mail_case(mail_case.flag, mail_case.statename);
                             mail_caseselect = !mail_caseselect;
                           "
                           v-for="mail_case in mail_cases"
-                          :key="mail_case.id"
+                          :key="mail_case.flag"
                         >
-                          {{ mail_case.name }}
+                          {{ mail_case.statename }}
                         </button>
                       </div>
                     </div>
@@ -555,7 +555,7 @@
                     <div class="">
                       <div class="absolute z-0 top-0 py-2 left-0 w-full text-left p-1 flex bg-white items-center justify-end">
                       <span class="text-xs ml-1">
-                        المجموع
+                        عدد الرسائل
                       </span>
                       {{ total_of_transaction }}
                     </div>
@@ -1487,20 +1487,15 @@ export default {
     },
 
     GetAllmail_cases() {
-      this.mail_cases = [
-        {
-          id: 1,
-          name: "read it",
-        },
-        {
-          id: 2,
-          name: "not read it",
-        },
-        {
-          id: 3,
-          name: "aaaa",
-        },
-      ];
+      this.$http.mailService
+        .AllStateSent()
+        .then((res) => {
+          this.mail_cases = res.data;
+
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     select_mail_case(id, name) {

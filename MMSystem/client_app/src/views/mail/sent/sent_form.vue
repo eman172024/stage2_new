@@ -2504,6 +2504,23 @@ export default {
     },
 
     clear_page() {
+
+      this.departmentNameSelected = ''
+      this.measureNameSelected = ''
+      
+      var date = new Date();
+
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+
+      if (month < 10) month = "0" + month;
+      if (day < 10) day = "0" + day;
+
+      this.releaseDate = date.getFullYear() + "-" + month + "-" + day;
+
+      this.mail_year = date.getFullYear();
+
+
       if (this.mailType == 1) {
         this.mailType = "";
         setTimeout(() => {
@@ -2671,6 +2688,7 @@ export default {
 
       console.log(this.to_test_passing_mail_type)
       console.log('this.to_test_passing_mail_type')
+      this.newactionSenders = []
 
       this.screenFreeze = true;
       this.loading = true;
@@ -3528,6 +3546,8 @@ export default {
           setTimeout(() => {
             this.loading = false;
             this.screenFreeze = false;
+
+            this.newactionSenders = []
           }, 500);
         })
         .catch((err) => {

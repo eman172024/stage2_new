@@ -21,6 +21,16 @@ export default {
         return axios.get(`/api/Service/GetAllMeasures`);
     },
 
+
+
+    AllStateSent() {
+        return axios.get(`/api/Mail/GetAllMailStateWithId?flag=1`);
+    },
+    AllStateInbox() {
+        return axios.get(`/api/Mail/GetAllMailStateWithId?flag=2`);
+    },
+
+
     AllDepartments() {
         return axios.get(`/api/WeatherForecast/GetAllDepartments`);
     },

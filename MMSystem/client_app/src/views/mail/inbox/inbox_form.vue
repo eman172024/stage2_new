@@ -680,7 +680,7 @@
                         "
                         v-model="reply_to_add"
                       >
-                    </textarea>
+                      </textarea>
                     </div>
 
                     <div class="w-2/12 mr-4">
@@ -1168,7 +1168,6 @@ export default {
           }, 700);
         });
     },
-
 
     getMailById() {
       this.$http.mailService
