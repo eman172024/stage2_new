@@ -610,7 +610,7 @@
                   <div class="min-h-64 text-sm bg-gray-100">
                     <div
                       v-for="mail in inboxMails"
-                      :key="mail.mail_id"
+                      :key="mail.id"
                       :class="mail.flag | mail_state_inbox"
                       class="
                         group
@@ -629,23 +629,23 @@
                         </div>
 
                         <div class="w-1/12 py-1 text-center">
-                          {{ mail.type_of_mail | mail_type }}
+                          {{ mail.flagn  }}
                         </div>
 
                         <div class="w-2/12 py-1 text-center">
-                          {{ mail.date }}
+                          {{ mail.date_Of_Mail }}
                         </div>
 
                         <div class="w-3/12 py-1 text-center">
-                          {{ mail.mail_Number }}
+                          {{ mail.department }}
                         </div>
 
                         <div class="w-3/12 py-1 text-center">
-                          {{ mail.type_of_mail | mail_type }}
+                          {{ mail.side_Name}}
                         </div>
 
                         <div class="w-2/12 py-1text-center">
-                          {{ mail.date }}
+                          {{ mail.perentName }}
                         </div>
                       </button>
 
@@ -661,7 +661,7 @@
                       >
                         <div class="w-1/4 flex justify-center items-center">
                           <button
-                            @click="GetAllDocuments(mail.mail_id)"
+                            @click="GetAllDocuments(mail.id)"
                             title="عرض الصور"
                             class="focus:outline-none"
                           >
@@ -684,7 +684,7 @@
 
                         <div class="w-1/4 flex justify-center items-center">
                           <button
-                            @click="GetAllDocuments(mail.mail_id)"
+                            @click="GetAllDocuments(mail.id)"
                             title="تم الاستلام والارسال"
                             class="focus:outline-none"
                           >
@@ -797,8 +797,7 @@
                         </div>
 
                         <div class="flex items-center justify-between mt-8 p-2">
-                          <div class="">اسم المستلم - {{ mail.time }}</div>
-
+                        
                           <div class="">
                             التسليم للجهة - {{ mail.send_time }}
                           </div>
@@ -1366,25 +1365,22 @@ export default {
       this.page_num = 1;
       this.GetSentMail();
     },
-    measureIdSelected: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
-    classificationIdSelected: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
 
-    mail_caseIdSelected: function () {
+       sideIdSelected: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetSentMail();
     },
+   
+      sectorIdSelected: function () {
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.page_num = 1;
+      this.GetSentMail();
+    },
+   
+
 
     show_senders_mail: function () {
       // this.senders = [];
@@ -1609,7 +1605,7 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .GetAllDocuments(id)
+        .GetAllDocuments2(id)
         .then((res) => {
           console.log(res);
 
@@ -1642,24 +1638,19 @@ export default {
       this.loading = true;
       this.inboxMails = [];
       this.$http.mailService
-        .sent(
-          this.my_user_id,
-          this.mailType,
-          this.my_department_id,
+        .GetMailForArchives(
+          this.page_num,
+          this.page_size,
+          this.mail_id,
           this.date_from,
           this.date_to,
-          this.mail_id,
-          this.summary,
           this.departmentIdSelected,
-          this.measureIdSelected,
-          this.classificationIdSelected,
-          this.mail_caseIdSelected,
-          this.page_num,
-          this.page_size
+          this.sideIdSelected,
+          this.summary,
         )
         .then((res) => {
           console.log(res);
-          this.inboxMails = res.data.mail;
+          this.inboxMails = res.data.list;
           this.total_of_transaction = res.data.total;
           setTimeout(() => {
             this.screenFreeze = false;

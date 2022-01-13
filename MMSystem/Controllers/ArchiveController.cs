@@ -45,7 +45,7 @@ namespace MMSystem.Controllers
         [HttpPut("Update")]
         public async Task<IActionResult> Update([FromBody] UpdateArchiveViewModel model)
         {
-           bool result = await _archives.UpdateExternal( model);
+           bool result = await _archives.UpdateExternal(model);
             if (result)
                 return StatusCode(203,new  {
                     mes ="تمت عملية التعديل بنجاح"
