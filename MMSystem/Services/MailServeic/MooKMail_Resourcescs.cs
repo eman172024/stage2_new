@@ -4,6 +4,7 @@ using MMSystem.Model;
 using MMSystem.Model.Dto;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -89,18 +90,31 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                List<Mail_Resourcescs> _Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == id&&x.State==true).ToListAsync();
+                List<Mail_Resourcescs> _Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == id && x.State == true).ToListAsync();
                 List<Mail_ResourcescsDto> mail_ResourcescsDtos = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(_Resourcescs);
 
 
-                //foreach (var xx in mail_ResourcescsDtos)
-                //{
-                //    string x = xx.path;
-                //    xx.path = await tobase64(x);
 
-                //}
+                foreach (var xx in mail_ResourcescsDtos)
+                {
+                    string x = xx.path;
+
+                    if (File.Exists(xx.path))
+                    {
+                        xx.path = await tobase64(x);
+
+                    }
+                    else
+                    {
 
 
+
+
+
+
+                    }
+
+                }
                 return mail_ResourcescsDtos;
 
             }
