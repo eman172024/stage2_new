@@ -2,6 +2,17 @@ import axios from 'axios';
 
 export default {
 
+
+
+
+
+    GetMailForArchives(page,pageSize,mail_number,date_time_of_day,date_time_from,department_id,side_id,mail_summary) {
+
+        return axios.get(`/api/Archive/GetAll?page=${page}&pageSize=${pageSize}&mail_number=${mail_number}&date_time_of_day=${date_time_of_day}&date_time_from=${date_time_from}&department_id=${department_id}&side_id=${side_id}&mail_summary=${mail_summary}`);
+    },
+
+
+
     Add_user(user){
 
         return axios.post(`/api/Administrator/Add`,user);
@@ -115,6 +126,9 @@ export default {
         return axios.get(`/api/Resources/GetMailResources/${id}`);
     },
 
+    GetAllDocuments2(id) {
+        return axios.get(`/api/Resources/GetAllRes?id=${id}`);
+    },
 
     
 
