@@ -20,12 +20,15 @@ namespace MMSystem.Services.Archives
         }
 
         public async Task<ArchiveVModelWithPag> GetAll(int page, int pageSize, int? mail_number, DateTime? date_time_of_day,
-            DateTime? date_time_from, int? department_id, int? side_id, string? mail_summary,int?get_all)
+            DateTime? date_time_from, int? department_id, int? side_id, string? mail_summary,int?get_all, int? MailType ,int? Perent)
         {
             bool mail_numbers = false;
             bool Summ = false;
-            bool date=false;
+            bool date = false;
+            bool perent = false;
+          
             bool sides_id = false;
+            bool mail_type = false;
             bool departments_id = false;
             if (side_id == null)
             {
@@ -34,6 +37,10 @@ namespace MMSystem.Services.Archives
             if (department_id == null)
             {
                 departments_id = true;
+            }
+            if (MailType==null)
+            {
+                mail_type = true;
             }
             if (get_all!=1)
             {
@@ -67,13 +74,11 @@ namespace MMSystem.Services.Archives
                 Summ = true;
 
             }
-
-            if (side_id == 0) { 
-            
-            
-            
+            if (Perent==null)
+            {
+                perent = true;
             }
-
+             
             try
             {
                 ArchiveVModelWithPag model = new ArchiveVModelWithPag();
@@ -89,16 +94,22 @@ namespace MMSystem.Services.Archives
                                  && (a.Department_Id == department_id || departments_id == true)//t
                                  && (a.Mail_Summary.Contains(mail_summary) || (Summ == true))
                                  )
-                                   join m in _db.Sends.Where(x =>x.to  == 25 && x.State == true) on x.MailID equals m.MailID
+                                   join m in _db.Sends.Where(x =>x.isMulti==true && x.State == true) on x.MailID equals m.MailID
 
 
                                    join de in _db.Departments on x.Department_Id equals de.Id
 
                                    join y in _db.External_Mails
                                                   on m.MailID equals y.MailID
-
+                                                   //&& (c.perent == Perent || perent == true) || (c.state == true)
                                    join w in _db.Extrmal_Sections.
-                  Where(c => c.type == side_id || sides_id == true)
+                                   Where(c => c.state == true
+                                   && (c.type == MailType) || (mail_type == true)
+                                   && (c.perent == Perent || perent == true)
+                                   && (c.id == side_id || sides_id == true)
+
+
+                           )
                                    on y.Sectionid equals w.id
 
 
@@ -134,21 +145,28 @@ namespace MMSystem.Services.Archives
                                  && (a.Department_Id == department_id || departments_id == true)//t
                                  && (a.Mail_Summary.Contains(mail_summary) || (Summ == true))
                                  )
-                                   join m in _db.Sends.Where(x => x.to == 25 && x.State == true) on x.MailID equals m.MailID
+                                  join m in _db.Sends.Where(x => x.isMulti == true && x.State == true) on x.MailID equals m.MailID
 
 
-                                   join de in _db.Departments on x.Department_Id equals de.Id
+                                  join de in _db.Departments on x.Department_Id equals de.Id
 
-                                   join y in _db.External_Mails
-                                                  on m.MailID equals y.MailID
+                                  join y in _db.External_Mails
+                                                 on m.MailID equals y.MailID
+                                  //&& (c.perent == Perent || perent == true) || (c.state == true)
+                                  join w in _db.Extrmal_Sections.
+                   Where(c =>  c.state == true
+                   && (c.type == MailType ) || (mail_type == true)
+                   && (c.perent == Perent || perent == true)
+                   && (c.id == side_id || sides_id == true)
 
-                                   join w in _db.Extrmal_Sections.
-                  Where(c => c.type == side_id || sides_id == true)
-                                   on y.Sectionid equals w.id
+                   )
+                                  on y.Sectionid equals w.id
 
 
 
-                                   select new ArchivesViewModel()
+
+
+                                  select new ArchivesViewModel()
                                    {
                                        summary = x.Mail_Summary,
                                        Flag = m.flag,
@@ -162,13 +180,13 @@ namespace MMSystem.Services.Archives
                                        Time_of_read = (y.Send_of_Ex_mail.ToString().EndsWith("0000")) ? "لم يتم الاستلام" : y.Send_of_Ex_mail.ToString("hh-mm-ss"),
                                        delivery = (y.delivery != null) ? y.delivery : "لم يتم التسليم",//هذا بنستقبلهم من الفرونتs
                                        Mail_Number = x.Mail_Number,
-                                       side_Name = w.Section_Name,
-                                       side_id = w.id,
-                                       Perentid = _db.Extrmal_Sections.Where(p => p.id == w.perent).Select(p => p.id).FirstOrDefault(),
-                                       PerentName = _db.Extrmal_Sections.Where(p => p.id == w.perent).Select(p => p.Section_Name).FirstOrDefault().ToString(),
+                                      side_Name = w.Section_Name,
+                                      side_id = w.id,
+                                      Perentid = _db.Extrmal_Sections.Where(p => p.id == w.perent).Select(p => p.id).FirstOrDefault(),
+                                      PerentName = _db.Extrmal_Sections.Where(p => p.id == w.perent).Select(p => p.Section_Name).FirstOrDefault().ToString(),
 
 
-                                   }).OrderByDescending(v => v.id).ToListAsync();
+                                  }).OrderByDescending(v => v.id).ToListAsync();
 
 
 
@@ -195,6 +213,11 @@ namespace MMSystem.Services.Archives
 
                 if (Ex != null)
                 {
+                    if (model.Send_of_Ex_mail!=null)
+                    {
+                        var fl = await _db.Sends.Where(p => p.MailID == model.MailId&&p.to==25).FirstOrDefaultAsync();
+                        
+                    }
                     Ex.delivery = model.delevery;
                     Ex.Attachments = model.Attachments;
                     Ex.number_of_copies = model.Number_Of_Copies;

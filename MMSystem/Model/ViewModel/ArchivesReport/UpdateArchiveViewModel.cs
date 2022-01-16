@@ -8,6 +8,7 @@ namespace MMSystem.Model.ViewModel.ArchivesReport
     public class UpdateArchiveViewModel
     {
         public int MailId { get; set; }
+        public int MailNumber { get; set; }
         public string delevery { get; set; }
         public DateTime Send_of_Ex_mail { get; set; }
         public bool Attachments { get; set; }
