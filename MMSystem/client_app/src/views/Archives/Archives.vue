@@ -684,7 +684,7 @@
 
                         <div class="w-1/4 flex justify-center items-center">
                           <button
-                            @click="GetAllDocuments(mail.id)"
+                            @click="UpdateArciveState(mail.id)"
                             title="تم الاستلام والارسال"
                             class="focus:outline-none"
                           >
@@ -714,7 +714,7 @@
 
                         <div class="w-1/4 flex justify-center items-center">
                           <button
-                            @click="isDelivered = true"
+                            @click="isDelivered = true,mail_id_copy=mail.id"
                             title="تم التسليم للجهة"
                             class="focus:outline-none"
                           >
@@ -739,7 +739,7 @@
                           <button
                             title="عدد النسخ"
                             class="focus:outline-none"
-                            @click="copies = true"
+                            @click="copies = true ,mail_id_copy=mail.id"
                           >
                             <svg
                               class="w-7 h-7 hover:text-blue-500"
@@ -779,12 +779,12 @@
                         "
                       >
                         <div class="flex items-center justify-between">
-                          <div class="underline">
-                            تاريخ استلام الرسالة بالمحفوظات - {{ mail.time }}
+                          <div class="">
+                            تاريخ استلام الرسالة بالمحفوظات   : <span class="mr-4 text-red-400 underline">{{ mail.dateTime_of_read}}</span>
                           </div>
 
-                          <div class="underline">
-                            وقت استلام الرسالة بالمحفوظات - {{ mail.time }}
+                          <div class="">
+                            وقت استلام الرسالة بالمحفوظات  : <span class="mr-4 text-red-400 underline">{{ mail.time_of_read }}</span>
                           </div>
                         </div>
 
@@ -799,7 +799,7 @@
                         <div class="flex items-center justify-between mt-8 p-2">
                         
                           <div class="">
-                            التسليم للجهة - {{ mail.send_time }}
+                            التسليم للجهة - {{ mail.delivery }}
                           </div>
 
                           <div class="">عدد النسخ - {{ mail.time }}</div>
@@ -939,7 +939,7 @@
         </label>
         <input
           type="text"
-          v-model="DelivaryName"
+          v-model="delivaryName"
           id="DelivaryName"
           class="
             block
@@ -972,6 +972,7 @@
           items-center
           justify-center
         "
+        @click="UpdateArciveDelivary()"
       >
         <span class="text-sm font-bold block ml-1">موافق</span>
       </button>
@@ -1046,7 +1047,7 @@
               type="radio"
               name="attached"
               class="h-4 w-4"
-              value="1"
+              value= "true"
               v-model="attached"
             />
             <label for="ThereIs" class="mr-2 block text-gray-800">
@@ -1060,7 +1061,7 @@
               type="radio"
               name="attached"
               class="h-4 w-4"
-              value="2"
+              value= ""
               v-model="attached"
             />
             <label for="ThereIsNo" class="mr-2 block text-gray-800">
@@ -1109,6 +1110,7 @@
           items-center
           justify-center
         "
+        @click="UpdateArciveCopies()"
       >
         <span class="text-sm font-bold block ml-1">موافق</span>
       </button>
@@ -1402,7 +1404,7 @@ export default {
       notes: "",
       delivaryName: "",
       delivaryType: 0,
-      attached: 2,
+      attached: "",
       copies: false,
       show_senders_mail: "",
       senders: [],
@@ -1479,6 +1481,8 @@ export default {
       isDelivered: false,
       dtoff: false,
       hand: false,
+
+      mail_id_copy:0,
     };
   },
 
@@ -1637,6 +1641,7 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
       this.inboxMails = [];
+
       this.$http.mailService
         .GetMailForArchives(
           this.page_num,
@@ -1647,6 +1652,8 @@ export default {
           this.departmentIdSelected,
           this.sideIdSelected,
           this.summary,
+          this.mailType,
+          this.sectorIdSelected
         )
         .then((res) => {
           console.log(res);
@@ -1739,25 +1746,104 @@ export default {
       this.classificationIdSelected = id;
     },
 
-    UpdateArcive()
+    UpdateArciveState(mail_id1)
     {
 
       var model = {
        
-          Username: this.UserName,
-          Password: this.pass,
-          userNetwork: this.UserNet,
-          nationalNumber: this.num,
-          DepartmentId: Number(this.departmentIdSelected),
-          state: Boolean(this.state1),
-
+          MailId: mail_id1,
           
-        },
+        }
 
+        this.$http.mailService
+        .UpdateArchive(model)
+        .then((res) => {
+          console.log(res);
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 300);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+            console.log(err);
+          }, 100);
+        });
 
-    }
+    },
 
+  
+    UpdateArciveCopies()
+    {
 
+      var model = {
+       
+          MailId: this.mail_id_copy,
+      //    delevery:"",
+         // Send_of_Ex_mail:"",
+          Attachments:Boolean(this.attached),
+          Number_Of_Copies:Number (this.NoOfcopies),    
+          note:this.notes,
+          
+        }
+
+        this.$http.mailService
+        .UpdateArchive(model)
+        .then((res) => {
+          console.log(res);
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 300);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+            console.log(err);
+          }, 100);
+        });
+
+    },
+
+  UpdateArciveDelivary()
+    {var del;
+           if(this.delivaryType == 1){
+
+              del ="سلمت للجهة";
+           }
+           else{
+              del =this.delivaryName;
+           }
+      var model = {
+       
+          MailId: this.mail_id_copy,
+          delevery:del,
+         
+      
+          
+        }
+
+        this.$http.mailService
+        .UpdateArchive(model)
+        .then((res) => {
+          console.log(res);
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 300);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+            console.log(err);
+          }, 100);
+        });
+
+    },
   },
 };
 </script>
