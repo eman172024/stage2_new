@@ -784,7 +784,7 @@
                           </div>
 
                           <div class="">
-                            وقت استلام الرسالة بالمحفوظات  : <span class="mr-4 text-red-400 underline">{{ mail.time_of_read }}</span>
+                            وقت استلام الرسالة بالمحفوظات  : <span class="mr-4 text-red-400 underline text">{{ mail.time_of_read }}</span>
                           </div>
                         </div>
 
@@ -802,9 +802,10 @@
                             التسليم للجهة - {{ mail.delivery }}
                           </div>
 
-                          <div class="">عدد النسخ - {{ mail.time }}</div>
+                          <div class="">عدد النسخ - {{ mail.number_Of_Copies }}</div>
 
-                          <div class="">المرفقات - {{ mail.send_time }}</div>
+                          <div class="" v-if="mail.attachments">يوجد مرفقات</div>
+                          <div class="" v-else> لا يوجد مرفقات</div>
                         </div>
                       </div>
                     </div>
