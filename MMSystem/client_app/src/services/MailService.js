@@ -4,7 +4,9 @@ export default {
 
 
 
-
+    UpdateArchive(model) {
+        return axios.put(`/api/Archive/Update`,model)
+    },
 
     GetMailForArchives(page,pageSize,mail_number,date_time_of_day,date_time_from,department_id,side_id,mail_summary) {
 
