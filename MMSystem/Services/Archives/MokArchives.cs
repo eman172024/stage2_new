@@ -103,10 +103,8 @@ namespace MMSystem.Services.Archives
                                                   on m.MailID equals y.MailID
                                                    //&& (c.perent == Perent || perent == true) || (c.state == true)
                                    join w in _db.Extrmal_Sections.
-                                   Where(c => c.state == true
-                                   && (c.type == MailType) || (mail_type == true)
-                                   && (c.perent == Perent || perent == true)
-                                   && (c.id == side_id || sides_id == true)
+                                     Where(c => c.state == true
+                           && ((c.type == MailType) || (mail_type == true)) && (c.perent == Perent || perent == true) && (c.id == side_id || sides_id == true)
 
 
                            )
@@ -124,15 +122,17 @@ namespace MMSystem.Services.Archives
                                        idDepartment = x.Department_Id, //فيه خطاء
                                        Date_Of_Mail = x.Date_Of_Mail.ToString("yyyy-MM-dd"),
 
-                                       DateTime_of_read = (y.Send_of_Ex_mail.ToString().StartsWith("0001")) ? "لم يتم الاستلام":y.Send_of_Ex_mail.ToString("yyyy-MM-dd"),
+                                       DateTime_of_read = (y.Send_of_Ex_mail.ToString().StartsWith("0001")) ? "لم يتم الاستلام" : y.Send_of_Ex_mail.ToString("yyyy-MM-dd"),
                                        Time_of_read = (y.Send_of_Ex_mail.ToString().EndsWith("0000")) ? "لم يتم الاستلام" : y.Send_of_Ex_mail.ToString("hh-mm-ss"),
-                                       delivery = (y.delivery !=null)?y.delivery :"لم يتم التسليم" ,//هذا بنستقبلهم من الفرونتs
+                                       delivery = (y.delivery != null) ? y.delivery : "لم يتم التسليم",//هذا بنستقبلهم من الفرونتs
                                        Mail_Number = x.Mail_Number,
                                        side_Name = w.Section_Name,
                                        side_id = w.id,
                                        Perentid = _db.Extrmal_Sections.Where(p => p.id == w.perent).Select(p => p.id).FirstOrDefault(),
                                        PerentName = _db.Extrmal_Sections.Where(p => p.id == w.perent).Select(p => p.Section_Name).FirstOrDefault().ToString(),
-
+                                       note = y.note,
+                                       Attachments = y.Attachments,
+                                       Number_Of_Copies = y.number_of_copies
 
                                    }).OrderByDescending(v => v.id).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
@@ -154,10 +154,9 @@ namespace MMSystem.Services.Archives
                                                  on m.MailID equals y.MailID
                                   //&& (c.perent == Perent || perent == true) || (c.state == true)
                                   join w in _db.Extrmal_Sections.
-                   Where(c =>  c.state == true
-                   && (c.type == MailType ) || (mail_type == true)
-                   && (c.perent == Perent || perent == true)
-                   && (c.id == side_id || sides_id == true)
+                   Where(c => c.state == true
+                           && ((c.type == MailType) || (mail_type == true)) && (c.perent == Perent || perent == true) && (c.id == side_id || sides_id == true)
+
 
                    )
                                   on y.Sectionid equals w.id
@@ -168,23 +167,25 @@ namespace MMSystem.Services.Archives
 
                                   select new ArchivesViewModel()
                                    {
-                                       summary = x.Mail_Summary,
-                                       Flag = m.flag,
-                                       Flagn = _db.MailStatuses.Where(p => p.flag == m.flag).Select(p => p.sent).FirstOrDefault().ToString(),
-                                       id = x.MailID,
-                                       Department = de.DepartmentName,
-                                       idDepartment = x.Department_Id, //فيه خطاء
-                                       Date_Of_Mail = x.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                      summary = x.Mail_Summary,
+                                      Flag = m.flag,
+                                      Flagn = _db.MailStatuses.Where(p => p.flag == m.flag).Select(p => p.sent).FirstOrDefault().ToString(),
+                                      id = x.MailID,
+                                      Department = de.DepartmentName,
+                                      idDepartment = x.Department_Id, //فيه خطاء
+                                      Date_Of_Mail = x.Date_Of_Mail.ToString("yyyy-MM-dd"),
 
-                                       DateTime_of_read = (y.Send_of_Ex_mail.ToString().StartsWith("0001")) ? "لم يتم الاستلام" : y.Send_of_Ex_mail.ToString("yyyy-MM-dd"),
-                                       Time_of_read = (y.Send_of_Ex_mail.ToString().EndsWith("0000")) ? "لم يتم الاستلام" : y.Send_of_Ex_mail.ToString("hh-mm-ss"),
-                                       delivery = (y.delivery != null) ? y.delivery : "لم يتم التسليم",//هذا بنستقبلهم من الفرونتs
-                                       Mail_Number = x.Mail_Number,
+                                      DateTime_of_read = (y.Send_of_Ex_mail.ToString().StartsWith("0001")) ? "لم يتم الاستلام" : y.Send_of_Ex_mail.ToString("yyyy-MM-dd"),
+                                      Time_of_read = (y.Send_of_Ex_mail.ToString().EndsWith("0000")) ? "لم يتم الاستلام" : y.Send_of_Ex_mail.ToString("hh-mm-ss"),
+                                      delivery = (y.delivery != null) ? y.delivery : "لم يتم التسليم",//هذا بنستقبلهم من الفرونتs
+                                      Mail_Number = x.Mail_Number,
                                       side_Name = w.Section_Name,
                                       side_id = w.id,
                                       Perentid = _db.Extrmal_Sections.Where(p => p.id == w.perent).Select(p => p.id).FirstOrDefault(),
                                       PerentName = _db.Extrmal_Sections.Where(p => p.id == w.perent).Select(p => p.Section_Name).FirstOrDefault().ToString(),
-
+                                      note=y.note,
+                                      Attachments=y.Attachments,
+                                      Number_Of_Copies =y.number_of_copies
 
                                   }).OrderByDescending(v => v.id).ToListAsync();
 
@@ -216,18 +217,36 @@ namespace MMSystem.Services.Archives
                     var fl = await _db.Sends.Where(p => p.MailID == model.MailId && p.to == 25).FirstOrDefaultAsync();
                     if (fl.flag!=3)
                     {
-                       
+                        var ExDat = await _db.External_Mails.Where(p => p.MailID == model.MailId).FirstOrDefaultAsync();
+
                         fl.flag = 3;
                         _db.Sends.Update(fl);
                         await _db.SaveChangesAsync();
 
+                        ExDat.Send_of_Ex_mail = DateTime.Now;
+                        _db.External_Mails.Update(ExDat);
+                        await _db.SaveChangesAsync();
                     }
 
-                    Ex.delivery = model.delevery;
-                    Ex.Attachments = model.Attachments;
-                    Ex.number_of_copies = model.Number_Of_Copies;
-                    Ex.Send_of_Ex_mail = model.Send_of_Ex_mail;
-                    Ex.note = model.note;
+                    if (Ex.delivery==null)
+                    {
+                        Ex.delivery = model.delevery;
+                    }
+                    if (Ex.Attachments==false)
+                    {
+                        Ex.Attachments = model.Attachments;
+                    }
+
+                    if (Ex.number_of_copies==0)
+                    {
+                        Ex.number_of_copies = model.Number_Of_Copies;
+
+                    }
+                    if (Ex.note==null)
+                    {
+                        Ex.note = model.note;
+
+                    }
                     _db.External_Mails.Update(Ex);
                     await _db.SaveChangesAsync();
                     return true;

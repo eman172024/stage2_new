@@ -36,6 +36,9 @@ namespace MMSystem.Model.ViewModel.ArchivesReport
         public string Time_of_read { get; set; }
     
         public string delivery { get; set; }
+        public string note { get; set; }
+        public int Number_Of_Copies { get; set; }
+        public bool Attachments { get; set; }
 
     }
 }
