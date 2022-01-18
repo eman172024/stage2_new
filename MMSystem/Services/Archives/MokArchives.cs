@@ -94,7 +94,7 @@ namespace MMSystem.Services.Archives
                                  && (a.Department_Id == department_id || departments_id == true)//t
                                  && (a.Mail_Summary.Contains(mail_summary) || (Summ == true))
                                  )
-                                   join m in _db.Sends.Where(x =>x.isMulti==true && x.State == true) on x.MailID equals m.MailID
+                                   join m in _db.Sends.Where(x =>x.to==25 && x.State == true) on x.MailID equals m.MailID
 
 
                                    join de in _db.Departments on x.Department_Id equals de.Id
@@ -145,7 +145,7 @@ namespace MMSystem.Services.Archives
                                  && (a.Department_Id == department_id || departments_id == true)//t
                                  && (a.Mail_Summary.Contains(mail_summary) || (Summ == true))
                                  )
-                                  join m in _db.Sends.Where(x => x.isMulti == true && x.State == true) on x.MailID equals m.MailID
+                                  join m in _db.Sends.Where(x => x.to == 25 && x.State == true) on x.MailID equals m.MailID
 
 
                                   join de in _db.Departments on x.Department_Id equals de.Id
@@ -213,11 +213,16 @@ namespace MMSystem.Services.Archives
 
                 if (Ex != null)
                 {
-                    if (model.Send_of_Ex_mail!=null)
+                    var fl = await _db.Sends.Where(p => p.MailID == model.MailId && p.to == 25).FirstOrDefaultAsync();
+                    if (fl.flag!=3)
                     {
-                        var fl = await _db.Sends.Where(p => p.MailID == model.MailId&&p.to==25).FirstOrDefaultAsync();
-                        
+                       
+                        fl.flag = 3;
+                        _db.Sends.Update(fl);
+                        await _db.SaveChangesAsync();
+
                     }
+
                     Ex.delivery = model.delevery;
                     Ex.Attachments = model.Attachments;
                     Ex.number_of_copies = model.Number_Of_Copies;
