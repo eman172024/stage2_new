@@ -9,7 +9,7 @@ namespace MMSystem.Services.Archives
 {
    public interface IArchives
     {
-        Task<ArchiveVModelWithPag> GetAll(int page,int pageSize,int? mail_number,DateTime? date_time_of_day, DateTime? date_time_from, int? department_id,int? side_id,string? mail_summary,int? get_all);
+        Task<ArchiveVModelWithPag> GetAll(int page,int pageSize,int? mail_number,DateTime? date_time_of_day, DateTime? date_time_from, int? department_id,int? side_id,string? mail_summary, int? get_all, int? MailType, int? Perent);
 
         Task<bool> UpdateExternal(UpdateArchiveViewModel model);
        
