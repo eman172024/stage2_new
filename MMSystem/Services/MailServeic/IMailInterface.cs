@@ -45,7 +45,7 @@ namespace MMSystem.Services.MailServeic
 
         Task<bool> Uplode(Uplode ss);
         Task<bool> UpdateMail(MailViewModel mail);
-        Task<bool> DeletePhote(int id);
+        Task<bool> DeletePhote(int id,int userId);
         Task<bool> deleteSender(int mail_id, int departmentId);
 
         Task<List<MailStatus>> GetMailStatuses();
