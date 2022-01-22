@@ -1739,23 +1739,7 @@ export default {
       this.classificationIdSelected = id;
     },
 
-    UpdateArcive()
-    {
-
-      var model = {
-       
-          Username: this.UserName,
-          Password: this.pass,
-          userNetwork: this.UserNet,
-          nationalNumber: this.num,
-          DepartmentId: Number(this.departmentIdSelected),
-          state: Boolean(this.state1),
-
-          
-        },
-
-
-    }
+ 
 
 
   },

@@ -123,7 +123,7 @@ namespace MMSystem.Services.Archives
                                        Date_Of_Mail = x.Date_Of_Mail.ToString("yyyy-MM-dd"),
 
                                        DateTime_of_read = (y.Send_of_Ex_mail.ToString().StartsWith("0001")) ? "لم يتم الاستلام" : y.Send_of_Ex_mail.ToString("yyyy-MM-dd"),
-                                       Time_of_read = (y.Send_of_Ex_mail.ToString().EndsWith("0000")) ? "لم يتم الاستلام" : y.Send_of_Ex_mail.ToString("hh-mm-ss"),
+                                       Time_of_read = (y.Send_of_Ex_mail.ToString().EndsWith("0000")) ? "لم يتم الاستلام" : y.Send_of_Ex_mail.ToString("hh:mm:ss"),
                                        delivery = (y.delivery != null) ? y.delivery : "لم يتم التسليم",//هذا بنستقبلهم من الفرونتs
                                        Mail_Number = x.Mail_Number,
                                        side_Name = w.Section_Name,
@@ -176,7 +176,7 @@ namespace MMSystem.Services.Archives
                                       Date_Of_Mail = x.Date_Of_Mail.ToString("yyyy-MM-dd"),
 
                                       DateTime_of_read = (y.Send_of_Ex_mail.ToString().StartsWith("0001")) ? "لم يتم الاستلام" : y.Send_of_Ex_mail.ToString("yyyy-MM-dd"),
-                                      Time_of_read = (y.Send_of_Ex_mail.ToString().EndsWith("0000")) ? "لم يتم الاستلام" : y.Send_of_Ex_mail.ToString("hh-mm-ss"),
+                                      Time_of_read = (y.Send_of_Ex_mail.ToString().EndsWith("0000")) ? "لم يتم الاستلام" : y.Send_of_Ex_mail.ToString("HH:mm:ss"),
                                       delivery = (y.delivery != null) ? y.delivery : "لم يتم التسليم",//هذا بنستقبلهم من الفرونتs
                                       Mail_Number = x.Mail_Number,
                                       side_Name = w.Section_Name,
@@ -228,26 +228,31 @@ namespace MMSystem.Services.Archives
                         await _db.SaveChangesAsync();
                     }
 
-                    if (Ex.delivery==null)
+                    if (model.delevery!=null)
                     {
                         Ex.delivery = model.delevery;
                     }
-                    if (Ex.Attachments==false)
+
+
+                    if (model.Attachments!=false)
                     {
                         Ex.Attachments = model.Attachments;
                     }
 
-                    if (Ex.number_of_copies==0)
+
+                    if (model.Number_Of_Copies!=0)
                     {
                         Ex.number_of_copies = model.Number_Of_Copies;
-
                     }
-                    if (Ex.note==null)
+
+
+                    if (model.note!=null)
                     {
                         Ex.note = model.note;
-
                     }
-                    _db.External_Mails.Update(Ex);
+                      
+
+                   
                     await _db.SaveChangesAsync();
                     return true;
             
