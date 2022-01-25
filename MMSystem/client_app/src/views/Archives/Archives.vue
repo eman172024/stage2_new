@@ -1747,6 +1747,9 @@ export default {
       this.classificationIdSelected = id;
     },
 
+<<<<<<< HEAD
+ 
+=======
     UpdateArciveState(mail_id1)
     {
 
@@ -1831,6 +1834,7 @@ export default {
       
           
         }
+>>>>>>> 536686859166fa0852e99bee04ea3b0cbb0b8cd8
 
         this.$http.mailService
         .UpdateArchive(model)

@@ -6,6 +6,7 @@ using MMSystem.Model;
 using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel;
 using MMSystem.Model.ViewModel.MailVModels;
+using MMSystem.Services.Histor;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,6 +20,8 @@ namespace MMSystem.Services.MailServeic
     {
         dynamic c;
         dynamic serch;
+         
+       
 
         private readonly AppDbCon _appContext;
 
@@ -35,10 +38,12 @@ namespace MMSystem.Services.MailServeic
         private readonly IExtrenal_inbox _extrenal_Inbox;
         private IMail_Resourcescs _resourcescs;
         private readonly ISender _sender;
+        private readonly IHistory _history;
 
         public MookMail(AppDbCon appContext, IWebHostEnvironment environment, IMapper mapper
             , IExternalMailcs external, IExtrenal_inbox extrenal_Inbox, IMail_Resourcescs resourcescs
-            , ISender sender
+            , ISender sender,
+            IHistory history
             )
         {
             _appContext = appContext;
@@ -48,6 +53,7 @@ namespace MMSystem.Services.MailServeic
             _extrenal_Inbox = extrenal_Inbox;
             _resourcescs = resourcescs;
             _sender = sender;
+            _history = history;
         }
 
 
@@ -101,8 +107,14 @@ namespace MMSystem.Services.MailServeic
                             //for (var item in mail.actionSenders)
                             //{
                             //    Send_to sender = new Send_to();
-
-
+                            Historyes histor = new Historyes();
+                          
+                            histor.userId = mail.mail.userId;
+                            histor.mailid = mail.mail.MailID;
+                            histor.Time = DateTime.Now;
+                            histor.HistortyNameID = 1;
+                                
+                            bool res = await _history.Add(histor);
 
                             //    sender.MailID = mail.mail.MailID;
                             //    sender.to = item.departmentId;
@@ -165,7 +177,13 @@ namespace MMSystem.Services.MailServeic
                                     //    sender.type_of_send = item.measureId;
                                     //    bool send = await _sender.Add(sender);
                                     //}
+                                    Historyes histor = new Historyes();
 
+                                    histor.userId = mail.mail.userId;
+                                    histor.mailid = mail.mail.MailID;
+                                    histor.Time = DateTime.Now;
+                                    histor.HistortyNameID = 1;
+                                    bool res = await _history.Add(histor);
 
                                     for (int i = 0; i < mail.actionSenders.Count; i++)
                                     {
@@ -220,6 +238,15 @@ namespace MMSystem.Services.MailServeic
 
                             if (Ex_inboxmail)
                             {
+
+
+                                Historyes histor = new Historyes();
+
+                                histor.userId = mail.mail.userId;
+                                histor.mailid = mail.mail.MailID;
+                                histor.Time = DateTime.Now;
+                                histor.HistortyNameID = 1;
+                                bool res = await _history.Add(histor);
                                 //foreach (var item in mail.actionSenders)
                                 //{
                                 //    Send_to sender = new Send_to();
@@ -297,7 +324,15 @@ namespace MMSystem.Services.MailServeic
                         mail.state = false;
                         _appContext.Mails.Update(mail);
                         await _appContext.SaveChangesAsync();
-                        return true;
+                    Historyes histor = new Historyes();
+                    histor.userId = mail.userId;
+                    histor.Time = DateTime.Now;
+                    histor.HistortyNameID = 4;
+                    histor.Time = DateTime.Now;
+                    bool res = await _history.Add(histor);
+
+
+                    return true;
                     }
                     return false;
 
@@ -326,6 +361,16 @@ namespace MMSystem.Services.MailServeic
 
                     mail.state = false;
                     _appContext.Mails.Update(mail);
+                    Historyes histor = new Historyes();
+                    histor.userId = mail.userId;
+
+                    histor.Time = DateTime.Now;
+                    histor.HistortyNameID = 4;
+                    histor.Time = DateTime.Now;
+                    bool res = await _history.Add(histor);
+
+
+
                     await _appContext.SaveChangesAsync();
                     return true;
                 }
@@ -523,9 +568,17 @@ namespace MMSystem.Services.MailServeic
 
             if (_mail != null)
             {
-                //   _mail.action = mail.action;
-                //  _mail.classification = mail.classification;
 
+                Historyes histor = new Historyes();
+
+                histor.userId = mail.userId;
+                histor.mailid = mail.MailID;
+                histor.HistortyNameID = 2;
+                histor.OldValue = _mail.Mail_Summary + " " + _mail.Genaral_inbox_Number.ToString() 
+                     + " " +mail.Date_Of_Mail.ToString()+" "+ _mail.Genaral_inbox_year.ToString()
+                     
+                     +" " +mail.Genaral_inbox_Number.ToString();
+              
                 _mail.Date_Of_Mail = mail.Date_Of_Mail;
                 _mail.Mail_Summary = mail.Mail_Summary + " ";
                 _mail.state = mail.state;
@@ -540,6 +593,14 @@ namespace MMSystem.Services.MailServeic
 
                 _appContext.Mails.Update(_mail);
                 await _appContext.SaveChangesAsync();
+                histor.newValue = mail.Mail_Summary + " " + mail.Genaral_inbox_Number.ToString()
+                    + " " + mail.Date_Of_Mail.ToString() + " " + mail.Genaral_inbox_year.ToString()
+
+                    + " " + mail.Genaral_inbox_Number.ToString();
+
+                
+                histor.Time = DateTime.Now;
+                bool res = await _history.Add(histor);
 
 
 
@@ -905,7 +966,7 @@ namespace MMSystem.Services.MailServeic
         }
 
 
-        public async Task<bool> DeletePhote(int id)
+        public async Task<bool> DeletePhote(int id,int userId)
         {
             try
             {
@@ -917,6 +978,14 @@ namespace MMSystem.Services.MailServeic
 
                     _appContext.Mail_Resourcescs.Remove(res);
                     await _appContext.SaveChangesAsync();
+
+                    Historyes histor = new Historyes();
+                    histor.userId = userId;
+                    histor.mailid = res.MailID;
+                    histor.Time = DateTime.Now;
+                    histor.HistortyNameID = 5;
+                    bool resw = await _history.Add(histor);
+
 
                     return true;
                 }
