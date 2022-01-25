@@ -298,11 +298,11 @@ export default {
 
       
       this.$http.usersService
-        .StopUser(id)
+        .StopUser(id,localStorage.getItem("userId"))
         .then((res) => {
           setTimeout(() => {
             console.log(res);
-            this.$router.go()
+            this.GetUsersOfDepartment(this.departmentIdSelected)
             // this.documentSection = true;
             // this.proceduresSection = true;
           }, 500);

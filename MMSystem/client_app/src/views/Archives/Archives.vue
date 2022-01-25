@@ -784,7 +784,7 @@
                           </div>
 
                           <div class="">
-                            وقت استلام الرسالة بالمحفوظات  : <span class="mr-4 text-red-400 underline text">{{ mail.time_of_read }}</span>
+                            وقت استلام الرسالة بالمحفوظات  : <span class="mr-4 text-red-400 underline">{{ mail.time_of_read }}</span>
                           </div>
                         </div>
 
@@ -973,7 +973,7 @@
           items-center
           justify-center
         "
-        @click="UpdateArciveDelivary()"
+        @click="UpdateArciveDelivary(),isDelivered = false"
       >
         <span class="text-sm font-bold block ml-1">موافق</span>
       </button>
@@ -1111,7 +1111,7 @@
           items-center
           justify-center
         "
-        @click="UpdateArciveCopies()"
+        @click="UpdateArciveCopies(),copies = false"
       >
         <span class="text-sm font-bold block ml-1">موافق</span>
       </button>
@@ -1763,6 +1763,7 @@ export default {
           setTimeout(() => {
             this.screenFreeze = false;
             this.loading = false;
+            this.GetSentMail();
           }, 300);
         })
         .catch((err) => {
@@ -1797,6 +1798,10 @@ export default {
           setTimeout(() => {
             this.screenFreeze = false;
             this.loading = false;
+            this.GetSentMail();
+            this.attached="";
+            this.Number_Of_Copies=0;
+            this.notes=""
           }, 300);
         })
         .catch((err) => {
@@ -1834,6 +1839,10 @@ export default {
           setTimeout(() => {
             this.screenFreeze = false;
             this.loading = false;
+            this.GetSentMail();
+            this.delivaryType=0;
+            this.delivaryName=""
+
           }, 300);
         })
         .catch((err) => {

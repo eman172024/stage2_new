@@ -586,7 +586,7 @@ export default {
           nationalNumber: this.num,
           DepartmentId: Number(this.departmentIdSelected),
           state: Boolean(this.state1),
-
+          CurrentUser: Number(localStorage.getItem("userId")),
           
         },
 
@@ -633,6 +633,7 @@ export default {
           nationalNumber: this.num,
           DepartmentId: Number(this.departmentIdSelected),
           state: Boolean(this.state1),
+          CurrentUser: Number(localStorage.getItem("userId")),
         },
 
         Listrole: this.roles1,

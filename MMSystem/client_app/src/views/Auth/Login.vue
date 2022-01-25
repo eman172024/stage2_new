@@ -556,7 +556,7 @@ export default {
             this.$authenticatedUser.userId = this.user.administrator.userId;
             this.$authenticatedUser.name = this.user.administrator.userName;
             this.$authenticatedUser.departmentId =
-              this.user.administrator.departmentId;
+            this.user.administrator.departmentId;
 
             localStorage.setItem("userId", this.user.administrator.userId);
             localStorage.setItem(
