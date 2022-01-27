@@ -296,9 +296,15 @@ export default {
 
     stop_user(id) {
 
-      
+       var StopActive = {
+        
+          UserId:id,
+          currentUser:localStorage.getItem("userId")
+
+      };
+
       this.$http.usersService
-        .StopUser(id,localStorage.getItem("userId"))
+        .StopUser(StopActive)
         .then((res) => {
           setTimeout(() => {
             console.log(res);
