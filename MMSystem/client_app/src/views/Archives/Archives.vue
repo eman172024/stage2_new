@@ -62,7 +62,24 @@
 
               <fieldset class="ml-6">
                 <div class="flex items-center">
-                  <div class="flex items-center">
+
+                    <div class="flex items-center">
+                    <input
+                      v-model="mailType"
+                      id="all"
+                      type="radio"
+                      name="type"
+                      class="h-4 w-4"
+                      value=""
+                      
+                    />
+                    <label for="all" class="mr-2 block text-gray-800">
+                      الكل
+                    </label>
+                  </div>
+
+
+                  <div class="flex items-center mr-6">
                     <input
                       v-model="mailType"
                       id="public"
@@ -467,7 +484,8 @@
               </div>
 
               <div class="w-5/12 flex py-1 px-4">
-                <button
+
+                <router-link
                   class="
                     mx-auto
                     w-full
@@ -484,6 +502,16 @@
                     justify-center
                     col-span-2
                   "
+                  
+                   :to="{
+                    name: 'report2',
+                    params: {
+                      dateFrom: date_from,
+                      dateTo: date_to,
+                      total_of_transaction: total_of_transaction,
+                      mails: mail_to_print,
+                    },
+                  }"
                 >
                   <span class="text-sm font-bold block ml-1"
                     >طباعة الحافظة</span
@@ -521,7 +549,7 @@
                       />
                     </g>
                   </svg>
-                </button>
+                </router-link>
 
                 <router-link
                   class="
@@ -1324,6 +1352,7 @@ export default {
     this.my_department_id = localStorage.getItem("departmentId");
 
     this.GetSentMail();
+    this.GetSentMail1();
 
     this.GetAllClassifications();
     this.GetAllDepartments();
@@ -1337,12 +1366,14 @@ export default {
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetSentMail();
+      this.GetSentMail1();
     },
     date_from: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetSentMail();
+      this.GetSentMail1();
     },
     date_to: function () {
       this.senders = [];
@@ -1355,18 +1386,21 @@ export default {
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetSentMail();
+      this.GetSentMail1();
     },
     summary: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetSentMail();
+      this.GetSentMail1();
     },
     departmentIdSelected: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetSentMail();
+      this.GetSentMail1();
     },
 
        sideIdSelected: function () {
@@ -1374,6 +1408,7 @@ export default {
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetSentMail();
+      this.GetSentMail1();
     },
    
       sectorIdSelected: function () {
@@ -1381,6 +1416,7 @@ export default {
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetSentMail();
+      this.GetSentMail1();
     },
    
 
@@ -1459,6 +1495,7 @@ export default {
       date_to: "",
 
       page_size: 10,
+      page_size2: 1000,
       page_num: 1,
 
       mailId_to_get_mail_by_id: "",
@@ -1484,6 +1521,8 @@ export default {
       hand: false,
 
       mail_id_copy:0,
+
+      mail_to_print:[],
     };
   },
 
@@ -1635,6 +1674,44 @@ export default {
         });
     },
 
+
+    
+    GetSentMail1() {
+     
+      this.screenFreeze = true;
+      this.loading = true;
+      this.mail_to_print = [];
+
+      this.$http.mailService
+        .GetMailForArchives(
+          this.page_num,
+          this.page_size2,
+          this.mail_id,
+          this.date_from,
+          this.date_to,
+          this.departmentIdSelected,
+          this.sideIdSelected,
+          this.summary,
+          this.mailType,
+          this.sectorIdSelected
+        )
+        .then((res) => {
+          console.log(res);
+          this.mail_to_print = res.data.list;
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 300);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+            console.log(err);
+          }, 100);
+        });
+    },
+
     GetSentMail() {
       this.senders = [];
       this.show_senders_mail = "";
@@ -1688,6 +1765,7 @@ export default {
           //     this.loading = false;
 
           this.GetSentMail();
+          this.GetSentMail1();
           // }, 300);
         })
         .catch((err) => {
@@ -1764,6 +1842,7 @@ export default {
             this.screenFreeze = false;
             this.loading = false;
             this.GetSentMail();
+            this.GetSentMail1();
           }, 300);
         })
         .catch((err) => {
@@ -1798,10 +1877,12 @@ export default {
           setTimeout(() => {
             this.screenFreeze = false;
             this.loading = false;
-            this.GetSentMail();
             this.attached="";
-            this.Number_Of_Copies=0;
+            this.NoOfcopies= 0;
             this.notes=""
+            this.GetSentMail();
+            this.GetSentMail1();
+           
           }, 300);
         })
         .catch((err) => {
@@ -1840,6 +1921,7 @@ export default {
             this.screenFreeze = false;
             this.loading = false;
             this.GetSentMail();
+            this.GetSentMail1();
             this.delivaryType=0;
             this.delivaryName=""
 
