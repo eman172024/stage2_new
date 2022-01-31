@@ -3312,7 +3312,7 @@ console.log(this.to_test_passing_mail_type)
       this.loading = true;
 
       this.$http.mailService
-        .SendMail(Number(this.mailId))
+        .SendMail(Number(this.mailId), Number(localStorage.getItem("userId")) )
         .then((res) => {
           setTimeout(() => {
             this.deleteButton = false;

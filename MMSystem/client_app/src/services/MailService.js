@@ -52,8 +52,8 @@ export default {
         return axios.post(`/api/Mail/AddMail`, info)
     },
 
-    SendMail(mailId) {
-        return axios.put(`/api/Mail/Send?mailid=${mailId}`)
+    SendMail(mailId,userId) {
+        return axios.put(`/api/Mail/Send?mailid=${mailId}&userId=${userId}`)
     },
 
 
