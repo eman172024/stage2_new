@@ -574,7 +574,7 @@ namespace MMSystem.Services.MailServeic
                 histor.userId = mail.userId;
                 histor.mailid = mail.MailID;
                 histor.HistortyNameID = 2;
-                histor.OldValue = _mail.Mail_Summary + " " + _mail.Genaral_inbox_Number.ToString() 
+                histor.changes = _mail.Mail_Summary + " " + _mail.Genaral_inbox_Number.ToString() 
                      + " " +mail.Date_Of_Mail.ToString()+" "+ _mail.Genaral_inbox_year.ToString()
                      
                      +" " +mail.Genaral_inbox_Number.ToString();
@@ -593,7 +593,7 @@ namespace MMSystem.Services.MailServeic
 
                 _appContext.Mails.Update(_mail);
                 await _appContext.SaveChangesAsync();
-                histor.newValue = mail.Mail_Summary + " " + mail.Genaral_inbox_Number.ToString()
+                histor.changes = mail.Mail_Summary + " " + mail.Genaral_inbox_Number.ToString()
                     + " " + mail.Date_Of_Mail.ToString() + " " + mail.Genaral_inbox_year.ToString()
 
                     + " " + mail.Genaral_inbox_Number.ToString();
