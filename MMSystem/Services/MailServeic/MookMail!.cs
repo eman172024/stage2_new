@@ -572,10 +572,20 @@ namespace MMSystem.Services.MailServeic
 
                 Historyes histor = new Historyes();
 
+<<<<<<< HEAD
                 hVModels.Add(new HVModel { name= "الاجراء المطلوب",newvalue= mail.ActionRequired,oldvalue= _mail.ActionRequired });
                 hVModels.Add(new HVModel { name = "تاريخ البريد", newvalue = mail.Date_Of_Mail, oldvalue = _mail.Date_Of_Mail });
                 hVModels.Add(new HVModel { name = "رقم الوارد العام", newvalue = mail.Genaral_inbox_Number, oldvalue = _mail.Genaral_inbox_Number });
                 hVModels.Add(new HVModel { name = " الموضوع", newvalue = mail.Mail_Summary, oldvalue = _mail.Mail_Summary });
+=======
+                histor.userId = mail.userId;
+                histor.mailid = mail.MailID;
+                histor.HistortyNameID = 2;
+                histor.changes = _mail.Mail_Summary + " " + _mail.Genaral_inbox_Number.ToString() 
+                     + " " +mail.Date_Of_Mail.ToString()+" "+ _mail.Genaral_inbox_year.ToString()
+                     
+                     +" " +mail.Genaral_inbox_Number.ToString();
+>>>>>>> 9313dd2e72bcf70f3c6db8ea0ca2317a0144111c
               
                 //old.Add("ملخص الموضوع", _mail.Mail_Summary);
 
@@ -611,7 +621,7 @@ namespace MMSystem.Services.MailServeic
 
                 _appContext.Mails.Update(_mail);
                 await _appContext.SaveChangesAsync();
-                histor.newValue = mail.Mail_Summary + " " + mail.Genaral_inbox_Number.ToString()
+                histor.changes = mail.Mail_Summary + " " + mail.Genaral_inbox_Number.ToString()
                     + " " + mail.Date_Of_Mail.ToString() + " " + mail.Genaral_inbox_year.ToString()
 
                     + " " + mail.Genaral_inbox_Number.ToString();

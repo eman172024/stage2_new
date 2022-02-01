@@ -177,7 +177,22 @@ namespace MMSystem.Services
 
         }
 
+        public async Task<List<int>> GetJustRole(int id)
+        {
+            try
+            {
+                List<int> oldRole = await (from userrole in _data.userRoles.Where(x => x.UserId == id)
+                                     select userrole.RoleId).ToListAsync();
 
+
+                return oldRole;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         public async Task<UserView> login(Login user1)
         {
