@@ -586,11 +586,13 @@ export default {
           nationalNumber: this.num,
           DepartmentId: Number(this.departmentIdSelected),
           state: Boolean(this.state1),
-          CurrentUser: Number(localStorage.getItem("userId")),
+         
           
         },
 
         Listrole: this.roles1,
+
+         currentUser: Number(localStorage.getItem("userId")),
       };
 
       this.$http.usersService
@@ -633,10 +635,12 @@ export default {
           nationalNumber: this.num,
           DepartmentId: Number(this.departmentIdSelected),
           state: Boolean(this.state1),
-          CurrentUser: Number(localStorage.getItem("userId")),
+          
         },
 
         Listrole: this.roles1,
+
+        currentUser: Number(localStorage.getItem("userId")),
       };
 
       this.$http.usersService

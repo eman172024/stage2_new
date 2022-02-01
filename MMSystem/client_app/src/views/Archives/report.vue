@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray-100 h-screen">
     <div class=" overflow-hidden flex">
-      <asideComponent></asideComponent>
+      
       <div id="print" class="w-full h-full text-center bg-gray-100 " style="width: 100%; height: 100%; text-align: center; direction: rtl; --tw-bg-opacity: 1;
     background-color: rgba(243, 244, 246, var(--tw-bg-opacity));">
         <div
@@ -70,7 +70,7 @@
               "
             >
               <div></div>
-              <span class="ml-6 font-medium text-xl" style="margin-left: 24px; font-weight: 500;font-size: 20px ; line-height: 28px ;">جهات عامة</span>
+              <span class="ml-6 font-medium text-xl" style="margin-left: 24px; font-weight: 500;font-size: 20px ; line-height: 28px ;">{{this.mail_type}}</span>
 
               <div class="mr-6 font-medium text-xl border-black border-2 px-1" style="margin-right: 24px; font-weight: 500; border-width: 2px; border-style: solid;  padding-left: 4px; padding-right: 4px;    --tw-border-opacity: 1; border-color: rgba(0, 0, 0, var(--tw-border-opacity));font-size:  20px ; line-height: 28px;">
                 {{ this.$route.params.total_of_transaction }}
@@ -150,16 +150,38 @@
 
 
 <script>
-import asideComponent from "@/components/asideComponent.vue";
+
 
 export default {
   components: {
-    asideComponent,
+    
   },
 
+mounted() {
+
+ switch(this.$route.params.mailType){
+
+
+   
+
+   case "1":{this.mail_type="فروع الرقابة";break;}
+
+   case "2":{this.mail_type="جهات عامة";break;}
+
+   case "3":{this.mail_type="جهات خاصة";break;}
+
+   default :{this.mail_type="الكل";break;}
+ }
+},
+
   data() {
-    return {};
+    return {
+
+
+      mail_type:"",
+    };
   },
+  
 
   methods: {
     printpage() {

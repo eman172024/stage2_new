@@ -5,7 +5,7 @@ import Show from "../views/users/ShowUsers.vue";
 import Add from "../views/users/UsersForm.vue";
 import Archives from "../views/Archives/Archives.vue";
 import report from "../views/Archives/report.vue";
-
+import report2 from "../views/Archives/report2.vue";
 Vue.use(VueRouter);
 
 const routes = [{
@@ -196,6 +196,11 @@ const routes = [{
        component: report
       },
     
+      {
+        path: "/report2",
+        name: "report2",
+       component: report2
+      },
     
 
 ];
