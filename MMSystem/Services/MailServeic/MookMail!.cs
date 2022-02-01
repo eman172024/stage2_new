@@ -564,6 +564,7 @@ namespace MMSystem.Services.MailServeic
         public async Task<bool> Update(Mail mail)
         {
             Mail _mail = await _appContext.Mails.FindAsync(mail.MailID);
+            List<HVModel> hVModels = new List<HVModel>();
 
 
             if (_mail != null)
@@ -571,14 +572,28 @@ namespace MMSystem.Services.MailServeic
 
                 Historyes histor = new Historyes();
 
-                histor.userId = mail.userId;
-                histor.mailid = mail.MailID;
-                histor.HistortyNameID = 2;
-                histor.OldValue = _mail.Mail_Summary + " " + _mail.Genaral_inbox_Number.ToString() 
-                     + " " +mail.Date_Of_Mail.ToString()+" "+ _mail.Genaral_inbox_year.ToString()
-                     
-                     +" " +mail.Genaral_inbox_Number.ToString();
+                hVModels.Add(new HVModel { name= "الاجراء المطلوب",newvalue= mail.ActionRequired,oldvalue= _mail.ActionRequired });
+                hVModels.Add(new HVModel { name = "تاريخ البريد", newvalue = mail.Date_Of_Mail, oldvalue = _mail.Date_Of_Mail });
+                hVModels.Add(new HVModel { name = "رقم الوارد العام", newvalue = mail.Genaral_inbox_Number, oldvalue = _mail.Genaral_inbox_Number });
+                hVModels.Add(new HVModel { name = " الموضوع", newvalue = mail.Mail_Summary, oldvalue = _mail.Mail_Summary });
               
+                //old.Add("ملخص الموضوع", _mail.Mail_Summary);
+
+                //old.Add("تاريخ البريد", _mail.Date_Of_Mail);
+
+                //old.Add("رقم الوارد العام", _mail.Genaral_inbox_Number);
+                //old.Add("الاجراء المصلوب", _mail.ActionRequired);
+
+
+                //newvalue.Add("الموضوع", mail.Mail_Summary);
+
+                //newvalue.Add("البريد", mail.Date_Of_Mail);
+
+                //newvalue.Add("رقم الوارد العام", mail.Genaral_inbox_Number);
+                //newvalue.Add("الاجراء المصلوب", mail.ActionRequired);
+
+                //    string results= Histoteyvm.getValue(old,newvalue); 
+
                 _mail.Date_Of_Mail = mail.Date_Of_Mail;
                 _mail.Mail_Summary = mail.Mail_Summary + " ";
                 _mail.state = mail.state;
@@ -591,6 +606,9 @@ namespace MMSystem.Services.MailServeic
                 _mail.ActionRequired = mail.ActionRequired;
 
 
+                string fff = Histoteyvm.getValue(hVModels);
+
+
                 _appContext.Mails.Update(_mail);
                 await _appContext.SaveChangesAsync();
                 histor.newValue = mail.Mail_Summary + " " + mail.Genaral_inbox_Number.ToString()
@@ -600,7 +618,6 @@ namespace MMSystem.Services.MailServeic
 
                 
                 histor.Time = DateTime.Now;
-                bool res = await _history.Add(histor);
 
 
 
