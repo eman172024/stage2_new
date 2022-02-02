@@ -39,7 +39,7 @@ namespace MMSystem.Controllers
                  historyes.userId = find.Administrator.UserId;
                  historyes.Time = System.DateTime.Now;
                  historyes.HistortyNameID = 11;
-                await _hstory.Add(historyes);
+               // await _hstory.Add(historyes);
                 return Ok(find);
             }
             return NotFound(new Result() { message = "رقم المستخدم او كلمة المرور غير صحيحة", statusCode = 404 });

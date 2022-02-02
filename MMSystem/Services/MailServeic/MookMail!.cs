@@ -647,7 +647,7 @@ namespace MMSystem.Services.MailServeic
                 {
                     case 1:
 
-                        Email = await Update(mail.mail);
+                        Email = await Update(mail.userId,mail.mail);
                         if (Email)
                 
                         
@@ -701,106 +701,195 @@ namespace MMSystem.Services.MailServeic
 
                         break;
                     case 2:
+                        //delete to test
+                        //Email = await Update(mail.userId,mail.mail);
+                        //if (Email)
+                        //{
 
-                        Email = await Update(mail.mail);
-                        if (Email)
+                        //    var obj = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail.mail.MailID);
+                        //    if (obj.flag > 1)
+                        //    {
+                        //        flag = 2;
+                        //    }
+                        //    else
+                        //    {
+                        //        flag = 1;
+
+                        //    }
+                        //    mail.external_Mail.MailID = mail.mail.MailID;
+
+                        //    Exmail = await _external.Update(mail.userId,mail.external_Mail);
+                        //    if (Exmail)
+                        //    {
+                        //        if (mail.newactionSenders.Count > 0)
+                        //        {
+                        //            for (int i = 0; i < mail.newactionSenders.Count; i++)
+                        //            {
+                        //                Send_to sender = new Send_to();
+
+                        //                sender.State = true;
+
+                        //                sender.MailID = mail.mail.MailID;
+                        //                sender.to = mail.newactionSenders[i].departmentId;
+                        //                sender.flag = flag;
+                        //                sender.type_of_send = mail.newactionSenders[i].measureId;
+                        //                bool send = await _sender.Add(sender);
+                        //            }
+                        //            result = true;
+                        //            break;
+
+                        //        }
+                        //        else { }
+
+                        //        result = true;
+                        //        break;
+
+
+                        //    }
+
+
+
+
+                        //    break;
+
+                        //}
+
+
+                        // delete to test
+
+
+                        //start new 
+
+                        bool isUpdate = await _external.Update(mail.mail,mail.external_Mail,mail.userId);
+
+                        if (isUpdate)
                         {
-
-                            var obj = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail.mail.MailID);
-                            if (obj.flag > 1)
+                            if (mail.newactionSenders.Count > 0)
                             {
-                                flag = 2;
-                            }
-                            else
-                            {
-                                flag = 1;
-
-                            }
-                            mail.external_Mail.MailID = mail.mail.MailID;
-
-                            Exmail = await _external.Update(mail.external_Mail);
-                            if (Exmail)
-                            {
-                                if (mail.newactionSenders.Count > 0)
+                                for (int i = 0; i < mail.newactionSenders.Count; i++)
                                 {
-                                    for (int i = 0; i < mail.newactionSenders.Count; i++)
-                                    {
-                                        Send_to sender = new Send_to();
+                                    Send_to sender = new Send_to();
 
-                                        sender.State = true;
+                                    sender.State = true;
 
-                                        sender.MailID = mail.mail.MailID;
-                                        sender.to = mail.newactionSenders[i].departmentId;
-                                        sender.flag = flag;
-                                        sender.type_of_send = mail.newactionSenders[i].measureId;
-                                        bool send = await _sender.Add(sender);
-                                    }
-                                    result = true;
-                                    break;
-
+                                    sender.MailID = mail.mail.MailID;
+                                    sender.to = mail.newactionSenders[i].departmentId;
+                                    sender.flag = flag;
+                                    sender.type_of_send = mail.newactionSenders[i].measureId;
+                                    bool send = await _sender.Add(sender);
                                 }
-                                else { }
-
                                 result = true;
                                 break;
 
-
                             }
+                            else { }
 
+                            result = true;
+                            break;
+
+
+                        }
 
 
 
                             break;
 
-                        }
-                        break;
+                        //ende start
                     case 3:
 
-                        Email = await Update(mail.mail);
-                        if (Email)
+                        //old function
+
+                        //Email = await Update(mail.mail);
+                        //if (Email)
+                        //{
+                        //    var obj = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail.mail.MailID);
+                        //    if (obj.flag > 1)
+                        //    {
+                        //        flag = 2;
+                        //    }
+                        //    else
+                        //    {
+                        //        flag = 1;
+
+                        //    }
+                        //    mail.extrenal_Inbox.MailID = mail.mail.MailID;
+                        //    Ex_inboxmail = await _extrenal_Inbox.Update(mail.extrenal_Inbox);
+                        //    if (Ex_inboxmail)
+                        //    {
+
+                        //        if (mail.newactionSenders.Count > 0)
+                        //        {
+                        //            for (int i = 0; i < mail.newactionSenders.Count; i++)
+                        //            {
+                        //                Send_to sender = new Send_to();
+
+                        //                sender.State = true;
+
+                        //                sender.MailID = mail.mail.MailID;
+                        //                sender.to = mail.newactionSenders[i].departmentId;
+                        //                sender.flag = 2;
+                        //                sender.type_of_send = mail.newactionSenders[i].measureId;
+                        //                bool send = await _sender.Add(sender);
+                        //            }
+
+
+                        //        }
+                        //        else { }
+
+                        //        result = true;
+                        //        break;
+                        //    }
+
+
+                        //}
+
+                        //result = false;
+
+                        //old function
+
+
+
+                        //new function
+
+
+                        Ex_inboxmail = await _extrenal_Inbox.Update(mail.mail, mail.extrenal_Inbox, mail.userId);
+                        if (Ex_inboxmail)
                         {
-                            var obj = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail.mail.MailID);
-                            if (obj.flag > 1)
-                            {
-                                flag = 2;
-                            }
-                            else
-                            {
-                                flag = 1;
 
-                            }
-                            mail.extrenal_Inbox.MailID = mail.mail.MailID;
-                            Ex_inboxmail = await _extrenal_Inbox.Update(mail.extrenal_Inbox);
-                            if (Ex_inboxmail)
+                            if (mail.newactionSenders.Count > 0)
                             {
-
-                                if (mail.newactionSenders.Count > 0)
+                                for (int i = 0; i < mail.newactionSenders.Count; i++)
                                 {
-                                    for (int i = 0; i < mail.newactionSenders.Count; i++)
-                                    {
-                                        Send_to sender = new Send_to();
+                                    Send_to sender = new Send_to();
 
-                                        sender.State = true;
+                                    sender.State = true;
 
-                                        sender.MailID = mail.mail.MailID;
-                                        sender.to = mail.newactionSenders[i].departmentId;
-                                        sender.flag = 2;
-                                        sender.type_of_send = mail.newactionSenders[i].measureId;
-                                        bool send = await _sender.Add(sender);
-                                    }
-
-
+                                    sender.MailID = mail.mail.MailID;
+                                    sender.to = mail.newactionSenders[i].departmentId;
+                                    sender.flag = 2;
+                                    sender.type_of_send = mail.newactionSenders[i].measureId;
+                                    bool send = await _sender.Add(sender);
                                 }
-                                else { }
 
-                                result = true;
-                                break;
+
                             }
-                           
+                            else { }
+
+
+                            result = true;
+                                  break;
 
                         }
 
                         result = false;
+                        break;
+
+
+                        //new function
+
+
+
+
                         break;
 
                     default:
@@ -2278,6 +2367,82 @@ namespace MMSystem.Services.MailServeic
 
                 throw;
             }
+        }
+
+
+
+        public async Task<bool> Update(int userid,Mail mail) {
+            try
+            {
+                Mail _mail = await _appContext.Mails.FindAsync(mail.MailID);
+                List<HVModel> hVModels = new List<HVModel>();
+
+
+                if (_mail != null)
+                {
+
+                    hVModels.Add(new HVModel { name = "تاريخ الايميل", newvalue = mail.Date_Of_Mail, oldvalue = _mail.Date_Of_Mail });
+                    hVModels.Add(new HVModel { name = "ملخص الموضوع", newvalue = mail.Mail_Summary, oldvalue = _mail.Mail_Summary });
+                    hVModels.Add(new HVModel { name = "حالة الايميل", newvalue = mail.state, oldvalue = _mail.state });
+                    hVModels.Add(new HVModel { name = "رقم المستخدم", newvalue = mail.userId, oldvalue = _mail.userId });
+                    hVModels.Add(new HVModel { name = "السنة", newvalue = mail.Genaral_inbox_year, oldvalue = _mail.Genaral_inbox_year });
+                    hVModels.Add(new HVModel { name = "رقم الوارد العام", newvalue = mail.Genaral_inbox_Number, oldvalue = _mail.Genaral_inbox_Number });
+                    hVModels.Add(new HVModel { name = "تاريخ الايميل", newvalue = mail.Date_Of_Mail, oldvalue = _mail.Date_Of_Mail });
+                    hVModels.Add(new HVModel { name = "التصنيف ", newvalue = mail.clasification, oldvalue = _mail.clasification });
+                    hVModels.Add(new HVModel { name = "الاجراء المطلوب", newvalue = mail.ActionRequired, oldvalue = _mail.ActionRequired });
+
+
+
+
+
+
+
+                    Historyes histor = new Historyes();
+
+                    histor.userId = userid;
+                    histor.mailid = mail.MailID;
+                    histor.HistortyNameID = 2;
+
+
+                    _mail.Date_Of_Mail = mail.Date_Of_Mail;
+                    _mail.Mail_Summary = mail.Mail_Summary + " ";
+                    _mail.state = mail.state;
+                    _mail.userId = mail.userId;
+                    _mail.Genaral_inbox_year = mail.Genaral_inbox_year;
+                    _mail.Genaral_inbox_Number = mail.Genaral_inbox_Number;
+                    _mail.Date_Of_Mail = mail.Date_Of_Mail;
+
+                    _mail.clasification = mail.clasification;
+                    _mail.ActionRequired = mail.ActionRequired;
+
+
+                    string chamges = Histoteyvm.getValue(hVModels);
+
+
+                    _appContext.Mails.Update(_mail);
+                    await _appContext.SaveChangesAsync();
+                    histor.changes = chamges;
+                    histor.currentUser = userid;
+
+                    histor.Time = DateTime.Now;
+                    _appContext.History.Add(histor);
+                    await _appContext.SaveChangesAsync();
+
+
+                    return true;
+
+                }
+
+                return false;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+
         }
     }
 }
