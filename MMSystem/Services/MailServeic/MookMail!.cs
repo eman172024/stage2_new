@@ -317,19 +317,24 @@ namespace MMSystem.Services.MailServeic
             {
               
 
-                    Mail mail = await _appContext.Mails.Where(x => x.Department_Id == id && x.MailID == mailId&&x.userId==userid).FirstOrDefaultAsync();
+                    Mail mail = await _appContext.Mails.Where(x => x.Department_Id == id && x.MailID == mailId).FirstOrDefaultAsync();
                     if (mail != null)
                     {
+                    Historyes historyes = new Historyes();
+                    historyes.currentUser = userid;
+                    historyes.mailid = mailId;
+                    historyes.HistortyNameID = 3;
+                    historyes.Time = DateTime.Now;
+                    historyes.changes = $"{mailId}   تم حدف البريد رقم ";
+
 
                         mail.state = false;
                         _appContext.Mails.Update(mail);
-                        await _appContext.SaveChangesAsync();
-                    Historyes histor = new Historyes();
-                    histor.userId = mail.userId;
-                    histor.Time = DateTime.Now;
-                    histor.HistortyNameID = 4;
-                    histor.Time = DateTime.Now;
-                    bool res = await _history.Add(histor);
+                    await _appContext.History.AddAsync(historyes);
+
+
+                    await _appContext.SaveChangesAsync();
+                   
 
 
                     return true;
@@ -1221,16 +1226,27 @@ namespace MMSystem.Services.MailServeic
                     Guid guid = Guid.NewGuid();
                     string x = guid.ToString();
                     var path = Path.Combine(last + "/"+x + ".");
-
+                   
 
                     await File.WriteAllBytesAsync(path + extention, bytes);
                     Mail_Resourcescs mail = new Mail_Resourcescs();
                     mail.MailID = file.mail_id;
                     mail.path = path + extention;
                     mail.order = item.index;
+                    Historyes histor = new Historyes();
+                    histor.currentUser = file.userId;
+                    histor.mailid = file.mail_id;
+                    histor.HistortyNameID = 4;
+                 
                     bool res = await _resourcescs.Add(mail);
                     if (res)
+                 
+                    
                     {
+
+                       await _appContext.History.AddAsync(histor);
+
+                        await _appContext.SaveChangesAsync();
                         result = true;
                     }
                     else
@@ -2022,23 +2038,44 @@ namespace MMSystem.Services.MailServeic
 
         }
 
-        public async Task<bool> deleteSender(int mail_id, int departmentId)
+        public async Task<bool> deleteSender(int mail_id, int departmentId,int userid)
         {
             try
             {
+                Historyes historyes = new Historyes();
+
+                historyes.currentUser = userid;
+                historyes.mailid = mail_id;
+
+                historyes.HistortyNameID = 9;
+
+            
                 Send_to send_ = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail_id && x.to == departmentId);
                 if (send_ != null)
                 {
                     if (send_.flag <= 2)
-                        send_.State = false;
                     {
+
+                        send_.State = false;
+
+                        historyes.changes = $" {departmentId}   تم حدف الادارة رقم";
+                        historyes.Time = DateTime.Now;
+                        await _appContext.SaveChangesAsync();
+
                         _appContext.Sends.Update(send_);
+
+                        _appContext.History.Add(historyes);
+
                         await _appContext.SaveChangesAsync();
                         return true;
 
 
                     }
-                    return false;
+                    else {
+
+                        return false;
+                    }
+                    
                    
                 }
                 return false;
