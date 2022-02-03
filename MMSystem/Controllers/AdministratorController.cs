@@ -90,49 +90,48 @@ namespace MMSystem.Controllers
             historyes.changes = " /// ";
           
             if (newuservalue.Administrator.UserName != olduservalue.Administrator.UserName) {
-                historyes.changes = historyes.changes + "تم تغيير اسم المستخدم من  : " + olduservalue.Administrator.UserName + "إلي" + newuservalue.Administrator.UserName + " /// ";
+                historyes.changes = historyes.changes + "   تم تغيير اسم المستخدم من  : " + olduservalue.Administrator.UserName + "إلي" + newuservalue.Administrator.UserName + " /// ";
             }
-            if (newuservalue.Administrator.password.ToString() != olduservalue.Administrator.password.ToString())
+            bool isValid = BCrypt.Net.BCrypt.Verify(newuservalue.Administrator.password, olduservalue.Administrator.password);
+            if (!isValid)
             {
-                historyes.changes = historyes.changes + "ولقد تم تغيير  كلمة المرور :  " + " /// ";
+                historyes.changes = historyes.changes + "   ولقد تم تغيير  كلمة المرور :   " + " /// ";
             }
             if (newuservalue.Administrator.nationalNumber != olduservalue.Administrator.nationalNumber)
             {
-                historyes.changes = historyes.changes + "تم تغيير اسم الرقم الوطني من : " + olduservalue.Administrator.nationalNumber + "إلي" + newuservalue.Administrator.nationalNumber + " /// ";
+                historyes.changes = historyes.changes + "   تم تغيير الرقم الوطني من : " + olduservalue.Administrator.nationalNumber + "إلي" + newuservalue.Administrator.nationalNumber + " /// ";
 
             }
             if (newuservalue.Administrator.userNetwork != olduservalue.Administrator.userNetwork)
             {
-                historyes.changes = historyes.changes + "تم تغيير الاسم علي الشبكة من : " + olduservalue.Administrator.userNetwork + "إلي" + newuservalue.Administrator.userNetwork + " /// ";
+                historyes.changes = historyes.changes + "   تم تغيير الاسم علي الشبكة من : " + olduservalue.Administrator.userNetwork + "إلي" + newuservalue.Administrator.userNetwork + " /// ";
 
             }
             if (newuservalue.Administrator.DepartmentId != olduservalue.Administrator.DepartmentId)
             {
-                historyes.changes= historyes.changes + "تم تغيير رقم الادارة من : " + olduservalue.Administrator.DepartmentId + "إلي" + newuservalue.Administrator.DepartmentId + " /// ";
+                historyes.changes= historyes.changes + "   تم تغيير رقم الادارة من : " + olduservalue.Administrator.DepartmentId + "إلي" + newuservalue.Administrator.DepartmentId + " /// ";
 
             }
             if (newuservalue.Administrator.state != olduservalue.Administrator.state)
             {
-                historyes.changes = historyes.changes + "تم تغيير اسم المستخدم من : " + olduservalue.Administrator.state.ToString() + "إلي" + newuservalue.Administrator.state.ToString() + " /// ";
+                historyes.changes = historyes.changes + "   تم تغييرالحالة من  غير مفعل  " + " إلي " + "  مفعل   ";
+            }
+            //if (newuservalue.Administrator.FirstMACAddress != olduservalue.Administrator.FirstMACAddress)
+            //{
+            //    historyes.changes = historyes.changes + "   تم تغيير العنوان الفزيائي الثاني الي :" + olduservalue.Administrator.FirstMACAddress + "إلي" + newuservalue.Administrator.FirstMACAddress + " /// ";
 
-            }
-            if (newuservalue.Administrator.FirstMACAddress != olduservalue.Administrator.FirstMACAddress)
-            {
-                historyes.changes = historyes.changes + "تم تغيير العنوان الفزيائي الثاني الي :" + olduservalue.Administrator.FirstMACAddress + "إلي" + newuservalue.Administrator.FirstMACAddress + " /// ";
-
-            }
-            if (newuservalue.Administrator.SecandMACAddress != olduservalue.Administrator.SecandMACAddress)
-            {
-                historyes.changes = historyes.changes + "تم تغيير العنوان الفزيائي الاول الي : " + olduservalue.Administrator.SecandMACAddress + "إلي" + newuservalue.Administrator.SecandMACAddress + " /// ";
-            }
+            //}
+            //if (newuservalue.Administrator.SecandMACAddress != olduservalue.Administrator.SecandMACAddress)
+            //{
+            //    historyes.changes = historyes.changes + "   تم تغيير العنوان الفزيائي الاول الي : " + olduservalue.Administrator.SecandMACAddress + "إلي" + newuservalue.Administrator.SecandMACAddress + " /// ";
+            //}
 
             List<int>  newrole = newuservalue.Listrole;
             List<int>  oldrole = await _data.GetJustRole(newuservalue.Administrator.UserId);
-            ///    IEnumerable<int> onlyInFirstSet = oldrole.Except(newrole);
-            ///    
+             
             string Stringnewrole = string.Join(",", newrole);
             string Stringoldrole = string.Join(",", oldrole);
-            if (newrole != oldrole) {
+            if (!Stringnewrole.Equals(Stringoldrole)) {
            
                 historyes.changes = historyes.changes + "  تم تغيير الصلاحيات من " + Stringoldrole + "  إلي  " + Stringnewrole + " /// ";
             }
@@ -160,12 +159,12 @@ namespace MMSystem.Controllers
             Historyes historyes = new Historyes();
             if (user.Administrator.state == true)
             {
-                historyes.changes = historyes.changes + "تم تغييرالحالة من  مفعل  " + "إلي" + "غير مفعل";
+                historyes.changes = historyes.changes + "تم تغييرالحالة من  مفعل  " + "  إلي " + "غير مفعل";
                
             }
             else
             {
-                historyes.changes = historyes.changes + "تم تغييرالحالة من  غير مفعل  " + "إلي" + "مفعل";
+                historyes.changes = historyes.changes + "تم تغييرالحالة من  غير مفعل  " + " إلي" + "مفعل";
             }
             bool results = await _data.Delete(stopactive.UserId);
          
@@ -194,7 +193,7 @@ namespace MMSystem.Controllers
         
             user.Administrator.password = BCrypt.Net.BCrypt.HashPassword(user.Administrator.password);
 
-             bool results = await _data.Add(user);
+            bool results = await _data.Add(user);
 
             Historyes historyes = new Historyes();
 

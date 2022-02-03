@@ -34,11 +34,11 @@ namespace MMSystem.Controllers
 
                 if (find != null) {
 
-                Historyes historyes = new Historyes();
-
-                 historyes.userId = find.Administrator.UserId;
-                 historyes.Time = System.DateTime.Now;
-                 historyes.HistortyNameID = 11;
+                Historyes historyes = new Historyes();  
+                historyes.Time = System.DateTime.Now;
+                historyes.HistortyNameID = 11;
+                historyes.currentUser = find.Administrator.UserId;
+                historyes.changes = "تم تسجيل الدخول";
                 await _hstory.Add(historyes);
                 return Ok(find);
             }
