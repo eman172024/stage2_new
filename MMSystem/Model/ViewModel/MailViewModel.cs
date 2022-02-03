@@ -10,6 +10,8 @@ namespace MMSystem.Model.ViewModel
 {
     public class MailViewModel
     {
+        public int userId { get; set; }
+
         public Mail mail { get; set; }
     
         public External_Mail external_Mail { get; set; }

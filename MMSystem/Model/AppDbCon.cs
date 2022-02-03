@@ -295,7 +295,20 @@ namespace MMSystem.Model
                    name = "حذف رد"
 
                }
+               ,
+               new HistortyName
+               {
+                   ID = 8,
+                   name = "  اضافة ادارة"
 
+               }
+                              ,
+               new HistortyName
+               {
+                   ID = 9,
+                   name = "  حدف ادارة"
+
+               }
 
             );
 

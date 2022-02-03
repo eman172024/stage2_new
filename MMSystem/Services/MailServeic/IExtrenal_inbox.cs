@@ -10,5 +10,8 @@ namespace MMSystem.Services.MailServeic
 {
    public interface IExtrenal_inbox:GenericInterface<Extrenal_inbox, Extrenal_inboxDto>
     {
+
+        Task<bool> Update(Mail mail, Extrenal_inbox ex, int userid);
+
     }
 }

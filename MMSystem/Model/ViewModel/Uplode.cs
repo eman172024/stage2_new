@@ -9,6 +9,8 @@ namespace MMSystem.Model.ViewModel
     public class Uplode
     {[Required]
 
+
+        public int userId { get; set; }
         public int mail_id { get; set; }
         public List<UplodeFile> list { get; set; }
 

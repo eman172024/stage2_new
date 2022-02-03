@@ -4,14 +4,16 @@ using MMSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMSystem.Migrations
 {
     [DbContext(typeof(AppDbCon))]
-    partial class AppDbConModelSnapshot : ModelSnapshot
+    [Migration("20220201104013_historyUpdate")]
+    partial class historyUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -574,16 +576,6 @@ namespace MMSystem.Migrations
                         {
                             ID = 7,
                             name = "حذف رد"
-                        },
-                        new
-                        {
-                            ID = 8,
-                            name = "  اضافة ادارة"
-                        },
-                        new
-                        {
-                            ID = 9,
-                            name = "  حدف ادارة"
                         });
                 });
 
