@@ -2979,6 +2979,7 @@ export default {
 
       if (this.mailType == "1") {
         var dataUpdate = {
+          userId : Number(localStorage.getItem("userId")),
           mail: {
             MailID: Number(this.mailId),
             Mail_Type: Number(this.mailType),
@@ -3000,6 +3001,7 @@ export default {
 
       if (this.mailType == "2") {
         var dataUpdate = {
+          userId : Number(localStorage.getItem("userId")),
           mail: {
             MailID: Number(this.mailId),
             Mail_Type: Number(this.mailType),
@@ -3029,6 +3031,7 @@ export default {
 
       if (this.mailType == "3") {
         var dataUpdate = {
+          userId : Number(localStorage.getItem("userId")),
           mail: {
             MailID: Number(this.mailId),
             Mail_Type: Number(this.mailType),
@@ -3061,7 +3064,7 @@ export default {
       }
 
       this.$http.mailService
-        .UpdateMail(dataUpdate)
+        .UpdateMail(dataUpdate, localStorage.getItem("userId"))
         .then((res) => {
           setTimeout(() => {
             this.loading = false;
@@ -3312,7 +3315,7 @@ console.log(this.to_test_passing_mail_type)
       this.loading = true;
 
       this.$http.mailService
-        .SendMail(Number(this.mailId), Number(localStorage.getItem("userId")) )
+        .SendMail(Number(this.mailId))
         .then((res) => {
           setTimeout(() => {
             this.deleteButton = false;
