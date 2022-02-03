@@ -307,7 +307,6 @@ namespace MMSystem.Services
                     view.Administrator.nationalNumber = user.Administrator.nationalNumber;
                     view.Administrator.state = user.Administrator.state;
                     view.Administrator.userNetwork = user.Administrator.userNetwork;
-
                     _data.Administrator.Update(view.Administrator);
                     await _data.SaveChangesAsync();
 
