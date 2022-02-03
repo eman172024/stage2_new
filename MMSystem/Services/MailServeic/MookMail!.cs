@@ -1088,9 +1088,11 @@ namespace MMSystem.Services.MailServeic
 
                 if (System.IO.File.Exists(res.path))
                 {
-                    System.IO.File.Delete(res.path);
+                   // System.IO.File.Delete(res.path);
 
-                    _appContext.Mail_Resourcescs.Remove(res);
+
+                    res.State = false;
+                    _appContext.Mail_Resourcescs.Update(res);
                     await _appContext.SaveChangesAsync();
 
                     Historyes histor = new Historyes();
@@ -1098,6 +1100,7 @@ namespace MMSystem.Services.MailServeic
                     histor.mailid = res.MailID;
                     histor.Time = DateTime.Now;
                     histor.HistortyNameID = 5;
+                    histor.changes = res.path;
                     bool resw = await _history.Add(histor);
 
 
