@@ -92,8 +92,8 @@ namespace MMSystem.Controllers
             if (newuservalue.Administrator.UserName != olduservalue.Administrator.UserName) {
                 historyes.changes = historyes.changes + "   تم تغيير اسم المستخدم من  : " + olduservalue.Administrator.UserName + "إلي" + newuservalue.Administrator.UserName + " /// ";
             }
-            bool isValid = BCrypt.Net.BCrypt.Verify(newuservalue.Administrator.password, olduservalue.Administrator.password);
-            if (!isValid)
+            //bool isValid = BCrypt.Net.BCrypt.Verify(newuservalue.Administrator.password, olduservalue.Administrator.password);
+            if (!(newuservalue.Administrator.password == olduservalue.Administrator.password))
             {
                 historyes.changes = historyes.changes + "   ولقد تم تغيير  كلمة المرور :   " + " /// ";
             }
@@ -140,7 +140,7 @@ namespace MMSystem.Controllers
 
             historyes.currentUser = newuservalue.currentUser;
             historyes.Time = System.DateTime.Now;
-            historyes.HistortyNameID = 8;
+            historyes.HistortyNameID = 10;
             historyes.userId = newuservalue.Administrator.UserId;
 
             if (results)
@@ -170,7 +170,7 @@ namespace MMSystem.Controllers
          
             historyes.currentUser = stopactive.currentUser;
             historyes.Time = System.DateTime.Now;
-            historyes.HistortyNameID = 10;
+            historyes.HistortyNameID = 12;
             historyes.userId = stopactive.UserId;
           
           
