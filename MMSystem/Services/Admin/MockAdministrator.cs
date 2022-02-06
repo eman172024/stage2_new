@@ -300,7 +300,9 @@ namespace MMSystem.Services
                 {
 
                     view.Administrator.UserName = user.Administrator.UserName;
+                    if (view.Administrator.password != user.Administrator.password) { 
                     view.Administrator.password = BCrypt.Net.BCrypt.HashPassword(user.Administrator.password);
+                    }
                     view.Administrator.FirstMACAddress = user.Administrator.FirstMACAddress;
                     view.Administrator.SecandMACAddress = user.Administrator.SecandMACAddress;
                     view.Administrator.DepartmentId = user.Administrator.DepartmentId;
