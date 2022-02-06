@@ -177,7 +177,22 @@ namespace MMSystem.Services
 
         }
 
+        public async Task<List<int>> GetJustRole(int id)
+        {
+            try
+            {
+                List<int> oldRole = await (from userrole in _data.userRoles.Where(x => x.UserId == id)
+                                     select userrole.RoleId).ToListAsync();
 
+
+                return oldRole;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         public async Task<UserView> login(Login user1)
         {
@@ -285,14 +300,15 @@ namespace MMSystem.Services
                 {
 
                     view.Administrator.UserName = user.Administrator.UserName;
+                    if (view.Administrator.password != user.Administrator.password) { 
                     view.Administrator.password = BCrypt.Net.BCrypt.HashPassword(user.Administrator.password);
+                    }
                     view.Administrator.FirstMACAddress = user.Administrator.FirstMACAddress;
                     view.Administrator.SecandMACAddress = user.Administrator.SecandMACAddress;
                     view.Administrator.DepartmentId = user.Administrator.DepartmentId;
                     view.Administrator.nationalNumber = user.Administrator.nationalNumber;
                     view.Administrator.state = user.Administrator.state;
                     view.Administrator.userNetwork = user.Administrator.userNetwork;
-
                     _data.Administrator.Update(view.Administrator);
                     await _data.SaveChangesAsync();
 

@@ -586,11 +586,13 @@ export default {
           nationalNumber: this.num,
           DepartmentId: Number(this.departmentIdSelected),
           state: Boolean(this.state1),
-
+         
           
         },
 
         Listrole: this.roles1,
+
+         currentUser: Number(localStorage.getItem("userId")),
       };
 
       this.$http.usersService
@@ -619,6 +621,7 @@ export default {
 
     edit_user() {
 
+      this.roles1=[];
       for (var i = 0; i < this.pirms.length; i++) {
             this.roles1.push(this.pirms[i].roleId);
           }
@@ -633,18 +636,21 @@ export default {
           nationalNumber: this.num,
           DepartmentId: Number(this.departmentIdSelected),
           state: Boolean(this.state1),
+          
         },
 
         Listrole: this.roles1,
+
+        currentUser: Number(localStorage.getItem("userId")),
       };
 
       this.$http.usersService
         .Edite_user(user)
         .then((res) => {
           setTimeout(() => {
-               this.editesuccess=res.data.message;
+            this.editesuccess=res.data.message;
             this.iseditesuccess=true;
-            
+            this.GetUserById();
             
           }, 201);
           console.log(res.data.message);

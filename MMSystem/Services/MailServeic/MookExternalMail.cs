@@ -126,5 +126,159 @@ namespace MMSystem.Services.MailServeic
             }
            
         }
+
+        public async Task<bool> Update(int userId, External_Mail model)
+        {
+            try
+            {
+                External_Mail mail = await _appDb.External_Mails.FirstOrDefaultAsync(x => x.MailID == model.MailID);
+
+                List<HVModel> hVModels = new List<HVModel>();
+
+                if (mail != null)
+
+                {
+
+                    hVModels.Add(new HVModel { name = "الجهة الخارجية", newvalue = model.Sectionid, oldvalue = mail.Sectionid });
+                    hVModels.Add(new HVModel { name = "اسم القسم", newvalue = model.sectionName, oldvalue = mail.sectionName });
+                    hVModels.Add(new HVModel { name = "الاجراء ", newvalue = model.action, oldvalue = mail.action });
+                    hVModels.Add(new HVModel { name = "الاجراء المطلوب من ", newvalue = model.action_required_by_the_entity, oldvalue = mail.action_required_by_the_entity });
+
+
+
+
+                 string note=   Histoteyvm.getValue(hVModels);
+
+
+
+                    Historyes histor = new Historyes();
+                    histor.currentUser = userId;
+                    histor.mailid = model.MailID;
+                    histor.changes = note;
+
+                    mail.Sectionid = model.Sectionid;
+                    mail.sectionName = model.sectionName;
+                    mail.action = model.action;
+                    mail.action_required_by_the_entity = model.action_required_by_the_entity;
+
+                    _appDb.History.Add(histor);
+
+                    _appDb.External_Mails.Update(mail);
+                    await _appDb.SaveChangesAsync();
+
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
+        public  async Task<bool> Update(Mail mail1, External_Mail mail, int userid)
+        {
+            try
+            {
+                Mail _mail = await _appDb.Mails.FindAsync(mail1.MailID);
+                List<HVModel> hVModels = new List<HVModel>();
+
+
+                if (_mail != null)
+                {
+
+                    hVModels.Add(new HVModel { name = "تاريخ الايميل", newvalue = mail1.Date_Of_Mail, oldvalue = _mail.Date_Of_Mail });
+                    hVModels.Add(new HVModel { name = "ملخص الموضوع", newvalue = mail1.Mail_Summary, oldvalue = _mail.Mail_Summary });
+                    hVModels.Add(new HVModel { name = "حالة الايميل", newvalue = mail1.state, oldvalue = _mail.state });
+                    hVModels.Add(new HVModel { name = "رقم المستخدم", newvalue = mail1.userId, oldvalue = _mail.userId });
+                    hVModels.Add(new HVModel { name = "السنة", newvalue = mail1.Genaral_inbox_year, oldvalue = _mail.Genaral_inbox_year });
+                    hVModels.Add(new HVModel { name = "رقم الوارد العام", newvalue = mail1.Genaral_inbox_Number, oldvalue = _mail.Genaral_inbox_Number });
+                    hVModels.Add(new HVModel { name = "تاريخ الايميل", newvalue = mail1.Date_Of_Mail, oldvalue = _mail.Date_Of_Mail });
+                    hVModels.Add(new HVModel { name = "التصنيف ", newvalue = mail1.clasification, oldvalue = _mail.clasification });
+                    hVModels.Add(new HVModel { name = "الاجراء المطلوب", newvalue = mail1.ActionRequired, oldvalue = _mail.ActionRequired });
+
+
+                    Historyes histor = new Historyes();
+
+                    histor.userId = userid;
+                    histor.mailid = mail.MailID;
+                    histor.HistortyNameID = 2;
+
+
+                    _mail.Date_Of_Mail = mail1.Date_Of_Mail;
+                    _mail.Mail_Summary = mail1.Mail_Summary + " ";
+                    _mail.state = mail1.state;
+                    _mail.userId = mail1.userId;
+                    _mail.Genaral_inbox_year = mail1.Genaral_inbox_year;
+                    _mail.Genaral_inbox_Number = mail1.Genaral_inbox_Number;
+                    _mail.Date_Of_Mail = mail1.Date_Of_Mail;
+
+                    _mail.clasification = mail1.clasification;
+                    _mail.ActionRequired = mail1.ActionRequired;
+
+
+
+
+                    _appDb.Mails.Update(_mail);
+                    await _appDb.SaveChangesAsync();
+                    histor.currentUser = userid;
+
+                    histor.Time = DateTime.Now;
+                    await _appDb.SaveChangesAsync();
+
+
+               //     return true;
+
+
+                    External_Mail ex = await _appDb.External_Mails.FirstOrDefaultAsync(x => x.MailID == mail1.MailID);
+
+                    if (ex != null)
+
+                    {
+
+                        hVModels.Add(new HVModel { name = "الجهة الخارجية", newvalue = mail.Sectionid, oldvalue = ex.Sectionid });
+                        hVModels.Add(new HVModel { name = "اسم القسم", newvalue = mail.sectionName, oldvalue = ex.sectionName });
+                        hVModels.Add(new HVModel { name = "الاجراء ", newvalue = mail.action, oldvalue = ex.action });
+                        hVModels.Add(new HVModel { name = "الاجراء المطلوب من ", newvalue = mail.action_required_by_the_entity, oldvalue = ex.action_required_by_the_entity });
+
+
+
+
+                        string note = Histoteyvm.getValue(hVModels);
+                        histor.changes = note;
+
+                        ex.Sectionid = mail.Sectionid;
+                        ex.sectionName = mail.sectionName;
+                        ex.action = mail.action;
+                        ex.action_required_by_the_entity = mail.action_required_by_the_entity;
+
+
+
+                        _appDb.External_Mails.Update(ex);
+                        _appDb.History.Add(histor);
+                        await _appDb.SaveChangesAsync();
+
+                        return true;
+                    }
+
+
+                 //   return false;
+
+                }
+
+                return false;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 }

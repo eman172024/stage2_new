@@ -296,13 +296,19 @@ export default {
 
     stop_user(id) {
 
-      
+       var StopActive = {
+        
+          UserId:id,
+          currentUser:Number(localStorage.getItem("userId"))
+
+      };
+
       this.$http.usersService
-        .StopUser(id)
+        .StopUser(StopActive)
         .then((res) => {
           setTimeout(() => {
             console.log(res);
-            this.$router.go()
+            this.GetUsersOfDepartment(this.departmentIdSelected)
             // this.documentSection = true;
             // this.proceduresSection = true;
           }, 500);

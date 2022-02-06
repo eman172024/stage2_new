@@ -8,8 +8,8 @@ export default {
         return axios.get(`/api/Administrator/GetByUserName?username=${UserName}`);
     },
 
-    StopUser(id) {
-        return axios.put(`/api/Administrator/Delete/${id}`)
+    StopUser(StopActive) {
+        return axios.put(`/api/Administrator/Delete/`,StopActive)
     },
 
     GetAllRoles1() {

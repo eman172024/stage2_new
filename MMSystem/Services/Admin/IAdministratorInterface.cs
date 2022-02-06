@@ -10,7 +10,7 @@ namespace MMSystem.Services
 {
      public interface IAdministratorInterface : GenericInterface<Administrator,AdministratorDto>
     {
-
+        Task<List<int>> GetJustRole(int id);
         Task<UserView> Get(int id);
         Task<UserView> login(Login user);
         Task<bool> Update(UserAddORUpdate user);

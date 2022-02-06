@@ -3,7 +3,9 @@ using MMSystem.Model;
 using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel;
 using MMSystem.Services;
+using MMSystem.Services.Histor;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MMSystem.Controllers
@@ -17,13 +19,16 @@ namespace MMSystem.Controllers
     {
 
 
-        public AdministratorController(IAdministratorInterface Users)
+        public AdministratorController(IAdministratorInterface Users,IHistory hstory)
         {
             _data = Users;
-
+            _hstory = hstory;
+        
         }
         private readonly IAdministratorInterface _data;
 
+        private readonly IHistory _hstory;
+ 
 
         [HttpGet]
         [Route("GetAll")]
@@ -77,27 +82,108 @@ namespace MMSystem.Controllers
         }
         [HttpPut]
         [Route("Update")]
-        public async Task<IActionResult> UpdateAdministrator([FromBody] UserAddORUpdate id)
+        public async Task<IActionResult> UpdateAdministrator([FromBody] UserAddORUpdate newuservalue)
         {
-            bool results = await _data.Update(id);
+            Historyes historyes = new Historyes();
+            var olduservalue = await _data.Get(newuservalue.Administrator.UserId);
+            
+            historyes.changes = " /// ";
+          
+            if (newuservalue.Administrator.UserName != olduservalue.Administrator.UserName) {
+                historyes.changes = historyes.changes + "   تم تغيير اسم المستخدم من  : " + olduservalue.Administrator.UserName + "إلي" + newuservalue.Administrator.UserName + " /// ";
+            }
+            //bool isValid = BCrypt.Net.BCrypt.Verify(newuservalue.Administrator.password, olduservalue.Administrator.password);
+            if (!(newuservalue.Administrator.password == olduservalue.Administrator.password))
+            {
+                historyes.changes = historyes.changes + "   ولقد تم تغيير  كلمة المرور :   " + " /// ";
+            }
+            if (newuservalue.Administrator.nationalNumber != olduservalue.Administrator.nationalNumber)
+            {
+                historyes.changes = historyes.changes + "   تم تغيير الرقم الوطني من : " + olduservalue.Administrator.nationalNumber + "إلي" + newuservalue.Administrator.nationalNumber + " /// ";
+
+            }
+            if (newuservalue.Administrator.userNetwork != olduservalue.Administrator.userNetwork)
+            {
+                historyes.changes = historyes.changes + "   تم تغيير الاسم علي الشبكة من : " + olduservalue.Administrator.userNetwork + "إلي" + newuservalue.Administrator.userNetwork + " /// ";
+
+            }
+            if (newuservalue.Administrator.DepartmentId != olduservalue.Administrator.DepartmentId)
+            {
+                historyes.changes= historyes.changes + "   تم تغيير رقم الادارة من : " + olduservalue.Administrator.DepartmentId + "إلي" + newuservalue.Administrator.DepartmentId + " /// ";
+
+            }
+            if (newuservalue.Administrator.state != olduservalue.Administrator.state)
+            {
+                historyes.changes = historyes.changes + "   تم تغييرالحالة من  غير مفعل  " + " إلي " + "  مفعل   ";
+            }
+            //if (newuservalue.Administrator.FirstMACAddress != olduservalue.Administrator.FirstMACAddress)
+            //{
+            //    historyes.changes = historyes.changes + "   تم تغيير العنوان الفزيائي الثاني الي :" + olduservalue.Administrator.FirstMACAddress + "إلي" + newuservalue.Administrator.FirstMACAddress + " /// ";
+
+            //}
+            //if (newuservalue.Administrator.SecandMACAddress != olduservalue.Administrator.SecandMACAddress)
+            //{
+            //    historyes.changes = historyes.changes + "   تم تغيير العنوان الفزيائي الاول الي : " + olduservalue.Administrator.SecandMACAddress + "إلي" + newuservalue.Administrator.SecandMACAddress + " /// ";
+            //}
+
+            List<int>  newrole = newuservalue.Listrole;
+            List<int>  oldrole = await _data.GetJustRole(newuservalue.Administrator.UserId);
+             
+            string Stringnewrole = string.Join(",", newrole);
+            string Stringoldrole = string.Join(",", oldrole);
+            if (!Stringnewrole.Equals(Stringoldrole)) {
+           
+                historyes.changes = historyes.changes + "  تم تغيير الصلاحيات من " + Stringoldrole + "  إلي  " + Stringnewrole + " /// ";
+            }
+
+            bool results = await _data.Update(newuservalue);
+
+            historyes.currentUser = newuservalue.currentUser;
+            historyes.Time = System.DateTime.Now;
+            historyes.HistortyNameID = 10;
+            historyes.userId = newuservalue.Administrator.UserId;
+
             if (results)
+            {
+                await _hstory.Add(historyes);
                 return Ok(new Result() { message = "تمت عملية التحديث ", statusCode = 200 });
+            }
             return StatusCode(304, new Result() { message = "لم تتم عملية التحديث ", statusCode = 304 });
         }
 
         [HttpPut]
-        [Route("Delete/{id}")]
-        public async Task<IActionResult> DeleteAdministrator(int id)
+        [Route("Delete")]
+        public async Task<IActionResult> DeleteAdministrator([FromBody] StopActive stopactive)
         {
-            bool results = await _data.Delete(id);
+            var user = await _data.Get(stopactive.UserId);
+            Historyes historyes = new Historyes();
+            if (user.Administrator.state == true)
+            {
+                historyes.changes = historyes.changes + "تم تغييرالحالة من  مفعل  " + "  إلي " + "غير مفعل";
+               
+            }
+            else
+            {
+                historyes.changes = historyes.changes + "تم تغييرالحالة من  غير مفعل  " + " إلي" + "مفعل";
+            }
+            bool results = await _data.Delete(stopactive.UserId);
+         
+            historyes.currentUser = stopactive.currentUser;
+            historyes.Time = System.DateTime.Now;
+            historyes.HistortyNameID = 12;
+            historyes.userId = stopactive.UserId;
+          
+          
             if (results)
-                return Accepted(new Result() { message = "تم إيقاف المستخدم", statusCode = 202 });
+            {
+                
+                await _hstory.Add(historyes);
+                return Accepted(new Result() { message = "نجحت العملية", statusCode = 202 });
+            }
 
             return NotFound(new Result() { message = "هذا المستخدم غير موجود", statusCode = 404 });
 
         }
-
-
 
         [HttpPost]
         [Route("Add")]
@@ -107,16 +193,23 @@ namespace MMSystem.Controllers
         
             user.Administrator.password = BCrypt.Net.BCrypt.HashPassword(user.Administrator.password);
 
-             bool results = await _data.Add(user);
+            bool results = await _data.Add(user);
 
-              if (results)
-            
-                return Created("AddAdministrator", new Result() { message="تمت عملية الاضافة بنجاح", statusCode = 201 });
+            Historyes historyes = new Historyes();
 
-            
+            historyes.currentUser = user.currentUser;
+            historyes.Time = System.DateTime.Now;
+            historyes.HistortyNameID = 8;
+            historyes.userId = user.Administrator.UserId;
+
+            if (results)
+            {
+                await _hstory.Add(historyes);
+                return Created("AddAdministrator", new Result() { message = "تمت عملية الاضافة بنجاح", statusCode = 201 });
+            }
                  return BadRequest(new Result() { message = "قشل في عملية الاضافة  ", statusCode = 400 }); 
 
-        }
+              }
 
 
         [HttpGet]

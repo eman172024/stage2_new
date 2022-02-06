@@ -10,10 +10,12 @@ namespace MMSystem.Model
     {
      [Key]
         public int Id { get; set; }
-        public string User { get; set; }
+        public int currentUser { get; set; }
         public DateTime Time { get; set; }
-        public string Transaction { get; set; }
-        public int RowTransaction { get; set; }
-        public string OldValue { get; set; }
+        public int userId { get; set; }
+        public int mailid { get; set; }         
+        public int HistortyNameID { get; set; }
+        public string changes { get; set; }
+        public HistortyName HistortyName { get; set; }
     }
 }

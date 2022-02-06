@@ -348,6 +348,9 @@ namespace MMSystem.Migrations
                     b.Property<string>("delivery")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("note")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("number_of_copies")
                         .HasColumnType("int");
 
@@ -522,6 +525,83 @@ namespace MMSystem.Migrations
                         });
                 });
 
+            modelBuilder.Entity("MMSystem.Model.HistortyName", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("histortyNames");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            name = "اضافة بريد"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            name = " تعديل بريد"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            name = "حدف بريد"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            name = "اضافة صورة"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            name = "حدف صورة"
+                        },
+                        new
+                        {
+                            ID = 6,
+                            name = "اضافة رد"
+                        },
+                        new
+                        {
+                            ID = 7,
+                            name = "حذف رد"
+                        },
+                        new
+                        {
+                            ID = 8,
+                            name = "  اضافة ادارة"
+                        },
+                        new
+                        {
+                            ID = 9,
+                            name = "  حدف ادارة"
+                        },
+                        new
+                        {
+                            ID = 10,
+                            name = "اضافة مستخدم "
+                        },
+                        new
+                        {
+                            ID = 11,
+                            name = "تعديل مستخدم"
+                        },
+                        new
+                        {
+                            ID = 12,
+                            name = "  الغاء تفعيل مستخدم"
+                        });
+                });
+
             modelBuilder.Entity("MMSystem.Model.Historyes", b =>
                 {
                     b.Property<int>("Id")
@@ -529,24 +609,53 @@ namespace MMSystem.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("OldValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RowTransaction")
+                    b.Property<int>("HistortyNameID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Transaction")
+                    b.Property<string>("changes")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("User")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("currentUser")
+                        .HasColumnType("int");
+
+                    b.Property<int>("mailid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("userId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("HistortyNameID");
+
                     b.ToTable("History");
+                });
+
+            modelBuilder.Entity("MMSystem.Model.LoginHistory", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Hour_of_work")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Time_of_login")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Time_of_logout")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("LoginHistory");
                 });
 
             modelBuilder.Entity("MMSystem.Model.Mail", b =>
@@ -1087,6 +1196,17 @@ namespace MMSystem.Migrations
                     b.Navigation("Section");
                 });
 
+            modelBuilder.Entity("MMSystem.Model.Historyes", b =>
+                {
+                    b.HasOne("MMSystem.Model.HistortyName", "HistortyName")
+                        .WithMany("Historyes")
+                        .HasForeignKey("HistortyNameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("HistortyName");
+                });
+
             modelBuilder.Entity("MMSystem.Model.Mail", b =>
                 {
                     b.HasOne("MMSystem.Model.Administrator", "user")
@@ -1176,6 +1296,11 @@ namespace MMSystem.Migrations
                     b.Navigation("External_Mails");
 
                     b.Navigation("Extrenal_Inboxes");
+                });
+
+            modelBuilder.Entity("MMSystem.Model.HistortyName", b =>
+                {
+                    b.Navigation("Historyes");
                 });
 
             modelBuilder.Entity("MMSystem.Model.Mail", b =>

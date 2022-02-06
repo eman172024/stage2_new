@@ -2,6 +2,19 @@ import axios from 'axios';
 
 export default {
 
+
+
+    UpdateArchive(model) {
+        return axios.put(`/api/Archive/Update`,model)
+    },
+
+    GetMailForArchives(page,pageSize,mail_number,date_time_of_day,date_time_from,department_id,side_id,mail_summary,MailType,Perent) {
+
+        return axios.get(`/api/Archive/GetAll?page=${page}&pageSize=${pageSize}&mail_number=${mail_number}&date_time_of_day=${date_time_of_day}&date_time_from=${date_time_from}&department_id=${department_id}&side_id=${side_id}&mail_summary=${mail_summary}&MailType=${MailType}&Perent=${Perent}`);
+    },
+
+
+
     Add_user(user){
 
         return axios.post(`/api/Administrator/Add`,user);
@@ -20,6 +33,16 @@ export default {
     AllMeasures() {
         return axios.get(`/api/Service/GetAllMeasures`);
     },
+
+
+
+    AllStateSent() {
+        return axios.get(`/api/Mail/GetAllMailStateWithId?flag=1`);
+    },
+    AllStateInbox() {
+        return axios.get(`/api/Mail/GetAllMailStateWithId?flag=2`);
+    },
+
 
     AllDepartments() {
         return axios.get(`/api/WeatherForecast/GetAllDepartments`);
@@ -105,6 +128,9 @@ export default {
         return axios.get(`/api/Resources/GetMailResources/${id}`);
     },
 
+    GetAllDocuments2(id) {
+        return axios.get(`/api/Resources/GetAllRes?id=${id}`);
+    },
 
     
 

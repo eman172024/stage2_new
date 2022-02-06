@@ -25,7 +25,10 @@ namespace MMSystem.Model
         public DbSet<UserRoles> userRoles { get; set; }
         public DbSet<Historyes> History { get; set; }
         public DbSet<MailStatus> MailStatuses { get; set; }
+        public DbSet<HistortyName> histortyNames { get; set; }
+        
 
+                    public DbSet<LoginHistory> LoginHistory { get; set; }
 
         public AppDbCon(DbContextOptions<AppDbCon>options):base(options)
         {
@@ -253,6 +256,86 @@ namespace MMSystem.Model
                 state = true,
                 inbox = "تم سحب البريد من قبلك"
             });
+
+            modelBuilder.Entity<HistortyName>().HasData(new HistortyName { 
+            ID=1,
+            name="اضافة بريد"
+            
+            }, new HistortyName
+            {
+                ID = 2,
+                name = " تعديل بريد"
+
+            }, new HistortyName
+            {
+                ID = 3,
+                name = "حدف بريد"
+
+            },
+
+            new HistortyName
+            {
+                ID = 4,
+                name = "اضافة صورة"
+
+            },
+            new HistortyName
+            {
+                ID =5,
+                name = "حدف صورة"
+
+            },
+
+             new HistortyName
+             {
+                 ID = 6,
+                 name = "اضافة رد"
+
+             },
+               new HistortyName
+               {
+                   ID = 7,
+                   name = "حذف رد"
+
+               }
+               ,
+               new HistortyName
+               {
+                   ID = 8,
+                   name = "  اضافة ادارة"
+
+               }
+                              ,
+               new HistortyName
+               {
+                   ID = 9,
+                   name = "  حدف ادارة"
+
+               },
+               new HistortyName
+               {
+                   ID = 10,
+                   name = "اضافة مستخدم "
+
+               },
+               new HistortyName
+               {
+                   ID = 11,
+<<<<<<< HEAD
+                   name = "  تعديل مستخدم"
+=======
+                   name = "تعديل مستخدم"
+>>>>>>> 58ea5aed03c5a44899044200ece706a87292e2f4
+
+               },
+               new HistortyName
+               {
+                   ID = 12,
+                   name = "  الغاء تفعيل مستخدم"
+
+               }
+
+            );
 
             base.OnModelCreating(modelBuilder);
         }

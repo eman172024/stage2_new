@@ -2397,6 +2397,8 @@ export default {
 
       marginalizedDocuments: [],
 
+      this_value_to_solve_repetition_department : true,
+
       //
       //name: this.$authenticatedUser.name,
       // userName: this.$authenticatedUser.userName,
@@ -2410,6 +2412,9 @@ export default {
   watch: {
 
     mailType: function() {
+
+      this.indextotest_images_model = 0
+      this.show_images_images_model = []
       this.mail_Number = "";
       this.summary = "";
       this.classification = "";
@@ -2429,6 +2434,8 @@ export default {
       this.entity_reference_number = "";
       this.procedure_type = "";
 
+      this.this_value_to_solve_repetition_department = true
+
       this.consignees = [];
 
       
@@ -2447,34 +2454,34 @@ export default {
 
       setTimeout(() => {
         if(this.mailType == 2){
+          if( this.this_value_to_solve_repetition_department ){
+            for (let index = 0; index < this.departments.length; index++) {
 
-          for (let index = 0; index < this.departments.length; index++) {
+              if(this.departments[index].departmentName.includes('مكتب رئيس الهيئة')){
 
-            if(this.departments[index].departmentName.includes('مكتب رئيس الهيئة')){
+                this.newactionSenders.push({
+                  departmentId: this.departments[index].id,
+                  departmentName: this.departments[index].departmentName,
+                  measureId: this.measures[0].measuresId,
+                  measureName: this.measures[0].measuresName,
+                });
+                this.departments.splice(index,1)
+              }
 
-              this.newactionSenders.push({
-                departmentId: this.departments[index].id,
-                departmentName: this.departments[index].departmentName,
-                measureId: this.measures[0].measuresId,
-                measureName: this.measures[0].measuresName,
-              });
-              this.departments.splice(index,1)
+              if(this.departments[index].departmentName.includes('المحفوظات')){
+
+                this.newactionSenders.push({
+                  departmentId: this.departments[index].id,
+                  departmentName: this.departments[index].departmentName,
+                  measureId: this.measures[0].measuresId,
+                  measureName: this.measures[0].measuresName,
+                });
+                this.departments.splice(index,1)
+
+              }
+
             }
-
-            if(this.departments[index].departmentName.includes('المحفوظات')){
-
-              this.newactionSenders.push({
-                departmentId: this.departments[index].id,
-                departmentName: this.departments[index].departmentName,
-                measureId: this.measures[0].measuresId,
-                measureName: this.measures[0].measuresName,
-              });
-              this.departments.splice(index,1)
-
-            }
-
           }
-
         }
       }, 500);
 
@@ -2504,6 +2511,23 @@ export default {
     },
 
     clear_page() {
+
+      this.departmentNameSelected = ''
+      this.measureNameSelected = ''
+      
+      var date = new Date();
+
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+
+      if (month < 10) month = "0" + month;
+      if (day < 10) day = "0" + day;
+
+      this.releaseDate = date.getFullYear() + "-" + month + "-" + day;
+
+      this.mail_year = date.getFullYear();
+
+
       if (this.mailType == 1) {
         this.mailType = "";
         setTimeout(() => {
@@ -2539,7 +2563,6 @@ export default {
     },
 
     add_to_array_of_side_measure() {
-      if (this.mail_Number) {
         if (this.allDepartment) {
           for (let index = 0; index < this.blblbl.length; index++) {
             this.newactionSenders.push({
@@ -2575,43 +2598,7 @@ export default {
 
           this.departments.splice(this.indexOfDepartment, 1);
         }
-      } else {
-        if (this.allDepartment) {
-          for (let index = 0; index < this.blblbl.length; index++) {
-            this.newactionSenders.push({
-              departmentId: this.blblbl[index].id,
-              departmentName: this.blblbl[index].departmentName,
-              measureId: this.measureIdSelected,
-              measureName: this.measureNameSelected,
-            });
-          }
-
-          this.departmentNameSelected = "";
-          this.departmentIdSelected = "";
-
-          this.measureIdSelected = "";
-          this.measureNameSelected = "";
-
-          this.departments = [];
-          this.allDepartmentButton = false;
-        } else {
-          // array.includes('🍰');
-          this.newactionSenders.push({
-            departmentId: this.departmentIdSelected,
-            departmentName: this.departmentNameSelected,
-            measureId: this.measureIdSelected,
-            measureName: this.measureNameSelected,
-          });
-
-          this.departmentNameSelected = "";
-          this.departmentIdSelected = "";
-
-          this.measureIdSelected = "";
-          this.measureNameSelected = "";
-
-          this.departments.splice(this.indexOfDepartment, 1);
-        }
-      }
+     
     },
 
     remove_to_array_of_side_measure(consignee, name) {
@@ -2650,12 +2637,13 @@ export default {
             this.loading = false;
             this.screenFreeze = false;
 
-            const index = this.consignees.findIndex((element, index) => {
-              if (element.departmentId === department_id) {
-                return true;
-              }
-            });
-            this.consignees.splice(index, 1);
+            this.GetSentMailById()
+            // const index = this.consignees.findIndex((element, index) => {
+            //   if (element.departmentId === department_id) {
+            //     return true;
+            //   }
+            // });
+            // this.consignees.splice(index, 1);
           }, 500);
         })
         .catch((err) => {
@@ -2664,114 +2652,6 @@ export default {
             this.screenFreeze = false;
           }, 500);
           alert("لا يمكن إلغاء الإدارة بعد القراءة")
-        });
-    },
-
-    GetSentMailById() {
-
-      console.log(this.to_test_passing_mail_type)
-      console.log('this.to_test_passing_mail_type')
-
-      this.screenFreeze = true;
-      this.loading = true;
-
-      this.$http.mailService
-        .GetSentMailById(this.mailId, this.to_test_passing_mail_type)
-        .then((res) => {
-          // this.mailType = res.data.mail.mail_Type;
-          if (res.data.mail.is_send == true) {
-            this.sendButton = false;
-            this.deleteButton = false;
-            // this.add_button_consignees = false;
-          }
-
-          this.summary = res.data.mail.mail_Summary;
-
-          console.log(res.data);
-
-          this.remove_button_consignees = false;
-
-          this.mail_Number = res.data.mail.mail_Number;
-          this.department_Id = res.data.mail.department_Id;
-          this.mail_year = res.data.mail.mail_year;
-
-          this.releaseDate = res.data.mail.date_Of_Mail;
-          this.classification = res.data.mail.clasification;
-
-          this.general_incoming_number = res.data.mail.genaral_inbox_Number;
-          this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
-          this.required_action = res.data.mail.action_Required;
-
-          this.consignees = res.data.actionSenders;
-          this.departments = res.data.departments;
-
-          this.imagesToShow = res.data.resourcescs;
-
-          if (this.imagesToShow.length > 0) {
-            this.testimage = this.imagesToShow[0].path;
-            this.test_image_id = this.imagesToShow[0].id;
-          }
-
-          if (this.to_test_passing_mail_type == "2") {
-            this.external_mailId = res.data.external.id;
-
-            this.action_required_by_the_entity =
-              res.data.external.action_required_by_the_entity;
-
-            this.mail_forwarding = res.data.external.action;
-
-            this.get_sectors(this.mail_forwarding);
-
-            this.sectorNameSelected = res.data.sector[0].section_Name;
-            this.sectorIdSelected = res.data.sector[0].id;
-
-            this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
-            this.sideNameSelected = res.data.side[0].section_Name;
-            this.sideIdSelected = res.data.side[0].id;
-          }
-          if (this.to_test_passing_mail_type == "3") {
-            this.external_mailId = res.data.external.id;
-
-            this.mail_forwarding = res.data.external.action;
-
-            this.get_sectors(this.mail_forwarding);
-
-            this.sectorNameSelected = res.data.sector[0].section_Name;
-            this.sectorIdSelected = res.data.sector[0].id;
-
-            this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
-            this.sideNameSelected = res.data.side[0].section_Name;
-            this.sideIdSelected = res.data.side[0].id;
-
-            this.ward_to = res.data.external.to;
-
-            this.mail_ward_type = res.data.external.type;
-
-            this.entity_mail_date = res.data.external.send_time;
-
-            this.entity_reference_number =
-              res.data.external.entity_reference_number;
-
-            this.procedure_type = res.data.external.procedure_type;
-          }
-
-          // this.GetDocmentForMail();
-          // this.GetDocmentForMailToShow();
-
-          // this.GetProcessingResponses();
-
-
-          setTimeout(() => {
-              this.screenFreeze = false;
-      this.loading = false;
-          }, 200);
-
-        })
-        .catch((err) => {
-
-          this.screenFreeze = false;
-      this.loading = false;
-          console.log(err);
         });
     },
 
@@ -3093,6 +2973,116 @@ export default {
         });
     },
 
+    updateMail() {
+      this.screenFreeze = true;
+      this.loading = true;
+
+      if (this.mailType == "1") {
+        var dataUpdate = {
+          userId : Number(localStorage.getItem("userId")),
+          mail: {
+            MailID: Number(this.mailId),
+            Mail_Type: Number(this.mailType),
+            userId: Number(this.my_user_id),
+            department_Id: Number(this.my_department_id),
+            Date_Of_Mail: this.releaseDate,
+            Mail_Summary: this.summary,
+            clasification: Number(this.classification),
+            Genaral_inbox_Number: Number(this.general_incoming_number),
+            Genaral_inbox_year: Number(this.genaral_inbox_year),
+            ActionRequired: this.required_action,
+            state: true,
+          },
+
+          // actionSenders: this.consignees,
+          newactionSenders: this.newactionSenders,
+        };
+      }
+
+      if (this.mailType == "2") {
+        var dataUpdate = {
+          userId : Number(localStorage.getItem("userId")),
+          mail: {
+            MailID: Number(this.mailId),
+            Mail_Type: Number(this.mailType),
+            userId: Number(this.my_user_id),
+            department_Id: Number(this.my_department_id),
+            Date_Of_Mail: this.releaseDate,
+            Mail_Summary: this.summary,
+            clasification: Number(this.classification),
+            Genaral_inbox_Number: Number(this.general_incoming_number),
+            Genaral_inbox_year: Number(this.genaral_inbox_year),
+            ActionRequired: this.required_action,
+            state: true,
+          },
+
+          // actionSenders: this.consignees,
+          newactionSenders: this.newactionSenders,
+
+          external_Mail: {
+            id: Number(this.external_mailId),
+            action: Number(this.mail_forwarding),
+            Sectionid: this.sideIdSelected,
+            sectionName: "",
+            action_required_by_the_entity: this.action_required_by_the_entity,
+          },
+        };
+      }
+
+      if (this.mailType == "3") {
+        var dataUpdate = {
+          userId : Number(localStorage.getItem("userId")),
+          mail: {
+            MailID: Number(this.mailId),
+            Mail_Type: Number(this.mailType),
+            userId: Number(this.my_user_id),
+            department_Id: Number(this.my_department_id),
+            Date_Of_Mail: this.releaseDate,
+            Mail_Summary: this.summary,
+            clasification: Number(this.classification),
+            Genaral_inbox_Number: Number(this.general_incoming_number),
+            Genaral_inbox_year: Number(this.genaral_inbox_year),
+            ActionRequired: this.required_action,
+            state: true,
+          },
+
+          // actionSenders: this.consignees,
+          newactionSenders: this.newactionSenders,
+
+          extrenal_Inbox: {
+            Id: Number(this.external_mailId),
+            action: Number(this.mail_forwarding),
+            Sectionid: this.sideIdSelected,
+            section_Name: "",
+            to: Number(this.ward_to),
+            type: Number(this.mail_ward_type),
+            Send_time: this.entity_mail_date,
+            entity_reference_number: Number(this.entity_reference_number),
+            procedure_type: Number(this.procedure_type),
+          },
+        };
+      }
+
+      this.$http.mailService
+        .UpdateMail(dataUpdate, localStorage.getItem("userId"))
+        .then((res) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+
+            this.newactionSenders = []
+
+            this.GetSentMailById()
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+        });
+    },
+
     saveMail() {
       this.screenFreeze = true;
       this.loading = true;
@@ -3191,6 +3181,11 @@ export default {
             this.mailId = res.data.mailId;
             this.department_Id = res.data.department_Id;
             this.mail_year = res.data.mail_year;
+            this.to_test_passing_mail_type = this.mailType
+
+console.log('this.to_test_passing_mail_type')
+console.log(this.to_test_passing_mail_type)
+            this.GetSentMailById();
           }, 500);
         })
         .catch((err) => {
@@ -3198,6 +3193,115 @@ export default {
             this.loading = false;
             this.screenFreeze = false;
           }, 500);
+        });
+    },
+
+    GetSentMailById() {
+      this.this_value_to_solve_repetition_department = false
+      console.log(this.to_test_passing_mail_type)
+      console.log('this.to_test_passing_mail_type')
+      this.newactionSenders = []
+
+      this.screenFreeze = true;
+      this.loading = true;
+
+      this.$http.mailService
+        .GetSentMailById(this.mailId, this.to_test_passing_mail_type)
+        .then((res) => {
+          // this.mailType = res.data.mail.mail_Type;
+          if (res.data.mail.is_send == true) {
+            this.sendButton = false;
+            this.deleteButton = false;
+            // this.add_button_consignees = false;
+          }
+
+          this.summary = res.data.mail.mail_Summary;
+
+          console.log(res.data);
+
+          this.remove_button_consignees = false;
+
+          this.mail_Number = res.data.mail.mail_Number;
+          this.department_Id = res.data.mail.department_Id;
+          this.mail_year = res.data.mail.mail_year;
+
+          this.releaseDate = res.data.mail.date_Of_Mail;
+          this.classification = res.data.mail.clasification;
+
+          this.general_incoming_number = res.data.mail.genaral_inbox_Number;
+          this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
+          this.required_action = res.data.mail.action_Required;
+
+          this.consignees = res.data.actionSenders;
+          this.departments = res.data.departments;
+
+          this.imagesToShow = res.data.resourcescs;
+
+          if (this.imagesToShow.length > 0) {
+            this.testimage = this.imagesToShow[0].path;
+            this.test_image_id = this.imagesToShow[0].id;
+          }
+
+          if (this.to_test_passing_mail_type == "2") {
+            this.external_mailId = res.data.external.id;
+
+            this.action_required_by_the_entity =
+              res.data.external.action_required_by_the_entity;
+
+            this.mail_forwarding = res.data.external.action;
+
+            this.get_sectors(this.mail_forwarding);
+
+            this.sectorNameSelected = res.data.sector[0].section_Name;
+            this.sectorIdSelected = res.data.sector[0].id;
+
+            this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
+            this.sideNameSelected = res.data.side[0].section_Name;
+            this.sideIdSelected = res.data.side[0].id;
+          }
+          if (this.to_test_passing_mail_type == "3") {
+            this.external_mailId = res.data.external.id;
+
+            this.mail_forwarding = res.data.external.action;
+
+            this.get_sectors(this.mail_forwarding);
+
+            this.sectorNameSelected = res.data.sector[0].section_Name;
+            this.sectorIdSelected = res.data.sector[0].id;
+
+            this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
+            this.sideNameSelected = res.data.side[0].section_Name;
+            this.sideIdSelected = res.data.side[0].id;
+
+            this.ward_to = res.data.external.to;
+
+            this.mail_ward_type = res.data.external.type;
+
+            this.entity_mail_date = res.data.external.send_time;
+
+            this.entity_reference_number =
+              res.data.external.entity_reference_number;
+
+            this.procedure_type = res.data.external.procedure_type;
+          }
+
+          // this.GetDocmentForMail();
+          // this.GetDocmentForMailToShow();
+
+          // this.GetProcessingResponses();
+
+
+          setTimeout(() => {
+              this.screenFreeze = false;
+      this.loading = false;
+          }, 200);
+
+        })
+        .catch((err) => {
+
+          this.screenFreeze = false;
+      this.loading = false;
+          console.log(err);
         });
     },
 
@@ -3251,7 +3355,6 @@ export default {
           }, 500);
         });
     },
-
 
     scanToReply() {
       scanner.scan(this.displayReplyImagesOnPage, {
@@ -3321,8 +3424,6 @@ export default {
       //   this.GetSentMailById();
       // }, 1000);
     },
-
-
 
     scanToJpg() {
       scanner.scan(this.displayImagesOnPage, {
@@ -3407,6 +3508,8 @@ export default {
 
             this.imagesToSend =[]
             console.log(res);
+
+            this.GetSentMailById();
           }, 500);
         })
         .catch((err) => {
@@ -3435,111 +3538,6 @@ export default {
         });
     },
 
-    updateMail() {
-      this.screenFreeze = true;
-      this.loading = true;
-
-      if (this.mailType == "1") {
-        var dataUpdate = {
-          mail: {
-            MailID: Number(this.mailId),
-            Mail_Type: Number(this.mailType),
-            userId: Number(this.my_user_id),
-            department_Id: Number(this.my_department_id),
-            Date_Of_Mail: this.releaseDate,
-            Mail_Summary: this.summary,
-            clasification: Number(this.classification),
-            Genaral_inbox_Number: Number(this.general_incoming_number),
-            Genaral_inbox_year: Number(this.genaral_inbox_year),
-            ActionRequired: this.required_action,
-            state: true,
-          },
-
-          actionSenders: this.consignees,
-          newactionSenders: this.newactionSenders,
-        };
-      }
-
-      if (this.mailType == "2") {
-        var dataUpdate = {
-          mail: {
-            MailID: Number(this.mailId),
-            Mail_Type: Number(this.mailType),
-            userId: Number(this.my_user_id),
-            department_Id: Number(this.my_department_id),
-            Date_Of_Mail: this.releaseDate,
-            Mail_Summary: this.summary,
-            clasification: Number(this.classification),
-            Genaral_inbox_Number: Number(this.general_incoming_number),
-            Genaral_inbox_year: Number(this.genaral_inbox_year),
-            ActionRequired: this.required_action,
-            state: true,
-          },
-
-          actionSenders: this.consignees,
-          newactionSenders: this.newactionSenders,
-
-          external_Mail: {
-            id: Number(this.external_mailId),
-            action: Number(this.mail_forwarding),
-            Sectionid: this.sideIdSelected,
-            sectionName: "",
-            action_required_by_the_entity: this.action_required_by_the_entity,
-          },
-        };
-      }
-
-      if (this.mailType == "3") {
-        var dataUpdate = {
-          mail: {
-            MailID: Number(this.mailId),
-            Mail_Type: Number(this.mailType),
-            userId: Number(this.my_user_id),
-            department_Id: Number(this.my_department_id),
-            Date_Of_Mail: this.releaseDate,
-            Mail_Summary: this.summary,
-            clasification: Number(this.classification),
-            Genaral_inbox_Number: Number(this.general_incoming_number),
-            Genaral_inbox_year: Number(this.genaral_inbox_year),
-            ActionRequired: this.required_action,
-            state: true,
-          },
-
-          actionSenders: this.consignees,
-          newactionSenders: this.newactionSenders,
-
-          extrenal_Inbox: {
-            Id: Number(this.external_mailId),
-            action: Number(this.mail_forwarding),
-            Sectionid: this.sideIdSelected,
-            section_Name: "",
-            to: Number(this.ward_to),
-            type: Number(this.mail_ward_type),
-            Send_time: this.entity_mail_date,
-            entity_reference_number: Number(this.entity_reference_number),
-            procedure_type: Number(this.procedure_type),
-          },
-        };
-      }
-
-      this.$http.mailService
-        .UpdateMail(dataUpdate)
-        .then((res) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.screenFreeze = false;
-          }, 500);
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.screenFreeze = false;
-          }, 500);
-        });
-    },
-
-
-
     GetDocmentForMailToShow() {
       this.$http.documentService
         .GetDocmentForMail(Number(this.mailId), 1)
@@ -3550,7 +3548,6 @@ export default {
           this.addErorr = err.message;
         });
     },
-
 
     printImage(img) {
       var Pagelink = "هيئة الرقابة الادارية ليبيا";
@@ -3578,7 +3575,6 @@ export default {
         "' /></body></html>"
       );
     },
-
   
   },
 };

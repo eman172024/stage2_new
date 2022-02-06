@@ -10,5 +10,7 @@ namespace MMSystem.Model.ViewModel
     {
         public Administrator Administrator { get; set; }
         public List<int> Listrole { get; set; }
-    }
+
+        public int currentUser { get; set; }
+}
 }

@@ -31,6 +31,7 @@ namespace MMSystem.Model
 
 
         public string delivery { get; set; }
+        public string note { get; set; }
 
         public int number_of_copies{ get; set; }
         public bool Attachments { get; set; }

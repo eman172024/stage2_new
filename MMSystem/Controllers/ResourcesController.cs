@@ -52,5 +52,14 @@ namespace MMSystem.Controllers
                 return Ok("تمت عملية الحدف بنجاح");
             return NotFound("فشلت العملية ");
         }
+        [HttpGet("GetAllRes")]
+        public async Task<IActionResult> GetAll(int id)
+        {
+
+            List<Mail_ResourcescsDto> resulte = await _resourcescs.GetAll(id);
+            if (resulte.Count>0)
+                return Ok(resulte);
+            return NotFound("  لايوجد صور");
+        }
     }
 }
