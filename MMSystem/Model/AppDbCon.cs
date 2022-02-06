@@ -26,6 +26,9 @@ namespace MMSystem.Model
         public DbSet<Historyes> History { get; set; }
         public DbSet<MailStatus> MailStatuses { get; set; }
         public DbSet<HistortyName> histortyNames { get; set; }
+        
+
+                    public DbSet<LoginHistory> LoginHistory { get; set; }
 
         public AppDbCon(DbContextOptions<AppDbCon>options):base(options)
         {
@@ -307,6 +310,24 @@ namespace MMSystem.Model
                {
                    ID = 9,
                    name = "  حدف ادارة"
+
+               },
+               new HistortyName
+               {
+                   ID = 10,
+                   name = "اضافة مستخدم "
+
+               },
+               new HistortyName
+               {
+                   ID = 11,
+                   name = "  حدف مستخدم"
+
+               },
+               new HistortyName
+               {
+                   ID = 12,
+                   name = "  الغاء تفعيل مستخدم"
 
                }
 
