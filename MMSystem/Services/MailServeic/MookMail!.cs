@@ -502,7 +502,8 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                List<Mail> mails = await _appContext.Mails.Where(x => x.state == true).OrderByDescending(x => x.MailID).ToListAsync();
+                List<Mail> mails = await _appContext.Mails.Where(x => x.state == true).
+                    OrderByDescending(x => x.MailID).ToListAsync();
 
                 List<MailDto> listdto = _mapper.Map<List<Mail>, List<MailDto>>(mails);
 

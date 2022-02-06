@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MMSystem.Model;
+using MMSystem.Model.Dto;
 using MMSystem.Services;
 using MMSystem.Services.MailServeic;
 using MMSystem.Services.ReceivedMail;
@@ -45,16 +47,18 @@ namespace MMSystem.Controllers
             int? mailnum_bool, int? mangment, DateTime? date_from, DateTime? date_to, int? mailnum, string? summary,
             int? mail_Readed, int? mailReaded, int? mailnot_readed, DateTime? Day_sended1,
             DateTime? Day_sended2, int? Typeof_send, int? mail_type, string? replaytext, int? userid, int mailNumType, int page_num,
-            int page_size, int? Measure_filter, int? Department_filter, int? Classfication, int? mail_state, int? genral_incoming_num)
+            int page_size, int? Measure_filter, int? Department_filter, 
+            int? Classfication, int? mail_state, int? genral_incoming_num, int? TheSection, int? Replay_Date)
 
         {
-
+            
             dynamic c =await _re.GetMail(myday, daycheck, mailnum_bool,
              mangment, date_from, date_to, mailnum, summary,
             mail_Readed, mailReaded, mailnot_readed, Day_sended1,
              Day_sended2, Typeof_send, userid, mailNumType,
              mail_type, replaytext, page_num, page_size,
-             Measure_filter, Department_filter, Classfication, mail_state,  genral_incoming_num);
+             Measure_filter, Department_filter, Classfication, mail_state,
+             genral_incoming_num,  TheSection,  Replay_Date);
 
             if (c != null)
                 return Ok(c);
@@ -96,7 +100,9 @@ namespace MMSystem.Controllers
             int? mailnum_bool, int? mangment, DateTime? date_from, DateTime? date_to, int? mailnum, string? summary,
             int? mail_Readed, int? mailReaded, int? mailnot_readed, DateTime? Day_sended1,
             DateTime? Day_sended2, int? Typeof_send, int? mail_type, string? replaytext, int? userid,int mailNumType, int page_num,
-            int page_size, int? Measure_filter, int? Department_filter, int? Classfication, int? mail_state)
+            int page_size, int? Measure_filter, int? Department_filter, int? Classfication,
+            int? mail_state, int? TheSection, int? genral_incoming_num 
+)
 
         {
 
@@ -105,7 +111,8 @@ namespace MMSystem.Controllers
             mail_Readed,  mailReaded,  mailnot_readed,  Day_sended1,
              Day_sended2,Typeof_send,  userid,  mailNumType,
              mail_type, replaytext, page_num, page_size,
-             Measure_filter,  Department_filter,  Classfication, mail_state);
+             Measure_filter,  Department_filter,  Classfication,
+             mail_state, TheSection, genral_incoming_num);
             if(c!=null)
             return Ok(c);
             return Unauthorized("غير مسموح لك بدخول  ");
@@ -139,7 +146,19 @@ namespace MMSystem.Controllers
         }
 
 
+        [HttpGet("Get_Extirnl_Sections")]
+        public async Task<List<Extrmal_SectionDto>> Get_Extirnl_Sections()
 
+        {
+
+            var Sections = await _re.getExtrinlSection();
+
+            
+               return Sections;
+           
+
+          
+        }
 
 
     }
