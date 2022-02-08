@@ -235,6 +235,21 @@ namespace MMSystem.Services
         {
             try
             {
+                List<Administrator> users = await _data.Administrator.OrderByDescending(x => x.UserName).Where(x => x.DepartmentId == DepartmentId && x.state==true).ToListAsync();
+
+                List<AdministratorDto> usersDto = _mapper.Map<List<Administrator>, List<AdministratorDto>>(users);
+
+                return usersDto;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        public async Task<List<AdministratorDto>> SearchByDepartmentIdControl(int DepartmentId)
+        {
+            try
+            {
                 List<Administrator> users = await _data.Administrator.OrderByDescending(x => x.UserName).Where(x => x.DepartmentId == DepartmentId).ToListAsync();
 
                 List<AdministratorDto> usersDto = _mapper.Map<List<Administrator>, List<AdministratorDto>>(users);
