@@ -114,6 +114,10 @@ export default {
 
 
 
+    GetUsersOfDepartmentControl(id) {
+        return axios.get(`/api/Administrator/GetByDepartmentIdControl?department=${id}`);
+    },
+
 
     inboxs(id, mailType, mangment_id, date_from, date_to, mail_id, summary, department_id, measure_id, classification_id, mail_case_id, page_num, page_size) {
         return axios.get(`/api/ExternalMails/GetIncomingMail?userid=${id}&mailNumType=${mailType}&mangment=${mangment_id}&date_from=${date_from}&date_to=${date_to}&mailnum=${mail_id}&summary=${summary}&Department_filter=${department_id}&Measure_filter=${measure_id}&Classfication=${classification_id}&mail_state=${mail_case_id}&page_num=${page_num}&page_size=${page_size}`);

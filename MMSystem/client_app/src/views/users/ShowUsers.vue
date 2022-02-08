@@ -231,7 +231,7 @@ export default {
 
   mounted() {
     this.$http.mailService
-      .GetUsersOfDepartment(this.departmentIdSelected)
+      .GetUsersOfDepartmentControl(this.departmentIdSelected)
       .then((res) => {
         console.log(res.data);
         this.users = res.data;
@@ -266,7 +266,7 @@ export default {
       // console.log(this.departmentIdSelected)
 
       this.$http.mailService
-        .GetUsersOfDepartment(this.departmentIdSelected)
+        .GetUsersOfDepartmentControl(this.departmentIdSelected)
         .then((res) => {
           console.log(res.data);
           this.users = res.data;
