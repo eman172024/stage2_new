@@ -1335,9 +1335,7 @@ export default {
       // }, 1000);
     },
 
-    AddReplyDocument() {
-      console.log("Ayoub");
-    },
+
 
     AddReply() {
       this.screenFreeze = true;
