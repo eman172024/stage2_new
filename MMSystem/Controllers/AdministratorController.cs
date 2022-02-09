@@ -69,7 +69,6 @@ namespace MMSystem.Controllers
         {
             var user = await _data.Get(id);
 
-
             if (user != null)
             {
                 return Ok(user);
@@ -221,6 +220,21 @@ namespace MMSystem.Controllers
         public async Task<ActionResult<List<Administrator>>> GetByDepartmentId(int department)
         {
             var users = await _data.SearchByDepartmentId(department);
+            if (users != null)
+            {
+                return Ok(users);
+            }
+            else
+            {
+                return NotFound(new Result() { message = "لايوجد مستخدم في هذه الإدارة  ", statusCode = 400 });
+
+            }
+        }
+        [HttpGet]
+        [Route("GetByDepartmentIdControl")]
+        public async Task<ActionResult<List<Administrator>>> GetByDepartmentIdControl(int department)
+        {
+            var users = await _data.SearchByDepartmentIdControl(department);
             if (users != null)
             {
                 return Ok(users);
