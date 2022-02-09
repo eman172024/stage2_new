@@ -244,5 +244,57 @@ namespace MMSystem.Services.MailServeic
             }
 
         }
+
+        public async Task<bool> print(int mailid,int userId,int type)
+        {
+
+            try
+            {
+
+                Historyes historyes = new Historyes();
+                historyes.mailid = mailid;
+                historyes.Time = DateTime.Now;
+                historyes.currentUser = userId;
+
+                switch (type) {
+
+                    case 1:
+
+                        historyes.HistortyNameID = 22;
+                        
+                        break;
+                    case 2:
+
+                        historyes.HistortyNameID = 23;
+                        break;
+                    case 3:
+
+                        historyes.HistortyNameID = 21;
+
+                        break;
+                    default:break;
+                
+                
+                }
+
+                await _dbCon.History.AddAsync(historyes);
+                int res = await _dbCon.SaveChangesAsync();
+                if (res!=0) {
+                    return true;
+                
+                
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
     }
 }

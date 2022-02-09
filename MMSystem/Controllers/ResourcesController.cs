@@ -61,5 +61,18 @@ namespace MMSystem.Controllers
                 return Ok(resulte);
             return NotFound("  لايوجد صور");
         }
+
+        [HttpPost("print")]
+        public async Task<IActionResult> print(int mail_id, int userId,int type)
+        {
+
+
+            bool result = await _resourcescs.print(mail_id, userId, type);
+
+            if(result)
+                return Ok();
+            return BadRequest();
+
+        }
     }
 }

@@ -1244,6 +1244,8 @@ export default {
       
 
       var ReplyViewModel = {
+        userId : Number(localStorage.getItem("userId")),
+        mailId : Number(this.mailId_to_get_mail_by_id),
         send_ToId: Number(this.sends_id_to_get_mail_by_id),
         from: Number(2),
         reply: {
@@ -1259,6 +1261,7 @@ export default {
         .then((res) => {
           setTimeout(() => {
             console.log(res);
+            this.imagesToSend = [];
             // this.documentSection = true;
             // this.proceduresSection = true;
 

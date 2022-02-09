@@ -144,7 +144,7 @@ namespace MMSystem.Services.ReplayServeic
                 model.reply.Date = DateTime.Now;
                 model.reply.state = true;
                 send.time_of_read = model.reply.Date;
-                
+               
                 _data.Update(send);
                 await _data.SaveChangesAsync();
 
@@ -489,15 +489,34 @@ namespace MMSystem.Services.ReplayServeic
 
                 if (result) {
 
+
+                    Historyes historyes = new Historyes();
+                    historyes.mailid = replay.mailId;
+                    historyes.currentUser = replay.userId;
+                    historyes.HistortyNameID = 6;
+                    historyes.Time = DateTime.Now;
+
+                    await _data.History.AddAsync(historyes);
+                    await _data.SaveChangesAsync();
+
+
                     replay.file.mail_id = reply.reply.ReplyId;
                     if (replay.file.list.Count > 0) {
 
                         bool res = await Uplode(replay.file);
                         if (res)
-                    {
+                        {
+
+
+
+                           // historyes.changes = $" اضافة صور للردود   {replay.file.list.Count().ToString()}";
+
+                            //await _data.History.AddAsync(historyes);
+                            //await _data.SaveChangesAsync();
                             return 1;
 
                     }
+                       
                         return 2;
 
                     }

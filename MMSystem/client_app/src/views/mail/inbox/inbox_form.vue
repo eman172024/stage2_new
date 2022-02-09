@@ -1342,6 +1342,8 @@ export default {
       this.loading = true;
 
       var ReplyViewModel = {
+        userId : Number(localStorage.getItem("userId")),
+        mailId : Number(this.mailId),
         send_ToId: Number(this.sends_id),
         from: Number(2),
         reply: {
@@ -1365,6 +1367,7 @@ export default {
             this.screenFreeze = false;
 
             this.reply_to_add = "";
+            this.imagesToSend = [];
             this.getMailById();
           }, 500);
         })
