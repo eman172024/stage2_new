@@ -34,8 +34,8 @@ export default {
         return axios.get(`/api/ExternalMails/GetMail?userid=${id}&mailNumType=${mailType}&mangment=${mangment_id}&date_from=${date_from}&date_to=${date_to}&mailnum=${mail_id}&summary=${summary}&Department_filter=${department_id}&Measure_filter=${measure_id}&Classfication=${classification_id}&mail_state=${mail_case_id}&page_num=${page_num}&page_size=${page_size}`);
     },
 
-    read_it_mail(id, department_id) {
-        return axios.put(`/api/ExternalMails/read_it_mail?mail_id=${id}&department_Id=${department_id}`);
+    read_it_mail(id, department_id, userId) {
+        return axios.put(`/api/ExternalMails/read_it_mail?mail_id=${id}&department_Id=${department_id}&userId=${userId}`);
     },
 
     search(id, mailType, mangment_id, year) {

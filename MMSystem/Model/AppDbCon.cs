@@ -345,6 +345,38 @@ namespace MMSystem.Model
 
                }
 
+               ,
+               new HistortyName
+               {
+                   ID = 15,
+                   name = " قراءة البريد"
+
+               },
+               new HistortyName
+               {
+                   ID = 16,
+                   name = " مرفقات"
+
+               },
+                  new HistortyName
+                  {
+                      ID = 17,
+                      name = " عدد النسخ"
+
+                  }  , new HistortyName
+                  {
+                      ID = 18,
+                      name = "طباعة حافظة"
+
+                  }, new HistortyName
+                  {
+                      ID = 19,
+                      name = "تسجيل الدخول"
+
+                  }
+
+
+
 
             );
 
