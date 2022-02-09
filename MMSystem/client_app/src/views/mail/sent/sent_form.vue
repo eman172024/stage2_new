@@ -2631,7 +2631,7 @@ export default {
       this.loading = true;
 
       this.$http.mailService
-        .cancel_sending_to_department(this.mailId, department_id)
+        .cancel_sending_to_department(this.mailId, department_id, Number(localStorage.getItem("userId")))
         .then((res) => {
           setTimeout(() => {
             this.loading = false;
@@ -2866,7 +2866,7 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .GetAllDocuments(id)
+        .GetAllDocuments(id, Number(localStorage.getItem("userId")))
         .then((res) => {
           this.show_images_images_model = res.data;
 
@@ -3064,7 +3064,7 @@ export default {
       }
 
       this.$http.mailService
-        .UpdateMail(dataUpdate, localStorage.getItem("userId"))
+        .UpdateMail(dataUpdate)
         .then((res) => {
           setTimeout(() => {
             this.loading = false;
@@ -3315,7 +3315,7 @@ console.log(this.to_test_passing_mail_type)
       this.loading = true;
 
       this.$http.mailService
-        .SendMail(Number(this.mailId))
+        .SendMail(Number(this.mailId), Number(localStorage.getItem("userId")))
         .then((res) => {
           setTimeout(() => {
             this.deleteButton = false;
@@ -3498,7 +3498,7 @@ console.log(this.to_test_passing_mail_type)
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .UploadImagesMail(this.mailId, this.imagesToSend)
+        .UploadImagesMail(this.mailId, this.imagesToSend, Number(localStorage.getItem("userId")))
         .then((res) => {
           setTimeout(() => {
             this.ButtonUploadImagesMail = false;
@@ -3524,7 +3524,7 @@ console.log(this.to_test_passing_mail_type)
 
 
       this.$http.mailService
-        .DeleteDocument(Number(this.test_image_id))
+        .DeleteDocument(Number(this.test_image_id), Number(localStorage.getItem("userId")))
         .then((res) => {
 
           console.log("SSSSSSSSSSSSSSSSSSSSSS")

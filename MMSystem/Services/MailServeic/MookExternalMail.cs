@@ -204,7 +204,7 @@ namespace MMSystem.Services.MailServeic
 
                     Historyes histor = new Historyes();
 
-                    histor.userId = userid;
+                    
                     histor.mailid = mail.MailID;
                     histor.HistortyNameID = 2;
 

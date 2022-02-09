@@ -12,10 +12,12 @@ namespace MMSystem.Services.MailServeic
 
         Task<List<Mail_ResourcescsDto>> GetAll(int id);
 
+        Task<List<Mail_ResourcescsDto>> GetAll(int id,int userID);
+
         Task<string> tobase64(string patj);
 
+        Task<List<Mail_ResourcescsDto>> GetAllRes(int id, int userId);
         Task<List<Mail_ResourcescsDto>> GetAllRes(int id);
-
 
 
     }

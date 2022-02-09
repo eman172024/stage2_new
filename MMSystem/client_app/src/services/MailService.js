@@ -52,8 +52,8 @@ export default {
         return axios.post(`/api/Mail/AddMail`, info)
     },
 
-    SendMail(mailId) {
-        return axios.put(`/api/Mail/Send?mailid=${mailId}`)
+    SendMail(mailId, userId) {
+        return axios.put(`/api/Mail/Send?mailid=${mailId}&userId=${userId}`)
     },
 
 
@@ -69,13 +69,13 @@ export default {
 
 
 
-    UploadImagesMail(id, list) {
-        return axios.post(`/api/Mail/Uplode`, { mail_id: Number(id), list: list, })
+    UploadImagesMail(id, list, userId) {
+        return axios.post(`/api/Mail/Uplode`, { userId: userId, mail_id: Number(id), list: list, })
     },
 
-    cancel_sending_to_department(mailId, department_id) {
+    cancel_sending_to_department(mailId, department_id, userId) {
         // return axios.delete(`/api/Mail/Delete` , { department_id: Number(mailId), userId: Number(userId), mail_id: Number(mail_id)});
-        return axios.delete(`/api/Mail/DeleteMangament?mail_id=${mailId}&departmentId=${department_id}`);
+        return axios.delete(`/api/Mail/DeleteMangament?mail_id=${mailId}&departmentId=${department_id}&userId=${userId}`);
         
     },
 
@@ -98,8 +98,8 @@ export default {
         return axios.get(`/api/Mail/GetMailById?id=${id}&type=${type}`);
     },
 
-    DeleteDocument(id) {
-        return axios.delete(`/api/Mail/DeleteDocument/${id}`)
+    DeleteDocument(id,userId) {
+        return axios.delete(`/api/Mail/DeleteDocument?id=${id}&userId=${userId}`)
     },
 
     UpdateMail(Mail) {
@@ -124,8 +124,8 @@ export default {
         return axios.get(`/api/WeatherForecast/GetMailInfo?mail_id=${id}&Department_Id=${department}&type=${type}`);
     },
 
-    GetAllDocuments(id) {
-        return axios.get(`/api/Resources/GetMailResources/${id}`);
+    GetAllDocuments(id,userId) {
+        return axios.get(`/api/Resources/GetMailResources?mail_id=${id}&userId=${userId}`);
     },
 
     GetAllDocuments2(id) {

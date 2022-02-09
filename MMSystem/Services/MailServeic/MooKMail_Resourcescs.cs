@@ -189,5 +189,60 @@ namespace MMSystem.Services.MailServeic
             }
            
         }
+
+        public Task<List<Mail_ResourcescsDto>> GetAll(int id, int userID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<Mail_ResourcescsDto>> GetAllRes(int id, int userId)
+        {
+            try
+            {
+                List<Mail_Resourcescs> _Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == id && x.State == true).ToListAsync();
+                List<Mail_ResourcescsDto> mail_ResourcescsDtos = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(_Resourcescs);
+
+
+
+                foreach (var xx in mail_ResourcescsDtos)
+                {
+                    string x = xx.path;
+
+                    if (File.Exists(xx.path))
+                    {
+                        xx.path = await tobase64(x);
+
+                    }
+                    else
+                    {
+
+
+
+
+
+
+                    }
+                    Historyes historyes = new Historyes();
+                    historyes.currentUser = userId;
+
+                    historyes.mailid = id;
+                    historyes.changes = $" تم عرض الصورة   {id} ";
+                    historyes.Time = DateTime.Now;
+                    historyes.HistortyNameID = 13;
+                    await _dbCon.History.AddAsync(historyes);
+
+                    await _dbCon.SaveChangesAsync();
+
+                }
+                return mail_ResourcescsDtos;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 }

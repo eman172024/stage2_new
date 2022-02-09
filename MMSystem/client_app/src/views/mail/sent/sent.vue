@@ -1391,7 +1391,7 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .GetAllDocuments(id)
+        .GetAllDocuments(id, Number(localStorage.getItem("userId")))
         .then((res) => {
           this.show_images = res.data;
 
