@@ -94,6 +94,10 @@ export default {
         return axios.delete(`/api/Mail/DeleteDocument?id=${id}&userId=${userId}`)
     },
 
+    PrintOrShowDocument(id, userId, type) {
+        return axios.post(`/api/Resources/print?mail_id=${id}&userId=${userId}&type=${type}`);
+    },
+
     
 
 

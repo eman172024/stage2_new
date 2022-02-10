@@ -804,7 +804,7 @@
                             "
                           >
                             <button
-                              @click="GetAllDocuments(mailId)"
+                              @click="GetAllDocuments(mailId, 1)"
                               type="button"
                               class="
                                 bg-green-600
@@ -1870,7 +1870,7 @@
                     </div>
 
                     <div v-if="reply.resources != 0" class=" mx-2">
-                        <button @click="show_reply_images(index)" class="px-2 text-xs rounded leading-9 text-white bg-red-400 flex items-center">
+                        <button @click="show_reply_images(index, 3)" class="px-2 text-xs rounded leading-9 text-white bg-red-400 flex items-center">
                           عرض الصور
                           <svg class="stroke-current mr-2 w-6 h-6" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"  stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2136,7 +2136,7 @@
               </button>
 
               <button
-                @click="to_test_print_images_model = true"
+                @click="print_image()"
                 v-print="'#printMe'"
                 class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
               >
@@ -2282,6 +2282,7 @@ export default {
 
   data() {
     return {
+      from_reply_or_general : '',
       indexOfDepartment: "",
       allDepartment: false,
       allDepartmentButton: true,
@@ -2491,22 +2492,61 @@ export default {
 
   methods: {
 
-    show_reply_images(index) {
+    print_image(){
+      this.to_test_print_images_model = true
+      this.$http.mailService
+        .PrintOrShowDocument(Number(this.mailId), Number(localStorage.getItem("userId")), Number(this.from_reply_or_general))
+        .then((res) => {
+          setTimeout(() => {
+            console.log(res);
+            this.loading = false;
+            this.screenFreeze = false;
+       
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+          console.log(err);
+        });
+    },
 
-      this.show_images_images_model = []
-       this.indextotest = 0
-
+    show_reply_images(index, plase) {
+      this.from_reply_or_general = plase
       this.screenFreeze = true;
       this.loading = true;
-      this.show_images_images_model = this.replies[index].resources
 
-      this.testimage_images_model = this.show_images_images_model[0].path;
+      this.$http.mailService
+        .PrintOrShowDocument(Number(this.mailId), Number(localStorage.getItem("userId")), 2)
+        .then((res) => {
+          setTimeout(() => {
+            console.log(res);
+           
 
-      setTimeout(() => {
-        this.show_images_model = true;
-        this.screenFreeze = false;
-        this.loading = false;
-      }, 300);
+            this.show_images_images_model = []
+            this.indextotest = 0
+
+            
+            this.show_images_images_model = this.replies[index].resources
+
+            this.testimage_images_model = this.show_images_images_model[0].path;
+
+              this.show_images_model = true;
+              this.screenFreeze = false;
+              this.loading = false;
+
+       
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+          console.log(err);
+        });
 
     },
 
@@ -2768,6 +2808,8 @@ export default {
       this.loading = true;
 
       var ReplyViewModel = {
+        userId : Number(localStorage.getItem("userId")),
+        mailId : Number(this.mailId),
         send_ToId: Number(this.sends_id),
         from: Number(1),
         reply: {
@@ -2790,6 +2832,7 @@ export default {
             this.screenFreeze = false;
 
             this.reply_to_add = "";
+            this.imagesToSend = [];
             this.GetReplyByDepartment(
               this.replyByDepartmenId,
               this.sends_id,
@@ -2862,7 +2905,8 @@ export default {
       }
     },
 
-    GetAllDocuments(id) {
+    GetAllDocuments(id, plase) {
+      this.from_reply_or_general = plase
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService

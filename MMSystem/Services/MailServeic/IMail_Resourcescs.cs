@@ -19,6 +19,6 @@ namespace MMSystem.Services.MailServeic
         Task<List<Mail_ResourcescsDto>> GetAllRes(int id, int userId);
         Task<List<Mail_ResourcescsDto>> GetAllRes(int id);
 
-
+        Task<bool> print(int mailid, int userId, int type);
     }
 }
