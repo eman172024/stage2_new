@@ -132,11 +132,11 @@ namespace MMSystem.Controllers
         }
 
         [HttpPut("read_it_mail")]
-        public async Task<IActionResult> read_it_mail(int mail_id,int  department_Id)
+        public async Task<IActionResult> read_it_mail(int mail_id,int  department_Id,int userId)
 
         {
 
-            var c = await _re.GetFlag(mail_id, department_Id);
+            var c = await _re.GetFlag(mail_id, department_Id, userId);
             if (c >0)
                 return Ok(
                 

@@ -7,6 +7,8 @@ namespace MMSystem.Model.ViewModel
 {
     public class ReplyViewModel
     {
+
+        public int userId { get; set; }
         public int from { get; set; }
         public int send_ToId { get; set; }
         public Reply reply { get; set; }

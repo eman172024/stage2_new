@@ -330,6 +330,73 @@ namespace MMSystem.Model
                    name = "  الغاء تفعيل مستخدم"
 
                }
+               ,
+               new HistortyName
+               {
+                   ID = 13,
+                   name = " تم عرض الصورة "
+
+               }
+                 ,
+               new HistortyName
+               {
+                   ID = 14,
+                   name = " ارسال بريد "
+
+               }
+
+               ,
+               new HistortyName
+               {
+                   ID = 15,
+                   name = " قراءة البريد"
+
+               },
+               new HistortyName
+               {
+                   ID = 16,
+                   name = " مرفقات"
+
+               },
+                  new HistortyName
+                  {
+                      ID = 17,
+                      name = " عدد النسخ"
+
+                  }  , new HistortyName
+                  {
+                      ID = 18,
+                      name = "طباعة حافظة"
+
+                  }, new HistortyName
+                  {
+                      ID = 19,
+                      name = "تسجيل الدخول"
+
+                  }, new HistortyName
+                  {
+                      ID = 20,
+                      name = "اضافة صورة رد"
+
+                  }, new HistortyName
+                  {
+                      ID = 21,
+                      name = "طباعة مستندات الرد"
+
+                  }, new HistortyName
+                  {
+                      ID = 22,
+                      name = "طباعة مستندات البريد  "
+
+                  }, new HistortyName
+                  {
+                      ID = 23,
+                      name = "عرض مستندات الرد  "
+
+                  }
+
+
+
 
             );
 

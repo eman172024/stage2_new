@@ -3,6 +3,7 @@ using MMSystem.Model;
 using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel.ArchivesReport;
 using MMSystem.Model.ViewModel.ArchiveVM;
+using MMSystem.Services.Histor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +11,17 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Services.Archives
 {
+
     public class MokArchives : IArchives
     {
         private readonly AppDbCon _db;
 
-        public MokArchives(AppDbCon db)
+        public IHistory _history;
+
+        public MokArchives(AppDbCon db, IHistory history)
         {
             _db = db;
+            _history = history;
         }
 
         public async Task<ArchiveVModelWithPag> GetAll(int page, int pageSize, int? mail_number, DateTime? date_time_of_day,
@@ -210,44 +215,82 @@ namespace MMSystem.Services.Archives
         {
             try
             {
+                //15 قراءة البريد
+                //16  مرفقات
+                //17  عدد النسخ
+                //18 طباعة حافظة
+                
+                Historyes historyes = new Historyes();
                 var Ex = await _db.External_Mails.Where(p=> p.MailID== model.MailId).FirstOrDefaultAsync();
 
                 if (Ex != null)
                 {
+
                     var fl = await _db.Sends.Where(p => p.MailID == model.MailId && p.to == 25).FirstOrDefaultAsync();
                     if (fl.flag!=3)
                     {
                         var ExDat = await _db.External_Mails.Where(p => p.MailID == model.MailId).FirstOrDefaultAsync();
+                       
+                        historyes.currentUser = model.Current;
+                        historyes.HistortyNameID=15;
+                        historyes.Time= DateTime.Now;
+                        historyes.mailid = model.MailId;
+                        bool result= await _history.Add(historyes);
+
 
                         fl.flag = 3;
                         _db.Sends.Update(fl);
                         await _db.SaveChangesAsync();
-
                         ExDat.Send_of_Ex_mail = DateTime.Now;
                         _db.External_Mails.Update(ExDat);
                         await _db.SaveChangesAsync();
+
+
+
                     }
 
                     if (model.delevery!=null)
                     {
+                        historyes.currentUser = model.Current;
+                        historyes.HistortyNameID = 17;//ملاحظة غيرها علي الرقم الجديد 
+                        historyes.Time = DateTime.Now;
+                        historyes.mailid = model.MailId;
+                        historyes.changes = model.delevery;
+                        bool result = await _history.Add(historyes);
+
                         Ex.delivery = model.delevery;
                     }
 
 
                     if (model.Attachments!=false)
                     {
+                        historyes.currentUser = model.Current;
+                        historyes.HistortyNameID = 16;
+                        historyes.Time = DateTime.Now;
+                        historyes.mailid = model.MailId;
+                        historyes.changes = model.Attachments.ToString();
+                        bool result = await _history.Add(historyes);
+
                         Ex.Attachments = model.Attachments;
                     }
 
 
                     if (model.Number_Of_Copies!=0)
                     {
+                        historyes.currentUser = model.Current;
+                        historyes.HistortyNameID = 17;
+                        historyes.Time = DateTime.Now;
+                        historyes.mailid = model.MailId;
+                        historyes.changes = model.Number_Of_Copies.ToString();
+                        bool result = await _history.Add(historyes);
+
                         Ex.number_of_copies = model.Number_Of_Copies;
                     }
 
 
                     if (model.note!=null)
                     {
+
                         Ex.note = model.note;
                     }
                       
@@ -265,6 +308,42 @@ namespace MMSystem.Services.Archives
                 throw;
             }
             
+        }
+
+        public async Task<bool> UpdateExternals(UpdateArchiveViewModel model)
+        {
+            try
+            {
+                //15 قراءة البريد
+                //16  مرفقات
+                //17  عدد النسخ
+                //18 طباعة حافظة
+
+                Historyes historyes = new Historyes();
+               
+               
+                   
+                        historyes.currentUser = model.Current;
+                        historyes.HistortyNameID = 18;
+                        historyes.Time = DateTime.Now;
+                        
+                       
+                        bool result = await _history.Add(historyes);
+                if (result)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

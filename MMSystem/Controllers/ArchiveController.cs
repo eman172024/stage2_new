@@ -37,18 +37,40 @@ namespace MMSystem.Controllers
            
           
             }
-            
-        
 
-        
+
+
+
         [HttpPut("Update")]
         public async Task<IActionResult> Update([FromBody] UpdateArchiveViewModel model)
         {
-           bool result = await _archives.UpdateExternal(model);
+            bool result = await _archives.UpdateExternal(model);
             if (result)
-                return StatusCode(203,new  {
-                    mes ="تمت عملية التعديل بنجاح"
-                    ,Stut=203 
+                return StatusCode(203, new
+                {
+                    mes = "تمت عملية التعديل بنجاح"
+                    ,
+                    Stut = 203
+                });
+
+
+            return BadRequest(new
+            {
+                message = "فشلت العملية ",
+                statusCode = 400
+            });
+        }
+
+        [HttpPut("Updates")]
+        public async Task<IActionResult> Updates([FromBody] UpdateArchiveViewModel model)
+        {
+            bool result = await _archives.UpdateExternals(model);
+            if (result)
+                return StatusCode(203, new
+                {
+                    mes = "تمت عملية التعديل بنجاح"
+                    ,
+                    Stut = 203
                 });
 
 

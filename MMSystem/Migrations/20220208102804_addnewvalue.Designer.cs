@@ -4,14 +4,16 @@ using MMSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMSystem.Migrations
 {
     [DbContext(typeof(AppDbCon))]
-    partial class AppDbConModelSnapshot : ModelSnapshot
+    [Migration("20220208102804_addnewvalue")]
+    partial class addnewvalue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -604,56 +606,6 @@ namespace MMSystem.Migrations
                         {
                             ID = 13,
                             name = " تم عرض الصورة "
-                        },
-                        new
-                        {
-                            ID = 14,
-                            name = " ارسال بريد "
-                        },
-                        new
-                        {
-                            ID = 15,
-                            name = " قراءة البريد"
-                        },
-                        new
-                        {
-                            ID = 16,
-                            name = " مرفقات"
-                        },
-                        new
-                        {
-                            ID = 17,
-                            name = " عدد النسخ"
-                        },
-                        new
-                        {
-                            ID = 18,
-                            name = "طباعة حافظة"
-                        },
-                        new
-                        {
-                            ID = 19,
-                            name = "تسجيل الدخول"
-                        },
-                        new
-                        {
-                            ID = 20,
-                            name = "اضافة صورة رد"
-                        },
-                        new
-                        {
-                            ID = 21,
-                            name = "طباعة مستندات الرد"
-                        },
-                        new
-                        {
-                            ID = 22,
-                            name = "طباعة مستندات البريد  "
-                        },
-                        new
-                        {
-                            ID = 23,
-                            name = "عرض مستندات الرد  "
                         });
                 });
 

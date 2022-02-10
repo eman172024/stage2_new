@@ -4,14 +4,16 @@ using MMSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMSystem.Migrations
 {
     [DbContext(typeof(AppDbCon))]
-    partial class AppDbConModelSnapshot : ModelSnapshot
+    [Migration("20220209092238_addNewVal")]
+    partial class addNewVal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -634,26 +636,6 @@ namespace MMSystem.Migrations
                         {
                             ID = 19,
                             name = "تسجيل الدخول"
-                        },
-                        new
-                        {
-                            ID = 20,
-                            name = "اضافة صورة رد"
-                        },
-                        new
-                        {
-                            ID = 21,
-                            name = "طباعة مستندات الرد"
-                        },
-                        new
-                        {
-                            ID = 22,
-                            name = "طباعة مستندات البريد  "
-                        },
-                        new
-                        {
-                            ID = 23,
-                            name = "عرض مستندات الرد  "
                         });
                 });
 
