@@ -252,7 +252,7 @@ namespace MMSystem.Services.Archives
                     if (model.delevery!=null)
                     {
                         historyes.currentUser = model.Current;
-                        historyes.HistortyNameID = 17;//ملاحظة غيرها علي الرقم الجديد 
+                        historyes.HistortyNameID = 24;//ملاحظة غيرها علي الرقم الجديد 
                         historyes.Time = DateTime.Now;
                         historyes.mailid = model.MailId;
                         historyes.changes = model.delevery;
