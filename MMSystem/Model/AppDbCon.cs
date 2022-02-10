@@ -393,6 +393,11 @@ namespace MMSystem.Model
                       ID = 23,
                       name = "عرض مستندات الرد  "
 
+                  }, new HistortyName
+                  {
+                      ID = 24,
+                      name = "التسليم "
+
                   }
 
 
