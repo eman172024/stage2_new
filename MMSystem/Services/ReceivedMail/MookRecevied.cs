@@ -3105,10 +3105,13 @@ namespace MMSystem.Services.ReceivedMail
 
             List<Extrmal_SectionDto> dtosection = new List<Extrmal_SectionDto>();
 
-            var c = await (from Sections in dbcon.Extrmal_Sections.Where(x => x.state == true).OrderByDescending(x=>x.id)
+            var c = await (from Sections in dbcon.Extrmal_Sections.Where(x => x.state == true && x.perent!=0).OrderByDescending(x=>x.id)
                                              select new Extrmal_SectionDto
                                              {
-                                                Section_Name= Sections.Section_Name
+                                                Section_Name= Sections.Section_Name,
+                                                id= Sections.id,
+                                                 perent = Sections.perent,
+                                                 state = Sections.state
 
                                              }).ToListAsync();
 
