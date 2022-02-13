@@ -25,7 +25,7 @@ namespace MMSystem.Services.ReceivedMail
            int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
            Typeof_send, int? mail_type, string? replaytext, int? userid, int pagenum, int size, int? Measure_filter,
            int? Department_filter, int? Classfication, int? mail_state, int? genral_incoming_num
-            , int? TheSection, int? Replay_Date)
+            , int? TheSection, bool? Replay_Date)
         {
             try
             {
@@ -244,7 +244,7 @@ namespace MMSystem.Services.ReceivedMail
                                }).OrderByDescending(v => v.mail_id).ToListAsync();
 
                 IEnumerable<Sended_Maill> zx;
-                if (Replay_Date != null)
+                if (Replay_Date == true)
                 {//d
                     var lx = Replay_Date;
 
@@ -330,7 +330,7 @@ namespace MMSystem.Services.ReceivedMail
 
                                   }).OrderByDescending(v => v.mail_id).Skip((pagenum - 1) * size).Take(size).ToListAsync();
                 PagenationSendedEmail<Sended_Maill> pagg = new PagenationSendedEmail<Sended_Maill>();
-                if (Replay_Date != null)
+                if (Replay_Date == true)
                 {
 
 
@@ -819,7 +819,7 @@ namespace MMSystem.Services.ReceivedMail
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
            int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
            Typeof_send, int? mail_type, string? replaytext, int? userid, int pagenum, int size, int? Measure_filter,
-           int? Department_filter, int? Classfication, int? mail_state, int? genral_incoming_num, int? TheSection, int? Replay_Date)
+           int? Department_filter, int? Classfication, int? mail_state, int? genral_incoming_num, int? TheSection, bool? Replay_Date)
         {
             try
             {
@@ -1026,7 +1026,7 @@ namespace MMSystem.Services.ReceivedMail
 
 
                 IEnumerable<ExtarnelinboxViewModel> zx;
-                if (Replay_Date != null)
+                if (Replay_Date == true)
                 {//d
                     var lx = Replay_Date;
 
@@ -1105,7 +1105,7 @@ namespace MMSystem.Services.ReceivedMail
 
 
                 PagenationSendedEmail<ExtarnelinboxViewModel> pagg = new PagenationSendedEmail<ExtarnelinboxViewModel>();
-                if (Replay_Date != null)
+                if (Replay_Date == true)
                 {
 
 
@@ -1179,7 +1179,7 @@ namespace MMSystem.Services.ReceivedMail
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
            int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
            Typeof_send, int? mail_type, string? replaytext, int? userid, int pagenum, int size, int? Measure_filter,
-           int? Department_filter, int? Classfication, int? mail_state, int? genral_incoming_num, int? TheSection, int? Replay_Date)
+           int? Department_filter, int? Classfication, int? mail_state, int? genral_incoming_num, int? TheSection, bool? Replay_Date)
         {
             try
             {
@@ -1388,7 +1388,7 @@ namespace MMSystem.Services.ReceivedMail
                                }).OrderByDescending(v => v.mail_id).ToListAsync();
 
                 IEnumerable<ExtarnelinboxViewModel> zx;
-                if (Replay_Date != null)
+                if (Replay_Date == true)
                 {
 
 
@@ -1469,7 +1469,7 @@ namespace MMSystem.Services.ReceivedMail
 
 
                 PagenationSendedEmail<ExtarnelinboxViewModel> pagg = new PagenationSendedEmail<ExtarnelinboxViewModel>();
-                if (Replay_Date != null)
+                if (Replay_Date == true)
                 {
 
 
@@ -2525,7 +2525,7 @@ namespace MMSystem.Services.ReceivedMail
         int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
         Typeof_send, int? userid, int? mailNumType, int? mail_type, string? replaytext, int pagenum,
         int size, int? Measure_filter, int? Department_filter, int? Classfication,
-        int? mail_state, int? genral_incoming_num, int? TheSection, int? Replay_Date)
+        int? mail_state, int? genral_incoming_num, int? TheSection, bool? Replay_Date)
         {
 
 
@@ -2790,7 +2790,7 @@ namespace MMSystem.Services.ReceivedMail
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
            int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
            Typeof_send, int? mail_type, string? replaytext, int? userid, int pagenum, int size, int? Measure_filter,
-           int? Department_filter, int? Classfication, int? mail_state, int? genral_incoming_num, int? Replay_Date)
+           int? Department_filter, int? Classfication, int? mail_state, int? genral_incoming_num, bool? Replay_Date)
         {
 
             try
@@ -2987,7 +2987,7 @@ namespace MMSystem.Services.ReceivedMail
                                }).OrderByDescending(v => v.mail_id).ToListAsync();
 
                 IEnumerable<Sended_Maill> zx;
-                if (Replay_Date != null)
+                if (Replay_Date == true)
                 {
                    
 
@@ -3064,7 +3064,7 @@ namespace MMSystem.Services.ReceivedMail
 
 
                 PagenationSendedEmail<Sended_Maill> pagg = new PagenationSendedEmail<Sended_Maill>();
-                if (Replay_Date != null)
+                if (Replay_Date == true)
                 {
 
 
@@ -3177,10 +3177,13 @@ namespace MMSystem.Services.ReceivedMail
             
             List<Extrmal_SectionDto> dtosection = new List<Extrmal_SectionDto>();
 
-            var c = await (from Sections in dbcon.Extrmal_Sections.Where(x => x.state == true ).OrderByDescending(x=>x.id)
+            var c = await (from Sections in dbcon.Extrmal_Sections.Where(x => x.state == true && x.perent!=0).OrderByDescending(x=>x.id)
                                              select new Extrmal_SectionDto
                                              {
-                                                Section_Name= Sections.Section_Name
+                                                Section_Name= Sections.Section_Name,
+                                                id= Sections.id,
+                                                 perent = Sections.perent,
+                                                 state = Sections.state
 
                                              }).ToListAsync();
 
