@@ -423,6 +423,34 @@
                       </div>
                     </div>
                   </div>
+
+
+                  <div class="sm:col-span-2">
+                    <label
+                      for="general_incoming_number"
+                      class="block text-base font-semibold text-gray-800"
+                    >
+                      رقم الوارد العام
+                    </label>
+                    <input
+                      v-model="general_incoming_number"
+                      type="number"
+                      id="general_incoming_number"
+                      class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                    />
+                  </div>
+
+                  <div class="sm:col-span-2">
+                    <label for="by_date_of_reply" class="block text-base font-semibold text-gray-800">
+                      حسب تاريخ الرد
+                    </label>
+                    <input
+                      v-model="by_date_of_reply"
+                      type="checkbox"
+                      id="by_date_of_reply"
+                      class="block mt-2 h-10 w-10 overflow-hidden rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                    />
+                  </div>
                   
                 </div>
               </div>
@@ -1093,6 +1121,11 @@ export default {
     mail_id: function() {
       this.GetInboxs();
     },
+
+    general_incoming_number: function() {
+      this.GetInboxs();
+    },
+
     summary: function() {
       this.GetInboxs();
     },
@@ -1112,6 +1145,9 @@ export default {
     mail_caseIdSelected: function() {
       this.GetInboxs();
     },
+    by_date_of_reply: function() {
+      this.GetInboxs();
+    },
   },
 
   components: {
@@ -1122,6 +1158,8 @@ export default {
 
   data() {
     return {
+      by_date_of_reply: false,
+      general_incoming_number:'',
       indexOfimagesToShow: 0,
       imagesToSend: [],
       replies: [],
@@ -1474,7 +1512,9 @@ export default {
           this.my_department_id,
           this.date_from,
           this.date_to,
+          this.by_date_of_reply,
           this.mail_id,
+          this.general_incoming_number,
           this.summary,
           this.departmentIdSelected,
           this.sideIdSelected,
