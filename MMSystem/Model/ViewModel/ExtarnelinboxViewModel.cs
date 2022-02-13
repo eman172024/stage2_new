@@ -35,6 +35,9 @@ namespace MMSystem.Model.ViewModel
         public string sectionName { get; set; }
 
         public int Sends_id { get; set; }
+        
+
+        public string actionrequer { get; set; }
 
 
     }

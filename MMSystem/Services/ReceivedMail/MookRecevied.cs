@@ -613,7 +613,8 @@ namespace MMSystem.Services.ReceivedMail
                                    time = ex.Send_time.ToString("HH:mm:ss"),
                                    summary = mail.Mail_Summary,
                                    flag = ex.flag,
-                                   Sends_id = ex.Id
+                                   Sends_id = ex.Id,
+                                   action_require=mail.ActionRequired
 
 
                                }).OrderByDescending(v => v.mail_id).ToListAsync();
@@ -659,7 +660,9 @@ namespace MMSystem.Services.ReceivedMail
                                       time = ex.Send_time.ToString("HH:mm:ss"),
                                       flag = ex.flag,
                                       summary = mail.Mail_Summary,
-                                      Sends_id = ex.Id
+                                      Sends_id = ex.Id,
+                                      action_require = mail.ActionRequired
+
 
 
 
@@ -1920,7 +1923,8 @@ namespace MMSystem.Services.ReceivedMail
                                    time = ex.Send_time.ToString("HH:mm:ss"),
                                    summary = mail.Mail_Summary,
                                    flag = ex.flag,
-                                   Sends_id = ex.Id
+                                   Sends_id = ex.Id,
+                                   actionrequer=mail.ActionRequired
 
 
                                }).OrderByDescending(v => v.mail_id).ToListAsync();
@@ -1959,7 +1963,9 @@ namespace MMSystem.Services.ReceivedMail
                                       time = ex.Send_time.ToString("HH:mm:ss"),
                                       flag = ex.flag,
                                       summary = mail.Mail_Summary,
-                                      Sends_id = ex.Id
+                                      Sends_id = ex.Id,
+                                      actionrequer = mail.ActionRequired
+
 
 
 
@@ -2187,7 +2193,8 @@ namespace MMSystem.Services.ReceivedMail
                                    time = ex.Send_time.ToString("HH:mm:ss"),
                                    summary = mail.Mail_Summary,
                                    flag = ex.flag,
-                                   Sends_id = ex.Id
+                                   Sends_id = ex.Id,
+                                   actionrequer=mail.ActionRequired
 
 
                                }).OrderByDescending(v => v.mail_id).ToListAsync();
@@ -2226,7 +2233,8 @@ namespace MMSystem.Services.ReceivedMail
                                       time = ex.Send_time.ToString("HH:mm:ss"),
                                       flag = ex.flag,
                                       summary = mail.Mail_Summary,
-                                      Sends_id = ex.Id
+                                      Sends_id = ex.Id,
+                                      actionrequer=mail.ActionRequired
 
 
 
@@ -2449,7 +2457,9 @@ namespace MMSystem.Services.ReceivedMail
                                    time = ex.Send_time.ToString("HH:mm:ss"),
                                    summary = mail.Mail_Summary,
                                    flag = ex.flag,
-                                   Sends_id = ex.Id
+                                   Sends_id = ex.Id,
+                                   action_require = mail.ActionRequired
+
 
 
                                }).OrderByDescending(v => v.mail_id).ToListAsync();
@@ -2487,7 +2497,9 @@ namespace MMSystem.Services.ReceivedMail
                                       time = ex.Send_time.ToString("HH:mm:ss"),
                                       flag = ex.flag,
                                       summary = mail.Mail_Summary,
-                                      Sends_id = ex.Id
+                                      Sends_id = ex.Id,
+                                      action_require = mail.ActionRequired
+
 
 
 
@@ -3162,7 +3174,7 @@ namespace MMSystem.Services.ReceivedMail
         public async Task<List<Extrmal_SectionDto>> getExtrinlSection()
 
         {
-
+            
             List<Extrmal_SectionDto> dtosection = new List<Extrmal_SectionDto>();
 
             var c = await (from Sections in dbcon.Extrmal_Sections.Where(x => x.state == true ).OrderByDescending(x=>x.id)

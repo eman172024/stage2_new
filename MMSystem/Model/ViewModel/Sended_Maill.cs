@@ -10,7 +10,7 @@ namespace MMSystem.Model.ViewModel
     public class Sended_Maill
     {
 
-     
+
 
         public int mail_id { get; set; }
         public int Mail_Number { get; set; }
@@ -36,6 +36,8 @@ namespace MMSystem.Model.ViewModel
 
         public int Sends_id { get; set; }
 
+
+        public string action_require { get; set; }
 
 
     }
