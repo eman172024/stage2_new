@@ -321,11 +321,7 @@ namespace MMSystem.Model
                new HistortyName
                {
                    ID = 11,
-<<<<<<< HEAD
-                   name = "  تعديل مستخدم"
-=======
                    name = "تعديل مستخدم"
->>>>>>> 58ea5aed03c5a44899044200ece706a87292e2f4
 
                },
                new HistortyName

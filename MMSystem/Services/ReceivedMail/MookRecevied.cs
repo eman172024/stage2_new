@@ -41,6 +41,8 @@ namespace MMSystem.Services.ReceivedMail
                 bool mail_accept = false;
                 bool daysended = false;
                 bool State_filter = false;
+                bool Sectionbool = false;
+
                 // myday = day.Date;
 
                 if (genral_incoming_num == null)
@@ -51,7 +53,26 @@ namespace MMSystem.Services.ReceivedMail
 
 
 
-                
+
+                if(TheSection== null)
+                {
+                    Sectionbool = true;
+                }
+                else
+                {
+                    Sectionbool = false;
+
+                }
+
+
+
+
+
+
+
+
+
+
 
 
                 if (mail_state == null)
@@ -191,7 +212,8 @@ namespace MMSystem.Services.ReceivedMail
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                (x.flag == mail_state || State_filter == true) && (dep_filter == false && x.isMulti == false || dep_filter == false && x.isMulti == true || x.isMulti == true))
                                on mail.MailID equals ex.MailID
-                              
+                               join d in dbcon.External_Mails.Where(x => x.Sectionid == TheSection || Sectionbool == true) on mail.MailID equals d.MailID
+                               join b in dbcon.Extrenal_Inboxes.Where(x => x.SectionId == TheSection || Sectionbool == true) on mail.MailID equals b.MailID
 
                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on ex.to equals n.Id
@@ -276,7 +298,10 @@ namespace MMSystem.Services.ReceivedMail
                                   ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                   (x.flag == mail_state || State_filter == true) && (dep_filter == false && x.isMulti == false || dep_filter == false && x.isMulti == true || x.isMulti == true))
                                   on mail.MailID equals ex.MailID
-                                 
+
+                                  join d in dbcon.External_Mails.Where(x => x.Sectionid == TheSection || Sectionbool == true) on mail.MailID equals d.MailID
+                                  join b in dbcon.Extrenal_Inboxes.Where(x => x.SectionId == TheSection || Sectionbool == true) on mail.MailID equals b.MailID
+
                                   join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                   join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on ex.to equals n.Id
                                   join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
@@ -389,11 +414,27 @@ namespace MMSystem.Services.ReceivedMail
 
 
 
+                if (TheSection == null)
+                {
+                    Sectionbool = true;
+                }
+                else
+                {
+                    Sectionbool = false;
+
+                }
 
 
 
+                if (genral_incoming_num == null)
+                {
+                    incoing_num_filter = true;
 
-
+                }
+                else
+                {
+                    incoing_num_filter = false;
+                }
 
 
 
@@ -540,7 +581,8 @@ namespace MMSystem.Services.ReceivedMail
                                            x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) &&
                                            (x.clasification == Classfication || clasf_filter == true)
-                                           && x.state == true).OrderByDescending(x => x.MailID)
+                                           &&(x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) &&
+                                           x.state == true).OrderByDescending(x => x.MailID)
 
                                    //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                join ex in dbcon.Sends.Where(x => (x.flag > 1) && x.to == mangment &&
@@ -548,7 +590,8 @@ namespace MMSystem.Services.ReceivedMail
                                (x.flag == mail_state || State_filter == true) && x.State == true)
                                on mail.MailID equals ex.MailID
 
-
+                               join d in dbcon.External_Mails.Where(x => x.Sectionid == TheSection || Sectionbool == true) on mail.MailID equals d.MailID
+                               join b in dbcon.Extrenal_Inboxes.Where(x => x.SectionId == TheSection || Sectionbool == true) on mail.MailID equals b.MailID
                                join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on ex.type_of_send equals dx.MeasuresId
                                join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on mail.Department_Id equals n.Id
                                join z in dbcon.MailStatuses.Where(x => x.state == true) on ex.flag equals z.flag
@@ -586,7 +629,7 @@ namespace MMSystem.Services.ReceivedMail
                               && (mailnum_bool == 1 || x.Mail_Number == mailnum) &&
                               (x.clasification == Classfication || clasf_filter == true)
 
-                               && x.state == true).OrderByDescending(x => x.MailID)
+                               &&(x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
 
                                       //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                   join ex in dbcon.Sends.Where(x => (x.flag > 1) && x.to == mangment &&
@@ -1153,15 +1196,15 @@ namespace MMSystem.Services.ReceivedMail
                 // myday = day.Date;
 
 
-                //if (genral_incoming_num == null)
-                //{
-                //    incoing_num_filter = true;
+                if (genral_incoming_num == null)
+                {
+                    incoing_num_filter = true;
 
-                //}
-                //else
-                //{
-                //    incoing_num_filter = false;
-                //}
+                }
+                else
+                {
+                    incoing_num_filter = false;
+                }
 
 
                 if (TheSection == null)
@@ -1304,7 +1347,8 @@ namespace MMSystem.Services.ReceivedMail
                                            x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
                                            (x.clasification == Classfication || clasf_filter == true)
-                                           && x.state==true).OrderByDescending(x => x.MailID)
+                                           && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) &&
+                                           x.state==true).OrderByDescending(x => x.MailID)
 
                                join Extr in dbcon.External_Mails on mail.MailID equals Extr.MailID
                                join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
@@ -1382,7 +1426,7 @@ namespace MMSystem.Services.ReceivedMail
               x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
               (x.clasification == Classfication || clasf_filter == true)
-               && x.state == true).OrderByDescending(x => x.MailID)
+               &&  (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
 
                                   join Extr in dbcon.External_Mails on mail.MailID equals Extr.MailID
                                   join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
@@ -1687,8 +1731,16 @@ namespace MMSystem.Services.ReceivedMail
                 // myday = day.Date;
 
 
+                if (genral_incoming_num == null)
+                {
+                    incoing_num_filter = true;
 
-               
+                }
+                else
+                {
+                    incoing_num_filter = false;
+                }
+
 
 
 
@@ -1838,7 +1890,7 @@ namespace MMSystem.Services.ReceivedMail
                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
                                            (x.clasification == Classfication || clasf_filter == true)
                                             
-                                            && x.state== true).OrderByDescending(x => x.MailID)
+                                            && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state== true).OrderByDescending(x => x.MailID)
 
                                    //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                join ex in dbcon.Sends.Where(x => (x.flag > 1) && x.to == mangment &&
@@ -1877,7 +1929,7 @@ namespace MMSystem.Services.ReceivedMail
               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
               (x.clasification == Classfication || clasf_filter == true)
                
-               && x.state == true).OrderByDescending(x => x.MailID)
+               &&  (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
 
                                       //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                   join ex in dbcon.Sends.Where(x => (x.flag >1) && x.to == mangment &&
@@ -1955,12 +2007,12 @@ namespace MMSystem.Services.ReceivedMail
 
 
 
-                //if (genral_incoming_num == null)
-                //{
+                if (genral_incoming_num == null)
+                {
 
-                //    incoing_num_filter = true;
-                //}
-                //else { incoing_num_filter = false; }
+                    incoing_num_filter = true;
+                }
+                else { incoing_num_filter = false; }
 
 
 
@@ -2105,7 +2157,7 @@ namespace MMSystem.Services.ReceivedMail
                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
                                            (x.clasification == Classfication || clasf_filter == true)
                                           
-                                           && x.state == true).OrderByDescending(x => x.MailID)
+                                           &&(x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
 
                                    //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                join ex in dbcon.Sends.Where(x => (x.flag >1) && x.to == mangment &&
@@ -2144,7 +2196,7 @@ namespace MMSystem.Services.ReceivedMail
               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
               (x.clasification == Classfication || clasf_filter == true)
               
-              && x.state == true).OrderByDescending(x => x.MailID)
+              &&(x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
 
                                       //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                   join ex in dbcon.Sends.Where(x => (x.flag > 1) && x.to == mangment &&
@@ -2222,8 +2274,16 @@ namespace MMSystem.Services.ReceivedMail
                 // myday = day.Date;
 
 
+                if (genral_incoming_num == null)
+                {
+                    incoing_num_filter = true;
 
-               
+                }
+                else
+                {
+                    incoing_num_filter = false;
+                }
+
 
 
 
@@ -2359,8 +2419,8 @@ namespace MMSystem.Services.ReceivedMail
                                            x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
                                            (x.clasification == Classfication || clasf_filter == true)
-                                           
-                                            && x.state== true).OrderByDescending(x => x.MailID)
+
+                                            &&(x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state== true).OrderByDescending(x => x.MailID)
 
                                    //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                join ex in dbcon.Sends.Where(x => (x.flag > 1) && x.to == mangment &&
@@ -2397,8 +2457,8 @@ namespace MMSystem.Services.ReceivedMail
               x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
               (x.clasification == Classfication || clasf_filter == true)
-              
-               && x.state==true).OrderByDescending(x => x.MailID)
+
+               &&(x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state==true).OrderByDescending(x => x.MailID)
 
                                       //join Extr in dbcon.Extrenal_Inboxes on mail.MailID equals Extr.MailID
                                   join ex in dbcon.Sends.Where(x => (x.flag > 1) && x.to == mangment &&
@@ -3095,7 +3155,7 @@ namespace MMSystem.Services.ReceivedMail
 
             List<Extrmal_SectionDto> dtosection = new List<Extrmal_SectionDto>();
 
-            var c = await (from Sections in dbcon.Extrmal_Sections.Where(x => x.state == true).OrderByDescending(x=>x.id)
+            var c = await (from Sections in dbcon.Extrmal_Sections.Where(x => x.state == true ).OrderByDescending(x=>x.id)
                                              select new Extrmal_SectionDto
                                              {
                                                 Section_Name= Sections.Section_Name
