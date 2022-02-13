@@ -3121,7 +3121,7 @@ namespace MMSystem.Services.ReceivedMail
 
         //}
 
-        public async Task<int> GetFlag(int mail_id, int department_Id)
+        public async Task<int> GetFlag(int mail_id, int department_Id,int userId)
         {
 
             try
@@ -3129,6 +3129,16 @@ namespace MMSystem.Services.ReceivedMail
                 var c = await dbcon.Sends.OrderBy(x => x.Id).LastOrDefaultAsync(x => x.MailID == mail_id && department_Id == x.to);
                 if (c != null)
                 {
+                    Historyes historyes = new Historyes();
+                    historyes.changes = "تم قراءة البريد";
+
+                    historyes.mailid = c.MailID;
+                    historyes.currentUser = userId;
+                    historyes.Time = DateTime.Now;
+                    historyes.HistortyNameID = 15;
+                    await dbcon.History.AddAsync(historyes);
+
+                    
                     c.flag = 3;
                     dbcon.Sends.Update(c);
                     await dbcon.SaveChangesAsync();

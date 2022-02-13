@@ -917,7 +917,7 @@
               </button>
 
               <button
-                @click="to_test_print = true"
+                @click="print_image()"
                 v-print="'#printMe'"
                 class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
               >
@@ -1173,6 +1173,26 @@ export default {
   },
 
   methods: {
+    print_image(){
+      this.to_test_print = true
+      this.$http.mailService
+        .PrintOrShowDocument(Number(this.mailId_to_get_mail_by_id), Number(localStorage.getItem("userId")), 1)
+        .then((res) => {
+          setTimeout(() => {
+            console.log(res);
+            this.loading = false;
+            this.screenFreeze = false;
+       
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+          console.log(err);
+        });
+    },
     
     show_reply_images(index) {
 
@@ -1265,6 +1285,8 @@ export default {
       this.loading = true;
 
       var ReplyViewModel = {
+        userId : Number(localStorage.getItem("userId")),
+        mailId : Number(this.mailId_to_get_mail_by_id),
         send_ToId: Number(this.sends_id),
         from: Number(1),
         reply: {
@@ -1289,6 +1311,7 @@ export default {
             this.reply_to_add = "";
 
             this.getMailById();
+            this.imagesToSend = [];
             // this.GetReplyByDepartment(
             //   this.replyByDepartmenId,
             //   this.sends_id,
@@ -1390,8 +1413,9 @@ export default {
     GetAllDocuments(id) {
       this.screenFreeze = true;
       this.loading = true;
+      this.mailId_to_get_mail_by_id = id
       this.$http.mailService
-        .GetAllDocuments(id)
+        .GetAllDocuments(id, Number(localStorage.getItem("userId")))
         .then((res) => {
           this.show_images = res.data;
 

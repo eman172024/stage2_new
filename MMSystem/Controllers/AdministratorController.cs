@@ -69,7 +69,6 @@ namespace MMSystem.Controllers
         {
             var user = await _data.Get(id);
 
-
             if (user != null)
             {
                 return Ok(user);
@@ -87,43 +86,47 @@ namespace MMSystem.Controllers
             Historyes historyes = new Historyes();
             var olduservalue = await _data.Get(newuservalue.Administrator.UserId);
             
-            historyes.changes = " /// ";
-          
-            if (newuservalue.Administrator.UserName != olduservalue.Administrator.UserName) {
-                historyes.changes = historyes.changes + "   تم تغيير اسم المستخدم من  : " + olduservalue.Administrator.UserName + "إلي" + newuservalue.Administrator.UserName + " /// ";
+            historyes.changes = "  ";
+            if (newuservalue.Administrator.userNetwork != olduservalue.Administrator.userNetwork)
+            {
+                historyes.changes = historyes.changes + "\n \t" + "  تم تغيير الاسم علي الشبكة  " + olduservalue.Administrator.userNetwork + "  إلي  " + newuservalue.Administrator.userNetwork;
             }
-            //bool isValid = BCrypt.Net.BCrypt.Verify(newuservalue.Administrator.password, olduservalue.Administrator.password);
+            if (newuservalue.Administrator.UserName != olduservalue.Administrator.UserName) {
+                historyes.changes = historyes.changes + "\n \t" + "   تم تغيير اسم المستخدم من   " + olduservalue.Administrator.UserName + "  إلي  " + newuservalue.Administrator.UserName;
+            }
             if (!(newuservalue.Administrator.password == olduservalue.Administrator.password))
             {
-                historyes.changes = historyes.changes + "   ولقد تم تغيير  كلمة المرور :   " + " /// ";
+                historyes.changes = historyes.changes + "\n \t" + "    تم تغيير  كلمة المرور    ";
             }
             if (newuservalue.Administrator.nationalNumber != olduservalue.Administrator.nationalNumber)
             {
-                historyes.changes = historyes.changes + "   تم تغيير الرقم الوطني من : " + olduservalue.Administrator.nationalNumber + "إلي" + newuservalue.Administrator.nationalNumber + " /// ";
+                historyes.changes = historyes.changes + "\n \t" + "   تم تغيير الرقم الوطني من  " + olduservalue.Administrator.nationalNumber + "  إلي  " + newuservalue.Administrator.nationalNumber ;
 
             }
-            if (newuservalue.Administrator.userNetwork != olduservalue.Administrator.userNetwork)
-            {
-                historyes.changes = historyes.changes + "   تم تغيير الاسم علي الشبكة من : " + olduservalue.Administrator.userNetwork + "إلي" + newuservalue.Administrator.userNetwork + " /// ";
-
-            }
+          
             if (newuservalue.Administrator.DepartmentId != olduservalue.Administrator.DepartmentId)
             {
-                historyes.changes= historyes.changes + "   تم تغيير رقم الادارة من : " + olduservalue.Administrator.DepartmentId + "إلي" + newuservalue.Administrator.DepartmentId + " /// ";
+                historyes.changes= historyes.changes + "\n \t" + "   تم تغيير رقم الادارة من  " + olduservalue.Administrator.DepartmentId + "  إلي  " + newuservalue.Administrator.DepartmentId ;
 
             }
             if (newuservalue.Administrator.state != olduservalue.Administrator.state)
             {
-                historyes.changes = historyes.changes + "   تم تغييرالحالة من  غير مفعل  " + " إلي " + "  مفعل   ";
+                if (newuservalue.Administrator.state)
+                {
+                    historyes.changes = historyes.changes + "\n \t" + "   تم تغييرالحالة من  غير مفعل  " + " إلي " + "  مفعل   ";
+                }
+                else { 
+                historyes.changes = historyes.changes + "\n \t" + "   تم تغييرالحالة من   مفعل  " + " إلي " + "  غير مفعل  ";
+                }
             }
             //if (newuservalue.Administrator.FirstMACAddress != olduservalue.Administrator.FirstMACAddress)
             //{
-            //    historyes.changes = historyes.changes + "   تم تغيير العنوان الفزيائي الثاني الي :" + olduservalue.Administrator.FirstMACAddress + "إلي" + newuservalue.Administrator.FirstMACAddress + " /// ";
+            //    historyes.changes = historyes.changes +"\n \t" +  "   تم تغيير العنوان الفزيائي الثاني الي :" + olduservalue.Administrator.FirstMACAddress + "  إلي  " + newuservalue.Administrator.FirstMACAddress ;
 
             //}
             //if (newuservalue.Administrator.SecandMACAddress != olduservalue.Administrator.SecandMACAddress)
             //{
-            //    historyes.changes = historyes.changes + "   تم تغيير العنوان الفزيائي الاول الي : " + olduservalue.Administrator.SecandMACAddress + "إلي" + newuservalue.Administrator.SecandMACAddress + " /// ";
+            //    historyes.changes = historyes.changes + "\n \t" + "   تم تغيير العنوان الفزيائي الاول الي : " + olduservalue.Administrator.SecandMACAddress + "  إلي  " + newuservalue.Administrator.SecandMACAddress ;
             //}
 
             List<int>  newrole = newuservalue.Listrole;
@@ -133,7 +136,7 @@ namespace MMSystem.Controllers
             string Stringoldrole = string.Join(",", oldrole);
             if (!Stringnewrole.Equals(Stringoldrole)) {
            
-                historyes.changes = historyes.changes + "  تم تغيير الصلاحيات من " + Stringoldrole + "  إلي  " + Stringnewrole + " /// ";
+                historyes.changes = historyes.changes + "\n \t" + "  تم تغيير الصلاحيات من " + Stringoldrole + "  إلي  " + Stringnewrole;
             }
 
             bool results = await _data.Update(newuservalue);
@@ -159,12 +162,12 @@ namespace MMSystem.Controllers
             Historyes historyes = new Historyes();
             if (user.Administrator.state == true)
             {
-                historyes.changes = historyes.changes + "تم تغييرالحالة من  مفعل  " + "  إلي " + "غير مفعل";
+                historyes.changes = historyes.changes + "تم تغيير الحالة من  مفعل   " + "  إلي  " + " غير مفعل ";
                
             }
             else
             {
-                historyes.changes = historyes.changes + "تم تغييرالحالة من  غير مفعل  " + " إلي" + "مفعل";
+                historyes.changes = historyes.changes + "تم تغيير الحالة من  غير مفعل  " + "  إلي  " + " مفعل ";
             }
             bool results = await _data.Delete(stopactive.UserId);
          
@@ -217,6 +220,21 @@ namespace MMSystem.Controllers
         public async Task<ActionResult<List<Administrator>>> GetByDepartmentId(int department)
         {
             var users = await _data.SearchByDepartmentId(department);
+            if (users != null)
+            {
+                return Ok(users);
+            }
+            else
+            {
+                return NotFound(new Result() { message = "لايوجد مستخدم في هذه الإدارة  ", statusCode = 400 });
+
+            }
+        }
+        [HttpGet]
+        [Route("GetByDepartmentIdControl")]
+        public async Task<ActionResult<List<Administrator>>> GetByDepartmentIdControl(int department)
+        {
+            var users = await _data.SearchByDepartmentIdControl(department);
             if (users != null)
             {
                 return Ok(users);

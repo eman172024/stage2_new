@@ -211,7 +211,8 @@
                   id="deactive"
                   type="radio"
                   class="h-4 w-4"
-                  value= ""
+                  
+                  value = ""
                   v-model="state1"
                 />
 
@@ -681,7 +682,11 @@ export default {
           this.departmentIdSelected = res.data.administrator.departmentId;
           this.departmentNameSelected =
           this.departments[res.data.administrator.departmentId - 1].departmentName;
-          this.state1 = res.data.administrator.state;
+          if(res.data.administrator.state){
+          this.state1 =res.data.administrator.state ;
+          }else{
+            this.state1="";
+          }
           this.pirms = res.data.listrole;
 
             

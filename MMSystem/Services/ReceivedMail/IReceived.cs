@@ -96,7 +96,7 @@ namespace MMSystem.Services.ReceivedMail
         Task<List<Extrmal_SectionDto>> getExtrinlSection();
        
 
-        Task<int> GetFlag(int mail_id, int department_Id);
+        Task<int> GetFlag(int mail_id, int department_Id,int UserId);
 
 
         //  Task<MailState> GetNamOfState(int flag);

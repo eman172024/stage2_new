@@ -109,7 +109,7 @@ namespace MMSystem.Services.MailServeic
                             //    Send_to sender = new Send_to();
                             Historyes histor = new Historyes();
                           
-                            histor.userId = mail.mail.userId;
+                            histor.currentUser = mail.mail.userId;
                             histor.mailid = mail.mail.MailID;
                             histor.Time = DateTime.Now;
                             histor.HistortyNameID = 1;
@@ -179,7 +179,7 @@ namespace MMSystem.Services.MailServeic
                                     //}
                                     Historyes histor = new Historyes();
 
-                                    histor.userId = mail.mail.userId;
+                                    histor.currentUser = mail.mail.userId;
                                     histor.mailid = mail.mail.MailID;
                                     histor.Time = DateTime.Now;
                                     histor.HistortyNameID = 1;
@@ -242,7 +242,7 @@ namespace MMSystem.Services.MailServeic
 
                                 Historyes histor = new Historyes();
 
-                                histor.userId = mail.mail.userId;
+                                histor.currentUser = mail.mail.userId;
                                 histor.mailid = mail.mail.MailID;
                                 histor.Time = DateTime.Now;
                                 histor.HistortyNameID = 1;
@@ -675,6 +675,17 @@ namespace MMSystem.Services.MailServeic
                                 {
                                     Send_to sender = new Send_to();
 
+                                    Historyes histor = new Historyes();
+                                    histor.currentUser = mail.userId;
+
+                                    histor.mailid = mail.mail.MailID;
+                                    histor.HistortyNameID = 8;
+                                    histor.changes = $"تمت اضافة ادارة جديدة {mail.newactionSenders[i].departmentId }";
+
+
+                                    await _appContext.History.AddAsync(histor);
+
+                                    await _appContext.SaveChangesAsync();
 
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = mail.newactionSenders[i].departmentId;
@@ -776,6 +787,19 @@ namespace MMSystem.Services.MailServeic
                                 {
                                     Send_to sender = new Send_to();
 
+
+
+                                    Historyes histor = new Historyes();
+                                    histor.currentUser = mail.userId;
+
+                                    histor.mailid = mail.mail.MailID;
+                                    histor.HistortyNameID = 8;
+                                    histor.changes = $"تمت اضافة ادارة جديدة {mail.newactionSenders[i].departmentId }";
+
+
+                                    await _appContext.History.AddAsync(histor);
+
+                                    await _appContext.SaveChangesAsync();
                                     sender.State = true;
 
                                     sender.MailID = mail.mail.MailID;
@@ -870,6 +894,18 @@ namespace MMSystem.Services.MailServeic
 
                                     sender.State = true;
 
+                                    Historyes histor = new Historyes();
+                                    histor.currentUser = mail.userId;
+
+                                    histor.mailid = mail.mail.MailID;
+                                    histor.HistortyNameID = 8;
+                                    histor.changes = $"تمت اضافة ادارة جديدة {mail.newactionSenders[i].departmentId }";
+
+
+
+                                    await _appContext.History.AddAsync(histor);
+
+                                    await _appContext.SaveChangesAsync();
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = mail.newactionSenders[i].departmentId;
                                     sender.flag = 2;
@@ -1097,7 +1133,7 @@ namespace MMSystem.Services.MailServeic
                     await _appContext.SaveChangesAsync();
 
                     Historyes histor = new Historyes();
-                    histor.userId = userId;
+                    histor.currentUser = userId;
                     histor.mailid = res.MailID;
                     histor.Time = DateTime.Now;
                     histor.HistortyNameID = 5;
@@ -2440,7 +2476,6 @@ namespace MMSystem.Services.MailServeic
 
                     Historyes histor = new Historyes();
 
-                    histor.userId = userid;
                     histor.mailid = mail.MailID;
                     histor.HistortyNameID = 2;
 

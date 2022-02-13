@@ -189,5 +189,112 @@ namespace MMSystem.Services.MailServeic
             }
            
         }
+
+        public Task<List<Mail_ResourcescsDto>> GetAll(int id, int userID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<Mail_ResourcescsDto>> GetAllRes(int id, int userId)
+        {
+            try
+            {
+                List<Mail_Resourcescs> _Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == id && x.State == true).ToListAsync();
+                List<Mail_ResourcescsDto> mail_ResourcescsDtos = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(_Resourcescs);
+
+
+
+                foreach (var xx in mail_ResourcescsDtos)
+                {
+                    string x = xx.path;
+
+                    if (File.Exists(xx.path))
+                    {
+                        xx.path = await tobase64(x);
+
+                    }
+                    else
+                    {
+
+
+
+
+
+
+                    }
+                    Historyes historyes = new Historyes();
+                    historyes.currentUser = userId;
+
+                    historyes.mailid = id;
+                    historyes.changes = $" تم عرض الصورة   {id} ";
+                    historyes.Time = DateTime.Now;
+                    historyes.HistortyNameID = 13;
+                    await _dbCon.History.AddAsync(historyes);
+
+                    await _dbCon.SaveChangesAsync();
+
+                }
+                return mail_ResourcescsDtos;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        public async Task<bool> print(int mailid,int userId,int type)
+        {
+
+            try
+            {
+
+                Historyes historyes = new Historyes();
+                historyes.mailid = mailid;
+                historyes.Time = DateTime.Now;
+                historyes.currentUser = userId;
+
+                switch (type) {
+
+                    case 1:
+
+                        historyes.HistortyNameID = 22;
+                        
+                        break;
+                    case 2:
+
+                        historyes.HistortyNameID = 23;
+                        break;
+                    case 3:
+
+                        historyes.HistortyNameID = 21;
+
+                        break;
+                    default:break;
+                
+                
+                }
+
+                await _dbCon.History.AddAsync(historyes);
+                int res = await _dbCon.SaveChangesAsync();
+                if (res!=0) {
+                    return true;
+                
+                
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
     }
 }

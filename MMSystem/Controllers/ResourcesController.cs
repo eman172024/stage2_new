@@ -21,11 +21,11 @@ namespace MMSystem.Controllers
         }
 
 
-        [HttpGet("GetMailResources/{mail_id}")]
-        public async Task<IActionResult> GetMailResources(int mail_id)
+        [HttpGet("GetMailResources")]
+        public async Task<IActionResult> GetMailResources(int mail_id, int userId)
         {
 
-           List< Mail_ResourcescsDto >list = await _resourcescs.GetAllRes(mail_id);
+           List< Mail_ResourcescsDto >list = await _resourcescs.GetAllRes(mail_id,userId);
                 if(list.Count>0)
             return Ok(list);
             return NotFound("لايوجد صور ");
@@ -60,6 +60,19 @@ namespace MMSystem.Controllers
             if (resulte.Count>0)
                 return Ok(resulte);
             return NotFound("  لايوجد صور");
+        }
+
+        [HttpPost("print")]
+        public async Task<IActionResult> print(int mail_id, int userId,int type)
+        {
+
+
+            bool result = await _resourcescs.print(mail_id, userId, type);
+
+            if(result)
+                return Ok();
+            return BadRequest();
+
         }
     }
 }

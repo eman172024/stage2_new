@@ -64,7 +64,7 @@ namespace MMSystem.Services.MailServeic
             }
         }
 
-        public async Task<bool> Send(int mailId)
+        public async Task<bool> Send(int mailId,int userId)
         {
             try
             {
@@ -75,6 +75,7 @@ namespace MMSystem.Services.MailServeic
                     mail.is_send = true;
                     _data.Mails.Update(mail);
                     await _data.SaveChangesAsync();
+                    string changes="";
 
                     List<Send_to> send_ = await _data.Sends.Where(x => x.MailID == mailId).ToListAsync();
                     if (send_.Count > 0)
@@ -83,14 +84,20 @@ namespace MMSystem.Services.MailServeic
                         {
                             item.flag = 2;
                             item.Send_time = DateTime.Now;
-
+                            changes = changes + item.to.ToString()+"  ";
                             _data.Sends.Update(item);
                             await _data.SaveChangesAsync();
                         }
 
 
+                        Historyes historyes = new Historyes();
+                        historyes.currentUser = userId;
+                        historyes.mailid = mailId;
+                        historyes.HistortyNameID = 14;
+                        historyes.changes = $"  تم ارسال البريد الي الادارات  {changes}";
+                       await _data.History.AddAsync(historyes);
+                        await _data.SaveChangesAsync();
 
-                       
                     }
                     return true;
                 }

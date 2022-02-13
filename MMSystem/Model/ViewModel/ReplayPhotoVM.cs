@@ -8,6 +8,8 @@ namespace MMSystem.Model.ViewModel
     public class ReplayPhotoVM
     {
 
+        public int mailId { get; set; }
+        public int userId { get; set; }
         public int from { get; set; }
         public int send_ToId { get; set; }
 

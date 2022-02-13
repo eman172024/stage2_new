@@ -214,7 +214,7 @@
             items-center
             justify-center
           "
-          @click="printpage()"
+          @click="printpage(), printHistory()"
         >
           <span class="text-sm font-bold block ml-1">طباعة</span>
 
@@ -275,6 +275,35 @@ export default {
   methods: {
     printpage() {
       this.$htmlToPaper("print");
+    },
+
+    
+    printHistory()
+    {
+
+      var model = {
+       
+        
+          Current:Number(localStorage.getItem("userId")),
+        }
+
+        this.$http.mailService
+        .printHistory(model)
+        .then((res) => {
+          console.log(res);
+          setTimeout(() => {
+         
+           
+          }, 300);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+            console.log(err);
+          }, 100);
+        });
+
     },
   },
 };

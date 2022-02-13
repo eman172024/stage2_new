@@ -1649,7 +1649,7 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .GetAllDocuments2(id)
+        .GetAllDocuments(id,Number(localStorage.getItem("userId")))
         .then((res) => {
           console.log(res);
 
@@ -1831,6 +1831,7 @@ export default {
       var model = {
        
           MailId: mail_id1,
+          Current:Number(localStorage.getItem("userId")),
           
         }
 
@@ -1867,7 +1868,7 @@ export default {
           Attachments:Boolean(this.attached),
           Number_Of_Copies:Number (this.NoOfcopies),    
           note:this.notes,
-          
+          Current:Number(localStorage.getItem("userId")),
         }
 
         this.$http.mailService
@@ -1908,7 +1909,7 @@ export default {
        
           MailId: this.mail_id_copy,
           delevery:del,
-         
+         Current:Number(localStorage.getItem("userId")),
       
           
         }

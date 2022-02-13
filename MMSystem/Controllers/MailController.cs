@@ -165,9 +165,9 @@ namespace MMSystem.Controllers
         }
 
         [HttpDelete("DeleteMangament")]
-        public async Task<IActionResult> DeleteMangament(int mail_id, int departmentId,int user_Id )
+        public async Task<IActionResult> DeleteMangament(int mail_id, int departmentId,int userId)
         {
-            bool result = await _Imail.deleteSender(mail_id,departmentId, user_Id);
+            bool result = await _Imail.deleteSender(mail_id,departmentId, userId);
             if (result)
                 return StatusCode(203, new Result() { message = "تمت عملية الحذف بنجاح", statusCode = 203 });
             return BadRequest(new Result() { message = "لايمكنك حذف الادارة ", statusCode = 404 });
@@ -200,10 +200,10 @@ namespace MMSystem.Controllers
 
 
         [HttpPut("Send")]
-        public async Task<IActionResult> Send(int mailid)
+        public async Task<IActionResult> Send(int mailid, int userId)
         {
 
-            bool state = await _sender.Send(mailid);
+            bool state = await _sender.Send(mailid, userId);
             if (state)
                 return Created("Send", new Result() { message = "تمت عملية الارسال بنجاح", statusCode = 203 });
             return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
@@ -233,7 +233,7 @@ namespace MMSystem.Controllers
 
         }
       
-           [HttpDelete("DeleteDocument/{id}")]
+           [HttpDelete("DeleteDocument")]
         public async Task<IActionResult> DeletePhote(int id, int userId)
         {
 
