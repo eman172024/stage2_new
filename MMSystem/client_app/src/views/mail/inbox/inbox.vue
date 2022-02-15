@@ -114,7 +114,7 @@
               </fieldset>
             </div>
 
-            <div class="relative mt-4">
+            <div class="relative mt-4 flex">
               <button
                 @click="filter = !filter"
                 :class="filter ? 'shadow-md' : ''"
@@ -156,7 +156,7 @@
 
               <div
                 v-if="filter"
-                class="rounded-b-md shadow-md absolute border border-t-0 z-40 w-full bg-white px-4 py-8"
+                class="rounded-b-md shadow-md absolute border border-t-0 z-40 w-10/12 bg-white px-4 py-8"
               >
                 <div
                   class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 max-w-4xl mx-auto"
@@ -385,6 +385,71 @@
                   </div>
                 </div>
               </div>
+
+                 <router-link
+                  class="
+                   px-8
+                  mr-2
+                    bg-green-700
+                    text-green-50
+                    rounded-md
+                    py-3
+                    border border-green-300
+                    hover:bg-green-800
+                    focus:outline-none
+                    flex
+                    items-center
+                    justify-center
+                    col-span-2
+                  "
+                  
+                   :to="{
+                    name: 'incoming_report',
+                    params: {
+                      dateFrom: date_from,
+                      dateTo: date_to,
+                      total_of_transaction: total_of_transaction,
+                      mails: mails_to_print,
+                    },
+                  }"
+                >
+                  <span class="text-sm font-bold block ml-1"
+                  > طباعة </span
+                  >
+
+                  <svg
+                    class="
+                      h-5
+                      w-5
+                      mr-1
+                      text-white
+                      block
+                      fill-current
+                      hover:text-blue-500
+                    "
+                    id="Capa_1"
+                    enable-background="new 0 0 512 512"
+                    height="512"
+                    viewBox="0 0 512 512"
+                    width="512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g>
+                      <path
+                        d="m437 129h-14v-54c0-41.355-33.645-75-75-75h-184c-41.355 0-75 33.645-75 75v54h-14c-41.355 0-75 33.645-75 75v120c0 41.355 33.645 75 75 75h14v68c0 24.813 20.187 45 45 45h244c24.813 0 45-20.187 45-45v-68h14c41.355 0 75-33.645 75-75v-120c0-41.355-33.645-75-75-75zm-318-54c0-24.813 20.187-45 45-45h184c24.813 0 45 20.187 45 45v54h-274zm274 392c0 8.271-6.729 15-15 15h-244c-8.271 0-15-6.729-15-15v-148h274zm89-143c0 24.813-20.187 45-45 45h-14v-50h9c8.284 0 15-6.716 15-15s-6.716-15-15-15h-352c-8.284 0-15 6.716-15 15s6.716 15 15 15h9v50h-14c-24.813 0-45-20.187-45-45v-120c0-24.813 20.187-45 45-45h362c24.813 0 45 20.187 45 45z"
+                      />
+                      <path
+                        d="m296 353h-80c-8.284 0-15 6.716-15 15s6.716 15 15 15h80c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
+                      />
+                      <path
+                        d="m296 417h-80c-8.284 0-15 6.716-15 15s6.716 15 15 15h80c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
+                      />
+                      <path
+                        d="m128 193h-48c-8.284 0-15 6.716-15 15s6.716 15 15 15h48c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
+                      />
+                    </g>
+                  </svg>
+                </router-link>
             </div>
 
             <div
@@ -1031,6 +1096,7 @@ export default {
     this.my_department_id = localStorage.getItem("departmentId");
 
     this.GetInboxs();
+    this.GetInboxs1();
 
     this.GetAllmail_cases();
     this.GetAllClassifications();
@@ -1041,31 +1107,39 @@ export default {
   watch: {
     mailType: function() {
       this.GetInboxs();
+      this.GetInboxs1();
     },
     date_from: function() {
       this.GetInboxs();
+      this.GetInboxs1();
     },
     date_to: function() {
       this.GetInboxs();
+      this.GetInboxs1();
     },
     mail_id: function() {
       this.GetInboxs();
     },
     summary: function() {
       this.GetInboxs();
+      this.GetInboxs1();
     },
     departmentIdSelected: function() {
       this.GetInboxs();
+      this.GetInboxs1();
     },
     measureIdSelected: function() {
       this.GetInboxs();
+      this.GetInboxs1();
     },
     classificationIdSelected: function() {
       this.GetInboxs();
+      this.GetInboxs1();
     },
 
     mail_caseIdSelected: function() {
       this.GetInboxs();
+      this.GetInboxs1();
     },
   },
 
@@ -1133,6 +1207,7 @@ export default {
       date_to: "",
 
       page_size: 10,
+      page_size2: 100000,
       page_num: 1,
 
       mailId_to_get_mail_by_id: "",
@@ -1140,6 +1215,8 @@ export default {
       to_test_passing_mail_type_to_get_mail_by_id: "",
       sends_id_to_get_mail_by_id: "",
       mangment_sender_to_get_mail_by_id: "",
+
+      mails_to_print:[],
     };
   },
 
@@ -1450,6 +1527,45 @@ export default {
         });
     },
 
+
+    GetInboxs1() {
+      this.screenFreeze = true;
+      this.loading = true;
+      this.mails_to_print = [];
+      this.$http.mailService
+        .inboxs(
+          this.my_user_id,
+          this.mailType,
+          this.my_department_id,
+          this.date_from,
+          this.date_to,
+          this.mail_id,
+          this.summary,
+          this.departmentIdSelected,
+          this.measureIdSelected,
+          this.classificationIdSelected,
+          this.mail_caseIdSelected,
+          this.page_num,
+          this.page_size2
+        )
+        .then((res) => {
+          console.log(res);
+          this.mails_to_print = res.data.mail;
+          this.total_of_transaction = res.data.total;
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 300);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+            console.log(err);
+          }, 100);
+        });
+    },
+
     read_it_mail(id) {
       // this.screenFreeze = true;
       // this.loading = true;
@@ -1463,6 +1579,7 @@ export default {
           //     this.screenFreeze = false;
           //     this.loading = false;
 
+          this.GetInboxs1();
           this.GetInboxs();
           // }, 300);
         })

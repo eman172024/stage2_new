@@ -6,6 +6,8 @@ import Add from "../views/users/UsersForm.vue";
 import Archives from "../views/Archives/Archives.vue";
 import report from "../views/Archives/report.vue";
 import report2 from "../views/Archives/report2.vue";
+import incoming_report from "../views/reports/incoming_report.vue";
+
 Vue.use(VueRouter);
 
 const routes = [{
@@ -200,6 +202,12 @@ const routes = [{
         path: "/report2",
         name: "report2",
        component: report2
+      },
+
+      {
+        path: "/incoming_report",
+        name: "incoming_report",
+       component: incoming_report
       },
     
 

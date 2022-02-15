@@ -299,7 +299,7 @@
             </div>
 
             <div class="">
-              <router-link
+              <router-link v-if="this.user.administrator.departmentId != 25"
                 :to="{ name: 'dashboard' }"
                 class="
                   py-2
@@ -319,6 +319,29 @@
               >
                 دخول
               </router-link>
+
+
+              <router-link v-else 
+                :to="{ name: 'Archives' }"
+                class="
+                  py-2
+                  px-8
+                  border border-transparent
+                  shadow-sm
+                  text-sm
+                  font-medium
+                  rounded-md
+                  text-green-600
+                  border-green-600
+                  hover:bg-green-600
+                  hover:text-white
+                  duration-300
+                  focus:outline-none
+                "
+              >
+                دخول
+              </router-link>
+
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div class="h-screen bg-gray-100 overflow-hidden flex">
-      <asideComponent></asideComponent>
+      
       <div class="flex-1 bg-gray-200 w-0 overflow-y-auto">
         <div class="max-w-screen-2xl mx-auto flex flex-col md:px-8">
           <main class="flex-1 relative focus:outline-none pt-2 pb-6">
@@ -742,7 +742,7 @@
 
                         <div class="w-1/4 flex justify-center items-center">
                           <button
-                            @click="isDelivered = true,mail_id_copy=mail.id"
+                            @click="isDelivered = true,mail_id_copy=mail.id,delivaryName=mail.delivery,isDelivered1(mail.delivery)"
                             title="تم التسليم للجهة"
                             class="focus:outline-none"
                           >
@@ -767,7 +767,7 @@
                           <button
                             title="عدد النسخ"
                             class="focus:outline-none"
-                            @click="copies = true ,mail_id_copy=mail.id"
+                            @click="copies = true ,mail_id_copy=mail.id,NoOfcopies=mail.number_Of_Copies,notes=mail.note,attached11(mail.attachments)"
                           >
                             <svg
                               class="w-7 h-7 hover:text-blue-500"
@@ -1329,7 +1329,7 @@
 </template>
 
 <script>
-import asideComponent from "@/components/asideComponent.vue";
+
 
 import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 
@@ -1430,7 +1430,7 @@ export default {
   },
 
   components: {
-    asideComponent,
+   
 
     svgLoadingComponent,
   },
@@ -1442,6 +1442,7 @@ export default {
       delivaryName: "",
       delivaryType: 0,
       attached: "",
+      attached1: "",
       copies: false,
       show_senders_mail: "",
       senders: [],
@@ -1495,7 +1496,7 @@ export default {
       date_to: "",
 
       page_size: 10,
-      page_size2: 1000,
+      page_size2: 100000,
       page_num: 1,
 
       mailId_to_get_mail_by_id: "",
@@ -1516,6 +1517,8 @@ export default {
       sectorNameSelected: "",
       sectorIdSelected: "",
 
+
+      
       isDelivered: false,
       dtoff: false,
       hand: false,
@@ -1737,6 +1740,9 @@ export default {
           console.log(res);
           this.inboxMails = res.data.list;
           this.total_of_transaction = res.data.total;
+
+          
+         
           setTimeout(() => {
             this.screenFreeze = false;
             this.loading = false;
@@ -1936,6 +1942,25 @@ export default {
           }, 100);
         });
 
+    },
+
+    isDelivered1(delivery){
+
+          if(delivery=="سلمت للجهة"){
+
+            this.delivaryType=1
+          }
+
+          else if(delivery=="لم يتم التسليم"){ this.delivaryType=0}
+
+          else this.delivaryType=2
+    },
+
+    attached11(Attachments){
+          if(Attachments){
+
+            this.attached="true"
+          }else this.attached=""
     },
   },
 };
