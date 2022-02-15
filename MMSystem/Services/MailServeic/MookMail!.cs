@@ -2520,6 +2520,40 @@ namespace MMSystem.Services.MailServeic
            
 
         }
+
+
+        public async Task<List<ReportViewModelForMail>> getreprts(DateTime first,DateTime last,int dep) {
+
+
+            List<ReportViewModelForMail> list = await(from mail in _appContext.Mails.Where(x=>x.Date_Of_Mail>=first
+
+
+                                                      &&x.Date_Of_Mail<=last&&
+                                                     x .Department_Id == dep && x.state == true
+
+
+                                                      )
+
+                                                      join send in _appContext.Sends on mail.MailID equals send.MailID
+                                                      select new ReportViewModelForMail
+                                                      { flag = _appContext.MailStatuses.FirstOrDefault(w => w.flag == send.flag).sent,
+                                                          hours = mail.Date_Of_Mail.ToString("HH:mm:ss"),
+                                                          Send_time = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                                          Mail_Number=mail.Mail_Number,
+                                                          Mail_Summary=mail.Mail_Summary,
+                                                          sent_to= _appContext.Departments.FirstOrDefault(w => w.Id == send.to).DepartmentName,
+                                                          mail_type =(mail.Mail_Type==1)?"داخلي": (mail.Mail_Type == 2) ?"صادر خارجي":"وارد خارجي"
+
+
+                                                      }
+
+
+                                                       ).ToListAsync();
+
+            return list;
+        
+        
+        } 
     }
 }
 

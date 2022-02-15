@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MMSystem.Model;
 using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel;
+using MMSystem.Model.ViewModel.MailVModels;
 using MMSystem.Services;
 using MMSystem.Services.MailServeic;
 using System;
@@ -333,7 +334,20 @@ namespace MMSystem.Controllers
 
         }
 
-       
+
+        [HttpGet("GetMAilReport")]
+        public async Task<IActionResult> GetMAilReport(DateTime first,DateTime end,int department_Id)
+        {
+
+            List<ReportViewModelForMail> list = await _Imail.getreprts(first,end, department_Id);
+            if (list.Count > 0)
+                return Ok(list);
+            return BadRequest(new Result() { message = "لايوجد حالات للبريد", statusCode = 404 });
+
+
+        }
+
+
 
     }
 }
