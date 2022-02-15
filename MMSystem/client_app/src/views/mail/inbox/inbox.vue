@@ -383,6 +383,75 @@
                       class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
                     />
                   </div>
+
+                  <div class="sm:col-span-2">
+                    <label for="side" class="block text-base font-semibold text-gray-800">
+                      الجهات الخارجية
+                    </label>
+
+                    <div class="relative">
+                      <button
+                        @click="sideselect = !sideselect"
+                        id="side"
+                        class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                      >
+                        {{ sideNameSelected }}
+                      </button>
+
+                      <div
+                        v-if="sideselect"
+                        class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
+                      >
+                        <button
+                          class="block focus:outline-none w-full my-1 text-right"
+                          @click="
+                            selectsides('', 'الكل');
+                            sideselect = !sideselect;
+                          "
+                        >
+                          الكل
+                        </button>
+
+                        <button
+                          class="block focus:outline-none w-full my-1 text-right"
+                          @click=" selectsides( side.id, side.section_Name ); sideselect = !sideselect; "
+                          v-for="side in sides"
+                          :key="side.id"
+                        >
+                          {{ side.section_Name }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="sm:col-span-2">
+                    <label
+                      for="general_incoming_number"
+                      class="block text-base font-semibold text-gray-800"
+                    >
+                      رقم الوارد العام
+                    </label>
+                    <input
+                      v-model="general_incoming_number"
+                      type="number"
+                      id="general_incoming_number"
+                      class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                    />
+                  </div>
+
+                  <div class="sm:col-span-2">
+                    <label for="by_date_of_reply" class="block text-base font-semibold text-gray-800">
+                      حسب تاريخ الرد
+                    </label>
+                    <input
+                      v-model="by_date_of_reply"
+                      type="checkbox"
+                      id="by_date_of_reply"
+                      class="block mt-2 h-10 w-10 overflow-hidden rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                    />
+                  </div>
+                  
                 </div>
               </div>
 
@@ -1101,6 +1170,7 @@ export default {
     this.GetAllmail_cases();
     this.GetAllClassifications();
     this.GetAllDepartments();
+    this.GetAllSides();
     this.GetAllMeasures();
   },
 
@@ -1120,6 +1190,11 @@ export default {
     mail_id: function() {
       this.GetInboxs();
     },
+
+    general_incoming_number: function() {
+      this.GetInboxs();
+    },
+
     summary: function() {
       this.GetInboxs();
       this.GetInboxs1();
@@ -1127,6 +1202,9 @@ export default {
     departmentIdSelected: function() {
       this.GetInboxs();
       this.GetInboxs1();
+    },
+    sideIdSelected: function() {
+      this.GetInboxs();
     },
     measureIdSelected: function() {
       this.GetInboxs();
@@ -1141,6 +1219,9 @@ export default {
       this.GetInboxs();
       this.GetInboxs1();
     },
+    by_date_of_reply: function() {
+      this.GetInboxs();
+    },
   },
 
   components: {
@@ -1151,6 +1232,8 @@ export default {
 
   data() {
     return {
+      by_date_of_reply: false,
+      general_incoming_number:'',
       indexOfimagesToShow: 0,
       imagesToSend: [],
       replies: [],
@@ -1183,6 +1266,12 @@ export default {
       departmentselect: false,
       departmentNameSelected: "",
       departmentIdSelected: "",
+
+
+      sides: [],
+      sideselect: false,
+      sideNameSelected: "",
+      sideIdSelected: "",
 
       measures: [],
       measureselect: false,
@@ -1500,9 +1589,12 @@ export default {
           this.my_department_id,
           this.date_from,
           this.date_to,
+          this.by_date_of_reply,
           this.mail_id,
+          this.general_incoming_number,
           this.summary,
           this.departmentIdSelected,
+          this.sideIdSelected,
           this.measureIdSelected,
           this.classificationIdSelected,
           this.mail_caseIdSelected,
@@ -1606,6 +1698,22 @@ export default {
     selectdepartment(id, name) {
       this.departmentNameSelected = name;
       this.departmentIdSelected = id;
+    },
+
+    GetAllSides() {
+      this.$http.mailService
+        .AllSides()
+        .then((res) => {
+          this.sides = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    selectsides(id, name) {
+      this.sideNameSelected  = name;
+      this.sideIdSelected  = id;
     },
 
     GetAllMeasures() {

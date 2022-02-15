@@ -48,7 +48,7 @@ namespace MMSystem.Controllers
             int? mail_Readed, int? mailReaded, int? mailnot_readed, DateTime? Day_sended1,
             DateTime? Day_sended2, int? Typeof_send, int? mail_type, string? replaytext, int? userid, int mailNumType, int page_num,
             int page_size, int? Measure_filter, int? Department_filter, 
-            int? Classfication, int? mail_state, int? genral_incoming_num, int? TheSection, int? Replay_Date)
+            int? Classfication, int? mail_state, int? genral_incoming_num, int? TheSection, bool? Replay_Date)
 
         {
             

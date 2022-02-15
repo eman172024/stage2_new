@@ -222,18 +222,22 @@ namespace MMSystem.Services.MailServeic
 
 
                     }
-                    Historyes historyes = new Historyes();
-                    historyes.currentUser = userId;
-
-                    historyes.mailid = id;
-                    historyes.changes = $" تم عرض الصورة   {id} ";
-                    historyes.Time = DateTime.Now;
-                    historyes.HistortyNameID = 13;
-                    await _dbCon.History.AddAsync(historyes);
-
-                    await _dbCon.SaveChangesAsync();
+                 
 
                 }
+
+
+                Historyes historyes = new Historyes();
+                historyes.currentUser = userId;
+
+                historyes.mailid = id;
+                historyes.changes = $" تم عرض الصورة   {id} ";
+                historyes.Time = DateTime.Now;
+                historyes.HistortyNameID = 13;
+                await _dbCon.History.AddAsync(historyes);
+
+                await _dbCon.SaveChangesAsync();
+
                 return mail_ResourcescsDtos;
 
             }
