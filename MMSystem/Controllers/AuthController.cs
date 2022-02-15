@@ -36,7 +36,7 @@ namespace MMSystem.Controllers
 
                 Historyes historyes = new Historyes();  
                 historyes.Time = System.DateTime.Now;
-                historyes.HistortyNameID = 11;
+                historyes.HistortyNameID = 19;
                 historyes.currentUser = find.Administrator.UserId;
                 historyes.changes = "تم تسجيل الدخول";
                 await _hstory.Add(historyes);
