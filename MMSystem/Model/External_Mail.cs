@@ -22,9 +22,11 @@ namespace MMSystem.Model
         public int action { get; set; }
 
         public int Sectionid { get; set; }
-        
-        public string sectionName { get; set; }
-       
+
+        public int SectorId { get; set; }
+
+        public int SectorType { get; set; }
+
         public string action_required_by_the_entity { get; set; }
         //for 
         public DateTime Send_of_Ex_mail  { get; set; }

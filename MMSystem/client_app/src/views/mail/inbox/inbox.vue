@@ -1644,6 +1644,9 @@ export default {
         .then((res) => {
           console.log(res);
           this.mails_to_print = res.data.mail;
+         this.mails_to_print = res.data.mail;
+          
+
           this.total_of_transaction = res.data.total;
           setTimeout(() => {
             this.screenFreeze = false;
@@ -1667,6 +1670,9 @@ export default {
 
 
     },
+    },
+
+  
 
   
 
@@ -1785,7 +1791,7 @@ export default {
 
     //     })
     // },
-  },
+  
 };
 </script>
 

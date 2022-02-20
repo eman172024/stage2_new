@@ -12,7 +12,6 @@ namespace MMSystem.Model
         public int Id { get; set; }
         public int currentUser { get; set; }
         public DateTime Time { get; set; }
-        public int userId { get; set; }
         public int mailid { get; set; }         
         public int HistortyNameID { get; set; }
         public string changes { get; set; }
