@@ -144,7 +144,6 @@ namespace MMSystem.Controllers
             historyes.currentUser = newuservalue.currentUser;
             historyes.Time = System.DateTime.Now;
             historyes.HistortyNameID = 10;
-            historyes.userId = newuservalue.Administrator.UserId;
 
             if (results)
             {
@@ -174,7 +173,6 @@ namespace MMSystem.Controllers
             historyes.currentUser = stopactive.currentUser;
             historyes.Time = System.DateTime.Now;
             historyes.HistortyNameID = 12;
-            historyes.userId = stopactive.UserId;
           
           
             if (results)
@@ -203,7 +201,6 @@ namespace MMSystem.Controllers
             historyes.currentUser = user.currentUser;
             historyes.Time = System.DateTime.Now;
             historyes.HistortyNameID = 8;
-            historyes.userId = user.Administrator.UserId;
 
             if (results)
             {
