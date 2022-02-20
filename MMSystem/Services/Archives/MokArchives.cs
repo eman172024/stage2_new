@@ -99,7 +99,7 @@ namespace MMSystem.Services.Archives
                                  && (a.Department_Id == department_id || departments_id == true)//t
                                  && (a.Mail_Summary.Contains(mail_summary) || (Summ == true))
                                  )
-                                   join m in _db.Sends.Where(x =>x.to==25 && x.State == true) on x.MailID equals m.MailID
+                                   join m in _db.Sends.Where(x =>x.to==25 && x.State == true&&x.flag>1) on x.MailID equals m.MailID
 
 
                                    join de in _db.Departments on x.Department_Id equals de.Id

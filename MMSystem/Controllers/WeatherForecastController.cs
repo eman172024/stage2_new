@@ -81,7 +81,22 @@ namespace MMSystem.Controllers
         [HttpGet("GetSectors/{type}")]
         public async Task<IActionResult> GetSectors(int type)
         {
-            var c = await appDb.Extrmal_Sections.Where(x => x.type == type&&x.perent== 0).ToListAsync();
+
+            List<Extrmal_Section> c = new List<Extrmal_Section>();
+            switch (type)
+            {
+                case 0:
+                  c = await appDb.Extrmal_Sections.Where(x=> x.perent == 0&&x.state==true).ToListAsync();
+
+                    break;
+
+                default:
+                    c = await appDb.Extrmal_Sections.Where(x => x.type == type && x.perent == 0 && x.state == true).ToListAsync();
+
+                    break;
+            }
+
+           
             if(c.Count>0)
             return Ok(c);
             return NotFound("لايوجد بيانات");

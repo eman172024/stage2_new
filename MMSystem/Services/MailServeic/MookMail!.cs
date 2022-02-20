@@ -367,8 +367,8 @@ namespace MMSystem.Services.MailServeic
                     mail.state = false;
                     _appContext.Mails.Update(mail);
                     Historyes histor = new Historyes();
-                    histor.userId = mail.userId;
-
+                    histor.currentUser = mail.userId;
+                    histor.mailid = id;
                     histor.Time = DateTime.Now;
                     histor.HistortyNameID = 4;
                     histor.Time = DateTime.Now;
@@ -578,7 +578,7 @@ namespace MMSystem.Services.MailServeic
 
                 Historyes histor = new Historyes();
 
-                histor.userId = mail.userId;
+                histor.currentUser = mail.userId;
                 histor.mailid = mail.MailID;
                 histor.HistortyNameID = 2;
                 histor.changes = _mail.Mail_Summary + " " + _mail.Genaral_inbox_Number.ToString() 
@@ -645,6 +645,7 @@ namespace MMSystem.Services.MailServeic
                 bool Email, Exmail, Ex_inboxmail, result = false;
                 int flag = 0;
 
+                string numOfSend = "";
 
 
                 int port = mail.mail.Mail_Type;
@@ -667,7 +668,7 @@ namespace MMSystem.Services.MailServeic
                                 flag = 1;
                             
                             }
-                            
+
 
                             if (mail.newactionSenders.Count > 0)
                             {
@@ -675,26 +676,28 @@ namespace MMSystem.Services.MailServeic
                                 {
                                     Send_to sender = new Send_to();
 
-                                    Historyes histor = new Historyes();
-                                    histor.currentUser = mail.userId;
-
-                                    histor.mailid = mail.mail.MailID;
-                                    histor.HistortyNameID = 8;
-                                    histor.changes = $"تمت اضافة ادارة جديدة {mail.newactionSenders[i].departmentId }";
-
-
-                                    await _appContext.History.AddAsync(histor);
-
-                                    await _appContext.SaveChangesAsync();
+                                   
 
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = mail.newactionSenders[i].departmentId;
+                                    numOfSend = numOfSend + " " + sender.to.ToString();
+
                                     sender.flag = flag;
                                     sender.State = true;
                                     sender.type_of_send = mail.newactionSenders[i].measureId;
                                     bool send = await _sender.Add(sender);
                                 }
+                                Historyes histor = new Historyes();
+                                histor.currentUser = mail.userId;
 
+                                histor.mailid = mail.mail.MailID;
+                                histor.HistortyNameID = 8;
+                                histor.changes = $"تمت اضافة ادارة جديدة { numOfSend}";
+                                histor.Time = DateTime.Now;
+
+                                await _appContext.History.AddAsync(histor);
+
+                                await _appContext.SaveChangesAsync();
 
                             }
                             else { }
@@ -787,27 +790,30 @@ namespace MMSystem.Services.MailServeic
                                 {
                                     Send_to sender = new Send_to();
 
-
-
-                                    Historyes histor = new Historyes();
-                                    histor.currentUser = mail.userId;
-
-                                    histor.mailid = mail.mail.MailID;
-                                    histor.HistortyNameID = 8;
-                                    histor.changes = $"تمت اضافة ادارة جديدة {mail.newactionSenders[i].departmentId }";
-
-
-                                    await _appContext.History.AddAsync(histor);
-
-                                    await _appContext.SaveChangesAsync();
+                                    
                                     sender.State = true;
 
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = mail.newactionSenders[i].departmentId;
+                                    numOfSend = numOfSend + " " + sender.to.ToString();
                                     sender.flag = flag;
                                     sender.type_of_send = mail.newactionSenders[i].measureId;
                                     bool send = await _sender.Add(sender);
                                 }
+
+
+                                Historyes histor = new Historyes();
+                                histor.currentUser = mail.userId;
+
+                                histor.mailid = mail.mail.MailID;
+                                histor.HistortyNameID = 8;
+                                histor.changes = $"تمت اضافة ادارة جديدة { numOfSend}";
+                                histor.Time = DateTime.Now;
+
+                                await _appContext.History.AddAsync(histor);
+
+                                await _appContext.SaveChangesAsync();
+
                                 result = true;
                                 break;
 
@@ -894,24 +900,30 @@ namespace MMSystem.Services.MailServeic
 
                                     sender.State = true;
 
-                                    Historyes histor = new Historyes();
-                                    histor.currentUser = mail.userId;
 
-                                    histor.mailid = mail.mail.MailID;
-                                    histor.HistortyNameID = 8;
-                                    histor.changes = $"تمت اضافة ادارة جديدة {mail.newactionSenders[i].departmentId }";
+                                    sender.to = mail.newactionSenders[i].departmentId;
 
 
 
-                                    await _appContext.History.AddAsync(histor);
-
-                                    await _appContext.SaveChangesAsync();
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = mail.newactionSenders[i].departmentId;
                                     sender.flag = 2;
                                     sender.type_of_send = mail.newactionSenders[i].measureId;
                                     bool send = await _sender.Add(sender);
                                 }
+
+
+                                Historyes histor = new Historyes();
+                                histor.currentUser = mail.userId;
+
+                                histor.mailid = mail.mail.MailID;
+                                histor.HistortyNameID = 8;
+                                histor.changes = $"تمت اضافة ادارة جديدة { numOfSend}";
+                                histor.Time = DateTime.Now;
+
+                                await _appContext.History.AddAsync(histor);
+
+                                await _appContext.SaveChangesAsync();
 
 
                             }

@@ -1378,7 +1378,6 @@ namespace MMSystem.Services.ReceivedMail
                                    summary = mail.Mail_Summary,
                                    flag = ex.flag,
                                    Sends_id = ex.Id,
-                                   sectionName = Extr.sectionName
 
 
                                }).OrderByDescending(v => v.mail_id).ToListAsync();
@@ -1456,7 +1455,6 @@ namespace MMSystem.Services.ReceivedMail
                                       flag = ex.flag,
                                       summary = mail.Mail_Summary,
                                       Sends_id = ex.Id,
-                                      sectionName = Extr.sectionName
 
 
 
@@ -1548,7 +1546,6 @@ namespace MMSystem.Services.ReceivedMail
                                     time = y.Send_time.ToString("HH:mm:ss"),
                                     summary = mail.Mail_Summary,
                                     Sends_id = y.Id,
-                                    sectionName = Extr.sectionName
 
 
 
@@ -1594,7 +1591,6 @@ namespace MMSystem.Services.ReceivedMail
                                     time = y.Send_time.ToString("HH:mm:ss"),
                                     summary = mail.Mail_Summary,
                                     Sends_id = y.Id,
-                                    sectionName = Extr.sectionName
 
 
 
