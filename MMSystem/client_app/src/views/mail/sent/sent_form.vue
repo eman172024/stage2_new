@@ -1321,7 +1321,7 @@
                       for="procedure_type"
                       class="block text-sm font-semibold text-gray-800"
                     >
-                      نوع الإجراء
+                      نوع الإجراء 
                     </label>
                     <select
                       v-model="procedure_type"
@@ -2369,7 +2369,7 @@ export default {
       send_to_side: "",
 
       entity_reference_number: "",
-      procedure_type: "",
+      procedure_type: 1,
       entity_mail_date: "",
       mail_ward_type: "",
       ward_to: "",
@@ -2433,7 +2433,7 @@ export default {
       this.ward_to = "";
       this.entity_mail_date = "";
       this.entity_reference_number = "";
-      this.procedure_type = "";
+      this.procedure_type = 1;
 
       this.this_value_to_solve_repetition_department = true
 
@@ -2567,7 +2567,6 @@ export default {
 
       this.mail_year = date.getFullYear();
 
-
       if (this.mailType == 1) {
         this.mailType = "";
         setTimeout(() => {
@@ -2698,6 +2697,11 @@ export default {
     mail_search() {
       this.screenFreeze = true;
       this.loading = true;
+
+      this.consignees = []
+      this.newactionSenders = []
+
+      this.GetAllDepartments()
       this.$http.mailService
         .search(
           this.mail_Number,
