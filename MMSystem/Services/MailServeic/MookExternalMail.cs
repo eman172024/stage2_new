@@ -105,7 +105,6 @@ namespace MMSystem.Services.MailServeic
 
                 {
                     mail.Sectionid = model.Sectionid;
-                    mail.sectionName = model.sectionName;
                     mail.action = model.action;
                     mail.action_required_by_the_entity = model.action_required_by_the_entity;
 
@@ -140,7 +139,6 @@ namespace MMSystem.Services.MailServeic
                 {
 
                     hVModels.Add(new HVModel { name = "الجهة الخارجية", newvalue = model.Sectionid, oldvalue = mail.Sectionid });
-                    hVModels.Add(new HVModel { name = "اسم القسم", newvalue = model.sectionName, oldvalue = mail.sectionName });
                     hVModels.Add(new HVModel { name = "الاجراء ", newvalue = model.action, oldvalue = mail.action });
                     hVModels.Add(new HVModel { name = "الاجراء المطلوب من ", newvalue = model.action_required_by_the_entity, oldvalue = mail.action_required_by_the_entity });
 
@@ -157,7 +155,6 @@ namespace MMSystem.Services.MailServeic
                     histor.changes = note;
 
                     mail.Sectionid = model.Sectionid;
-                    mail.sectionName = model.sectionName;
                     mail.action = model.action;
                     mail.action_required_by_the_entity = model.action_required_by_the_entity;
 
@@ -207,8 +204,9 @@ namespace MMSystem.Services.MailServeic
                     
                     histor.mailid = mail.MailID;
                     histor.HistortyNameID = 2;
-
-
+                    histor.currentUser = userid;
+                    histor.Time = DateTime.Now;
+                    histor.changes = Histoteyvm.getValue(hVModels);
                     _mail.Date_Of_Mail = mail1.Date_Of_Mail;
                     _mail.Mail_Summary = mail1.Mail_Summary + " ";
                     _mail.state = mail1.state;
@@ -225,9 +223,7 @@ namespace MMSystem.Services.MailServeic
 
                     _appDb.Mails.Update(_mail);
                     await _appDb.SaveChangesAsync();
-                    histor.currentUser = userid;
-
-                    histor.Time = DateTime.Now;
+                  
                     await _appDb.SaveChangesAsync();
 
 
@@ -241,18 +237,22 @@ namespace MMSystem.Services.MailServeic
                     {
 
                         hVModels.Add(new HVModel { name = "الجهة الخارجية", newvalue = mail.Sectionid, oldvalue = ex.Sectionid });
-                        hVModels.Add(new HVModel { name = "اسم القسم", newvalue = mail.sectionName, oldvalue = ex.sectionName });
                         hVModels.Add(new HVModel { name = "الاجراء ", newvalue = mail.action, oldvalue = ex.action });
                         hVModels.Add(new HVModel { name = "الاجراء المطلوب من ", newvalue = mail.action_required_by_the_entity, oldvalue = ex.action_required_by_the_entity });
+                        hVModels.Add(new HVModel { name = "القطاع", newvalue = mail.SectorId, oldvalue = ex.SectorId });
+                        hVModels.Add(new HVModel { name = "الجهة", newvalue = mail.SectorType, oldvalue = ex.SectorType });
 
 
 
 
                         string note = Histoteyvm.getValue(hVModels);
                         histor.changes = note;
-
+                        histor.mailid = ex.MailID;
+                        histor.Time = DateTime.Now;
+                        histor.currentUser = userid;
                         ex.Sectionid = mail.Sectionid;
-                        ex.sectionName = mail.sectionName;
+                        ex.SectorType = mail.SectorType;
+                        ex.SectorId = mail.SectorId;
                         ex.action = mail.action;
                         ex.action_required_by_the_entity = mail.action_required_by_the_entity;
 

@@ -159,7 +159,9 @@ namespace MMSystem.Services.MailServeic
                     histor.mailid = mail.MailID;
                     histor.HistortyNameID = 2;
 
+                    histor.currentUser = userid;
 
+                    histor.Time = DateTime.Now;
                     _mail.Date_Of_Mail = mail.Date_Of_Mail;
                     _mail.Mail_Summary = mail.Mail_Summary + " ";
                     _mail.state = mail.state;
@@ -175,10 +177,7 @@ namespace MMSystem.Services.MailServeic
 
 
                     _dbCon.Mails.Update(_mail);
-                    await _dbCon.SaveChangesAsync();
-                    histor.currentUser = userid;
-
-                    histor.Time = DateTime.Now;
+                  
                     await _dbCon.SaveChangesAsync();
 
 
@@ -213,7 +212,7 @@ namespace MMSystem.Services.MailServeic
 
                         histor.changes = chamges;
                         histor.currentUser = userid;
-
+                        histor.mailid = _Inbox.MailID;
                         histor.Time = DateTime.Now;
                         _dbCon.History.Add(histor);
                         await _dbCon.SaveChangesAsync();

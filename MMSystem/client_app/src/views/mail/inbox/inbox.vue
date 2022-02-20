@@ -455,7 +455,7 @@
                 </div>
               </div>
 
-                 <router-link
+                 <button
                   class="
                    px-8
                   mr-2
@@ -471,16 +471,8 @@
                     justify-center
                     col-span-2
                   "
-                  
-                   :to="{
-                    name: 'incoming_report',
-                    params: {
-                      dateFrom: date_from,
-                      dateTo: date_to,
-                      total_of_transaction: total_of_transaction,
-                      mails: mails_to_print,
-                    },
-                  }"
+                 @click="GetInboxs1()"
+               
                 >
                   <span class="text-sm font-bold block ml-1"
                   > طباعة </span
@@ -518,7 +510,9 @@
                       />
                     </g>
                   </svg>
-                </router-link>
+                </button>
+
+
             </div>
 
             <div
@@ -1165,7 +1159,7 @@ export default {
     this.my_department_id = localStorage.getItem("departmentId");
 
     this.GetInboxs();
-    this.GetInboxs1();
+    ;
 
     this.GetAllmail_cases();
     this.GetAllClassifications();
@@ -1177,15 +1171,15 @@ export default {
   watch: {
     mailType: function() {
       this.GetInboxs();
-      this.GetInboxs1();
+      
     },
     date_from: function() {
       this.GetInboxs();
-      this.GetInboxs1();
+      ;
     },
     date_to: function() {
       this.GetInboxs();
-      this.GetInboxs1();
+      
     },
     mail_id: function() {
       this.GetInboxs();
@@ -1197,31 +1191,31 @@ export default {
 
     summary: function() {
       this.GetInboxs();
-      this.GetInboxs1();
+      
     },
     departmentIdSelected: function() {
       this.GetInboxs();
-      this.GetInboxs1();
+      
     },
     sideIdSelected: function() {
       this.GetInboxs();
     },
     measureIdSelected: function() {
       this.GetInboxs();
-      this.GetInboxs1();
+      
     },
     classificationIdSelected: function() {
       this.GetInboxs();
-      this.GetInboxs1();
+      
     },
 
     mail_caseIdSelected: function() {
       this.GetInboxs();
-      this.GetInboxs1();
+      
     },
     by_date_of_reply: function() {
       this.GetInboxs();
-      this.GetInboxs1();
+      
     },
   },
 
@@ -1649,6 +1643,7 @@ export default {
         )
         .then((res) => {
           console.log(res);
+          this.mails_to_print = res.data.mail;
          this.mails_to_print = res.data.mail;
           
 
@@ -1656,6 +1651,12 @@ export default {
           setTimeout(() => {
             this.screenFreeze = false;
             this.loading = false;
+
+            this.$router.push({name:'incoming_report',params:{dateFrom: this.date_from,
+                      dateTo: this.date_to,
+                      total_of_transaction: this.total_of_transaction,
+                      mails: this.mails_to_print,}})
+
           }, 300);
         })
         .catch((err) => {
@@ -1665,7 +1666,13 @@ export default {
             console.log(err);
           }, 100);
         });
+
+
+
     },
+    },
+
+  
 
   
 
@@ -1682,7 +1689,7 @@ export default {
           //     this.screenFreeze = false;
           //     this.loading = false;
 
-          this.GetInboxs1();
+          
           this.GetInboxs();
           // }, 300);
         })
@@ -1784,7 +1791,7 @@ export default {
 
     //     })
     // },
-  },
+  
 };
 </script>
 

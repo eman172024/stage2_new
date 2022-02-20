@@ -24,7 +24,7 @@ namespace MMSystem.Services
                 //text = "    " + text +item.newvalue.ToString()+ $" {} الي "+"  " +item.oldvalue.ToString()  +"  من  " + item.name+"  {}تم تغيير";
 
 
-                text = text+"  "+$"the name change :  {item.name.ToString()}  from  {item.oldvalue.ToString()}  to  {item.newvalue} ";
+                text = text+"  "+$"تم تغير القيمة  :  {item.name.ToString()}  من  {item.oldvalue.ToString()}  الي  {item.newvalue} ";
             }
 
             return text;
