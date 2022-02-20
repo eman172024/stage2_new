@@ -2551,7 +2551,11 @@ export default {
     },
 
     clear_page() {
+      this.screenFreeze = true;
+      this.loading = true;
 
+     
+      
       this.departmentNameSelected = ''
       this.measureNameSelected = ''
       
@@ -2592,6 +2596,12 @@ export default {
       this.updataButton = false;
       this.deleteButton = false;
       this.ButtonUploadImagesMail = false;
+
+      setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 300);
+          
     },
 
     selectAllDepartment(x, name) {
@@ -2701,7 +2711,7 @@ export default {
       this.consignees = []
       this.newactionSenders = []
 
-      this.GetAllDepartments()
+      this.GetAllDepartments
       this.$http.mailService
         .search(
           this.mail_Number,
