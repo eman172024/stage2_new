@@ -57,6 +57,7 @@ namespace MMSystem.Services.MailServeic
         Task<List<MailStateViewModel>> GetAllState(int number);
 
         Task<bool> Update(int userid, Mail mail);
+        Task<List<ReportViewModelForMail>> getreprts(DateTime first, DateTime last, int dep);
 
 
 
