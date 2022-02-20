@@ -1221,6 +1221,7 @@ export default {
     },
     by_date_of_reply: function() {
       this.GetInboxs();
+      this.GetInboxs1();
     },
   },
 
@@ -1579,6 +1580,7 @@ export default {
     },
 
     GetInboxs() {
+
       this.screenFreeze = true;
       this.loading = true;
       this.inboxMails = [];
@@ -1604,6 +1606,8 @@ export default {
         .then((res) => {
           console.log(res);
           this.inboxMails = res.data.mail;
+          
+
           this.total_of_transaction = res.data.total;
           setTimeout(() => {
             this.screenFreeze = false;
@@ -1619,8 +1623,51 @@ export default {
         });
     },
 
+  GetInboxs1() {
+      
+      this.screenFreeze = true;
+      this.loading = true;
+      this.mails_to_print = [];
+      this.$http.mailService
+        .inboxs(
+          this.my_user_id,
+          this.mailType,
+          this.my_department_id,
+          this.date_from,
+          this.date_to,
+          this.by_date_of_reply,
+          this.mail_id,
+          this.general_incoming_number,
+          this.summary,
+          this.departmentIdSelected,
+          this.sideIdSelected,
+          this.measureIdSelected,
+          this.classificationIdSelected,
+          this.mail_caseIdSelected,
+          this.page_num,
+          this.page_size2
+        )
+        .then((res) => {
+          console.log(res);
+         this.mails_to_print = res.data.mail;
+          
 
-    GetInboxs1() {
+          this.total_of_transaction = res.data.total;
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 300);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+            console.log(err);
+          }, 100);
+        });
+    },
+
+    GetInboxs2() {
       this.screenFreeze = true;
       this.loading = true;
       this.mails_to_print = [];

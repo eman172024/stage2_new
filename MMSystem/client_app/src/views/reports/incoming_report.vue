@@ -76,7 +76,7 @@
               >
                 <span class=""> تاريخ الطباعة : {{ date }}</span>
               </div>
-              <!-- <div
+              <div
                 class="w-full flex border-black border-2 mt-2 text-lg"
                 style="
                   width: 100%;
@@ -167,7 +167,7 @@
                 >
                   الإجراء المطلوب
                 </div>
-              </div> -->
+              </div>
 
               <div
                 v-for="(mail, index) in mails"
@@ -208,11 +208,8 @@
                   style="
                     width: 4%;
                     text-align: center;
-                    padding-bottom: 15.8px ;
-                    padding-top:  6.4px ;
+                  
                     border-left: 2px solid black;
-                    
-                    
                     display: flex; justify-content: center; align-items: center;
                   "
                 >
@@ -284,9 +281,9 @@
                     display: flex; justify-content: center; align-items: center;
                   "
                 >
-                  {{ mail.action_Required }}dd
+                  {{ mail.action_require }}
                 </div>
-                
+
               </div>
             </div>
           </div>
