@@ -722,7 +722,7 @@ namespace MMSystem.Services.ReceivedMail
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed, Day_sended1, Day_sended2,
            Typeof_send, mail_type, replaytext, userid, pagenum, size,
-           Measure_filter, Department_filter, mail_state, genral_incoming_num, Classfication);
+           Measure_filter, Department_filter, mail_state, Classfication, genral_incoming_num );
                         d = a;
                         break;
                     }
@@ -734,7 +734,7 @@ namespace MMSystem.Services.ReceivedMail
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed, Day_sended1, Day_sended2,
            Typeof_send, mail_type, replaytext, userid, pagenum, size,
-           Measure_filter, Department_filter, genral_incoming_num, Classfication, mail_state, TheSection);
+           Measure_filter, Department_filter, Classfication, mail_state, TheSection, genral_incoming_num);
                         d = a2;
                         break;
                     }
@@ -746,7 +746,7 @@ namespace MMSystem.Services.ReceivedMail
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed, Day_sended1, Day_sended2,
            Typeof_send, mail_type, replaytext, userid, pagenum, size,
-           Measure_filter, Department_filter, genral_incoming_num, Classfication, mail_state, TheSection);
+           Measure_filter, Department_filter, Classfication, mail_state, TheSection,  genral_incoming_num);
                         d = a3;
 
 
@@ -766,7 +766,7 @@ namespace MMSystem.Services.ReceivedMail
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed, Day_sended1, Day_sended2,
            Typeof_send, mail_type, replaytext, userid, pagenum, size,
-           Measure_filter, Department_filter, genral_incoming_num, Classfication, mail_state);
+           Measure_filter, Department_filter, mail_state, Classfication, genral_incoming_num );
                         d = c;
                         break;
                     }
@@ -781,7 +781,7 @@ namespace MMSystem.Services.ReceivedMail
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed, Day_sended1, Day_sended2,
            Typeof_send, mail_type, replaytext, userid, pagenum, size,
-           Measure_filter, Department_filter, genral_incoming_num, Classfication, mail_state, TheSection);
+           Measure_filter, Department_filter, Classfication,  mail_state,  TheSection, genral_incoming_num );
                         d = cc;
                         break;
                     }
@@ -796,7 +796,7 @@ namespace MMSystem.Services.ReceivedMail
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed, Day_sended1, Day_sended2,
            Typeof_send, mail_type, replaytext, userid, pagenum, size,
-           Measure_filter, Department_filter, genral_incoming_num, Classfication, mail_state, TheSection);
+           Measure_filter, Department_filter, Classfication, mail_state, TheSection, genral_incoming_num );
                         d = ccc;
 
 
@@ -2257,8 +2257,8 @@ namespace MMSystem.Services.ReceivedMail
             int? mailnum_bool, int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary,
             int? mail_Readed, int? mailReaded, int? mailnot_readed, DateTime? Day_sended1,
             DateTime? Day_sended2, int? Typeof_send, int? mail_type, string? replaytext, int? userid,
-            int pagenum, int size, int? Measure_filter, int? Department_filter, int? Classfication
-            , int? mail_state , int? genral_incoming_num)
+            int pagenum, int size, int? Measure_filter, int? Department_filter, int? mail_state
+            , int? Classfication, int? genral_incoming_num)
         {
             try
             {
