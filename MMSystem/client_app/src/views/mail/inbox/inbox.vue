@@ -1221,6 +1221,7 @@ export default {
     },
     by_date_of_reply: function() {
       this.GetInboxs();
+      this.GetInboxs1();
     },
   },
 
@@ -1579,6 +1580,7 @@ export default {
     },
 
     GetInboxs() {
+
       this.screenFreeze = true;
       this.loading = true;
       this.inboxMails = [];
@@ -1604,6 +1606,8 @@ export default {
         .then((res) => {
           console.log(res);
           this.inboxMails = res.data.mail;
+          
+
           this.total_of_transaction = res.data.total;
           setTimeout(() => {
             this.screenFreeze = false;
@@ -1619,8 +1623,8 @@ export default {
         });
     },
 
-
-    GetInboxs1() {
+  GetInboxs1() {
+      
       this.screenFreeze = true;
       this.loading = true;
       this.mails_to_print = [];
@@ -1631,9 +1635,12 @@ export default {
           this.my_department_id,
           this.date_from,
           this.date_to,
+          this.by_date_of_reply,
           this.mail_id,
+          this.general_incoming_number,
           this.summary,
           this.departmentIdSelected,
+          this.sideIdSelected,
           this.measureIdSelected,
           this.classificationIdSelected,
           this.mail_caseIdSelected,
@@ -1642,7 +1649,9 @@ export default {
         )
         .then((res) => {
           console.log(res);
-          this.mails_to_print = res.data.mail;
+         this.mails_to_print = res.data.mail;
+          
+
           this.total_of_transaction = res.data.total;
           setTimeout(() => {
             this.screenFreeze = false;
@@ -1657,6 +1666,8 @@ export default {
           }, 100);
         });
     },
+
+  
 
     read_it_mail(id) {
       // this.screenFreeze = true;
