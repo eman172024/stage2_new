@@ -485,7 +485,7 @@
 
               <div class="w-5/12 flex py-1 px-4">
 
-                <router-link
+                <button
                   class="
                     mx-auto
                     w-full
@@ -502,16 +502,8 @@
                     justify-center
                     col-span-2
                   "
-                  
-                   :to="{
-                    name: 'report2',
-                    params: {
-                      dateFrom: date_from,
-                      dateTo: date_to,
-                      total_of_transaction: total_of_transaction,
-                      mails: mail_to_print,
-                    },
-                  }"
+                  @click="GetSentMail1()"
+              
                 >
                   <span class="text-sm font-bold block ml-1"
                     >طباعة الحافظة</span
@@ -549,7 +541,7 @@
                       />
                     </g>
                   </svg>
-                </router-link>
+                </button>
 
                 <router-link
                   class="
@@ -1352,7 +1344,7 @@ export default {
     this.my_department_id = localStorage.getItem("departmentId");
 
     this.GetSentMail();
-    this.GetSentMail1();
+    
 
     this.GetAllClassifications();
     this.GetAllDepartments();
@@ -1366,14 +1358,14 @@ export default {
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetSentMail();
-      this.GetSentMail1();
+      
     },
     date_from: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetSentMail();
-      this.GetSentMail1();
+      
     },
     date_to: function () {
       this.senders = [];
@@ -1386,21 +1378,21 @@ export default {
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetSentMail();
-      this.GetSentMail1();
+      
     },
     summary: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetSentMail();
-      this.GetSentMail1();
+      
     },
     departmentIdSelected: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetSentMail();
-      this.GetSentMail1();
+      
     },
 
        sideIdSelected: function () {
@@ -1408,7 +1400,7 @@ export default {
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetSentMail();
-      this.GetSentMail1();
+      
     },
    
       sectorIdSelected: function () {
@@ -1416,7 +1408,7 @@ export default {
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetSentMail();
-      this.GetSentMail1();
+      
     },
    
 
@@ -1483,7 +1475,7 @@ export default {
       mail_caseNameSelected: "",
       mail_caseIdSelected: "",
 
-      mailType: 2,
+      mailType: "",
 
       summary: "",
 
@@ -1704,6 +1696,14 @@ export default {
           setTimeout(() => {
             this.screenFreeze = false;
             this.loading = false;
+
+ 
+            
+            this.$router.push({name:'report2',params:{dateFrom: this.date_from,
+                      dateTo: this.date_to,
+                      total_of_transaction: this.total_of_transaction,
+                      mails: this.mail_to_print,}})
+
           }, 300);
         })
         .catch((err) => {
@@ -1771,7 +1771,7 @@ export default {
           //     this.loading = false;
 
           this.GetSentMail();
-          this.GetSentMail1();
+          
           // }, 300);
         })
         .catch((err) => {
@@ -1849,7 +1849,7 @@ export default {
             this.screenFreeze = false;
             this.loading = false;
             this.GetSentMail();
-            this.GetSentMail1();
+            
           }, 300);
         })
         .catch((err) => {
@@ -1888,7 +1888,7 @@ export default {
             this.NoOfcopies= 0;
             this.notes=""
             this.GetSentMail();
-            this.GetSentMail1();
+            
            
           }, 300);
         })
@@ -1928,7 +1928,7 @@ export default {
             this.screenFreeze = false;
             this.loading = false;
             this.GetSentMail();
-            this.GetSentMail1();
+            
             this.delivaryType=0;
             this.delivaryName=""
 
@@ -1953,7 +1953,10 @@ export default {
 
           else if(delivery=="لم يتم التسليم"){ this.delivaryType=0}
 
-          else this.delivaryType=2
+          else {
+            this.delivaryType=2;
+            this.hand=true;
+            }
     },
 
     attached11(Attachments){
