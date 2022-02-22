@@ -52,13 +52,13 @@
                   <div class="flex items-center mr-6">
                     <input
                       v-model="mailType"
-                      id="internal"
+                      id="all"
                       type="radio"
                       name="type"
                       class="h-4 w-4"
                       value="0"
                     />
-                    <label for="internal" class="mr-2 block  text-gray-800">
+                    <label for="all" class="mr-2 block  text-gray-800">
                       الكل
                     </label>
                   </div>

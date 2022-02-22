@@ -1543,6 +1543,11 @@ export default {
     },
 
     get_sectors(type) {
+
+      if(type==""){
+
+        type=0;
+      }
       this.sideNameSelected = "";
       this.sideIdSelected = "";
       this.sectorIdSelected = "";
