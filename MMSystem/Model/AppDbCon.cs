@@ -400,6 +400,11 @@ namespace MMSystem.Model
                       ID = 24,
                       name = "التسليم "
 
+                  }, new HistortyName
+                  {
+                      ID = 25,
+                      name = "ملاحظات  في المحفوظات "
+
                   }
 
 
