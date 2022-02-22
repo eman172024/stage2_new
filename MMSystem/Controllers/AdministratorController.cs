@@ -143,7 +143,7 @@ namespace MMSystem.Controllers
 
             historyes.currentUser = newuservalue.currentUser;
             historyes.Time = System.DateTime.Now;
-            historyes.HistortyNameID = 10;
+            historyes.HistortyNameID = 11;
 
             if (results)
             {
@@ -197,11 +197,10 @@ namespace MMSystem.Controllers
             bool results = await _data.Add(user);
 
             Historyes historyes = new Historyes();
-
             historyes.currentUser = user.currentUser;
             historyes.Time = System.DateTime.Now;
-            historyes.HistortyNameID = 8;
-
+            historyes.HistortyNameID = 10;
+            historyes.changes = "تم إضافة مستخدم جديد";
             if (results)
             {
                 await _hstory.Add(historyes);

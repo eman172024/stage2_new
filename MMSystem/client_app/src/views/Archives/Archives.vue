@@ -71,7 +71,7 @@
                       name="type"
                       class="h-4 w-4"
                       value=""
-                      
+                      @click="get_sectors(0)"
                     />
                     <label for="all" class="mr-2 block text-gray-800">
                       الكل
@@ -1544,7 +1544,7 @@ export default {
 
     get_sectors(type) {
 
-      if(type==""){
+      if(type=="" || type==0){
 
         type=0;
       }

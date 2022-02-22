@@ -14,6 +14,8 @@ namespace MMSystem.Model.ViewModel
 
        // لم يتم ارساله البريد الداخلي 
         public int not_sended { get; set; }
+        public int is_sended { get; set; }
+
         // لم يتم الرد عليك الداخلي
         public int Not_response_to_me { get; set; }
         // الوارد الداخلي
@@ -26,6 +28,7 @@ namespace MMSystem.Model.ViewModel
 
         // لم يتم ارساله البريد الصادر الخارجي 
         public int not_sended_externl { get; set; }
+        public int is_sended_externl { get; set; }
 
         // لم يتم الرد عليك الصادر الخارجي
         public int Not_response_to_me_external { get; set; }
@@ -44,6 +47,8 @@ namespace MMSystem.Model.ViewModel
 
         // لم يتم ارساله البريد الوارد الخارجي 
         public int not_sended_externlInbox { get; set; }
+
+        public int is_sended_externlInbox { get; set; }
         // لم يتم الرد عليك الصادر الخارجي
 
         public int Not_response_to_me_externlInbox { get; set; }

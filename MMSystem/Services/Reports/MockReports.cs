@@ -28,7 +28,7 @@ namespace MMSystem.Services.Reports
 
             totalCounts.TotalOfMassage = _data.Mails.Where(x => x.state == true).Count();
             
-            totalCounts.TotalOfReplay = (from hus in _data.Sends.Where(x => x.flag != 0)
+            totalCounts.TotalOfReplay =  (from hus in _data.Sends.Where(x => x.flag != 0)
                                         join
                                         hu in _data.Replies on hus.Id equals hu.send_ToId
                                         select  hu.ReplyId  ).Count();
@@ -239,7 +239,7 @@ namespace MMSystem.Services.Reports
                     List<SectionReport> List1 = new List<SectionReport>();
                  if (!fromdate.HasValue)
                 {
-                    fromdate = DateTime.Parse("2019-01-01");
+                    fromdate = DateTime.Parse("01-01-2020");
                 }
 
                 if (!todate.HasValue)
@@ -398,7 +398,7 @@ namespace MMSystem.Services.Reports
 
                 if (!fromdate.HasValue)
                 {
-                    fromdate = DateTime.Parse("2019-01-01");
+                    fromdate = DateTime.Parse("01-01-2020");
                 }
 
                 if (!todate.HasValue)
@@ -509,7 +509,7 @@ namespace MMSystem.Services.Reports
 
                 if(!fromdate.HasValue)
                 {
-                    fromdate =DateTime.Parse( "2020-01-01");
+                    fromdate = DateTime.Parse("01-01-2020");
                 }
 
                 if (!todate.HasValue)
