@@ -7,6 +7,8 @@ import Archives from "../views/Archives/Archives.vue";
 import report from "../views/Archives/report.vue";
 import report2 from "../views/Archives/report2.vue";
 import incoming_report from "../views/reports/incoming_report.vue";
+import Statistical_report from "../views/reports/Statistical_report.vue";
+
 
 Vue.use(VueRouter);
 
@@ -208,6 +210,12 @@ const routes = [{
         path: "/incoming_report",
         name: "incoming_report",
        component: incoming_report
+      },
+
+      {
+        path: "/Statistical_report",
+        name: "Statistical_report",
+       component: Statistical_report
       },
     
 
