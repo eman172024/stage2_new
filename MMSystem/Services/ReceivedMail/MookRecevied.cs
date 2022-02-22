@@ -243,6 +243,8 @@ namespace MMSystem.Services.ReceivedMail
                                }).OrderByDescending(v => v.mail_id).ToListAsync();
 
                 IEnumerable<Sended_Maill> zx;
+                IEnumerable<Sended_Maill> zx1;
+
                 if (Replay_Date == true)
                 {//d
                     var lx = Replay_Date;
@@ -251,6 +253,7 @@ namespace MMSystem.Services.ReceivedMail
                     zx = (from x in c
                           join vv in dbcon.Replies
                           on x.Sends_id equals vv.send_ToId
+                           
 
                           select new Sended_Maill
                           {
@@ -277,6 +280,46 @@ namespace MMSystem.Services.ReceivedMail
                 {
                     zx = c;
                 }
+
+
+
+
+                if(TheSection!=null)
+                {
+                    var lx = Replay_Date;
+
+
+                    zx1 = (from x in c
+            join d in dbcon.External_Mails.Where(x => x.Sectionid == TheSection || Sectionbool == true) on x.mail_id equals d.MailID
+            join b in dbcon.Extrenal_Inboxes.Where(x => x.SectionId == TheSection || Sectionbool == true) on x.mail_id equals b.MailID
+
+
+                           select new Sended_Maill
+                          {
+
+                              mail_id = x.mail_id,
+                              State = x.State,
+                              type_of_mail = x.type_of_mail,
+                              Mail_Number = x.Mail_Number,
+                              date = x.date,
+                              Masure_type = x.Masure_type,
+                              mangment_sender = x.mangment_sender,
+                              mangment_sender_id = x.mangment_sender_id,
+                              Send_time = x.Send_time,
+                              time = x.time,
+                              summary = x.summary,
+                              flag = x.flag,
+                              Sends_id = x.Sends_id
+                          }
+                              ).ToList();
+
+
+                }
+                else
+                {
+                    zx1 = c;
+                }
+            
 
 
 
@@ -361,9 +404,49 @@ namespace MMSystem.Services.ReceivedMail
                 {
                     pagg.mail = pag.mail;
                 }
-                pagg.Total = zx.Count();
+
+
+                PagenationSendedEmail<Sended_Maill> pagg1 = new PagenationSendedEmail<Sended_Maill>();
+
+                if (TheSection != null)
+                {
+
+
+                    pagg1.mail = (from x in pag.mail
+                                      join d in dbcon.External_Mails.Where(x => x.Sectionid == TheSection || Sectionbool == true) on x.mail_id equals d.MailID
+                                      join b in dbcon.Extrenal_Inboxes.Where(x => x.SectionId == TheSection || Sectionbool == true) on x.mail_id equals b.MailID
+
+                                  select new Sended_Maill
+                                 {
+
+                                     mail_id = x.mail_id,
+                                     State = x.State,
+                                     type_of_mail = x.type_of_mail,
+                                     Mail_Number = x.Mail_Number,
+                                     date = x.date,
+                                     Masure_type = x.Masure_type,
+                                     mangment_sender = x.mangment_sender,
+                                     mangment_sender_id = x.mangment_sender_id,
+                                     Send_time = x.Send_time,
+                                     time = x.time,
+                                     summary = x.summary,
+                                     flag = x.flag,
+                                     Sends_id = x.Sends_id
+                                 }
+                              ).ToList();
+
+                    // z.Count();
+                }
+                else
+                {
+                    pagg1.mail =  pag.mail;
+                }
+
+
+              //  pagg.Total = zx.Count();
+                pagg1.Total = zx1.Count();
                 //pagg.Total = pag.Total;
-                return pagg;
+                return pagg1;
 
 
 
