@@ -220,12 +220,18 @@ namespace MMSystem.Services.Archives
                 //18 طباعة حافظة
                 
                 Historyes historyes = new Historyes();
+                Historyes historyes1 = new Historyes();
+                Historyes historyes2 = new Historyes();
+                Historyes historyes3 = new Historyes();
+                Historyes historyes4 = new Historyes();
+
+                
                 var Ex = await _db.External_Mails.Where(p=> p.MailID== model.MailId).FirstOrDefaultAsync();
 
                 if (Ex != null)
                 {
 
-                    var fl = await _db.Sends.Where(p => p.MailID == model.MailId && p.to == 25).FirstOrDefaultAsync();
+                    var fl = await _db.Sends.Where(p => p.MailID == model.MailId && p.to == 25&& p.State==true).FirstOrDefaultAsync();
                     if (fl.flag!=3)
                     {
                         var ExDat = await _db.External_Mails.Where(p => p.MailID == model.MailId).FirstOrDefaultAsync();
@@ -239,7 +245,6 @@ namespace MMSystem.Services.Archives
 
                         fl.flag = 3;
                         _db.Sends.Update(fl);
-                        await _db.SaveChangesAsync();
                         ExDat.Send_of_Ex_mail = DateTime.Now;
                         _db.External_Mails.Update(ExDat);
                         await _db.SaveChangesAsync();
@@ -250,47 +255,66 @@ namespace MMSystem.Services.Archives
 
                     if (model.delevery!=null)
                     {
-                        historyes.currentUser = model.Current;
-                        historyes.HistortyNameID = 24;//ملاحظة غيرها علي الرقم الجديد 
-                        historyes.Time = DateTime.Now;
-                        historyes.mailid = model.MailId;
-                        historyes.changes = model.delevery;
-                        bool result = await _history.Add(historyes);
+                        historyes1.currentUser = model.Current;
+                        historyes1.HistortyNameID = 24;//ملاحظة غيرها علي الرقم الجديد 
+                        historyes1.Time = DateTime.Now;
+                        historyes1.mailid = model.MailId;
+                        historyes1.changes = model.delevery;
+                        bool result = await _history.Add(historyes1);
 
                         Ex.delivery = model.delevery;
                     }
 
 
-                    if (model.Attachments!=false)
+                    if (Ex.Attachments!=model.Attachments)
                     {
-                        historyes.currentUser = model.Current;
-                        historyes.HistortyNameID = 16;
-                        historyes.Time = DateTime.Now;
-                        historyes.mailid = model.MailId;
-                        historyes.changes = model.Attachments.ToString();
-                        bool result = await _history.Add(historyes);
+                        historyes2.currentUser = model.Current;
+                        historyes2.HistortyNameID = 16;
+                        historyes2.Time = DateTime.Now;
+                        historyes2.mailid = model.MailId;
+                        historyes2.changes = model.Attachments.ToString();
+                        bool result = await _history.Add(historyes2);
 
                         Ex.Attachments = model.Attachments;
                     }
 
 
-                    if (model.Number_Of_Copies!=0)
+                    if (Ex.number_of_copies!=model.Number_Of_Copies)
                     {
-                        historyes.currentUser = model.Current;
-                        historyes.HistortyNameID = 17;
-                        historyes.Time = DateTime.Now;
-                        historyes.mailid = model.MailId;
-                        historyes.changes = model.Number_Of_Copies.ToString();
-                        bool result = await _history.Add(historyes);
+                        historyes3.currentUser = model.Current;
+                        historyes3.HistortyNameID = 17;
+                        historyes3.Time = DateTime.Now;
+                        historyes3.mailid = model.MailId;
+                        historyes3.changes = model.Number_Of_Copies.ToString();
+                        bool result = await _history.Add(historyes3);
 
                         Ex.number_of_copies = model.Number_Of_Copies;
                     }
 
 
-                    if (model.note!=null)
+                    if (Ex.note!=model.note)
                     {
 
+                        if (String.IsNullOrWhiteSpace(model.note))
+                        {
+                            historyes4.changes = "تم الغاء الملاحظة";
+
+
+                        }
+
+                        else {
+                            historyes4.changes = model.note.ToString();
+
+                        }
+
                         Ex.note = model.note;
+
+                        historyes4.currentUser = model.Current;
+                        historyes4.HistortyNameID = 25;
+                        historyes4.Time = DateTime.Now;
+                        historyes4.mailid = model.MailId;
+                        bool result = await _history.Add(historyes4);
+
                     }
                       
 
