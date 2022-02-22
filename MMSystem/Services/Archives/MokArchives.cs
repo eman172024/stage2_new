@@ -29,7 +29,7 @@ namespace MMSystem.Services.Archives
         {
             bool mail_numbers = false;
             bool Summ = false;
-            bool date = false;
+            bool date = true;
             bool perent = false;
           
             bool sides_id = false;
@@ -64,7 +64,7 @@ namespace MMSystem.Services.Archives
                 if (date_time_from != date_time_of_day)
                 {
                  
-                    date = true;
+                    date = false;
                 }
             }
             
@@ -95,7 +95,7 @@ namespace MMSystem.Services.Archives
                 var listc = await (from x in _db.Mails.
                                  Where(a => a.Mail_Type == 2 //t
                                  && (a.Mail_Number == mail_number || mail_numbers == true) //t/t
-                                 && ((a.Date_Of_Mail >= date_time_of_day && a.Date_Of_Mail <= date_time_from) || (date == true))//t
+                                 && ((a.Date_Of_Mail>= date_time_of_day && a.Date_Of_Mail <= date_time_from) /*|| (date == true)*/)//t
                                  && (a.Department_Id == department_id || departments_id == true)//t
                                  && (a.Mail_Summary.Contains(mail_summary) || (Summ == true))
                                  )
@@ -146,8 +146,7 @@ namespace MMSystem.Services.Archives
                 var list = await (from x in _db.Mails.
                                  Where(a => a.Mail_Type == 2 //t
                                  && (a.Mail_Number == mail_number || mail_numbers == true) //t/t
-                                 && ((a.Date_Of_Mail >= date_time_of_day && a.Date_Of_Mail <= date_time_from) || (date == true))//t
-                                 && (a.Department_Id == department_id || departments_id == true)//t
+ && ((a.Date_Of_Mail >= date_time_of_day && a.Date_Of_Mail <= date_time_from) /*|| (date == true)*/) && (a.Department_Id == department_id || departments_id == true)//t
                                  && (a.Mail_Summary.Contains(mail_summary) || (Summ == true))
                                  )
                                   join m in _db.Sends.Where(x => x.to == 25 && x.State == true) on x.MailID equals m.MailID
@@ -326,8 +325,9 @@ namespace MMSystem.Services.Archives
                         historyes.currentUser = model.Current;
                         historyes.HistortyNameID = 18;
                         historyes.Time = DateTime.Now;
-                        
-                       
+
+
+
                         bool result = await _history.Add(historyes);
                 if (result)
                 {

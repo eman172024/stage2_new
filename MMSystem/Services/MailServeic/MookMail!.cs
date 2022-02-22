@@ -2464,6 +2464,8 @@ namespace MMSystem.Services.MailServeic
             try
             {
                 Mail _mail = await _appContext.Mails.FindAsync(mail.MailID);
+
+                ClasificationSubject clasificationSubjects = await _appContext.clasifications.FindAsync(_mail.clasification);
                 List<HVModel> hVModels = new List<HVModel>();
 
 
