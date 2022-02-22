@@ -60,6 +60,12 @@ namespace MMSystem.Services.DashBords
                                   select x).ToListAsync();
             int notsende = not_sended.Count();
 
+
+            var is_sended = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 1)
+                                    join y in DbCon.Sends.Where(y => y.flag > 1 && y.isMulti == true) on x.MailID equals y.MailID
+                                    select x).ToListAsync();
+            int issended = is_sended.Count();
+
             var not_response_tome = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 1)
                                     join y in DbCon.Sends.Where(y => y.flag < 4 && y.flag!= 1 && y.isMulti == true) on x.MailID equals y.MailID
                                     select x).ToListAsync();
@@ -88,6 +94,11 @@ namespace MMSystem.Services.DashBords
                                     select x).ToListAsync();
             int notsendeex = not_sended_externl.Count();
 
+            var is_sended_externl = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 2)
+                                            join y in DbCon.Sends.Where(y => y.flag > 1 && y.isMulti == true) on x.MailID equals y.MailID
+                                            select x).ToListAsync();
+            int issendeex = is_sended_externl.Count();
+
             var not_response_tome_externil = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 2)
                                            join y in DbCon.Sends.Where(y => y.flag < 4 && y.flag != 1 && y.isMulti == true) on x.MailID equals y.MailID
                                            select x).ToListAsync();
@@ -112,9 +123,15 @@ namespace MMSystem.Services.DashBords
             int exIn = extirnelIn.Count();
 
             var not_sended_externlIn = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 3)
-                                            join y in DbCon.Sends.Where(y => y.flag ==1  && y.isMulti == true) on x.MailID equals y.MailID
+                                            join y in DbCon.Sends.Where(y => y.flag == 1  && y.isMulti == true) on x.MailID equals y.MailID
                                             select x).ToListAsync();
             int notsendeexIn = not_sended_externlIn.Count();
+
+
+            var is_sended_externlIn = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 3)
+                                              join y in DbCon.Sends.Where(y => y.flag > 1 && y.isMulti == true) on x.MailID equals y.MailID
+                                              select x).ToListAsync();
+            int issendeexIn = is_sended_externlIn.Count();
 
             var not_response_tome_externilIn = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 3)
                                                     join y in DbCon.Sends.Where(y => y.flag < 4 && y.isMulti == true) on x.MailID equals y.MailID
@@ -137,21 +154,24 @@ namespace MMSystem.Services.DashBords
             //Dashbord.TotaleSender = sends;
             //Dashbord.TotaleExpord = NotSends;
 
-            Dashbord.Totale_Internal = inern;
+            Dashbord.Totale_Internal = inern ;
             Dashbord.not_sended = notsende;
+            Dashbord.is_sended = issended;
             Dashbord.Not_response_to_me = notResme;
             Dashbord.incoming = incom;
             Dashbord.Not_response_from_you = not_res;
 
 
-            Dashbord.extirnel = ex;
+            Dashbord.extirnel = ex ;
             Dashbord.not_sended_externl = notsendeex;
+            Dashbord.is_sended_externl = issendeex;
             Dashbord.Not_response_to_me_external = notResmeex;
             Dashbord.incoming_externil = incomex;
             Dashbord.Not_response_from_you_externil = not_resex;
 
-            Dashbord.extirnelInbox = exIn;
+            Dashbord.extirnelInbox = exIn ;
             Dashbord.not_sended_externlInbox = notsendeexIn;
+            Dashbord.is_sended_externlInbox = issendeexIn;
             Dashbord.Not_response_to_me_externlInbox = notResmeexIn;
             Dashbord.incoming_externilInbox = incomexIn;
             Dashbord.Not_response_from_you_extrinlInbox = not_resexIn;
