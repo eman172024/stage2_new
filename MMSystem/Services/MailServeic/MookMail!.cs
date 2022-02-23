@@ -944,7 +944,6 @@ namespace MMSystem.Services.MailServeic
 
 
 
-                        break;
 
                     default:
                         break;
