@@ -944,7 +944,6 @@ namespace MMSystem.Services.MailServeic
 
 
 
-                        break;
 
                     default:
                         break;
@@ -2466,6 +2465,8 @@ namespace MMSystem.Services.MailServeic
                 Mail _mail = await _appContext.Mails.FindAsync(mail.MailID);
 
                 ClasificationSubject clasificationSubjects = await _appContext.clasifications.FindAsync(_mail.clasification);
+                ClasificationSubject clasificationSubjects2 = await _appContext.clasifications.FindAsync(mail.clasification);
+
                 List<HVModel> hVModels = new List<HVModel>();
 
 
@@ -2479,7 +2480,7 @@ namespace MMSystem.Services.MailServeic
                     hVModels.Add(new HVModel { name = "السنة", newvalue = mail.Genaral_inbox_year, oldvalue = _mail.Genaral_inbox_year });
                     hVModels.Add(new HVModel { name = "رقم الوارد العام", newvalue = mail.Genaral_inbox_Number, oldvalue = _mail.Genaral_inbox_Number });
                     hVModels.Add(new HVModel { name = "تاريخ الايميل", newvalue = mail.Date_Of_Mail, oldvalue = _mail.Date_Of_Mail });
-                    hVModels.Add(new HVModel { name = "التصنيف ", newvalue = mail.clasification, oldvalue = _mail.clasification });
+                    hVModels.Add(new HVModel { name = "التصنيف ", newvalue = clasificationSubjects2.Name, oldvalue = clasificationSubjects.Name });
                     hVModels.Add(new HVModel { name = "الاجراء المطلوب", newvalue = mail.ActionRequired, oldvalue = _mail.ActionRequired });
 
 

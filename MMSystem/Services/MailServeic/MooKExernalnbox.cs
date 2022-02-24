@@ -138,7 +138,8 @@ namespace MMSystem.Services.MailServeic
 
                 Mail _mail = await _dbCon.Mails.FindAsync(mail.MailID);
                 List<HVModel> hVModels = new List<HVModel>();
-
+                ClasificationSubject clasificationSubjects = await _dbCon.clasifications.FindAsync(_mail.clasification);
+                ClasificationSubject clasificationSubjects2 = await _dbCon.clasifications.FindAsync(mail.clasification);
 
                 if (_mail != null)
                 {
