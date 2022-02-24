@@ -183,7 +183,8 @@ namespace MMSystem.Services.MailServeic
             {
                 Mail _mail = await _appDb.Mails.FindAsync(mail1.MailID);
                 List<HVModel> hVModels = new List<HVModel>();
-
+                ClasificationSubject clasificationSubjects = await _appDb.clasifications.FindAsync(_mail.clasification);
+                ClasificationSubject clasificationSubjects2 = await _appDb.clasifications.FindAsync(mail1.clasification);
 
                 if (_mail != null)
                 {
@@ -224,7 +225,6 @@ namespace MMSystem.Services.MailServeic
                     _appDb.Mails.Update(_mail);
                     await _appDb.SaveChangesAsync();
                   
-                    await _appDb.SaveChangesAsync();
 
 
                //     return true;
