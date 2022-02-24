@@ -185,6 +185,9 @@ export default {
 
 
     GetMysectionReport(department_Id,fromdate,todate,mailtype) {
+
+
+      
         return axios.get(`/api/Reports/GetMySectionReport?departmentid=${department_Id}&fromdate=${fromdate}&todate=${todate}&MailType=${mailtype}&SendedOrRecieved=${"sended"}`);
     },
 
