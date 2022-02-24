@@ -88,7 +88,7 @@ namespace MMSystem.Controllers
 
         [HttpGet]
         [Route("GetMySectionReport")]
-        public async Task<IActionResult> GetMySectionReport(int departmentid, DateTime? fromdate, DateTime? todate, int? MailType, string SendedOrRecieved)
+        public async Task<IActionResult> GetMySectionReport(int departmentid, DateTime fromdate, DateTime todate, int? MailType, string SendedOrRecieved)
         {
             var roles = await _data.GetMySectionReport(departmentid, fromdate, todate, MailType, SendedOrRecieved);
             if (roles != null)

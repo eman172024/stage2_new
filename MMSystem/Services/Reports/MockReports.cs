@@ -59,7 +59,7 @@ namespace MMSystem.Services.Reports
                 {
                     fromdate = DateTime.Parse("2020-01-01");
                 }
-
+              
                 if (!todate.HasValue)
                 {
                     todate = DateTime.Now;
@@ -228,24 +228,51 @@ namespace MMSystem.Services.Reports
 
         }
 
-        public async Task<List<SectionReport>> GetMySectionReport(int departmentid, DateTime ? fromdate, DateTime ? todate, int? MailType, string  SendedOrRecieved)
+        public async Task<List<SectionReport>> GetMySectionReport(int departmentid, DateTime  fromdate, DateTime  todate, int? MailType, string  SendedOrRecieved)
         {
             try
             {
-                    List<Department> departments = _data.Departments.Where(x => x.state == true && x.Id != departmentid).ToList();
+                    //List<Department> departments =  (from hus in _data.Departments.Where(x => x.state == true && x.Id != departmentid)
+                    //                                 join 
+                    //                                 hu in _data.Mails.Where(x => x.Department_Id == departmentid && x.state == true)
+                    //                                 on hus.Id equals hu.Department_Id 
+                    //                                 join
+                    //                                 g in _data.Sends.Where(x => x.flag != 0 && x.to != departmentid && (x.Send_time.Date >= fromdate.Date && x.Send_time.Date <= todate.Date))
+                    //                                 on hu.MailID equals g.MailID
+                    //                                 select new Department { 
+                    //                                 DepartmentName =hus.DepartmentName,
+                    //                                 Id =hus.Id,
+                    //                                 state = hus.state                                       
+                    //                               }).ToList();
+                List<Department> departments = (from hu in _data.Mails.Where(x => x.Department_Id == departmentid && x.state == true)
+                                                 join
+                                                 g in _data.Sends.Where(x => x.flag != 0 && x.to != departmentid && (x.Send_time.Date >= fromdate.Date && x.Send_time.Date <= todate.Date))
+                                                 on hu.MailID equals g.MailID
+                                                 join
+                                                 hus in _data.Departments.Where(x => x.state == true && x.Id != departmentid)                                              
+                                                 on g.to equals hus.Id
+                                                 select new Department
+                                                {
+                                                    DepartmentName = hus.DepartmentName,
+                                                    Id = hus.Id,
+                                                    state = hus.state,
+                                                    perent= hus.perent,
+                                                    Users = hus.Users
+                                                }).ToList();
 
-                    SectionReport mysectionreport = new SectionReport();
+                SectionReport mysectionreport = new SectionReport();
 
-                    List<SectionReport> List1 = new List<SectionReport>();
-                 if (!fromdate.HasValue)
+                List<SectionReport> List1 = new List<SectionReport>();
+
+
+                if (fromdate.Date > DateTime.Now.Date)
                 {
-                    fromdate = DateTime.Parse("01-01-2020");
+                    fromdate = DateTime.Now;
                 }
 
-                if (!todate.HasValue)
-                {
-                    todate = DateTime.Now;
-                }
+
+
+
 
                 int massageReplaied = 0;
 
@@ -255,11 +282,12 @@ namespace MMSystem.Services.Reports
                     foreach (var item in departments)
                     {
                         mysectionreport.DepartmentName = item.DepartmentName;
+                       
                         if (MailType == null)
                         {
                             mysectionreport.TotalOfReceived.TotalOfMassage = (from hus in _data.Mails.Where(x => x.Department_Id == departmentid && x.state == true )
                                                                               join
-                                                                              g in _data.Sends.Where(x => x.flag != 0 && x.to == item.Id && (x.Send_time >= fromdate && x.Send_time <= todate))
+                                                                              g in _data.Sends.Where(x => x.flag != 0 && x.to == item.Id && (x.Send_time.Date >= fromdate.Date && x.Send_time.Date <= todate.Date))
                                                                               on hus.MailID equals g.MailID
                                                                               select g.MailID).ToList().Count();
 
@@ -275,7 +303,7 @@ namespace MMSystem.Services.Reports
                         {
                             mysectionreport.TotalOfReceived.TotalOfMassage = (from hus in _data.Mails.Where(x => x.Department_Id == departmentid && x.state == true && x.Mail_Type == MailType)
                                                                               join
-                                                                              g in _data.Sends.Where(x => x.flag != 0 && x.to == item.Id && (x.Send_time >= fromdate && x.Send_time <= todate))
+                                                                              g in _data.Sends.Where(x => x.flag != 0 && x.to == item.Id && (x.Send_time.Date >= fromdate.Date && x.Send_time.Date <= todate.Date))
                                                                               on hus.MailID equals g.MailID
                                                                               select g.MailID).ToList().Count();
 
@@ -288,14 +316,16 @@ namespace MMSystem.Services.Reports
 
                                                    ).Distinct().Count();
                         }
-                        
-                        mysectionreport.TotalOfReceived.TotalOfReplay = massageReplaied;
-                        mysectionreport.TotalOfReceived.TotalOfNotReplay = decimal.ToInt32(mysectionreport.TotalOfReceived.TotalOfMassage - mysectionreport.TotalOfReceived.TotalOfReplay);
                         if (mysectionreport.TotalOfReceived.TotalOfMassage != 0)
                         {
+                            mysectionreport.TotalOfReceived.TotalOfReplay = massageReplaied;
+                       
+                            mysectionreport.TotalOfReceived.TotalOfNotReplay = decimal.ToInt32(mysectionreport.TotalOfReceived.TotalOfMassage - mysectionreport.TotalOfReceived.TotalOfReplay);
+                       
                             mysectionreport.TotalOfReceived.Average = (mysectionreport.TotalOfReceived.TotalOfReplay / mysectionreport.TotalOfReceived.TotalOfMassage) * 100;
                         }
                         else {
+                            mysectionreport.TotalOfReceived.TotalOfNotReplay = 0;
                             mysectionreport.TotalOfReceived.Average = 0;
                         }
                         List1.Add(new SectionReport
@@ -323,13 +353,13 @@ namespace MMSystem.Services.Reports
                         {
                             mysectionreport.TotalOfReceived.TotalOfMassage = (from hus in _data.Mails.Where(x => (x.Department_Id == item.Id && x.state == true) )
                                                                               join
-                                                                              g in _data.Sends.Where(x => x.flag != 0 && x.to == departmentid && ((x.Send_time >= fromdate && x.Send_time <= todate)))
+                                                                              g in _data.Sends.Where(x => x.flag != 0 && x.to == departmentid && ((x.Send_time.Date >= fromdate.Date && x.Send_time.Date >= todate.Date)))
                                                                               on hus.MailID equals g.MailID
                                                                               select g.MailID).ToList().Count();
 
                             massageReplaied = (from hus in _data.Mails.Where(x => (x.Department_Id == item.Id && x.state == true) || x.Mail_Type == MailType)
                                                join
-                                               hu in _data.Sends.Where(x => x.flag != 0 && x.to == departmentid && ((x.Send_time >= fromdate && x.Send_time <= todate))) on hus.MailID equals hu.MailID
+                                               hu in _data.Sends.Where(x => x.flag != 0 && x.to == departmentid && ((x.Send_time.Date >= fromdate.Date && x.Send_time.Date >= todate.Date))) on hus.MailID equals hu.MailID
                                                join
                                                g in _data.Replies on hu.Id equals g.send_ToId
                                                select g.send_ToId
@@ -340,13 +370,13 @@ namespace MMSystem.Services.Reports
                         else {
                             mysectionreport.TotalOfReceived.TotalOfMassage = (from hus in _data.Mails.Where(x => (x.Department_Id == item.Id && x.state == true) || x.Mail_Type == MailType)
                                                                               join
-                                                                              g in _data.Sends.Where(x => x.flag != 0 && x.to == departmentid && ((x.Send_time >= fromdate && x.Send_time <= todate)))
+                                                                              g in _data.Sends.Where(x => x.flag != 0 && x.to == departmentid && ((x.Send_time.Date >= fromdate.Date && x.Send_time.Date >= todate.Date)))
                                                                               on hus.MailID equals g.MailID
                                                                               select g.MailID).ToList().Count();
 
                             massageReplaied = (from hus in _data.Mails.Where(x => (x.Department_Id == item.Id && x.state == true) && x.Mail_Type == MailType)
                                                join
-                                               hu in _data.Sends.Where(x => x.flag != 0 && x.to == departmentid && ((x.Send_time >= fromdate && x.Send_time <= todate))) on hus.MailID equals hu.MailID
+                                               hu in _data.Sends.Where(x => x.flag != 0 && x.to == departmentid && ((x.Send_time.Date >= fromdate.Date && x.Send_time.Date >= todate.Date))) on hus.MailID equals hu.MailID
                                                join
                                                g in _data.Replies on hu.Id equals g.send_ToId
                                                select g.send_ToId
@@ -398,7 +428,7 @@ namespace MMSystem.Services.Reports
 
                 if (!fromdate.HasValue)
                 {
-                    fromdate = DateTime.Parse("01-01-2020");
+                    fromdate = DateTime.Parse("2020-01-01");
                 }
 
                 if (!todate.HasValue)
@@ -509,7 +539,7 @@ namespace MMSystem.Services.Reports
 
                 if(!fromdate.HasValue)
                 {
-                    fromdate = DateTime.Parse("01-01-2020");
+                    fromdate =DateTime.Parse("2020-01-01");
                 }
 
                 if (!todate.HasValue)
