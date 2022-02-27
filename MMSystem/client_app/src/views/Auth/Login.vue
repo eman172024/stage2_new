@@ -547,6 +547,7 @@ export default {
     },
 
     selectdepartment(id, name) {
+      this.userNameSelected = '';
       this.departmentNameSelected = name;
       this.departmentIdSelected = id;
     },
