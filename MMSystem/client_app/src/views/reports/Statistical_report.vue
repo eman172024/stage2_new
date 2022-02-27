@@ -497,7 +497,7 @@ export default {
 
 
       this.$http.mailService
-        .GetMysectionReport(localStorage.getItem("departmentId"),this.$route.params.dateFrom,this.$route.params.dateTo,this.$route.params.mailtype,"sended")
+        .GetMysectionReport(localStorage.getItem("departmentId"),this.$route.params.dateFrom,this.$route.params.dateTo,"","sended")
         .then((res) => {
           console.log(res);
           this.mails=res.data;
