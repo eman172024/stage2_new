@@ -250,7 +250,7 @@
                     
                   "
                 >
-                  {{ mail.totalOfReceived.average }}
+                  {{ mail.totalOfReceived.average }} %
                 </div>
 
                 <div
@@ -355,7 +355,7 @@
                     
                   "
                 >
-                  1
+                  1 %
                 </div>
 
                 <div
@@ -367,7 +367,7 @@
                     
                   "
                 >
-                  1
+                  1 
                 </div>
 
                
@@ -494,8 +494,10 @@ export default {
 
     GetMysectionReport(){
 
+
+
       this.$http.mailService
-        .GetMysectionReport(localStorage.getItem("departmentId"),this.$route.params.dateFrom,this.$route.params.dateTo,this.$route.params.mailtype,"sended")
+        .GetMysectionReport(localStorage.getItem("departmentId"),this.$route.params.dateFrom,this.$route.params.dateTo,"","sended")
         .then((res) => {
           console.log(res);
           this.mails=res.data;

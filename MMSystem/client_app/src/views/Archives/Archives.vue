@@ -137,7 +137,7 @@
                     border border-b-0
                     hover:text-blue-600 hover:font-bold
                     group
-                    w-10/12
+                    w-11/12
                     p-2
                     bg-white
                     flex
