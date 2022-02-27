@@ -114,404 +114,403 @@
               </fieldset>
             </div>
 
-            <div class="relative mt-4 flex">
-              <button
-                @click="filter = !filter"
-                :class="filter ? 'shadow-md' : ''"
-                class="rounded-t-md border border-b-0 hover:text-blue-600 hover:font-bold group w-full p-2 bg-white flex items-center justify-between focus:outline-none"
-              >
-                <span class="flex items-center">
-                  <svg
-                    class="w-6 h-6 ml-2 stroke-current group-hover:stroke-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
-                    ></path>
-                  </svg>
-                  فرز
-                </span>
+            <div class=" mt-4 flex">
 
-                <span class="">
-                  <svg
-                    class="w-6 h-6 stroke-current group-hover:stroke-2 "
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="{2}"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </span>
-              </button>
-
-              <div
-                v-if="filter"
-                class="rounded-b-md shadow-md absolute border border-t-0 z-40 w-10/12 bg-white px-4 py-8"
-              >
-                <div
-                  class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 max-w-4xl mx-auto"
+              <div class="relative w-full">
+                <button
+                  @click="filter = !filter"
+                  :class="filter ? 'shadow-md' : ''"
+                  class="rounded-t-md border border-b-0 hover:text-blue-600 hover:font-bold group w-full p-2 bg-white flex items-center justify-between focus:outline-none"
                 >
-                  <div class="sm:col-span-2">
-                    <label
-                      for="mail_id"
-                      class="block text-base font-semibold text-gray-800"
+                  <span class="flex items-center">
+                    <svg
+                      class="w-6 h-6 ml-2 stroke-current group-hover:stroke-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      رقم البريد
-                    </label>
-                    <input
-                      v-model="mail_id"
-                      type="number"
-                      id="mail_id"
-                      class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
-                    />
-                  </div>
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+                      ></path>
+                    </svg>
+                    فرز
+                  </span>
 
-                  <div class="sm:col-span-2">
-                    <label
-                      for="department"
-                      class="block text-base font-semibold text-gray-800"
+                  <span class="">
+                    <svg
+                      class="w-6 h-6 stroke-current group-hover:stroke-2 "
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
                     >
-                      الإدارات المرسلة
-                    </label>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="{2}"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </span>
+                </button>
 
-                    <div class="relative">
-                      <button
-                        @click="departmentselect = !departmentselect"
-                        id="department"
-                        class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                <div
+                  v-if="filter"
+                  class="rounded-b-md shadow-md absolute top-10 w-full border border-t-0 z-40 bg-white px-4 py-8"
+                >
+                  <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 max-w-4xl mx-auto">
+                    <div class="sm:col-span-2">
+                      <label
+                        for="mail_id"
+                        class="block text-base font-semibold text-gray-800"
                       >
-                        {{ departmentNameSelected }}
-                      </button>
+                        رقم البريد
+                      </label>
+                      <input
+                        v-model="mail_id"
+                        type="number"
+                        id="mail_id"
+                        class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                      />
+                    </div>
 
-                      <div
-                        v-if="departmentselect"
-                        class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
+                    <div class="sm:col-span-2">
+                      <label
+                        for="department"
+                        class="block text-base font-semibold text-gray-800"
                       >
+                        الإدارات المرسلة
+                      </label>
+
+                      <div class="relative">
                         <button
-                          class="block focus:outline-none w-full my-1 text-right"
-                          @click="
-                            selectdepartment('', 'الكل');
-                            departmentselect = !departmentselect;
-                          "
+                          @click="departmentselect = !departmentselect"
+                          id="department"
+                          class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
                         >
-                          الكل
+                          {{ departmentNameSelected }}
                         </button>
 
-                        <button
-                          class="block focus:outline-none w-full my-1 text-right"
-                          @click="
-                            selectdepartment(
-                              department.id,
-                              department.departmentName
-                            );
-                            departmentselect = !departmentselect;
-                          "
-                          v-for="department in departments"
-                          :key="department.id"
+                        <div
+                          v-if="departmentselect"
+                          class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
                         >
-                          {{ department.departmentName }}
-                        </button>
+                          <button
+                            class="block focus:outline-none w-full my-1 text-right"
+                            @click="
+                              selectdepartment('', 'الكل');
+                              departmentselect = !departmentselect;
+                            "
+                          >
+                            الكل
+                          </button>
+
+                          <button
+                            class="block focus:outline-none w-full my-1 text-right"
+                            @click="
+                              selectdepartment(
+                                department.id,
+                                department.departmentName
+                              );
+                              departmentselect = !departmentselect;
+                            "
+                            v-for="department in departments"
+                            :key="department.id"
+                          >
+                            {{ department.departmentName }}
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="sm:col-span-2">
-                    <label
-                      for="measure"
-                      class="block text-base font-semibold text-gray-800"
-                    >
-                      الإجراء
-                    </label>
-
-                    <div class="relative">
-                      <button
-                        @click="measureselect = !measureselect"
-                        id="measure"
-                        class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                    <div class="sm:col-span-2">
+                      <label
+                        for="measure"
+                        class="block text-base font-semibold text-gray-800"
                       >
-                        {{ measureNameSelected }}
-                      </button>
+                        الإجراء
+                      </label>
 
-                      <div
-                        v-if="measureselect"
-                        class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
-                      >
+                      <div class="relative">
                         <button
-                          class="block focus:outline-none w-full my-1 text-right"
-                          @click="
-                            selectmeasure('', 'الكل');
-                            measureselect = !measureselect;
-                          "
+                          @click="measureselect = !measureselect"
+                          id="measure"
+                          class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
                         >
-                          الكل
+                          {{ measureNameSelected }}
                         </button>
 
-                        <button
-                          class="block focus:outline-none w-full my-1 text-right"
-                          @click="
-                            selectmeasure(
-                              measure.measuresId,
-                              measure.measuresName
-                            );
-                            measureselect = !measureselect;
-                          "
-                          v-for="measure in measures"
-                          :key="measure.measuresId"
+                        <div
+                          v-if="measureselect"
+                          class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
                         >
-                          {{ measure.measuresName }}
-                        </button>
+                          <button
+                            class="block focus:outline-none w-full my-1 text-right"
+                            @click="
+                              selectmeasure('', 'الكل');
+                              measureselect = !measureselect;
+                            "
+                          >
+                            الكل
+                          </button>
+
+                          <button
+                            class="block focus:outline-none w-full my-1 text-right"
+                            @click="
+                              selectmeasure(
+                                measure.measuresId,
+                                measure.measuresName
+                              );
+                              measureselect = !measureselect;
+                            "
+                            v-for="measure in measures"
+                            :key="measure.measuresId"
+                          >
+                            {{ measure.measuresName }}
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="sm:col-span-2">
-                    <label
-                      for="measure"
-                      class="block text-base font-semibold text-gray-800"
-                    >
-                      حالة البريد
-                    </label>
-
-                    <div class="relative">
-                      <button
-                        @click="mail_caseselect = !mail_caseselect"
-                        id="measure"
-                        class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                    <div class="sm:col-span-2">
+                      <label
+                        for="measure"
+                        class="block text-base font-semibold text-gray-800"
                       >
-                        {{ mail_caseNameSelected }}
-                      </button>
+                        حالة البريد
+                      </label>
 
-                      <div
-                        v-if="mail_caseselect"
-                        class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
-                      >
+                      <div class="relative">
                         <button
-                          class="block focus:outline-none w-full my-1 text-right"
-                          @click="
-                            select_mail_case('', 'الكل');
-                            mail_caseselect = !mail_caseselect;
-                          "
+                          @click="mail_caseselect = !mail_caseselect"
+                          id="measure"
+                          class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
                         >
-                          الكل
+                          {{ mail_caseNameSelected }}
                         </button>
 
-                        <button
-                          class="block focus:outline-none w-full my-1 text-right"
-                          @click="
-                            select_mail_case(mail_case.flag, mail_case.statename);
-                            mail_caseselect = !mail_caseselect;
-                          "
-                          v-for="mail_case in mail_cases"
-                          :key="mail_case.flag"
+                        <div
+                          v-if="mail_caseselect"
+                          class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
                         >
-                          {{ mail_case.statename }}
-                        </button>
+                          <button
+                            class="block focus:outline-none w-full my-1 text-right"
+                            @click="
+                              select_mail_case('', 'الكل');
+                              mail_caseselect = !mail_caseselect;
+                            "
+                          >
+                            الكل
+                          </button>
+
+                          <button
+                            class="block focus:outline-none w-full my-1 text-right"
+                            @click="
+                              select_mail_case(mail_case.flag, mail_case.statename);
+                              mail_caseselect = !mail_caseselect;
+                            "
+                            v-for="mail_case in mail_cases"
+                            :key="mail_case.flag"
+                          >
+                            {{ mail_case.statename }}
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="sm:col-span-2">
-                    <label
-                      for="classification"
-                      class="block text-base font-semibold text-gray-800"
-                    >
-                      التصنيف
-                    </label>
-
-                    <div class="relative">
-                      <button
-                        @click="classificationselect = !classificationselect"
-                        id="classification"
-                        class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                    <div class="sm:col-span-2">
+                      <label
+                        for="classification"
+                        class="block text-base font-semibold text-gray-800"
                       >
-                        {{ classificationNameSelected }}
-                      </button>
+                        التصنيف
+                      </label>
 
-                      <div
-                        v-if="classificationselect"
-                        class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
-                      >
+                      <div class="relative">
                         <button
-                          class="block focus:outline-none w-full my-1 text-right"
-                          @click="
-                            selectClassification('', 'الكل');
-                            classificationselect = !classificationselect;
-                          "
+                          @click="classificationselect = !classificationselect"
+                          id="classification"
+                          class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
                         >
-                          الكل
+                          {{ classificationNameSelected }}
                         </button>
 
-                        <button
-                          class="block focus:outline-none w-full my-1 text-right"
-                          @click="
-                            selectClassification(
-                              classification.id,
-                              classification.name
-                            );
-                            classificationselect = !classificationselect;
-                          "
-                          v-for="classification in classifications"
-                          :key="classification.id"
+                        <div
+                          v-if="classificationselect"
+                          class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
                         >
-                          {{ classification.name }}
-                        </button>
+                          <button
+                            class="block focus:outline-none w-full my-1 text-right"
+                            @click="
+                              selectClassification('', 'الكل');
+                              classificationselect = !classificationselect;
+                            "
+                          >
+                            الكل
+                          </button>
+
+                          <button
+                            class="block focus:outline-none w-full my-1 text-right"
+                            @click="
+                              selectClassification(
+                                classification.id,
+                                classification.name
+                              );
+                              classificationselect = !classificationselect;
+                            "
+                            v-for="classification in classifications"
+                            :key="classification.id"
+                          >
+                            {{ classification.name }}
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="sm:col-span-2">
-                    <label
-                      for="summary"
-                      class="block text-base font-semibold text-gray-800"
-                    >
-                      جزء من الملخص
-                    </label>
-                    <input
-                      type="text"
-                      v-model="summary"
-                      id="summary"
-                      class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
-                    />
-                  </div>
-
-                  <div class="sm:col-span-2">
-                    <label for="side" class="block text-base font-semibold text-gray-800">
-                      الجهات الخارجية
-                    </label>
-
-                    <div class="relative">
-                      <button
-                        @click="sideselect = !sideselect"
-                        id="side"
-                        class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                    <div class="sm:col-span-2">
+                      <label
+                        for="summary"
+                        class="block text-base font-semibold text-gray-800"
                       >
-                        {{ sideNameSelected }}
-                      </button>
+                        جزء من الملخص
+                      </label>
+                      <input
+                        type="text"
+                        v-model="summary"
+                        id="summary"
+                        class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                      />
+                    </div>
 
-                      <div
-                        v-if="sideselect"
-                        class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
-                      >
+                    <div class="sm:col-span-2" v-if="mailType != 1">
+                      <label for="side" class="block text-base font-semibold text-gray-800">
+                        الجهات الخارجية
+                      </label>
+
+                      <div class="relative">
                         <button
-                          class="block focus:outline-none w-full my-1 text-right"
-                          @click="
-                            selectsides('', 'الكل');
-                            sideselect = !sideselect;
-                          "
+                          @click="sideselect = !sideselect"
+                          id="side"
+                          class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
                         >
-                          الكل
+                          {{ sideNameSelected }}
                         </button>
 
-                        <button
-                          class="block focus:outline-none w-full my-1 text-right"
-                          @click=" selectsides( side.id, side.section_Name ); sideselect = !sideselect; "
-                          v-for="side in sides"
-                          :key="side.id"
+                        <div
+                          v-if="sideselect"
+                          class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
                         >
-                          {{ side.section_Name }}
-                        </button>
+                          <button
+                            class="block focus:outline-none w-full my-1 text-right"
+                            @click="
+                              selectsides('', 'الكل');
+                              sideselect = !sideselect;
+                            "
+                          >
+                            الكل
+                          </button>
+
+                          <button
+                            class="block focus:outline-none w-full my-1 text-right"
+                            @click=" selectsides( side.id, side.section_Name ); sideselect = !sideselect; "
+                            v-for="side in sides"
+                            :key="side.id"
+                          >
+                            {{ side.section_Name }}
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
+                    <div class="sm:col-span-2">
+                      <label
+                        for="general_incoming_number"
+                        class="block text-base font-semibold text-gray-800"
+                      >
+                        رقم الوارد العام
+                      </label>
+                      <input
+                        v-model="general_incoming_number"
+                        type="number"
+                        id="general_incoming_number"
+                        class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                      />
+                    </div>
 
-                  <div class="sm:col-span-2">
-                    <label
-                      for="general_incoming_number"
-                      class="block text-base font-semibold text-gray-800"
-                    >
-                      رقم الوارد العام
-                    </label>
-                    <input
-                      v-model="general_incoming_number"
-                      type="number"
-                      id="general_incoming_number"
-                      class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
-                    />
+                    <div class="sm:col-span-2">
+                      <label for="by_date_of_reply" class="block text-base font-semibold text-gray-800">
+                        حسب تاريخ الرد
+                      </label>
+                      <input
+                        v-model="by_date_of_reply"
+                        type="checkbox"
+                        id="by_date_of_reply"
+                        class="block mt-2 h-10 w-10 overflow-hidden rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                      />
+                    </div>
+                    
                   </div>
-
-                  <div class="sm:col-span-2">
-                    <label for="by_date_of_reply" class="block text-base font-semibold text-gray-800">
-                      حسب تاريخ الرد
-                    </label>
-                    <input
-                      v-model="by_date_of_reply"
-                      type="checkbox"
-                      id="by_date_of_reply"
-                      class="block mt-2 h-10 w-10 overflow-hidden rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
-                    />
-                  </div>
-                  
                 </div>
               </div>
 
-                 <button
-                  class="
-                   px-8
-                  mr-2
-                    bg-green-700
-                    text-green-50
-                    rounded-md
-                    py-3
-                    border border-green-300
-                    hover:bg-green-800
-                    focus:outline-none
-                    flex
-                    items-center
-                    justify-center
-                    col-span-2
-                  "
-                 @click="GetInboxs1()"
-               
+              <button
+                class="
+                  px-8
+                mr-2
+                  bg-green-700
+                  text-green-50
+                  rounded-md
+                  py-2
+                  border border-green-300
+                  hover:bg-green-800
+                  focus:outline-none
+                  flex
+                  items-center
+                  justify-center
+                  col-span-2
+                "
+                @click="GetInboxs1()"
+              
+              >
+                <span class="text-sm font-bold block ml-1"
+                > طباعة </span
                 >
-                  <span class="text-sm font-bold block ml-1"
-                  > طباعة </span
-                  >
 
-                  <svg
-                    class="
-                      h-5
-                      w-5
-                      mr-1
-                      text-white
-                      block
-                      fill-current
-                      hover:text-blue-500
-                    "
-                    id="Capa_1"
-                    enable-background="new 0 0 512 512"
-                    height="512"
-                    viewBox="0 0 512 512"
-                    width="512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g>
-                      <path
-                        d="m437 129h-14v-54c0-41.355-33.645-75-75-75h-184c-41.355 0-75 33.645-75 75v54h-14c-41.355 0-75 33.645-75 75v120c0 41.355 33.645 75 75 75h14v68c0 24.813 20.187 45 45 45h244c24.813 0 45-20.187 45-45v-68h14c41.355 0 75-33.645 75-75v-120c0-41.355-33.645-75-75-75zm-318-54c0-24.813 20.187-45 45-45h184c24.813 0 45 20.187 45 45v54h-274zm274 392c0 8.271-6.729 15-15 15h-244c-8.271 0-15-6.729-15-15v-148h274zm89-143c0 24.813-20.187 45-45 45h-14v-50h9c8.284 0 15-6.716 15-15s-6.716-15-15-15h-352c-8.284 0-15 6.716-15 15s6.716 15 15 15h9v50h-14c-24.813 0-45-20.187-45-45v-120c0-24.813 20.187-45 45-45h362c24.813 0 45 20.187 45 45z"
-                      />
-                      <path
-                        d="m296 353h-80c-8.284 0-15 6.716-15 15s6.716 15 15 15h80c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
-                      />
-                      <path
-                        d="m296 417h-80c-8.284 0-15 6.716-15 15s6.716 15 15 15h80c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
-                      />
-                      <path
-                        d="m128 193h-48c-8.284 0-15 6.716-15 15s6.716 15 15 15h48c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
-                      />
-                    </g>
-                  </svg>
-                </button>
-
+                <svg
+                  class="
+                    h-5
+                    w-5
+                    mr-1
+                    text-white
+                    block
+                    fill-current
+                    hover:text-blue-500
+                  "
+                  id="Capa_1"
+                  enable-background="new 0 0 512 512"
+                  height="512"
+                  viewBox="0 0 512 512"
+                  width="512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g>
+                    <path
+                      d="m437 129h-14v-54c0-41.355-33.645-75-75-75h-184c-41.355 0-75 33.645-75 75v54h-14c-41.355 0-75 33.645-75 75v120c0 41.355 33.645 75 75 75h14v68c0 24.813 20.187 45 45 45h244c24.813 0 45-20.187 45-45v-68h14c41.355 0 75-33.645 75-75v-120c0-41.355-33.645-75-75-75zm-318-54c0-24.813 20.187-45 45-45h184c24.813 0 45 20.187 45 45v54h-274zm274 392c0 8.271-6.729 15-15 15h-244c-8.271 0-15-6.729-15-15v-148h274zm89-143c0 24.813-20.187 45-45 45h-14v-50h9c8.284 0 15-6.716 15-15s-6.716-15-15-15h-352c-8.284 0-15 6.716-15 15s6.716 15 15 15h9v50h-14c-24.813 0-45-20.187-45-45v-120c0-24.813 20.187-45 45-45h362c24.813 0 45 20.187 45 45z"
+                    />
+                    <path
+                      d="m296 353h-80c-8.284 0-15 6.716-15 15s6.716 15 15 15h80c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
+                    />
+                    <path
+                      d="m296 417h-80c-8.284 0-15 6.716-15 15s6.716 15 15 15h80c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
+                    />
+                    <path
+                      d="m128 193h-48c-8.284 0-15 6.716-15 15s6.716 15 15 15h48c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
+                    />
+                  </g>
+                </svg>
+              </button>
 
             </div>
 
