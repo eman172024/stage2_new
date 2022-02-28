@@ -47,6 +47,7 @@ namespace MMSystem.Services.Reports
         {
             try
             {
+            
                 List<Department> departments =await _data.Departments.Where(x => x.state == true).ToListAsync();
 
                 SectionReport sectionsreport = new SectionReport();
@@ -125,9 +126,10 @@ namespace MMSystem.Services.Reports
                                 Average = sectionsreport.TotalOfReceived.Average
                             }
                         });
+                       
 
                     }
-
+                 
 
                 }
                 else
@@ -210,6 +212,7 @@ namespace MMSystem.Services.Reports
                         massageReplaied = 0;
                     }
                 }
+            
 
                 return List1;
 
@@ -222,58 +225,92 @@ namespace MMSystem.Services.Reports
 
         }
 
-        public async Task<List<SectionReport>> GetMySectionReport(int departmentid, DateTime  fromdate, DateTime  todate, int? MailType, string  SendedOrRecieved)
+        public async Task<SectionReportWithTotal> GetMySectionReport(int departmentid, DateTime  fromdate, DateTime  todate, int? MailType, string  SendedOrRecieved)
         {
             try
             {
-                              List<Department> departments =await (from hu in _data.Mails.Where(x => x.Department_Id == departmentid && x.state == true)
-                                                join
-                                                g in _data.Sends.Where(x => x.flag != 0 && x.to != departmentid && (x.Send_time.Date >= fromdate.Date && x.Send_time.Date <= todate.Date))
-                                                on hu.MailID equals g.MailID
-                                                join
-                                                hus in _data.Departments.Where(x => x.state == true && x.Id != departmentid)
-                                                on g.to equals hus.Id
-                                                select new Department
-                                                {
-                                                    DepartmentName = hus.DepartmentName,
-                                                    Id = hus.Id,
-                                                    state = hus.state,
-                                                    perent = hus.perent,
-                                                    Users = hus.Users
-                                                }).ToListAsync();
-             
-                              List<Department> Rmv_Dublicate_Dep = new List<Department>();              
-                  
-                     foreach (var item in departments)
-                     {
-                     if(!Rmv_Dublicate_Dep.Any(x=>x.Id==item.Id))
-
-                        Rmv_Dublicate_Dep.Add(new Department {                    
-                        Id=item.Id,
-                        DepartmentName=item.DepartmentName,
-                        perent=item.perent,
-                        state=item.state                    
-                    });
-                }   
+                decimal total_avrage = 0, total_not_reply = 0, total_reply = 0, total_massege = 0;
+                int massageReplaied = 0;
+                List<Department> Rmv_Dublicate_Dep = new List<Department>();
+                List<Department> departments = new List<Department>();
                  SectionReport mysectionreport = new SectionReport();
-
                  List<SectionReport> List1 = new List<SectionReport>();
-
-
+                SectionReportWithTotal AllSectionWithTotal = new SectionReportWithTotal();
+                
                 if (fromdate.Date > DateTime.Now.Date)
                 {
                     fromdate = DateTime.Now;
                 }
+           
+                if (!MailType.HasValue)
+                {
+                    departments = await (from hu in _data.Mails.Where(x => x.Department_Id == departmentid && x.state == true)
+                                         join
+                                         g in _data.Sends.Where(x => x.flag != 0 && x.to != departmentid && (x.Send_time.Date >= fromdate.Date && x.Send_time.Date <= todate.Date))
+                                         on hu.MailID equals g.MailID
+                                         join
+                                         hus in _data.Departments.Where(x => x.state == true && x.Id != departmentid)
+                                         on g.to equals hus.Id
+                                         select new Department
+                                         {
+                                             DepartmentName = hus.DepartmentName,
+                                             Id = hus.Id,
+                                             state = hus.state,
+                                             perent = hus.perent,
+                                             Users = hus.Users
+                                         }).ToListAsync();
 
-                int massageReplaied = 0;
 
+                    foreach (var item in departments)
+                    {
+                        if (!Rmv_Dublicate_Dep.Any(x => x.Id == item.Id))
+
+                            Rmv_Dublicate_Dep.Add(new Department
+                            {
+                                Id = item.Id,
+                                DepartmentName = item.DepartmentName,
+                                perent = item.perent,
+                                state = item.state
+                            });
+                    }
+                }
+                else
+                {
+                    departments = await (from hu in _data.Mails.Where(x => x.Department_Id == departmentid && x.state == true && x.Mail_Type == MailType)
+                                         join
+                                         g in _data.Sends.Where(x => x.flag != 0 && x.to != departmentid && (x.Send_time.Date >= fromdate.Date && x.Send_time.Date <= todate.Date))
+                                         on hu.MailID equals g.MailID
+                                         join
+                                         hus in _data.Departments.Where(x => x.state == true && x.Id != departmentid)
+                                         on g.to equals hus.Id
+                                         select new Department
+                                         {
+                                             DepartmentName = hus.DepartmentName,
+                                             Id = hus.Id,
+                                             state = hus.state,
+                                             perent = hus.perent,
+                                             Users = hus.Users
+                                         }).ToListAsync();
+
+
+                    foreach (var item in departments)
+                    {
+                        if (!Rmv_Dublicate_Dep.Any(x => x.Id == item.Id))
+
+                            Rmv_Dublicate_Dep.Add(new Department
+                            {
+                                Id = item.Id,
+                                DepartmentName = item.DepartmentName,
+                                perent = item.perent,
+                                state = item.state
+                            });
+                    }
+                }
                 if (SendedOrRecieved == "sended")
                 {
-
                     foreach (var item in Rmv_Dublicate_Dep)
                     {
-                        mysectionreport.DepartmentName = item.DepartmentName;
-                       
+                        mysectionreport.DepartmentName = item.DepartmentName;                       
                         if (MailType == null)
                         {
                             mysectionreport.TotalOfReceived.TotalOfMassage = (from hus in _data.Mails.Where(x => x.Department_Id == departmentid && x.state == true )
@@ -298,9 +335,10 @@ namespace MMSystem.Services.Reports
                                                                               on hus.MailID equals g.MailID
                                                                               select g.MailID).ToList().Count();
 
-                             massageReplaied = await (from hus in _data.Mails.Where(x => x.Department_Id == departmentid && x.state == true)
+                             massageReplaied = await (from hus in _data.Mails.Where(x => x.Department_Id == departmentid && x.state == true && x.Mail_Type == MailType)
                                                    join
-                                                   hu in _data.Sends.Where(x => x.flag != 0 && x.to == item.Id) on hus.MailID equals hu.MailID
+                                                   hu in _data.Sends.Where(x => x.flag != 0 && x.to == item.Id && (x.Send_time.Date >= fromdate.Date && x.Send_time.Date <= todate.Date)) 
+                                                   on hus.MailID equals hu.MailID
                                                    join
                                                    g in _data.Replies on hu.Id equals g.send_ToId
                                                    select g.send_ToId
@@ -319,7 +357,6 @@ namespace MMSystem.Services.Reports
                             mysectionreport.TotalOfReceived.TotalOfNotReplay = 0;
                             mysectionreport.TotalOfReceived.Average = 0;
                         }
-
                         List1.Add(new SectionReport
                         {
                             DepartmentName = mysectionreport.DepartmentName,
@@ -330,8 +367,20 @@ namespace MMSystem.Services.Reports
                                 TotalOfNotReplay = mysectionreport.TotalOfReceived.TotalOfNotReplay,
                                 Average = mysectionreport.TotalOfReceived.Average
                             }
-                        });
-                    }       
+                        });                    
+                    }
+                    foreach (var item in List1)
+                    {
+                        total_massege += item.TotalOfReceived.TotalOfMassage;
+                        total_reply += item.TotalOfReceived.TotalOfReplay;
+                        total_not_reply += item.TotalOfReceived.TotalOfNotReplay;
+                        total_avrage += item.TotalOfReceived.Average;
+                    }
+                    AllSectionWithTotal.TotalOfTotal.TotalOfMassage = total_massege;
+                    AllSectionWithTotal.TotalOfTotal.TotalOfReplay = total_reply;
+                    AllSectionWithTotal.TotalOfTotal.TotalOfNotReplay = total_not_reply;
+                    AllSectionWithTotal.TotalOfTotal.Average = total_avrage;
+                    AllSectionWithTotal.SectionReport = List1;                    
                 }
                 else if(SendedOrRecieved == "recieved") {
                 
@@ -373,8 +422,6 @@ namespace MMSystem.Services.Reports
                                                 ).Distinct().CountAsync();
                         }
                         mysectionreport.TotalOfReceived.TotalOfReplay = massageReplaied;
-
-
                         mysectionreport.TotalOfReceived.TotalOfNotReplay = decimal.ToInt32(mysectionreport.TotalOfReceived.TotalOfMassage - mysectionreport.TotalOfReceived.TotalOfReplay);
                         if (mysectionreport.TotalOfReceived.TotalOfMassage != 0)
                         {
@@ -395,8 +442,20 @@ namespace MMSystem.Services.Reports
                             }
                         });
                     }
+                    foreach (var item in List1)
+                    {
+                        total_massege += item.TotalOfReceived.TotalOfMassage;
+                        total_reply += item.TotalOfReceived.TotalOfReplay;
+                        total_not_reply += item.TotalOfReceived.TotalOfNotReplay;
+                        total_avrage += item.TotalOfReceived.Average;
+                    }
+                    AllSectionWithTotal.TotalOfTotal.TotalOfMassage = total_massege;
+                    AllSectionWithTotal.TotalOfTotal.TotalOfReplay = total_reply;
+                    AllSectionWithTotal.TotalOfTotal.TotalOfNotReplay = total_not_reply;
+                    AllSectionWithTotal.TotalOfTotal.Average = total_avrage;
+                    AllSectionWithTotal.SectionReport = List1;
                 }
-                return List1;
+                return AllSectionWithTotal;
             }
             catch
             {

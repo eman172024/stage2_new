@@ -9,7 +9,7 @@ namespace MMSystem.Services.Reports
    public interface IRportInterface
     {
         Task<List<SectionReport>> GetAllDepartmentReports( DateTime fromdate, DateTime todate, int ? MailType , string SendedOrRecieved);
-        Task<List<SectionReport>> GetMySectionReport(int  id, DateTime  fromdate, DateTime  todate, int ? MailType , string  SendedOrRecieved);
+        Task<SectionReportWithTotal> GetMySectionReport(int  id, DateTime  fromdate, DateTime  todate, int ? MailType , string  SendedOrRecieved);
         Task<UserReports> GetAllUserMassageReport(int id, DateTime fromdate, DateTime todate, int ? MailType, string SendedOrRecieved);      
         Task<TotalCounts> GetAllSystemCount();
         Task<UsersConclsionReport> GetAllUserCount(int departmentid, DateTime fromdate, DateTime todate, int ? MailType, string RecievedOrSended);
