@@ -798,7 +798,7 @@
                       <input
                         class="hidden"
                         type="button"
-                        @click="scanToJpg, (show_images = true)"
+                        @click="scanToJpg(),show_images = true"
                       />
                     </label>
                   </div>
@@ -2436,6 +2436,8 @@ export default {
   },
 
   mounted() {
+
+    
     var date = new Date();
 
     var month = date.getMonth() + 1;
@@ -2761,6 +2763,7 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
 
+      this.show_images=false;
       this.departmentNameSelected = "";
       this.measureNameSelected = "";
 
