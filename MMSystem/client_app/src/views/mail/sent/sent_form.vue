@@ -775,7 +775,7 @@
                         </g>
                       </svg>
                       <span class="text-sm leading-normal">الماسح الضوئي</span>
-                      <input class="hidden" type="button" @click="scanToJpg" />
+                      <input class="hidden" type="button" @click="scanToJpg,show_images=true" />
                     </label>
                   </div>
 
@@ -920,7 +920,33 @@
                       </div>
                     </div>
                   </div>
+                  
+     
+                     <button
+                              @click="GetAllDocumentsToSend()"
+                              type="button"
+                              class="
+                                bg-green-600
+                                hover:bg-green-500
+                                duration-500
+                                p-2
+                                rounded-lg
+                                focus:outline-none
+                                ml-2
+                                mt-10
+                                
+                              "
+
+                              v-if="show_images"
+                            >
+
+                            
+                           عرض الصور
+                            </button>
+
                 </section>
+
+               
               </div>
 
               <section
@@ -2282,6 +2308,9 @@ export default {
 
   data() {
     return {
+
+      show_images:false,
+
       from_reply_or_general : '',
       indexOfDepartment: "",
       allDepartment: false,
@@ -2919,6 +2948,9 @@ export default {
       }
     },
 
+
+    
+
     GetAllDocuments(id, plase) {
       this.from_reply_or_general = plase
       this.screenFreeze = true;
@@ -3482,6 +3514,38 @@ console.log(this.to_test_passing_mail_type)
       //   this.GetSentMailById();
       // }, 1000);
     },
+
+
+
+    GetAllDocumentsToSend() {
+      this.screenFreeze = true;
+      this.loading = true;
+      this.$http.mailService
+        .GetAllDocuments(29,Number(localStorage.getItem("userId")))
+        .then((res) => {
+          console.log(res);
+
+          this.imagesToShow = res.data;
+
+          this.testimage = this.imagesToShow[0].path;
+
+          setTimeout(() => {
+           // this.show_images_model = true;
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 300);
+        })
+        .catch((err) => {
+          this.loading = false;
+          this.there_are_no_documents = true;
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.there_are_no_documents = false;
+            console.log(err);
+          }, 700);
+        });
+    },
+
 
     scanToJpg() {
       scanner.scan(this.displayImagesOnPage, {
