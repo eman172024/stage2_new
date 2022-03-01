@@ -313,7 +313,7 @@
                     display: flex; justify-content: center; align-items: center;
                   "
                 >
-                 1
+                 {{this.total.totalOfMassage}}
                 </div>
 
                 <div
@@ -327,7 +327,7 @@
                     
                   "
                 >
-                  1
+                  {{this.total.totalOfReplay}}
                 </div>
 
                 <div
@@ -341,7 +341,7 @@
                     
                   "
                 >
-               <span class=""> 1</span>  
+               <span class=""> {{this.total.totalOfNotReplay}}</span>  
                 </div>
 
                 <div
@@ -355,7 +355,7 @@
                     
                   "
                 >
-                  1 %
+                 {{this.total.average}} %
                 </div>
 
                 <div
@@ -367,7 +367,7 @@
                     
                   "
                 >
-                  1 
+                  
                 </div>
 
                
@@ -461,6 +461,7 @@ export default {
   data() {
     return {
       mails: [],
+      total:[],
 
       date: "",
     };
@@ -500,7 +501,8 @@ export default {
         .GetMysectionReport(localStorage.getItem("departmentId"),this.$route.params.dateFrom,this.$route.params.dateTo,1,"sended")
         .then((res) => {
           console.log(res);
-          this.mails=res.data;
+          this.mails=res.data.sectionReport;
+          this.total=res.data.totalOfTotal;
         })
         .catch((err) => {
           setTimeout(() => {
