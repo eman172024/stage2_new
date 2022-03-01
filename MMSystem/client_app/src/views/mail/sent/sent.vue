@@ -455,24 +455,24 @@
               <button
                 class="
                   px-8
-                mr-2
+                  mr-2
+                  w-2/12
                   bg-green-700
                   text-green-50
                   rounded-md
-                  py-2
                   border border-green-300
                   hover:bg-green-800
                   focus:outline-none
                   flex
                   items-center
                   justify-center
-                  col-span-2
+                  
                 "
                 @click="print_report()"
               
               >
-                <span class="text-sm font-bold block ml-1"
-                > طباعة </span
+                <span class="text-sm font-bold block ml-1  "
+                > تقرير إحصائي </span
                 >
 
                 <svg
@@ -1721,7 +1721,7 @@ export default {
 
       this.$router.push({name:'Statistical_report',params:{dateFrom: this.date_from,
                       dateTo: this.date_to,
-                      mailtype:1,
+                      mailtype:this.mailType,
                       }})
     }
   },

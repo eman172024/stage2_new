@@ -40,12 +40,13 @@
                 منظومة البريد 
               </div>
 
+
               <div
                 class="ml-4 mt-4"
                 style="margin-left: 16px; margin-top: 16px"
               >
                 <span class="ml-2" style="margin-left: 8px">
-                  تقرير احصائي لجميع المراسلات للفترة من
+                  تقرير احصائي لجميع مراسلات {{this.mail_type}}  للفترة من
                 </span>
 
                 <span
@@ -170,7 +171,7 @@
                 class="
                   w-full
                   flex
-                   border-r-2 border-l-2 border-black border-t
+                   border-r-2 border-l-2 border-black 
                   
                 "
                 style="
@@ -178,7 +179,7 @@
                   display: flex;
                   border-right: 2px solid black;
                   border-left: 2px solid black;
-                  border-top: 1px solid black;
+                 
                   border-bottom: 1px solid black;
                   font-size: 15px;
                   line-height: 25px;
@@ -254,7 +255,7 @@
                 </div>
 
                 <div
-                  class="text-right border-black border-l-2 px-1 pt-1 pb-0.5 flex justify-center items-center"
+                  class="text-right   px-1 pt-1 pb-0.5 flex justify-center items-center"
                   style="
                     width: 25%;
                     text-align: right;
@@ -313,7 +314,7 @@
                     display: flex; justify-content: center; align-items: center;
                   "
                 >
-                 1
+                 {{this.total.totalOfMassage}}
                 </div>
 
                 <div
@@ -327,7 +328,7 @@
                     
                   "
                 >
-                  1
+                  {{this.total.totalOfReplay}}
                 </div>
 
                 <div
@@ -341,7 +342,7 @@
                     
                   "
                 >
-               <span class=""> 1</span>  
+               <span class=""> {{this.total.totalOfNotReplay}}</span>  
                 </div>
 
                 <div
@@ -355,7 +356,7 @@
                     
                   "
                 >
-                  1 %
+                 {{this.total.average}} %
                 </div>
 
                 <div
@@ -367,7 +368,7 @@
                     
                   "
                 >
-                  1 
+                  
                 </div>
 
                
@@ -456,11 +457,24 @@ export default {
     if (day < 10) day = "0" + day;
 
     this.date = date.getFullYear() + "-" + month + "-" + day;
+    
+
+    switch(this.$route.params.mailtype){
+
+        case "1":  this.mail_type="البريد الداخلي"; break;
+
+        case "3":  this.mail_type="الوارد الخارجي"; break;
+
+        default:  this.mail_type="البريد"; break;
+    }
   },
 
   data() {
     return {
       mails: [],
+      total:[],
+
+      mail_type:"",
 
       date: "",
     };
@@ -497,10 +511,11 @@ export default {
 
 
       this.$http.mailService
-        .GetMysectionReport(localStorage.getItem("departmentId"),this.$route.params.dateFrom,this.$route.params.dateTo,"","sended")
+        .GetMysectionReport(localStorage.getItem("departmentId"),this.$route.params.dateFrom,this.$route.params.dateTo,this.$route.params.mailtype,"sended")
         .then((res) => {
           console.log(res);
-          this.mails=res.data;
+          this.mails=res.data.sectionReport;
+          this.total=res.data.totalOfTotal;
         })
         .catch((err) => {
           setTimeout(() => {
