@@ -246,10 +246,17 @@ namespace MMSystem.Services.MailServeic
 
 
                         string note = Histoteyvm.getValue(hVModels);
-                        histor.changes = note;
-                        histor.mailid = ex.MailID;
-                        histor.Time = DateTime.Now;
-                        histor.currentUser = userid;
+
+                        if (!String.IsNullOrWhiteSpace(note)) {
+
+                            histor.changes = note;
+                            histor.mailid = ex.MailID;
+                            histor.Time = DateTime.Now;
+                            histor.currentUser = userid;
+                            _appDb.History.Add(histor);
+                            await _appDb.SaveChangesAsync();
+                        }
+                      
                         ex.Sectionid = mail.Sectionid;
                         ex.SectorType = mail.SectorType;
                         ex.SectorId = mail.SectorId;
@@ -259,7 +266,7 @@ namespace MMSystem.Services.MailServeic
 
 
                         _appDb.External_Mails.Update(ex);
-                        _appDb.History.Add(histor);
+                      //  _appDb.History.Add(histor);
                         await _appDb.SaveChangesAsync();
 
                         return true;
