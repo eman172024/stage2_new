@@ -10,6 +10,6 @@ namespace MMSystem.Model.ViewModel
     {
         public string DepartmentName { get; set; }
         public TotalCounts TotalOfReceived { get; set; } = new TotalCounts();
-    
+
     }
 }
