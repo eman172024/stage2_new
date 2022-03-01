@@ -374,13 +374,21 @@ namespace MMSystem.Services.Reports
                         total_massege += item.TotalOfReceived.TotalOfMassage;
                         total_reply += item.TotalOfReceived.TotalOfReplay;
                         total_not_reply += item.TotalOfReceived.TotalOfNotReplay;
-                        total_avrage += item.TotalOfReceived.Average;
+
                     }
                     AllSectionWithTotal.TotalOfTotal.TotalOfMassage = total_massege;
                     AllSectionWithTotal.TotalOfTotal.TotalOfReplay = total_reply;
                     AllSectionWithTotal.TotalOfTotal.TotalOfNotReplay = total_not_reply;
-                    AllSectionWithTotal.TotalOfTotal.Average = total_avrage;
-                    AllSectionWithTotal.SectionReport = List1;                    
+                    if (AllSectionWithTotal.TotalOfTotal.TotalOfMassage != 0)
+                    {
+                        AllSectionWithTotal.TotalOfTotal.Average = Math.Round((AllSectionWithTotal.TotalOfTotal.TotalOfReplay / AllSectionWithTotal.TotalOfTotal.TotalOfMassage) * 100, 2);
+                    }
+                    else
+                    {
+                        AllSectionWithTotal.TotalOfTotal.Average = 0;
+                    }
+                    //   AllSectionWithTotal.TotalOfTotal.Average = total_avrage;
+                    AllSectionWithTotal.SectionReport = List1;
                 }
                 else if(SendedOrRecieved == "recieved") {
                 
@@ -447,12 +455,20 @@ namespace MMSystem.Services.Reports
                         total_massege += item.TotalOfReceived.TotalOfMassage;
                         total_reply += item.TotalOfReceived.TotalOfReplay;
                         total_not_reply += item.TotalOfReceived.TotalOfNotReplay;
-                        total_avrage += item.TotalOfReceived.Average;
+                     
                     }
                     AllSectionWithTotal.TotalOfTotal.TotalOfMassage = total_massege;
                     AllSectionWithTotal.TotalOfTotal.TotalOfReplay = total_reply;
                     AllSectionWithTotal.TotalOfTotal.TotalOfNotReplay = total_not_reply;
-                    AllSectionWithTotal.TotalOfTotal.Average = total_avrage;
+                    if (AllSectionWithTotal.TotalOfTotal.TotalOfMassage != 0)
+                    {
+                        AllSectionWithTotal.TotalOfTotal.Average = Math.Round((AllSectionWithTotal.TotalOfTotal.TotalOfReplay / AllSectionWithTotal.TotalOfTotal.TotalOfMassage) * 100, 2);
+                    }
+                    else
+                    {
+                        AllSectionWithTotal.TotalOfTotal.Average = 0;
+                    }
+                 //   AllSectionWithTotal.TotalOfTotal.Average = total_avrage;
                     AllSectionWithTotal.SectionReport = List1;
                 }
                 return AllSectionWithTotal;
