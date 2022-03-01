@@ -1721,7 +1721,7 @@ export default {
 
       this.$router.push({name:'Statistical_report',params:{dateFrom: this.date_from,
                       dateTo: this.date_to,
-                      mailtype:1,
+                      mailtype:this.mailType,
                       }})
     }
   },
