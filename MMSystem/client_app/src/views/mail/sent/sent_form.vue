@@ -138,7 +138,6 @@
             </div>
 
             <div class="mt-6 space-y-6">
-
               <div class="grid grid-cols-7 gap-6">
                 <section class="col-span-5 flex justify-between items-stretch">
                   <section
@@ -798,7 +797,7 @@
                       <input
                         class="hidden"
                         type="button"
-                        @click="scanToJpg(),show_images = true"
+                        @click="scanToJpg(), (show_images = true)"
                       />
                     </label>
                   </div>
@@ -898,7 +897,9 @@
                           </div>
                         </div>
 
-                        <div class="flex justify-between items-center pt-2 MB-2">
+                        <div
+                          class="flex justify-between items-center pt-2 MB-2"
+                        >
                           <div
                             class="
                               ml-2
@@ -975,12 +976,11 @@
                     </div>
                   </div>
 
-
-                        <div class="w-full flex justify-center ">
-                  <button
-                    @click="GetAllDocumentsToSend()"
-                    type="button"
-                    class="
+                  <div class="w-full flex justify-center ">
+                    <button
+                      @click="GetAllDocumentsToSend()"
+                      type="button"
+                      class="
                      w-full
                         sm:w-auto sm:mr-3
                         flex
@@ -1005,13 +1005,11 @@
                        
                       
                     "
-                    v-if="show_images"
-                  >
-                    عرض الصور
-                  </button>
-
+                      v-if="show_images"
+                    >
+                      عرض الصور
+                    </button>
                   </div>
-
                 </section>
               </div>
 
@@ -1440,8 +1438,9 @@
                     <button
                       v-if="
                         summary &&
-                        classification &&
-                        (consignees.length != 0 || newactionSenders.length != 0)
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                       "
                       @click="clear_page()"
                       class="
@@ -1491,8 +1490,9 @@
                     <button
                       v-if="
                         summary &&
-                        classification &&
-                        (consignees.length != 0 || newactionSenders.length != 0)
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                       "
                       @click="updateMail"
                       type="button"
@@ -1570,8 +1570,9 @@
                     <button
                       v-if="
                         summary &&
-                        classification &&
-                        (consignees.length != 0 || newactionSenders.length != 0)
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                       "
                       @click="deleteMail"
                       type="button"
@@ -1650,9 +1651,9 @@
                       <button
                         v-if="
                           summary &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0)
                         "
                         class="
                           flex
@@ -1717,13 +1718,13 @@
                       <button
                         v-if="
                           summary &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0) &&
-                          mail_forwarding &&
-                          sectorNameSelected &&
-                          sideNameSelected &&
-                          action_required_by_the_entity
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0) &&
+                            mail_forwarding &&
+                            sectorNameSelected &&
+                            sideNameSelected &&
+                            action_required_by_the_entity
                         "
                         class="
                           flex
@@ -1788,16 +1789,16 @@
                       <button
                         v-if="
                           summary &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0) &&
-                          sectorNameSelected &&
-                          sideNameSelected &&
-                          ward_to &&
-                          mail_ward_type &&
-                          entity_mail_date &&
-                          entity_reference_number &&
-                          procedure_type
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0) &&
+                            sectorNameSelected &&
+                            sideNameSelected &&
+                            ward_to &&
+                            mail_ward_type &&
+                            entity_mail_date &&
+                            entity_reference_number &&
+                            procedure_type
                         "
                         class="
                           flex
@@ -1863,8 +1864,9 @@
                     <button
                       v-if="
                         summary &&
-                        classification &&
-                        (consignees.length != 0 || newactionSenders.length != 0)
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                       "
                       class="
                         flex
@@ -2436,8 +2438,6 @@ export default {
   },
 
   mounted() {
-
-    
     var date = new Date();
 
     var month = date.getMonth() + 1;
@@ -2535,6 +2535,7 @@ export default {
 
       consignees: [],
       newactionSenders: [],
+      newactionSendersIncludesId: [],
 
       releaseDate: "",
       summary: "",
@@ -2623,7 +2624,7 @@ export default {
   },
 
   watch: {
-    mailType: function () {
+    mailType: function() {
       this.indextotest_images_model = 0;
       this.show_images_images_model = [];
       this.mail_Number = "";
@@ -2648,6 +2649,7 @@ export default {
       this.this_value_to_solve_repetition_department = true;
 
       this.consignees = [];
+      this.newactionSendersIncludesId = [];
 
       this.replies = [];
       this.imagesToShow = [];
@@ -2664,7 +2666,13 @@ export default {
 
       setTimeout(() => {
         if (this.mailType == 2) {
+
+          
+      this.newactionSendersIncludesId = [];
+
           if (this.this_value_to_solve_repetition_department) {
+            this.newactionSendersIncludesId = [];
+            this.newactionSenders = [];
             for (let index = 0; index < this.departments.length; index++) {
               if (
                 this.departments[index].departmentName.includes(
@@ -2677,19 +2685,22 @@ export default {
                   measureId: this.measures[0].measuresId,
                   measureName: this.measures[0].measuresName,
                 });
-                this.departments.splice(index, 1);
+                this.newactionSendersIncludesId.push(this.departments[index].id)
+                // this.departments.splice(index, 1);
+
+                
               }
 
-              if (
-                this.departments[index].departmentName.includes("المحفوظات")
-              ) {
+              if ( this.departments[index].departmentName.includes("المحفوظات") )
+              {
                 this.newactionSenders.push({
                   departmentId: this.departments[index].id,
                   departmentName: this.departments[index].departmentName,
                   measureId: this.measures[0].measuresId,
                   measureName: this.measures[0].measuresName,
                 });
-                this.departments.splice(index, 1);
+                this.newactionSendersIncludesId.push(this.departments[index].id)
+                // this.departments.splice(index, 1);
               }
             }
           }
@@ -2763,7 +2774,13 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
 
-      this.show_images=false;
+
+      this.consignees = [];
+      this.newactionSendersIncludesId = [];
+      
+      this.newactionSenders = []; 
+
+      this.show_images = false;
       this.departmentNameSelected = "";
       this.measureNameSelected = "";
 
@@ -2821,12 +2838,19 @@ export default {
     add_to_array_of_side_measure() {
       if (this.allDepartment) {
         for (let index = 0; index < this.blblbl.length; index++) {
-          this.newactionSenders.push({
-            departmentId: this.blblbl[index].id,
-            departmentName: this.blblbl[index].departmentName,
-            measureId: this.measureIdSelected,
-            measureName: this.measureNameSelected,
-          });
+
+          if(this.newactionSendersIncludesId.includes(this.blblbl[index].id)){
+
+          }else{
+            this.newactionSenders.push({
+              departmentId: this.blblbl[index].id,
+              departmentName: this.blblbl[index].departmentName,
+              measureId: this.measureIdSelected,
+              measureName: this.measureNameSelected,
+            });
+            this.newactionSendersIncludesId.push(this.blblbl[index].id)
+          }
+          
         }
 
         this.departmentNameSelected = "";
@@ -2835,24 +2859,40 @@ export default {
         this.measureIdSelected = "";
         this.measureNameSelected = "";
 
-        this.departments = [];
+        // this.departments = [];
         this.allDepartmentButton = false;
       } else {
         // array.includes('🍰');
-        this.newactionSenders.push({
-          departmentId: this.departmentIdSelected,
-          departmentName: this.departmentNameSelected,
-          measureId: this.measureIdSelected,
-          measureName: this.measureNameSelected,
-        });
 
-        this.departmentNameSelected = "";
-        this.departmentIdSelected = "";
+        if(this.newactionSendersIncludesId.includes(this.departmentIdSelected)){
+          console.log("found")
+          alert("تم اضافة الادارة من قبل")
+          this.departmentNameSelected = "";
+          this.departmentIdSelected = "";
 
-        this.measureIdSelected = "";
-        this.measureNameSelected = "";
+          this.measureIdSelected = "";
+          this.measureNameSelected = "";
+        }else{
+          console.log("not found")
 
-        this.departments.splice(this.indexOfDepartment, 1);
+          this.newactionSendersIncludesId
+          this.newactionSenders.push({
+            departmentId: this.departmentIdSelected,
+            departmentName: this.departmentNameSelected,
+            measureId: this.measureIdSelected,
+            measureName: this.measureNameSelected,
+          });
+          this.newactionSendersIncludesId.push(this.departmentIdSelected)
+
+          this.departmentNameSelected = "";
+          this.departmentIdSelected = "";
+
+          this.measureIdSelected = "";
+          this.measureNameSelected = "";
+        }
+        
+
+        // this.departments.splice(this.indexOfDepartment, 1);
       }
     },
 
@@ -2864,6 +2904,7 @@ export default {
           }
         });
         this.newactionSenders.splice(index, 1);
+        this.newactionSendersIncludesId.splice(index, 1);
       } else {
         const index = this.newactionSenders.findIndex((element, index) => {
           if (element.departmentId === consignee) {
@@ -2871,12 +2912,13 @@ export default {
           }
         });
         this.newactionSenders.splice(index, 1);
+        this.newactionSendersIncludesId.splice(index, 1);
       }
 
-      this.departments.push({
-        id: consignee,
-        departmentName: name,
-      });
+      // this.departments.push({
+      //   id: consignee,
+      //   departmentName: name,
+      // });
 
       this.allDepartmentButton = true;
     },
@@ -2920,6 +2962,7 @@ export default {
 
       this.consignees = [];
       this.newactionSenders = [];
+      this.newactionSendersIncludesId = [];
 
       this.GetAllDepartments;
       this.$http.mailService
@@ -2959,6 +3002,13 @@ export default {
           this.required_action = res.data.mail.action_Required;
 
           this.consignees = res.data.actionSenders;
+
+
+
+          for (let index = 0; index < res.data.actionSenders.length; index++) {
+           
+            this.newactionSendersIncludesId.push(res.data.actionSenders[index].departmentId)
+          }
 
           this.imagesToShow = res.data.resourcescs;
 
@@ -3110,8 +3160,9 @@ export default {
     previousImage_images_model() {
       if (this.indextotest_images_model > 0) {
         this.indextotest_images_model--;
-        this.testimage_images_model =
-          this.show_images_images_model[this.indextotest_images_model].path;
+        this.testimage_images_model = this.show_images_images_model[
+          this.indextotest_images_model
+        ].path;
       }
     },
 
@@ -3121,8 +3172,9 @@ export default {
         this.show_images_images_model.length - 1
       ) {
         this.indextotest_images_model++;
-        this.testimage_images_model =
-          this.show_images_images_model[this.indextotest_images_model].path;
+        this.testimage_images_model = this.show_images_images_model[
+          this.indextotest_images_model
+        ].path;
       }
     },
 
@@ -3231,6 +3283,7 @@ export default {
       this.$http.mailService
         .AllDepartments()
         .then((res) => {
+
           this.departments = res.data;
         })
         .catch((err) => {
@@ -3336,6 +3389,16 @@ export default {
             this.screenFreeze = false;
 
             this.newactionSenders = [];
+
+            if (this.mailType == 1) {
+              this.to_test_passing_mail_type = 1;
+            }
+            if (this.mailType == 2) {
+              this.to_test_passing_mail_type = 2;
+            }
+            if (this.mailType == 3) {
+              this.to_test_passing_mail_type = 3;
+            }
 
             this.GetSentMailById();
           }, 500);
@@ -3463,13 +3526,13 @@ export default {
 
     GetSentMailById() {
       this.this_value_to_solve_repetition_department = false;
-      console.log(this.to_test_passing_mail_type);
-      console.log("this.to_test_passing_mail_type");
+     
       this.newactionSenders = [];
 
       this.screenFreeze = true;
       this.loading = true;
 
+      
       this.$http.mailService
         .GetSentMailById(this.mailId, this.to_test_passing_mail_type)
         .then((res) => {
@@ -3482,7 +3545,6 @@ export default {
 
           this.summary = res.data.mail.mail_Summary;
 
-          console.log(res.data);
 
           this.remove_button_consignees = false;
 
@@ -3497,14 +3559,27 @@ export default {
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
 
+          
           this.consignees = res.data.actionSenders;
-          this.departments = res.data.departments;
+
+          console.log(res.data.actionSenders)
+
+          for (let index = 0; index < res.data.actionSenders.length; index++) {
+           
+            this.newactionSendersIncludesId.push(res.data.actionSenders[index].departmentId)
+          }
+
+          // this.departments = res.data.departments;
 
           this.imagesToShow = res.data.resourcescs;
 
           if (this.imagesToShow.length > 0) {
             this.testimage = this.imagesToShow[0].path;
             this.test_image_id = this.imagesToShow[0].id;
+          }
+
+          if (res.data.mail.mail_Type == 1) {
+            this.GetAllDepartments()
           }
 
           if (this.to_test_passing_mail_type == "2") {
