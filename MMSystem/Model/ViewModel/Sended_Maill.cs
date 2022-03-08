@@ -13,6 +13,15 @@ namespace MMSystem.Model.ViewModel
 
 
         public int mail_id { get; set; }
+        public int mailid { get; set; }
+        public int action { get; set; }
+        public string action_required_by_the_entity { get; set; }
+
+        public int attashment { get; set; }
+        public string delvirey { get; set; }
+        public string note { get; set; }
+
+
         public int Mail_Number { get; set; }
 
         public string date { get; set; }
@@ -35,9 +44,11 @@ namespace MMSystem.Model.ViewModel
         public string summary { get; set; }
 
         public int Sends_id { get; set; }
+        public int SectionId { get; set; }
 
 
         public string action_require { get; set; }
+        public string sectionname { get; set; }
 
 
     }
