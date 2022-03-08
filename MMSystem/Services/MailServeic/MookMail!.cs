@@ -2488,7 +2488,6 @@ namespace MMSystem.Services.MailServeic
 
 
 
-
                     Historyes histor = new Historyes();
 
                     histor.mailid = mail.MailID;
@@ -2508,16 +2507,26 @@ namespace MMSystem.Services.MailServeic
 
 
                     string chamges = Histoteyvm.getValue(hVModels);
+                    if (!String.IsNullOrWhiteSpace(chamges)) {
+                        histor.changes = chamges;
+                        histor.currentUser = userid;
 
+                        histor.Time = DateTime.Now;
+                        _appContext.History.Add(histor);
+                        await _appContext.SaveChangesAsync();
+
+
+                    }
+
+                    else
+                    {
+
+
+                    }
 
                     _appContext.Mails.Update(_mail);
                     await _appContext.SaveChangesAsync();
-                    histor.changes = chamges;
-                    histor.currentUser = userid;
-
-                    histor.Time = DateTime.Now;
-                    _appContext.History.Add(histor);
-                    await _appContext.SaveChangesAsync();
+                   
 
 
                     return true;

@@ -209,14 +209,28 @@ namespace MMSystem.Services.MailServeic
                         _Inbox.Send_time = ex.Send_time;
 
                         _dbCon.Extrenal_Inboxes.Update(_Inbox);
-                        string chamges = Histoteyvm.getValue(hVModels);
 
-                        histor.changes = chamges;
-                        histor.currentUser = userid;
-                        histor.mailid = _Inbox.MailID;
-                        histor.Time = DateTime.Now;
-                        _dbCon.History.Add(histor);
-                        await _dbCon.SaveChangesAsync();
+                        string chamges = Histoteyvm.getValue(hVModels);
+                        if (!String.IsNullOrWhiteSpace(chamges))
+                        {
+                            histor.currentUser = userid;
+
+                            histor.Time = DateTime.Now;
+                            histor.changes = chamges;
+                            histor.currentUser = userid;
+                            histor.mailid = _Inbox.MailID;
+                            histor.Time = DateTime.Now;
+                            _dbCon.History.Add(histor);
+                            await _dbCon.SaveChangesAsync();
+
+
+                        }
+
+
+                        else { }
+
+
+                       
 
                         return true;
                     }

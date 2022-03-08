@@ -23,7 +23,7 @@ namespace MMSystem.Services.ReceivedMail
         public async Task<PagenationSendedEmail<Sended_Maill>> GetAll(DateTime? myday, int? daycheck, int? mailnum_bool,
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
            int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
-           Typeof_send, int? mail_type, string? replaytext, int? userid, int pagenum, int size, int? Measure_filter,
+           Typeof_send, int? mail_type, string? replaytext, int? userid, int pagenum, int? mailNumType ,int size, int? Measure_filter,
            int? Department_filter, int? Classfication, int? mail_state, int? genral_incoming_num
             , int? TheSection, bool? Replay_Date)
         {
@@ -63,16 +63,6 @@ namespace MMSystem.Services.ReceivedMail
                     Sectionbool = false;
 
                 }
-
-
-
-
-
-
-
-
-
-
 
 
                 if (mail_state == null)
@@ -237,9 +227,7 @@ namespace MMSystem.Services.ReceivedMail
                                    summary = mail.Mail_Summary,
                                    flag = ex.flag,
                                    Sends_id = ex.Id
-                                   
-
-
+          
                                }).OrderByDescending(v => v.mail_id).ToListAsync();
 
                 IEnumerable<Sended_Maill> zx;
@@ -282,53 +270,45 @@ namespace MMSystem.Services.ReceivedMail
                 }
 
 
-
-
-                if(TheSection!=null)
+                if (TheSection != null )
                 {
-                    var lx = Replay_Date;
-
-
+                    //   var lx = Replay_Date;
                     zx1 = (from x in c
-            join d in dbcon.External_Mails.Where(x => x.Sectionid == TheSection || Sectionbool == true) on x.mail_id equals d.MailID
-            join b in dbcon.Extrenal_Inboxes.Where(x => x.SectionId == TheSection || Sectionbool == true) on x.mail_id equals b.MailID
-
-
+                           join d in dbcon.External_Mails
+                           on x.mail_id equals d.MailID into gg
+                           from z in gg.DefaultIfEmpty()
+                           join b in dbcon.Extrenal_Inboxes
+                           on x.mail_id
+                           equals b.MailID into bb
+                           // from a in bb.DefaultIfEmpty().Where(x => x.SectionId == TheSection || Sectionbool== true).OrderByDescending(x=>x.MailID)
+                           from a in bb.DefaultIfEmpty()
+                               //join b in dbcon.Extrenal_Inboxes.Where(x => x.SectionId == TheSection || Sectionbool == true) on x.mail_id equals b.MailID                             
                            select new Sended_Maill
-                          {
+                           {
+                               mail_id = x.mail_id,
+                               State = x.State,
+                               type_of_mail = x.type_of_mail,
+                               Mail_Number = x.Mail_Number,
+                               date = x.date,
+                               Masure_type = x.Masure_type,
+                               mangment_sender = x.mangment_sender,
+                               mangment_sender_id = x.mangment_sender_id,
+                               Send_time = x.Send_time,
+                               time = x.time,
+                               summary = x.summary,
+                               flag = x.flag,
+                               Sends_id = x.Sends_id,
+                               SectionId = z == null && a == null ? 0 : z != null && a == null ? z.Sectionid : z == null && a != null ? a.SectionId :0
 
-                              mail_id = x.mail_id,
-                              State = x.State,
-                              type_of_mail = x.type_of_mail,
-                              Mail_Number = x.Mail_Number,
-                              date = x.date,
-                              Masure_type = x.Masure_type,
-                              mangment_sender = x.mangment_sender,
-                              mangment_sender_id = x.mangment_sender_id,
-                              Send_time = x.Send_time,
-                              time = x.time,
-                              summary = x.summary,
-                              flag = x.flag,
-                              Sends_id = x.Sends_id
-                          }
-                              ).ToList();
+                           }).Where(x => x.SectionId == TheSection).ToList();
 
-
+                   var er = zx1;
                 }
                 else
                 {
                     zx1 = c;
                 }
             
-
-
-
-
-
-
-
-
-
 
                 pag.mail = await (from mail in dbcon.Mails.Where(x => (x.Department_Id == mangment &&
               x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
@@ -412,28 +392,35 @@ namespace MMSystem.Services.ReceivedMail
                 {
 
 
-                    pagg1.mail = (from x in pag.mail
-                                      join d in dbcon.External_Mails.Where(x => x.Sectionid == TheSection || Sectionbool == true) on x.mail_id equals d.MailID
-                                      join b in dbcon.Extrenal_Inboxes.Where(x => x.SectionId == TheSection || Sectionbool == true) on x.mail_id equals b.MailID
+                    pagg1.mail = (from x in c
+                                  join d in dbcon.External_Mails
+                                  on x.mail_id equals d.MailID into gg
+                                  from z in gg.DefaultIfEmpty()
+                                  join b in dbcon.Extrenal_Inboxes
 
+                                  on x.mail_id
+                                  equals b.MailID into bb
+                                  // from a in bb.DefaultIfEmpty().Where(x => x.SectionId == TheSection || Sectionbool== true).OrderByDescending(x=>x.MailID)
+                                  from a in bb.DefaultIfEmpty()
+                                      //join b in dbcon.Extrenal_Inboxes.Where(x => x.SectionId == TheSection || Sectionbool == true) on x.mail_id equals b.MailID
                                   select new Sended_Maill
-                                 {
+                                  {
+                                      mail_id = x.mail_id,
+                                      State = x.State,
+                                      type_of_mail = x.type_of_mail,
+                                      Mail_Number = x.Mail_Number,
+                                      date = x.date,
+                                      Masure_type = x.Masure_type,
+                                      mangment_sender = x.mangment_sender,
+                                      mangment_sender_id = x.mangment_sender_id,
+                                      Send_time = x.Send_time,
+                                      time = x.time,
+                                      summary = x.summary,
+                                      flag = x.flag,
+                                      Sends_id = x.Sends_id,
+                                      SectionId = z == null && a == null ? 0 : z != null && a == null ? z.Sectionid : z == null && a != null ? a.SectionId : 0
 
-                                     mail_id = x.mail_id,
-                                     State = x.State,
-                                     type_of_mail = x.type_of_mail,
-                                     Mail_Number = x.Mail_Number,
-                                     date = x.date,
-                                     Masure_type = x.Masure_type,
-                                     mangment_sender = x.mangment_sender,
-                                     mangment_sender_id = x.mangment_sender_id,
-                                     Send_time = x.Send_time,
-                                     time = x.time,
-                                     summary = x.summary,
-                                     flag = x.flag,
-                                     Sends_id = x.Sends_id
-                                 }
-                              ).ToList();
+                                  }).Where(x => x.SectionId == TheSection).ToList();
 
                     // z.Count();
                 }
@@ -2619,10 +2606,12 @@ namespace MMSystem.Services.ReceivedMail
                         {
 
                             var c0 = await GetAll(myday, daycheck, mailnum_bool,
-                mangment, d1, d2, mailnum, summary, mail_Readed,
-                mailReaded, mailnot_readed, Day_sended1, Day_sended2,
-               Typeof_send, mail_type, replaytext, userid, pagenum, size, Measure_filter,
-               Department_filter, Classfication, mail_state, genral_incoming_num, TheSection,  Replay_Date);
+             mangment, d1, d2, mailnum, summary,
+            mail_Readed, mailReaded, mailnot_readed, Day_sended1,
+             Day_sended2, Typeof_send, mail_type, replaytext, userid, pagenum,
+             mailNumType, size, Measure_filter, Department_filter, Classfication, mail_state,
+             genral_incoming_num, TheSection, Replay_Date
+             );
                             d = c0;
                             break;
                         }

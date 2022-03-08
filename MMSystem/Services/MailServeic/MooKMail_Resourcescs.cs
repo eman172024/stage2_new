@@ -204,6 +204,8 @@ namespace MMSystem.Services.MailServeic
 
 
 
+               
+
                 foreach (var xx in mail_ResourcescsDtos)
                 {
                     string x = xx.path;
@@ -227,16 +229,28 @@ namespace MMSystem.Services.MailServeic
                 }
 
 
-                Historyes historyes = new Historyes();
-                historyes.currentUser = userId;
+                if (mail_ResourcescsDtos.Count > 0)
+                {
+                    Historyes historyes = new Historyes();
+                    historyes.currentUser = userId;
 
-                historyes.mailid = id;
-                historyes.changes = $" تم عرض الصورة   {id} ";
-                historyes.Time = DateTime.Now;
-                historyes.HistortyNameID = 13;
-                await _dbCon.History.AddAsync(historyes);
+                    historyes.mailid = id;
+                    historyes.changes = $" تم عرض الصورة   {id} ";
+                    historyes.Time = DateTime.Now;
+                    historyes.HistortyNameID = 13;
+                    await _dbCon.History.AddAsync(historyes);
 
-                await _dbCon.SaveChangesAsync();
+                    await _dbCon.SaveChangesAsync();
+
+                    return mail_ResourcescsDtos;
+
+                }
+                else {
+
+                    return mail_ResourcescsDtos;
+                }
+
+                
 
                 return mail_ResourcescsDtos;
 
