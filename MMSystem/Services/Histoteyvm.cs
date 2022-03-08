@@ -13,7 +13,7 @@ namespace MMSystem.Services
         public static string getValue(List<HVModel> list ) {
 
 
-            string text = "";
+            string text = "  ";
            
             //    }
 
@@ -23,10 +23,36 @@ namespace MMSystem.Services
             {
                 //text = "    " + text +item.newvalue.ToString()+ $" {} الي "+"  " +item.oldvalue.ToString()  +"  من  " + item.name+"  {}تم تغيير";
 
+                text = text + " " + string.Format($" " +
 
-                text = text+"  "+$"تم تغير القيمة  :  {item.name.ToString()}  من  {item.oldvalue.ToString()}  الي  {item.newvalue} ";
+                       //$" الي " +
+                       //  $" {item.newvalue} " +
+                       //$"  من  " +
+                       //$" {item.oldvalue}  " +
+                       //$" تم تغيير    {item.name}  ");
+                       //  text = text + $"تم تغيير  {item.name} من {item.oldvalue} الي {item.newvalue}";
+
+
+                       //   text = text + $"{item.newvalue} الي ,{item.oldvalue } من  {item.name.ToString()}  تم تغيير ";
+                       $"  {item.newvalue}  الي   {item.oldvalue}  " +
+                //$" الي " +
+                //   $"  من" +
+                //$"      " +
+              
+             
+               
+                $" تم تغيير    {item.name}  ");
+             //   text = text + $"تم تغيير  {item.name} من {item.oldvalue} الي {item.newvalue}";
+
+
             }
 
+
+
+            //  text.Reverse();
+
+
+            //
             return text;
         }
        

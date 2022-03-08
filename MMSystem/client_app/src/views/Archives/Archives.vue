@@ -71,7 +71,7 @@
                       name="type"
                       class="h-4 w-4"
                       value=""
-                      
+                      @click="get_sectors(0)"
                     />
                     <label for="all" class="mr-2 block text-gray-800">
                       الكل
@@ -137,7 +137,7 @@
                     border border-b-0
                     hover:text-blue-600 hover:font-bold
                     group
-                    w-10/12
+                    w-11/12
                     p-2
                     bg-white
                     flex
@@ -1544,7 +1544,7 @@ export default {
 
     get_sectors(type) {
 
-      if(type==""){
+      if(type=="" || type==0){
 
         type=0;
       }

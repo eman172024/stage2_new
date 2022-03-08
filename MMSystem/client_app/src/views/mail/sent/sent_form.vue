@@ -9,7 +9,18 @@
           <div class="-mt-14 py-0.5 z-20">
             <button
               @click="clear_page()"
-              class=" border border-black duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-bold hover:bg-green-600 hover:text-white focus:outline-none"
+              class="
+                border border-black
+                duration-300
+                bg-white
+                px-4
+                py-2
+                rounded-md
+                text-gray-900
+                font-bold
+                hover:bg-green-600 hover:text-white
+                focus:outline-none
+              "
             >
               إضافة بريد جديد +
             </button>
@@ -83,7 +94,14 @@
               </fieldset>
 
               <div
-                class="float-left text-sm font-semibold text-gray-800 flex items-center"
+                class="
+                  float-left
+                  text-sm
+                  font-semibold
+                  text-gray-800
+                  flex
+                  items-center
+                "
               >
                 رقم الرسالة
 
@@ -97,7 +115,15 @@
                     v-model="mail_Number"
                   />
                   <div
-                    class="w-16 px-1 rounded-md font-normal focus:outline-none mx-4 bg-white"
+                    class="
+                      w-16
+                      px-1
+                      rounded-md
+                      font-normal
+                      focus:outline-none
+                      mx-4
+                      bg-white
+                    "
                   >
                     {{ my_department_id }}
                   </div>
@@ -145,8 +171,7 @@
                           rounded-md
                           border border-gray-200
                           hover:shadow-sm
-                          focus:outline-none
-                          focus:border-gray-300
+                          focus:outline-none focus:border-gray-300
                           p-2
                         "
                       >
@@ -172,8 +197,7 @@
                           rounded-md
                           border border-gray-200
                           hover:shadow-sm
-                          focus:outline-none
-                          focus:border-gray-300
+                          focus:outline-none focus:border-gray-300
                           p-2
                         "
                       >
@@ -199,7 +223,8 @@
                       </label>
                       <input
                         v-model="releaseDate"
-                        min="2000-01-01" max="2040-12-30"
+                        min="2000-01-01"
+                        max="2040-12-30"
                         type="date"
                         id="date"
                         class="
@@ -211,8 +236,7 @@
                           text-sm
                           border border-gray-200
                           hover:shadow-sm
-                          focus:outline-none
-                          focus:border-gray-300
+                          focus:outline-none focus:border-gray-300
                           p-2
                         "
                       />
@@ -238,8 +262,7 @@
                           rounded-md
                           border border-gray-200
                           hover:shadow-sm
-                          focus:outline-none
-                          focus:border-gray-300
+                          focus:outline-none focus:border-gray-300
                           px-2
                         "
                         required
@@ -269,8 +292,7 @@
                           text-sm
                           border border-gray-200
                           hover:shadow-sm
-                          focus:outline-none
-                          focus:border-gray-300
+                          focus:outline-none focus:border-gray-300
                           p-2
                         "
                       />
@@ -308,8 +330,7 @@
                           rounded-md
                           border border-gray-200
                           hover:shadow-sm
-                          focus:outline-none
-                          focus:border-gray-300
+                          focus:outline-none focus:border-gray-300
                           p-2
                         "
                       >
@@ -337,7 +358,7 @@
                             @click="departmentselect = !departmentselect"
                             id="department"
                             class="
-                            overflow-hidden
+                              overflow-hidden
                               text-right
                               block
                               mt-2
@@ -349,8 +370,7 @@
                               bg-white
                               border-gray-200
                               hover:shadow-sm
-                              focus:outline-none
-                              focus:border-gray-300
+                              focus:outline-none focus:border-gray-300
                               p-2
                             "
                           >
@@ -441,8 +461,7 @@
                               bg-white
                               border-gray-200
                               hover:shadow-sm
-                              focus:outline-none
-                              focus:border-gray-300
+                              focus:outline-none focus:border-gray-300
                               p-2
                             "
                           >
@@ -490,8 +509,10 @@
                         </div>
                       </div>
 
-                      <div class="sm:col-span-1 flex justify-end" v-if="measureNameSelected && departmentNameSelected">
-                      
+                      <div
+                        class="sm:col-span-1 flex justify-end"
+                        v-if="measureNameSelected && departmentNameSelected"
+                      >
                         <button
                           v-if="add_button_consignees"
                           @click="add_to_array_of_side_measure()"
@@ -626,7 +647,6 @@
                           {{ consignee.measureName }}
                           <!--  -->
                           <button
-                           
                             @click="
                               remove_to_array_of_side_measure(
                                 consignee.departmentId,
@@ -686,8 +706,7 @@
                         tracking-wide
                         border border-green-600
                         cursor-pointer
-                        hover:text-white
-                        hover:bg-green-600
+                        hover:text-white hover:bg-green-600
                         focus:outline-none
                         duration-300
                       "
@@ -775,17 +794,19 @@
                         </g>
                       </svg>
                       <span class="text-sm leading-normal">الماسح الضوئي</span>
-                      <input class="hidden" type="button" @click="scanToJpg" />
+                      <input
+                        class="hidden"
+                        type="button"
+                        @click="scanToJpg(), (show_images = true)"
+                      />
                     </label>
                   </div>
 
-                  <div class="h-72 w-full bg-gray-100 rounded-md mt-4">
+                  <div class="h-72 w-full bg-gray-100 rounded-md mt-4 mb-10">
                     <div
                       v-if="imagesToSend != '' || imagesToShow != ''"
                       class="mt-4 pt-4 pb-4 rounded-md"
                     >
-                     
-
                       <div v-if="testimage" class="">
                         <div class="relative h-64 w-full">
                           <img
@@ -804,7 +825,7 @@
                             "
                           >
                             <button
-                              @click="GetAllDocuments(mailId, 1)"
+                              @click="GetAllDocuments(29, 1)"
                               type="button"
                               class="
                                 bg-green-600
@@ -832,7 +853,8 @@
                               </svg>
                             </button>
 
-                            <button type="button"
+                            <button
+                              type="button"
                               class="
                                 bg-red-600
                                 hover:bg-red-500
@@ -841,21 +863,54 @@
                                 rounded-full
                                 focus:outline-none
                                 ml-2
-                              " @click="deleteDocument()">
-
-                              <svg  class="w-4 h-4 stroke-current text-white mx-auto" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M3 6.5H5H21"  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M8 6.5V4.5C8 3.96957 8.21071 3.46086 8.58579 3.08579C8.96086 2.71071 9.46957 2.5 10 2.5H14C14.5304 2.5 15.0391 2.71071 15.4142 3.08579C15.7893 3.46086 16 3.96957 16 4.5V6.5M19 6.5V20.5C19 21.0304 18.7893 21.5391 18.4142 21.9142C18.0391 22.2893 17.5304 22.5 17 22.5H7C6.46957 22.5 5.96086 22.2893 5.58579 21.9142C5.21071 21.5391 5 21.0304 5 20.5V6.5H19Z"  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              "
+                              @click="deleteDocument()"
+                            >
+                              <svg
+                                class="
+                                  w-4
+                                  h-4
+                                  stroke-current
+                                  text-white
+                                  mx-auto
+                                "
+                                width="24"
+                                height="25"
+                                viewBox="0 0 24 25"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M3 6.5H5H21"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M8 6.5V4.5C8 3.96957 8.21071 3.46086 8.58579 3.08579C8.96086 2.71071 9.46957 2.5 10 2.5H14C14.5304 2.5 15.0391 2.71071 15.4142 3.08579C15.7893 3.46086 16 3.96957 16 4.5V6.5M19 6.5V20.5C19 21.0304 18.7893 21.5391 18.4142 21.9142C18.0391 22.2893 17.5304 22.5 17 22.5H7C6.46957 22.5 5.96086 22.2893 5.58579 21.9142C5.21071 21.5391 5 21.0304 5 20.5V6.5H19Z"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
                               </svg>
                             </button>
                           </div>
                         </div>
 
-                        <div class="flex justify-between items-center pt-2">
+                        <div
+                          class="flex justify-between items-center pt-2 MB-2"
+                        >
                           <div
-                            class="ml-2 flex justify-between items-center w-full"
+                            class="
+                              ml-2
+                              flex
+                              justify-between
+                              items-center
+                              w-full
+                            "
                           >
                             <button
+                              title="prev"
                               @click="previousImage()"
                               class="
                                 w-8
@@ -919,6 +974,41 @@
                         </div>
                       </div>
                     </div>
+                  </div>
+
+                  <div class="w-full flex justify-center ">
+                    <button
+                      @click="GetAllDocumentsToSend()"
+                      type="button"
+                      class="
+                     w-full
+                        sm:w-auto sm:mr-3
+                        flex
+                        justify-center
+                        items-center
+                        py-2
+                        px-4
+                        border border-transparent
+                        shadow-sm
+                        text-sm
+                        font-medium
+                        rounded-md
+                        border-green-600
+                        text-white
+                        bg-green-600
+                        hover:shadow-lg
+                        focus:shadow-none
+                        duration-300
+                        focus:outline-none
+                     
+                    
+                       
+                      
+                    "
+                      v-if="show_images"
+                    >
+                      عرض الصور
+                    </button>
                   </div>
                 </section>
               </div>
@@ -1032,8 +1122,7 @@
                           bg-white
                           border-gray-200
                           hover:shadow-sm
-                          focus:outline-none
-                          focus:border-gray-300
+                          focus:outline-none focus:border-gray-300
                           p-2
                         "
                       >
@@ -1102,8 +1191,7 @@
                           bg-white
                           border-gray-200
                           hover:shadow-sm
-                          focus:outline-none
-                          focus:border-gray-300
+                          focus:outline-none focus:border-gray-300
                           p-2
                         "
                       >
@@ -1168,8 +1256,7 @@
                       rounded-md
                       border border-gray-200
                       hover:shadow-sm
-                      focus:outline-none
-                      focus:border-gray-300
+                      focus:outline-none focus:border-gray-300
                       p-2
                     "
                   >
@@ -1271,7 +1358,8 @@
                     <input
                       v-model="entity_mail_date"
                       type="date"
-                      min="2000-01-01" max="2040-12-30"
+                      min="2000-01-01"
+                      max="2040-12-30"
                       id="entity_mail_date"
                       class="
                         block
@@ -1281,8 +1369,7 @@
                         h-10
                         border border-gray-200
                         hover:shadow-sm
-                        focus:outline-none
-                        focus:border-gray-300
+                        focus:outline-none focus:border-gray-300
                         px-2
                       "
                       required
@@ -1308,8 +1395,7 @@
                         rounded-md
                         border border-gray-200
                         hover:shadow-sm
-                        focus:outline-none
-                        focus:border-gray-300
+                        focus:outline-none focus:border-gray-300
                         px-2
                       "
                       required
@@ -1321,7 +1407,7 @@
                       for="procedure_type"
                       class="block text-sm font-semibold text-gray-800"
                     >
-                      نوع الإجراء 
+                      نوع الإجراء
                     </label>
                     <select
                       v-model="procedure_type"
@@ -1334,8 +1420,7 @@
                         h-10
                         border border-gray-200
                         hover:shadow-sm
-                        focus:outline-none
-                        focus:border-gray-300
+                        focus:outline-none focus:border-gray-300
                         p-2
                       "
                     >
@@ -1351,7 +1436,12 @@
                   <div class="flex justify-end ml-6">
                     <!--  :href="$router.resolve({ name: 'sent-add' }).href" -->
                     <button
-                      v-if="summary && classification && (consignees.length != 0 || newactionSenders.length != 0) "
+                      v-if="
+                        summary &&
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
+                      "
                       @click="clear_page()"
                       class="
                         flex
@@ -1398,14 +1488,18 @@
 
                   <div v-if="updataButton" class="flex justify-end ml-6">
                     <button
-                      v-if="summary && classification && (consignees.length != 0 || newactionSenders.length != 0)"
+                      v-if="
+                        summary &&
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
+                      "
                       @click="updateMail"
                       type="button"
                       id="edit"
                       class="
                         w-full
-                        sm:w-auto
-                        sm:mr-3
+                        sm:w-auto sm:mr-3
                         flex
                         justify-center
                         items-center
@@ -1474,14 +1568,18 @@
 
                   <div v-if="deleteButton" class="flex justify-end ml-6">
                     <button
-                      v-if="summary && classification && (consignees.length != 0 || newactionSenders.length != 0)"
+                      v-if="
+                        summary &&
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
+                      "
                       @click="deleteMail"
                       type="button"
                       id="edit"
                       class="
                         w-full
-                        sm:w-auto
-                        sm:mr-3
+                        sm:w-auto sm:mr-3
                         flex
                         justify-center
                         items-center
@@ -1551,7 +1649,12 @@
                   <div v-if="saveButton" class="flex justify-end">
                     <div v-if="mailType == '1'" class="">
                       <button
-                        v-if="summary && classification && (consignees.length != 0 || newactionSenders.length != 0)"
+                        v-if="
+                          summary &&
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0)
+                        "
                         class="
                           flex
                           justify-center
@@ -1613,7 +1716,16 @@
 
                     <div v-if="mailType == '2'" class="">
                       <button
-                        v-if="summary && classification && (consignees.length != 0 || newactionSenders.length != 0) && mail_forwarding && sectorNameSelected && sideNameSelected && action_required_by_the_entity"
+                        v-if="
+                          summary &&
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0) &&
+                            mail_forwarding &&
+                            sectorNameSelected &&
+                            sideNameSelected &&
+                            action_required_by_the_entity
+                        "
                         class="
                           flex
                           justify-center
@@ -1673,10 +1785,21 @@
                       </button>
                     </div>
 
-
                     <div v-if="mailType == '3'" class="">
                       <button
-                        v-if="summary && classification && (consignees.length != 0 || newactionSenders.length != 0) && sectorNameSelected && sideNameSelected && ward_to && mail_ward_type && entity_mail_date && entity_reference_number && procedure_type"
+                        v-if="
+                          summary &&
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0) &&
+                            sectorNameSelected &&
+                            sideNameSelected &&
+                            ward_to &&
+                            mail_ward_type &&
+                            entity_mail_date &&
+                            entity_reference_number &&
+                            procedure_type
+                        "
                         class="
                           flex
                           justify-center
@@ -1739,7 +1862,12 @@
 
                   <div v-if="sendButton" class="flex justify-end">
                     <button
-                      v-if="summary && classification && (consignees.length != 0 || newactionSenders.length != 0)"
+                      v-if="
+                        summary &&
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
+                      "
                       class="
                         flex
                         justify-center
@@ -1817,8 +1945,7 @@
                   "
                   class="
                     border border-blue-400
-                    hover:bg-blue-400
-                    hover:text-white
+                    hover:bg-blue-400 hover:text-white
                     duration-300
                     focus:outline-none
                     rounded-md
@@ -1855,7 +1982,10 @@
                     v-for="(reply, index) in replies"
                     :key="index"
                     :class="
-                      reply.reply.to == my_department_id ? ' flex-row-reverse justify-start' : 'justify-start'"
+                      reply.reply.to == my_department_id
+                        ? ' flex-row-reverse justify-start'
+                        : 'justify-start'
+                    "
                     class="w-full my-0.5 flex px-2"
                   >
                     <div
@@ -1864,22 +1994,55 @@
                           ? 'bg-gray-700'
                           : 'bg-blue-700'
                       "
-                      class=" text-white max-w-10/12 py-0 leading-9 px-2 rounded "
+                      class="text-white max-w-10/12 py-0 leading-9 px-2 rounded"
                     >
                       {{ reply.reply.mail_detail }}
                     </div>
 
-                    <div v-if="reply.resources != 0" class=" mx-2">
-                        <button @click="show_reply_images(index, 3)" class="px-2 text-xs rounded leading-9 text-white bg-red-400 flex items-center">
-                          عرض الصور
-                          <svg class="stroke-current mr-2 w-6 h-6" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"  stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M8.5 10C9.32843 10 10 9.32843 10 8.5C10 7.67157 9.32843 7 8.5 7C7.67157 7 7 7.67157 7 8.5C7 9.32843 7.67157 10 8.5 10Z"  stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M21 15L16 10L5 21"  stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-                          </svg>
-                        </button>
+                    <div v-if="reply.resources != 0" class="mx-2">
+                      <button
+                        @click="show_reply_images(index, 3)"
+                        class="
+                          px-2
+                          text-xs
+                          rounded
+                          leading-9
+                          text-white
+                          bg-red-400
+                          flex
+                          items-center
+                        "
+                      >
+                        عرض الصور
+                        <svg
+                          class="stroke-current mr-2 w-6 h-6"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
+                            stroke-width="1"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M8.5 10C9.32843 10 10 9.32843 10 8.5C10 7.67157 9.32843 7 8.5 7C7.67157 7 7 7.67157 7 8.5C7 9.32843 7.67157 10 8.5 10Z"
+                            stroke-width="1"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M21 15L16 10L5 21"
+                            stroke-width="1"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </button>
                     </div>
-
                   </div>
                 </div>
 
@@ -1896,13 +2059,12 @@
                           rounded-md
                           border border-gray-200
                           hover:shadow-sm
-                          focus:outline-none
-                          focus:border-gray-300
+                          focus:outline-none focus:border-gray-300
                           p-2
                         "
                         v-model="reply_to_add"
                       >
-                    </textarea>
+                      </textarea>
                     </div>
 
                     <div class="w-2/12 mr-4">
@@ -1920,8 +2082,7 @@
                           tracking-wide
                           border border-green-600
                           cursor-pointer
-                          hover:text-white
-                          hover:bg-green-600
+                          hover:text-white hover:bg-green-600
                           focus:outline-none
                           duration-300
                         "
@@ -2008,8 +2169,14 @@
                             </g>
                           </g>
                         </svg>
-                        <span class="text-sm leading-normal">الماسح الضوئي</span>
-                        <input class="hidden" type="button" @click="scanToReply" />
+                        <span class="text-sm leading-normal"
+                          >الماسح الضوئي</span
+                        >
+                        <input
+                          class="hidden"
+                          type="button"
+                          @click="scanToReply"
+                        />
                       </label>
                     </div>
                   </div>
@@ -2031,8 +2198,7 @@
                         tracking-wide
                         border border-blue-600
                         cursor-pointer
-                        hover:text-white
-                        hover:bg-blue-600
+                        hover:text-white hover:bg-blue-600
                         focus:outline-none
                         duration-300
                       "
@@ -2092,7 +2258,7 @@
 
     <div
       v-if="show_images_model"
-      class="w-screen h-full absolute inset-0 z-50 overflow-hidden "
+      class="w-screen h-full absolute inset-0 z-50 overflow-hidden"
     >
       <div class="relative">
         <div
@@ -2114,7 +2280,18 @@
         </div>
 
         <div
-          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
+          class="
+            h-screen
+            flex flex-col
+            justify-center
+            items-center
+            bg-black bg-opacity-90
+            absolute
+            top-0
+            inset-0
+            z-50
+            w-full
+          "
         >
           <div class="max-w-3xl mx-auto">
             <div class="flex justify-between items-center w-full">
@@ -2138,7 +2315,14 @@
               <button
                 @click="print_image()"
                 v-print="'#printMe'"
-                class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+                class="
+                  bg-blue-500
+                  hover:bg-blue-400
+                  px-4
+                  py-2
+                  rounded-lg
+                  text-white
+                "
               >
                 طباعة كافة المستندات
               </button>
@@ -2154,11 +2338,28 @@
 
             <div
               v-if="testimage_images_model"
-              class="flex justify-between items-center max-w-xs mx-auto w-full mt-4"
+              class="
+                flex
+                justify-between
+                items-center
+                max-w-xs
+                mx-auto
+                w-full
+                mt-4
+              "
             >
               <button
                 @click="previousImage_images_model()"
-                class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
+                class="
+                  focus:outline-none
+                  w-12
+                  h-8
+                  bg-gray-300
+                  rounded
+                  flex
+                  justify-center
+                  items-center
+                "
               >
                 <svg
                   class="w-4 h-4"
@@ -2178,13 +2379,22 @@
 
               <div class="text-white">
                 {{ indextotest_images_model + 1 }} /
-              {{ show_images_images_model.length }}
+                {{ show_images_images_model.length }}
               </div>
 
               <button
                 title="next"
                 @click="nextImage_images_model()"
-                class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
+                class="
+                  focus:outline-none
+                  w-12
+                  h-8
+                  bg-gray-300
+                  rounded
+                  flex
+                  justify-center
+                  items-center
+                "
               >
                 <svg
                   class="w-4 h-4"
@@ -2282,7 +2492,9 @@ export default {
 
   data() {
     return {
-      from_reply_or_general : '',
+      show_images: false,
+
+      from_reply_or_general: "",
       indexOfDepartment: "",
       allDepartment: false,
       allDepartmentButton: true,
@@ -2323,6 +2535,7 @@ export default {
 
       consignees: [],
       newactionSenders: [],
+      newactionSendersIncludesId: [],
 
       releaseDate: "",
       summary: "",
@@ -2398,7 +2611,7 @@ export default {
 
       marginalizedDocuments: [],
 
-      this_value_to_solve_repetition_department : true,
+      this_value_to_solve_repetition_department: true,
 
       //
       //name: this.$authenticatedUser.name,
@@ -2411,11 +2624,9 @@ export default {
   },
 
   watch: {
-
     mailType: function() {
-
-      this.indextotest_images_model = 0
-      this.show_images_images_model = []
+      this.indextotest_images_model = 0;
+      this.show_images_images_model = [];
       this.mail_Number = "";
       this.summary = "";
       this.classification = "";
@@ -2435,11 +2646,11 @@ export default {
       this.entity_reference_number = "";
       this.procedure_type = 1;
 
-      this.this_value_to_solve_repetition_department = true
+      this.this_value_to_solve_repetition_department = true;
 
       this.consignees = [];
+      this.newactionSendersIncludesId = [];
 
-      
       this.replies = [];
       this.imagesToShow = [];
       this.newactionSenders = [];
@@ -2454,54 +2665,64 @@ export default {
       this.GetAllDepartments();
 
       setTimeout(() => {
-        if(this.mailType == 2){
-          if( this.this_value_to_solve_repetition_department ){
+        if (this.mailType == 2) {
+
+          
+      this.newactionSendersIncludesId = [];
+
+          if (this.this_value_to_solve_repetition_department) {
+            this.newactionSendersIncludesId = [];
+            this.newactionSenders = [];
             for (let index = 0; index < this.departments.length; index++) {
-
-              if(this.departments[index].departmentName.includes('مكتب رئيس الهيئة')){
-
+              if (
+                this.departments[index].departmentName.includes(
+                  "مكتب رئيس الهيئة"
+                )
+              ) {
                 this.newactionSenders.push({
                   departmentId: this.departments[index].id,
                   departmentName: this.departments[index].departmentName,
                   measureId: this.measures[0].measuresId,
                   measureName: this.measures[0].measuresName,
                 });
-                this.departments.splice(index,1)
+                this.newactionSendersIncludesId.push(this.departments[index].id)
+                // this.departments.splice(index, 1);
+
+                
               }
 
-              if(this.departments[index].departmentName.includes('المحفوظات')){
-
+              if ( this.departments[index].departmentName.includes("المحفوظات") )
+              {
                 this.newactionSenders.push({
                   departmentId: this.departments[index].id,
                   departmentName: this.departments[index].departmentName,
                   measureId: this.measures[0].measuresId,
                   measureName: this.measures[0].measuresName,
                 });
-                this.departments.splice(index,1)
-
+                this.newactionSendersIncludesId.push(this.departments[index].id)
+                // this.departments.splice(index, 1);
               }
-
             }
           }
         }
       }, 500);
-
     },
-   
   },
 
   methods: {
-
-    print_image(){
-      this.to_test_print_images_model = true
+    print_image() {
+      this.to_test_print_images_model = true;
       this.$http.mailService
-        .PrintOrShowDocument(Number(this.mailId), Number(localStorage.getItem("userId")), Number(this.from_reply_or_general))
+        .PrintOrShowDocument(
+          Number(this.mailId),
+          Number(localStorage.getItem("userId")),
+          Number(this.from_reply_or_general)
+        )
         .then((res) => {
           setTimeout(() => {
             console.log(res);
             this.loading = false;
             this.screenFreeze = false;
-       
           }, 500);
         })
         .catch((err) => {
@@ -2514,30 +2735,30 @@ export default {
     },
 
     show_reply_images(index, plase) {
-      this.from_reply_or_general = plase
+      this.from_reply_or_general = plase;
       this.screenFreeze = true;
       this.loading = true;
 
       this.$http.mailService
-        .PrintOrShowDocument(Number(this.mailId), Number(localStorage.getItem("userId")), 2)
+        .PrintOrShowDocument(
+          Number(this.mailId),
+          Number(localStorage.getItem("userId")),
+          2
+        )
         .then((res) => {
           setTimeout(() => {
             console.log(res);
-           
 
-            this.show_images_images_model = []
-            this.indextotest = 0
+            this.show_images_images_model = [];
+            this.indextotest = 0;
 
-            
-            this.show_images_images_model = this.replies[index].resources
+            this.show_images_images_model = this.replies[index].resources;
 
             this.testimage_images_model = this.show_images_images_model[0].path;
 
-              this.show_images_model = true;
-              this.screenFreeze = false;
-              this.loading = false;
-
-       
+            this.show_images_model = true;
+            this.screenFreeze = false;
+            this.loading = false;
           }, 500);
         })
         .catch((err) => {
@@ -2547,18 +2768,22 @@ export default {
           }, 500);
           console.log(err);
         });
-
     },
 
     clear_page() {
       this.screenFreeze = true;
       this.loading = true;
 
-     
+
+      this.consignees = [];
+      this.newactionSendersIncludesId = [];
       
-      this.departmentNameSelected = ''
-      this.measureNameSelected = ''
-      
+      this.newactionSenders = []; 
+
+      this.show_images = false;
+      this.departmentNameSelected = "";
+      this.measureNameSelected = "";
+
       var date = new Date();
 
       var month = date.getMonth() + 1;
@@ -2598,10 +2823,9 @@ export default {
       this.ButtonUploadImagesMail = false;
 
       setTimeout(() => {
-            this.screenFreeze = false;
-            this.loading = false;
-          }, 300);
-          
+        this.screenFreeze = false;
+        this.loading = false;
+      }, 300);
     },
 
     selectAllDepartment(x, name) {
@@ -2612,42 +2836,64 @@ export default {
     },
 
     add_to_array_of_side_measure() {
-        if (this.allDepartment) {
-          for (let index = 0; index < this.blblbl.length; index++) {
+      if (this.allDepartment) {
+        for (let index = 0; index < this.blblbl.length; index++) {
+
+          if(this.newactionSendersIncludesId.includes(this.blblbl[index].id)){
+
+          }else{
             this.newactionSenders.push({
               departmentId: this.blblbl[index].id,
               departmentName: this.blblbl[index].departmentName,
               measureId: this.measureIdSelected,
               measureName: this.measureNameSelected,
             });
+            this.newactionSendersIncludesId.push(this.blblbl[index].id)
           }
+          
+        }
 
+        this.departmentNameSelected = "";
+        this.departmentIdSelected = "";
+
+        this.measureIdSelected = "";
+        this.measureNameSelected = "";
+
+        // this.departments = [];
+        this.allDepartmentButton = false;
+      } else {
+        // array.includes('🍰');
+
+        if(this.newactionSendersIncludesId.includes(this.departmentIdSelected)){
+          console.log("found")
+          alert("تم اضافة الادارة من قبل")
           this.departmentNameSelected = "";
           this.departmentIdSelected = "";
 
           this.measureIdSelected = "";
           this.measureNameSelected = "";
+        }else{
+          console.log("not found")
 
-          this.departments = [];
-          this.allDepartmentButton = false;
-        } else {
-          // array.includes('🍰');
+          this.newactionSendersIncludesId
           this.newactionSenders.push({
             departmentId: this.departmentIdSelected,
             departmentName: this.departmentNameSelected,
             measureId: this.measureIdSelected,
             measureName: this.measureNameSelected,
           });
+          this.newactionSendersIncludesId.push(this.departmentIdSelected)
 
           this.departmentNameSelected = "";
           this.departmentIdSelected = "";
 
           this.measureIdSelected = "";
           this.measureNameSelected = "";
-
-          this.departments.splice(this.indexOfDepartment, 1);
         }
-     
+        
+
+        // this.departments.splice(this.indexOfDepartment, 1);
+      }
     },
 
     remove_to_array_of_side_measure(consignee, name) {
@@ -2658,6 +2904,7 @@ export default {
           }
         });
         this.newactionSenders.splice(index, 1);
+        this.newactionSendersIncludesId.splice(index, 1);
       } else {
         const index = this.newactionSenders.findIndex((element, index) => {
           if (element.departmentId === consignee) {
@@ -2665,28 +2912,33 @@ export default {
           }
         });
         this.newactionSenders.splice(index, 1);
+        this.newactionSendersIncludesId.splice(index, 1);
       }
 
-      this.departments.push({
-        id: consignee,
-        departmentName: name,
-      });
+      // this.departments.push({
+      //   id: consignee,
+      //   departmentName: name,
+      // });
 
       this.allDepartmentButton = true;
     },
 
-    delete_side_measure(department_id, name){
+    delete_side_measure(department_id, name) {
       this.screenFreeze = true;
       this.loading = true;
 
       this.$http.mailService
-        .cancel_sending_to_department(this.mailId, department_id, Number(localStorage.getItem("userId")))
+        .cancel_sending_to_department(
+          this.mailId,
+          department_id,
+          Number(localStorage.getItem("userId"))
+        )
         .then((res) => {
           setTimeout(() => {
             this.loading = false;
             this.screenFreeze = false;
 
-            this.GetSentMailById()
+            this.GetSentMailById();
             // const index = this.consignees.findIndex((element, index) => {
             //   if (element.departmentId === department_id) {
             //     return true;
@@ -2700,7 +2952,7 @@ export default {
             this.loading = false;
             this.screenFreeze = false;
           }, 500);
-          alert("لا يمكن إلغاء الإدارة بعد القراءة")
+          alert("لا يمكن إلغاء الإدارة بعد القراءة");
         });
     },
 
@@ -2708,10 +2960,11 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
 
-      this.consignees = []
-      this.newactionSenders = []
+      this.consignees = [];
+      this.newactionSenders = [];
+      this.newactionSendersIncludesId = [];
 
-      this.GetAllDepartments
+      this.GetAllDepartments;
       this.$http.mailService
         .search(
           this.mail_Number,
@@ -2749,6 +3002,13 @@ export default {
           this.required_action = res.data.mail.action_Required;
 
           this.consignees = res.data.actionSenders;
+
+
+
+          for (let index = 0; index < res.data.actionSenders.length; index++) {
+           
+            this.newactionSendersIncludesId.push(res.data.actionSenders[index].departmentId)
+          }
 
           this.imagesToShow = res.data.resourcescs;
 
@@ -2809,9 +3069,9 @@ export default {
           setTimeout(() => {
             this.screenFreeze = false;
             this.loading = false;
-            this.clear_page()
+            this.clear_page();
 
-            alert("لا يوحد بريد بهذا الرقم.")
+            alert("لا يوحد بريد بهذا الرقم.");
             console.log(err);
           }, 100);
         });
@@ -2822,17 +3082,17 @@ export default {
       this.loading = true;
 
       var ReplyViewModel = {
-        userId : Number(localStorage.getItem("userId")),
-        mailId : Number(this.mailId),
+        userId: Number(localStorage.getItem("userId")),
+        mailId: Number(this.mailId),
         send_ToId: Number(this.sends_id),
         from: Number(1),
         reply: {
           mail_detail: this.reply_to_add,
           To: Number(this.replyByDepartmenId),
         },
-        file : {
-          "list" : this.imagesToSend
-        }
+        file: {
+          list: this.imagesToSend,
+        },
       };
       this.$http.mailService
         .NewAddReply(ReplyViewModel)
@@ -2863,7 +3123,7 @@ export default {
     },
 
     GetReplyByDepartment(id, send_ToId, name, flag) {
-      this.departmentflag = 0
+      this.departmentflag = 0;
       this.replyByDepartmenId = id;
       this.sends_id = send_ToId;
       this.departmentName = name;
@@ -2874,7 +3134,7 @@ export default {
         .then((res) => {
           this.replies = res.data.list;
 
-          console.log(this.replies)
+          console.log(this.replies);
         })
         .catch((err) => {
           console.log(err);
@@ -2894,7 +3154,6 @@ export default {
         this.indextotest++;
         this.testimage = this.imagesToShow[this.indextotest].path;
         this.test_image_id = this.imagesToShow[this.indextotest].id;
-
       }
     },
 
@@ -2920,7 +3179,7 @@ export default {
     },
 
     GetAllDocuments(id, plase) {
-      this.from_reply_or_general = plase
+      this.from_reply_or_general = plase;
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
@@ -3024,6 +3283,7 @@ export default {
       this.$http.mailService
         .AllDepartments()
         .then((res) => {
+
           this.departments = res.data;
         })
         .catch((err) => {
@@ -3037,7 +3297,7 @@ export default {
 
       if (this.mailType == "1") {
         var dataUpdate = {
-          userId : Number(localStorage.getItem("userId")),
+          userId: Number(localStorage.getItem("userId")),
           mail: {
             MailID: Number(this.mailId),
             Mail_Type: Number(this.mailType),
@@ -3059,7 +3319,7 @@ export default {
 
       if (this.mailType == "2") {
         var dataUpdate = {
-          userId : Number(localStorage.getItem("userId")),
+          userId: Number(localStorage.getItem("userId")),
           mail: {
             MailID: Number(this.mailId),
             Mail_Type: Number(this.mailType),
@@ -3089,7 +3349,7 @@ export default {
 
       if (this.mailType == "3") {
         var dataUpdate = {
-          userId : Number(localStorage.getItem("userId")),
+          userId: Number(localStorage.getItem("userId")),
           mail: {
             MailID: Number(this.mailId),
             Mail_Type: Number(this.mailType),
@@ -3128,9 +3388,19 @@ export default {
             this.loading = false;
             this.screenFreeze = false;
 
-            this.newactionSenders = []
+            this.newactionSenders = [];
 
-            this.GetSentMailById()
+            if (this.mailType == 1) {
+              this.to_test_passing_mail_type = 1;
+            }
+            if (this.mailType == 2) {
+              this.to_test_passing_mail_type = 2;
+            }
+            if (this.mailType == 3) {
+              this.to_test_passing_mail_type = 3;
+            }
+
+            this.GetSentMailById();
           }, 500);
         })
         .catch((err) => {
@@ -3239,10 +3509,10 @@ export default {
             this.mailId = res.data.mailId;
             this.department_Id = res.data.department_Id;
             this.mail_year = res.data.mail_year;
-            this.to_test_passing_mail_type = this.mailType
+            this.to_test_passing_mail_type = this.mailType;
 
-console.log('this.to_test_passing_mail_type')
-console.log(this.to_test_passing_mail_type)
+            console.log("this.to_test_passing_mail_type");
+            console.log(this.to_test_passing_mail_type);
             this.GetSentMailById();
           }, 500);
         })
@@ -3255,14 +3525,14 @@ console.log(this.to_test_passing_mail_type)
     },
 
     GetSentMailById() {
-      this.this_value_to_solve_repetition_department = false
-      console.log(this.to_test_passing_mail_type)
-      console.log('this.to_test_passing_mail_type')
-      this.newactionSenders = []
+      this.this_value_to_solve_repetition_department = false;
+     
+      this.newactionSenders = [];
 
       this.screenFreeze = true;
       this.loading = true;
 
+      
       this.$http.mailService
         .GetSentMailById(this.mailId, this.to_test_passing_mail_type)
         .then((res) => {
@@ -3275,7 +3545,6 @@ console.log(this.to_test_passing_mail_type)
 
           this.summary = res.data.mail.mail_Summary;
 
-          console.log(res.data);
 
           this.remove_button_consignees = false;
 
@@ -3290,14 +3559,27 @@ console.log(this.to_test_passing_mail_type)
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
 
+          
           this.consignees = res.data.actionSenders;
-          this.departments = res.data.departments;
+
+          console.log(res.data.actionSenders)
+
+          for (let index = 0; index < res.data.actionSenders.length; index++) {
+           
+            this.newactionSendersIncludesId.push(res.data.actionSenders[index].departmentId)
+          }
+
+          // this.departments = res.data.departments;
 
           this.imagesToShow = res.data.resourcescs;
 
           if (this.imagesToShow.length > 0) {
             this.testimage = this.imagesToShow[0].path;
             this.test_image_id = this.imagesToShow[0].id;
+          }
+
+          if (res.data.mail.mail_Type == 1) {
+            this.GetAllDepartments()
           }
 
           if (this.to_test_passing_mail_type == "2") {
@@ -3348,17 +3630,14 @@ console.log(this.to_test_passing_mail_type)
 
           // this.GetProcessingResponses();
 
-
           setTimeout(() => {
-              this.screenFreeze = false;
-      this.loading = false;
+            this.screenFreeze = false;
+            this.loading = false;
           }, 200);
-
         })
         .catch((err) => {
-
           this.screenFreeze = false;
-      this.loading = false;
+          this.loading = false;
           console.log(err);
         });
     },
@@ -3402,8 +3681,8 @@ console.log(this.to_test_passing_mail_type)
             this.loading = false;
             this.screenFreeze = false;
 
-            this.clear_page()
-              // this.$router.replace("/sent");
+            this.clear_page();
+            // this.$router.replace("/sent");
           }, 500);
         })
         .catch((err) => {
@@ -3462,10 +3741,7 @@ console.log(this.to_test_passing_mail_type)
         // }
       }
 
-
-
       // this.UploadImagesMail()
-
 
       // if (this.mailType == 1) {
       //   this.to_test_passing_mail_type = 1;
@@ -3477,10 +3753,38 @@ console.log(this.to_test_passing_mail_type)
       //   this.to_test_passing_mail_type = 3;
       // }
 
-
       // setTimeout(() => {
       //   this.GetSentMailById();
       // }, 1000);
+    },
+
+    GetAllDocumentsToSend() {
+      this.screenFreeze = true;
+      this.loading = true;
+      this.$http.mailService
+        .GetAllDocuments(29, Number(localStorage.getItem("userId")))
+        .then((res) => {
+          console.log(res);
+
+          this.imagesToShow = res.data;
+
+          this.testimage = this.imagesToShow[0].path;
+
+          setTimeout(() => {
+            // this.show_images_model = true;
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 300);
+        })
+        .catch((err) => {
+          this.loading = false;
+          this.there_are_no_documents = true;
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.there_are_no_documents = false;
+            console.log(err);
+          }, 700);
+        });
     },
 
     scanToJpg() {
@@ -3531,10 +3835,7 @@ console.log(this.to_test_passing_mail_type)
         // }
       }
 
-
-
-      this.UploadImagesMail()
-
+      this.UploadImagesMail();
 
       if (this.mailType == 1) {
         this.to_test_passing_mail_type = 1;
@@ -3546,7 +3847,6 @@ console.log(this.to_test_passing_mail_type)
         this.to_test_passing_mail_type = 3;
       }
 
-
       setTimeout(() => {
         this.GetSentMailById();
       }, 1000);
@@ -3556,15 +3856,18 @@ console.log(this.to_test_passing_mail_type)
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .UploadImagesMail(this.mailId, this.imagesToSend, Number(localStorage.getItem("userId")))
+        .UploadImagesMail(
+          this.mailId,
+          this.imagesToSend,
+          Number(localStorage.getItem("userId"))
+        )
         .then((res) => {
           setTimeout(() => {
             this.ButtonUploadImagesMail = false;
             this.loading = false;
             this.screenFreeze = false;
 
-
-            this.imagesToSend =[]
+            this.imagesToSend = [];
             console.log(res);
 
             this.GetSentMailById();
@@ -3579,15 +3882,15 @@ console.log(this.to_test_passing_mail_type)
     },
 
     deleteDocument() {
-
-
       this.$http.mailService
-        .DeleteDocument(Number(this.test_image_id), Number(localStorage.getItem("userId")))
+        .DeleteDocument(
+          Number(this.test_image_id),
+          Number(localStorage.getItem("userId"))
+        )
         .then((res) => {
-
-          console.log("SSSSSSSSSSSSSSSSSSSSSS")
+          console.log("SSSSSSSSSSSSSSSSSSSSSS");
           // this.imagesToShow.splice(index, 1);
-          this.mail_search()
+          this.mail_search();
           console.log(res);
           // this.imagesToShow = res.data.result.documents
         })
@@ -3633,7 +3936,6 @@ console.log(this.to_test_passing_mail_type)
         "' /></body></html>"
       );
     },
-  
   },
 };
 </script>

@@ -37,15 +37,16 @@
             >
               هيئة الرقابة الإدارية
               <div class="my-4" style="margin-top: 16px; margin-bottom: 16px">
-                منظومة البريد الداخلي
+                منظومة البريد 
               </div>
+
 
               <div
                 class="ml-4 mt-4"
                 style="margin-left: 16px; margin-top: 16px"
               >
                 <span class="ml-2" style="margin-left: 8px">
-                  تقرير بالرسائل الواردة للفترة من
+                  تقرير احصائي لجميع مراسلات {{this.mail_type}}  للفترة من
                 </span>
 
                 <span
@@ -93,80 +94,75 @@
                 <div
                   class="text-center border-black border-l-2 p-1"
                   style="
-                    width: 4%;
+                    width: 45%;
                     text-align: center;
                     border-left: 2px solid black;
                   "
                 >
-                  ر.ت
+                  اسم المكتب أو الإدارة
                 </div>
 
                 <div
                   class="text-center border-black border-l-2 p-1"
                   style="
-                    width: 4%;
+                    width: 7.5%;
                     text-align: center;
                     border-left: 2px solid black;
                     padding: 4px;
                   "
                 >
-                  الرقم
+                  المرسل
                 </div>
 
                 <div
                   class="text-center border-black border-l-2 p-1"
                   style="
-                    width: 12%;
+                    width: 7.5%;
                     text-align: center;
                     border-left: 2px solid black;
                     padding: 4px;
                   "
                 >
-                  تاريخ الإرسال
+                  الرد
                 </div>
 
                 <div
                   class="text-center p-1 border-black border-l-2"
                   style="
-                    width: 17%;
+                    width: 7.5%;
                     text-align: center;
                     padding: 4px;
                     border-left: 2px solid black;
                   "
                 >
-                 المكتب أو الإدارة المرسلة 
+                  لم يتم الرد
                 </div>
 
                 <div
                   class="text-center p-1 border-black border-l-2"
                   style="
-                    width: 8%;
+                    width: 7.5%;
                     text-align: center;
                     border-left: 2px solid black;
                     padding: 4px;
                   "
                 >
-                  نوع الإجراء
+                  النسبة %
                 </div>
 
                 <div
-                  class="text-center p-1 border-black border-l-2"
+                  class="text-center p-1 "
                   style="
-                    width: 32%;
+                    width: 25%;
                     text-align: center;
-                    border-left: 2px solid black;
+                    
                     padding: 4px;
                   "
                 >
-                  ملخص الموضوع
+                  ملاحظات
                 </div>
 
-                <div
-                  class="text-center p-1"
-                  style="width: 23%; text-align: center; padding: 4px"
-                >
-                  الإجراء المطلوب
-                </div>
+             
               </div>
 
               <div
@@ -175,7 +171,7 @@
                 class="
                   w-full
                   flex
-                   border-r-2 border-l-2 border-black border-t
+                   border-r-2 border-l-2 border-black 
                   
                 "
                 style="
@@ -183,7 +179,7 @@
                   display: flex;
                   border-right: 2px solid black;
                   border-left: 2px solid black;
-                  border-top: 1px solid black;
+                 
                   border-bottom: 1px solid black;
                   font-size: 15px;
                   line-height: 25px;
@@ -193,33 +189,33 @@
                 <div
                   class="text-center border-black border-l-2 px-1 pt-1  flex justify-center items-center"
                   style="
-                    width: 4%;
+                    width: 45%;
                     text-align: center;
                     border-left: 2px solid black;
  
                 display: flex; justify-content: center; align-items: center;
                   "
                 >
-                <span class="flex justify-center items-center">{{ index + 1 }}</span>  
+                <span class="flex justify-center items-center">{{ mail.departmentName }}</span>  
                 </div>
 
                 <div
                   class="text-center border-black border-l-2 px-1   flex justify-center items-center"
                   style="
-                    width: 4%;
+                    width: 7.5%;
                     text-align: center;
                   
                     border-left: 2px solid black;
                     display: flex; justify-content: center; align-items: center;
                   "
                 >
-                  {{ mail.mail_Number }}
+                  {{ mail.totalOfReceived.totalOfMassage }}
                 </div>
 
                 <div
                   class="border-black border-l-2 text-center px-1 pt-1 pb-0.5 flex justify-center items-center"
                   style="
-                    width: 12%;
+                    width: 7.5%;
                     text-align: center;
                     border-left: 2px solid black;
                     
@@ -227,13 +223,13 @@
                     
                   "
                 >
-                  {{ mail.send_time }}
+                  {{ mail.totalOfReceived.totalOfReplay }}
                 </div>
 
                 <div
                   class="border-black border-l-2 px-1 pt-1 pb-0.5 flex justify-center items-center"
                   style="
-                    width: 17%;
+                    width: 7.5%;
                     
                     border-left: 2px solid black;
                     
@@ -241,13 +237,13 @@
                     
                   "
                 >
-               <span class=""> {{ mail.mangment_sender }}</span>  
+               <span class=""> {{ mail.totalOfReceived.totalOfNotReplay }}</span>  
                 </div>
 
                 <div
                   class="text-center border-black border-l-2 px-1 pt-1 pb-0.5 flex justify-center items-center"
                   style="
-                    width: 8%;
+                    width: 7.5%;
                     text-align: center;
                     border-left: 2px solid black;
                     
@@ -255,36 +251,132 @@
                     
                   "
                 >
-                  {{ mail.masure_type }}
+                  {{ mail.totalOfReceived.average }} %
                 </div>
 
                 <div
-                  class="text-right border-black border-l-2 px-1 pt-1 pb-0.5 flex justify-center items-center"
+                  class="text-right   px-1 pt-1 pb-0.5 flex justify-center items-center"
                   style="
-                    width: 32%;
+                    width: 25%;
                     text-align: right;
+                    display: flex; justify-content: center; align-items: center;
+                    
+                  "
+                >
+                  
+                </div>
+
+               
+
+              </div> 
+
+
+     <div
+               
+                class="
+                  w-full
+                  flex
+                   border-r-2 border-l-2 border-black 
+                  
+                "
+                style="
+                  width: 100%;
+                  display: flex;
+                  border-right: 2px solid black;
+                  border-left: 2px solid black;
+                 
+                  border-bottom: 1px solid black;
+                  font-size: 15px;
+                  line-height: 25px;
+                  font-weight: 900;
+                "
+              >
+                <div
+                  class="text-center border-black border-l-2 px-1 pt-1  flex justify-center items-center"
+                  style="
+                    width: 45%;
+                    text-align: center;
+                    border-left: 2px solid black;
+ 
+                display: flex; justify-content: center; align-items: center;
+                  "
+                >
+                <span class="flex justify-center items-center">المجاميع</span>  
+                </div>
+
+                <div
+                  class="text-center border-black border-l-2 px-1   flex justify-center items-center"
+                  style="
+                    width: 7.5%;
+                    text-align: center;
+                  
+                    border-left: 2px solid black;
+                    display: flex; justify-content: center; align-items: center;
+                  "
+                >
+                 {{this.total.totalOfMassage}}
+                </div>
+
+                <div
+                  class="border-black border-l-2 text-center px-1 pt-1 pb-0.5 flex justify-center items-center"
+                  style="
+                    width: 7.5%;
+                    text-align: center;
                     border-left: 2px solid black;
                     
                     display: flex; justify-content: center; align-items: center;
                     
                   "
                 >
-                  {{ mail.summary }}
+                  {{this.total.totalOfReplay}}
                 </div>
 
                 <div
-                  class="text-right px-1 pt-1 pb-0.5 flex justify-center items-center"
+                  class="border-black border-l-2 px-1 pt-1 pb-0.5 flex justify-center items-center"
                   style="
-                    width: 23%;
-                    text-align: right;
-                   
+                    width: 7.5%;
+                    
+                    border-left: 2px solid black;
+                    
                     display: flex; justify-content: center; align-items: center;
+                    
                   "
                 >
-                  {{ mail.action_require }}
+               <span class=""> {{this.total.totalOfNotReplay}}</span>  
                 </div>
 
+                <div
+                  class="text-center border-black border-l-2 px-1 pt-1 pb-0.5 flex justify-center items-center"
+                  style="
+                    width: 7.5%;
+                    text-align: center;
+                    border-left: 2px solid black;
+                    
+                    display: flex; justify-content: center; align-items: center;
+                    
+                  "
+                >
+                 {{this.total.average}} %
+                </div>
+
+                <div
+                  class="text-right  px-1 pt-1 pb-0.5 flex justify-center items-center"
+                  style="
+                    width: 25%;
+                    text-align: right;
+                    display: flex; justify-content: center; align-items: center;
+                    
+                  "
+                >
+                  
+                </div>
+
+               
+
               </div>
+
+
+
             </div>
           </div>
         </div>
@@ -354,8 +446,8 @@ export default {
   components: {},
 
   mounted() {
-    this.mails = this.$route.params.mails;
-
+   
+    this.GetMysectionReport();
     var date = new Date();
 
     var month = date.getMonth() + 1;
@@ -365,11 +457,24 @@ export default {
     if (day < 10) day = "0" + day;
 
     this.date = date.getFullYear() + "-" + month + "-" + day;
+    
+
+    switch(this.$route.params.mailtype){
+
+        case "1":  this.mail_type="البريد الداخلي"; break;
+
+        case "3":  this.mail_type="الوارد الخارجي"; break;
+
+        default:  this.mail_type="البريد"; break;
+    }
   },
 
   data() {
     return {
       mails: [],
+      total:[],
+
+      mail_type:"",
 
       date: "",
     };
@@ -390,6 +495,27 @@ export default {
         .then((res) => {
           console.log(res);
           setTimeout(() => {}, 300);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+            console.log(err);
+          }, 100);
+        });
+    },
+
+
+    GetMysectionReport(){
+
+
+
+      this.$http.mailService
+        .GetMysectionReport(localStorage.getItem("departmentId"),this.$route.params.dateFrom,this.$route.params.dateTo,this.$route.params.mailtype,"sended")
+        .then((res) => {
+          console.log(res);
+          this.mails=res.data.sectionReport;
+          this.total=res.data.totalOfTotal;
         })
         .catch((err) => {
           setTimeout(() => {
