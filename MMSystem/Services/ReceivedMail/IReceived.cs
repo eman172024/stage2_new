@@ -11,7 +11,7 @@ namespace MMSystem.Services.ReceivedMail
      public  interface IReceived
     {
         Task<PagenationSendedEmail<Sended_Maill>> GetSendedMail(DateTime? myday, int? daycheck, int? mailnum_bool,
-           int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
+           int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string ? summary, int? mail_Readed,
            int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
            Typeof_send, int? mail_type, string? replaytext, int? userid, int pagenum,
            int size, int? Measure_filter, int? Department_filter, int? Classfication, int? mail_state 

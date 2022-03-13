@@ -179,7 +179,6 @@
                   display: flex;
                   border-right: 2px solid black;
                   border-left: 2px solid black;
-                 
                   border-bottom: 1px solid black;
                   font-size: 15px;
                   line-height: 25px;
@@ -447,7 +446,7 @@ export default {
 
   mounted() {
    
-    this.GetMysectionReport();
+    
     var date = new Date();
 
     var month = date.getMonth() + 1;
@@ -461,12 +460,12 @@ export default {
 
     switch(this.$route.params.mailtype){
 
-        case "1":  this.mail_type="البريد الداخلي"; break;
+        case "3": this.mail_type_num=3; this.mail_type="الوارد الخارجي"; break;
 
-        case "3":  this.mail_type="الوارد الخارجي"; break;
-
-        default:  this.mail_type="البريد"; break;
+        default: this.mail_type_num=1; this.mail_type="البريد الداخلي" ; break;
     }
+
+    this.GetMysectionReport();
   },
 
   data() {
@@ -475,6 +474,7 @@ export default {
       total:[],
 
       mail_type:"",
+      mail_type_num:1,
 
       date: "",
     };
@@ -511,7 +511,7 @@ export default {
 
 
       this.$http.mailService
-        .GetMysectionReport(localStorage.getItem("departmentId"),this.$route.params.dateFrom,this.$route.params.dateTo,this.$route.params.mailtype,"sended")
+        .GetMysectionReport(localStorage.getItem("departmentId"),this.$route.params.dateFrom,this.$route.params.dateTo,this.mail_type_num,"sended")
         .then((res) => {
           console.log(res);
           this.mails=res.data.sectionReport;
