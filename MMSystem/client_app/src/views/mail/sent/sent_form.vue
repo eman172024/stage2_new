@@ -825,7 +825,7 @@
                             "
                           >
                             <button
-                              @click="GetAllDocuments(29, 1)"
+                              @click="GetAllDocuments(mailId, 1)"
                               type="button"
                               class="
                                 bg-green-600

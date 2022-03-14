@@ -947,7 +947,7 @@
 
                       <div class="w-1/3 flex justify-center items-center">
                         <button
-                          @click="GetAllDocuments(mail.mail_id)"
+                          @click="GetAllDocuments(mail.mail_id, 1)"
                           title="طباعة المستندات"
                           class="focus:outline-none"
                         >
@@ -1146,7 +1146,7 @@
 
                       <div v-if="reply.resources != 0" class="mx-2">
                         <button
-                          @click="show_reply_images(index)"
+                          @click="show_reply_images(index, 3)"
                           class="
                             px-2
                             text-xs
@@ -1461,7 +1461,7 @@
               </button>
 
               <button
-                @click="to_test_print = true"
+                @click="print_image()"
                 v-print="'#printMe'"
                 class="
                   bg-blue-500
@@ -1656,6 +1656,8 @@ export default {
 
   data() {
     return {
+      from_reply_or_general: "",
+
       by_date_of_reply: false,
       general_incoming_number: "",
       indexOfimagesToShow: 0,
@@ -1733,25 +1735,68 @@ export default {
   },
 
   methods: {
-    show_reply_images(index) {
-      this.show_images = [];
-      this.indextotest = 0;
+    print_image(){
+      this.to_test_print = true
+      this.$http.mailService
+        .PrintOrShowDocument(Number(this.mailId_to_get_mail_by_id), Number(localStorage.getItem("userId")), Number(this.from_reply_or_general))
+        .then((res) => {
+          setTimeout(() => {
+            console.log(res);
+            this.loading = false;
+            this.screenFreeze = false;
+       
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+          console.log(err);
+        });
+    },
+
+
+    show_reply_images(index, plase) {
+      this.from_reply_or_general = plase;
 
       this.screenFreeze = true;
       this.loading = true;
-      this.show_images = this.replies[index].resources;
 
-      this.testimage = this.show_images[0].path;
 
-      console.log(this.testimage_images_model);
+      this.$http.mailService
+        .PrintOrShowDocument(
+          Number(this.mailId_to_get_mail_by_id),
+          Number(localStorage.getItem("userId")),
+          2
+        )
+        .then((res) => {
+            this.show_images = [];
+            this.indextotest = 0;
 
-      setTimeout(() => {
-        this.show_images_model = true;
-        this.screenFreeze = false;
-        this.loading = false;
-      }, 300);
+            this.show_images = this.replies[index].resources;
+
+            this.testimage = this.show_images[0].path;
+
+
+            setTimeout(() => {
+              this.show_images_model = true;
+              this.screenFreeze = false;
+              this.loading = false;
+            }, 300);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+          console.log(err);
+        });
+
+
+
     },
-
+    
     scanToReply() {
       scanner.scan(this.displayReplyImagesOnPage, {
         output_settings: [
@@ -1963,7 +2008,8 @@ export default {
       }
     },
 
-    GetAllDocuments(id) {
+    GetAllDocuments(id, plase) {
+      this.from_reply_or_general = plase;
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
