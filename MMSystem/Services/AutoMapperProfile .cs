@@ -33,7 +33,8 @@ namespace MMSystem.Services
          //   CreateMap<Reply,ReplayDto>();
             CreateMap<ClasificationSubject, ClasificationSubjectDto>();
             CreateMap<Measures, MeasuresDto>();
-            CreateMap<Reply, ReplayDto>();
+            CreateMap<Reply, ReplayDto>().
+                  ForMember(ds => ds.Date, sr => sr.MapFrom(x => x.Date.ToString("yyyy-MM-dd:hh:mm"))); ;
             CreateMap<Reply_Resources, Reply_ResourcesDto>();
 
         }
