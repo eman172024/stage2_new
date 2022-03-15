@@ -502,7 +502,7 @@
                     justify-center
                     col-span-2
                   "
-                  @click="GetSentMail1()"
+                  @click="GetMailsToPrint()"
               
                 >
                   <span class="text-sm font-bold block ml-1"
@@ -850,7 +850,7 @@
                       v-model="page_num"
                       :per-page="page_size"
                       :records="total_of_transaction"
-                      @paginate="GetSentMail"
+                      @paginate="GetMailsForArchives"
                       class="z-10"
                     />
                     <div class="">
@@ -1343,10 +1343,10 @@ export default {
     this.my_user_id = localStorage.getItem("userId");
     this.my_department_id = localStorage.getItem("departmentId");
 
-    this.GetSentMail();
+    this.GetMailsForArchives();
     
 
-    this.GetAllClassifications();
+   
     this.GetAllDepartments();
     this.GetAllMeasures();
     this.get_sectors(this.mailType);
@@ -1357,41 +1357,41 @@ export default {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
-      this.GetSentMail();
+      this.GetMailsForArchives();
       
     },
     date_from: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
-      this.GetSentMail();
+      this.GetMailsForArchives();
       
     },
     date_to: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
-      this.GetSentMail();
+      this.GetMailsForArchives();
     },
     mail_id: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
-      this.GetSentMail();
+      this.GetMailsForArchives();
       
     },
     summary: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
-      this.GetSentMail();
+      this.GetMailsForArchives();
       
     },
     departmentIdSelected: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
-      this.GetSentMail();
+      this.GetMailsForArchives();
       
     },
 
@@ -1399,7 +1399,7 @@ export default {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
-      this.GetSentMail();
+      this.GetMailsForArchives();
       
     },
    
@@ -1407,18 +1407,13 @@ export default {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
-      this.GetSentMail();
+      this.GetMailsForArchives();
       
     },
    
 
 
-    show_senders_mail: function () {
-      // this.senders = [];
-      // this.show_senders_mail = "";
-      // this.page_num = 1;
-      // this.GetSentMail();
-    },
+    
   },
 
   components: {
@@ -1454,11 +1449,7 @@ export default {
 
       mail_id: "",
 
-      classifications: [],
-      classificationselect: false,
-      classificationNameSelected: "",
-      classificationIdSelected: "",
-
+   
       departments: [],
       departmentselect: false,
       departmentNameSelected: "",
@@ -1491,12 +1482,7 @@ export default {
       page_size2: 100000,
       page_num: 1,
 
-      mailId_to_get_mail_by_id: "",
-      my_department_id_to_get_mail_by_id: "",
-      to_test_passing_mail_type_to_get_mail_by_id: "",
-      sends_id_to_get_mail_by_id: "",
-      mangment_sender_to_get_mail_by_id: "",
-
+   
       sideselect: false,
       sideNameSelected: "",
       sideIdSelected: "",
@@ -1565,72 +1551,9 @@ export default {
         });
     },
 
-    to_pass_data_to_get_mail_by_id(
-      my_department_id_to_get_mail_by_id,
-      sends_id,
-      departmentName
-    ) {
-      this.my_department_id_to_get_mail_by_id =
-        my_department_id_to_get_mail_by_id;
-      this.sends_id = sends_id;
-      this.departmentName = departmentName;
 
-      // this.sends_id_to_get_mail_by_id = sends_id_to_get_mail_by_id
-      // this.mangment_sender_to_get_mail_by_id = mangment_sender_to_get_mail_by_id
 
-      this.getMailById();
-    },
-
-    getMailById() {
-      this.$http.mailService
-        .GetInboxMailById(
-          this.mailId_to_get_mail_by_id,
-          this.my_department_id_to_get_mail_by_id,
-          this.to_test_passing_mail_type_to_get_mail_by_id
-        )
-        .then((res) => {
-          this.department_Id = res.data.mail.department_Id;
-          this.replies = res.data.list;
-
-          this.consignees = res.data.actionSenders;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-
-    show_senders(id, mail_type, number) {
-      this.screenFreeze = true;
-      this.loading = true;
-      this.mailId_to_get_mail_by_id = id;
-      this.to_test_passing_mail_type_to_get_mail_by_id = mail_type;
-
-      this.replies = [];
-
-      this.$http.mailService
-        .show_senders(id)
-        .then((res) => {
-          this.show_senders_mail = number;
-          console.log(res);
-
-          this.senders = res.data;
-
-          // this.senders = res.data.sendsDetalies;
-
-          setTimeout(() => {
-            this.screenFreeze = false;
-            this.loading = false;
-          }, 300);
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.screenFreeze = false;
-            this.loading = false;
-            console.log(err);
-          }, 100);
-        });
-    },
-
+  
     previousImage() {
       if (this.indextotest > 0) {
         this.indextotest--;
@@ -1676,7 +1599,7 @@ export default {
 
 
     
-    GetSentMail1() {
+    GetMailsToPrint() {
      
       this.screenFreeze = true;
       this.loading = true;
@@ -1720,7 +1643,7 @@ export default {
         });
     },
 
-    GetSentMail() {
+    GetMailsForArchives() {
       this.senders = [];
       this.show_senders_mail = "";
 
@@ -1762,31 +1685,6 @@ export default {
         });
     },
 
-    read_it_mail(id) {
-      // this.screenFreeze = true;
-      // this.loading = true;
-      this.$http.mailService
-        .read_it_mail(id, this.my_department_id)
-        .then((res) => {
-          console.log(res);
-          // this.inboxMails = res.data.mail;
-          // this.total_of_transaction = res.data.total
-          // setTimeout(() => {
-          //     this.screenFreeze = false;
-          //     this.loading = false;
-
-          this.GetSentMail();
-          
-          // }, 300);
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.screenFreeze = false;
-            this.loading = false;
-            console.log(err);
-          }, 100);
-        });
-    },
 
     GetAllDepartments() {
       this.$http.mailService
@@ -1820,21 +1718,9 @@ export default {
       this.measureIdSelected = id;
     },
 
-    GetAllClassifications() {
-      this.$http.mailService
-        .AllClassifications()
-        .then((res) => {
-          this.classifications = res.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+  
 
-    selectClassification(id, name) {
-      this.classificationNameSelected = name;
-      this.classificationIdSelected = id;
-    },
+
 
     UpdateArciveState(mail_id1)
     {
@@ -1853,7 +1739,7 @@ export default {
           setTimeout(() => {
             this.screenFreeze = false;
             this.loading = false;
-            this.GetSentMail();
+            this.GetMailsForArchives();
             
           }, 300);
         })
@@ -1892,7 +1778,7 @@ export default {
             this.attached="";
             this.NoOfcopies= 0;
             this.notes=""
-            this.GetSentMail();
+            this.GetMailsForArchives();
             
            
           }, 300);
@@ -1932,7 +1818,7 @@ export default {
           setTimeout(() => {
             this.screenFreeze = false;
             this.loading = false;
-            this.GetSentMail();
+            this.GetMailsForArchives();
             
             this.delivaryType=0;
             this.delivaryName=""

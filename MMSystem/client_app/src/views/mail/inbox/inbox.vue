@@ -769,7 +769,7 @@
                   justify-center
                   col-span-2
                 "
-                @click="GetInboxs1()"
+                @click="GetMailsToPrint()"
               >
                 <span class="text-sm font-bold block ml-1"> طباعة </span>
 
@@ -2034,7 +2034,7 @@ export default {
         });
     },
 
-    GetInboxs1() {
+    GetMailsToPrint() {
       this.screenFreeze = true;
       this.loading = true;
       this.mails_to_print = [];
