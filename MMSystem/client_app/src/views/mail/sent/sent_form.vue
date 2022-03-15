@@ -825,7 +825,7 @@
                             "
                           >
                             <button
-                              @click="GetAllDocuments(29, 1)"
+                              @click="GetAllDocuments(mailId, 1)"
                               type="button"
                               class="
                                 bg-green-600
@@ -1979,70 +1979,84 @@
                   "
                 >
                   <div
-                    v-for="(reply, index) in replies"
-                    :key="index"
+                    v-for="(reply, index) in replies" :key="index"
                     :class="
                       reply.reply.to == my_department_id
                         ? ' flex-row-reverse justify-start'
                         : 'justify-start'
                     "
                     class="w-full my-0.5 flex px-2"
-                  >
-                    <div
-                      :class="
-                        reply.reply.to == my_department_id
-                          ? 'bg-gray-700'
-                          : 'bg-blue-700'
-                      "
-                      class="text-white max-w-10/12 py-0 leading-9 px-2 rounded"
-                    >
-                      {{ reply.reply.mail_detail }}
-                    </div>
+                  > 
+                    <div class="">
+                      <div class="flex " :class="reply.reply.to == my_department_id
+                        ? '  justify-end'
+                        : 'justify-end flex-row-reverse'
+                    ">
+                        
 
-                    <div v-if="reply.resources != 0" class="mx-2">
-                      <button
-                        @click="show_reply_images(index, 3)"
-                        class="
-                          px-2
-                          text-xs
-                          rounded
-                          leading-9
-                          text-white
-                          bg-red-400
-                          flex
-                          items-center
-                        "
-                      >
-                        عرض الصور
-                        <svg
-                          class="stroke-current mr-2 w-6 h-6"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
+                        <div v-if="reply.resources != 0" class="mx-2">
+                          <button
+                            @click="show_reply_images(index, 3)"
+                            class="
+                              px-2
+                              text-xs
+                              rounded
+                              leading-9
+                              text-white
+                              bg-red-400
+                              flex
+                              items-center
+                            "
+                          >
+                            عرض الصور
+                            <svg
+                              class="stroke-current mr-2 w-6 h-6"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
+                                stroke-width="1"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                d="M8.5 10C9.32843 10 10 9.32843 10 8.5C10 7.67157 9.32843 7 8.5 7C7.67157 7 7 7.67157 7 8.5C7 9.32843 7.67157 10 8.5 10Z"
+                                stroke-width="1"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                d="M21 15L16 10L5 21"
+                                stroke-width="1"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+
+                        <div
+                          :class="
+                            reply.reply.to == my_department_id
+                              ? 'bg-gray-700'
+                              : 'bg-blue-700'
+                          "
+                          class="text-white max-w-10/12 py-0 leading-9 px-2 rounded"
                         >
-                          <path
-                            d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
-                            stroke-width="1"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M8.5 10C9.32843 10 10 9.32843 10 8.5C10 7.67157 9.32843 7 8.5 7C7.67157 7 7 7.67157 7 8.5C7 9.32843 7.67157 10 8.5 10Z"
-                            stroke-width="1"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M21 15L16 10L5 21"
-                            stroke-width="1"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </button>
+                          {{ reply.reply.mail_detail }}
+                        </div>
+                      </div>  
+
+                      <div class="mt-1 text-sm" :class="reply.reply.to == my_department_id ? 'text-left' : 'text-right'">
+                      {{ reply.reply.date }}
                     </div>
+                    </div>
+                    
+                    
                   </div>
                 </div>
 

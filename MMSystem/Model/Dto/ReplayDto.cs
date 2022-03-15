@@ -12,7 +12,7 @@ namespace MMSystem.Model.Dto
         public int send_ToId { get; set; }
    
         public string mail_detail { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public int To { get; set; }
         public bool state { get; set; }
         public int UserId { get; set; }

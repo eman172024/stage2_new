@@ -659,15 +659,26 @@ namespace MMSystem.Services.MailServeic
                 
                         
                         {
-                            var obj = await _appContext.Sends.FirstOrDefaultAsync(x=>x.MailID==mail.mail.MailID);
-                            if (obj.flag > 1)
+                            var obj1 = await _appContext.Sends.FirstOrDefaultAsync(x=>x.MailID==mail.mail.MailID);
+                            //if (obj.flag > 1)
+                            //{
+                            //    flag = 2;
+                            //}
+                            //else {
+                            //    flag = 1;
+
+                            //}
+                           // var obj1 = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail.mail.MailID);
+                            if (obj1.flag > 1)
                             {
                                 flag = 2;
                             }
-                            else {
+                            else
+                            {
                                 flag = 1;
-                            
+
                             }
+
 
 
                             if (mail.newactionSenders.Count > 0)
@@ -675,14 +686,17 @@ namespace MMSystem.Services.MailServeic
                                 for (int i = 0; i < mail.newactionSenders.Count; i++)
                                 {
                                     Send_to sender = new Send_to();
+                                 //
 
-                                   
 
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = mail.newactionSenders[i].departmentId;
                                     numOfSend = numOfSend + " " + sender.to.ToString();
 
                                     sender.flag = flag;
+                                    if (sender.flag > 1) 
+                                        sender.Send_time = DateTime.Now;
+                                    
                                     sender.State = true;
                                     sender.type_of_send = mail.newactionSenders[i].measureId;
                                     bool send = await _sender.Add(sender);
@@ -779,6 +793,16 @@ namespace MMSystem.Services.MailServeic
 
 
                         //start new 
+                        var obj = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail.mail.MailID);
+                        if (obj.flag > 1)
+                        {
+                            flag = 2;
+                        }
+                        else
+                        {
+                            flag = 1;
+
+                        }
 
                         bool isUpdate = await _external.Update(mail.mail,mail.external_Mail,mail.userId);
 
@@ -791,12 +815,13 @@ namespace MMSystem.Services.MailServeic
                                     Send_to sender = new Send_to();
 
                                     
-                                    sender.State = true;
-
+                                    sender.State = true;                                   
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = mail.newactionSenders[i].departmentId;
                                     numOfSend = numOfSend + " " + sender.to.ToString();
                                     sender.flag = flag;
+                                    if (sender.flag > 1)
+                                        sender.Send_time = DateTime.Now;
                                     sender.type_of_send = mail.newactionSenders[i].measureId;
                                     bool send = await _sender.Add(sender);
                                 }
@@ -833,60 +858,20 @@ namespace MMSystem.Services.MailServeic
                         //ende start
                     case 3:
 
-                        //old function
-
-                        //Email = await Update(mail.mail);
-                        //if (Email)
-                        //{
-                        //    var obj = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail.mail.MailID);
-                        //    if (obj.flag > 1)
-                        //    {
-                        //        flag = 2;
-                        //    }
-                        //    else
-                        //    {
-                        //        flag = 1;
-
-                        //    }
-                        //    mail.extrenal_Inbox.MailID = mail.mail.MailID;
-                        //    Ex_inboxmail = await _extrenal_Inbox.Update(mail.extrenal_Inbox);
-                        //    if (Ex_inboxmail)
-                        //    {
-
-                        //        if (mail.newactionSenders.Count > 0)
-                        //        {
-                        //            for (int i = 0; i < mail.newactionSenders.Count; i++)
-                        //            {
-                        //                Send_to sender = new Send_to();
-
-                        //                sender.State = true;
-
-                        //                sender.MailID = mail.mail.MailID;
-                        //                sender.to = mail.newactionSenders[i].departmentId;
-                        //                sender.flag = 2;
-                        //                sender.type_of_send = mail.newactionSenders[i].measureId;
-                        //                bool send = await _sender.Add(sender);
-                        //            }
-
-
-                        //        }
-                        //        else { }
-
-                        //        result = true;
-                        //        break;
-                        //    }
-
-
-                        //}
-
-                        //result = false;
-
-                        //old function
-
 
 
                         //new function
+                        var obj2 = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail.mail.MailID);
+                        if (obj2.flag > 1)
+                        {
+                            flag = 2;
+                        }
+                        else
+                        {
+                            flag = 1;
 
+                        }
+                       
 
                         Ex_inboxmail = await _extrenal_Inbox.Update(mail.mail, mail.extrenal_Inbox, mail.userId);
                         if (Ex_inboxmail)
@@ -904,10 +889,11 @@ namespace MMSystem.Services.MailServeic
                                     sender.to = mail.newactionSenders[i].departmentId;
 
 
-
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = mail.newactionSenders[i].departmentId;
-                                    sender.flag = 2;
+                                    sender.flag = flag;
+                                    if (sender.flag > 1)
+                                        sender.Send_time = DateTime.Now;
                                     sender.type_of_send = mail.newactionSenders[i].measureId;
                                     bool send = await _sender.Add(sender);
                                 }
@@ -2161,30 +2147,30 @@ namespace MMSystem.Services.MailServeic
             try
             {
 
-           
-                      
-           
-                string date;
+
+
+
                 var c = await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true)
-                               join send in _appContext.Sends.Where(x=>x.State==true) on mail.MailID equals send.MailID
+                               join send in _appContext.Sends.Where(x => x.State == true) on mail.MailID equals send.MailID
                                join department in _appContext.Departments on send.to equals department.Id
                                join measures in _appContext.measures on send.type_of_send equals measures.MeasuresId
                                join mailState in _appContext.MailStatuses on send.flag equals mailState.flag
 
-                               
 
 
+                               // 
+                                //   
                                select new SendsDetalies()
                                {
                                    Department_id = send.to,
                                    Department_name = department.DepartmentName,
-                                   flag = mailState.flag,
+                                   flag  = mailState.flag,
                                    MesureName = measures.MeasuresName,
-                                   State = mailState.sent,
-                                   send_ToId=send.Id,
-                                   
-                                  date = (send.Send_time.ToString().StartsWith("0001")) ? "لم يتم الارسال" : send.Send_time.ToString("yyyy-MM-dd"),
-                                date_read =(send.time_of_read.ToString().StartsWith("0001"))?"لم يتم الرد" : send.time_of_read.ToString("yyyy-MM-dd")
+                                   State  = mailState.sent,
+                                   send_ToId = send.Id,
+
+                                   date = (send.Send_time.ToString().StartsWith("0001")) ? "لم يتم الارسال" : send.Send_time.ToString("yyyy-MM-dd"),
+                                   date_read = (send.time_of_read.ToString().StartsWith("0001")) ? "لم يتم الرد" : send.time_of_read.ToString("yyyy-MM-dd")
 
                                }).ToListAsync();
               
