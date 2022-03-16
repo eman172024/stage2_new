@@ -769,7 +769,7 @@
                   justify-center
                   col-span-2
                 "
-                @click="GetInboxs1()"
+                @click="GetMailsToPrint()"
               >
                 <span class="text-sm font-bold block ml-1"> طباعة </span>
 
@@ -947,7 +947,7 @@
 
                       <div class="w-1/3 flex justify-center items-center">
                         <button
-                          @click="GetAllDocuments(mail.mail_id)"
+                          @click="GetAllDocuments(mail.mail_id, 1)"
                           title="طباعة المستندات"
                           class="focus:outline-none"
                         >
@@ -1133,60 +1133,71 @@
                       "
                       class="w-full my-0.5 flex px-2"
                     >
-                      <div
-                        :class="
-                          reply.reply.to == my_department_id
-                            ? 'bg-blue-700'
-                            : 'bg-gray-700'
-                        "
-                        class="text-white max-w-10/12 leading-9 px-2 rounded-lg"
-                      >
-                        {{ reply.reply.mail_detail }}
-                      </div>
+                      <div class="">
+                        <div class="flex " :class="reply.reply.to == my_department_id
+                          ? '  justify-end'
+                          : 'justify-end flex-row-reverse'
+                        ">
+                          <div v-if="reply.resources != 0" class="mx-2">
+                            <button
+                              @click="show_reply_images(index, 3)"
+                              class="
+                                px-2
+                                text-xs
+                                rounded
+                                leading-9
+                                text-white
+                                bg-red-400
+                                flex
+                                items-center
+                              "
+                            >
+                              عرض الصور
+                              <svg
+                                class="stroke-current mr-2 w-6 h-6"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
+                                  stroke-width="1"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M8.5 10C9.32843 10 10 9.32843 10 8.5C10 7.67157 9.32843 7 8.5 7C7.67157 7 7 7.67157 7 8.5C7 9.32843 7.67157 10 8.5 10Z"
+                                  stroke-width="1"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M21 15L16 10L5 21"
+                                  stroke-width="1"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </button>
+                          </div>
 
-                      <div v-if="reply.resources != 0" class="mx-2">
-                        <button
-                          @click="show_reply_images(index)"
-                          class="
-                            px-2
-                            text-xs
-                            rounded
-                            leading-9
-                            text-white
-                            bg-red-400
-                            flex
-                            items-center
-                          "
-                        >
-                          عرض الصور
-                          <svg
-                            class="stroke-current mr-2 w-6 h-6"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
+                          <div
+                            :class="
+                              reply.reply.to == my_department_id
+                                ? 'bg-gray-700'
+                                : 'bg-blue-700'
+                            "
+                            class="text-white max-w-10/12 py-0 leading-9 px-2 rounded"
                           >
-                            <path
-                              d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
-                              stroke-width="1"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M8.5 10C9.32843 10 10 9.32843 10 8.5C10 7.67157 9.32843 7 8.5 7C7.67157 7 7 7.67157 7 8.5C7 9.32843 7.67157 10 8.5 10Z"
-                              stroke-width="1"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M21 15L16 10L5 21"
-                              stroke-width="1"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                          </svg>
-                        </button>
+                            {{ reply.reply.mail_detail }}
+                          </div>
+                        </div>  
+
+                        <div class="mt-1 text-sm" :class="reply.reply.to == my_department_id ? 'text-left' : 'text-right'">
+                          {{ reply.reply.date }}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1461,7 +1472,7 @@
               </button>
 
               <button
-                @click="to_test_print = true"
+                @click="print_image()"
                 v-print="'#printMe'"
                 class="
                   bg-blue-500
@@ -1656,6 +1667,8 @@ export default {
 
   data() {
     return {
+      from_reply_or_general: "",
+
       by_date_of_reply: false,
       general_incoming_number: "",
       indexOfimagesToShow: 0,
@@ -1733,25 +1746,68 @@ export default {
   },
 
   methods: {
-    show_reply_images(index) {
-      this.show_images = [];
-      this.indextotest = 0;
+    print_image(){
+      this.to_test_print = true
+      this.$http.mailService
+        .PrintOrShowDocument(Number(this.mailId_to_get_mail_by_id), Number(localStorage.getItem("userId")), Number(this.from_reply_or_general))
+        .then((res) => {
+          setTimeout(() => {
+            console.log(res);
+            this.loading = false;
+            this.screenFreeze = false;
+       
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+          console.log(err);
+        });
+    },
+
+
+    show_reply_images(index, plase) {
+      this.from_reply_or_general = plase;
 
       this.screenFreeze = true;
       this.loading = true;
-      this.show_images = this.replies[index].resources;
 
-      this.testimage = this.show_images[0].path;
 
-      console.log(this.testimage_images_model);
+      this.$http.mailService
+        .PrintOrShowDocument(
+          Number(this.mailId_to_get_mail_by_id),
+          Number(localStorage.getItem("userId")),
+          2
+        )
+        .then((res) => {
+            this.show_images = [];
+            this.indextotest = 0;
 
-      setTimeout(() => {
-        this.show_images_model = true;
-        this.screenFreeze = false;
-        this.loading = false;
-      }, 300);
+            this.show_images = this.replies[index].resources;
+
+            this.testimage = this.show_images[0].path;
+
+
+            setTimeout(() => {
+              this.show_images_model = true;
+              this.screenFreeze = false;
+              this.loading = false;
+            }, 300);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+          console.log(err);
+        });
+
+
+
     },
-
+    
     scanToReply() {
       scanner.scan(this.displayReplyImagesOnPage, {
         output_settings: [
@@ -1963,7 +2019,8 @@ export default {
       }
     },
 
-    GetAllDocuments(id) {
+    GetAllDocuments(id, plase) {
+      this.from_reply_or_general = plase;
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
@@ -2034,7 +2091,7 @@ export default {
         });
     },
 
-    GetInboxs1() {
+    GetMailsToPrint() {
       this.screenFreeze = true;
       this.loading = true;
       this.mails_to_print = [];

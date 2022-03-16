@@ -236,7 +236,7 @@
                       class="absolute inset-0 flex justify-center items-center"
                     >
                       <button
-                      @click="GetAllDocuments(mailId)"
+                      @click="GetAllDocuments(mailId, 1)"
                         type="button"
                         class="bg-green-600 hover:bg-green-500 duration-500 p-2 rounded-full focus:outline-none"
                       >
@@ -636,27 +636,72 @@
                       reply.reply.to == my_department_id ? ' flex-row-reverse justify-start' : 'justify-start'"
                     class="w-full my-0.5 flex px-2"
                   >
-                    <div
-                      :class="
-                        reply.reply.to == my_department_id
-                          ? 'bg-gray-700'
-                          : 'bg-blue-700'
-                      "
-                      class=" text-white max-w-10/12 py-0 leading-9 px-2 rounded "
-                    >
-                      {{ reply.reply.mail_detail }}
-                    </div>
+                    <div class="">
+                        <div class="flex " :class="reply.reply.to == my_department_id
+                          ? '  justify-end'
+                          : 'justify-end flex-row-reverse'
+                        ">
+                          <div v-if="reply.resources != 0" class="mx-2">
+                            <button
+                              @click="show_reply_images(index, 3)"
+                              class="
+                                px-2
+                                text-xs
+                                rounded
+                                leading-9
+                                text-white
+                                bg-red-400
+                                flex
+                                items-center
+                              "
+                            >
+                              عرض الصور
+                              <svg
+                                class="stroke-current mr-2 w-6 h-6"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
+                                  stroke-width="1"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M8.5 10C9.32843 10 10 9.32843 10 8.5C10 7.67157 9.32843 7 8.5 7C7.67157 7 7 7.67157 7 8.5C7 9.32843 7.67157 10 8.5 10Z"
+                                  stroke-width="1"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M21 15L16 10L5 21"
+                                  stroke-width="1"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </button>
+                          </div>
 
-                    <div v-if="reply.resources != 0" class=" mx-2">
-                        <button @click="show_reply_images(index)" class="px-2 text-xs rounded leading-9 text-white bg-red-400 flex items-center">
-                          عرض الصور
-                          <svg class="stroke-current mr-2 w-6 h-6" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"  stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M8.5 10C9.32843 10 10 9.32843 10 8.5C10 7.67157 9.32843 7 8.5 7C7.67157 7 7 7.67157 7 8.5C7 9.32843 7.67157 10 8.5 10Z"  stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M21 15L16 10L5 21"  stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-                          </svg>
-                        </button>
-                    </div>
+                          <div
+                            :class="
+                              reply.reply.to == my_department_id
+                                ? 'bg-gray-700'
+                                : 'bg-blue-700'
+                            "
+                            class="text-white max-w-10/12 py-0 leading-9 px-2 rounded"
+                          >
+                            {{ reply.reply.mail_detail }}
+                          </div>
+                        </div>  
+
+                        <div class="mt-1 text-sm" :class="reply.reply.to == my_department_id ? 'text-left' : 'text-right'">
+                          {{ reply.reply.date }}
+                        </div>
+                      </div>
 
                   </div>
                 </div>
@@ -902,7 +947,7 @@
               </button>
 
               <button
-                @click="to_test_print_images_model = true"
+                @click="print_image()"
                 v-print="'#printMe'"
                 class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg"
               >
@@ -1019,6 +1064,7 @@ export default {
 
   data() {
     return {
+      from_reply_or_general: "",
 
       to_test_print_images_model : false,
       show_images_model: false,
@@ -1105,21 +1151,68 @@ export default {
   },
   methods: {
 
-    show_reply_images(index) {
-      this.show_images_images_model = []
-      this.indextotest = 0
+    print_image() {
+      this.to_test_print_images_model = true;
+      this.$http.mailService
+        .PrintOrShowDocument(
+          Number(this.mailId),
+          Number(localStorage.getItem("userId")),
+          Number(this.from_reply_or_general)
+        )
+        .then((res) => {
+          setTimeout(() => {
+            console.log(res);
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+          console.log(err);
+        });
+    },
+
+    show_reply_images(index, plase) {
+      this.from_reply_or_general = plase;
 
       this.screenFreeze = true;
       this.loading = true;
-      this.show_images_images_model = this.replies[index].resources
 
-      this.testimage_images_model = this.show_images_images_model[0].path;
 
-      setTimeout(() => {
-        this.show_images_model = true;
-        this.screenFreeze = false;
-        this.loading = false;
-      }, 300);
+      this.$http.mailService
+        .PrintOrShowDocument(
+          Number(this.mailId),
+          Number(localStorage.getItem("userId")),
+          2
+        )
+        .then((res) => {
+          setTimeout(() => {
+            console.log(res);
+
+            this.show_images_images_model = [];
+            this.indextotest = 0;
+
+            this.show_images_images_model = this.replies[index].resources;
+
+            this.testimage_images_model = this.show_images_images_model[0].path;
+
+            this.show_images_model = true;
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+          console.log(err);
+        });
+
+
 
     },
 
@@ -1139,15 +1232,13 @@ export default {
     },
 
 
-    GetAllDocuments(id) {
+    GetAllDocuments(id, plase) {
+      this.from_reply_or_general = plase;
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
         .GetAllDocuments(id, Number(localStorage.getItem("userId")))
         .then((res) => {
-
-          console.log(res);
-
           this.show_images_images_model = res.data;
 
           this.testimage_images_model = this.show_images_images_model[0].path;
