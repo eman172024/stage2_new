@@ -43,20 +43,18 @@ namespace MMSystem.Controllers
 
 
         [HttpGet("GetMail")]
-        public async Task<IActionResult> GetMail(DateTime? myday, int? daycheck,
+        public async Task<IActionResult> GetMail(
             int? mailnum_bool, int? mangment, DateTime? date_from, DateTime? date_to, int? mailnum, string? summary,
-            int? mail_Readed, int? mailReaded, int? mailnot_readed, DateTime? Day_sended1,
-            DateTime? Day_sended2, int? Typeof_send, int? mail_type, string? replaytext, int? userid, int mailNumType, int page_num,
+            int? mail_Readed, int? mailReaded, int? mailnot_readed, int? Typeof_send, int? mail_type, int? userid, int mailNumType, int page_num,
             int page_size, int? Measure_filter, int? Department_filter, 
             int? Classfication, int? mail_state, int? genral_incoming_num, int? TheSection, bool? Replay_Date)
 
         {
             
-            dynamic c =await _re.GetMail(myday, daycheck, mailnum_bool,
+            dynamic c =await _re.GetMail( mailnum_bool,
              mangment, date_from, date_to, mailnum, summary,
-            mail_Readed, mailReaded, mailnot_readed, Day_sended1,
-             Day_sended2, Typeof_send, userid, mailNumType,
-             mail_type, replaytext, page_num, page_size,
+            mail_Readed, mailReaded, mailnot_readed, Typeof_send, userid, mailNumType,
+             mail_type, page_num, page_size,
              Measure_filter, Department_filter, Classfication, mail_state,
              genral_incoming_num,  TheSection,  Replay_Date);
 
@@ -96,21 +94,19 @@ namespace MMSystem.Controllers
         }
 
         [HttpGet("GetIncomingMail")]
-        public async Task<IActionResult> GetIncomingMail(DateTime? myday, int? daycheck,
+        public async Task<IActionResult> GetIncomingMail(
             int? mailnum_bool, int? mangment, DateTime? date_from, DateTime? date_to, int? mailnum, string? summary,
-            int? mail_Readed, int? mailReaded, int? mailnot_readed, DateTime? Day_sended1,
-            DateTime? Day_sended2, int? Typeof_send, int? mail_type, string? replaytext, int? userid,int mailNumType, int page_num,
+            int? mail_Readed, int? mailReaded, int? mailnot_readed,  int? Typeof_send, int? mail_type, int? userid,int mailNumType, int page_num,
             int page_size, int? Measure_filter, int? Department_filter, int? Classfication,
             int? mail_state, int? TheSection, int? genral_incoming_num 
 )
 
         {
 
-            var c = await _re.GetDynamic( myday, daycheck, mailnum_bool,
+            var c = await _re.GetDynamic( mailnum_bool,
              mangment, date_from, date_to, mailnum, summary,
-            mail_Readed,  mailReaded,  mailnot_readed,  Day_sended1,
-             Day_sended2,Typeof_send,  userid,  mailNumType,
-             mail_type, replaytext, page_num, page_size,
+            mail_Readed,  mailReaded,  mailnot_readed, Typeof_send,  userid,  mailNumType,
+             mail_type, page_num, page_size,
              Measure_filter,  Department_filter,  Classfication,
              mail_state, TheSection, genral_incoming_num);
             if(c!=null)
