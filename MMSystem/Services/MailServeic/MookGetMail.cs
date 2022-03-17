@@ -259,38 +259,6 @@ namespace MMSystem.Services.MailServeic
             }
         }
 
-        public async Task<List<RViewModel>> GetResourse(int id)
-        {
-            try
-            {
-               List <RViewModel> list= await (from x in _dbCon.Replies.Where(x => x.send_ToId == id)
-                      join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
-                      select new RViewModel
-                      {
-                          reply = _mapper.Map<Reply, ReplayDto>(x),
-                          Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(_dbCon.Reply_Resources.Where(x => x.ReplyId == x.ID).ToList())
-                      }).ToListAsync();
-
-                foreach (var item in list)
-                {
-                    foreach (var item2 in item.Resources)
-                    {
-                        string x = item2.path;
-                        if (File.Exists(x))
-                        {
-                            item2.path = await tobase64(x);
-
-                        }
-                    }
-                }
-
-                return list;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
+       
     }
 }

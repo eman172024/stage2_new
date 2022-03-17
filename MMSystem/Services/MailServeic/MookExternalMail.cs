@@ -126,58 +126,8 @@ namespace MMSystem.Services.MailServeic
            
         }
 
-        public async Task<bool> Update(int userId, External_Mail model)
-        {
-            try
-            {
-                External_Mail mail = await _appDb.External_Mails.FirstOrDefaultAsync(x => x.MailID == model.MailID);
-
-                List<HVModel> hVModels = new List<HVModel>();
-
-                if (mail != null)
-
-                {
-
-                    hVModels.Add(new HVModel { name = "الجهة الخارجية", newvalue = model.Sectionid, oldvalue = mail.Sectionid });
-                    hVModels.Add(new HVModel { name = "الاجراء ", newvalue = model.action, oldvalue = mail.action });
-                    hVModels.Add(new HVModel { name = "الاجراء المطلوب من ", newvalue = model.action_required_by_the_entity, oldvalue = mail.action_required_by_the_entity });
-
-
-
-
-                 string note=   Histoteyvm.getValue(hVModels);
-
-
-
-                    Historyes histor = new Historyes();
-                    histor.currentUser = userId;
-                    histor.mailid = model.MailID;
-                    histor.changes = note;
-
-                    mail.Sectionid = model.Sectionid;
-                    mail.action = model.action;
-                    mail.action_required_by_the_entity = model.action_required_by_the_entity;
-
-                    _appDb.History.Add(histor);
-
-                    _appDb.External_Mails.Update(mail);
-                    await _appDb.SaveChangesAsync();
-
-                    return true;
-                }
-
-                return false;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-
-        }
-
-        public  async Task<bool> Update(Mail mail1, External_Mail mail, int userid)
+        //تعديل بريد الصادر الخارجي
+        public async Task<bool> Update(Mail mail1, External_Mail mail, int userid)
         {
             try
             {

@@ -11,9 +11,8 @@ namespace MMSystem.Services.MailServeic
    public interface IExternalMailcs:GenericInterface<External_Mail, ExternalDto>
     {
 
-
-       Task<bool>Update(int userId, External_Mail mail);
-
+        //تعديل بريد الصادر الخارجي
+    
         Task<bool> Update(Mail mail1, External_Mail mail,int userid);
     }
 }
