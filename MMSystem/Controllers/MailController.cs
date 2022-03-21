@@ -140,30 +140,9 @@ namespace MMSystem.Controllers
 
         }
         
-        //[HttpPost("Uplode")]
-        //public async Task<IActionResult> Uplode([FromForm] int id, List<IFormFile> resourse)
-        //{
+      
 
-        //    bool state = await _Imail.Upload(id, resourse);
-        //    if (state)
-        //        return Created("Uplode", new Result() { message = "تمت عملية التحميل بنجاح", statusCode = 203 });
-        //    return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
-
-
-        //}
-
-        [HttpGet("GetLastMails")]
-        public async Task<IActionResult> GetLastMails(int department_Id)
-        {
-
-            List<VModelForSendAndRecived> list = await _Imail.GetSevenMail(department_Id);
-  if (list.Count>0)
-                return Ok(list);
-  return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
-            //return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
-
-
-        }
+     
 
         [HttpDelete("DeleteMangament")]
         public async Task<IActionResult> DeleteMangament(int mail_id, int departmentId,int userId)
@@ -186,18 +165,7 @@ namespace MMSystem.Controllers
         }
 
 
-        //[HttpPost("UpdateFile")]
-        //public async Task<IActionResult> UpdateFile([FromForm] int id, List<IFormFile> resourse)
-        //{
-
-        //    bool state = await _Imail.UpdateFile(id, resourse);
-        //    if (state)
-        //        return Created("Uplode", new Result() { message = "تمت عملية التعديل بنجاح", statusCode = 203 });
-        //    return BadRequest(new Result() { message = "فشلت العملية", statusCode = 404 });
-
-
-        //}
-
+   
 
 
         [HttpPut("Send")]
@@ -335,18 +303,7 @@ namespace MMSystem.Controllers
         }
 
 
-        [HttpGet("GetMAilReport")]
-        public async Task<IActionResult> GetMAilReport(DateTime first,DateTime end,int department_Id)
-        {
-
-            List<ReportViewModelForMail> list = await _Imail.getreprts(first,end, department_Id);
-            if (list.Count > 0)
-                return Ok(list);
-            return BadRequest(new Result() { message = "لايوجد حالات للبريد", statusCode = 404 });
-
-
-        }
-
+        
 
 
     }

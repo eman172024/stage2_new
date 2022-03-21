@@ -190,10 +190,7 @@ namespace MMSystem.Services.MailServeic
            
         }
 
-        public Task<List<Mail_ResourcescsDto>> GetAll(int id, int userID)
-        {
-            throw new NotImplementedException();
-        }
+      
 
         public async Task<List<Mail_ResourcescsDto>> GetAllRes(int id, int userId)
         {

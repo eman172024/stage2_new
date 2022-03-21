@@ -16,6 +16,6 @@ namespace MMSystem.Services.MailServeic
         Task<MailDto> Getdto(int id, int type);
         Task<EIMVM> GetExternalbox(int mail_id, int Depa, int type);
 
-        Task<List<RViewModel>> GetResourse(int id);
+    
     }
 }
