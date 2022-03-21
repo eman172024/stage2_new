@@ -114,7 +114,7 @@ namespace MMSystem.Services.ReceivedMail
 
                 PagenationSendedEmail<Sended_Maill> pag = new PagenationSendedEmail<Sended_Maill>();
 
-
+                //chang where to firs or defult and remove order by 
                 var c = await (from mail in dbcon.Mails.Where(x => (x.Department_Id == mangment &&
                                            x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) &&
@@ -196,8 +196,6 @@ namespace MMSystem.Services.ReceivedMail
                 {
                     if (Replay_Date == true && TheSection == null)
                     {
-                        var lx = Replay_Date;
-
 
                         zx = (from x in c
                               join vv in dbcon.Sends.Where(x => x.State == true)
@@ -205,7 +203,7 @@ namespace MMSystem.Services.ReceivedMail
 
                               join rep in dbcon.Replies.Where(rep => rep.state == true).Distinct()
                               on vv.Id equals rep.send_ToId
-                              
+
 
                               select new Sended_Maill
                               {
@@ -224,9 +222,23 @@ namespace MMSystem.Services.ReceivedMail
                                   flag = x.flag,
                                   Sends_id = x.Sends_id
                               }
-                                  ).Distinct().ToList();
+                                  ).ToList();
 
-                       
+
+
+                        List<Sended_Maill> dd = new List<Sended_Maill>();
+                        foreach (var item in zx)
+                        {
+                            
+
+                            if (!dd.Exists(x => x.mail_id == item.mail_id)){
+
+                                dd.Add(item);
+                            }
+                        }
+
+                        zx = dd;
+
                     }
                     else
                     {
@@ -379,8 +391,21 @@ namespace MMSystem.Services.ReceivedMail
                                         
                               }
                                       ).Distinct().ToList();
+                        List<Sended_Maill> dd = new List<Sended_Maill>();
+                        foreach (var item in pagg.mail)
+                        {
 
-                       
+
+                            if (!dd.Exists(x => x.mail_id == item.mail_id))
+                            {
+
+                                dd.Add(item);
+                            }
+                        }
+
+                        pagg.mail = dd;
+
+
                     }
                     else
                     {
