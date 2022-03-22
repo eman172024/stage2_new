@@ -18,7 +18,10 @@ namespace MMSystem.Services.Reports
 
         }
         private AppDbCon _data { get; }
-    
+  /// <summary>
+  /// لم تتم إضافتها الي المنظومة بعد
+  /// </summary>
+  /// <returns> جميع الاميلات التي تم تداولها بي المنظومة </returns>
         public async Task<TotalCounts> GetAllSystemCount()
         {
 
@@ -42,7 +45,7 @@ namespace MMSystem.Services.Reports
 
             return totalCounts;
         }
-
+  
         public async Task<List<SectionReport>> GetAllDepartmentReports(DateTime fromdate, DateTime todate, int ? MailType, string SendedOrRecieved)
         {
             try
@@ -225,6 +228,15 @@ namespace MMSystem.Services.Reports
 
         }
 
+        /// <summary>
+        ///   التقرير الاحصائي 
+        /// </summary>
+        /// <param name="departmentid"> رقم الإدارة</param>
+        /// <param name="fromdate"> من التاريخ </param>
+        /// <param name="todate"> إلي التاريخ </param>
+        /// <param name="MailType"> نوع البريد</param>
+        /// <param name="SendedOrRecieved"> مرسل او مستقبل </param>
+        /// <returns>  SectionReportWithTotal </returns>
         public async Task<SectionReportWithTotal> GetMySectionReport(int departmentid, DateTime  fromdate, DateTime  todate, int? MailType, string  SendedOrRecieved)
         {
             try
@@ -279,8 +291,9 @@ namespace MMSystem.Services.Reports
                                 perent = item.perent,
                                 state = item.state
                             });
-                    }
-          
+
+                    }    
+        
                 if (SendedOrRecieved == "sended")
                 {
                     foreach (var item in Rmv_Dublicate_Dep)
@@ -419,6 +432,15 @@ namespace MMSystem.Services.Reports
         }
 
 
+        /// <summary>
+        /// لم تتم إضافتها الي المنظومة بعد
+        /// </summary>
+        /// <param name="userid"> رقم المستخدم</param>
+        /// <param name="fromdate"> من التاريخ </param>
+        /// <param name="todate"> إلي التاريخ </param>
+        /// <param name="MailType"> نوع البريد</param>
+        /// <param name="SendedOrRecieved"> مرسل او مستقبل </param>
+        /// <returns>ترد المستخد والايميلات اللي اتعامل امعاها </returns>
         public async Task<UserReports> GetAllUserMassageReport(int userid, DateTime fromdate, DateTime todate, int ? MailType, string SendedOrRecieved)
         {
             try
@@ -518,6 +540,15 @@ namespace MMSystem.Services.Reports
             }
         }
 
+        /// <summary>
+        /// لم تتم إضافتها إلي المنظومة بعد
+        /// </summary>
+        /// <param name="departmentid"> رقم الإدارة</param>
+        /// <param name="fromdate"> من التاريخ </param>
+        /// <param name="todate"> إلي التاريخ </param>
+        /// <param name="MailType"> نوع البريد</param>
+        /// <param name="SendedOrRecieved"> مرسل او مستقبل </param>
+        /// <returns> جميع مستخدمي الادارة والتقرير الاحصائي امتعهم</returns>
         public async Task<UsersConclsionReport> GetAllUserCount(int departmentid, DateTime fromdate, DateTime todate, int ? MailType, string SendedOrRecieved)
         {
             try
