@@ -5,7 +5,7 @@
       <div class="flex-1 bg-gray-200 w-0 overflow-y-auto">
         <div class="max-w-screen-2xl mx-auto flex flex-col md:px-8">
           <navComponent></navComponent>
-          <main class="flex-1 relative focus:outline-none pt-2 pb-6">
+          <main class="flex-1 relative focus:outline-none pt-2 pb-24">
             <div class="flex justify-between items-center">
               <div class="">
                 <h1 class="text-xl font-semibold text-gray-900">
