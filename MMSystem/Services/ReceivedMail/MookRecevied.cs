@@ -950,7 +950,19 @@ namespace MMSystem.Services.ReceivedMail
                           }
                               ).ToList();
 
+                    List<ExtarnelinboxViewModel> dd = new List<ExtarnelinboxViewModel>();
+                    foreach (var item in zx)
+                    {
 
+
+                        if (!dd.Exists(x => x.mail_id == item.mail_id))
+                        {
+
+                            dd.Add(item);
+                        }
+                    }
+
+                    zx = dd;
                 }
                 else
                 {
@@ -1025,7 +1037,19 @@ namespace MMSystem.Services.ReceivedMail
                                      Sends_id = x.Sends_id
                                  }
                               ).ToList();
+                    List<ExtarnelinboxViewModel> dd = new List<ExtarnelinboxViewModel>();
+                    foreach (var item in pagg.mail)
+                    {
 
+
+                        if (!dd.Exists(x => x.mail_id == item.mail_id))
+                        {
+
+                            dd.Add(item);
+                        }
+                    }
+
+                    pagg.mail = dd;
                 }
                 else
                 {
@@ -1238,7 +1262,19 @@ namespace MMSystem.Services.ReceivedMail
                           }
                               ).ToList();
 
+                    List<ExtarnelinboxViewModel> dd = new List<ExtarnelinboxViewModel>();
+                    foreach (var item in zx)
+                    {
 
+
+                        if (!dd.Exists(x => x.mail_id == item.mail_id))
+                        {
+
+                            dd.Add(item);
+                        }
+                    }
+
+                   zx = dd;
                 }
                 else
                 {
@@ -1315,7 +1351,19 @@ namespace MMSystem.Services.ReceivedMail
                                      Sends_id = x.Sends_id
                                  }
                               ).ToList();
+                    List<ExtarnelinboxViewModel> dd = new List<ExtarnelinboxViewModel>();
+                    foreach (var item in pagg.mail)
+                    {
 
+
+                        if (!dd.Exists(x => x.mail_id == item.mail_id))
+                        {
+
+                            dd.Add(item);
+                        }
+                    }
+
+                    pagg.mail = dd;
                 }
                 else
                 {
@@ -2439,8 +2487,11 @@ namespace MMSystem.Services.ReceivedMail
 
 
                     zx = (from x in c
-                          join vv in dbcon.Replies.Where(x=>x.state==true)
-                          on x.Sends_id equals vv.send_ToId
+                          join vv in dbcon.Sends.Where(x => x.State == true)
+                              on x.mail_id equals vv.MailID
+
+                          join rep in dbcon.Replies.Where(rep => rep.state == true).Distinct()
+                          on vv.Id equals rep.send_ToId
 
                           select new Sended_Maill
                           {
@@ -2461,6 +2512,19 @@ namespace MMSystem.Services.ReceivedMail
                           }
                               ).ToList();
 
+                    List<Sended_Maill> dd = new List<Sended_Maill>();
+                    foreach (var item in zx)
+                    {
+
+
+                        if (!dd.Exists(x => x.mail_id == item.mail_id))
+                        {
+
+                            dd.Add(item);
+                        }
+                    }
+
+                    zx = dd;
 
                 }
                 else
@@ -2515,8 +2579,11 @@ namespace MMSystem.Services.ReceivedMail
 
 
                     pagg.mail = (from x in c
-                                 join vv in dbcon.Replies.Where(vv => vv.state == true)
-                                 on x.Sends_id equals vv.send_ToId
+                                 join vv in dbcon.Sends.Where(x => x.State == true)
+                              on x.mail_id equals vv.MailID
+
+                                 join rep in dbcon.Replies.Where(rep => rep.state == true).Distinct()
+                                 on vv.Id equals rep.send_ToId
 
 
                                  select new Sended_Maill
@@ -2538,7 +2605,19 @@ namespace MMSystem.Services.ReceivedMail
                                  }
                                  ).ToList();
 
-                    // z.Count();
+                    List<Sended_Maill> dd = new List<Sended_Maill>();
+                    foreach (var item in pagg.mail)
+                    {
+
+
+                        if (!dd.Exists(x => x.mail_id == item.mail_id))
+                        {
+
+                            dd.Add(item);
+                        }
+                    }
+
+                    pagg.mail = dd;
                 }
                 else
                 {
