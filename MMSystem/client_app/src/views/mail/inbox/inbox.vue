@@ -614,7 +614,7 @@
                       />
                     </div>
 
-                    <div class="sm:col-span-2" v-if="mailType != 1">
+                    <!-- <div class="sm:col-span-2" v-if="mailType != 1">
                       <label
                         for="side"
                         class="block text-base font-semibold text-gray-800"
@@ -697,7 +697,7 @@
                           </button>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
 
                     <div class="sm:col-span-2">
                       <label
@@ -724,7 +724,7 @@
                       />
                     </div>
 
-                    <div class="sm:col-span-2">
+                    <!-- <div class="sm:col-span-2">
                       <label
                         for="by_date_of_reply"
                         class="block text-base font-semibold text-gray-800"
@@ -748,7 +748,7 @@
                           px-2
                         "
                       />
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
