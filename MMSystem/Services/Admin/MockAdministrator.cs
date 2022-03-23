@@ -24,6 +24,11 @@ namespace MMSystem.Services
         private AppDbCon _data { get; }
         private IMapper _mapper { get; }
 
+        /// <summary>
+        /// إضافة المستخدم مع الصلاحيات
+        /// </summary>
+        /// <param name="user"> بيانات المستخدم مع مصفوفة من الارقام تعبر عن الصلاحيات والشخص الذي أضاف هذا المستخدم </param>
+        /// <returns> true او false </returns>
         public async Task<bool> Add(UserAddORUpdate user)
         {
 
@@ -69,11 +74,12 @@ namespace MMSystem.Services
 
         }
 
-        public Task<bool> Add(Administrator t)
-        {
-            throw new NotImplementedException();
-        }
-
+       
+        /// <summary>
+        /// إلغاء تفعيل المستخدم او إعادة تفعيل المستخدم
+        /// </summary>
+        /// <param name="id"> رقم المستخدم</param>
+        /// <returns>true او false </returns>
         public async Task<bool> Delete(int id)
         {
 
@@ -103,7 +109,11 @@ namespace MMSystem.Services
                 throw;
             }
         }
-
+        /// <summary>
+        /// البحث عن مستخدم معين 
+        /// </summary>
+        /// <param name="id"> رقم المستخدم</param>
+        /// <returns> المستخدم مع الصلاحيات</returns>
         public async Task<UserView> Get(int id)
         {
 
@@ -133,7 +143,13 @@ namespace MMSystem.Services
             }
 
         }
-
+        
+        /// <summary>
+        ///  تبحث علي المستخدمين و تقسمهم علي حسب عدد الصفحات 
+        /// </summary>
+        /// <param name="page">رقم الصفحة </param>
+        /// <param name="pageSize">عدد المستخدمي اللي تبي تعرضهم في كل صفحة</param>
+        /// <returns> مستخدمين</returns>
         public async Task<PageintoinAdmin> GetAdministrator(int page, int pageSize)
         {
             try
@@ -156,7 +172,10 @@ namespace MMSystem.Services
 
         }
 
-
+        /// <summary>
+        /// تبحث علي جميع المستخدمين
+        /// </summary>
+        /// <returns>  جميع المستخدمين</returns>
         public async Task<List<AdministratorDto>> GetAll()
         {
             try
@@ -176,7 +195,11 @@ namespace MMSystem.Services
             }
 
         }
-
+              /// <summary>
+              /// ترجع صلاحيات مستخدم معين
+              /// </summary>
+              /// <param name="id"> رقم المستخدم</param>
+              /// <returns> مصفوفة من ارقام الصلاحيات</returns>
         public async Task<List<int>> GetJustRole(int id)
         {
             try
@@ -193,7 +216,11 @@ namespace MMSystem.Services
                 throw;
             }
         }
-
+/// <summary>
+///  تسجيل الدخول
+/// </summary>
+/// <param name="user1"> اسم المستخدم وكلمة المرور</param>
+/// <returns>بيانات المستخدم </returns>
         public async Task<UserView> login(Login user1)
         {
             try
@@ -230,7 +257,11 @@ namespace MMSystem.Services
                 throw;
             }
         }
-
+        /// <summary>
+        /// *****تبحث علي المستخدمين الموجودين تحت إدارة معينة التي ***حالتهم مفعلة فقط
+        /// </summary>
+        /// <param name="DepartmentId"> رقم الادارة</param>
+        /// <returns>قائمة من المستخدمين</returns>
         public async Task<List<AdministratorDto>> SearchByDepartmentId(int DepartmentId)
         {
             try
@@ -246,6 +277,11 @@ namespace MMSystem.Services
                 throw;
             }
         }
+        /// <summary>
+        /// تبحث علي جميع المستخدمين الموجودين تحت إدارة معينة 
+        /// </summary>
+        /// <param name="DepartmentId"> رقم الادارة</param>
+        /// <returns>قائمة من المستخدمين</returns>
         public async Task<List<AdministratorDto>> SearchByDepartmentIdControl(int DepartmentId)
         {
             try
@@ -261,6 +297,12 @@ namespace MMSystem.Services
                 throw;
             }
         }
+
+        /// <summary>
+        /// تبحث علي المستخدم بإسمه
+        /// </summary>
+        /// <param name="user"> إسم المستخدم</param>
+        /// <returns>ترجع المستخدم</returns>
 
         public async Task<List<UserFind>> SearchByName(string user)
         {
@@ -288,10 +330,6 @@ namespace MMSystem.Services
 
                 return userfind1;
 
-
-
-
-
             }
             catch
             {
@@ -299,9 +337,13 @@ namespace MMSystem.Services
             }
         }
 
+        /// <summary>
+        /// تعديل علي مستخدم معين
+        /// </summary>
+        /// <param name="user"> بينات المستخدم التي تم تعديلها </param>
+        /// <returns> true او false</returns>
         public async Task<bool> Update(UserAddORUpdate user)
         {
-
             try
             {
                 UserRoles role = new UserRoles();
@@ -367,7 +409,18 @@ namespace MMSystem.Services
             }
         }
 
+
+
+        /// <summary>
+        /// الدوال اللي تحت تبع genericInterface لم تتم إستخدامهم لكن تم إستخدام نفس الاسم في الدوال الاخري 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public Task<bool> Update(Administrator model)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<bool> Add(Administrator t)
         {
             throw new NotImplementedException();
         }

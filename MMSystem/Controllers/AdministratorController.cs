@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MMSystem.Model;
-using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel;
 using MMSystem.Services;
 using MMSystem.Services.Histor;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MMSystem.Controllers
@@ -119,15 +117,6 @@ namespace MMSystem.Controllers
                 historyes.changes = historyes.changes + "\n \t" + "   تم تغييرالحالة من   مفعل  " + " إلي " + "  غير مفعل  ";
                 }
             }
-            //if (newuservalue.Administrator.FirstMACAddress != olduservalue.Administrator.FirstMACAddress)
-            //{
-            //    historyes.changes = historyes.changes +"\n \t" +  "   تم تغيير العنوان الفزيائي الثاني الي :" + olduservalue.Administrator.FirstMACAddress + "  إلي  " + newuservalue.Administrator.FirstMACAddress ;
-
-            //}
-            //if (newuservalue.Administrator.SecandMACAddress != olduservalue.Administrator.SecandMACAddress)
-            //{
-            //    historyes.changes = historyes.changes + "\n \t" + "   تم تغيير العنوان الفزيائي الاول الي : " + olduservalue.Administrator.SecandMACAddress + "  إلي  " + newuservalue.Administrator.SecandMACAddress ;
-            //}
 
             List<int>  newrole = newuservalue.Listrole;
             List<int>  oldrole = await _data.GetJustRole(newuservalue.Administrator.UserId);

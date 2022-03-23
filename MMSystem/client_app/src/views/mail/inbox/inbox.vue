@@ -5,7 +5,7 @@
       <div class="flex-1 bg-gray-200 w-0 overflow-y-auto">
         <div class="max-w-screen-2xl mx-auto flex flex-col md:px-8">
           <navComponent></navComponent>
-          <main class="flex-1 relative focus:outline-none pt-2 pb-6">
+          <main class="flex-1 relative focus:outline-none pt-2 pb-24">
             <div class="flex justify-between items-center">
               <div class="">
                 <h1 class="text-xl font-semibold text-gray-900">
@@ -614,7 +614,7 @@
                       />
                     </div>
 
-                    <div class="sm:col-span-2" v-if="mailType != 1">
+                    <!-- <div class="sm:col-span-2" v-if="mailType != 1">
                       <label
                         for="side"
                         class="block text-base font-semibold text-gray-800"
@@ -697,7 +697,7 @@
                           </button>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
 
                     <div class="sm:col-span-2">
                       <label
@@ -724,7 +724,7 @@
                       />
                     </div>
 
-                    <div class="sm:col-span-2">
+                    <!-- <div class="sm:col-span-2">
                       <label
                         for="by_date_of_reply"
                         class="block text-base font-semibold text-gray-800"
@@ -748,7 +748,7 @@
                           px-2
                         "
                       />
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>

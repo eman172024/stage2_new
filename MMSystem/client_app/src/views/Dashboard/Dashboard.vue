@@ -67,7 +67,7 @@
                 >
                   <div class="flex justify-between items-start">
                     <div class="">
-                      <p class="text-gray-900">لم يتم إرسالة</p>
+                      <p class="text-gray-900">لم يتم إرسالها</p>
                       <p
                         class="font-bold text-gray-600 text-3xl mt-2 text-right"
                       >
