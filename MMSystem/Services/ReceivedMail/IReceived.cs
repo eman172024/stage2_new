@@ -10,51 +10,51 @@ namespace MMSystem.Services.ReceivedMail
 {
      public  interface IReceived
     {
-        Task<PagenationSendedEmail<Sended_Maill>> GetSendedMail(DateTime? myday, int? daycheck, int? mailnum_bool,
-           int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string ? summary, int? mail_Readed,
-           int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
-           Typeof_send, int? mail_type, string? replaytext, int? userid, int pagenum,
+        Task<PagenationSendedEmail<Sended_Maill>> GetSendedMail( int? mailnum_bool,
+           int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
+           int? mailReaded, int? mailnot_readed,  int?
+           Typeof_send, int? mail_type, int? userid, int pagenum,
            int size, int? Measure_filter, int? Department_filter, int? Classfication, int? mail_state 
             , int? genral_incoming_num, bool? Replay_Date);
 
-        Task<dynamic> GetMail(DateTime? myday, int? daycheck, int? mailnum_bool,
+        Task<dynamic> GetMail( int? mailnum_bool,
         int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
-        int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
-        Typeof_send, int? userid, int? mailNumType, int? mail_type, string? replaytext, int pagenum,
+        int? mailReaded, int? mailnot_readed, int?
+        Typeof_send, int? userid, int? mailNumType, int? mail_type, int pagenum,
         int size, int? Measure_filter, int? Department_filter, int? Classfication,
         int? mail_state,int? genral_incoming_num, int? TheSection, bool? Replay_Date);
 
-        Task<PagenationSendedEmail<ExtarnelinboxViewModel>> GetExtarnelMail(DateTime? myday, int? daycheck, int? mailnum_bool,
+        Task<PagenationSendedEmail<ExtarnelinboxViewModel>> GetExtarnelMail( int? mailnum_bool,
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
-           int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
-           Typeof_send, int? mail_type, string? replaytext, int? userid, int pagenum, int size, int? Measure_filter,
+           int? mailReaded, int? mailnot_readed,  int?
+           Typeof_send, int? mail_type, int? userid, int pagenum, int size, int? Measure_filter,
            int? Department_filter, int? Classfication,
            int? mail_state, int? genral_incoming_num, int? TheSection, bool? Replay_Date);
 
-        Task<PagenationSendedEmail<ExtarnelinboxViewModel>> GetExtarnelinbox(DateTime? myday, int? daycheck, int? mailnum_bool,
+        Task<PagenationSendedEmail<ExtarnelinboxViewModel>> GetExtarnelinbox( int? mailnum_bool,
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
-           int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
-           Typeof_send, int? mail_type, string? replaytext, int? userid, int pagenum, int size, int? Measure_filter,
+           int? mailReaded, int? mailnot_readed, int?
+           Typeof_send, int? mail_type, int? userid, int pagenum, int size, int? Measure_filter,
            int? Department_filter, int? Classfication, int? mail_state, 
            int? genral_incoming_num,  int? TheSection, bool? Replay_Date);
 
        
-        Task <PagenationSendedEmail<ExtarnelinboxViewModel>> GetIncomingExtarnelMail(DateTime? myday, int? daycheck, int? mailnum_bool,
+        Task <PagenationSendedEmail<ExtarnelinboxViewModel>> GetIncomingExtarnelMail( int? mailnum_bool,
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
-           int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
-           Typeof_send, int? mail_type, string? replaytext, int? userid , int pagenum,int size, int? Measure_filter,
+           int? mailReaded, int? mailnot_readed,  int?
+           Typeof_send, int? mail_type, int? userid , int pagenum,int size, int? Measure_filter,
            int? Department_filter, int? genral_incoming_num, int? Classfication, int? mail_state, int? TheSection);
 
-        Task <PagenationSendedEmail<ExtarnelinboxViewModel>> GetIncomingExtarnelinbox(DateTime? myday, int? daycheck, int? mailnum_bool,
+        Task <PagenationSendedEmail<ExtarnelinboxViewModel>> GetIncomingExtarnelinbox( int? mailnum_bool,
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
-           int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
-           Typeof_send, int? mail_type, string? replaytext, int? userid ,int pagenum, int size, int? Measure_filter, 
+           int? mailReaded, int? mailnot_readed,  int?
+           Typeof_send, int? mail_type, int? userid ,int pagenum, int size, int? Measure_filter, 
            int? Department_filter, int? genral_incoming_num, int? Classfication, int? mail_state, int? TheSection);
 
-        Task<PagenationSendedEmail<Sended_Maill>> GetIncomingRecevidMail(DateTime? myday, int? daycheck, int? mailnum_bool,
+        Task<PagenationSendedEmail<Sended_Maill>> GetIncomingRecevidMail( int? mailnum_bool,
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
-           int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
-           Typeof_send, int? mail_type, string? replaytext, int? userid  , int pagenum, 
+           int? mailReaded, int? mailnot_readed,  int?
+           Typeof_send, int? mail_type, int? userid  , int pagenum, 
            int size, int? Measure_filter, int? genral_incoming_num, int? Department_filter, int? Classfication, int? mail_state);
 
         Task<PagenationSendedEmail<Sended_Maill>> Getmail( int depid, int size, int pagenum);
@@ -69,26 +69,25 @@ namespace MMSystem.Services.ReceivedMail
 
         Task<PagenationSendedEmail<ExtarnelinboxViewModel>> Getinboxmailincoming(int depid, int size, int pagenum);
 
-        Task<dynamic> GetDynamic(DateTime? myday, int? daycheck, int? mailnum_bool,
+        Task<dynamic> GetDynamic( int? mailnum_bool,
         int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
-        int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
-        Typeof_send, int? userid, int? mailNumType, int? mail_type, string? replaytext, int pagenum,
+        int? mailReaded, int? mailnot_readed, int?
+        Typeof_send, int? userid, int? mailNumType, int? mail_type, int pagenum,
         int size, int? Measure_filter, int? genral_incoming_num, int? Department_filter, int? Classfication, int? mail_state, int? TheSection);
 
 
 
-        Task <PagenationSendedEmail<Sended_Maill>> GetAllIncoming(DateTime? myday, int? daycheck, int? mailnum_bool,
+        Task <PagenationSendedEmail<Sended_Maill>> GetAllIncoming( int? mailnum_bool,
           int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
-          int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
-          Typeof_send, int? mail_type, string? replaytext, int? userid, int pagenum, int size,
+          int? mailReaded, int? mailnot_readed,  int?
+          Typeof_send, int? mail_type, int? userid, int pagenum, int size,
           int? Measure_filter, int? Department_filter, int? Classfication, int? mail_state,
           int? genral_incoming_num,int? TheSection);
 
-        Task<PagenationSendedEmail<Sended_Maill>> GetAll(DateTime? myday, int? daycheck, int? mailnum_bool,
+        Task<PagenationSendedEmail<Sended_Maill>> GetAll( int? mailnum_bool,
           int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
-          int? mailReaded, int? mailnot_readed, DateTime? Day_sended1, DateTime? Day_sended2, int?
-          Typeof_send, int? mail_type, string? replaytext, int? userid, int pagenum,int? mailNumType, int size,
-          int? Measure_filter, int? Department_filter, int? Classfication, 
+          int? mailReaded, int? mailnot_readed, int?Typeof_send, int? mail_type, int? userid, int pagenum,
+          int? mailNumType, int size, int? Measure_filter, int? Department_filter, int? Classfication,
           int? mail_state, int? genral_incoming_num, int? TheSection, bool? Replay_Date);
          Task<int> GetMailState(int mailid);
 

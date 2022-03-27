@@ -29,7 +29,9 @@ namespace MMSystem.Model.ViewModel
         public String Masure_type { get; set; }
 
         public string mangment_sender { get; set; }
+        public bool is_multi { get; set; }
 
+       
         public int mangment_sender_id { get; set; }
 
         public int type_of_mail { get; set; }

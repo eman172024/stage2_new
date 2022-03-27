@@ -39,30 +39,7 @@ namespace MMSystem.Services.MailServeic
 
         }
 
-        public async Task<bool> IsRead(int id)
-        {
-
-            try
-            {
-                Send_to send_ = await _data.Sends.FirstOrDefaultAsync(x => x.MailID == id);
-                if (send_ != null)
-                {
-                    send_.flag = 1;
-                    send_.time_of_read = DateTime.Now;
-
-                    _data.Sends.Update(send_);
-                    await _data.SaveChangesAsync();
-
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
+     
 
         public async Task<bool> Send(int mailId,int userId)
         {
@@ -113,27 +90,6 @@ namespace MMSystem.Services.MailServeic
 
         }
 
-        public async Task<bool> Update(Send_to send_)
-        {
-            try
-            {
-                Send_to send_To = await _data.Sends.FirstOrDefaultAsync(x => x.MailID == send_.MailID && x.to == send_.to && x.type_of_send == send_.type_of_send);
-
-                if (send_To!=null) { 
-                
-                }
-               
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-
-            return true;
-
-        }
 
         public async Task<bool> UpdateSenderList(UpdateVM update)
         {

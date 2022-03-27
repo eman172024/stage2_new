@@ -220,26 +220,7 @@ namespace MMSystem.Services.ReplayServeic
         }
 
 
-        public async Task<List<ReplayDto>> GetAllReplay(int depid, int mailId,int to)
-        {
-            try
-            {
-
-                Send_to send_ = await _data.Sends.FirstOrDefaultAsync(x => x.MailID == mailId && x.to == depid&&x.to==to);
-
-                List<Reply> list = await _data.Replies.OrderBy(x => x.ReplyId).Where(x => x.send_ToId == send_.Id).ToListAsync();
-                List<ReplayDto> replays = _mapper.Map<List<Reply>, List<ReplayDto>>(list);
-                return replays;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-
-        }
-
+      
         public Task<bool> Update(Reply model)
         {
             throw new NotImplementedException();
@@ -269,54 +250,7 @@ namespace MMSystem.Services.ReplayServeic
             }
         }
 
-        public async Task<bool> Upload(int id, List<IFormFile> listOfPhotes)
-        {
-            try
-            {
-                int order = 1;
-                if (listOfPhotes.Count > 0)
-                {
-                    foreach (var file in listOfPhotes)
-                    {
-                        sub = "";
-
-                        IEnumerable<char> takeFiveChar = file.FileName.TakeLast(5);
-
-                        foreach (var item in takeFiveChar)
-                        {
-                            sub = sub + item.ToString();
-
-                        }
-
-                        Guid guid = Guid.NewGuid();
-                        string image = guid.ToString() + "" + sub;
-
-                        var path = Path.Combine(this.iwebHostEnvironment.WebRootPath, "images", image);
-
-                        //  file.FileName.Replace(file.FileName,x);
-                        var stream = new FileStream(path, FileMode.Create);
-
-                        await file.CopyToAsync(stream);
-                        Reply_Resources mail = new Reply_Resources();
-                        mail.ReplyId = id;
-                        mail.path = "wwwroot/images/" + image;
-                        mail.order = order;
-                        bool res = await AddResources(mail);
-
-
-                        order += 1;
-                    }
-                    return true;
-
-                }
-                return false;
-
-            }
-            catch
-            {
-                throw;
-            }
-        }
+       
 
         public async Task<bool> Uplode(Uplode file)
       {
