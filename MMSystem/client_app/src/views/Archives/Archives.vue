@@ -679,7 +679,7 @@
                           py-1
                         "
                       >
-                        <div class="w-1/4 flex justify-center items-center">
+                        <div class="w-1/3 flex justify-center items-center">
                           <button
                             @click="GetAllDocuments(mail.id)"
                             title="عرض الصور"
@@ -702,11 +702,12 @@
                           </button>
                         </div>
 
-                        <div class="w-1/4 flex justify-center items-center">
+                        <div class="w-1/3 flex justify-center items-center"  v-if="mail.flag<3">
                           <button
-                            @click="UpdateArciveState(mail.id)"
+                            @click="UpdateArciveState(mail.id),isread=true"
                             title="تم الاستلام والارسال"
                             class="focus:outline-none"
+                           
                           >
                             <svg
                               class="
@@ -732,11 +733,12 @@
                           </button>
                         </div>
 
-                        <div class="w-1/4 flex justify-center items-center">
+                        <div class="w-1/3 flex justify-center items-center" v-if="mail.flag>2">
                           <button
-                            @click="isDelivered = true,mail_id_copy=mail.id,delivaryName=mail.delivery,isDelivered1(mail.delivery)"
+                            @click="isDelivered = true,mail_id_copy=mail.id,delivaryName=mail.delivery,isDelivered1(mail.delivery),NoOfcopies=mail.number_Of_Copies,notes=mail.note,attached11(mail.attachments)"
                             title="تم التسليم للجهة"
                             class="focus:outline-none"
+                            
                           >
                             <svg
                               class="w-6 h-6 hover:text-blue-500"
@@ -755,11 +757,12 @@
                           </button>
                         </div>
 
-                        <div class="w-1/4 flex justify-center items-center">
+                        <div class="w-1/3 flex justify-center items-center"  v-if="mail.flag>2" >
                           <button
                             title="عدد النسخ"
                             class="focus:outline-none"
-                            @click="copies = true ,mail_id_copy=mail.id,NoOfcopies=mail.number_Of_Copies,notes=mail.note,attached11(mail.attachments)"
+                           
+                            @click="copies = true ,mail_id_copy=mail.id,NoOfcopies=mail.number_Of_Copies,notes=mail.note,attached11(mail.attachments),delivaryName=mail.delivery,isDelivered1(mail.delivery)"
                           >
                             <svg
                               class="w-7 h-7 hover:text-blue-500"
@@ -777,6 +780,7 @@
                             </svg>
                           </button>
                         </div>
+
                       </div>
 
                       <div
@@ -870,7 +874,7 @@
                           justify-end
                         "
                       >
-                        <span class="text-xs ml-1"> المجموع </span>
+                        <span class="text-xs ml-1"> عدد الرسائل </span>
                         {{ total_of_transaction }}
                       </div>
                     </div>
@@ -1424,6 +1428,8 @@ export default {
 
   data() {
     return {
+
+      isread:false,
       NoOfcopies: 0,
       notes: "",
       delivaryName: "",
@@ -1756,15 +1762,23 @@ export default {
   
     UpdateArciveCopies()
     {
+      var del;
+           if(this.delivaryType == 1){
+
+              del ="سلمت للجهة";
+           }
+           else{
+              del =this.delivaryName;
+           }
 
       var model = {
        
           MailId: this.mail_id_copy,
-      //    delevery:"",
-         // Send_of_Ex_mail:"",
+      
           Attachments:Boolean(this.attached),
           Number_Of_Copies:Number (this.NoOfcopies),    
           note:this.notes,
+          delevery:del,
           Current:Number(localStorage.getItem("userId")),
         }
 
@@ -1806,6 +1820,9 @@ export default {
        
           MailId: this.mail_id_copy,
           delevery:del,
+            Attachments:Boolean(this.attached),
+          Number_Of_Copies:Number (this.NoOfcopies),    
+          note:this.notes,
          Current:Number(localStorage.getItem("userId")),
       
           
