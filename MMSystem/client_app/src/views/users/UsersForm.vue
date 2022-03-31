@@ -4,6 +4,7 @@
   <asideComponent></asideComponent>
 
   <div class="bg-gray-200 h-screen w-full overflow-hidden" dir="rtl">
+    <logout class="pt-4 ml-12"></logout>
     <div
       class="
         min-h-full
@@ -16,6 +17,8 @@
         relative
       "
     >
+      
+
 
     <div v-if="isaddsuccess" class="w-96  z-50 p-4 bg-white rounded-lg absolute top-48 flex flex-col text-center items-center">
 
@@ -460,7 +463,7 @@
 
 <script>
 import asideComponent from "@/components/asideComponent.vue";
-
+import logout from "@/components/logout.vue";
 export default {
   name: "Add",
 
@@ -477,6 +480,7 @@ export default {
 
    components: {
     asideComponent,
+    logout
   },
 
   data() {
