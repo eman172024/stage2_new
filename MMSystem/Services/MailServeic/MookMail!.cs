@@ -360,7 +360,6 @@ namespace MMSystem.Services.MailServeic
                     Historyes histor = new Historyes();
                     histor.currentUser = mail.userId;
                     histor.mailid = id;
-                    histor.Time = DateTime.Now;
                     histor.HistortyNameID = 4;
                     histor.Time = DateTime.Now;
                     bool res = await _history.Add(histor);
@@ -1140,6 +1139,7 @@ namespace MMSystem.Services.MailServeic
                     histor.currentUser = file.userId;
                     histor.mailid = file.mail_id;
                     histor.HistortyNameID = 4;
+                    histor.Time = DateTime.Now;
                  
                     bool res = await _resourcescs.Add(mail);
                     if (res)
