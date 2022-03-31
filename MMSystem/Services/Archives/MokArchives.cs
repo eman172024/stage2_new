@@ -322,7 +322,7 @@ namespace MMSystem.Services.Archives
                         historyes2.HistortyNameID = 16;
                         historyes2.Time = DateTime.Now;
                         historyes2.mailid = model.MailId;
-                        historyes2.changes = model.Attachments.ToString();
+                        historyes2.changes = (model.Attachments == true) ?"يوحد مرفقات": "لايوجد مرفقات";
                         bool result = await _history.Add(historyes2);
 
                         Ex.Attachments = model.Attachments;

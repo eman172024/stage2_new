@@ -3,6 +3,7 @@
     <div class="h-screen bg-gray-100 overflow-hidden flex">
       <div class="flex-1 bg-gray-200 w-0 overflow-y-auto">
         <div class="max-w-screen-2xl mx-auto flex flex-col md:px-8">
+           <logout class="mt-4 ml-4"></logout>
           <main class="flex-1 relative focus:outline-none pt-2 pb-6">
             <div class="flex justify-between items-center mt-6">
               <div class="">
@@ -1380,6 +1381,7 @@
 
 <script>
 import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
+import logout from "@/components/logout.vue";
 
 export default {
   created() {},
@@ -1461,6 +1463,7 @@ export default {
 
   components: {
     svgLoadingComponent,
+    logout,
   },
 
   data() {
