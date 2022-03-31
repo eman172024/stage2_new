@@ -646,10 +646,11 @@ namespace MMSystem.Services.MailServeic
 
                             }
 
-
+                            string depname = "";
 
                             if (mail.newactionSenders.Count > 0)
                             {
+                               
                                 for (int i = 0; i < mail.newactionSenders.Count; i++)
                                 {
                                     Send_to sender = new Send_to();
@@ -659,7 +660,7 @@ namespace MMSystem.Services.MailServeic
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = mail.newactionSenders[i].departmentId;
                                     numOfSend = numOfSend + " " + sender.to.ToString();
-
+                                     depname =" " +depname + mail.newactionSenders[i].departmentName+" ,";
                                     sender.flag = flag;
                                     if (sender.flag > 1) 
                                         sender.Send_time = DateTime.Now;
@@ -673,7 +674,7 @@ namespace MMSystem.Services.MailServeic
 
                                 histor.mailid = mail.mail.MailID;
                                 histor.HistortyNameID = 8;
-                                histor.changes = $"تمت اضافة ادارة جديدة { numOfSend}";
+                                histor.changes = $"تمت اضافة ادارة جديدة { depname}";
                                 histor.Time = DateTime.Now;
 
                                 await _appContext.History.AddAsync(histor);
@@ -720,6 +721,8 @@ namespace MMSystem.Services.MailServeic
 
                         if (isUpdate)
                         {
+                            string depname = "";
+
                             if (mail.newactionSenders.Count > 0)
                             {
                                 for (int i = 0; i < mail.newactionSenders.Count; i++)
@@ -730,6 +733,8 @@ namespace MMSystem.Services.MailServeic
                                     sender.State = true;                                   
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = mail.newactionSenders[i].departmentId;
+                                    depname = " " + depname + mail.newactionSenders[i].departmentName + " ,";
+
                                     numOfSend = numOfSend + " " + sender.to.ToString();
                                     sender.flag = flag;
                                     if (sender.flag > 1)
@@ -744,7 +749,7 @@ namespace MMSystem.Services.MailServeic
 
                                 histor.mailid = mail.mail.MailID;
                                 histor.HistortyNameID = 8;
-                                histor.changes = $"تمت اضافة ادارة جديدة { numOfSend}";
+                                histor.changes = $"تمت اضافة ادارة جديدة { depname}";
                                 histor.Time = DateTime.Now;
 
                                 await _appContext.History.AddAsync(histor);
@@ -788,7 +793,7 @@ namespace MMSystem.Services.MailServeic
                         Ex_inboxmail = await _extrenal_Inbox.Update(mail.mail, mail.extrenal_Inbox, mail.userId);
                         if (Ex_inboxmail)
                         {
-
+                            string depname = "";
                             if (mail.newactionSenders.Count > 0)
                             {
                                 for (int i = 0; i < mail.newactionSenders.Count; i++)
@@ -799,6 +804,7 @@ namespace MMSystem.Services.MailServeic
 
 
                                     sender.to = mail.newactionSenders[i].departmentId;
+                                    depname = " " + depname + mail.newactionSenders[i].departmentName + " ,";
 
 
                                     sender.MailID = mail.mail.MailID;
@@ -816,7 +822,7 @@ namespace MMSystem.Services.MailServeic
 
                                 histor.mailid = mail.mail.MailID;
                                 histor.HistortyNameID = 8;
-                                histor.changes = $"تمت اضافة ادارة جديدة { numOfSend}";
+                                histor.changes = $"تمت اضافة ادارة جديدة { depname}";
                                 histor.Time = DateTime.Now;
 
                                 await _appContext.History.AddAsync(histor);
