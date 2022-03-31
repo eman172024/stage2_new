@@ -453,6 +453,7 @@
               </div>
 
               <button
+              v-if="roles.includes('c')"
                 class="
                   px-8
                   mr-2
@@ -787,6 +788,7 @@
 
                         <div v-if="reply.resources != 0" class="mx-2">
                           <button
+                            v-if="roles.includes('h')"
                             @click="show_reply_images(index, 3)"
                             class="
                               px-2
@@ -1095,6 +1097,7 @@
               </button>
 
               <button
+                v-if="roles.includes('g')"
                 @click="print_image()"
                 v-print="'#printMe'"
                 class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
@@ -1197,6 +1200,7 @@ export default {
 
     this.my_user_id = localStorage.getItem("userId");
     this.my_department_id = localStorage.getItem("departmentId");
+    this.roles = localStorage.getItem("roles");
 
     this.GetSentMail();
 
@@ -1302,6 +1306,7 @@ export default {
 
   data() {
     return {
+      roles: [],
       by_date_of_reply: false,
       general_incoming_number:'',
 

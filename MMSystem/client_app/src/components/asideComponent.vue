@@ -21,14 +21,14 @@
                                 </span>
                             </router-link>
 
-                            <router-link title="البريد الوارد" :to="{ name: 'inbox' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center justify-center text-sm font-medium">
+                            <router-link v-if="roles.includes('i')" title="البريد الوارد" :to="{ name: 'inbox' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center justify-center text-sm font-medium">
                                 <svg class="text-gray-400 group-hover:text-gray-500 h-6 w-6 " fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
                                 <span v-if="toggle_nav">
                                     البريد الوارد
                                 </span>
                             </router-link>
 
-                            <router-link title="البريد الصادر" :to="{ name: 'sent' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center justify-center text-sm font-medium">
+                            <router-link v-if="roles.includes('k')" title="البريد الصادر" :to="{ name: 'sent' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center justify-center text-sm font-medium">
                                 <svg class="text-gray-400 group-hover:text-gray-500  h-6 w-6 fill-current stroke-current "  fill="none" stroke="currentColor" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
                                     <g transform="translate(128 128) scale(0.72 0.72)" style="">
                                         <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill-rule: nonzero; opacity: 1;" transform="translate(-175.05 -175.05000000000004) scale(3.89 3.89)" >
@@ -101,12 +101,18 @@
 <script>
 export default {
 
+    mounted() {
+    // this.my_user_id = localStorage.getItem("userId");
+    // this.my_department_id = localStorage.getItem("departmentId");
+    this.roles = localStorage.getItem("roles");
+  },
+
 
     data() {
     return {
-
-      toggle_nav: false,
-      user_department: localStorage.getItem("departmentId"),
+        roles: [],
+        toggle_nav: false,
+        user_department: localStorage.getItem("departmentId"),
     };
   },
   methods: {

@@ -613,7 +613,7 @@
                 </div>
               </section>
 
-              <section class="bg-gray-100 rounded-md p-6">
+              <section v-if="roles.includes('m')" class="bg-gray-100 rounded-md p-6">
                 <p class="block text-base font-semibold text-gray-800">
                   الردود
                 </p>
@@ -643,6 +643,7 @@
                         ">
                           <div v-if="reply.resources != 0" class="mx-2">
                             <button
+                              v-if="roles.includes('h')"
                               @click="show_reply_images(index, 3)"
                               class="
                                 px-2
@@ -947,6 +948,7 @@
               </button>
 
               <button
+                v-if="roles.includes('g')"
                 @click="print_image()"
                 v-print="'#printMe'"
                 class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg"
@@ -1037,6 +1039,7 @@ export default {
   mounted() {
     this.my_user_id = localStorage.getItem("userId");
     this.my_department_id = localStorage.getItem("departmentId");
+    this.roles = localStorage.getItem("roles");
 
     if (this.$route.params.mail) {
       if (this.$route.params.type == "1") {
@@ -1064,6 +1067,7 @@ export default {
 
   data() {
     return {
+      roles: [],
       from_reply_or_general: "",
 
       to_test_print_images_model : false,

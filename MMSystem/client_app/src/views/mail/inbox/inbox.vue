@@ -754,6 +754,7 @@
               </div>
 
               <button
+                v-if="roles.includes('g')"
                 class="
                   px-8
                   mr-2
@@ -947,6 +948,7 @@
 
                       <div class="w-1/3 flex justify-center items-center">
                         <button
+                          v-if="roles.includes('g')"
                           @click="GetAllDocuments(mail.mail_id, 1)"
                           title="طباعة المستندات"
                           class="focus:outline-none"
@@ -979,7 +981,9 @@
                       </div>
 
                       <div class="w-1/3 flex justify-center items-center">
+
                         <button
+                          v-if="roles.includes('g')"
                           :class="mail.flag != 2 ? 'hidden' : ''"
                           @click="read_it_mail(mail.mail_id)"
                           title="تأكيد قراءة البريد"
@@ -1105,7 +1109,7 @@
                 </div>
               </div>
 
-              <div class="w-5/12 mr-2">
+              <div v-if="roles.includes('m')" class="w-5/12 mr-2">
                 الردود - {{ mangment_sender_to_get_mail_by_id }}
 
                 <div
@@ -1140,6 +1144,7 @@
                         ">
                           <div v-if="reply.resources != 0" class="mx-2">
                             <button
+                              v-if="roles.includes('h')"
                               @click="show_reply_images(index, 3)"
                               class="
                                 px-2
@@ -1472,6 +1477,7 @@
               </button>
 
               <button
+                v-if="roles.includes('g')"
                 @click="print_image()"
                 v-print="'#printMe'"
                 class="
@@ -1607,6 +1613,7 @@ export default {
 
     this.my_user_id = localStorage.getItem("userId");
     this.my_department_id = localStorage.getItem("departmentId");
+    this.roles = localStorage.getItem("roles");
 
     this.GetInboxs();
 
@@ -1667,6 +1674,7 @@ export default {
 
   data() {
     return {
+      roles: [],
       from_reply_or_general: "",
 
       by_date_of_reply: false,

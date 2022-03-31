@@ -62,8 +62,7 @@ namespace MMSystem.Model
 
 
             modelBuilder.Entity<Role>().HasData(
-                new Role { RoleId=1,Name="الإطلاع على السري",
-                state=true},
+                new Role { RoleId=1,Name="الإطلاع على السري", state=true, code = "t" },
                 new Role { RoleId = 2, Name = "استخدام الوارد الخارجي", state = true,code="a" },
                 new Role { RoleId = 3, Name = "ارسال البريد الى", state = true, code = "b" },
                 new Role { RoleId = 4, Name = "الإطلاع على التقرير الإحصائى", state = true, code = "c" },
@@ -76,7 +75,7 @@ namespace MMSystem.Model
                 new Role { RoleId = 11, Name = "استخدام الصادر الخارجي", state = true, code = "j" },
                 new Role { RoleId = 12, Name = "الإطلاع على الردود السابقة", state = true, code = "k" },
                 new Role { RoleId = 13, Name = "اعادة الارسال", state = true, code = "l" },
-                new Role { RoleId = 14, Name = "الرد على الوار الجديد", state = true, code = "m" },
+                new Role { RoleId = 14, Name = "الرد على الوارد", state = true, code = "m" },
                 new Role { RoleId = 15, Name = "ردود الإدارات الفرعية", state = true, code = "n" },
                 new Role { RoleId = 16, Name = "استخدام البريد الداخلي", state = true, code = "o" },
                  new Role { RoleId = 17, Name = "الداخلي", state = true, code = "p" },

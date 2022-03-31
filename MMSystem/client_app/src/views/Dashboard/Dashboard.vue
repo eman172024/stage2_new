@@ -15,8 +15,8 @@
                 داخلي
               </h2>
               <div class="py-4 px-4 sm:px-6 md:px-0 grid grid-cols-5 gap-8">
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
                 >
                   <div class="flex justify-between items-start">
@@ -61,10 +61,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-200"
                 >
                   <div class="flex justify-between items-start">
@@ -115,10 +115,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
                 >
                   <div class="flex justify-between items-start">
@@ -162,10 +162,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'inbox' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-700"
                 >
                   <div class="flex justify-between items-start">
@@ -196,10 +196,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-200"
                 >
                   <div class="flex justify-between items-start">
@@ -243,7 +243,7 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
               </div>
             </section>
 
@@ -252,8 +252,8 @@
                 صادر خارجي
               </h3>
               <div class="py-4 px-4 sm:px-6 md:px-0 grid grid-cols-5 gap-8">
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
                 >
                   <div class="flex justify-between items-start">
@@ -298,10 +298,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-200"
                 >
                   <div class="flex justify-between items-start">
@@ -352,10 +352,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
                 >
                   <div class="flex justify-between items-start">
@@ -399,10 +399,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'inbox' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-700"
                 >
                   <div class="flex justify-between items-start">
@@ -433,10 +433,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-200"
                 >
                   <div class="flex justify-between items-start">
@@ -480,7 +480,7 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
               </div>
             </section>
 
@@ -489,8 +489,8 @@
                 وارد خارجي
               </h4>
               <div class="py-4 px-4 sm:px-6 md:px-0 grid grid-cols-5 gap-8">
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
                 >
                   <div class="flex justify-between items-start">
@@ -535,10 +535,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-200"
                 >
                   <div class="flex justify-between items-start">
@@ -589,10 +589,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
                 >
                   <div class="flex justify-between items-start">
@@ -636,10 +636,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'inbox' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-700"
                 >
                   <div class="flex justify-between items-start">
@@ -670,10 +670,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-200"
                 >
                   <div class="flex justify-between items-start">
@@ -717,7 +717,7 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
               </div>
             </section>
           </main>
