@@ -7,7 +7,9 @@
           <navComponent></navComponent>
           <main class="flex-1 relative focus:outline-none pt-2 pb-6">
             <h1 class="text-xl font-semibold text-black">البريد في أرقام</h1>
-
+            <div v-if="roles.includes('1')" class="">
+                Ayoub 
+            </div>
             <section class="mt-4">
               <h2 class="text-lg underline text-black">
                 داخلي
@@ -742,6 +744,7 @@ export default {
   mounted() {
     this.my_user_id = localStorage.getItem("userId");
     this.my_department_id = localStorage.getItem("departmentId");
+    this.roles = localStorage.getItem("roles");
     this.GetNumbersOfReports();
   },
 
@@ -757,7 +760,7 @@ export default {
       //name: this.$authenticatedUser.name,
       // userName: this.$authenticatedUser.userName,
       // validity: this.$authenticatedUser.validity,
-
+      roles: [],
       my_user_id: "",
       my_department_id: "",
       LastMails: {},

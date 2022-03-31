@@ -583,10 +583,8 @@ export default {
             this.user.administrator.departmentId;
 
             localStorage.setItem("userId", this.user.administrator.userId);
-            localStorage.setItem(
-              "departmentId",
-              this.user.administrator.departmentId
-            );
+            localStorage.setItem( "departmentId", this.user.administrator.departmentId);
+            localStorage.setItem( "roles", this.user.listrole);
 
             // this.$authenticatedUser.userName = this.user.username
             // this.$authenticatedUser.validity = this.user.validity
