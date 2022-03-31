@@ -21,5 +21,6 @@ namespace MMSystem.Services
         Task <List<AdministratorDto>> SearchByDepartmentId(int Department);
 
         Task<List<AdministratorDto>> SearchByDepartmentIdControl(int Department);
+        Task<Ayoub> login1(Login user);
     }
 }

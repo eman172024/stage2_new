@@ -429,5 +429,41 @@ namespace MMSystem.Services
         {
             throw new NotImplementedException();
         }
+        public async Task<Ayoub> login1(Login user1)
+        {
+            try
+            {
+                Ayoub view = new Ayoub();
+
+                Administrator user = await _data.Administrator.FirstOrDefaultAsync(x => x.UserName == user1.UserName && x.state == true);
+
+                if (user != null)
+                {
+
+                    bool isValid = BCrypt.Net.BCrypt.Verify(user1.Password, user.password);
+
+                    if (isValid)
+                    {
+
+                        view.Administrator = _mapper.Map<Administrator, AdministratorDto>(user);
+
+                        view.Listrole = await (from userrole in _data.userRoles.Where(x => x.UserId == user.UserId)
+                                               join
+                                               role in _data.Roles on userrole.RoleId equals role.RoleId
+                                               select role.code).ToListAsync();
+                        return view;
+                    }
+                    return null;
+
+                }
+                return null;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

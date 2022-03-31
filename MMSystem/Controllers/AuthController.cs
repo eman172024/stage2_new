@@ -29,12 +29,29 @@ namespace MMSystem.Controllers
         [Route("LoginUser")]
         public async Task<IActionResult> LoginUser([FromBody] Login user)
         {
-            
-              UserView find = await _data.login(user);
 
-                if (find != null) {
+            //  UserView find = await _data.login(user);
 
-                Historyes historyes = new Historyes();  
+            //    if (find != null) {
+
+            //    Historyes historyes = new Historyes();  
+            //    historyes.Time = System.DateTime.Now;
+            //    historyes.HistortyNameID = 19;
+            //    historyes.currentUser = find.Administrator.UserId;
+            //    historyes.changes = "تم تسجيل الدخول";
+            //    await _hstory.Add(historyes);
+            //    return Ok(find);
+            //}
+            //return NotFound(new Result() { message = "رقم المستخدم او كلمة المرور غير صحيحة", statusCode = 404 });
+
+
+
+            Ayoub find = await _data.login1(user);
+
+            if (find != null)
+            {
+
+                Historyes historyes = new Historyes();
                 historyes.Time = System.DateTime.Now;
                 historyes.HistortyNameID = 19;
                 historyes.currentUser = find.Administrator.UserId;
@@ -45,4 +62,5 @@ namespace MMSystem.Controllers
             return NotFound(new Result() { message = "رقم المستخدم او كلمة المرور غير صحيحة", statusCode = 404 });
         }
     }
-}
+    }
+
