@@ -1,7 +1,6 @@
 <template>
   <div class="">
     <div class="h-screen bg-gray-100 overflow-hidden flex">
-      
       <div class="flex-1 bg-gray-200 w-0 overflow-y-auto">
         <div class="max-w-screen-2xl mx-auto flex flex-col md:px-8">
           <main class="flex-1 relative focus:outline-none pt-2 pb-6">
@@ -62,8 +61,7 @@
 
               <fieldset class="ml-6">
                 <div class="flex items-center">
-
-                    <div class="flex items-center">
+                  <div class="flex items-center">
                     <input
                       v-model="mailType"
                       id="all"
@@ -77,7 +75,6 @@
                       الكل
                     </label>
                   </div>
-
 
                   <div class="flex items-center mr-6">
                     <input
@@ -398,9 +395,23 @@
                               my-1
                               text-right
                             "
+                            @click="sectorIdSelected = ''"
+                          >
+                            الكل
+                          </button>
+
+                          <button
+                            class="
+                              block
+                              focus:outline-none
+                              w-full
+                              my-1
+                              text-right
+                            "
                             @click="
                               get_sides(sector.id, sector.section_Name);
                               sectorselect = !sectorselect;
+                              sectorIdSelected = sector.id;
                             "
                             v-for="sector in sectors"
                             :key="sector.id"
@@ -468,6 +479,23 @@
                               text-right
                             "
                             @click="
+                              this.sideNameSelected = '';
+                              this.sideIdSelected = '';
+                              this.sides = [];
+                            "
+                          >
+                            الكل
+                          </button>
+
+                          <button
+                            class="
+                              block
+                              focus:outline-none
+                              w-full
+                              my-1
+                              text-right
+                            "
+                            @click="
                               pass_side(side.id, side.section_Name);
                               sideselect = !sideselect;
                             "
@@ -484,7 +512,6 @@
               </div>
 
               <div class="w-5/12 flex py-1 px-4">
-
                 <button
                   class="
                     mx-auto
@@ -503,7 +530,6 @@
                     col-span-2
                   "
                   @click="GetMailsToPrint()"
-              
                 >
                   <span class="text-sm font-bold block ml-1"
                     >طباعة الحافظة</span
@@ -570,24 +596,22 @@
                     },
                   }"
                 >
-                  
-                    <span class="text-sm font-bold block ml-1">تقرير</span>
+                  <span class="text-sm font-bold block ml-1">تقرير</span>
 
-                    <svg
-                      class="h-5 w-5 text-white block mr-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-                      ></path>
-                    </svg>
-                 
+                  <svg
+                    class="h-5 w-5 text-white block mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                    ></path>
+                  </svg>
                 </router-link>
               </div>
             </div>
@@ -649,7 +673,7 @@
                         </div>
 
                         <div class="w-1/12 py-1 text-center">
-                          {{ mail.flagn  }}
+                          {{ mail.flagn }}
                         </div>
 
                         <div class="w-2/12 py-1 text-center">
@@ -661,7 +685,7 @@
                         </div>
 
                         <div class="w-3/12 py-1 text-center">
-                          {{ mail.side_Name}}
+                          {{ mail.side_Name }}
                         </div>
 
                         <div class="w-2/12 py-1text-center">
@@ -679,7 +703,7 @@
                           py-1
                         "
                       >
-                        <div class="w-1/4 flex justify-center items-center">
+                        <div class="w-1/3 flex justify-center items-center">
                           <button
                             @click="GetAllDocuments(mail.id)"
                             title="عرض الصور"
@@ -702,9 +726,12 @@
                           </button>
                         </div>
 
-                        <div class="w-1/4 flex justify-center items-center">
+                        <div
+                          class="w-1/3 flex justify-center items-center"
+                          v-if="mail.flag < 3"
+                        >
                           <button
-                            @click="UpdateArciveState(mail.id)"
+                            @click="UpdateArciveState(mail.id), (isread = true)"
                             title="تم الاستلام والارسال"
                             class="focus:outline-none"
                           >
@@ -732,9 +759,20 @@
                           </button>
                         </div>
 
-                        <div class="w-1/4 flex justify-center items-center">
+                        <div
+                          class="w-1/3 flex justify-center items-center"
+                          v-if="mail.flag > 2"
+                        >
                           <button
-                            @click="isDelivered = true,mail_id_copy=mail.id,delivaryName=mail.delivery,isDelivered1(mail.delivery)"
+                            @click="
+                              (isDelivered = true),
+                                (mail_id_copy = mail.id),
+                                (delivaryName = mail.delivery),
+                                isDelivered1(mail.delivery),
+                                (NoOfcopies = mail.number_Of_Copies),
+                                (notes = mail.note),
+                                attached11(mail.attachments)
+                            "
                             title="تم التسليم للجهة"
                             class="focus:outline-none"
                           >
@@ -755,11 +793,22 @@
                           </button>
                         </div>
 
-                        <div class="w-1/4 flex justify-center items-center">
+                        <div
+                          class="w-1/3 flex justify-center items-center"
+                          v-if="mail.flag > 2"
+                        >
                           <button
                             title="عدد النسخ"
                             class="focus:outline-none"
-                            @click="copies = true ,mail_id_copy=mail.id,NoOfcopies=mail.number_Of_Copies,notes=mail.note,attached11(mail.attachments)"
+                            @click="
+                              (copies = true),
+                                (mail_id_copy = mail.id),
+                                (NoOfcopies = mail.number_Of_Copies),
+                                (notes = mail.note),
+                                attached11(mail.attachments),
+                                (delivaryName = mail.delivery),
+                                isDelivered1(mail.delivery)
+                            "
                           >
                             <svg
                               class="w-7 h-7 hover:text-blue-500"
@@ -800,11 +849,17 @@
                       >
                         <div class="flex items-center justify-between">
                           <div class="">
-                            تاريخ استلام الرسالة بالمحفوظات   : <span class="mr-4 text-red-400 underline">{{ mail.dateTime_of_read}}</span>
+                            تاريخ استلام الرسالة بالمحفوظات :
+                            <span class="mr-4 text-red-400 underline">{{
+                              mail.dateTime_of_read
+                            }}</span>
                           </div>
 
                           <div class="">
-                            وقت استلام الرسالة بالمحفوظات  : <span class="mr-4 text-red-400 underline">{{ mail.time_of_read }}</span>
+                            وقت استلام الرسالة بالمحفوظات :
+                            <span class="mr-4 text-red-400 underline">{{
+                              mail.time_of_read
+                            }}</span>
                           </div>
                         </div>
 
@@ -817,15 +872,18 @@
                         </div>
 
                         <div class="flex items-center justify-between mt-8 p-2">
-                        
                           <div class="">
                             التسليم للجهة - {{ mail.delivery }}
                           </div>
 
-                          <div class="">عدد النسخ - {{ mail.number_Of_Copies }}</div>
+                          <div class="">
+                            عدد النسخ - {{ mail.number_Of_Copies }}
+                          </div>
 
-                          <div class="" v-if="mail.attachments">يوجد مرفقات</div>
-                          <div class="" v-else> لا يوجد مرفقات</div>
+                          <div class="" v-if="mail.attachments">
+                            يوجد مرفقات
+                          </div>
+                          <div class="" v-else>لا يوجد مرفقات</div>
                         </div>
                       </div>
                     </div>
@@ -870,7 +928,7 @@
                           justify-end
                         "
                       >
-                        <span class="text-xs ml-1"> المجموع </span>
+                        <span class="text-xs ml-1"> عدد الرسائل </span>
                         {{ total_of_transaction }}
                       </div>
                     </div>
@@ -993,7 +1051,7 @@
           items-center
           justify-center
         "
-        @click="UpdateArciveDelivary(),isDelivered = false"
+        @click="UpdateArciveDelivary(), (isDelivered = false)"
       >
         <span class="text-sm font-bold block ml-1">موافق</span>
       </button>
@@ -1068,7 +1126,7 @@
               type="radio"
               name="attached"
               class="h-4 w-4"
-              value= "true"
+              value="true"
               v-model="attached"
             />
             <label for="ThereIs" class="mr-2 block text-gray-800">
@@ -1082,7 +1140,7 @@
               type="radio"
               name="attached"
               class="h-4 w-4"
-              value= ""
+              value=""
               v-model="attached"
             />
             <label for="ThereIsNo" class="mr-2 block text-gray-800">
@@ -1131,7 +1189,7 @@
           items-center
           justify-center
         "
-        @click="UpdateArciveCopies(),copies = false"
+        @click="UpdateArciveCopies(), (copies = false)"
       >
         <span class="text-sm font-bold block ml-1">موافق</span>
       </button>
@@ -1321,8 +1379,6 @@
 </template>
 
 <script>
-
-
 import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 
 export default {
@@ -1344,9 +1400,7 @@ export default {
     this.my_department_id = localStorage.getItem("departmentId");
 
     this.GetMailsForArchives();
-    
 
-   
     this.GetAllDepartments();
     this.GetAllMeasures();
     this.get_sectors(this.mailType);
@@ -1358,14 +1412,12 @@ export default {
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetMailsForArchives();
-      
     },
     date_from: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetMailsForArchives();
-      
     },
     date_to: function () {
       this.senders = [];
@@ -1378,52 +1430,42 @@ export default {
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetMailsForArchives();
-      
     },
     summary: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetMailsForArchives();
-      
     },
     departmentIdSelected: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetMailsForArchives();
-      
     },
 
-       sideIdSelected: function () {
+    sideIdSelected: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetMailsForArchives();
-      
     },
-   
-      sectorIdSelected: function () {
+
+    sectorIdSelected: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetMailsForArchives();
-      
     },
-   
-
-
-    
   },
 
   components: {
-   
-
     svgLoadingComponent,
   },
 
   data() {
     return {
+      isread: false,
       NoOfcopies: 0,
       notes: "",
       delivaryName: "",
@@ -1449,7 +1491,6 @@ export default {
 
       mail_id: "",
 
-   
       departments: [],
       departmentselect: false,
       departmentNameSelected: "",
@@ -1482,7 +1523,6 @@ export default {
       page_size2: 100000,
       page_num: 1,
 
-   
       sideselect: false,
       sideNameSelected: "",
       sideIdSelected: "",
@@ -1495,15 +1535,13 @@ export default {
       sectorNameSelected: "",
       sectorIdSelected: "",
 
-
-      
       isDelivered: false,
       dtoff: false,
       hand: false,
 
-      mail_id_copy:0,
+      mail_id_copy: 0,
 
-      mail_to_print:[],
+      mail_to_print: [],
     };
   },
 
@@ -1529,10 +1567,8 @@ export default {
     },
 
     get_sectors(type) {
-
-      if(type=="" || type==0){
-
-        type=0;
+      if (type == "" || type == 0) {
+        type = 0;
       }
       this.sideNameSelected = "";
       this.sideIdSelected = "";
@@ -1551,9 +1587,6 @@ export default {
         });
     },
 
-
-
-  
     previousImage() {
       if (this.indextotest > 0) {
         this.indextotest--;
@@ -1572,7 +1605,7 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .GetAllDocuments(id,Number(localStorage.getItem("userId")))
+        .GetAllDocuments(id, Number(localStorage.getItem("userId")))
         .then((res) => {
           console.log(res);
 
@@ -1597,10 +1630,7 @@ export default {
         });
     },
 
-
-    
     GetMailsToPrint() {
-     
       this.screenFreeze = true;
       this.loading = true;
       this.mail_to_print = [];
@@ -1625,13 +1655,15 @@ export default {
             this.screenFreeze = false;
             this.loading = false;
 
- 
-            
-            this.$router.push({name:'report2',params:{dateFrom: this.date_from,
-                      dateTo: this.date_to,
-                      total_of_transaction: this.total_of_transaction,
-                      mails: this.mail_to_print,}})
-
+            this.$router.push({
+              name: "report2",
+              params: {
+                dateFrom: this.date_from,
+                dateTo: this.date_to,
+                total_of_transaction: this.total_of_transaction,
+                mails: this.mail_to_print,
+              },
+            });
           }, 300);
         })
         .catch((err) => {
@@ -1669,8 +1701,6 @@ export default {
           this.inboxMails = res.data.list;
           this.total_of_transaction = res.data.total;
 
-          
-         
           setTimeout(() => {
             this.screenFreeze = false;
             this.loading = false;
@@ -1684,7 +1714,6 @@ export default {
           }, 100);
         });
     },
-
 
     GetAllDepartments() {
       this.$http.mailService
@@ -1718,21 +1747,13 @@ export default {
       this.measureIdSelected = id;
     },
 
-  
-
-
-
-    UpdateArciveState(mail_id1)
-    {
-
+    UpdateArciveState(mail_id1) {
       var model = {
-       
-          MailId: mail_id1,
-          Current:Number(localStorage.getItem("userId")),
-          
-        }
+        MailId: mail_id1,
+        Current: Number(localStorage.getItem("userId")),
+      };
 
-        this.$http.mailService
+      this.$http.mailService
         .UpdateArchive(model)
         .then((res) => {
           console.log(res);
@@ -1740,7 +1761,6 @@ export default {
             this.screenFreeze = false;
             this.loading = false;
             this.GetMailsForArchives();
-            
           }, 300);
         })
         .catch((err) => {
@@ -1750,37 +1770,37 @@ export default {
             console.log(err);
           }, 100);
         });
-
     },
 
-  
-    UpdateArciveCopies()
-    {
+    UpdateArciveCopies() {
+      var del;
+      if (this.delivaryType == 1) {
+        del = "سلمت للجهة";
+      } else {
+        del = this.delivaryName;
+      }
 
       var model = {
-       
-          MailId: this.mail_id_copy,
-      //    delevery:"",
-         // Send_of_Ex_mail:"",
-          Attachments:Boolean(this.attached),
-          Number_Of_Copies:Number (this.NoOfcopies),    
-          note:this.notes,
-          Current:Number(localStorage.getItem("userId")),
-        }
+        MailId: this.mail_id_copy,
 
-        this.$http.mailService
+        Attachments: Boolean(this.attached),
+        Number_Of_Copies: Number(this.NoOfcopies),
+        note: this.notes,
+        delevery: del,
+        Current: Number(localStorage.getItem("userId")),
+      };
+
+      this.$http.mailService
         .UpdateArchive(model)
         .then((res) => {
           console.log(res);
           setTimeout(() => {
             this.screenFreeze = false;
             this.loading = false;
-            this.attached="";
-            this.NoOfcopies= 0;
-            this.notes=""
+            this.attached = "";
+            this.NoOfcopies = 0;
+            this.notes = "";
             this.GetMailsForArchives();
-            
-           
           }, 300);
         })
         .catch((err) => {
@@ -1790,28 +1810,25 @@ export default {
             console.log(err);
           }, 100);
         });
-
     },
 
-  UpdateArciveDelivary()
-    {var del;
-           if(this.delivaryType == 1){
-
-              del ="سلمت للجهة";
-           }
-           else{
-              del =this.delivaryName;
-           }
+    UpdateArciveDelivary() {
+      var del;
+      if (this.delivaryType == 1) {
+        del = "سلمت للجهة";
+      } else {
+        del = this.delivaryName;
+      }
       var model = {
-       
-          MailId: this.mail_id_copy,
-          delevery:del,
-         Current:Number(localStorage.getItem("userId")),
-      
-          
-        }
+        MailId: this.mail_id_copy,
+        delevery: del,
+        Attachments: Boolean(this.attached),
+        Number_Of_Copies: Number(this.NoOfcopies),
+        note: this.notes,
+        Current: Number(localStorage.getItem("userId")),
+      };
 
-        this.$http.mailService
+      this.$http.mailService
         .UpdateArchive(model)
         .then((res) => {
           console.log(res);
@@ -1819,10 +1836,9 @@ export default {
             this.screenFreeze = false;
             this.loading = false;
             this.GetMailsForArchives();
-            
-            this.delivaryType=0;
-            this.delivaryName=""
 
+            this.delivaryType = 0;
+            this.delivaryName = "";
           }, 300);
         })
         .catch((err) => {
@@ -1832,29 +1848,23 @@ export default {
             console.log(err);
           }, 100);
         });
-
     },
 
-    isDelivered1(delivery){
-
-          if(delivery=="سلمت للجهة"){
-
-            this.delivaryType=1
-          }
-
-          else if(delivery=="لم يتم التسليم"){ this.delivaryType=0}
-
-          else {
-            this.delivaryType=2;
-            this.hand=true;
-            }
+    isDelivered1(delivery) {
+      if (delivery == "سلمت للجهة") {
+        this.delivaryType = 1;
+      } else if (delivery == "لم يتم التسليم") {
+        this.delivaryType = 0;
+      } else {
+        this.delivaryType = 2;
+        this.hand = true;
+      }
     },
 
-    attached11(Attachments){
-          if(Attachments){
-
-            this.attached="true"
-          }else this.attached=""
+    attached11(Attachments) {
+      if (Attachments) {
+        this.attached = "true";
+      } else this.attached = "";
     },
   },
 };
