@@ -535,6 +535,7 @@ export default {
       this.$http.mailService
         .AllDepartments()
         .then((res) => {
+          console.log(res)
           this.loading = false;
           this.screenFreeze = false;
           this.departments = res.data;
@@ -563,6 +564,7 @@ export default {
       var Login = {
         UserName: this.UserName,
         Password: this.Password,
+        DepartmentId: this.departmentIdSelected
       };
 
       this.$http.securityService
