@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Model.ViewModel
 {
-    public class Ayoub
+    public class UserWithOnlyRoleNum
     {
-        public Ayoub()
+        public UserWithOnlyRoleNum()
         {
             this.Listrole = new List<string>();
         }
