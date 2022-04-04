@@ -563,13 +563,14 @@ namespace MMSystem.Services.ReceivedMail
 
 
                 var c = await (from mail in dbcon.Mails.Where(x => (
-                                           x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
+                                           x.Mail_Summary.Contains(summary))
                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) &&
                                            (x.clasification == Classfication || clasf_filter == true)
                                            &&(x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) &&
                                            x.state == true).OrderByDescending(x => x.MailID)
 
                                join ex in dbcon.Sends.Where(x => (x.flag > 1) && x.to == mangment &&
+                               (x.Send_time.Date >= d1 && x.Send_time.Date <= d2)&&
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                (x.flag == mail_state || State_filter == true) && x.State == true)
                                on mail.MailID equals ex.MailID
@@ -600,13 +601,14 @@ namespace MMSystem.Services.ReceivedMail
 
 
                 pag.mail = await (from mail in dbcon.Mails.Where(x => (
-                              x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
+                              x.Mail_Summary.Contains(summary))
                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) &&
                                            (x.clasification == Classfication || clasf_filter == true)
                                            && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) &&
                                            x.state == true).OrderByDescending(x => x.MailID)
 
                                   join ex in dbcon.Sends.Where(x => (x.flag > 1) && x.to == mangment &&
+                                  (x.Send_time.Date >= d1 && x.Send_time.Date <= d2) &&
                                   ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                   (x.flag == mail_state || State_filter == true) && x.State == true)
                                   on mail.MailID equals ex.MailID
@@ -1675,13 +1677,14 @@ namespace MMSystem.Services.ReceivedMail
 
 
                 var c = await (from mail in dbcon.Mails.Where(x => (
-                                           x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
+                                           x.Mail_Summary.Contains(summary) )
                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
                                            (x.clasification == Classfication || clasf_filter == true)
                                             
                                             && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state== true).OrderByDescending(x => x.MailID)
 
                                join ex in dbcon.Sends.Where(x => (x.flag > 1) && x.to == mangment &&
+                                 (x.Send_time.Date >= d1 && x.Send_time.Date <= d2) &&
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                (x.flag == mail_state || State_filter == true) && x.State ==true)
                                on mail.MailID equals ex.MailID
@@ -1711,13 +1714,14 @@ namespace MMSystem.Services.ReceivedMail
 
                                }).OrderByDescending(v => v.mail_id).ToListAsync();
                 pag.mail = await (from mail in dbcon.Mails.Where(x => (
-              x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
+              x.Mail_Summary.Contains(summary) )
               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
               (x.clasification == Classfication || clasf_filter == true)
                
                &&  (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
 
                                   join ex in dbcon.Sends.Where(x => (x.flag >1) && x.to == mangment &&
+                                    (x.Send_time.Date >= d1 && x.Send_time.Date <= d2) &&
                                   ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                   (x.flag == mail_state || State_filter == true) && x.State == true)
                                   on mail.MailID equals ex.MailID
@@ -1863,13 +1867,14 @@ namespace MMSystem.Services.ReceivedMail
 
 
                 var c = await (from mail in dbcon.Mails.Where(x => (
-                                           x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
+                                           x.Mail_Summary.Contains(summary) )
                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
                                            (x.clasification == Classfication || clasf_filter == true)
                                           
                                            &&(x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
 
                                join ex in dbcon.Sends.Where(x => (x.flag >1) && x.to == mangment &&
+                                 (x.Send_time.Date >= d1 && x.Send_time.Date <= d2) &&
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                (x.flag == mail_state || State_filter == true) && x.State==true)
                                on mail.MailID equals ex.MailID
@@ -1899,13 +1904,14 @@ namespace MMSystem.Services.ReceivedMail
 
                                }).OrderByDescending(v => v.mail_id).ToListAsync();
                 pag.mail = await (from mail in dbcon.Mails.Where(x => (
-              x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
+              x.Mail_Summary.Contains(summary) )
               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
               (x.clasification == Classfication || clasf_filter == true)
               
               &&(x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
 
                                   join ex in dbcon.Sends.Where(x => (x.flag > 1) && x.to == mangment &&
+                                    (x.Send_time.Date >= d1 && x.Send_time.Date <= d2) &&
                                   ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                   (x.flag == mail_state || State_filter == true) && x.State == true)
                                   on mail.MailID equals ex.MailID
@@ -2046,13 +2052,14 @@ namespace MMSystem.Services.ReceivedMail
 
 
                 var c = await (from mail in dbcon.Mails.Where(x => (
-                                           x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
+                                           x.Mail_Summary.Contains(summary) )
                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
                                            (x.clasification == Classfication || clasf_filter == true)
 
                                             &&(x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state== true).OrderByDescending(x => x.MailID)
 
                                join ex in dbcon.Sends.Where(x => (x.flag > 1) && x.to == mangment &&
+                                 (x.Send_time.Date >= d1 && x.Send_time.Date <= d2) &&
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                (x.flag == mail_state || State_filter == true) && x.State == true)
                                on mail.MailID equals ex.MailID
@@ -2084,13 +2091,14 @@ namespace MMSystem.Services.ReceivedMail
                                }).OrderByDescending(v => v.mail_id).ToListAsync();
 
                 pag.mail = await (from mail in dbcon.Mails.Where(x => (
-              x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
+              x.Mail_Summary.Contains(summary) )
               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
               (x.clasification == Classfication || clasf_filter == true)
 
                &&(x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state==true).OrderByDescending(x => x.MailID)
 
                                   join ex in dbcon.Sends.Where(x => (x.flag > 1) && x.to == mangment &&
+                                    (x.Send_time.Date >= d1 && x.Send_time.Date <= d2) &&
                                 ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                 (x.flag == mail_state || State_filter == true) && x.State == true)
                                 on mail.MailID equals ex.MailID
