@@ -46,7 +46,7 @@
       </a> -->
 
 
-      <router-link :to="{ name: 'sent-add' }" class="border border-black duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-bold hover:bg-green-600 hover:text-white focus:outline-none">
+      <router-link v-if="roles.includes('d')" :to="{ name: 'sent-add' }" class="border border-black duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-bold hover:bg-green-600 hover:text-white focus:outline-none">
         إضافة بريد جديد +
       </router-link>
 
@@ -232,13 +232,14 @@ export default {
     this.year = date.getFullYear()
     this.my_user_id = localStorage.getItem('userId')
     this.my_department_id = localStorage.getItem('departmentId')
-
+    this.roles = localStorage.getItem("roles");
  
 
   },
 
   data() {
     return {
+      roles: [],
         my_user_id:'',
         my_department_id:'',
         year:'',

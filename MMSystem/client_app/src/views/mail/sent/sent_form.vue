@@ -6,7 +6,7 @@
         <div class="max-w-screen-2xl mx-auto flex flex-col md:px-8">
           <navComponent></navComponent>
 
-          <div class="-mt-14 py-0.5 z-20">
+          <div v-if="roles.includes('d')" class="-mt-14 py-0.5 z-20">
             <button
               @click="clear_page()"
               class="
@@ -42,7 +42,7 @@
                   </legend>
 
                   <div class="flex justify-between items-center">
-                    <div class="flex items-center">
+                    <div v-if="roles.includes('o')" class="flex items-center">
                       <input
                         v-model="mailType"
                         id="internal"
@@ -56,7 +56,7 @@
                       </label>
                     </div>
 
-                    <div class="flex items-center mx-4">
+                    <div v-if="roles.includes('j')" class="flex items-center mx-4">
                       <input
                         v-model="mailType"
                         id="internal_export"
@@ -73,7 +73,7 @@
                       </label>
                     </div>
 
-                    <div class="flex items-center">
+                    <div v-if="roles.includes('a')" class="flex items-center">
                       <input
                         v-model="mailType"
                         id="external_incoming"
@@ -981,7 +981,7 @@
                       @click="GetAllDocumentsToSend()"
                       type="button"
                       class="
-                     w-full
+                        w-full
                         sm:w-auto sm:mr-3
                         flex
                         justify-center
@@ -1005,7 +1005,7 @@
                        
                       
                     "
-                      v-if="show_images"
+                      v-if="show_images && roles.includes('h')"
                     >
                       عرض الصور
                     </button>
@@ -1573,6 +1573,7 @@
                           classification &&
                           (consignees.length != 0 ||
                             newactionSenders.length != 0)
+                            && roles.includes('s')
                       "
                       @click="deleteMail"
                       type="button"
@@ -1860,7 +1861,7 @@
                     </div>
                   </div>
 
-                  <div v-if="sendButton" class="flex justify-end">
+                  <div v-if="sendButton && roles.includes('b')" class="flex justify-end">
                     <button
                       v-if="
                         summary &&
@@ -1996,6 +1997,7 @@
 
                         <div v-if="reply.resources != 0" class="mx-2">
                           <button
+                            v-if="roles.includes('h')"
                             @click="show_reply_images(index, 3)"
                             class="
                               px-2
@@ -2327,6 +2329,7 @@
               </button>
 
               <button
+                v-if="roles.includes('g')"
                 @click="print_image()"
                 v-print="'#printMe'"
                 class="
@@ -2465,6 +2468,7 @@ export default {
     this.mail_year = date.getFullYear();
     this.my_user_id = localStorage.getItem("userId");
     this.my_department_id = localStorage.getItem("departmentId");
+    this.roles = localStorage.getItem("roles");
 
     if (this.$route.params.mail) {
       this.screenFreeze = true;
@@ -2506,6 +2510,7 @@ export default {
 
   data() {
     return {
+      roles: [],
       show_images: false,
 
       from_reply_or_general: "",

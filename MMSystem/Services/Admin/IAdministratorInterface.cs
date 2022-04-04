@@ -13,7 +13,6 @@ namespace MMSystem.Services
         Task<List<int>> GetJustRole(int id);
         
         Task<UserView> Get(int id);
-        Task<UserView> login(Login user);
         Task<bool> Update(UserAddORUpdate user);
         Task<bool> Add(UserAddORUpdate user);
         Task<PageintoinAdmin> GetAdministrator(int page, int pageSize);
@@ -21,5 +20,6 @@ namespace MMSystem.Services
         Task <List<AdministratorDto>> SearchByDepartmentId(int Department);
 
         Task<List<AdministratorDto>> SearchByDepartmentIdControl(int Department);
+        Task<UserWithOnlyRoleNum> login(Login user);
     }
 }

@@ -7,14 +7,16 @@
           <navComponent></navComponent>
           <main class="flex-1 relative focus:outline-none pt-2 pb-6">
             <h1 class="text-xl font-semibold text-black">البريد في أرقام</h1>
-
+            <div v-if="roles.includes('a')" class="">
+                Ayoub 
+            </div>
             <section class="mt-4">
               <h2 class="text-lg underline text-black">
                 داخلي
               </h2>
               <div class="py-4 px-4 sm:px-6 md:px-0 grid grid-cols-5 gap-8">
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
                 >
                   <div class="flex justify-between items-start">
@@ -59,10 +61,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-200"
                 >
                   <div class="flex justify-between items-start">
@@ -113,10 +115,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
                 >
                   <div class="flex justify-between items-start">
@@ -160,10 +162,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'inbox' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-700"
                 >
                   <div class="flex justify-between items-start">
@@ -194,10 +196,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-200"
                 >
                   <div class="flex justify-between items-start">
@@ -241,7 +243,7 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
               </div>
             </section>
 
@@ -250,8 +252,8 @@
                 صادر خارجي
               </h3>
               <div class="py-4 px-4 sm:px-6 md:px-0 grid grid-cols-5 gap-8">
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
                 >
                   <div class="flex justify-between items-start">
@@ -296,10 +298,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-200"
                 >
                   <div class="flex justify-between items-start">
@@ -350,10 +352,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
                 >
                   <div class="flex justify-between items-start">
@@ -397,10 +399,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'inbox' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-700"
                 >
                   <div class="flex justify-between items-start">
@@ -431,10 +433,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-200"
                 >
                   <div class="flex justify-between items-start">
@@ -478,7 +480,7 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
               </div>
             </section>
 
@@ -487,8 +489,8 @@
                 وارد خارجي
               </h4>
               <div class="py-4 px-4 sm:px-6 md:px-0 grid grid-cols-5 gap-8">
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
                 >
                   <div class="flex justify-between items-start">
@@ -533,10 +535,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-200"
                 >
                   <div class="flex justify-between items-start">
@@ -587,10 +589,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
                 >
                   <div class="flex justify-between items-start">
@@ -634,10 +636,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'inbox' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-blue-700"
                 >
                   <div class="flex justify-between items-start">
@@ -668,10 +670,10 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'sent' }"
+                <div
+                 
                   class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-200"
                 >
                   <div class="flex justify-between items-start">
@@ -715,7 +717,7 @@
                       </svg>
                     </div> -->
                   </div>
-                </router-link>
+                </div>
               </div>
             </section>
           </main>
@@ -742,6 +744,7 @@ export default {
   mounted() {
     this.my_user_id = localStorage.getItem("userId");
     this.my_department_id = localStorage.getItem("departmentId");
+    this.roles = localStorage.getItem("roles");
     this.GetNumbersOfReports();
   },
 
@@ -757,7 +760,7 @@ export default {
       //name: this.$authenticatedUser.name,
       // userName: this.$authenticatedUser.userName,
       // validity: this.$authenticatedUser.validity,
-
+      roles: [],
       my_user_id: "",
       my_department_id: "",
       LastMails: {},

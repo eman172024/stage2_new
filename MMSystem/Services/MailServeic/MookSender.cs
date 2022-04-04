@@ -55,6 +55,7 @@ namespace MMSystem.Services.MailServeic
                     string changes="";
 
                     List<Send_to> send_ = await _data.Sends.Where(x => x.MailID == mailId).ToListAsync();
+            
                     if (send_.Count > 0)
                     {
                         foreach (var item in send_)
@@ -62,6 +63,7 @@ namespace MMSystem.Services.MailServeic
                             item.flag = 2;
                             item.Send_time = DateTime.Now;
                             changes = changes + item.to.ToString()+"  ";
+                            
                             _data.Sends.Update(item);
                             await _data.SaveChangesAsync();
                         }

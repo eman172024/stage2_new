@@ -11,6 +11,8 @@ namespace MMSystem.Model
         public int RoleId { get; set; }
         public string Name { get; set; }
         public bool state { get; set; }
+
+        public string code { get; set; }
         public List<UserRoles> userRoles { get; set; }
 
 

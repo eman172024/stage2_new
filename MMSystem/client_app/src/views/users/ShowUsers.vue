@@ -8,7 +8,7 @@
       class="min-h-full mx-auto max-w-4xl p-2 flex flex-col mt-4 items-center"
     >
 
-      <div class="flex justify-end w-full">
+      <div class="flex justify-between w-full">
         <router-link
           :to="{ name: 'Add' }"
           class="
@@ -26,8 +26,10 @@
         >
           إضافة مستخدم جديد +
         </router-link>
+
+       <logout></logout>
       </div>
-      <h1 class="font-extrabold text-xl">عرض المستخدمين</h1>
+      <h1 class="font-extrabold text-xl mt-2">عرض المستخدمين</h1>
 
       <div class="flex mt-6 w-full">
         <div class="ml-2 w-full">
@@ -210,6 +212,7 @@
 <script>
 
 import asideComponent from "@/components/asideComponent.vue";
+import logout from "@/components/logout.vue";
 
 export default {
 
@@ -246,6 +249,7 @@ export default {
   name: "Show",
  components: {
     asideComponent,
+    logout
   },
   data() {
     return {
