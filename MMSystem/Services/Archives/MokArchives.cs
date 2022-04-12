@@ -99,7 +99,7 @@ namespace MMSystem.Services.Archives
                                  && (a.Department_Id == department_id || departments_id == true)//t
                                  && (a.Mail_Summary.Contains(mail_summary) || (Summ == true))
                                  )
-                                   join m in _db.Sends.Where(x =>x.to==25 && x.State == true&&x.flag>1) on x.MailID equals m.MailID
+                                   join m in _db.Sends.Where(x =>x.to==19 && x.State == true&&x.flag>1) on x.MailID equals m.MailID
 
 
                                    join de in _db.Departments on x.Department_Id equals de.Id
@@ -150,7 +150,7 @@ namespace MMSystem.Services.Archives
                                  && (a.Department_Id == department_id || departments_id == true)//t
                                  && (a.Mail_Summary.Contains(mail_summary) || (Summ == true))
                                  )
-                                   join m in _db.Sends.Where(x =>x.to==25 && x.State == true&&x.flag>1) on x.MailID equals m.MailID
+                                   join m in _db.Sends.Where(x =>x.to==19 && x.State == true&&x.flag>1) on x.MailID equals m.MailID
 
 
                                    join de in _db.Departments on x.Department_Id equals de.Id
@@ -281,7 +281,7 @@ namespace MMSystem.Services.Archives
                 if (Ex != null)
                 {
 
-                    var fl = await _db.Sends.Where(p => p.MailID == model.MailId && p.to == 25&& p.State==true).FirstOrDefaultAsync();
+                    var fl = await _db.Sends.Where(p => p.MailID == model.MailId && p.to == 19&& p.State==true).FirstOrDefaultAsync();
                     if (fl.flag!=3)
                     {
                         var ExDat = await _db.External_Mails.Where(p => p.MailID == model.MailId).FirstOrDefaultAsync();
