@@ -7,7 +7,7 @@
           <navComponent></navComponent>
           <main class="flex-1 relative focus:outline-none pt-2 pb-6">
             <h1 class="text-xl font-semibold text-black">البريد في أرقام</h1>
-            \
+            
             <section class="mt-4">
               <h2 class="text-lg underline text-black">
                 داخلي
