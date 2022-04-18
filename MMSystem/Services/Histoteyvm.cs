@@ -25,15 +25,6 @@ namespace MMSystem.Services
 
                 text = text + " " + string.Format($" " +
 
-                       //$" الي " +
-                       //  $" {item.newvalue} " +
-                       //$"  من  " +
-                       //$" {item.oldvalue}  " +
-                       //$" تم تغيير    {item.name}  ");
-                       //  text = text + $"تم تغيير  {item.name} من {item.oldvalue} الي {item.newvalue}";
-
-
-                       //   text = text + $"{item.newvalue} الي ,{item.oldvalue } من  {item.name.ToString()}  تم تغيير ";
                        $"  {item.newvalue}  الي   {item.oldvalue}  " +
                 //$" الي " +
                 //   $"  من" +
@@ -41,7 +32,7 @@ namespace MMSystem.Services
               
              
                
-                $" تم تغيير    {item.name}  ");
+                $" تم تغيير     "+item.name );
              //   text = text + $"تم تغيير  {item.name} من {item.oldvalue} الي {item.newvalue}";
 
 
