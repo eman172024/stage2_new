@@ -13,6 +13,8 @@ namespace MMSystem.Model.ViewModel
 
         public string date { get; set; }
 
+        public DateTime date2 { get; set; }
+
         public String Masure_type { get; set; }
 
         public string mangment_sender { get; set; }

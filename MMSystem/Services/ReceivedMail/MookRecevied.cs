@@ -20,6 +20,7 @@ namespace MMSystem.Services.ReceivedMail
             dbcon = _bcon;
         }
 
+        
         public async Task<PagenationSendedEmail<Sended_Maill>> GetAll( int? mailnum_bool,
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary , int? mail_Readed,
            int? mailReaded, int? mailnot_readed, int? Typeof_send, int? mail_type, int? userid, int pagenum,
@@ -119,7 +120,7 @@ namespace MMSystem.Services.ReceivedMail
                                            x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) &&
                                            (x.clasification == Classfication || clasf_filter == true) &&
-                                           (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
+                                           (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.Date_Of_Mail)
 
                                join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
@@ -138,6 +139,7 @@ namespace MMSystem.Services.ReceivedMail
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                   date2 = mail.Date_Of_Mail.Date,
                                    Masure_type = dx.MeasuresName,
                                    mangment_sender = n.DepartmentName,
                                    mangment_sender_id = mail.Department_Id,
@@ -148,7 +150,7 @@ namespace MMSystem.Services.ReceivedMail
                                    Sends_id = ex.Id,
                                    is_multi=ex.isMulti
           
-                               }).OrderByDescending(v => v.mail_id).ToListAsync();
+                               }).OrderByDescending(v => v.date2).ToListAsync();
 
                 IEnumerable<Sended_Maill> zx;
 
@@ -285,7 +287,7 @@ namespace MMSystem.Services.ReceivedMail
                 pag.mail = await (from mail in dbcon.Mails.Where(x => (x.Department_Id == mangment &&
               x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && (x.clasification == Classfication || clasf_filter == true)
-              && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
+              && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.Date_Of_Mail)
 
                                   join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
                                   ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
@@ -304,6 +306,7 @@ namespace MMSystem.Services.ReceivedMail
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                      date2=mail.Date_Of_Mail.Date,
                                       Masure_type = dx.MeasuresName,
                                       mangment_sender = n.DepartmentName,
                                       mangment_sender_id = mail.Department_Id,
@@ -315,7 +318,7 @@ namespace MMSystem.Services.ReceivedMail
 
 
 
-                                  }).OrderByDescending(v => v.mail_id).Skip((pagenum - 1) * size).Take(size).ToListAsync();
+                                  }).OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToListAsync();
                 PagenationSendedEmail<Sended_Maill> pagg = new PagenationSendedEmail<Sended_Maill>();
                 if (Replay_Date == true && TheSection != null)
                 {
@@ -586,6 +589,7 @@ namespace MMSystem.Services.ReceivedMail
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                   date2=ex.Send_time.Date,
                                    Masure_type = dx.MeasuresName,
                                    mangment_sender = n.DepartmentName,
                                    mangment_sender_id = mail.Department_Id,
@@ -597,7 +601,7 @@ namespace MMSystem.Services.ReceivedMail
                                    action_require=mail.ActionRequired
 
 
-                               }).OrderByDescending(v => v.mail_id).ToListAsync();
+                               }).OrderByDescending(v => v.date2).ToListAsync();
 
 
                 pag.mail = await (from mail in dbcon.Mails.Where(x => (
@@ -624,6 +628,7 @@ namespace MMSystem.Services.ReceivedMail
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                      date2 = ex.Send_time.Date,
                                       Masure_type = dx.MeasuresName,
                                       mangment_sender = n.DepartmentName,
                                       mangment_sender_id = mail.Department_Id,
@@ -634,7 +639,7 @@ namespace MMSystem.Services.ReceivedMail
                                       Sends_id = ex.Id,
                                       action_require = mail.ActionRequired
 
-                                  }).OrderByDescending(v => v.mail_id).Skip((pagenum - 1) * size).Take(size).ToListAsync();
+                                  }).OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToListAsync();
                 pag.Total = c.Count;
 
                 return pag;
@@ -889,7 +894,7 @@ namespace MMSystem.Services.ReceivedMail
              x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
              && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
              (x.clasification == Classfication || clasf_filter == true)
-             && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
+             && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.Date_Of_Mail)
 
                                join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
@@ -907,6 +912,7 @@ namespace MMSystem.Services.ReceivedMail
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                   date2 = mail.Date_Of_Mail.Date,
                                    Masure_type = dx.MeasuresName,
                                    mangment_sender = n.DepartmentName,
                                    mangment_sender_id = mail.Department_Id,
@@ -917,7 +923,7 @@ namespace MMSystem.Services.ReceivedMail
                                    Sends_id = ex.Id,
 
 
-                               }).OrderByDescending(v => v.mail_id).ToListAsync();
+                               }).OrderByDescending(v => v.date2).ToListAsync();
 
 
                 IEnumerable<ExtarnelinboxViewModel> zx;
@@ -977,7 +983,7 @@ namespace MMSystem.Services.ReceivedMail
               x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
               (x.clasification == Classfication || clasf_filter == true)
-              && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
+              && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.Date_Of_Mail)
 
                                   join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
                                   ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
@@ -996,6 +1002,7 @@ namespace MMSystem.Services.ReceivedMail
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                      date2 = mail.Date_Of_Mail.Date,
                                       Masure_type = dx.MeasuresName,
                                       mangment_sender = n.DepartmentName,
                                       mangment_sender_id = mail.Department_Id,
@@ -1006,7 +1013,7 @@ namespace MMSystem.Services.ReceivedMail
                                       Sends_id = ex.Id,
 
 
-                                  }).OrderByDescending(v => v.mail_id).Skip((pagenum - 1) * size).Take(size).ToListAsync();
+                                  }).OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToListAsync();
 
 
                 PagenationSendedEmail<ExtarnelinboxViewModel> pagg = new PagenationSendedEmail<ExtarnelinboxViewModel>();
@@ -1201,7 +1208,7 @@ namespace MMSystem.Services.ReceivedMail
                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
                                            (x.clasification == Classfication || clasf_filter == true)
                                            && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) &&
-                                           x.state==true).OrderByDescending(x => x.MailID)
+                                           x.state==true).OrderByDescending(x => x.Date_Of_Mail)
 
                                join Extr in dbcon.External_Mails on mail.MailID equals Extr.MailID
                                join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
@@ -1221,6 +1228,7 @@ namespace MMSystem.Services.ReceivedMail
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                   date2=mail.Date_Of_Mail.Date,
                                    Masure_type = dx.MeasuresName,
                                    mangment_sender = n.DepartmentName,
                                    mangment_sender_id = mail.Department_Id,
@@ -1231,7 +1239,7 @@ namespace MMSystem.Services.ReceivedMail
                                    Sends_id = ex.Id,
 
 
-                               }).OrderByDescending(v => v.mail_id).ToListAsync();
+                               }).OrderByDescending(v => v.date2).ToListAsync();
 
                 IEnumerable<ExtarnelinboxViewModel> zx;
                 if (Replay_Date == true)
@@ -1288,7 +1296,7 @@ namespace MMSystem.Services.ReceivedMail
               x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
               (x.clasification == Classfication || clasf_filter == true)
-               &&  (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
+               &&  (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.Date_Of_Mail)
 
                                   join Extr in dbcon.External_Mails on mail.MailID equals Extr.MailID
                                   join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
@@ -1320,7 +1328,7 @@ namespace MMSystem.Services.ReceivedMail
 
 
 
-                                  }).OrderByDescending(v => v.mail_id).Skip((pagenum - 1) * size).Take(size).ToListAsync();
+                                  }).OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToListAsync();
 
 
                 PagenationSendedEmail<ExtarnelinboxViewModel> pagg = new PagenationSendedEmail<ExtarnelinboxViewModel>();
@@ -1701,6 +1709,7 @@ namespace MMSystem.Services.ReceivedMail
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                   date2 = ex.Send_time.Date,
                                    Masure_type = dx.MeasuresName,
                                    mangment_sender = n.DepartmentName,
                                    mangment_sender_id = mail.Department_Id,
@@ -1712,7 +1721,7 @@ namespace MMSystem.Services.ReceivedMail
                                    actionrequer=mail.ActionRequired
 
 
-                               }).OrderByDescending(v => v.mail_id).ToListAsync();
+                               }).OrderByDescending(v => v.date2).ToListAsync();
                 pag.mail = await (from mail in dbcon.Mails.Where(x => (
               x.Mail_Summary.Contains(summary) )
               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
@@ -1738,6 +1747,7 @@ namespace MMSystem.Services.ReceivedMail
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                      date2 = ex.Send_time.Date,
                                       Masure_type = dx.MeasuresName,
                                       mangment_sender = n.DepartmentName,
                                       mangment_sender_id = mail.Department_Id,
@@ -1749,7 +1759,7 @@ namespace MMSystem.Services.ReceivedMail
                                       actionrequer = mail.ActionRequired
 
 
-                                  }).OrderByDescending(v => v.mail_id).Skip((pagenum - 1) * size).Take(size).ToListAsync();
+                                  }).OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToListAsync();
                 pag.Total = c.Count;
 
                 return pag;
@@ -1891,6 +1901,7 @@ namespace MMSystem.Services.ReceivedMail
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                   date2 = ex.Send_time.Date,
                                    Masure_type = dx.MeasuresName,
                                    mangment_sender = n.DepartmentName,
                                    mangment_sender_id = mail.Department_Id,
@@ -1902,7 +1913,7 @@ namespace MMSystem.Services.ReceivedMail
                                    actionrequer=mail.ActionRequired
 
 
-                               }).OrderByDescending(v => v.mail_id).ToListAsync();
+                               }).OrderByDescending(v => v.date2).ToListAsync();
                 pag.mail = await (from mail in dbcon.Mails.Where(x => (
               x.Mail_Summary.Contains(summary) )
               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
@@ -1927,6 +1938,7 @@ namespace MMSystem.Services.ReceivedMail
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                      date2 = ex.Send_time.Date,
                                       Masure_type = dx.MeasuresName,
                                       mangment_sender = n.DepartmentName,
                                       mangment_sender_id = mail.Department_Id,
@@ -1939,7 +1951,7 @@ namespace MMSystem.Services.ReceivedMail
 
 
 
-                                  }).OrderByDescending(v => v.mail_id).Skip((pagenum - 1) * size).Take(size).ToListAsync();
+                                  }).OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToListAsync();
                 pag.Total = c.Count;
 
                 return pag;
@@ -2076,6 +2088,7 @@ namespace MMSystem.Services.ReceivedMail
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                   date2 = ex.Send_time.Date,
                                    Masure_type = dx.MeasuresName,
                                    mangment_sender = n.DepartmentName,
                                    mangment_sender_id = mail.Department_Id,
@@ -2088,7 +2101,7 @@ namespace MMSystem.Services.ReceivedMail
 
 
 
-                               }).OrderByDescending(v => v.mail_id).ToListAsync();
+                               }).OrderByDescending(v => v.date2).ToListAsync();
 
                 pag.mail = await (from mail in dbcon.Mails.Where(x => (
               x.Mail_Summary.Contains(summary) )
@@ -2113,6 +2126,7 @@ namespace MMSystem.Services.ReceivedMail
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                      date2 = ex.Send_time.Date,
                                       Masure_type = dx.MeasuresName,
                                       mangment_sender = n.DepartmentName,
                                       mangment_sender_id = mail.Department_Id,
@@ -2126,7 +2140,7 @@ namespace MMSystem.Services.ReceivedMail
 
 
 
-                                  }).OrderByDescending(v => v.mail_id).Skip((pagenum - 1) * size).Take(size).ToListAsync();
+                                  }).OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToListAsync();
                 pag.Total = c.Count;
 
                 return pag;
@@ -2459,7 +2473,7 @@ namespace MMSystem.Services.ReceivedMail
              x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
              && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
              (x.clasification == Classfication || clasf_filter == true)
-             && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
+             && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.Date_Of_Mail)
 
                                join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
@@ -2476,6 +2490,7 @@ namespace MMSystem.Services.ReceivedMail
                                    type_of_mail = mail.Mail_Type,
                                    Mail_Number = mail.Mail_Number,
                                    date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                   date2 = mail.Date_Of_Mail.Date,
                                    Masure_type = dx.MeasuresName,
                                    mangment_sender = n.DepartmentName,
                                    mangment_sender_id = mail.Department_Id,
@@ -2486,7 +2501,7 @@ namespace MMSystem.Services.ReceivedMail
                                    Sends_id = ex.Id,
 
 
-                               }).OrderByDescending(v => v.mail_id).ToListAsync();
+                               }).OrderByDescending(v => v.date2).ToListAsync();
 
                 IEnumerable<Sended_Maill> zx;
                 if (Replay_Date == true)
@@ -2545,7 +2560,7 @@ namespace MMSystem.Services.ReceivedMail
               x.Mail_Summary.Contains(summary) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2))
               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
               (x.clasification == Classfication || clasf_filter == true)
-              && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
+              && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.Date_Of_Mail)
 
                                   join ex in dbcon.Sends.Where(x => (x.flag > 0) &&
                                   ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
@@ -2566,6 +2581,7 @@ namespace MMSystem.Services.ReceivedMail
                                       type_of_mail = mail.Mail_Type,
                                       Mail_Number = mail.Mail_Number,
                                       date = mail.Date_Of_Mail.ToString("yyyy-MM-dd"),
+                                      date2 = mail.Date_Of_Mail.Date,
                                       Masure_type = dx.MeasuresName,
                                       mangment_sender = n.DepartmentName,
                                       mangment_sender_id = mail.Department_Id,
@@ -2578,7 +2594,7 @@ namespace MMSystem.Services.ReceivedMail
 
 
 
-                                  }).OrderByDescending(v => v.mail_id).Skip((pagenum - 1) * size).Take(size).ToListAsync();
+                                  }).OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToListAsync();
 
 
                 PagenationSendedEmail<Sended_Maill> pagg = new PagenationSendedEmail<Sended_Maill>();
