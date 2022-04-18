@@ -299,7 +299,7 @@
             </div>
 
             <div class="">
-              <router-link v-if="this.user.administrator.departmentId != 25"
+              <router-link v-if="this.user.administrator.departmentId != 19"
                 :to="{ name: 'dashboard' }"
                 class="
                   py-2
