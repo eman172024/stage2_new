@@ -341,11 +341,11 @@
                       class="
                         sm:col-span-6
                         grid grid-cols-1
-                        gap-y-6 gap-x-4
-                        sm:grid-cols-6
+                        gap-y-6 gap-x-2
+                        sm:grid-cols-7
                       "
                     >
-                      <div class="sm:col-span-3">
+                      <div class="sm:col-span-4">
                         <label
                           for="department"
                           class="block text-sm font-semibold text-gray-800"
@@ -457,7 +457,7 @@
                               rounded-md
                               h-10
                               border
-                              text-sm
+                              text-xs
                               bg-white
                               border-gray-200
                               hover:shadow-sm
@@ -509,15 +509,14 @@
                         </div>
                       </div>
 
-                      <div
-                        class="sm:col-span-1 flex justify-end"
+                      <div class="sm:col-span-1 flex justify-end"
                         v-if="measureNameSelected && departmentNameSelected"
                       >
                         <button
                           v-if="add_button_consignees"
                           @click="add_to_array_of_side_measure()"
                           class="
-                            mt-10
+                            mt-8
                             rounded-md
                             text-green-400
                             duration-200
@@ -2657,6 +2656,9 @@ export default {
 
       this.sideNameSelected = "";
       this.sideIdSelected = "";
+      this.sectorNameSelected = "";
+
+      
 
       this.action_required_by_the_entity = "";
       this.mail_ward_type = "";
