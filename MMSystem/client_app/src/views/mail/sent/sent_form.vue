@@ -6,7 +6,7 @@
         <div class="max-w-screen-2xl mx-auto flex flex-col md:px-8">
           <navComponent></navComponent>
 
-          <div v-if="roles.includes('d')" class="-mt-14 py-0.5 z-20">
+          <div v-if="roles.includes('d')" class="-mt-14 py-0.5 z-20 w-44">
             <button
               @click="clear_page()"
               class="
