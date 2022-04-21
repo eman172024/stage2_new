@@ -25,6 +25,7 @@ using MMSystem.Services.Histor;
 using MMSystem.Services.DashBords;
 using MMSystem.Services.Archives;
 using MMSystem.Services.ReceivedMail;
+using MMSystem.Hubs;
 
 namespace MMSystem
 {
@@ -61,11 +62,12 @@ namespace MMSystem
             services.AddScoped<IArchives, MokArchives>();
             services.AddScoped<IReceived, MookRecevied>();
             services.AddScoped<GetMailServices, MookGetMail>();
-
+            services.AddSignalR();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        [Obsolete]
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -78,7 +80,16 @@ namespace MMSystem
             
 
             app.UseRouting();
-            app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            // app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            app.UseCors(x => x.WithOrigins("http://172.16.0.12").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+
+            app.UseSignalR(route =>
+            {
+                route.MapHub<Testhub>("/api/testhub");
+            });
+
+
 
             app.UseAuthorization();
         

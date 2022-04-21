@@ -793,11 +793,12 @@
                         </g>
                       </svg>
                       <span class="text-sm leading-normal">الماسح الضوئي</span>
-                      <input
+                     <!-- <input
                         class="hidden"
                         type="button"
                         @click="scanToJpg(), (show_images = true)"
-                      />
+                      /> -->
+                           <a id="a1" @click="func();">scanner</a>
                     </label>
                   </div>
 
