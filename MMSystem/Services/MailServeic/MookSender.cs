@@ -55,14 +55,18 @@ namespace MMSystem.Services.MailServeic
                     string changes="";
 
                     List<Send_to> send_ = await _data.Sends.Where(x => x.MailID == mailId).ToListAsync();
-            
+                    List<Department> Department = new List<Department>();
                     if (send_.Count > 0)
                     {
                         foreach (var item in send_)
                         {
+
+                            Department department =await _data.Departments.FindAsync(item.to);
+                            Department.Add(department);
+
                             item.flag = 2;
                             item.Send_time = DateTime.Now;
-                            changes = changes + item.to.ToString()+"  ";
+                            changes = changes + department.DepartmentName+"  ";
                             
                             _data.Sends.Update(item);
                             await _data.SaveChangesAsync();
@@ -73,6 +77,9 @@ namespace MMSystem.Services.MailServeic
                         historyes.currentUser = userId;
                         historyes.mailid = mailId;
                         historyes.HistortyNameID = 14;
+
+                        historyes.Time = DateTime.Now;
+
                         historyes.changes = $"  تم ارسال البريد الي الادارات  {changes}";
                        await _data.History.AddAsync(historyes);
                         await _data.SaveChangesAsync();

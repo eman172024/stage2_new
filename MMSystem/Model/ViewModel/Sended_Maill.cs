@@ -25,6 +25,7 @@ namespace MMSystem.Model.ViewModel
         public int Mail_Number { get; set; }
 
         public string date { get; set; }
+        public DateTime date2 { get; set; }
 
         public String Masure_type { get; set; }
 

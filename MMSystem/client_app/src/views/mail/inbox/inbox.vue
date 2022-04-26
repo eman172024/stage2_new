@@ -1208,14 +1208,14 @@
                   </div>
 
                   <div class="flex justify-between items-center mt-4">
-                    <div class="w-9/12 flex justify-between">
-                      <div class="w-10/12">
+                    <div class="w-8/12 flex justify-between">
+                      <div class="w-full">
                         <textarea
                           id=""
                           class="
                             block
                             w-full
-                            h-10
+                            h-24
                             text-sm
                             rounded-md
                             border border-gray-200
@@ -1227,12 +1227,17 @@
                         >
                         </textarea>
                       </div>
-                      <div class="w-2/12 mr-2">
+                      
+                    </div>
+
+                    <div class="w-3/12">
+
+                    <div class=" ">
                         <label
                           v-if="reply_to_add != ''"
                           class="
-                            w-28
-                            h-full
+                            w-full
+                            h-10
                             flex
                             justify-center
                             items-center
@@ -1339,13 +1344,14 @@
                           />
                         </label>
                       </div>
-                    </div>
 
-                    <div class="w-2/12 mr-4">
+
+
                       <button
                         v-if="reply_to_add != ''"
                         @click="AddReply()"
                         class="
+                        mt-2
                           w-full
                           flex
                           items-center
@@ -1775,7 +1781,6 @@ export default {
         });
     },
 
-
     show_reply_images(index, plase) {
       this.from_reply_or_general = plase;
 
@@ -2083,6 +2088,14 @@ export default {
         .then((res) => {
           console.log(res);
           this.inboxMails = res.data.mail;
+          this.replies = []
+          this.sends_id_to_get_mail_by_id = ''
+          this.mangment_sender_to_get_mail_by_id = ''
+          this.reply_to_add = ''
+
+          
+
+
 
           this.total_of_transaction = res.data.total;
           setTimeout(() => {

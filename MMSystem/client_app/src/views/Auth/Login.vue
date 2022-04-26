@@ -24,7 +24,7 @@
             منظومة البريد الداخلي
           </h2>
         </div>
-        <div class="mt-8 space-y-6">
+        <div v-on:keyup.enter="submit"  class="mt-8 space-y-6">
           <input type="hidden" name="remember" value="true" />
           <div class="rounded-md shadow-sm">
 
@@ -559,6 +559,7 @@ export default {
     },
 
     submit() {
+
       this.screenFreeze = true;
       this.loading = true;
       var Login = {

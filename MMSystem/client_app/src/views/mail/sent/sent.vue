@@ -22,7 +22,9 @@
                   من
                   <input
                     type="date"
-                    min="2000-01-01" max="2040-12-30"
+                    pattern="\d{4}-\d{2}-\d{2}"
+                    placeholder="dd-mm-yyyy"
+                    min="2000-12-01" max="2040-12-30"
                     id="date_from"
                     v-model="date_from"
                     class="block mr-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
@@ -33,7 +35,9 @@
                   إلي
                   <input
                     type="date"
-                    min="2000-01-01" max="2040-12-30"
+                    pattern="\d{4}-\d{2}-\d{2}"
+                    placeholder="dd-mm-yyyy"
+                    min="2000-12-01" max="2040-12-30"
                     id="date_to"
                     v-model="date_to"
                     class="block mr-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
