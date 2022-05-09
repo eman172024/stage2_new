@@ -1995,7 +1995,7 @@
                     ">
                         
 
-                        <div v-if="reply.resources != 0" class="mx-2">
+                        <!--<div v-if="reply.resources != 0" class="mx-2">
                           <button
                             v-if="roles.includes('h')"
                             @click="show_reply_images(index, 3)"
@@ -2039,7 +2039,7 @@
                               />
                             </svg>
                           </button>
-                        </div>
+                        </div>-->
 
                         <div
                           :class="

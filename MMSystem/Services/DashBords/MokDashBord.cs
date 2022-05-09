@@ -21,47 +21,20 @@ namespace MMSystem.Services.DashBords
         {
             Dashbord Dashbord = new Dashbord();
 
-            //var send = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId)
-            //               join y in DbCon.Sends.Where(y => y.flag >1 && y.isMulti == true) on x.MailID equals y.MailID
-
-            //               select x).ToListAsync();
-            //int sends = send.Count();
-
-            //var Received = await (from x in DbCon.Mails
-            //                      join y in DbCon.Sends.Where(x => x.to == ManagementId && x.flag >= 2 ) on x.MailID equals y.MailID
-            //                      select y).ToListAsync();
-            //int Receive = Received.Count();
-
-            //var NotSend = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId)
-            //               join y in DbCon.Sends.Where(y => y.flag ==1 && y.isMulti == true) on x.MailID equals y.MailID
-
-            //               select x).ToListAsync();
-            //int NotSends = NotSend.Count();
-
-
-
-
-
-
-
-
-
-
-
-
+            //////////// داش بورد الخاص بي الأيميل الداخلي //////////////
 
             var internil =await (from x in DbCon.Mails.Where(x=> x.Department_Id == ManagementId && x.Mail_Type==1 && x.state == true )
                   join y in DbCon.Sends.Where(y => y.flag >= 1 && y.isMulti == true  ) on x.MailID equals y.MailID
                                  select x).ToListAsync();
             int inern = internil.Count();
 
-            var not_sended = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 1)
+            var not_sended = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 1 && x.state == true)
                                   join y in DbCon.Sends.Where(y => y.flag ==1 && y.isMulti == true) on x.MailID equals y.MailID
                                   select x).ToListAsync();
             int notsende = not_sended.Count();
 
 
-            var is_sended = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 1)
+            var is_sended = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 1 && x.state == true)
                                     join y in DbCon.Sends.Where(y => y.flag > 1 && y.isMulti == true) on x.MailID equals y.MailID
                                     select x).ToListAsync();
             int issended = is_sended.Count();
@@ -83,7 +56,7 @@ namespace MMSystem.Services.DashBords
             int not_res = idint_responde.Count();
 
 
-            ////////////////////////////////////////////////
+            //////////// داش بورد الخاص بي الأيميل الصادر الخارجي //////////////
 
 
 
@@ -92,12 +65,12 @@ namespace MMSystem.Services.DashBords
                                   select x).ToListAsync();
             int ex = extirnel.Count();
 
-            var not_sended_externl = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 2)
+            var not_sended_externl = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 2 && x.state == true)
                                     join y in DbCon.Sends.Where(y => y.flag == 1 && y.isMulti == true) on x.MailID equals y.MailID
                                     select x).ToListAsync();
             int notsendeex = not_sended_externl.Count();
 
-            var is_sended_externl = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 2)
+            var is_sended_externl = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 2 && x.state == true)
                                             join y in DbCon.Sends.Where(y => y.flag > 1 && y.isMulti == true) on x.MailID equals y.MailID
                                             select x).ToListAsync();
             int issendeex = is_sended_externl.Count();
@@ -122,24 +95,20 @@ namespace MMSystem.Services.DashBords
 
 
 
-
-
-
-
-            ///////////////////////////////////////
+            //////////// داش بورد الخاص بي الأيميل الوارد الخارجي //////////////
 
             var extirnelIn = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 3 && x.state == true)
                                   join y in DbCon.Sends.Where(y => y.flag >= 1 && y.isMulti == true) on x.MailID equals y.MailID
                                   select x).ToListAsync();
             int exIn = extirnelIn.Count();
 
-            var not_sended_externlIn = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 3)
+            var not_sended_externlIn = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 3 && x.state == true)
                                             join y in DbCon.Sends.Where(y => y.flag == 1  && y.isMulti == true) on x.MailID equals y.MailID
                                             select x).ToListAsync();
             int notsendeexIn = not_sended_externlIn.Count();
 
 
-            var is_sended_externlIn = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 3)
+            var is_sended_externlIn = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 3 && x.state == true)
                                               join y in DbCon.Sends.Where(y => y.flag > 1 && y.isMulti == true) on x.MailID equals y.MailID
                                               select x).ToListAsync();
             int issendeexIn = is_sended_externlIn.Count();
