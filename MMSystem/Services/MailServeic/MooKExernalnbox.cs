@@ -15,6 +15,9 @@ namespace MMSystem.Services.MailServeic
         private readonly AppDbCon _dbCon;
         private readonly IMapper _mapper;
 
+        public string to;
+        public string to2;
+
         public MooKExernalnbox(AppDbCon dbCon,IMapper mapper)
         {
             _dbCon = dbCon;
@@ -135,7 +138,7 @@ namespace MMSystem.Services.MailServeic
 
             try
             {
-
+             
                 Mail _mail = await _dbCon.Mails.FindAsync(mail.MailID);
                 List<HVModel> hVModels = new List<HVModel>();
                 ClasificationSubject clasificationSubjects = await _dbCon.clasifications.FindAsync(_mail.clasification);
@@ -188,13 +191,34 @@ namespace MMSystem.Services.MailServeic
 
                     if (_Inbox != null)
                     {
+                       
+
+                        switch (_Inbox.to) {
+                            case 1:to = "رئيس الهيئة";
+                                break;
+                            case 2:
+                                to = "وكيل الهيئة";
+                                break;
+
+                        }
+                        switch (ex.to)
+                        {
+                            case 1:
+                                to2 = "رئيس الهيئة";
+                                break;
+                            case 2:
+                                to2 = "وكيل الهيئة";
+                                break;
+
+                        }
+
 
                         hVModels.Add(new HVModel { name = "الاجراء ", newvalue = ex.action, oldvalue = _Inbox.action });
                         hVModels.Add(new HVModel { name = "رقم اشاري الجهة", newvalue = ex.entity_reference_number, oldvalue = _Inbox.entity_reference_number });
                         hVModels.Add(new HVModel { name = "رقم القسم", newvalue = ex.SectionId, oldvalue = _Inbox.SectionId });
                         hVModels.Add(new HVModel { name = "اسم القسم", newvalue = ex.section_Name, oldvalue = _Inbox.section_Name });
                         hVModels.Add(new HVModel { name = "الاجراء المطلوب", newvalue = ex.procedure_type, oldvalue = _Inbox.procedure_type });
-                        hVModels.Add(new HVModel { name = " وارد الي", newvalue = ex.to, oldvalue = _Inbox.to });
+                        hVModels.Add(new HVModel { name = " وارد الي", newvalue = to2.ToString(), oldvalue = to.ToString() });
                         hVModels.Add(new HVModel { name = "نوع الاجراء", newvalue = ex.type, oldvalue = _Inbox.type });
                         hVModels.Add(new HVModel { name = "تاريخ رسالة الجهة", newvalue = ex.Send_time, oldvalue = _Inbox.Send_time });
 

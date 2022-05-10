@@ -474,7 +474,7 @@ export default {
     if (this.$route.params.id) {
       this.isedit = true;
       this.GetUserById();
-      this.departmentselectb = true;
+      this.departmentselect = true;
     }
   },
 
@@ -487,7 +487,7 @@ export default {
     return {
       departments: [],
       departmentselect: false,
-      departmentNameSelected: "مكتب رئيس الهيئة",
+      departmentNameSelected: "الادارة العامة للتحقيق",
       departmentIdSelected: "1",
 
       
