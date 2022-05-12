@@ -1514,7 +1514,8 @@ namespace MMSystem.Services.MailServeic
                                 measureName = measures.MeasuresName,
                                 departmentId = departments.Id,
                                 send_ToId = item.Id,
-                                flag = item.flag
+                                
+                                flag = item.flag,
 
                             }
 
