@@ -792,13 +792,13 @@
                           </g>
                         </g>
                       </svg>
-                      <span class="text-sm leading-normal">الماسح الضوئي</span>
+                      <span class="text-sm leading-normal"> تجربة الماسح الضوئي</span>
                      <!-- <input
                         class="hidden"
                         type="button"
                         @click="scanToJpg(), (show_images = true)"
                       /> -->
-                           <a id="a1" @click="func();">scanner</a>
+                           <a id="a1" @click="func();"></a>
                     </label>
                   </div>
 
@@ -2449,8 +2449,8 @@ import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 import {HubConnectionBuilder} from "@microsoft/signalr";
 
      const connection = new HubConnectionBuilder()
-     //.withUrl('http://172.16.0.12:82/api/Testhub')
-      .withUrl('http://localhost:58316/api/Testhub')
+     .withUrl('http://172.16.0.12:82/api/Testhub')
+    //  .withUrl('http://localhost:58316/api/Testhub')
      .withAutomaticReconnect([0, 1000, 5000, null])
      .build();   
 connection.start();
