@@ -136,6 +136,8 @@ namespace MMSystem.Services.MailServeic
                 ClasificationSubject clasificationSubjects = await _appDb.clasifications.FindAsync(_mail.clasification);
                 ClasificationSubject clasificationSubjects2 = await _appDb.clasifications.FindAsync(mail1.clasification);
 
+
+
                 if (_mail != null)
                 {
 

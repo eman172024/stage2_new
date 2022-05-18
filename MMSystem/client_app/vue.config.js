@@ -6,7 +6,9 @@ module.exports = {
         https: false,
         proxy: {
             "^/api/": {
-                target: 'https://localhost:44369/',
+              //  target: 'https://localhost:44369/',
+               // target: 'http://localhost:58316/',
+                target: 'http://172.16.0.12:82/',
             }
         }
     }

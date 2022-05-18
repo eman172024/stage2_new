@@ -792,13 +792,13 @@
                           </g>
                         </g>
                       </svg>
-                      <span class="text-sm leading-normal">الماسح الضوئي</span>
+                      <span class="text-sm leading-normal"> تجربة الماسح الضوئي</span>
                      <!-- <input
                         class="hidden"
                         type="button"
                         @click="scanToJpg(), (show_images = true)"
                       /> -->
-                           <a id="a1" @click="func();">scanner</a>
+                           <a id="a1" @click="func();"></a>
                     </label>
                   </div>
 
@@ -2445,6 +2445,17 @@ import asideComponent from "@/components/asideComponent.vue";
 import navComponent from "@/components/navComponent.vue";
 import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 
+//***************
+import {HubConnectionBuilder} from "@microsoft/signalr";
+
+     const connection = new HubConnectionBuilder()
+     .withUrl('http://172.16.0.12:82/api/Testhub')
+    //  .withUrl('http://localhost:58316/api/Testhub')
+     .withAutomaticReconnect([0, 1000, 5000, null])
+     .build();   
+connection.start();
+//***************
+
 export default {
   created() {},
 
@@ -2455,6 +2466,22 @@ export default {
   },
 
   mounted() {
+//**************
+
+ connection.on("resivemassage",(state1,massage)=>{
+  
+    if(state1==true){
+         console.log("massage="+massage)
+
+         this.GetAllDocumentsToSend()
+    }else
+    {
+      console.log("state1=false") 
+    }
+     })
+  
+//*****************
+
     var date = new Date();
 
     var month = date.getMonth() + 1;
@@ -2732,6 +2759,17 @@ export default {
   },
 
   methods: {
+
+//*****************29/3/2022
+func(){
+  console.log("bbbbbbbhhhhhhh"+"  id= "+this.mailId)
+  document.getElementById("a1").href="SScaner:id=" + this.mailId;
+  console.log("test "+"  id= "+this.mailId)
+},
+
+
+//*************end 29/3/2022
+
     print_image() {
       this.to_test_print_images_model = true;
       this.$http.mailService
@@ -3784,7 +3822,8 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .GetAllDocuments(29, Number(localStorage.getItem("userId")))
+      //  .GetAllDocuments(29, Number(localStorage.getItem("userId")))
+       .GetAllDocuments(this.mailId, Number(localStorage.getItem("userId")))
         .then((res) => {
           console.log(res);
 
