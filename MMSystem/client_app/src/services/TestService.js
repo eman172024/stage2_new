@@ -3,7 +3,7 @@ export default {
 
 
     GetDocmentsDetails(mailId) {
-        return axios.get(`http://172.16.0.12:82/api/Documents/GetDocmentsDetails`, {
+        return axios.get(`/api/Documents/GetDocmentsDetails`, {
             params: {
                 mailId: mailId
             }
@@ -12,7 +12,7 @@ export default {
 
 
     test() {
-        return axios.get('http://172.16.0.12:82/api/WeatherForecast/test');
+        return axios.get('/api/WeatherForecast/test');
     },
 
 
