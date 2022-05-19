@@ -474,7 +474,7 @@ export default {
     if (this.$route.params.id) {
       this.isedit = true;
       this.GetUserById();
-      this.departmentselect = true;
+      this.departmentselect = false;
     }
   },
 
@@ -684,8 +684,8 @@ export default {
           this.num = res.data.administrator.nationalNumber;
           this.pass = res.data.administrator.password;
           this.departmentIdSelected = res.data.administrator.departmentId;
-          this.departmentNameSelected =
-          this.departments[res.data.administrator.departmentId - 1].departmentName;
+          this.departmentNameSelected =this.$route.params.departmentName11
+         
           if(res.data.administrator.state){
           this.state1 =res.data.administrator.state ;
           }else{
