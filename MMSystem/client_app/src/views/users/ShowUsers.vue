@@ -257,7 +257,7 @@ export default {
 
       departments: [],
       departmentselect: false,
-      departmentNameSelected: "مكتب رئيس الهيئة",
+      departmentNameSelected: "الادارة العامة للتحقيق",
       departmentIdSelected: "1",
       username: "",
 
