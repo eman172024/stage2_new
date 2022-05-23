@@ -792,13 +792,13 @@
                           </g>
                         </g>
                       </svg>
-                      <span class="text-sm leading-normal"> تجربة الماسح الضوئي</span>
+                      <span class="text-sm leading-normal"> </span>
                      <!-- <input
                         class="hidden"
                         type="button"
                         @click="scanToJpg(), (show_images = true)"
                       /> -->
-                           <a id="a1" @click="func();"></a>
+                      <a id="a1" @click="func();">تجربة الماسح الضوئي</a>
                     </label>
                   </div>
 
