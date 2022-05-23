@@ -4,14 +4,16 @@ using MMSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMSystem.Migrations
 {
     [DbContext(typeof(AppDbCon))]
-    partial class AppDbConModelSnapshot : ModelSnapshot
+    [Migration("20220523085336_AddISend")]
+    partial class AddISend
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1172,133 +1174,140 @@ namespace MMSystem.Migrations
                         new
                         {
                             RoleId = 1,
-                            Name = "الصادر",
-                            code = "a",
+                            Name = "الإطلاع على السري",
+                            code = "t",
                             state = true
                         },
                         new
                         {
                             RoleId = 2,
-                            Name = "اضافة بريد جديد",
-                            code = "b",
+                            Name = "استخدام الوارد الخارجي",
+                            code = "a",
                             state = true
                         },
                         new
                         {
                             RoleId = 3,
-                            Name = "اضافة بريد داخلي",
-                            code = "c",
+                            Name = "ارسال البريد الى",
+                            code = "b",
                             state = true
                         },
                         new
                         {
                             RoleId = 4,
-                            Name = "اضافة بريد وارد خارجي",
-                            code = "d",
+                            Name = "الإطلاع على التقرير الإحصائى",
+                            code = "c",
                             state = true
                         },
                         new
                         {
                             RoleId = 5,
-                            Name = "اضافة بريد صادر خارجي",
-                            code = "e",
+                            Name = "الصادر الجديد",
+                            code = "d",
                             state = true
                         },
                         new
                         {
                             RoleId = 6,
-                            Name = " الرد علي الصادر",
-                            code = "f",
+                            Name = "كتابة اجراءالأمين للرسالة",
+                            code = "e",
                             state = true
                         },
                         new
                         {
                             RoleId = 7,
-                            Name = " عرض الصورة الصادرة",
-                            code = "g",
+                            Name = "الإطلاع على تقرير المتابعة",
+                            code = "f",
                             state = true
                         },
                         new
                         {
                             RoleId = 8,
-                            Name = "  ارسال البريد بعد الحفظ ",
-                            code = "h",
+                            Name = "الاستلام والسحب",
+                            code = "g",
                             state = true
                         },
                         new
                         {
                             RoleId = 9,
-                            Name = "حذف البريد",
-                            code = "i",
+                            Name = "عرض الصورة",
+                            code = "h",
                             state = true
                         },
                         new
                         {
                             RoleId = 10,
-                            Name = "الاستلام",
-                            code = "j",
+                            Name = "الإطلاع على الوارد الجديد",
+                            code = "i",
                             state = true
                         },
                         new
                         {
                             RoleId = 11,
-                            Name = "السحب",
-                            code = "k",
+                            Name = "استخدام الصادر الخارجي",
+                            code = "j",
                             state = true
                         },
                         new
                         {
                             RoleId = 12,
-                            Name = "الاحصائيات",
-                            code = "l",
+                            Name = "الإطلاع على الردود السابقة",
+                            code = "k",
                             state = true
                         },
                         new
                         {
                             RoleId = 13,
-                            Name = "تقارير المتابعة",
-                            code = "m",
+                            Name = "اعادة الارسال",
+                            code = "l",
                             state = true
                         },
                         new
                         {
                             RoleId = 14,
-                            Name = "الوارد",
-                            code = "n",
+                            Name = "الرد على الوارد",
+                            code = "m",
                             state = true
                         },
                         new
                         {
                             RoleId = 15,
-                            Name = "البحث في البريد الداخلي",
-                            code = "o",
+                            Name = "ردود الإدارات الفرعية",
+                            code = "n",
                             state = true
                         },
                         new
                         {
                             RoleId = 16,
-                            Name = "البحث في البريد الوارد الخارجي",
-                            code = "p",
+                            Name = "استخدام البريد الداخلي",
+                            code = "o",
                             state = true
                         },
                         new
                         {
                             RoleId = 17,
-                            Name = "البحث في البريد صادر الخارجي",
-                            code = "q",
+                            Name = "الداخلي",
+                            code = "p",
                             state = true
                         },
                         new
                         {
                             RoleId = 18,
-                            Name = "الرد علي الوارد",
-                            code = "r",
+                            Name = "وارد خارجي",
+                            code = "q",
                             state = true
                         },
                         new
                         {
                             RoleId = 19,
-                            Name = "عرض الصورة الواردة",
+                            Name = "استخدام الصادر الخارجي",
+                            code = "r",
+                            state = true
+                        },
+                        new
+                        {
+                            RoleId = 20,
+                            Name = "حذف بريد",
                             code = "s",
                             state = true
                         });
