@@ -16,6 +16,9 @@ namespace MMSystem.Model
         public int order { get; set; }
         public bool State { get; set; }
 
+        public bool IsSend { get; set; }
+
+
 
 
 

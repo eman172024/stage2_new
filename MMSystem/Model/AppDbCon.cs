@@ -62,26 +62,26 @@ namespace MMSystem.Model
 
 
             modelBuilder.Entity<Role>().HasData(
-                new Role { RoleId=1,Name="الإطلاع على السري", state=true, code = "t" },
-                new Role { RoleId = 2, Name = "استخدام الوارد الخارجي", state = true,code="a" },
-                new Role { RoleId = 3, Name = "ارسال البريد الى", state = true, code = "b" },
-                new Role { RoleId = 4, Name = "الإطلاع على التقرير الإحصائى", state = true, code = "c" },
-                new Role { RoleId = 5, Name = "الصادر الجديد", state = true, code = "d" },
-                new Role { RoleId = 6, Name = "كتابة اجراءالأمين للرسالة", state = true, code = "e" },
-                new Role { RoleId = 7, Name = "الإطلاع على تقرير المتابعة", state = true, code = "f" },
-                new Role { RoleId = 8, Name = "الاستلام والسحب", state = true, code = "g" },
-                new Role { RoleId = 9, Name = "عرض الصورة", state = true, code = "h" },
-                new Role { RoleId = 10, Name = "الإطلاع على الوارد الجديد", state = true, code = "i" },
-                new Role { RoleId = 11, Name = "استخدام الصادر الخارجي", state = true, code = "j" },
-                new Role { RoleId = 12, Name = "الإطلاع على الردود السابقة", state = true, code = "k" },
-                new Role { RoleId = 13, Name = "اعادة الارسال", state = true, code = "l" },
-                new Role { RoleId = 14, Name = "الرد على الوارد", state = true, code = "m" },
-                new Role { RoleId = 15, Name = "ردود الإدارات الفرعية", state = true, code = "n" },
-                new Role { RoleId = 16, Name = "استخدام البريد الداخلي", state = true, code = "o" },
-                 new Role { RoleId = 17, Name = "الداخلي", state = true, code = "p" },
-                new Role { RoleId = 18, Name = "وارد خارجي", state = true, code = "q" },
-                 new Role { RoleId = 19, Name = "استخدام الصادر الخارجي", state = true, code = "r" },
-                  new Role { RoleId = 20, Name = "حذف بريد", state = true, code = "s" })
+                new Role { RoleId = 1, Name = "الصادر", state = true, code = "a" },
+                new Role { RoleId=2,Name="اضافة بريد جديد", state=true, code = "b" },
+                new Role { RoleId = 3, Name = "اضافة بريد داخلي", state = true,code="c" },
+                new Role { RoleId = 4, Name = "اضافة بريد وارد خارجي", state = true, code = "d" },
+                new Role { RoleId = 5, Name = "اضافة بريد صادر خارجي", state = true, code = "e" },
+                new Role { RoleId = 6, Name = " الرد علي الصادر", state = true, code = "f" },
+                new Role { RoleId = 7, Name = " عرض الصورة الصادرة", state = true, code = "g" },
+                new Role { RoleId = 8, Name = "  ارسال البريد بعد الحفظ ", state = true, code = "h" },
+                new Role { RoleId = 9, Name = "حذف البريد", state = true, code = "i" },
+                new Role { RoleId = 10, Name = "الاستلام", state = true, code = "j" },
+                new Role { RoleId = 11, Name = "السحب", state = true, code = "k" },
+                new Role { RoleId = 12, Name = "الاحصائيات", state = true, code = "l" },
+                new Role { RoleId = 13, Name = "تقارير المتابعة", state = true, code = "m" },
+                new Role { RoleId = 14, Name = "الوارد", state = true, code = "n" },
+                new Role { RoleId = 15, Name = "البحث في البريد الداخلي", state = true, code = "o" },
+                new Role { RoleId = 16, Name = "البحث في البريد الوارد الخارجي", state = true, code = "p" },
+                new Role { RoleId = 17, Name = "البحث في البريد صادر الخارجي", state = true, code = "q" },
+                 new Role { RoleId = 18, Name = "الرد علي الوارد", state = true, code = "r" },
+                new Role { RoleId = 19, Name = "عرض الصورة الواردة", state = true, code = "s" }
+             )
                 ;
 
 
