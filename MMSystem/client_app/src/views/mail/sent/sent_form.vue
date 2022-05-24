@@ -792,16 +792,16 @@
                           </g>
                         </g>
                       </svg>
-                      <span class="text-sm leading-normal"> تجربة الماسح الضوئي</span>
+                      <span class="text-sm leading-normal"> </span>
                      <!-- <input
                         class="hidden"
                         type="button"
                         @click="scanToJpg(), (show_images = true)"
                       /> -->
-                           <a id="a1" @click="func();"></a>
+                           <a id="a1" @click="func();">تجربة الماسح الضوئي</a>
                     </label>
                   </div>
-
+                    
                   <div class="h-72 w-full bg-gray-100 rounded-md mt-4 mb-10">
                     <div
                       v-if="imagesToSend != '' || imagesToShow != ''"
@@ -2762,9 +2762,28 @@ export default {
 
 //*****************29/3/2022
 func(){
-  console.log("bbbbbbbhhhhhhh"+"  id= "+this.mailId)
-  document.getElementById("a1").href="SScaner:id=" + this.mailId;
-  console.log("test "+"  id= "+this.mailId)
+
+
+    var link = document.getElementById('a1');
+        var timeout;
+        window.addEventListener('blur',function(e){
+            window.clearTimeout(timeout);
+        })
+        
+        link.addEventListener('click', function(e) { 
+        
+            timeout = window.setTimeout(function() {
+              console.log('timeout');
+              console.log("//"+"file://mail/aca-mail/scan-setup.exe")
+             // window.location="//"+"file://mail/aca-mail/scan-setup.exe";
+               window.location="//"+"file://mail/aca-mail/scan-setup.exe";
+            }, 1000);
+        
+            window.location = "scanapp://";
+            e.preventDefault();
+        });
+
+
 },
 
 
