@@ -412,7 +412,7 @@ namespace MMSystem.Services.ReplayServeic
               
 
                 ReplyViewModel reply = new ReplyViewModel();
-                reply.send_ToId = replay.send_ToId;
+                reply.send_ToId = replay.reply.send_ToId;
                 reply.from = replay.from;
 
                

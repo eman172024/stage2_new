@@ -18,7 +18,7 @@ namespace MMSystem.Model
         public int To { get; set; }
         public bool state { get; set; }
         public int UserId { get; set; }
-
+        public bool IsSend { get; set; }
         public List<Reply_Resources> _Resources { get; set; }
 
     }

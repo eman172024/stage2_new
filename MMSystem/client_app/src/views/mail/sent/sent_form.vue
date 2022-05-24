@@ -798,7 +798,7 @@
                         type="button"
                         @click="scanToJpg(), (show_images = true)"
                       /> -->
-                           <a id="a1" @click="func();">تجربة الماسح الضوئي</a>
+                      <a id="a1" @click="func();">تجربة الماسح الضوئي</a>
                     </label>
                   </div>
                     
