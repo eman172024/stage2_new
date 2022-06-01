@@ -106,14 +106,15 @@
             />
           </div>
 
-          <div>
+          <div class="flex justify-between ">
+            <div class="ml-1 ">
             <label for="password" class="font-medium text-gray-700">
               كلمة المرور
             </label>
 
             <input
               id="password"
-              type="password"
+              :type="fieldtyp"
               v-model="pass"
               class="
                 w-full
@@ -126,6 +127,41 @@
               "
               placeholder="ادخل كلمة المرور"
             />
+</div>
+
+<div class="mr-1">
+
+     <label v-if="pass_true" for ="password" class="font-medium text-gray-700">
+              تأكيد
+            </label>
+
+   <label v-else for ="password" class="font-medium text-red-700">
+              كلمة المرور غير متطابقة
+            </label>
+
+            <input
+              id="password"
+              :type="fieldtyp"
+              v-model="confir_pass"
+              class="
+                w-full
+                mt-1
+                focus:outline-none focus:border-green-300
+                border
+                rounded-md
+                px-2
+                py-1
+              "
+              placeholder="تأكيد كلمة المرور"
+            />
+
+            </div>
+
+            <button class="w-8 h-8 self-end mr-1" @mousedown="switch_field" @mouseup="switch_field">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+            </button>
+
+
           </div>
 
           <div>
@@ -516,11 +552,34 @@ export default {
       isaddsuccess:false,
       iseditesuccess:false,
 
-
-
+      fieldtyp: "password",
+      pass_true:true,
+      confir_pass:""
     };
   },
 
+
+    watch:{
+
+            pass:function () {
+      if(this.confir_pass!="" && this.pass!=this.confir_pass){
+
+        this.pass_true=false;
+      }
+
+      else{this.pass_true=true;}
+    },
+
+            confir_pass:function () {
+      if(this.confir_pass!="" && this.pass!=this.confir_pass){
+
+        this.pass_true=false;
+      }
+
+      else{this.pass_true=true;}
+    },
+
+     },
   methods: {
     GetAllDepartments() {
       this.$http.mailService
@@ -578,6 +637,11 @@ export default {
     },
 
     add_user() {
+
+
+      if(this.confir_pass!="" && this.pass_true){
+
+
       for (var i = 0; i < this.pirms.length; i++) {
         this.roles1.push(this.pirms[i].roleId);
       }
@@ -618,6 +682,11 @@ export default {
            
           }, 500);
         });
+      }
+      else{
+        this.addsuccess="فشلت عملية الإضافة الرجاء التأكد من البانات وإعادة المحاولة"
+            this.isaddsuccess=true;
+      }
     },
 
 
@@ -625,6 +694,9 @@ export default {
 
 
     edit_user() {
+
+
+        if(this.confir_pass!="" && this.pass_true){
 
       this.roles1=[];
       for (var i = 0; i < this.pirms.length; i++) {
@@ -666,7 +738,12 @@ export default {
             this.iseditesuccess=true;
           }, 500);
         });
+        }
 
+ else{
+        this.editesuccess="فشلت عملية التعديل الرجاء التأكد من البانات وإعادة المحاولة"
+            this.iseditesuccess=true;
+      }
     },
 
 
@@ -683,6 +760,7 @@ export default {
           this.UserName = res.data.administrator.userName;
           this.num = res.data.administrator.nationalNumber;
           this.pass = res.data.administrator.password;
+          this.confir_pass=res.data.administrator.password;
           this.departmentIdSelected = res.data.administrator.departmentId;
           this.departmentNameSelected =this.$route.params.departmentName11
          
@@ -716,6 +794,12 @@ export default {
           console.log(err);
         });
     },
+
+switch_field(){
+
+
+     this.fieldtyp = this.fieldtyp === "password" ? "text" : "password";
+    }
   },
 };
 </script>
