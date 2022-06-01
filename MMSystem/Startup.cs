@@ -79,12 +79,13 @@ namespace MMSystem
             app.UseStaticFiles();
             
 
+            
             app.UseRouting();
            //  app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-         //   app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+          //   app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 
-              app.UseCors(x => x.WithOrigins("http://172.16.0.12").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
-            //   app.UseCors(x => x.WithOrigins("http://localhost:8080").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+            //  app.UseCors(x => x.WithOrigins("http://172.16.0.12").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+               app.UseCors(x => x.WithOrigins("http://localhost:8080").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 
             app.UseSignalR(route =>
             {

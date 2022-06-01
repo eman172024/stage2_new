@@ -981,7 +981,7 @@
                             </g>
                           </g>
                         </svg>
-                        <span class="text-sm leading-normal">الماسح الضوئي</span>
+                        <span class="text-sm leading-normal"> رد الصادرالماسح الضوئي</span>
                         <input class="hidden" type="button" @click="scanToJpg" />
                       </label>
                     </div>
