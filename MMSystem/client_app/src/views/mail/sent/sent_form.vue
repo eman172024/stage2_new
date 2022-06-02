@@ -2472,11 +2472,24 @@ export default {
 
  connection.on("resivemassage",(state1,massage)=>{
   
-    if(state1==true){
+   // if(state1==true){
+       if(state1==true && massage=="a"){
          console.log("massage="+massage)
 
          this.GetAllDocumentsToSend()
     }else
+    //**********2/6/2022
+   /*  if(state1==true && massage=="r"){
+         console.log("massage="+massage)
+
+          this.GetReplyByDepartment(
+              this.replyByDepartmenId,
+              this.sends_id,
+              this.departmentName
+            );
+     }
+     else*/
+    //**********end 2/6/2022
     {
       console.log("state1=false") 
     }

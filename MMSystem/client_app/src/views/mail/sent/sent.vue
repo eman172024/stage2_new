@@ -981,8 +981,10 @@
                             </g>
                           </g>
                         </svg>
-                        <span class="text-sm leading-normal"> رد الصادرالماسح الضوئي</span>
-                        <input class="hidden" type="button" @click="scanToJpg" />
+                        <span class="text-sm leading-normal"> </span>
+                      <!--  <input class="hidden" type="button" @click="scanToJpg" />-->
+                       <a id="a1" @click="reply1();">  رد الصادرالماسح الضوئي</a>
+                 
                       </label>
                     </div>
                   </div>
@@ -1187,10 +1189,51 @@ import asideComponent from "@/components/asideComponent.vue";
 import navComponent from "@/components/navComponent.vue";
 import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 
+//***************
+import {HubConnectionBuilder} from "@microsoft/signalr";
+
+     const connection = new HubConnectionBuilder()
+    // .withUrl('http://172.16.0.12:82/api/Testhub')
+      .withUrl('http://localhost:58316/api/Testhub')
+     .withAutomaticReconnect([0, 1000, 5000, null])
+     .build();   
+connection.start();
+//***************
+
 export default {
   created() {},
 
   mounted() {
+
+
+//*********
+connection.on("resivemassage",(state1,massage)=>{
+  
+   // if(state1==true){
+       if(state1==true && massage=="a"){
+         console.log("massage="+massage)
+
+         this.GetAllDocumentsToSend()
+    }else
+    //**********2/6/2022
+     if(state1==true && massage=="r"){
+         console.log("massage="+massage)
+
+          this.GetReplyByDepartment(
+              this.replyByDepartmenId,
+              this.sends_id,
+              this.departmentName
+            );
+     }
+     else
+    //**********end 2/6/2022
+    {
+      console.log("state1=false") 
+    }
+     })
+  
+//*****************
+
     var date = new Date();
 
     var month = date.getMonth() + 1;
@@ -1389,6 +1432,16 @@ export default {
   },
 
   methods: {
+
+//*************1/6/2022
+ reply1(){
+ console.log("replay"+"  id= "+this.mailId_to_get_mail_by_id)
+   document.getElementById("a1").href="SScaner:flag=0"+"userId="+localStorage.getItem("userId") + "mId="+this.mailId_to_get_mail_by_id +"send_ToId="+this.sends_id+"to="+this.my_department_id_to_get_mail_by_id
+     console.log("testreplay "+"  id= "+this.mailId_to_get_mail_by_id+"userId="+localStorage.getItem("userId")  +"send_ToId="+this.sends_id+"to="+this.my_department_id_to_get_mail_by_id)
+//************
+},
+//*****End 1/6/2022
+
     print_image(){
       this.to_test_print = true
       this.$http.mailService
