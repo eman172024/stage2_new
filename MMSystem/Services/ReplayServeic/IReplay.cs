@@ -11,7 +11,7 @@ namespace MMSystem.Services.ReplayServeic
     public interface IReplay : GenericInterface<Reply,ReplayDto>
     {
 
-        Task<bool> DeleteNotSendedReply();
+        Task<bool> DeleteNotSendedReply(ReplayPhotoVM replayPhotoVM);
         Task<bool> AddReplay(ReplyViewModel model);
         Task<MVM> GetAllReplay(int depid, int mailId);
 
