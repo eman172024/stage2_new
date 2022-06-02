@@ -102,8 +102,6 @@ namespace MMSystem.Services.ReplayServeic
                     await _data.SaveChangesAsync();
                     return true;
 
-
-
                 }
                 return false;
             }
@@ -468,12 +466,13 @@ namespace MMSystem.Services.ReplayServeic
         {
             try
             {
-                List<RViewModel> list = await (from x in _data.Replies.Where(x => x.send_ToId == id)
-                                               join y in _data.Reply_Resources on x.ReplyId equals y.ReplyId
+                List<RViewModel> list = await (from x in _data.Replies.Where(x => x.send_ToId == id && x.state.Equals(true) && x.IsSend.Equals(true))
+                                               join y in _data.Reply_Resources.Where(x => x.State.Equals(true) && x.IsSend.Equals(true)) on x.ReplyId equals y.ReplyId
                                                select new RViewModel
                                                {
                                                    reply = _mapper.Map<Reply, ReplayDto>(x),
                                                    Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(_data.Reply_Resources.Where(x => x.ReplyId == x.ID).ToList())
+                                              
                                                }).ToListAsync();
 
                 foreach (var item in list)
@@ -527,9 +526,7 @@ namespace MMSystem.Services.ReplayServeic
                 reply.from = replay.from;
                 reply.userId = replay.userId;
                 if (reply1 != null) { reply.reply = reply1; reply.reply.mail_detail = replay.reply.mail_detail; } else { reply.reply = replay.reply; }
-                //   
-
-                //   
+                
                 bool result = await AddReplay(reply);
 
                 if (result)
@@ -546,16 +543,12 @@ namespace MMSystem.Services.ReplayServeic
 
                     if (reply1 != null)
                     {
-                        // replay.file.mail_id = reply1.ReplyId;
                         bool res1 = await UpdateResources(reply.reply);
 
                         if (res1)
                         {
-
                             return 1;
-
                         }
-
                         return 2;
                     }
                     else
@@ -564,33 +557,21 @@ namespace MMSystem.Services.ReplayServeic
 
                         if (replay.file.list.Count > 0)
                         {
-
                             bool res = await Uplode(replay.file);
                             if (res)
                             {
-                                // historyes.changes = $" اضافة صور للردود   {replay.file.list.Count().ToString()}";
-
-                                //await _data.History.AddAsync(historyes);
-                                //await _data.SaveChangesAsync();
                                 return 1;
-
                             }
-
                             return 2;
-
                         }
                     }
-
                 }
                 return 3;
-
             }
             catch (Exception)
             {
-
                 throw;
             }
-
         }
         public async Task<int> AddReplayWithPhotoFromDeskApp(ReplayPhotoVM replay)
         {
@@ -624,30 +605,25 @@ namespace MMSystem.Services.ReplayServeic
             }
             catch (Exception)
             {
-
                 throw;
             }
-
         }
 
-        public async Task<bool> DeleteNotSendedReply()
+        public async Task<bool> DeleteNotSendedReply(ReplayPhotoVM replayPhotoVM)
         {
             try
             {
-                List<Reply> reply = await _data.Replies.Where(x => x.IsSend.Equals(false) && x.state.Equals(true)).ToListAsync();
+                Reply reply = await _data.Replies.FirstOrDefaultAsync(x => x.IsSend.Equals(false) && x.state.Equals(true)&&x.To.Equals(replayPhotoVM.reply.To) && x.UserId.Equals(replayPhotoVM.reply.UserId) && x.send_ToId.Equals(replayPhotoVM.send_ToId));
 
                 if (reply != null)
                 {
-                    List<Reply_Resources> resourse = await _data.Reply_Resources.Where(x => x.IsSend.Equals(false) && x.State == true).ToListAsync();
-
-
-                    foreach (var item in reply)
-                    {
-                        item.state = false;
-                        _data.Replies.Update(item);
-                    }
+                    List<Reply_Resources> resourse = await _data.Reply_Resources.Where(x => x.IsSend.Equals(false) && x.State.Equals(true) && x.ReplyId.Equals(reply.ReplyId)).ToListAsync();
+          
+                      reply.state = false;
+                     _data.Replies.Update(reply);                  
                     await _data.SaveChangesAsync();
-                    if (resourse != null)
+
+                    if (resourse.Count !=0 )
                     {
                         foreach (var item1 in resourse)
                         {
@@ -658,17 +634,12 @@ namespace MMSystem.Services.ReplayServeic
                     await _data.SaveChangesAsync();
                     return true;
                 }
-
                 return false;
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
-
-
-
     }
 }

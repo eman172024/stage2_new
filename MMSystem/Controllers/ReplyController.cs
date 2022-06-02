@@ -42,23 +42,6 @@ namespace MMSystem.Controllers
         }
        
 
-        [HttpPut("RemoveNotSendedReply")]
-        public async Task<IActionResult> RemoveNotSendedReply()
-        {
-            var result = await _Replay.DeleteNotSendedReply();
-            if (result)
-                return Created("removed", new
-                {
-                    message = "تمت العملية بنجاح",
-                    statusCode = 201,
-                  
-                });
-            return BadRequest(new Result()
-            {
-                message = "لايوجد ردود لم تبعت",
-                statusCode = 404
-            });
-        }
         [HttpPost("Uplode")]
         public async Task<IActionResult> Uplode([FromBody] Uplode file)
         {
@@ -126,6 +109,19 @@ namespace MMSystem.Controllers
             };
 
             return Ok(massege);
+
+        }
+        [HttpPost("DeleteNotSendedReply")]
+        public async Task<IActionResult> DeleteNotSendedReply(ReplayPhotoVM replayPhotoVM)
+        {
+            var result = await _Replay.DeleteNotSendedReply(replayPhotoVM);           
+            if (result)
+            return Ok(result); 
+            return BadRequest(new Result()
+            {
+                message = "فشلت العملية",
+                statusCode = 404
+            });
 
         }
         [HttpPost("AddReplayWithPhotoFromDeskApp")]
