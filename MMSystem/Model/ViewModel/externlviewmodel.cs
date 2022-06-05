@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Model.ViewModel
 {
-    public class ExtarnelinboxViewModel
+    public class externlviewmodel
     {
-
         public int mail_id { get; set; }
         public int Mail_Number { get; set; }
 
@@ -39,10 +38,8 @@ namespace MMSystem.Model.ViewModel
         public string sectionName { get; set; }
 
         public int Sends_id { get; set; }
-        
+
 
         public string actionrequer { get; set; }
-
-
     }
 }
