@@ -28,6 +28,8 @@
         </router-link>
 
        <logout></logout>
+
+       
       </div>
       <h1 class="font-extrabold text-xl mt-2">عرض المستخدمين</h1>
 
@@ -153,7 +155,7 @@
 
              <router-link class="grid grid-cols-5 col-span-5 mt-2 border-b pb-4 items-center" 
 
-            :to="{name: 'Add',params:{id: user.userId}}">   
+            :to="{name: 'Add',params:{id: user.userId,departmentName11:departmentNameSelected}}">   
             <span class="col-span-2 mx-auto">{{ user.userName }}</span>
 
             <span class="col-span-2 mx-auto"  v-if="user.department_name">{{ user.department_name}}</span>
@@ -257,7 +259,7 @@ export default {
 
       departments: [],
       departmentselect: false,
-      departmentNameSelected: "مكتب رئيس الهيئة",
+      departmentNameSelected: "الادارة العامة للتحقيق",
       departmentIdSelected: "1",
       username: "",
 
