@@ -1070,45 +1070,9 @@ namespace MMSystem.Services.ReceivedMail
                     var lx = Replay_Date;
 
 
-                    zx = (from x in c
-                          join vv in dbcon.Sends.Where(x => x.State == true)
-                          on x.mail_id equals vv.MailID
+                    zx = c;
 
-                          join rep in dbcon.Replies.Where(rep => rep.state == true)
-                          on vv.Id equals rep.send_ToId
-
-                          select new ExtarnelinboxViewModel
-                          {
-
-                              mail_id = x.mail_id,
-                              State = x.State,
-                              type_of_mail = x.type_of_mail,
-                              Mail_Number = x.Mail_Number,
-                              date = x.date,
-                              Masure_type = x.Masure_type,
-                              mangment_sender = x.mangment_sender,
-                              mangment_sender_id = x.mangment_sender_id,
-                              Send_time = x.Send_time,
-                              time = x.time,
-                              summary = x.summary,
-                              flag = x.flag,
-                              Sends_id = x.Sends_id
-                          }
-                              ).ToList();
-
-                    List<ExtarnelinboxViewModel> dd = new List<ExtarnelinboxViewModel>();
-                    foreach (var item in zx)
-                    {
-
-
-                        if (!dd.Exists(x => x.mail_id == item.mail_id))
-                        {
-
-                            dd.Add(item);
-                        }
-                    }
-
-                    zx = dd;
+                    
                 }
                 else
                 {
@@ -1199,45 +1163,9 @@ namespace MMSystem.Services.ReceivedMail
                     var lx = Replay_Date;
 
 
-                    zx = (from x in c
-                          join vv in dbcon.Sends.Where(x => x.State == true)
-                          on x.mail_id equals vv.MailID
+                   
 
-                          join rep in dbcon.Replies.Where(rep => rep.state == true)
-                          on vv.Id equals rep.send_ToId
-
-                          select new ExtarnelinboxViewModel
-                          {
-
-                              mail_id = x.mail_id,
-                              State = x.State,
-                              type_of_mail = x.type_of_mail,
-                              Mail_Number = x.Mail_Number,
-                              date = x.date,
-                              Masure_type = x.Masure_type,
-                              mangment_sender = x.mangment_sender,
-                              mangment_sender_id = x.mangment_sender_id,
-                              Send_time = x.Send_time,
-                              time = x.time,
-                              summary = x.summary,
-                              flag = x.flag,
-                              Sends_id = x.Sends_id
-                          }
-                              ).ToList();
-
-                    List<ExtarnelinboxViewModel> dd = new List<ExtarnelinboxViewModel>();
-                    foreach (var item in zx)
-                    {
-
-
-                        if (!dd.Exists(x => x.mail_id == item.mail_id))
-                        {
-
-                            dd.Add(item);
-                        }
-                    }
-
-                    pagg.mail = dd;
+                    
                 }
                 else
                 {
@@ -1588,31 +1516,7 @@ namespace MMSystem.Services.ReceivedMail
                     var lx = Replay_Date;
 
 
-                    zx = (from x in c
-                          join vv in dbcon.Sends.Where(x => x.State == true)
-                          on x.mail_id equals vv.MailID
-
-                          join rep in dbcon.Replies.Where(rep => rep.state == true)
-                          on vv.Id equals rep.send_ToId
-
-                          select new ExtarnelinboxViewModel
-                          {
-
-                              mail_id = x.mail_id,
-                              State = x.State,
-                              type_of_mail = x.type_of_mail,
-                              Mail_Number = x.Mail_Number,
-                              date = x.date,
-                              Masure_type = x.Masure_type,
-                              mangment_sender = x.mangment_sender,
-                              mangment_sender_id = x.mangment_sender_id,
-                              Send_time = x.Send_time,
-                              time = x.time,
-                              summary = x.summary,
-                              flag = x.flag,
-                              Sends_id = x.Sends_id
-                          }
-                              ).ToList();
+                   
 
                     List<ExtarnelinboxViewModel> dd = new List<ExtarnelinboxViewModel>();
                     foreach (var item in zx)
