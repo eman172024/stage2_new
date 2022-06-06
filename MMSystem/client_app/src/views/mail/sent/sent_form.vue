@@ -2193,7 +2193,7 @@
                           type="button"
                           @click="scanToReply"
                         />-->
-                         <a id="a1" @click="reply1();">  الماسح الضوئي الرد</a>
+                         <a id="a2" @click="reply1();">  الماسح الضوئي الرد</a>
                  
                       </label>
                     </div>
@@ -2479,7 +2479,7 @@ export default {
          this.GetAllDocumentsToSend()
     }else
     //**********2/6/2022
-   /*  if(state1==true && massage=="r"){
+    if(state1==true && massage=="r"){
          console.log("massage="+massage)
 
           this.GetReplyByDepartment(
@@ -2488,7 +2488,7 @@ export default {
               this.departmentName
             );
      }
-     else*/
+     else
     //**********end 2/6/2022
     {
       console.log("state1=false") 
@@ -2804,9 +2804,10 @@ func(){
 },
  
  reply1(){
- console.log("replay"+"  id= "+this.mailId)
-   document.getElementById("a1").href="SScaner:flag=0"+"userid="+localStorage.getItem("userId") + "mId="+this.mailId +"send_ToId="+this.sends_id+"to="+this.replyByDepartmenId
-  console.log("testreplay "+"  id= "+this.mailId+"userid="+localStorage.getItem("userId")  +"send_ToId="+this.sends_id+"to="+this.replyByDepartmenId)
+   document.getElementById("a2").href="SScaner:flag=0" + "userId="+localStorage.getItem("userId") + "mId="+this.mailId +"send_ToId="+this.sends_id+"to="+this.replyByDepartmenId
+ 
+  console.log("testreplay "+"  id= "+this.mailId+"userId="+localStorage.getItem("userId")  +"send_ToId="+this.sends_id+"to="+this.replyByDepartmenId)
+
 //************
 },
 //*************end 29/3/2022

@@ -983,7 +983,7 @@
                         </svg>
                         <span class="text-sm leading-normal"> </span>
                       <!--  <input class="hidden" type="button" @click="scanToJpg" />-->
-                       <a id="a1" @click="reply1();">  رد الصادرالماسح الضوئي</a>
+                       <a id="a3" @click="reply1();">  رد الصادرالماسح الضوئي</a>
                  
                       </label>
                     </div>
@@ -1216,7 +1216,7 @@ connection.on("resivemassage",(state1,massage)=>{
          this.GetAllDocumentsToSend()
     }else
     //**********2/6/2022
-     if(state1==true && massage=="r"){
+    /* if(state1==true && massage=="r"){
          console.log("massage="+massage)
 
           this.GetReplyByDepartment(
@@ -1225,7 +1225,7 @@ connection.on("resivemassage",(state1,massage)=>{
               this.departmentName
             );
      }
-     else
+     else*/
     //**********end 2/6/2022
     {
       console.log("state1=false") 
@@ -1436,7 +1436,7 @@ connection.on("resivemassage",(state1,massage)=>{
 //*************1/6/2022
  reply1(){
  console.log("replay"+"  id= "+this.mailId_to_get_mail_by_id)
-   document.getElementById("a1").href="SScaner:flag=0"+"userId="+localStorage.getItem("userId") + "mId="+this.mailId_to_get_mail_by_id +"send_ToId="+this.sends_id+"to="+this.my_department_id_to_get_mail_by_id
+   document.getElementById("a3").href="SScaner:flag=0"+"userId="+localStorage.getItem("userId") + "mId="+this.mailId_to_get_mail_by_id +"send_ToId="+this.sends_id+"to="+this.my_department_id_to_get_mail_by_id
      console.log("testreplay "+"  id= "+this.mailId_to_get_mail_by_id+"userId="+localStorage.getItem("userId")  +"send_ToId="+this.sends_id+"to="+this.my_department_id_to_get_mail_by_id)
 //************
 },

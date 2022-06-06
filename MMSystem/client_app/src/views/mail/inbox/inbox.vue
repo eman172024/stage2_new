@@ -1335,13 +1335,15 @@
                             </g>
                           </svg>
                           <span class="text-xs leading-normal"
-                            >الماسح الضوئي</span
+                            > </span
                           >
-                          <input
+                            <a id="a4" @click="reply1();">  رد الوارد الماسح الضوئي</a>
+                 
+                         <!-- <input
                             class="hidden"
                             type="button"
                             @click="scanToReply"
-                          />
+                          />-->
                         </label>
                       </div>
 
@@ -1602,6 +1604,18 @@ import asideComponent from "@/components/asideComponent.vue";
 import navComponent from "@/components/navComponent.vue";
 import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 
+//***************
+import {HubConnectionBuilder} from "@microsoft/signalr";
+
+     const connection = new HubConnectionBuilder()
+    // .withUrl('http://172.16.0.12:82/api/Testhub')
+      .withUrl('http://localhost:58316/api/Testhub')
+     .withAutomaticReconnect([0, 1000, 5000, null])
+     .build();   
+connection.start();
+//***************
+
+
 export default {
   created() {},
 
@@ -1760,6 +1774,16 @@ export default {
   },
 
   methods: {
+
+//*************1/6/2022
+ reply1(){
+ console.log("replay"+"  id= "+this.mailId_to_get_mail_by_id)
+   document.getElementById("a4").href="SScaner:flag=0"+"userId="+localStorage.getItem("userId") + "mId="+this.mailId_to_get_mail_by_id +"send_ToId="+this.sends_id_to_get_mail_by_id+"to="+this.department_Id
+     console.log("testreplay "+"  id= "+this.mailId_to_get_mail_by_id+"userId="+localStorage.getItem("userId")  +"send_ToId="+this.sends_id_to_get_mail_by_id+"to="+this.department_Id)
+//************
+},
+//*****End 1/6/2022
+
     print_image(){
       this.to_test_print = true
       this.$http.mailService
