@@ -730,7 +730,11 @@
                     </div>
 
                     <div class="w-2/12 mr-4">
-                      <label
+                      
+                       <!-- <input class="hidden" type="button" @click="scanToReply" />-->
+                        <a id="a5" @click="reply1();">  
+                        
+                        <label
                         v-if="reply_to_add != ''"
                         class="
                           w-48
@@ -832,11 +836,13 @@
                             </g>
                           </g>
                         </svg>
-                        <span class="text-sm leading-normal"> </span>
-                       <!-- <input class="hidden" type="button" @click="scanToReply" />-->
-                        <a id="a5" @click="reply1();">  رد  شاشة الوارد الماسح الضوئي</a>
+                        
+                        <span class="text-sm leading-normal"> تصوير </span>
+                        </label>
+
+                        </a>
                  
-                      </label>
+                      
                     </div>
                   </div>
 

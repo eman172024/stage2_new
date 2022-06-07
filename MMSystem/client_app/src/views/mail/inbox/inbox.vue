@@ -1233,7 +1233,10 @@
                     <div class="w-3/12">
 
                     <div class=" ">
-                        <label
+           
+                            <a id="a4" @click="reply1();">  
+                            
+                                         <label
                           v-if="reply_to_add != ''"
                           class="
                             w-full
@@ -1334,17 +1337,18 @@
                               </g>
                             </g>
                           </svg>
-                          <span class="text-xs leading-normal"
-                            > </span
-                          >
-                            <a id="a4" @click="reply1();">  رد الوارد الماسح الضوئي</a>
+                          
+                            <span class="text-xs leading-normal"> تصوير </span>
+                              </label>
+
+                            </a>
                  
                          <!-- <input
                             class="hidden"
                             type="button"
                             @click="scanToReply"
                           />-->
-                        </label>
+                      
                       </div>
 
 
