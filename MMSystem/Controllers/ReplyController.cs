@@ -40,6 +40,8 @@ namespace MMSystem.Controllers
                 statusCode = 400
             });
         }
+       
+
         [HttpPost("Uplode")]
         public async Task<IActionResult> Uplode([FromBody] Uplode file)
         {
@@ -83,7 +85,6 @@ namespace MMSystem.Controllers
         }
 
 
-
         [HttpPost("AddReplyWithPhoto")]
         public async Task<IActionResult> AddReplyWithPhoto([FromBody] ReplayPhotoVM mail)
         {
@@ -101,6 +102,46 @@ namespace MMSystem.Controllers
                  massege = "فشلت العملية";
                     break;
                
+                default:
+                    massege = "حدث خطأ ";
+
+                    break;
+            };
+
+            return Ok(massege);
+
+        }
+        [HttpPost("DeleteNotSendedReply")]
+        public async Task<IActionResult> DeleteNotSendedReply(ReplayPhotoVM replayPhotoVM)
+        {
+            var result = await _Replay.DeleteNotSendedReply(replayPhotoVM);           
+            if (result)
+            return Ok(result); 
+            return BadRequest(new Result()
+            {
+                message = "فشلت العملية",
+                statusCode = 404
+            });
+
+        }
+        [HttpPost("AddReplayWithPhotoFromDeskApp")]
+        public async Task<IActionResult> AddReplayWithPhotoFromDeskApp([FromBody] ReplayPhotoVM mail)
+        {
+            var result = await _Replay.AddReplayWithPhotoFromDeskApp(mail);
+            string massege;
+            switch (result)
+            {
+                case 1:
+                    massege = "تمت الاضافة بنجاح";
+                    break;
+                case 2:
+
+                    massege = "تمت اضافة رد من غير مرفق";
+                    break;
+                case 3:
+                    massege = "فشلت العملية";
+                    break;
+
                 default:
                     massege = "حدث خطأ ";
 

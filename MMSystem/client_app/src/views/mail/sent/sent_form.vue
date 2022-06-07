@@ -798,7 +798,7 @@
                         type="button"
                         @click="scanToJpg(), (show_images = true)"
                       /> -->
-                      <a id="a1" @click="func();">تجربة الماسح الضوئي</a>
+                      <a id="a1" @click="func();">تجربة  الماسح الضوئي</a>
                     </label>
                   </div>
                     
@@ -2186,13 +2186,15 @@
                           </g>
                         </svg>
                         <span class="text-sm leading-normal"
-                          >الماسح الضوئي</span
+                          >   </span
                         >
-                        <input
+                       <!-- <input
                           class="hidden"
                           type="button"
                           @click="scanToReply"
-                        />
+                        />-->
+                         <a id="a2" @click="reply1();">  الماسح الضوئي الرد</a>
+                 
                       </label>
                     </div>
                   </div>
@@ -2449,8 +2451,8 @@ import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 import {HubConnectionBuilder} from "@microsoft/signalr";
 
      const connection = new HubConnectionBuilder()
-     .withUrl('http://172.16.0.12:82/api/Testhub')
-    //  .withUrl('http://localhost:58316/api/Testhub')
+    // .withUrl('http://172.16.0.12:82/api/Testhub')
+      .withUrl('http://localhost:58316/api/Testhub')
      .withAutomaticReconnect([0, 1000, 5000, null])
      .build();   
 connection.start();
@@ -2470,11 +2472,24 @@ export default {
 
  connection.on("resivemassage",(state1,massage)=>{
   
-    if(state1==true){
+   // if(state1==true){
+       if(state1==true && massage=="a"){
          console.log("massage="+massage)
 
          this.GetAllDocumentsToSend()
     }else
+    //**********2/6/2022
+    if(state1==true && massage=="r"){
+         console.log("massage="+massage)
+
+          this.GetReplyByDepartment(
+              this.replyByDepartmenId,
+              this.sends_id,
+              this.departmentName
+            );
+     }
+     else
+    //**********end 2/6/2022
     {
       console.log("state1=false") 
     }
@@ -2762,9 +2777,7 @@ export default {
 
 //*****************29/3/2022
 func(){
-
-
-    var link = document.getElementById('a1');
+   /* var link = document.getElementById('a1');
         var timeout;
         window.addEventListener('blur',function(e){
             window.clearTimeout(timeout);
@@ -2775,18 +2788,28 @@ func(){
             timeout = window.setTimeout(function() {
               console.log('timeout');
               console.log("//"+"file://mail/aca-mail/scan-setup.exe")
-             // window.location="//"+"file://mail/aca-mail/scan-setup.exe";
-               window.location="ftp:\\mail/aca-mail/scan-setup.exe";
+                window.location="//"+"file://mail/aca-mail/scan-setup.exe";
             }, 1000);
         
             window.location = "scanapp://";
             e.preventDefault();
-        });
+        });*/
 
-
+//***********
+ console.log("bbbbbbbhhhhhhh"+"  id= "+this.mailId)
+  //document.getElementById("a1").href="SScaner:id=" + this.mailId;
+  document.getElementById("a1").href="SScaner:flag=1" + "mId="+this.mailId
+  console.log("test "+"  id= "+this.mailId)
+//************
 },
+ 
+ reply1(){
+   document.getElementById("a2").href="SScaner:flag=0" + "userId="+localStorage.getItem("userId") + "mId="+this.mailId +"send_ToId="+this.sends_id+"to="+this.replyByDepartmenId
+ 
+  console.log("testreplay "+"  id= "+this.mailId+"userId="+localStorage.getItem("userId")  +"send_ToId="+this.sends_id+"to="+this.replyByDepartmenId)
 
-
+//************
+},
 //*************end 29/3/2022
 
     print_image() {
