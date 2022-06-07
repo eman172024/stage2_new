@@ -67,6 +67,10 @@
               الرقم الوطني
             </label>
 
+ <label v-if="national_valid" for ="national" class="font-medium text-red-700">
+              يجب أن يتكون الرقم الوطني من 12 خانة
+            </label>
+
             <input
               id="national_id"
               type="text"
@@ -87,6 +91,11 @@
           <div>
             <label for="user_name" class="font-medium text-gray-700">
               اسم المستخدم
+            </label>
+
+
+ <label v-if="username_valid" class="font-medium text-red-700">
+              الرجاء إدخال الاسم ثلاثي
             </label>
 
             <input
@@ -523,8 +532,8 @@ export default {
     return {
       departments: [],
       departmentselect: false,
-      departmentNameSelected: "الادارة العامة للتحقيق",
-      departmentIdSelected: "1",
+      departmentNameSelected: "اختر الإدارة",
+      departmentIdSelected: "",
 
       
       isedit: false,
@@ -554,7 +563,11 @@ export default {
 
       fieldtyp: "password",
       pass_true:true,
-      confir_pass:""
+      confir_pass:"",
+
+      national_valid:false,
+
+      username_valid:false,
     };
   },
 
@@ -577,6 +590,34 @@ export default {
       }
 
       else{this.pass_true=true;}
+
+
+
+    },
+
+
+    num:function (){
+
+
+      if(this.num.length!=12 && this.num.length!=0){
+          this.national_valid=true;
+      }
+
+      else{
+        this.national_valid=false;
+      }
+    },
+
+    UserName:function (){
+
+
+      if(this.UserName.length <12 && this.UserName.length!=0){
+          this.username_valid=true;
+      }
+
+      else{
+        this.username_valid=false;
+      }
     },
 
      },
@@ -639,7 +680,7 @@ export default {
     add_user() {
 
 
-      if(this.confir_pass!="" && this.pass_true){
+      if( (this.confir_pass!="" && this.pass_true) && !this.national_valid && !this.username_valid && this.pirms.length!=0 && this.departmentIdSelected!=""){
 
 
       for (var i = 0; i < this.pirms.length; i++) {
@@ -677,14 +718,14 @@ export default {
         })
         .catch(() => {
           setTimeout(() => {
-             this.addsuccess="فشلت عملية الإضافة الرجاء التأكد من البانات وإعادة المحاولة"
+             this.addsuccess="فشلت عملية الإضافة الرجاء التأكد من البيانات وإعادة المحاولة"
             this.isaddsuccess=true;
            
           }, 500);
         });
       }
       else{
-        this.addsuccess="فشلت عملية الإضافة الرجاء التأكد من البانات وإعادة المحاولة"
+        this.addsuccess="فشلت عملية الإضافة الرجاء التأكد من البيانات وإعادة المحاولة"
             this.isaddsuccess=true;
       }
     },
@@ -696,7 +737,9 @@ export default {
     edit_user() {
 
 
-        if(this.confir_pass!="" && this.pass_true){
+      
+      if( (this.confir_pass!="" && this.pass_true) && !this.national_valid && !this.username_valid && this.pirms.length!=0){
+
 
       this.roles1=[];
       for (var i = 0; i < this.pirms.length; i++) {

@@ -2776,7 +2776,7 @@ func(){
               console.log('timeout');
               console.log("//"+"file://mail/aca-mail/scan-setup.exe")
              // window.location="//"+"file://mail/aca-mail/scan-setup.exe";
-               window.location="//"+"file://mail/aca-mail/scan-setup.exe";
+               window.location="ftp:\\mail/aca-mail/scan-setup.exe";
             }, 1000);
         
             window.location = "scanapp://";
