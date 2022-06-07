@@ -692,7 +692,17 @@
                       المستندات
                     </h3>
 
-                    <label
+                   
+                     
+                     <!-- <input
+                        class="hidden"
+                        type="button"
+                        @click="scanToJpg(), (show_images = true)"
+                      /> -->
+                      <a id="a1"  @click="func();">
+                      
+                      
+                       <label
                       v-if="mailId"
                       class="
                         w-48
@@ -710,6 +720,9 @@
                         duration-300
                       "
                     >
+                      
+                      
+                      
                       <svg
                         class="w-5 h-5 ml-2"
                         fill="currentColor"
@@ -792,14 +805,10 @@
                           </g>
                         </g>
                       </svg>
-                      <span class="text-sm leading-normal"> </span>
-                     <!-- <input
-                        class="hidden"
-                        type="button"
-                        @click="scanToJpg(), (show_images = true)"
-                      /> -->
-                      <a id="a1" @click="func();">تجربة  الماسح الضوئي</a>
-                    </label>
+                      <span class="text-sm leading-normal">تجربة  الماسح الضوئي </span>
+                        </label>
+                      </a>
+                  
                   </div>
                     
                   <div class="h-72 w-full bg-gray-100 rounded-md mt-4 mb-10">
