@@ -302,13 +302,13 @@ namespace MMSystem.Services.Reports
                       
                             mysectionreport.TotalOfReceived.TotalOfMassage = (from hus in _data.Mails.Where(x => x.Department_Id == departmentid && x.state == true &&(x.Mail_Type == MailType || HasNoValue))
                                                                               join
-                                                                              g in _data.Sends.Where(x => x.flag != 0 && x.to == item.Id && (x.Send_time.Date >= fromdate.Date && x.Send_time.Date <= todate.Date))
+                                                                              g in _data.Sends.Where(x => x.flag > 1 && x.to == item.Id && (x.Send_time.Date >= fromdate.Date && x.Send_time.Date <= todate.Date))
                                                                               on hus.MailID equals g.MailID
                                                                               select g.MailID).ToList().Count();
 
                              massageReplaied = await (from hus in _data.Mails.Where(x => x.Department_Id == departmentid && x.state == true && (x.Mail_Type == MailType || HasNoValue))
                                                    join
-                                                   hu in _data.Sends.Where(x => x.flag != 0 && x.to == item.Id && (x.Send_time.Date >= fromdate.Date && x.Send_time.Date <= todate.Date)) 
+                                                   hu in _data.Sends.Where(x => x.flag == 4 && x.to == item.Id && (x.Send_time.Date >= fromdate.Date && x.Send_time.Date <= todate.Date)) 
                                                    on hus.MailID equals hu.MailID
                                                    join
                                                    g in _data.Replies on hu.Id equals g.send_ToId
