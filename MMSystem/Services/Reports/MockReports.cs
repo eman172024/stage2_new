@@ -252,9 +252,9 @@ namespace MMSystem.Services.Reports
                  List<SectionReport> List1 = new List<SectionReport>();
                 SectionReportWithTotal AllSectionWithTotal = new SectionReportWithTotal();  
                 
-                if (fromdate.Date > DateTime.Now.Date)
+                if (fromdate > DateTime.Now.Date)
                 {
-                    fromdate = DateTime.Now;
+                    fromdate = DateTime.Now.Date;
                 }
 
                 if (!MailType.HasValue)
@@ -263,12 +263,12 @@ namespace MMSystem.Services.Reports
 
                 }
                    
-                    departments = await (from hu in _data.Mails.Where(x => x.Department_Id == departmentid && x.state == true &&( x.Mail_Type == MailType|| HasNoValue))
+                    departments = await (from hu in _data.Mails.Where(x => x.Department_Id == departmentid && x.state.Equals(true) &&( x.Mail_Type == MailType|| HasNoValue))
                                          join
-                                         g in _data.Sends.Where(x => x.flag != 0 && x.to != departmentid && (x.Send_time.Date >= fromdate.Date && x.Send_time.Date <= todate.Date))
+                                         g in _data.Sends.Where(x => x.State.Equals(true) &&x.flag > 1 && x.to != departmentid && (x.Send_time.Date >= fromdate && x.Send_time.Date <= todate))
                                          on hu.MailID equals g.MailID
                                          join
-                                         hus in _data.Departments.Where(x => x.state == true && x.Id != departmentid)
+                                         hus in _data.Departments.Where(x => x.state.Equals(true) && x.Id != departmentid)
                                          on g.to equals hus.Id
                                          select new Department
                                          {
