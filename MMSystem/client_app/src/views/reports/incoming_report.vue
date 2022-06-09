@@ -290,11 +290,13 @@
         </div>
       </div>
 
-      <div class="w-full mb-10">
+
+  <div class="flex justify-end mb-10 mt-6 pl-7">
+      <div class="">
         <button
           class="
-            mx-auto
-            w-72
+            ml-2
+            w-64
             bg-green-700
             text-green-50
             rounded-md
@@ -344,6 +346,34 @@
           </svg>
         </button>
       </div>
+
+ 
+      <div class="">
+
+        <button
+          class="
+            mr-4
+            w-40
+            bg-green-700
+            text-green-50
+            rounded-md
+            py-3
+            border border-green-300
+            hover:bg-green-800
+            focus:outline-none
+         
+          "
+
+          @click="back()"
+        
+        >
+          <span class="text-sm font-bold block ml-1">رجوع</span>
+
+        </button>
+      </div>
+
+    </div>
+
     </div>
   </div>
 </template>
@@ -399,6 +429,12 @@ export default {
           }, 100);
         });
     },
+
+
+    back(){
+
+      this.$router.push('/inbox')
+    }
   },
 };
 </script>

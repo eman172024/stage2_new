@@ -227,7 +227,7 @@ namespace MMSystem.Services
             {
                 UserWithOnlyRoleNum view = new UserWithOnlyRoleNum();
 
-                Administrator user = await _data.Administrator.FirstOrDefaultAsync(x => x.UserName == user1.UserName && x.state == true && x.DepartmentId == user1.DepartmentId);
+                Administrator user = await _data.Administrator.FirstOrDefaultAsync(x => x.UserId == user1.UserId && x.state == true && x.DepartmentId == user1.DepartmentId);
 
                 if (user != null)
                 {

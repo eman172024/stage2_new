@@ -805,7 +805,7 @@
                           </g>
                         </g>
                       </svg>
-                      <span class="text-sm leading-normal">تجربة  الماسح الضوئي </span>
+                      <span class="text-sm leading-normal">تصوير</span>
                         </label>
                       </a>
                   

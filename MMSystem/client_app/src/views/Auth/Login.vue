@@ -150,7 +150,7 @@
                     class="block focus:outline-none w-full my-1 text-right"
                     @click="
                       selectUser(
-                        user.id,
+                        user.userId,
                         user.userName
                       );
                       usersSelect = !usersSelect;
@@ -563,9 +563,10 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
       var Login = {
-        UserName: this.UserName,
+        
         Password: this.Password,
-        DepartmentId: this.departmentIdSelected
+        DepartmentId: this.departmentIdSelected,
+        UserId: Number(this.userIdSelected),
       };
 
       this.$http.securityService

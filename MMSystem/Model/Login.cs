@@ -8,7 +8,7 @@ namespace MMSystem.Model
     public class Login
     {
         public int DepartmentId { get; set; }
-        public string UserName { get; set; }
+        public int UserId { get; set; }
         public string Password { get; set; }
       
 
