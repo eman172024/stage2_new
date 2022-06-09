@@ -21,140 +21,125 @@ namespace MMSystem.Services.DashBords
         {
             Dashbord Dashbord = new Dashbord();
 
-            //////////// داش بورد الخاص بي الأيميل الداخلي //////////////
 
-            var internil =await (from x in DbCon.Mails.Where(x=> x.Department_Id == ManagementId && x.Mail_Type==1 && x.state == true )
+        ////////////////////////////   الصاادر   //////////////////////////////////////
+
+            //////////// مجموع  الداخلي //////////////
+
+            var Totale_internell_externl = await (from x in DbCon.Mails.Where(x=> x.Department_Id == ManagementId && x.Mail_Type==1 && x.state == true )
                   join y in DbCon.Sends.Where(y => y.flag >= 1 && y.isMulti == true  ) on x.MailID equals y.MailID
                                  select x).ToListAsync();
-            int inern = internil.Count();
+            int Totale_internell_externl_count = Totale_internell_externl.Count();
 
-            var not_sended = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 1 && x.state == true)
-                                  join y in DbCon.Sends.Where(y => y.flag ==1 && y.isMulti == true) on x.MailID equals y.MailID
-                                  select x).ToListAsync();
-            int notsende = not_sended.Count();
+            //////////// مجموع  الداخلي التي لم يقرائ //////////////
 
-
-            var is_sended = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 1 && x.state == true)
-                                    join y in DbCon.Sends.Where(y => y.flag > 1 && y.isMulti == true) on x.MailID equals y.MailID
-                                    select x).ToListAsync();
-            int issended = is_sended.Count();
-
-            var not_response_tome = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 1)
-                                    join y in DbCon.Sends.Where(y => y.flag < 4 && y.flag!= 1 && y.isMulti == true) on x.MailID equals y.MailID
-                                    select x).ToListAsync();
-            int notResme = not_response_tome.Count();
-
-            var incoming = await (from x in DbCon.Mails.Where(x =>  x.Mail_Type == 1 )
-                                           join y in DbCon.Sends.Where(y => y.flag >=2  && y.to== ManagementId) on x.MailID equals y.MailID
+            var Notreaded_internell_externl = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 1 && x.state == true)
+                                           join y in DbCon.Sends.Where(y => y.flag == 2 && y.isMulti == true) on x.MailID equals y.MailID
                                            select x).ToListAsync();
-            int incom = incoming.Count();
+            int Notreaded_internell_externl_count = Notreaded_internell_externl.Count();
 
+            //////////////////////////////////////////////////////////////////////////////////////////
+            /////////////// مجموع الصادر الخارجي //////////////
 
-            var idint_responde = await (from x in DbCon.Mails.Where(x =>  x.Mail_Type == 1)
-                                  join y in DbCon.Sends.Where(y => y.flag < 4 && y.flag != 1  && y.to == ManagementId) on x.MailID equals y.MailID
-                                  select x).ToListAsync();
-            int not_res = idint_responde.Count();
-
-
-            //////////// داش بورد الخاص بي الأيميل الصادر الخارجي //////////////
-
-
-
-            var extirnel = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 2 && x.state == true)
+            var Totale_externl = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 2 && x.state == true)
                                   join y in DbCon.Sends.Where(y => y.flag >= 1 && y.isMulti == true) on x.MailID equals y.MailID
                                   select x).ToListAsync();
-            int ex = extirnel.Count();
+            int Totale_externl_count = Totale_externl.Count();
 
-            var not_sended_externl = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 2 && x.state == true)
-                                    join y in DbCon.Sends.Where(y => y.flag == 1 && y.isMulti == true) on x.MailID equals y.MailID
+            //////////// مجموع الصادر الخارجي التي لم يقرائ //////////////
+            var Notreaded_Totale_externl = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 2 && x.state == true)
+                                            join y in DbCon.Sends.Where(y => y.flag == 2 && y.isMulti == true) on x.MailID equals y.MailID
+                                            select x).ToListAsync();
+            int Notreaded_Totale_externl_count = Notreaded_Totale_externl.Count();
+
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            /////////////// مجموع  الوارد الخارجي //////////////
+            var Totale_inbox = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 3 && x.state == true)
+                                    join y in DbCon.Sends.Where(y => y.flag >= 1 && y.isMulti == true) on x.MailID equals y.MailID
                                     select x).ToListAsync();
-            int notsendeex = not_sended_externl.Count();
+            int Totale_inbox_count = Totale_inbox.Count();
 
-            var is_sended_externl = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 2 && x.state == true)
-                                            join y in DbCon.Sends.Where(y => y.flag > 1 && y.isMulti == true) on x.MailID equals y.MailID
-                                            select x).ToListAsync();
-            int issendeex = is_sended_externl.Count();
+            ///////////////  مجموع الوارد الخارجي التي لم يقرائ //////////////
 
-            var not_response_tome_externil = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 2)
-                                           join y in DbCon.Sends.Where(y => y.flag < 4 && y.flag != 1 && y.isMulti == true) on x.MailID equals y.MailID
-                                           select x).ToListAsync();
-            int notResmeex = not_response_tome_externil.Count();
-
-            var incoming_externil = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 2)
-                                  join y in DbCon.Sends.Where(y => y.flag >=2  && y.to == ManagementId) on x.MailID equals y.MailID
-                                  select x).ToListAsync();
-            int incomex = incoming_externil.Count();
-
-
-            var idint_responde_extrinl = await (from x in DbCon.Mails.Where(x =>  x.Mail_Type == 2)
-                                        join y in DbCon.Sends.Where(y => y.flag < 5 && y.flag!= 1  && y.to == ManagementId) on x.MailID equals y.MailID
-                                        select x).ToListAsync();
-            int not_resex = idint_responde_extrinl.Count();
-
-
-
-
-
-            //////////// داش بورد الخاص بي الأيميل الوارد الخارجي //////////////
-
-            var extirnelIn = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 3 && x.state == true)
-                                  join y in DbCon.Sends.Where(y => y.flag >= 1 && y.isMulti == true) on x.MailID equals y.MailID
-                                  select x).ToListAsync();
-            int exIn = extirnelIn.Count();
-
-            var not_sended_externlIn = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 3 && x.state == true)
-                                            join y in DbCon.Sends.Where(y => y.flag == 1  && y.isMulti == true) on x.MailID equals y.MailID
-                                            select x).ToListAsync();
-            int notsendeexIn = not_sended_externlIn.Count();
-
-
-            var is_sended_externlIn = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 3 && x.state == true)
-                                              join y in DbCon.Sends.Where(y => y.flag > 1 && y.isMulti == true) on x.MailID equals y.MailID
+            var Notreaded_Totale_inbox = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 3 && x.state == true)
+                                              join y in DbCon.Sends.Where(y => y.flag == 2 && y.isMulti == true) on x.MailID equals y.MailID
                                               select x).ToListAsync();
-            int issendeexIn = is_sended_externlIn.Count();
-
-            var not_response_tome_externilIn = await (from x in DbCon.Mails.Where(x => x.Department_Id == ManagementId && x.Mail_Type == 3)
-                                                    join y in DbCon.Sends.Where(y => y.flag < 4 && y.isMulti == true) on x.MailID equals y.MailID
-                                                    select x).ToListAsync();
-            int notResmeexIn = not_response_tome_externilIn.Count();
-
-            var incoming_externilIn = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 3)
-                                           join y in DbCon.Sends.Where(y => y.flag >= 2 &&  y.to == ManagementId) on x.MailID equals y.MailID
-                                           select x).ToListAsync();
-            int incomexIn = incoming_externilIn.Count();
+            int Notreaded_Totale_inbox_count = Notreaded_Totale_inbox.Count();
 
 
-            var idint_responde_extrinlIn = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 3)
-                                                join y in DbCon.Sends.Where(y => y.flag < 4 && y.flag !=1  && y.to == ManagementId) on x.MailID equals y.MailID
-                                                select x).ToListAsync();
-            int not_resexIn = idint_responde_extrinlIn.Count();
 
 
-            //Dashbord.TotaleReceived = Receive;
-            //Dashbord.TotaleSender = sends;
-            //Dashbord.TotaleExpord = NotSends;
-
-            Dashbord.Totale_Internal = inern ;
-            Dashbord.not_sended = notsende;
-            Dashbord.is_sended = issended;
-            Dashbord.Not_response_to_me = notResme;
-            Dashbord.incoming = incom;
-            Dashbord.Not_response_from_you = not_res;
 
 
-            Dashbord.extirnel = ex ;
-            Dashbord.not_sended_externl = notsendeex;
-            Dashbord.is_sended_externl = issendeex;
-            Dashbord.Not_response_to_me_external = notResmeex;
-            Dashbord.incoming_externil = incomex;
-            Dashbord.Not_response_from_you_externil = not_resex;
 
-            Dashbord.extirnelInbox = exIn ;
-            Dashbord.not_sended_externlInbox = notsendeexIn;
-            Dashbord.is_sended_externlInbox = issendeexIn;
-            Dashbord.Not_response_to_me_externlInbox = notResmeexIn;
-            Dashbord.incoming_externilInbox = incomexIn;
-            Dashbord.Not_response_from_you_extrinlInbox = not_resexIn;
+            /////////////////////////////// الوارد ////////////////////////////////////////////
+
+
+
+            //////////////////////////////////////////////////////////////////////////////////////
+            //////////// مجموع  الداخلي //////////////
+            var Totale_Internal_inbox = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 1)
+                                             join y in DbCon.Sends.Where(y => y.flag >= 1 && y.to == ManagementId) on x.MailID equals y.MailID
+                                             select x).ToListAsync();
+            int Totale_Internal_inbox_count = Totale_Internal_inbox.Count();
+            //////////// مجموع  الداخلي التي لم تقرائ//////////////
+            var Notreaded_Totale_Internal_inbox = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 1)
+                                             join y in DbCon.Sends.Where(y => y.flag == 1 && y.to == ManagementId) on x.MailID equals y.MailID
+                                             select x).ToListAsync();
+            int Notreaded_Totale_Internal_inbox_count = Notreaded_Totale_Internal_inbox.Count();
+
+
+
+
+            //////////// مجموع الصادر الخارجي //////////////
+            var Total_externl2 = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 2)
+                                             join y in DbCon.Sends.Where(y => y.flag >= 1 && y.to == ManagementId) on x.MailID equals y.MailID
+                                             select x).ToListAsync();
+            int Total_externl2_count = Total_externl2.Count();
+            //////////// مجموع الصادر الخارجي التي لم تقرائ//////////////
+            var Notreaded_Total_externl2 = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 2)
+                                             join y in DbCon.Sends.Where(y => y.flag == 1 && y.to == ManagementId) on x.MailID equals y.MailID
+                                             select x).ToListAsync();
+            int Notreaded_Total_externl2_count = Notreaded_Total_externl2.Count();
+
+
+
+
+            //////////// مجموع الوارد الخارجي //////////////
+            var Totale_inbox2 = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 3)
+                                             join y in DbCon.Sends.Where(y => y.flag >= 1 && y.to == ManagementId) on x.MailID equals y.MailID
+                                             select x).ToListAsync();
+            int Totale_inbox2_count = Totale_inbox2.Count();
+            //////////// مجموع الوارد الخارجي التي لم تقرائ//////////////
+            var Notreaded_Totale_inbox2 = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 3)
+                                             join y in DbCon.Sends.Where(y => y.flag == 1 && y.to == ManagementId) on x.MailID equals y.MailID
+                                             select x).ToListAsync();
+            int Notreaded_Totale_inbox2_count = Notreaded_Totale_inbox2.Count();
+
+
+
+
+
+
+            ////////// الصادر
+            ///
+            Dashbord.Totale_internell_externl = Totale_internell_externl_count;
+            Dashbord.Notreaded_internell_externl = Notreaded_internell_externl_count;
+            Dashbord.Totale_externl = Totale_externl_count;
+            Dashbord.Notreaded_Totale_externl = Notreaded_Totale_externl_count;
+            Dashbord.Totale_inbox = Totale_inbox_count;
+            Dashbord.Notreaded_Totale_inbox = Notreaded_Totale_inbox_count;
+
+            //////////الوارد
+            ///
+            Dashbord.Totale_Internal_inbox = Totale_Internal_inbox_count;
+            Dashbord.Notreaded_Totale_Internal_inbox = Notreaded_Totale_Internal_inbox_count;
+            Dashbord.Total_externl2 = Total_externl2_count;
+            Dashbord.Notreaded_Total_externl2 = Notreaded_Total_externl2_count;
+            Dashbord.Totale_inbox2 = Totale_inbox2_count;
+            Dashbord.Notreaded_Totale_inbox2 = Notreaded_Totale_inbox2_count;
+
+           
             return Dashbord;
         }
     }

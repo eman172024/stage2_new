@@ -9,56 +9,45 @@ namespace MMSystem.Model.ViewModel
     {
 
 
-        //الصادر الداخلي
-        public int Totale_Internal { get; set; }
+        //مجموع الصادر الداخلي
+        public int Totale_internell_externl { get; set; }
 
-       // لم يتم ارساله البريد الداخلي 
-        public int not_sended { get; set; }
-        public int is_sended { get; set; }
+        //مجموع الصادر الداخلي التي لم تقرائ 
+        public int Notreaded_internell_externl { get; set; }
 
-        // لم يتم الرد عليك الداخلي
-        public int Not_response_to_me { get; set; }
-        // الوارد الداخلي
-        public int incoming { get; set; }
-        // لم يتم الرد من قيلك
-        public int Not_response_from_you { get; set; }
+        //مجموع الصادر الخارجي
+        public int Totale_externl { get; set; }
 
-        // الصادر الخارجي
-        public int extirnel { get; set; }
+        //مجموع الصادر الخارجي التي لم تقرائ 
+        public int Notreaded_Totale_externl { get; set; }
 
-        // لم يتم ارساله البريد الصادر الخارجي 
-        public int not_sended_externl { get; set; }
-        public int is_sended_externl { get; set; }
+        //مجموع الوارد الخارجي
+        public int Totale_inbox { get; set; }
 
-        // لم يتم الرد عليك الصادر الخارجي
-        public int Not_response_to_me_external { get; set; }
-
-        // الوارد الصادر الخارجي
-        public int incoming_externil { get; set; }
-
-        // لم يتم الرد من قيلك
-        public int Not_response_from_you_externil { get; set; }
+        //مجموع الصادر الوارد التي لم تقرائ 
+        public int Notreaded_Totale_inbox { get; set; }
 
 
 
-        // صادر الوارد الخارجي
 
-        public int extirnelInbox { get; set; }
+        //مجموع الوارد الداخلي
+        public int Totale_Internal_inbox { get; set; }
 
-        // لم يتم ارساله البريد الوارد الخارجي 
-        public int not_sended_externlInbox { get; set; }
+        //مجموع الوارد الداخلي التي لم تقرائ 
+        public int Notreaded_Totale_Internal_inbox { get; set; }
 
-        public int is_sended_externlInbox { get; set; }
-        // لم يتم الرد عليك الصادر الخارجي
+        //مجموع الوارد  الصادرالخارجي
+        public int Total_externl2 { get; set; }
 
-        public int Not_response_to_me_externlInbox { get; set; }
-        // الوارد الوارد الخارجي
+        //مجموع الوارد الصادر الخارجي التي لم تقرائ 
+        public int Notreaded_Total_externl2 { get; set; }
 
-        public int incoming_externilInbox { get; set; }
+        //مجموع الوارد الوارد الخارجي
+        public int Totale_inbox2 { get; set; }
+
+        //مجموع الوارد الوارد الخارجي التي لم تقرائ 
+        public int Notreaded_Totale_inbox2 { get; set; }
 
 
-        //   الوارد الخارجي  لم يتم الرد من قيلك
-
-        public int Not_response_from_you_extrinlInbox { get; set; }
     }
 }
