@@ -23,7 +23,7 @@
                           <p
                             class="font-bold text-gray-600 text-3xl mt-2 text-right"
                           >
-                            {{ Reports.totale_Internal }}
+                            {{ Reports.totale_internell_externl }}
                           </p>
                         </div>
 
@@ -71,7 +71,7 @@
                           <p
                             class="font-bold text-gray-600 text-3xl mt-2 text-right"
                           >
-                            {{ Reports.not_response_to_me }}
+                            {{ Reports.notreaded_internell_externl }}
                           </p>
                         </div>
                         <!-- <div
@@ -118,7 +118,7 @@
                           <p
                             class="font-bold text-gray-600 text-3xl mt-2 text-right"
                           >
-                            {{ Reports.extirnel }}
+                            {{ Reports.totale_externl }}
                           </p>
                         </div>
 
@@ -166,7 +166,7 @@
                           <p
                             class="font-bold text-gray-600 text-3xl mt-2 text-right"
                           >
-                            {{ Reports.not_response_to_me_external }}
+                            {{ Reports.notreaded_Totale_externl }}
                           </p>
                         </div>
                         <!-- <div
@@ -213,7 +213,7 @@
                           <p
                             class="font-bold text-gray-600 text-3xl mt-2 text-right"
                           >
-                            {{ Reports.extirnelInbox }}
+                            {{ Reports.totale_inbox }}
                           </p>
                         </div>
 
@@ -261,7 +261,7 @@
                           <p
                             class="font-bold text-gray-600 text-3xl mt-2 text-right"
                           >
-                            {{ Reports.not_response_to_me_externlInbox }}
+                            {{ Reports.notreaded_Totale_inbox }}
                           </p>
                         </div>
                         <!-- <div
@@ -314,7 +314,7 @@
                           <p
                             class="font-bold text-gray-600 text-3xl mt-2 text-right"
                           >
-                            {{ Reports.incoming }}
+                            {{ Reports.totale_Internal_inbox }}
                           </p>
                         </div>
 
@@ -332,7 +332,7 @@
                           <p
                             class="font-bold text-gray-600 text-3xl mt-2 text-right"
                           >
-                            {{ Reports.not_response_from_you }}
+                            {{ Reports.notreaded_Totale_Internal_inbox }}
                           </p>
                         </div>
                         <!-- <div
@@ -379,7 +379,7 @@
                           <p
                             class="font-bold text-gray-600 text-3xl mt-2 text-right"
                           >
-                            {{ Reports.incoming_externil }}
+                            {{ Reports.total_externl2 }}
                           </p>
                         </div>
 
@@ -427,7 +427,7 @@
                           <p
                             class="font-bold text-gray-600 text-3xl mt-2 text-right"
                           >
-                            {{ Reports.not_response_from_you_externil }}
+                            {{ Reports.notreaded_Total_externl2 }}
                           </p>
                         </div>
                         <!-- <div
@@ -474,7 +474,7 @@
                           <p
                             class="font-bold text-gray-600 text-3xl mt-2 text-right"
                           >
-                            {{ Reports.incoming_externilInbox }}
+                            {{ Reports.totale_inbox2 }}
                           </p>
                         </div>
 
@@ -522,7 +522,7 @@
                           <p
                             class="font-bold text-gray-600 text-3xl mt-2 text-right"
                           >
-                            {{ Reports.not_response_from_you_extrinlInbox }}
+                            {{ Reports.notreaded_Totale_inbox2 }}
                           </p>
                         </div>
                         <!-- <div
