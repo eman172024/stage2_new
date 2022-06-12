@@ -79,7 +79,7 @@ namespace MMSystem.Services.DashBords
             //////////////////////////////////////////////////////////////////////////////////////
             //////////// مجموع  الداخلي //////////////
             var Totale_Internal_inbox = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 1)
-                                             join y in DbCon.Sends.Where(y => y.flag >= 1 && y.to == ManagementId) on x.MailID equals y.MailID
+                                             join y in DbCon.Sends.Where(y => y.flag > 1 && y.to == ManagementId) on x.MailID equals y.MailID
                                              select x).ToListAsync();
             int Totale_Internal_inbox_count = Totale_Internal_inbox.Count();
             //////////// مجموع  الداخلي التي لم تقرائ//////////////
@@ -93,7 +93,7 @@ namespace MMSystem.Services.DashBords
 
             //////////// مجموع الصادر الخارجي //////////////
             var Total_externl2 = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 2)
-                                             join y in DbCon.Sends.Where(y => y.flag >= 1 && y.to == ManagementId) on x.MailID equals y.MailID
+                                             join y in DbCon.Sends.Where(y => y.flag > 1 && y.to == ManagementId) on x.MailID equals y.MailID
                                              select x).ToListAsync();
             int Total_externl2_count = Total_externl2.Count();
             //////////// مجموع الصادر الخارجي التي لم تقرائ//////////////
@@ -107,7 +107,7 @@ namespace MMSystem.Services.DashBords
 
             //////////// مجموع الوارد الخارجي //////////////
             var Totale_inbox2 = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 3)
-                                             join y in DbCon.Sends.Where(y => y.flag >= 1 && y.to == ManagementId) on x.MailID equals y.MailID
+                                             join y in DbCon.Sends.Where(y => y.flag > 1 && y.to == ManagementId) on x.MailID equals y.MailID
                                              select x).ToListAsync();
             int Totale_inbox2_count = Totale_inbox2.Count();
             //////////// مجموع الوارد الخارجي التي لم تقرائ//////////////
