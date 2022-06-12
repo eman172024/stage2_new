@@ -28,7 +28,6 @@ namespace MMSystem.Model
         public DbSet<HistortyName> histortyNames { get; set; }
         
 
-                    public DbSet<LoginHistory> LoginHistory { get; set; }
 
         public AppDbCon(DbContextOptions<AppDbCon>options):base(options)
         {
