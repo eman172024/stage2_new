@@ -103,8 +103,11 @@ export default {
 
     mounted() {
     // this.my_user_id = localStorage.getItem("userId");
-    // this.my_department_id = localStorage.getItem("departmentId");
-    this.roles = localStorage.getItem("roles");
+    // this.my_department_id = localStorage.getItem("chrome");
+    this.roles = localStorage.getItem("Az07");
+
+
+
   },
 
 
@@ -112,7 +115,7 @@ export default {
     return {
         roles: [],
         toggle_nav: false,
-        user_department: localStorage.getItem("departmentId"),
+        user_department: localStorage.getItem("chrome"),
     };
   },
   methods: {
@@ -125,7 +128,6 @@ export default {
 
         // this.consignees.push( this.side ) 
 
-        console.log(this.consignees)
     },
 
 

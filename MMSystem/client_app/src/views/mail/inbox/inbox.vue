@@ -1637,9 +1637,9 @@ export default {
     this.date_from = date.getFullYear() + "-" + month + "-" + day;
     this.date_to = date.getFullYear() + "-" + month + "-" + day;
 
-    this.my_user_id = localStorage.getItem("userId");
-    this.my_department_id = localStorage.getItem("departmentId");
-    this.roles = localStorage.getItem("roles");
+    this.my_user_id = localStorage.getItem("AY_LW");
+    this.my_department_id = localStorage.getItem("chrome");
+    this.roles = localStorage.getItem("Az07");
 
     this.GetInboxs();
 
@@ -1784,8 +1784,8 @@ export default {
 //*************1/6/2022
  reply1(){
  console.log("replay"+"  id= "+this.mailId_to_get_mail_by_id)
-   document.getElementById("a4").href="SScaner:flag=0"+"userId="+localStorage.getItem("userId") + "mId="+this.mailId_to_get_mail_by_id +"send_ToId="+this.sends_id_to_get_mail_by_id+"to="+this.department_Id
-     console.log("testreplay "+"  id= "+this.mailId_to_get_mail_by_id+"userId="+localStorage.getItem("userId")  +"send_ToId="+this.sends_id_to_get_mail_by_id+"to="+this.department_Id)
+   document.getElementById("a4").href="SScaner:flag=0"+"userId="+localStorage.getItem("AY_LW") + "mId="+this.mailId_to_get_mail_by_id +"send_ToId="+this.sends_id_to_get_mail_by_id+"to="+this.department_Id
+     console.log("testreplay "+"  id= "+this.mailId_to_get_mail_by_id+"userId="+localStorage.getItem("AY_LW")  +"send_ToId="+this.sends_id_to_get_mail_by_id+"to="+this.department_Id)
 //************
 },
 //*****End 1/6/2022
@@ -1793,7 +1793,7 @@ export default {
     print_image(){
       this.to_test_print = true
       this.$http.mailService
-        .PrintOrShowDocument(Number(this.mailId_to_get_mail_by_id), Number(localStorage.getItem("userId")), Number(this.from_reply_or_general))
+        .PrintOrShowDocument(Number(this.mailId_to_get_mail_by_id), Number(localStorage.getItem("AY_LW")), Number(this.from_reply_or_general))
         .then((res) => {
           setTimeout(() => {
             console.log(res);
@@ -1821,7 +1821,7 @@ export default {
       this.$http.mailService
         .PrintOrShowDocument(
           Number(this.mailId_to_get_mail_by_id),
-          Number(localStorage.getItem("userId")),
+          Number(localStorage.getItem("AY_LW")),
           2
         )
         .then((res) => {
@@ -1921,7 +1921,7 @@ export default {
       this.loading = true;
 
       var ReplyViewModel = {
-        userId: Number(localStorage.getItem("userId")),
+        userId: Number(localStorage.getItem("AY_LW")),
         mailId: Number(this.mailId_to_get_mail_by_id),
         send_ToId: Number(this.sends_id_to_get_mail_by_id),
         from: Number(2),
@@ -2076,7 +2076,7 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .GetAllDocuments(id, Number(localStorage.getItem("userId")))
+        .GetAllDocuments(id, Number(localStorage.getItem("AY_LW")))
         .then((res) => {
           console.log(res);
 
@@ -2213,7 +2213,7 @@ export default {
       .read_it_mail(
         id,
         this.my_department_id,
-        Number(localStorage.getItem("userId"))
+        Number(localStorage.getItem("AY_LW"))
       )
       .then((res) => {
         console.log(res);

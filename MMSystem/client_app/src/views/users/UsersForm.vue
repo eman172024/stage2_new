@@ -702,7 +702,7 @@ export default {
 
         Listrole: this.roles1,
 
-         currentUser: Number(localStorage.getItem("userId")),
+         currentUser: Number(localStorage.getItem("AY_LW")),
       };
 
       this.$http.usersService
@@ -761,7 +761,7 @@ export default {
 
         Listrole: this.roles1,
 
-        currentUser: Number(localStorage.getItem("userId")),
+        currentUser: Number(localStorage.getItem("AY_LW")),
       };
 
       this.$http.usersService

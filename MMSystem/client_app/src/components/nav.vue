@@ -366,7 +366,6 @@ export default {
         .then((res) => {
           let data = res.data;
 
-          console.log(data.statusCode);
           this.$authenticatedUser.userId = 0;
           this.$authenticatedUser.fullName = "";
           this.$authenticatedUser.userName = "";

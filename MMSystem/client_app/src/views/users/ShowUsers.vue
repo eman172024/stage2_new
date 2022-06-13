@@ -305,7 +305,7 @@ export default {
        var StopActive = {
         
           UserId:id,
-          currentUser:Number(localStorage.getItem("userId"))
+          currentUser:Number(localStorage.getItem("AY_LW"))
 
       };
 

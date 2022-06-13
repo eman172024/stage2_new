@@ -586,9 +586,9 @@ export default {
             this.$authenticatedUser.departmentId =
             this.user.administrator.departmentId;
 
-            localStorage.setItem("userId", this.user.administrator.userId);
-            localStorage.setItem( "departmentId", this.user.administrator.departmentId);
-            localStorage.setItem( "roles", this.user.listrole);
+            localStorage.setItem("AY_LW", this.user.administrator.userId);
+            localStorage.setItem( "chrome", this.user.administrator.departmentId);
+            localStorage.setItem( "Az07", this.user.listrole);
 
             // this.$authenticatedUser.userName = this.user.username
             // this.$authenticatedUser.validity = this.user.validity

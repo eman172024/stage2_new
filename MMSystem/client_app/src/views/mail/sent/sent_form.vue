@@ -2519,9 +2519,9 @@ export default {
     this.releaseDate = date.getFullYear() + "-" + month + "-" + day;
 
     this.mail_year = date.getFullYear();
-    this.my_user_id = localStorage.getItem("userId");
-    this.my_department_id = localStorage.getItem("departmentId");
-    this.roles = localStorage.getItem("roles");
+    this.my_user_id = localStorage.getItem("AY_LW");
+    this.my_department_id = localStorage.getItem("chrome");
+    this.roles = localStorage.getItem("Az07");
 
     if (this.$route.params.mail) {
       this.screenFreeze = true;
@@ -2815,9 +2815,9 @@ func(){
 },
  
  reply1(){
-   document.getElementById("a2").href="SScaner:flag=0" + "userId="+localStorage.getItem("userId") + "mId="+this.mailId +"send_ToId="+this.sends_id+"to="+this.replyByDepartmenId
+   document.getElementById("a2").href="SScaner:flag=0" + "userId="+localStorage.getItem("AY_LW") + "mId="+this.mailId +"send_ToId="+this.sends_id+"to="+this.replyByDepartmenId
  
-  console.log("testreplay "+"  id= "+this.mailId+"userId="+localStorage.getItem("userId")  +"send_ToId="+this.sends_id+"to="+this.replyByDepartmenId)
+  console.log("testreplay "+"  id= "+this.mailId+"userId="+localStorage.getItem("AY_LW")  +"send_ToId="+this.sends_id+"to="+this.replyByDepartmenId)
 
 //************
 },
@@ -2828,7 +2828,7 @@ func(){
       this.$http.mailService
         .PrintOrShowDocument(
           Number(this.mailId),
-          Number(localStorage.getItem("userId")),
+          Number(localStorage.getItem("AY_LW")),
           Number(this.from_reply_or_general)
         )
         .then((res) => {
@@ -2855,7 +2855,7 @@ func(){
       this.$http.mailService
         .PrintOrShowDocument(
           Number(this.mailId),
-          Number(localStorage.getItem("userId")),
+          Number(localStorage.getItem("AY_LW")),
           2
         )
         .then((res) => {
@@ -3044,7 +3044,7 @@ func(){
         .cancel_sending_to_department(
           this.mailId,
           department_id,
-          Number(localStorage.getItem("userId"))
+          Number(localStorage.getItem("AY_LW"))
         )
         .then((res) => {
           setTimeout(() => {
@@ -3195,7 +3195,7 @@ func(){
       this.loading = true;
 
       var ReplyViewModel = {
-        userId: Number(localStorage.getItem("userId")),
+        userId: Number(localStorage.getItem("AY_LW")),
         mailId: Number(this.mailId),
         send_ToId: Number(this.sends_id),
         from: Number(1),
@@ -3296,7 +3296,7 @@ func(){
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .GetAllDocuments(id, Number(localStorage.getItem("userId")))
+        .GetAllDocuments(id, Number(localStorage.getItem("AY_LW")))
         .then((res) => {
           this.show_images_images_model = res.data;
 
@@ -3410,7 +3410,7 @@ func(){
 
       if (this.mailType == "1") {
         var dataUpdate = {
-          userId: Number(localStorage.getItem("userId")),
+          userId: Number(localStorage.getItem("AY_LW")),
           mail: {
             MailID: Number(this.mailId),
             Mail_Type: Number(this.mailType),
@@ -3432,7 +3432,7 @@ func(){
 
       if (this.mailType == "2") {
         var dataUpdate = {
-          userId: Number(localStorage.getItem("userId")),
+          userId: Number(localStorage.getItem("AY_LW")),
           mail: {
             MailID: Number(this.mailId),
             Mail_Type: Number(this.mailType),
@@ -3462,7 +3462,7 @@ func(){
 
       if (this.mailType == "3") {
         var dataUpdate = {
-          userId: Number(localStorage.getItem("userId")),
+          userId: Number(localStorage.getItem("AY_LW")),
           mail: {
             MailID: Number(this.mailId),
             Mail_Type: Number(this.mailType),
@@ -3765,7 +3765,7 @@ func(){
       this.loading = true;
 
       this.$http.mailService
-        .SendMail(Number(this.mailId), Number(localStorage.getItem("userId")))
+        .SendMail(Number(this.mailId), Number(localStorage.getItem("AY_LW")))
         .then((res) => {
           setTimeout(() => {
             this.deleteButton = false;
@@ -3875,8 +3875,8 @@ func(){
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-      //  .GetAllDocuments(29, Number(localStorage.getItem("userId")))
-       .GetAllDocuments(this.mailId, Number(localStorage.getItem("userId")))
+      //  .GetAllDocuments(29, Number(localStorage.getItem("AY_LW")))
+       .GetAllDocuments(this.mailId, Number(localStorage.getItem("AY_LW")))
         .then((res) => {
           console.log(res);
 
@@ -3973,7 +3973,7 @@ func(){
         .UploadImagesMail(
           this.mailId,
           this.imagesToSend,
-          Number(localStorage.getItem("userId"))
+          Number(localStorage.getItem("AY_LW"))
         )
         .then((res) => {
           setTimeout(() => {
@@ -3999,7 +3999,7 @@ func(){
       this.$http.mailService
         .DeleteDocument(
           Number(this.test_image_id),
-          Number(localStorage.getItem("userId"))
+          Number(localStorage.getItem("AY_LW"))
         )
         .then((res) => {
           console.log("SSSSSSSSSSSSSSSSSSSSSS");

@@ -58,8 +58,8 @@ export default {
 
     mounted() {
    
-    this.my_user_id = localStorage.getItem('userId')
-    this.my_department_id = localStorage.getItem('departmentId')
+    this.my_user_id = localStorage.getItem('AY_LW')
+    this.my_department_id = localStorage.getItem('chrome')
   },
 
   data() {

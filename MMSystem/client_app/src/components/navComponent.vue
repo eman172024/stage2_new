@@ -230,9 +230,9 @@ export default {
     // this.date_to = date.getFullYear()+ "-" +month+ "-" +date.getDate()
 
     this.year = date.getFullYear()
-    this.my_user_id = localStorage.getItem('userId')
-    this.my_department_id = localStorage.getItem('departmentId')
-    this.roles = localStorage.getItem("roles");
+    this.my_user_id = localStorage.getItem('AY_LW')
+    this.my_department_id = localStorage.getItem('chrome')
+    this.roles = localStorage.getItem("Az07");
  
 
   },

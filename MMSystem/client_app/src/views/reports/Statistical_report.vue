@@ -517,7 +517,7 @@ export default {
 
     printHistory() {
       var model = {
-        Current: Number(localStorage.getItem("userId")),
+        Current: Number(localStorage.getItem("AY_LW")),
       };
 
       this.$http.mailService
@@ -541,7 +541,7 @@ export default {
 
 
       this.$http.mailService
-        .GetMysectionReport(localStorage.getItem("departmentId"),this.$route.params.dateFrom,this.$route.params.dateTo,this.mail_type_num,"sended")
+        .GetMysectionReport(localStorage.getItem("chrome"),this.$route.params.dateFrom,this.$route.params.dateTo,this.mail_type_num,"sended")
         .then((res) => {
           console.log(res);
           this.mails=res.data.sectionReport;

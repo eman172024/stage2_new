@@ -412,7 +412,7 @@ export default {
 
     printHistory() {
       var model = {
-        Current: Number(localStorage.getItem("userId")),
+        Current: Number(localStorage.getItem("AY_LW")),
       };
 
       this.$http.mailService
