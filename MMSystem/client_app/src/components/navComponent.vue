@@ -220,6 +220,10 @@ export default {
 
     mounted() {
 
+      if(localStorage.getItem('AY_LW') == null){
+        this.$router.push('/')
+      }
+
     var date = new Date();
 
     // var month = date.getMonth() +1;
@@ -263,8 +267,9 @@ export default {
 
   methods: {
     Logout(){
-      localStorage.removeItem('userId');
-      localStorage.removeItem('departmentId');
+      localStorage.removeItem('AY_LW');
+      localStorage.removeItem('chrome');
+      localStorage.removeItem('Az07');
       this.$router.push('/')
     },
     search() {

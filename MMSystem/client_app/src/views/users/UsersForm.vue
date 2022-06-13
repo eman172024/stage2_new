@@ -513,6 +513,9 @@ export default {
   name: "Add",
 
   mounted() {
+    if(localStorage.getItem('AY_LW') == null){
+        this.$router.push('/')
+      }
     this.GetAllDepartments();
     this.GetAllRoles();
 

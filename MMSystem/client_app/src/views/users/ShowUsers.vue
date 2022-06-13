@@ -235,6 +235,9 @@ export default {
   },
 
   mounted() {
+    if(localStorage.getItem('AY_LW') == null){
+        this.$router.push('/')
+      }
     this.$http.mailService
       .GetUsersOfDepartmentControl(this.departmentIdSelected)
       .then((res) => {

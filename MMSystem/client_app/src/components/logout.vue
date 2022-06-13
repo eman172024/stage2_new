@@ -73,8 +73,9 @@ export default {
 
   methods: {
     Logout(){
-      localStorage.removeItem('userId');
-      localStorage.removeItem('departmentId');
+      localStorage.removeItem('AY_LW');
+      localStorage.removeItem('chrome');
+      localStorage.removeItem('Az07');
       this.$router.push('/')
     },
 
