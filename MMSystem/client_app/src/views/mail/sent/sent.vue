@@ -1297,30 +1297,45 @@ export default {
     mailType: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
     date_from: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
     date_to: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
     mail_id: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
     general_incoming_number: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
@@ -1328,12 +1343,18 @@ export default {
     summary: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
     departmentIdSelected: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
@@ -1341,6 +1362,9 @@ export default {
     sideIdSelected: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
@@ -1348,12 +1372,18 @@ export default {
     measureIdSelected: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
     classificationIdSelected: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
@@ -1361,6 +1391,9 @@ export default {
     mail_caseIdSelected: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
@@ -1368,6 +1401,9 @@ export default {
     by_date_of_reply: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
@@ -1687,11 +1723,6 @@ export default {
       this.sends_id = sends_id;
       this.departmentName = departmentName;
       this.departmentflag = flag;
-
-      console.log(this.departmentflag);
-
-      // this.sends_id_to_get_mail_by_id = sends_id_to_get_mail_by_id
-      // this.mangment_sender_to_get_mail_by_id = mangment_sender_to_get_mail_by_id
 
       this.getMailById();
     },
