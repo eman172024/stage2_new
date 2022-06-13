@@ -40,13 +40,15 @@
       </svg>
     </button>
     <div class="flex-1 flex justify-between items-center px-4 md:px-0">
-
       <!-- <a :href="$router.resolve({ name: 'sent-add' }).href"  class="border border-black duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-bold hover:bg-green-600 hover:text-white focus:outline-none">
         إضافة بريد جديد +
       </a> -->
 
-
-      <router-link v-if="roles.includes('d')" :to="{ name: 'sent-add' }" class="border border-black duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-bold hover:bg-green-600 hover:text-white focus:outline-none">
+      <router-link
+        v-if="roles.includes('d')"
+        :to="{ name: 'sent-add' }"
+        class="border border-black duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-bold hover:bg-green-600 hover:text-white focus:outline-none"
+      >
         إضافة بريد جديد +
       </router-link>
 
@@ -217,12 +219,10 @@
 
 <script>
 export default {
-
-    mounted() {
-
-      if(localStorage.getItem('AY_LW') == null){
-        this.$router.push('/')
-      }
+  mounted() {
+    if (localStorage.getItem("AY_LW") == null) {
+      this.$router.push("/");
+    }
 
     var date = new Date();
 
@@ -233,20 +233,18 @@ export default {
     // this.date_from = date.getFullYear()+ "-" +month+ "-" +date.getDate()
     // this.date_to = date.getFullYear()+ "-" +month+ "-" +date.getDate()
 
-    this.year = date.getFullYear()
-    this.my_user_id = localStorage.getItem('AY_LW')
-    this.my_department_id = localStorage.getItem('chrome')
+    this.year = date.getFullYear();
+    this.my_user_id = localStorage.getItem("AY_LW");
+    this.my_department_id = localStorage.getItem("chrome");
     this.roles = localStorage.getItem("Az07");
- 
-
   },
 
   data() {
     return {
       roles: [],
-        my_user_id:'',
-        my_department_id:'',
-        year:'',
+      my_user_id: "",
+      my_department_id: "",
+      year: "",
       userProcedure: false,
       toggleMenu: false,
 
@@ -266,11 +264,11 @@ export default {
   },
 
   methods: {
-    Logout(){
-      localStorage.removeItem('AY_LW');
-      localStorage.removeItem('chrome');
-      localStorage.removeItem('Az07');
-      this.$router.push('/')
+    Logout() {
+      localStorage.removeItem("AY_LW");
+      localStorage.removeItem("chrome");
+      localStorage.removeItem("Az07");
+      this.$router.push("/");
     },
     search() {
       this.closeSearchMenu = true;
