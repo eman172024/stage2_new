@@ -37,16 +37,15 @@
             >
               هيئة الرقابة الإدارية
               <div class="my-4" style="margin-top: 16px; margin-bottom: 16px">
-                منظومة البريد 
+                منظومة البريد
               </div>
-
 
               <div
                 class="ml-4 mt-4"
                 style="margin-left: 16px; margin-top: 16px"
               >
                 <span class="ml-2" style="margin-left: 8px">
-                  تقرير احصائي لجميع مراسلات {{this.mail_type}}  للفترة من
+                  تقرير احصائي لجميع مراسلات {{ this.mail_type }} للفترة من
                 </span>
 
                 <span
@@ -161,8 +160,6 @@
                 >
                   ملاحظات
                 </div>
-
-             
               </div>
 
               <div
@@ -195,7 +192,9 @@
                 display: flex; justify-content: center; align-items: center;
                   "
                 >
-                <span class="flex justify-center items-center">{{ mail.departmentName }}</span>  
+                  <span class="flex justify-center items-center">{{
+                    mail.departmentName
+                  }}</span>
                 </div>
 
                 <div
@@ -236,7 +235,9 @@
                     
                   "
                 >
-               <span class=""> {{ mail.totalOfReceived.totalOfNotReplay }}</span>  
+                  <span class="">
+                    {{ mail.totalOfReceived.totalOfNotReplay }}</span
+                  >
                 </div>
 
                 <div
@@ -261,17 +262,10 @@
                     display: flex; justify-content: center; align-items: center;
                     
                   "
-                >
-                  
-                </div>
+                ></div>
+              </div>
 
-               
-
-              </div> 
-
-
-     <div
-               
+              <div
                 class="
                   w-full
                   flex
@@ -300,7 +294,7 @@
                 display: flex; justify-content: center; align-items: center;
                   "
                 >
-                <span class="flex justify-center items-center">المجاميع</span>  
+                  <span class="flex justify-center items-center">المجاميع</span>
                 </div>
 
                 <div
@@ -313,7 +307,7 @@
                     display: flex; justify-content: center; align-items: center;
                   "
                 >
-                 {{this.total.totalOfMassage}}
+                  {{ this.total.totalOfMassage }}
                 </div>
 
                 <div
@@ -327,7 +321,7 @@
                     
                   "
                 >
-                  {{this.total.totalOfReplay}}
+                  {{ this.total.totalOfReplay }}
                 </div>
 
                 <div
@@ -341,7 +335,7 @@
                     
                   "
                 >
-               <span class=""> {{this.total.totalOfNotReplay}}</span>  
+                  <span class=""> {{ this.total.totalOfNotReplay }}</span>
                 </div>
 
                 <div
@@ -355,7 +349,7 @@
                     
                   "
                 >
-                 {{this.total.average}} %
+                  {{ this.total.average }} %
                 </div>
 
                 <div
@@ -366,26 +360,17 @@
                     display: flex; justify-content: center; align-items: center;
                     
                   "
-                >
-                  
-                </div>
-
-               
-
+                ></div>
               </div>
-
-
-
             </div>
           </div>
         </div>
       </div>
 
-
-    <div class="flex justify-end mb-10 mt-6 pl-7">
-      <div class="">
-        <button
-          class="
+      <div class="flex justify-end mb-10 mt-6 pl-7">
+        <div class="">
+          <button
+            class="
             ml-2
             w-64
             bg-green-700
@@ -399,12 +384,12 @@
             items-center
             justify-center
           "
-          @click="printpage(), printHistory()"
-        >
-          <span class="text-sm font-bold block ml-1">طباعة</span>
+            @click="printpage(), printHistory()"
+          >
+            <span class="text-sm font-bold block ml-1">طباعة</span>
 
-          <svg
-            class="
+            <svg
+              class="
               h-5
               w-5
               mr-1
@@ -413,36 +398,34 @@
               fill-current
               hover:text-blue-500
             "
-            id="Capa_1"
-            enable-background="new 0 0 512 512"
-            height="512"
-            viewBox="0 0 512 512"
-            width="512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g>
-              <path
-                d="m437 129h-14v-54c0-41.355-33.645-75-75-75h-184c-41.355 0-75 33.645-75 75v54h-14c-41.355 0-75 33.645-75 75v120c0 41.355 33.645 75 75 75h14v68c0 24.813 20.187 45 45 45h244c24.813 0 45-20.187 45-45v-68h14c41.355 0 75-33.645 75-75v-120c0-41.355-33.645-75-75-75zm-318-54c0-24.813 20.187-45 45-45h184c24.813 0 45 20.187 45 45v54h-274zm274 392c0 8.271-6.729 15-15 15h-244c-8.271 0-15-6.729-15-15v-148h274zm89-143c0 24.813-20.187 45-45 45h-14v-50h9c8.284 0 15-6.716 15-15s-6.716-15-15-15h-352c-8.284 0-15 6.716-15 15s6.716 15 15 15h9v50h-14c-24.813 0-45-20.187-45-45v-120c0-24.813 20.187-45 45-45h362c24.813 0 45 20.187 45 45z"
-              />
-              <path
-                d="m296 353h-80c-8.284 0-15 6.716-15 15s6.716 15 15 15h80c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
-              />
-              <path
-                d="m296 417h-80c-8.284 0-15 6.716-15 15s6.716 15 15 15h80c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
-              />
-              <path
-                d="m128 193h-48c-8.284 0-15 6.716-15 15s6.716 15 15 15h48c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
-              />
-            </g>
-          </svg>
-        </button>
-      </div>
+              id="Capa_1"
+              enable-background="new 0 0 512 512"
+              height="512"
+              viewBox="0 0 512 512"
+              width="512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g>
+                <path
+                  d="m437 129h-14v-54c0-41.355-33.645-75-75-75h-184c-41.355 0-75 33.645-75 75v54h-14c-41.355 0-75 33.645-75 75v120c0 41.355 33.645 75 75 75h14v68c0 24.813 20.187 45 45 45h244c24.813 0 45-20.187 45-45v-68h14c41.355 0 75-33.645 75-75v-120c0-41.355-33.645-75-75-75zm-318-54c0-24.813 20.187-45 45-45h184c24.813 0 45 20.187 45 45v54h-274zm274 392c0 8.271-6.729 15-15 15h-244c-8.271 0-15-6.729-15-15v-148h274zm89-143c0 24.813-20.187 45-45 45h-14v-50h9c8.284 0 15-6.716 15-15s-6.716-15-15-15h-352c-8.284 0-15 6.716-15 15s6.716 15 15 15h9v50h-14c-24.813 0-45-20.187-45-45v-120c0-24.813 20.187-45 45-45h362c24.813 0 45 20.187 45 45z"
+                />
+                <path
+                  d="m296 353h-80c-8.284 0-15 6.716-15 15s6.716 15 15 15h80c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
+                />
+                <path
+                  d="m296 417h-80c-8.284 0-15 6.716-15 15s6.716 15 15 15h80c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
+                />
+                <path
+                  d="m128 193h-48c-8.284 0-15 6.716-15 15s6.716 15 15 15h48c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
+                />
+              </g>
+            </svg>
+          </button>
+        </div>
 
-      
-      <div class="">
-
-        <button
-          class="
+        <div class="">
+          <button
+            class="
             mr-4
             w-40
             bg-green-700
@@ -454,29 +437,21 @@
             focus:outline-none
          
           "
-
-          @click="back()"
-        
-        >
-          <span class="text-sm font-bold block ml-1">رجوع</span>
-
-        </button>
+            @click="back()"
+          >
+            <span class="text-sm font-bold block ml-1">رجوع</span>
+          </button>
+        </div>
       </div>
-
-    </div>
-
     </div>
   </div>
 </template>
-
 
 <script>
 export default {
   components: {},
 
   mounted() {
-   
-    
     var date = new Date();
 
     var month = date.getMonth() + 1;
@@ -486,13 +461,17 @@ export default {
     if (day < 10) day = "0" + day;
 
     this.date = date.getFullYear() + "-" + month + "-" + day;
-    
 
-    switch(this.$route.params.mailtype){
+    switch (this.$route.params.mailtype) {
+      case "3":
+        this.mail_type_num = 3;
+        this.mail_type = "الوارد الخارجي";
+        break;
 
-        case "3": this.mail_type_num=3; this.mail_type="الوارد الخارجي"; break;
-
-        default: this.mail_type_num=1; this.mail_type="البريد الداخلي" ; break;
+      default:
+        this.mail_type_num = 1;
+        this.mail_type = "البريد الداخلي";
+        break;
     }
 
     this.GetMysectionReport();
@@ -501,10 +480,10 @@ export default {
   data() {
     return {
       mails: [],
-      total:[],
+      total: [],
 
-      mail_type:"",
-      mail_type_num:1,
+      mail_type: "",
+      mail_type_num: 1,
 
       date: "",
     };
@@ -535,17 +514,19 @@ export default {
         });
     },
 
-
-    GetMysectionReport(){
-
-
-
+    GetMysectionReport() {
       this.$http.mailService
-        .GetMysectionReport(localStorage.getItem("chrome"),this.$route.params.dateFrom,this.$route.params.dateTo,this.mail_type_num,"sended")
+        .GetMysectionReport(
+          localStorage.getItem("chrome"),
+          this.$route.params.dateFrom,
+          this.$route.params.dateTo,
+          this.mail_type_num,
+          "sended"
+        )
         .then((res) => {
           console.log(res);
-          this.mails=res.data.sectionReport;
-          this.total=res.data.totalOfTotal;
+          this.mails = res.data.sectionReport;
+          this.total = res.data.totalOfTotal;
         })
         .catch((err) => {
           setTimeout(() => {
@@ -556,12 +537,9 @@ export default {
         });
     },
 
-
-
-    back(){
-
-      this.$router.push('/sent')
-    }
+    back() {
+      this.$router.push("/sent");
+    },
   },
 };
 </script>
