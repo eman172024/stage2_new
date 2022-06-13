@@ -221,6 +221,7 @@
                       <input
                         v-model="mail_id"
                         type="number"
+                        min="1" max="5000"
                         id="mail_id"
                         class="
                           block
@@ -709,6 +710,7 @@
                       <input
                         v-model="general_incoming_number"
                         type="number"
+                        min="1" max="5000"
                         id="general_incoming_number"
                         class="
                           block

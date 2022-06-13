@@ -253,6 +253,7 @@
                       <input
                         v-model="general_incoming_number"
                         type="number"
+                        min="1" max="50000"
                         id="general_incoming_number"
                         class="
                           block

@@ -172,6 +172,7 @@
                       <input
                         v-model="mail_id"
                         type="number"
+                        min="1" max="5000"
                         id="mail_id"
                         class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
                       />
@@ -435,6 +436,7 @@
                       <input
                         v-model="general_incoming_number"
                         type="number"
+                        min="1" max="5000"
                         id="general_incoming_number"
                         class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
                       />
