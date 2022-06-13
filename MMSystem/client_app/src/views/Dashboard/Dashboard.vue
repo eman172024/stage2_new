@@ -12,22 +12,20 @@
               <div class="border border-gray-400 rounded mt-8 p-4 ">
                 <p class="text-center text-lg font-bold">الصادر</p>
                 <section class="grid grid-cols-2 gap-8 mt-8">
-                  
-                    <div
-                    
-                      class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
-                    >
-                      <div class="flex justify-between items-start">
-                        <div class="">
-                          <p class="text-gray-900">مجموع الداخلي</p>
-                          <p
-                            class="font-bold text-gray-600 text-3xl mt-2 text-right"
-                          >
-                            {{ Reports.totale_internell_externl }}
-                          </p>
-                        </div>
+                  <div
+                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
+                  >
+                    <div class="flex justify-between items-start">
+                      <div class="">
+                        <p class="text-gray-900">مجموع الداخلي</p>
+                        <p
+                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                        >
+                          {{ Reports.totale_internell_externl }}
+                        </p>
+                      </div>
 
-                        <!-- <div
+                      <!-- <div
                           class="w-16 h-16 -mt-8 bg-red-500 flex justify-center items-center"
                         >
                           <svg
@@ -58,23 +56,22 @@
                             </g>
                           </svg>
                         </div> -->
-                      </div>
                     </div>
+                  </div>
 
-                    <div
-                    
-                      class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
-                    >
-                      <div class="flex justify-between items-start">
-                        <div class="">
-                          <p class="text-gray-900">داخلي لم يقرأ</p>
-                          <p
-                            class="font-bold text-gray-600 text-3xl mt-2 text-right"
-                          >
-                            {{ Reports.notreaded_internell_externl }}
-                          </p>
-                        </div>
-                        <!-- <div
+                  <div
+                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
+                  >
+                    <div class="flex justify-between items-start">
+                      <div class="">
+                        <p class="text-gray-900">داخلي لم يقرأ</p>
+                        <p
+                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                        >
+                          {{ Reports.notreaded_internell_externl }}
+                        </p>
+                      </div>
+                      <!-- <div
                           class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                         >
                           <svg
@@ -105,24 +102,23 @@
                             />
                           </svg>
                         </div> -->
-                      </div>
                     </div>
+                  </div>
 
-                    <div
-                    
-                      class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
-                    >
-                      <div class="flex justify-between items-start">
-                        <div class="">
-                          <p class="text-gray-900">مجموع الصادر الخارجي</p>
-                          <p
-                            class="font-bold text-gray-600 text-3xl mt-2 text-right"
-                          >
-                            {{ Reports.totale_externl }}
-                          </p>
-                        </div>
+                  <div
+                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
+                  >
+                    <div class="flex justify-between items-start">
+                      <div class="">
+                        <p class="text-gray-900">مجموع الصادر الخارجي</p>
+                        <p
+                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                        >
+                          {{ Reports.totale_externl }}
+                        </p>
+                      </div>
 
-                        <!-- <div
+                      <!-- <div
                           class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                         >
                           <svg
@@ -153,23 +149,22 @@
                             </g>
                           </svg>
                         </div> -->
-                      </div>
                     </div>
+                  </div>
 
-                    <div
-                    
-                      class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
-                    >
-                      <div class="flex justify-between items-start">
-                        <div class="">
-                          <p class="text-gray-900">صادر خارجي لم يقرأ</p>
-                          <p
-                            class="font-bold text-gray-600 text-3xl mt-2 text-right"
-                          >
-                            {{ Reports.notreaded_Totale_externl }}
-                          </p>
-                        </div>
-                        <!-- <div
+                  <div
+                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
+                  >
+                    <div class="flex justify-between items-start">
+                      <div class="">
+                        <p class="text-gray-900">صادر خارجي لم يقرأ</p>
+                        <p
+                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                        >
+                          {{ Reports.notreaded_Totale_externl }}
+                        </p>
+                      </div>
+                      <!-- <div
                           class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                         >
                           <svg
@@ -200,24 +195,23 @@
                             />
                           </svg>
                         </div> -->
-                      </div>
                     </div>
+                  </div>
 
-                    <div
-                    
-                      class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
-                    >
-                      <div class="flex justify-between items-start">
-                        <div class="">
-                          <p class="text-gray-900">مجموع الوارد</p>
-                          <p
-                            class="font-bold text-gray-600 text-3xl mt-2 text-right"
-                          >
-                            {{ Reports.totale_inbox }}
-                          </p>
-                        </div>
+                  <div
+                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
+                  >
+                    <div class="flex justify-between items-start">
+                      <div class="">
+                        <p class="text-gray-900">مجموع الوارد</p>
+                        <p
+                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                        >
+                          {{ Reports.totale_inbox }}
+                        </p>
+                      </div>
 
-                        <!-- <div
+                      <!-- <div
                           class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                         >
                           <svg
@@ -248,23 +242,22 @@
                             </g>
                           </svg>
                         </div> -->
-                      </div>
                     </div>
+                  </div>
 
-                    <div
-                    
-                      class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
-                    >
-                      <div class="flex justify-between items-start">
-                        <div class="">
-                          <p class="text-gray-900">وارد لم يقرأ</p>
-                          <p
-                            class="font-bold text-gray-600 text-3xl mt-2 text-right"
-                          >
-                            {{ Reports.notreaded_Totale_inbox }}
-                          </p>
-                        </div>
-                        <!-- <div
+                  <div
+                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
+                  >
+                    <div class="flex justify-between items-start">
+                      <div class="">
+                        <p class="text-gray-900">وارد لم يقرأ</p>
+                        <p
+                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                        >
+                          {{ Reports.notreaded_Totale_inbox }}
+                        </p>
+                      </div>
+                      <!-- <div
                           class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                         >
                           <svg
@@ -295,47 +288,42 @@
                             />
                           </svg>
                         </div> -->
-                      </div>
                     </div>
-
+                  </div>
                 </section>
               </div>
 
               <div class="border border-gray-400 rounded mt-8 p-4">
                 <p class="text-center text-lg font-bold">الوارد</p>
                 <section class="grid grid-cols-2 gap-8 mt-8">
-                    <div
-                    
-                      class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
-                    >
-                      <div class="flex justify-between items-start">
-                        <div class="">
-                          <p class="text-gray-900">مجموع الداخلي</p>
-                          <p
-                            class="font-bold text-gray-600 text-3xl mt-2 text-right"
-                          >
-                            {{ Reports.totale_Internal_inbox }}
-                          </p>
-                        </div>
-
-                       
+                  <div
+                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
+                  >
+                    <div class="flex justify-between items-start">
+                      <div class="">
+                        <p class="text-gray-900">مجموع الداخلي</p>
+                        <p
+                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                        >
+                          {{ Reports.totale_Internal_inbox }}
+                        </p>
                       </div>
                     </div>
+                  </div>
 
-                    <div
-                    
-                      class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
-                    >
-                      <div class="flex justify-between items-start">
-                        <div class="">
-                          <p class="text-gray-900">داخلي لم يقرأ</p>
-                          <p
-                            class="font-bold text-gray-600 text-3xl mt-2 text-right"
-                          >
-                            {{ Reports.notreaded_Totale_Internal_inbox }}
-                          </p>
-                        </div>
-                        <!-- <div
+                  <div
+                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
+                  >
+                    <div class="flex justify-between items-start">
+                      <div class="">
+                        <p class="text-gray-900">داخلي لم يقرأ</p>
+                        <p
+                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                        >
+                          {{ Reports.notreaded_Totale_Internal_inbox }}
+                        </p>
+                      </div>
+                      <!-- <div
                           class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                         >
                           <svg
@@ -366,24 +354,23 @@
                             />
                           </svg>
                         </div> -->
-                      </div>
                     </div>
+                  </div>
 
-                    <div
-                    
-                      class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
-                    >
-                      <div class="flex justify-between items-start">
-                        <div class="">
-                          <p class="text-gray-900">مجموع الصادر الخارجي</p>
-                          <p
-                            class="font-bold text-gray-600 text-3xl mt-2 text-right"
-                          >
-                            {{ Reports.total_externl2 }}
-                          </p>
-                        </div>
+                  <div
+                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
+                  >
+                    <div class="flex justify-between items-start">
+                      <div class="">
+                        <p class="text-gray-900">مجموع الصادر الخارجي</p>
+                        <p
+                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                        >
+                          {{ Reports.total_externl2 }}
+                        </p>
+                      </div>
 
-                        <!-- <div
+                      <!-- <div
                           class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                         >
                           <svg
@@ -414,23 +401,22 @@
                             </g>
                           </svg>
                         </div> -->
-                      </div>
                     </div>
+                  </div>
 
-                    <div
-                    
-                      class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
-                    >
-                      <div class="flex justify-between items-start">
-                        <div class="">
-                          <p class="text-gray-900">صادر خارجي لم يقرأ</p>
-                          <p
-                            class="font-bold text-gray-600 text-3xl mt-2 text-right"
-                          >
-                            {{ Reports.notreaded_Total_externl2 }}
-                          </p>
-                        </div>
-                        <!-- <div
+                  <div
+                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
+                  >
+                    <div class="flex justify-between items-start">
+                      <div class="">
+                        <p class="text-gray-900">صادر خارجي لم يقرأ</p>
+                        <p
+                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                        >
+                          {{ Reports.notreaded_Total_externl2 }}
+                        </p>
+                      </div>
+                      <!-- <div
                           class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                         >
                           <svg
@@ -461,24 +447,23 @@
                             />
                           </svg>
                         </div> -->
-                      </div>
                     </div>
+                  </div>
 
-                    <div
-                    
-                      class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
-                    >
-                      <div class="flex justify-between items-start">
-                        <div class="">
-                          <p class="text-gray-900">مجموع الوارد</p>
-                          <p
-                            class="font-bold text-gray-600 text-3xl mt-2 text-right"
-                          >
-                            {{ Reports.totale_inbox2 }}
-                          </p>
-                        </div>
+                  <div
+                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
+                  >
+                    <div class="flex justify-between items-start">
+                      <div class="">
+                        <p class="text-gray-900">مجموع الوارد</p>
+                        <p
+                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                        >
+                          {{ Reports.totale_inbox2 }}
+                        </p>
+                      </div>
 
-                        <!-- <div
+                      <!-- <div
                           class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                         >
                           <svg
@@ -509,23 +494,22 @@
                             </g>
                           </svg>
                         </div> -->
-                      </div>
                     </div>
+                  </div>
 
-                    <div
-                    
-                      class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
-                    >
-                      <div class="flex justify-between items-start">
-                        <div class="">
-                          <p class="text-gray-900">وارد خارجي لم يقرأ</p>
-                          <p
-                            class="font-bold text-gray-600 text-3xl mt-2 text-right"
-                          >
-                            {{ Reports.notreaded_Totale_inbox2 }}
-                          </p>
-                        </div>
-                        <!-- <div
+                  <div
+                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
+                  >
+                    <div class="flex justify-between items-start">
+                      <div class="">
+                        <p class="text-gray-900">وارد خارجي لم يقرأ</p>
+                        <p
+                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                        >
+                          {{ Reports.notreaded_Totale_inbox2 }}
+                        </p>
+                      </div>
+                      <!-- <div
                           class="w-16 h-16 -mt-8 bg-green-500 flex justify-center items-center"
                         >
                           <svg
@@ -556,15 +540,11 @@
                             />
                           </svg>
                         </div> -->
-                      </div>
                     </div>
-
+                  </div>
                 </section>
               </div>
-              
             </section>
-            
-            
           </main>
         </div>
       </div>
@@ -619,7 +599,7 @@ export default {
     GetNumbersOfReports() {
       this.$http.DashboardService.NumbersOfReports(this.my_department_id)
         .then((res) => {
-          console.log(res.data)
+          console.log(res.data);
           this.Reports = res.data;
         })
         .catch((err) => {
