@@ -110,6 +110,7 @@
                 >
                   <input
                     type="number"
+                    min="1" max="5000"
                     @keypress.enter="mail_search()"
                     class="w-16 px-1 rounded-md focus:outline-none"
                     v-model="mail_Number"
