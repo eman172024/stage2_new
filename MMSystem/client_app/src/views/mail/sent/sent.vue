@@ -1610,6 +1610,21 @@ connection.on("resivemassage",(state1,massage)=>{
 
             this.getMailById();
             this.imagesToSend = [];
+
+
+
+            for (let index = 0; index < this.senders.length; index++) {
+              if (this.senders[index].send_ToId == this.sends_id){
+                if (this.senders[index].flag == 4 ){
+                  this.senders[index].flag = 5
+                  this.senders[index].state = "تم الرد من قبلك"
+                }
+              }
+            }
+
+
+
+
             // this.GetReplyByDepartment(
             //   this.replyByDepartmenId,
             //   this.sends_id,

@@ -1940,6 +1940,15 @@ export default {
             // this.documentSection = true;
             // this.proceduresSection = true;
 
+            for (let index = 0; index < this.inboxMails.length; index++) {
+              if (this.inboxMails[index].mail_id == this.mailId_to_get_mail_by_id){
+                if (this.inboxMails[index].flag == 2 || this.inboxMails[index].flag == 3){
+                  this.inboxMails[index].flag = 4
+                  this.inboxMails[index].state = " تم الرد من قيلك "
+                }
+              }
+            }
+
             this.loading = false;
             this.screenFreeze = false;
 
