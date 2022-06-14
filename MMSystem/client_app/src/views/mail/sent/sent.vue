@@ -476,6 +476,8 @@
               </div>
 
               <button
+
+                :disabled="report_button"
                 v-if="roles.includes('c')"
                 class="
                   px-8
@@ -1301,7 +1303,18 @@ export default {
       this.departmentflag = 0;
       this.departmentName = '';
       this.page_num = 1;
+
+
+      if(this.mailType==0){
+          this.report_button=true;
+      }
+
+      else{
+        this.report_button=false;
+      }
       this.GetSentMail();
+
+      
     },
     date_from: function() {
       this.senders = [];
@@ -1498,6 +1511,7 @@ export default {
       mangment_sender_to_get_mail_by_id: "",
       replies: [],
       reply_to_add: "",
+      report_button:true,
     };
   },
 
