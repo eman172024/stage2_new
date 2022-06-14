@@ -93,10 +93,7 @@ namespace MMSystem
                 route.MapHub<Testhub>("/api/testhub");
             });
 
-
-
             app.UseAuthorization();
-        
 
             app.UseEndpoints(endpoints =>
             {
