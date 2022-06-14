@@ -221,6 +221,8 @@
                       <input
                         v-model="mail_id"
                         type="number"
+                        min="1"
+                        max="5000"
                         id="mail_id"
                         class="
                           block
@@ -709,6 +711,8 @@
                       <input
                         v-model="general_incoming_number"
                         type="number"
+                        min="1"
+                        max="5000"
                         id="general_incoming_number"
                         class="
                           block
@@ -981,7 +985,6 @@
                       </div>
 
                       <div class="w-1/3 flex justify-center items-center">
-
                         <button
                           v-if="roles.includes('g')"
                           :class="mail.flag != 2 ? 'hidden' : ''"
@@ -1138,10 +1141,14 @@
                       class="w-full my-0.5 flex px-2"
                     >
                       <div class="">
-                        <div class="flex " :class="reply.reply.to == my_department_id
-                          ? '  justify-end'
-                          : 'justify-end flex-row-reverse'
-                        ">
+                        <div
+                          class="flex "
+                          :class="
+                            reply.reply.to == my_department_id
+                              ? '  justify-end'
+                              : 'justify-end flex-row-reverse'
+                          "
+                        >
                           <div v-if="reply.resources != 0" class="mx-2">
                             <button
                               v-if="roles.includes('h')"
@@ -1198,9 +1205,16 @@
                           >
                             {{ reply.reply.mail_detail }}
                           </div>
-                        </div>  
+                        </div>
 
-                        <div class="mt-1 text-sm" :class="reply.reply.to == my_department_id ? 'text-left' : 'text-right'">
+                        <div
+                          class="mt-1 text-sm"
+                          :class="
+                            reply.reply.to == my_department_id
+                              ? 'text-left'
+                              : 'text-right'
+                          "
+                        >
                           {{ reply.reply.date }}
                         </div>
                       </div>
@@ -1227,18 +1241,14 @@
                         >
                         </textarea>
                       </div>
-                      
                     </div>
 
                     <div class="w-3/12">
-
-                    <div class=" ">
-           
-                            <a id="a4" @click="reply1();">  
-                            
-                                         <label
-                          v-if="reply_to_add != ''"
-                          class="
+                      <div class=" ">
+                        <a id="a4" @click="reply1()">
+                          <label
+                            v-if="reply_to_add != ''"
+                            class="
                             w-full
                             h-10
                             flex
@@ -1254,25 +1264,25 @@
                             focus:outline-none
                             duration-300
                           "
-                        >
-                          <svg
-                            class="w-4 h-4 ml-1"
-                            fill="currentColor"
-                            version="1.1"
-                            id="Capa_1"
-                            xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink"
-                            x="0px"
-                            y="0px"
-                            viewBox="0 0 512 512"
-                            style="enable-background: new 0 0 512 512"
-                            xml:space="preserve"
                           >
-                            <g>
+                            <svg
+                              class="w-4 h-4 ml-1"
+                              fill="currentColor"
+                              version="1.1"
+                              id="Capa_1"
+                              xmlns="http://www.w3.org/2000/svg"
+                              xmlns:xlink="http://www.w3.org/1999/xlink"
+                              x="0px"
+                              y="0px"
+                              viewBox="0 0 512 512"
+                              style="enable-background: new 0 0 512 512"
+                              xml:space="preserve"
+                            >
                               <g>
                                 <g>
-                                  <path
-                                    d="M509.501,116.968c1.6-1.6,2.499-3.771,2.499-6.035V76.8c-0.019-1.015-0.222-2.019-0.598-2.962
+                                  <g>
+                                    <path
+                                      d="M509.501,116.968c1.6-1.6,2.499-3.771,2.499-6.035V76.8c-0.019-1.015-0.222-2.019-0.598-2.962
                                                 c-0.076-0.203-0.14-0.399-0.23-0.595c-0.391-0.864-0.925-1.655-1.579-2.342c-0.123-0.128-0.265-0.221-0.396-0.341
                                                 c-0.309-0.312-0.643-0.6-0.997-0.86l-102.4-68.267C404.399,0.499,402.752,0,401.067,0H110.933
                                                 c-1.685,0.001-3.331,0.499-4.733,1.434L3.8,69.7c-0.354,0.26-0.688,0.548-0.997,0.86c-0.131,0.12-0.273,0.214-0.396,0.341
@@ -1291,67 +1301,63 @@
                                                 v17.067H213.333z M247.467,375.467V358.4h17.067v17.067H247.467z M281.6,375.467V358.4h17.067v17.067H281.6z M315.733,375.467
                                                 V358.4H332.8v17.067H315.733z M491.358,341.333H20.642L99.88,119.467h312.24L491.358,341.333z M494.933,102.4H17.067V85.333
                                                 h477.867V102.4z"
-                                  />
-                                  <path
-                                    d="M68.267,375.467H51.2c-9.421,0.011-17.056,7.646-17.067,17.067V409.6c0.011,9.421,7.645,17.056,17.067,17.067h17.067
+                                    />
+                                    <path
+                                      d="M68.267,375.467H51.2c-9.421,0.011-17.056,7.646-17.067,17.067V409.6c0.011,9.421,7.645,17.056,17.067,17.067h17.067
                                                 c9.421-0.011,17.056-7.645,17.067-17.067v-17.067C85.323,383.112,77.688,375.477,68.267,375.467z M51.2,409.6v-17.067h17.067
                                                 l0.012,17.067H51.2z"
-                                  />
-                                  <path
-                                    d="M388.067,136.533H123.933c-7.21,0.012-13.639,4.545-16.071,11.333L53,301.458c-1.863,5.227-1.07,11.034,2.127,15.57
+                                    />
+                                    <path
+                                      d="M388.067,136.533H123.933c-7.21,0.012-13.639,4.545-16.071,11.333L53,301.458c-1.863,5.227-1.07,11.034,2.127,15.57
                                                 s8.399,7.236,13.948,7.238h373.85c5.548-0.003,10.748-2.701,13.945-7.235c3.197-4.534,3.991-10.339,2.13-15.565l-54.862-153.6
                                                 C401.705,141.079,395.277,136.546,388.067,136.533z M69.067,307.225l0.009-0.017V307.2l54.858-153.6h264.129l54.862,153.6
                                                 L69.067,307.225z"
-                                  />
-                                  <path
-                                    d="M128.009,221.867c1.682-0.001,3.326-0.5,4.725-1.434l25.6-17.067c3.872-2.633,4.899-7.894,2.302-11.79
+                                    />
+                                    <path
+                                      d="M128.009,221.867c1.682-0.001,3.326-0.5,4.725-1.434l25.6-17.067c3.872-2.633,4.899-7.894,2.302-11.79
                                                 s-7.849-4.971-11.768-2.409l-25.6,17.067c-3.13,2.087-4.524,5.977-3.432,9.577C120.927,219.41,124.247,221.87,128.009,221.867z"
-                                  />
-                                  <path
-                                    d="M179.2,187.733c2.855,0.03,5.532-1.385,7.115-3.761c1.584-2.376,1.86-5.39,0.735-8.014
+                                    />
+                                    <path
+                                      d="M179.2,187.733c2.855,0.03,5.532-1.385,7.115-3.761c1.584-2.376,1.86-5.39,0.735-8.014
                                                 c-1.031-2.685-3.362-4.656-6.181-5.227c-2.819-0.571-5.733,0.338-7.728,2.41c-0.755,0.829-1.363,1.782-1.796,2.817
                                                 c-1.122,2.625-0.844,5.639,0.74,8.013C173.67,186.346,176.346,187.761,179.2,187.733z"
-                                  />
-                                  <path
-                                    d="M225.542,172.183l-110.933,76.8c-3.071,2.125-4.403,6.001-3.287,9.565c1.116,3.564,4.419,5.989,8.154,5.984
+                                    />
+                                    <path
+                                      d="M225.542,172.183l-110.933,76.8c-3.071,2.125-4.403,6.001-3.287,9.565c1.116,3.564,4.419,5.989,8.154,5.984
                                                 c1.733,0.001,3.426-0.529,4.85-1.517l110.933-76.8c3.864-2.687,4.824-7.996,2.144-11.865
                                                 C234.723,170.482,229.417,169.512,225.542,172.183z"
-                                  />
-                                  <path
-                                    d="M463.275,407.125c0.829,0.753,1.78,1.359,2.813,1.792c2.066,0.911,4.421,0.911,6.487,0
+                                    />
+                                    <path
+                                      d="M463.275,407.125c0.829,0.753,1.78,1.359,2.813,1.792c2.066,0.911,4.421,0.911,6.487,0
                                                 c1.034-0.433,1.987-1.039,2.817-1.792c0.751-0.832,1.357-1.784,1.792-2.817c0.438-1.026,0.67-2.127,0.683-3.242
                                                 c-0.016-0.545-0.073-1.088-0.171-1.625c-0.082-0.563-0.255-1.109-0.513-1.617c-0.187-0.546-0.447-1.064-0.771-1.542
                                                 c-0.313-0.446-0.654-0.872-1.021-1.275c-0.816-0.771-1.772-1.379-2.817-1.792c-3.177-1.341-6.849-0.634-9.3,1.792l-1.025,1.275
                                                 c-0.324,0.477-0.583,0.996-0.771,1.542c-0.258,0.507-0.43,1.053-0.508,1.617c-0.1,0.536-0.157,1.08-0.171,1.625
                                                 c0.012,1.115,0.243,2.216,0.679,3.242C461.914,405.342,462.521,406.295,463.275,407.125z"
-                                  />
-                                  <path
-                                    d="M431.954,408.916c2.067,0.911,4.421,0.911,6.487,0c1.034-0.433,1.987-1.039,2.817-1.792
+                                    />
+                                    <path
+                                      d="M431.954,408.916c2.067,0.911,4.421,0.911,6.487,0c1.034-0.433,1.987-1.039,2.817-1.792
                                                 c0.751-0.832,1.357-1.784,1.792-2.817c0.437-1.025,0.669-2.126,0.683-3.241c-0.016-0.545-0.073-1.088-0.171-1.625
                                                 c-0.082-0.563-0.255-1.109-0.513-1.617c-0.187-0.546-0.447-1.064-0.771-1.542c-0.338-0.425-0.679-0.85-1.021-1.275
                                                 c-0.83-0.753-1.783-1.359-2.817-1.792c-3.178-1.333-6.845-0.626-9.3,1.792l-1.025,1.275c-0.324,0.477-0.583,0.996-0.771,1.542
                                                 c-0.258,0.507-0.43,1.053-0.508,1.617c-0.1,0.536-0.157,1.08-0.171,1.625c-0.029,1.119,0.204,2.229,0.679,3.242
                                                 C428.126,406.449,429.813,408.136,431.954,408.916z"
-                                  />
+                                    />
+                                  </g>
                                 </g>
                               </g>
-                            </g>
-                          </svg>
-                          
-                            <span class="text-xs leading-normal"> تصوير </span>
-                              </label>
+                            </svg>
 
-                            </a>
-                 
-                         <!-- <input
+                            <span class="text-xs leading-normal"> تصوير </span>
+                          </label>
+                        </a>
+
+                        <!-- <input
                             class="hidden"
                             type="button"
                             @click="scanToReply"
                           />-->
-                      
                       </div>
-
-
 
                       <button
                         v-if="reply_to_add != ''"
@@ -1597,7 +1603,6 @@
   </div>
 </template>
 
-
 <script
   type="text/javascript"
   src="http://cdn.asprise.com/scannerjs/scanner.js"
@@ -1609,16 +1614,15 @@ import navComponent from "@/components/navComponent.vue";
 import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 
 //***************
-import {HubConnectionBuilder} from "@microsoft/signalr";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 
-     const connection = new HubConnectionBuilder()
-    // .withUrl('http://172.16.0.12:82/api/Testhub')
-      .withUrl('http://localhost:58316/api/Testhub')
-     .withAutomaticReconnect([0, 1000, 5000, null])
-     .build();   
+const connection = new HubConnectionBuilder()
+  // .withUrl('http://172.16.0.12:82/api/Testhub')
+  .withUrl("http://localhost:58316/api/Testhub")
+  .withAutomaticReconnect([0, 1000, 5000, null])
+  .build();
 connection.start();
 //***************
-
 
 export default {
   created() {},
@@ -1635,9 +1639,9 @@ export default {
     this.date_from = date.getFullYear() + "-" + month + "-" + day;
     this.date_to = date.getFullYear() + "-" + month + "-" + day;
 
-    this.my_user_id = localStorage.getItem("userId");
-    this.my_department_id = localStorage.getItem("departmentId");
-    this.roles = localStorage.getItem("roles");
+    this.my_user_id = localStorage.getItem("AY_LW");
+    this.my_department_id = localStorage.getItem("chrome");
+    this.roles = localStorage.getItem("Az07");
 
     this.GetInboxs();
 
@@ -1649,43 +1653,43 @@ export default {
   },
 
   watch: {
-    mailType: function () {
+    mailType: function() {
       this.GetInboxs();
     },
-    date_from: function () {
+    date_from: function() {
       this.GetInboxs();
     },
-    date_to: function () {
+    date_to: function() {
       this.GetInboxs();
     },
-    mail_id: function () {
-      this.GetInboxs();
-    },
-
-    general_incoming_number: function () {
+    mail_id: function() {
       this.GetInboxs();
     },
 
-    summary: function () {
-      this.GetInboxs();
-    },
-    departmentIdSelected: function () {
-      this.GetInboxs();
-    },
-    sideIdSelected: function () {
-      this.GetInboxs();
-    },
-    measureIdSelected: function () {
-      this.GetInboxs();
-    },
-    classificationIdSelected: function () {
+    general_incoming_number: function() {
       this.GetInboxs();
     },
 
-    mail_caseIdSelected: function () {
+    summary: function() {
       this.GetInboxs();
     },
-    by_date_of_reply: function () {
+    departmentIdSelected: function() {
+      this.GetInboxs();
+    },
+    sideIdSelected: function() {
+      this.GetInboxs();
+    },
+    measureIdSelected: function() {
+      this.GetInboxs();
+    },
+    classificationIdSelected: function() {
+      this.GetInboxs();
+    },
+
+    mail_caseIdSelected: function() {
+      this.GetInboxs();
+    },
+    by_date_of_reply: function() {
       this.GetInboxs();
     },
   },
@@ -1778,26 +1782,47 @@ export default {
   },
 
   methods: {
+    //*************1/6/2022
+    reply1() {
+      console.log("replay" + "  id= " + this.mailId_to_get_mail_by_id);
+      document.getElementById("a4").href =
+        "SScaner:flag=0" +
+        "userId=" +
+        localStorage.getItem("AY_LW") +
+        "mId=" +
+        this.mailId_to_get_mail_by_id +
+        "send_ToId=" +
+        this.sends_id_to_get_mail_by_id +
+        "to=" +
+        this.department_Id;
+      console.log(
+        "testreplay " +
+          "  id= " +
+          this.mailId_to_get_mail_by_id +
+          "userId=" +
+          localStorage.getItem("AY_LW") +
+          "send_ToId=" +
+          this.sends_id_to_get_mail_by_id +
+          "to=" +
+          this.department_Id
+      );
+      //************
+    },
+    //*****End 1/6/2022
 
-//*************1/6/2022
- reply1(){
- console.log("replay"+"  id= "+this.mailId_to_get_mail_by_id)
-   document.getElementById("a4").href="SScaner:flag=0"+"userId="+localStorage.getItem("userId") + "mId="+this.mailId_to_get_mail_by_id +"send_ToId="+this.sends_id_to_get_mail_by_id+"to="+this.department_Id
-     console.log("testreplay "+"  id= "+this.mailId_to_get_mail_by_id+"userId="+localStorage.getItem("userId")  +"send_ToId="+this.sends_id_to_get_mail_by_id+"to="+this.department_Id)
-//************
-},
-//*****End 1/6/2022
-
-    print_image(){
-      this.to_test_print = true
+    print_image() {
+      this.to_test_print = true;
       this.$http.mailService
-        .PrintOrShowDocument(Number(this.mailId_to_get_mail_by_id), Number(localStorage.getItem("userId")), Number(this.from_reply_or_general))
+        .PrintOrShowDocument(
+          Number(this.mailId_to_get_mail_by_id),
+          Number(localStorage.getItem("AY_LW")),
+          Number(this.from_reply_or_general)
+        )
         .then((res) => {
           setTimeout(() => {
             console.log(res);
             this.loading = false;
             this.screenFreeze = false;
-       
           }, 500);
         })
         .catch((err) => {
@@ -1815,27 +1840,25 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
 
-
       this.$http.mailService
         .PrintOrShowDocument(
           Number(this.mailId_to_get_mail_by_id),
-          Number(localStorage.getItem("userId")),
+          Number(localStorage.getItem("AY_LW")),
           2
         )
         .then((res) => {
-            this.show_images = [];
-            this.indextotest = 0;
+          this.show_images = [];
+          this.indextotest = 0;
 
-            this.show_images = this.replies[index].resources;
+          this.show_images = this.replies[index].resources;
 
-            this.testimage = this.show_images[0].path;
+          this.testimage = this.show_images[0].path;
 
-
-            setTimeout(() => {
-              this.show_images_model = true;
-              this.screenFreeze = false;
-              this.loading = false;
-            }, 300);
+          setTimeout(() => {
+            this.show_images_model = true;
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 300);
         })
         .catch((err) => {
           setTimeout(() => {
@@ -1844,11 +1867,8 @@ export default {
           }, 500);
           console.log(err);
         });
-
-
-
     },
-    
+
     scanToReply() {
       scanner.scan(this.displayReplyImagesOnPage, {
         output_settings: [
@@ -1919,7 +1939,7 @@ export default {
       this.loading = true;
 
       var ReplyViewModel = {
-        userId: Number(localStorage.getItem("userId")),
+        userId: Number(localStorage.getItem("AY_LW")),
         mailId: Number(this.mailId_to_get_mail_by_id),
         send_ToId: Number(this.sends_id_to_get_mail_by_id),
         from: Number(2),
@@ -1939,6 +1959,20 @@ export default {
             this.imagesToSend = [];
             // this.documentSection = true;
             // this.proceduresSection = true;
+
+            for (let index = 0; index < this.inboxMails.length; index++) {
+              if (
+                this.inboxMails[index].mail_id == this.mailId_to_get_mail_by_id
+              ) {
+                if (
+                  this.inboxMails[index].flag == 2 ||
+                  this.inboxMails[index].flag == 3
+                ) {
+                  this.inboxMails[index].flag = 4;
+                  this.inboxMails[index].state = " تم الرد من قيلك ";
+                }
+              }
+            }
 
             this.loading = false;
             this.screenFreeze = false;
@@ -1964,13 +1998,10 @@ export default {
       mangment_sender_to_get_mail_by_id
     ) {
       this.mailId_to_get_mail_by_id = mailId_to_get_mail_by_id;
-      this.my_department_id_to_get_mail_by_id =
-        my_department_id_to_get_mail_by_id;
-      this.to_test_passing_mail_type_to_get_mail_by_id =
-        to_test_passing_mail_type_to_get_mail_by_id;
+      this.my_department_id_to_get_mail_by_id = my_department_id_to_get_mail_by_id;
+      this.to_test_passing_mail_type_to_get_mail_by_id = to_test_passing_mail_type_to_get_mail_by_id;
       this.sends_id_to_get_mail_by_id = sends_id_to_get_mail_by_id;
-      this.mangment_sender_to_get_mail_by_id =
-        mangment_sender_to_get_mail_by_id;
+      this.mangment_sender_to_get_mail_by_id = mangment_sender_to_get_mail_by_id;
 
       this.getMailById();
     },
@@ -1987,8 +2018,9 @@ export default {
           this.replies = res.data.list;
 
           setTimeout(() => {
-            document.getElementById("scroll").scrollTop =
-              document.getElementById("scroll").scrollHeight;
+            document.getElementById(
+              "scroll"
+            ).scrollTop = document.getElementById("scroll").scrollHeight;
           }, 100);
 
           this.consignees = res.data.actionSenders;
@@ -2065,7 +2097,7 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .GetAllDocuments(id, Number(localStorage.getItem("userId")))
+        .GetAllDocuments(id, Number(localStorage.getItem("AY_LW")))
         .then((res) => {
           console.log(res);
 
@@ -2116,14 +2148,10 @@ export default {
         .then((res) => {
           console.log(res);
           this.inboxMails = res.data.mail;
-          this.replies = []
-          this.sends_id_to_get_mail_by_id = ''
-          this.mangment_sender_to_get_mail_by_id = ''
-          this.reply_to_add = ''
-
-          
-
-
+          this.replies = [];
+          this.sends_id_to_get_mail_by_id = "";
+          this.mangment_sender_to_get_mail_by_id = "";
+          this.reply_to_add = "";
 
           this.total_of_transaction = res.data.total;
           setTimeout(() => {
@@ -2193,117 +2221,114 @@ export default {
         });
     },
 
-  
+    read_it_mail(id) {
+      // this.screenFreeze = true;
+      // this.loading = true;
+      this.$http.mailService
+        .read_it_mail(
+          id,
+          this.my_department_id,
+          Number(localStorage.getItem("AY_LW"))
+        )
+        .then((res) => {
+          console.log(res);
+          // this.inboxMails = res.data.mail;
+          // this.total_of_transaction = res.data.total
+          // setTimeout(() => {
+          //     this.screenFreeze = false;
+          //     this.loading = false;
 
-  read_it_mail(id) {
-    // this.screenFreeze = true;
-    // this.loading = true;
-    this.$http.mailService
-      .read_it_mail(
-        id,
-        this.my_department_id,
-        Number(localStorage.getItem("userId"))
-      )
-      .then((res) => {
-        console.log(res);
-        // this.inboxMails = res.data.mail;
-        // this.total_of_transaction = res.data.total
-        // setTimeout(() => {
-        //     this.screenFreeze = false;
-        //     this.loading = false;
+          this.GetInboxs();
+          // }, 300);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+            console.log(err);
+          }, 100);
+        });
+    },
 
-        this.GetInboxs();
-        // }, 300);
-      })
-      .catch((err) => {
-        setTimeout(() => {
-          this.screenFreeze = false;
-          this.loading = false;
+    GetAllDepartments() {
+      this.$http.mailService
+        .AllDepartments()
+        .then((res) => {
+          this.departments = res.data;
+        })
+        .catch((err) => {
           console.log(err);
-        }, 100);
-      });
-  },
+        });
+    },
 
-  GetAllDepartments() {
-    this.$http.mailService
-      .AllDepartments()
-      .then((res) => {
-        this.departments = res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
+    selectdepartment(id, name) {
+      this.departmentNameSelected = name;
+      this.departmentIdSelected = id;
+    },
 
-  selectdepartment(id, name) {
-    this.departmentNameSelected = name;
-    this.departmentIdSelected = id;
-  },
+    GetAllSides() {
+      this.$http.mailService
+        .AllSides()
+        .then((res) => {
+          this.sides = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
 
-  GetAllSides() {
-    this.$http.mailService
-      .AllSides()
-      .then((res) => {
-        this.sides = res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
+    selectsides(id, name) {
+      this.sideNameSelected = name;
+      this.sideIdSelected = id;
+    },
 
-  selectsides(id, name) {
-    this.sideNameSelected = name;
-    this.sideIdSelected = id;
-  },
+    GetAllMeasures() {
+      this.$http.mailService
+        .AllMeasures()
+        .then((res) => {
+          this.measures = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
 
-  GetAllMeasures() {
-    this.$http.mailService
-      .AllMeasures()
-      .then((res) => {
-        this.measures = res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
+    selectmeasure(id, name) {
+      this.measureNameSelected = name;
+      this.measureIdSelected = id;
+    },
 
-  selectmeasure(id, name) {
-    this.measureNameSelected = name;
-    this.measureIdSelected = id;
-  },
+    GetAllmail_cases() {
+      this.$http.mailService
+        .AllStateInbox()
+        .then((res) => {
+          this.mail_cases = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
 
-  GetAllmail_cases() {
-    this.$http.mailService
-      .AllStateInbox()
-      .then((res) => {
-        this.mail_cases = res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
+    select_mail_case(id, name) {
+      this.mail_caseNameSelected = name;
+      this.mail_caseIdSelected = id;
+    },
 
-  select_mail_case(id, name) {
-    this.mail_caseNameSelected = name;
-    this.mail_caseIdSelected = id;
-  },
+    GetAllClassifications() {
+      this.$http.mailService
+        .AllClassifications()
+        .then((res) => {
+          this.classifications = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
 
-  GetAllClassifications() {
-    this.$http.mailService
-      .AllClassifications()
-      .then((res) => {
-        this.classifications = res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
-
-  selectClassification(id, name) {
-    this.classificationNameSelected = name;
-    this.classificationIdSelected = id;
-  },
-
+    selectClassification(id, name) {
+      this.classificationNameSelected = name;
+      this.classificationIdSelected = id;
+    },
   },
   // add_to_array_of_side_measure(){
   //     this.consignees.push({

@@ -112,14 +112,18 @@
             class="w-full absolute mt-12 px-2 lg:px-12 z-40"
           >
             <div class="shadow bg-gray-200">
-
-              <div v-if="errorsearc" class="h-16 flex justify-center items-center">
+              <div
+                v-if="errorsearc"
+                class="h-16 flex justify-center items-center"
+              >
                 لقد حدث خطا في عملية البحث, الرجاء المحاولة لاحقا.
               </div>
 
               <div v-else class="">
-
-                <div v-if="noResult" class="h-16 flex justify-center items-center">
+                <div
+                  v-if="noResult"
+                  class="h-16 flex justify-center items-center"
+                >
                   لا توجد نتائج لعرضها.
                 </div>
 
@@ -178,7 +182,6 @@
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -283,29 +286,25 @@ export default {
 
       nameOfRouter: "",
 
-      role: '',
-      fullName: '',
-      userId: '',
-      email: '',
+      role: "",
+      fullName: "",
+      userId: "",
+      email: "",
     };
   },
   mounted() {
-    
     setTimeout(() => {
-        this.fullName = this.$authenticatedUser.fullName;
-        this.role = this.$authenticatedUser.role;
-        this.email = this.$authenticatedUser.email;
-        this.userId = this.$authenticatedUser.userId;
+      this.fullName = this.$authenticatedUser.fullName;
+      this.role = this.$authenticatedUser.role;
+      this.email = this.$authenticatedUser.email;
+      this.userId = this.$authenticatedUser.userId;
 
-        if (this.role == 1) {
-          this.nameOfRouter = "mailCC";
-        } else {
-          this.nameOfRouter = "mailOM-edit";
-        }
-
+      if (this.role == 1) {
+        this.nameOfRouter = "mailCC";
+      } else {
+        this.nameOfRouter = "mailOM-edit";
+      }
     }, 500);
-
-    
   },
   methods: {
     search() {
@@ -322,7 +321,7 @@ export default {
         .GetSearchList(this.searchFor)
         .then((res) => {
           this.resultOfSearch = res.data.result;
-          this.noResult= false;
+          this.noResult = false;
 
           this.senders = this.resultOfSearch.senders;
           this.sentMessages = this.resultOfSearch.sentMessages;
@@ -333,18 +332,18 @@ export default {
             this.sentMessages == 0 &&
             this.releaseDates == 0
           ) {
-              this.noResult= true;
+            this.noResult = true;
             setTimeout(() => {
               this.searchMenu = false;
             }, 1000);
           }
         })
         .catch((err) => {
-          this.noResult= false;
+          this.noResult = false;
           this.errorsearc = true;
           setTimeout(() => {
-              this.searchMenu = false;
-            }, 1000);
+            this.searchMenu = false;
+          }, 1000);
           console.log(err);
         });
     },
@@ -366,7 +365,6 @@ export default {
         .then((res) => {
           let data = res.data;
 
-          console.log(data.statusCode);
           this.$authenticatedUser.userId = 0;
           this.$authenticatedUser.fullName = "";
           this.$authenticatedUser.userName = "";
@@ -379,5 +377,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

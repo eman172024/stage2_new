@@ -127,7 +127,7 @@
               </div>
 
               <div
-                v-for="(mail,index) in mails"
+                v-for="(mail, index) in mails"
                 :key="index"
                 :num1="12"
                 class="
@@ -158,7 +158,7 @@
                     padding: 4px;
                   "
                 >
-                  {{index+1}}
+                  {{ index + 1 }}
                 </div>
 
                 <div
@@ -191,8 +191,6 @@
                   {{ mail.note }}
                 </div>
               </div>
-
-              
             </div>
           </div>
         </div>
@@ -256,7 +254,6 @@
   </div>
 </template>
 
-
 <script>
 export default {
   components: {},
@@ -268,7 +265,6 @@ export default {
   data() {
     return {
       mails: [],
-      
     };
   },
 
@@ -277,24 +273,16 @@ export default {
       this.$htmlToPaper("print");
     },
 
-    
-    printHistory()
-    {
-
+    printHistory() {
       var model = {
-       
-        
-          Current:Number(localStorage.getItem("userId")),
-        }
+        Current: Number(localStorage.getItem("AY_LW")),
+      };
 
-        this.$http.mailService
+      this.$http.mailService
         .printHistory(model)
         .then((res) => {
           console.log(res);
-          setTimeout(() => {
-         
-           
-          }, 300);
+          setTimeout(() => {}, 300);
         })
         .catch((err) => {
           setTimeout(() => {
@@ -303,7 +291,6 @@ export default {
             console.log(err);
           }, 100);
         });
-
     },
   },
 };

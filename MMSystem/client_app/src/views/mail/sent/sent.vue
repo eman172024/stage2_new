@@ -24,7 +24,8 @@
                     type="date"
                     pattern="\d{4}-\d{2}-\d{2}"
                     placeholder="dd-mm-yyyy"
-                    min="2000-12-01" max="2040-12-30"
+                    min="2000-12-01"
+                    max="2040-12-30"
                     id="date_from"
                     v-model="date_from"
                     class="block mr-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
@@ -37,7 +38,8 @@
                     type="date"
                     pattern="\d{4}-\d{2}-\d{2}"
                     placeholder="dd-mm-yyyy"
-                    min="2000-12-01" max="2040-12-30"
+                    min="2000-12-01"
+                    max="2040-12-30"
                     id="date_to"
                     v-model="date_to"
                     class="block mr-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
@@ -161,7 +163,9 @@
                   v-if="filter"
                   class="rounded-b-md shadow-md absolute top-10 border border-t-0 z-40 w-full bg-white px-4 py-8"
                 >
-                  <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 max-w-4xl mx-auto">
+                  <div
+                    class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 max-w-4xl mx-auto"
+                  >
                     <div class="sm:col-span-2">
                       <label
                         for="mail_id"
@@ -172,6 +176,8 @@
                       <input
                         v-model="mail_id"
                         type="number"
+                        min="1"
+                        max="5000"
                         id="mail_id"
                         class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
                       />
@@ -309,7 +315,10 @@
                           <button
                             class="block focus:outline-none w-full my-1 text-right"
                             @click="
-                              select_mail_case(mail_case.flag, mail_case.statename);
+                              select_mail_case(
+                                mail_case.flag,
+                                mail_case.statename
+                              );
                               mail_caseselect = !mail_caseselect;
                             "
                             v-for="mail_case in mail_cases"
@@ -386,7 +395,10 @@
                     </div>
 
                     <div class="sm:col-span-2" v-if="mailType != 1">
-                      <label for="side" class="block text-base font-semibold text-gray-800">
+                      <label
+                        for="side"
+                        class="block text-base font-semibold text-gray-800"
+                      >
                         الجهات الخارجية
                       </label>
 
@@ -415,7 +427,10 @@
 
                           <button
                             class="block focus:outline-none w-full my-1 text-right"
-                            @click=" selectsides( side.id, side.section_Name ); sideselect = !sideselect; "
+                            @click="
+                              selectsides(side.id, side.section_Name);
+                              sideselect = !sideselect;
+                            "
                             v-for="side in sides"
                             :key="side.id"
                           >
@@ -435,13 +450,18 @@
                       <input
                         v-model="general_incoming_number"
                         type="number"
+                        min="1"
+                        max="5000"
                         id="general_incoming_number"
                         class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
                       />
                     </div>
 
                     <div class="sm:col-span-2">
-                      <label for="by_date_of_reply" class="block text-base font-semibold text-gray-800">
+                      <label
+                        for="by_date_of_reply"
+                        class="block text-base font-semibold text-gray-800"
+                      >
                         حسب تاريخ الرد
                       </label>
                       <input
@@ -451,13 +471,12 @@
                         class="block mt-2 h-10 w-10 overflow-hidden rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
                       />
                     </div>
-
                   </div>
                 </div>
               </div>
 
               <button
-              v-if="roles.includes('c')"
+                v-if="roles.includes('c')"
                 class="
                   px-8
                   mr-2
@@ -474,11 +493,10 @@
                   
                 "
                 @click="print_report()"
-              
               >
-                <span class="text-sm font-bold block ml-1  "
-                > تقرير إحصائي </span
-                >
+                <span class="text-sm font-bold block ml-1  ">
+                  تقرير إحصائي
+                </span>
 
                 <svg
                   class="
@@ -683,13 +701,14 @@
                       class="z-10"
                     />
                     <div class="">
-                      <div class="absolute z-0 top-0 py-2 left-0 w-full text-left p-1 flex bg-white items-center justify-end">
-                      <span class="text-xs ml-1">
-                        عدد الرسائل
-                      </span>
-                      {{ total_of_transaction }}
-                    </div>
-
+                      <div
+                        class="absolute z-0 top-0 py-2 left-0 w-full text-left p-1 flex bg-white items-center justify-end"
+                      >
+                        <span class="text-xs ml-1">
+                          عدد الرسائل
+                        </span>
+                        {{ total_of_transaction }}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -720,7 +739,9 @@
                     </div>
                   </div>
 
-                  <div class="min-h-64 h-full overflow-y-auto max-h-64 text-sm bg-gray-100">
+                  <div
+                    class="min-h-64 h-full overflow-y-auto max-h-64 text-sm bg-gray-100"
+                  >
                     <div
                       v-for="sender in senders"
                       :key="sender.department_id"
@@ -762,8 +783,11 @@
                   </div>
                 </div>
               </div>
-<!-- v-if="replies.length > 0" -->
-              <section v-if="departmentflag > 2" class="bg-gray-100 rounded-md p-6 mt-16">
+              <!-- v-if="replies.length > 0" -->
+              <section
+                v-if="departmentflag > 2"
+                class="bg-gray-100 rounded-md p-6 mt-16"
+              >
                 <p class="block text-sm font-semibold text-gray-800">
                   ردود - {{ departmentName }}
                 </p>
@@ -779,17 +803,25 @@
                     border border-gray-300
                   "
                 >
-                  <div v-for="(reply, index) in replies" :key="index" :class="reply.reply.to == my_department_id ? ' flex-row-reverse justify-start' : 'justify-start'"
+                  <div
+                    v-for="(reply, index) in replies"
+                    :key="index"
+                    :class="
+                      reply.reply.to == my_department_id
+                        ? ' flex-row-reverse justify-start'
+                        : 'justify-start'
+                    "
                     class="w-full my-0.5 flex px-2"
                   >
-
                     <div class="">
-                      <div class="flex " :class="reply.reply.to == my_department_id
-                        ? '  justify-end'
-                        : 'justify-end flex-row-reverse'
-                    ">
-                        
-
+                      <div
+                        class="flex "
+                        :class="
+                          reply.reply.to == my_department_id
+                            ? '  justify-end'
+                            : 'justify-end flex-row-reverse'
+                        "
+                      >
                         <div v-if="reply.resources != 0" class="mx-2">
                           <button
                             v-if="roles.includes('h')"
@@ -846,13 +878,19 @@
                         >
                           {{ reply.reply.mail_detail }}
                         </div>
-                      </div>  
+                      </div>
 
-                      <div class="mt-1 text-sm" :class="reply.reply.to == my_department_id ? 'text-left' : 'text-right'">
+                      <div
+                        class="mt-1 text-sm"
+                        :class="
+                          reply.reply.to == my_department_id
+                            ? 'text-left'
+                            : 'text-right'
+                        "
+                      >
                         {{ reply.reply.date }}
                       </div>
                     </div>
-
                   </div>
                 </div>
 
@@ -875,18 +913,15 @@
                         "
                         v-model="reply_to_add"
                       >
-                    </textarea>
+                      </textarea>
                     </div>
 
                     <div class="w-2/12 mr-4">
-                     
-                        
                       <!--  <input class="hidden" type="button" @click="scanToJpg" />-->
-                       <a id="a3" @click="reply1();">   
-                       
+                      <a id="a3" @click="reply1()">
                         <label
-                        v-if="reply_to_add != ''"
-                        class="
+                          v-if="reply_to_add != ''"
+                          class="
                           w-48
                           h-full
                           flex
@@ -903,25 +938,25 @@
                           focus:outline-none
                           duration-300
                         "
-                      >
-                        <svg
-                          class="w-5 h-5 ml-2"
-                          fill="currentColor"
-                          version="1.1"
-                          id="Capa_1"
-                          xmlns="http://www.w3.org/2000/svg"
-                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                          x="0px"
-                          y="0px"
-                          viewBox="0 0 512 512"
-                          style="enable-background: new 0 0 512 512"
-                          xml:space="preserve"
                         >
-                          <g>
+                          <svg
+                            class="w-5 h-5 ml-2"
+                            fill="currentColor"
+                            version="1.1"
+                            id="Capa_1"
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                            x="0px"
+                            y="0px"
+                            viewBox="0 0 512 512"
+                            style="enable-background: new 0 0 512 512"
+                            xml:space="preserve"
+                          >
                             <g>
                               <g>
-                                <path
-                                  d="M509.501,116.968c1.6-1.6,2.499-3.771,2.499-6.035V76.8c-0.019-1.015-0.222-2.019-0.598-2.962
+                                <g>
+                                  <path
+                                    d="M509.501,116.968c1.6-1.6,2.499-3.771,2.499-6.035V76.8c-0.019-1.015-0.222-2.019-0.598-2.962
                                               c-0.076-0.203-0.14-0.399-0.23-0.595c-0.391-0.864-0.925-1.655-1.579-2.342c-0.123-0.128-0.265-0.221-0.396-0.341
                                               c-0.309-0.312-0.643-0.6-0.997-0.86l-102.4-68.267C404.399,0.499,402.752,0,401.067,0H110.933
                                               c-1.685,0.001-3.331,0.499-4.733,1.434L3.8,69.7c-0.354,0.26-0.688,0.548-0.997,0.86c-0.131,0.12-0.273,0.214-0.396,0.341
@@ -940,59 +975,56 @@
                                               v17.067H213.333z M247.467,375.467V358.4h17.067v17.067H247.467z M281.6,375.467V358.4h17.067v17.067H281.6z M315.733,375.467
                                               V358.4H332.8v17.067H315.733z M491.358,341.333H20.642L99.88,119.467h312.24L491.358,341.333z M494.933,102.4H17.067V85.333
                                               h477.867V102.4z"
-                                />
-                                <path
-                                  d="M68.267,375.467H51.2c-9.421,0.011-17.056,7.646-17.067,17.067V409.6c0.011,9.421,7.645,17.056,17.067,17.067h17.067
+                                  />
+                                  <path
+                                    d="M68.267,375.467H51.2c-9.421,0.011-17.056,7.646-17.067,17.067V409.6c0.011,9.421,7.645,17.056,17.067,17.067h17.067
                                               c9.421-0.011,17.056-7.645,17.067-17.067v-17.067C85.323,383.112,77.688,375.477,68.267,375.467z M51.2,409.6v-17.067h17.067
                                               l0.012,17.067H51.2z"
-                                />
-                                <path
-                                  d="M388.067,136.533H123.933c-7.21,0.012-13.639,4.545-16.071,11.333L53,301.458c-1.863,5.227-1.07,11.034,2.127,15.57
+                                  />
+                                  <path
+                                    d="M388.067,136.533H123.933c-7.21,0.012-13.639,4.545-16.071,11.333L53,301.458c-1.863,5.227-1.07,11.034,2.127,15.57
                                               s8.399,7.236,13.948,7.238h373.85c5.548-0.003,10.748-2.701,13.945-7.235c3.197-4.534,3.991-10.339,2.13-15.565l-54.862-153.6
                                               C401.705,141.079,395.277,136.546,388.067,136.533z M69.067,307.225l0.009-0.017V307.2l54.858-153.6h264.129l54.862,153.6
                                               L69.067,307.225z"
-                                />
-                                <path
-                                  d="M128.009,221.867c1.682-0.001,3.326-0.5,4.725-1.434l25.6-17.067c3.872-2.633,4.899-7.894,2.302-11.79
+                                  />
+                                  <path
+                                    d="M128.009,221.867c1.682-0.001,3.326-0.5,4.725-1.434l25.6-17.067c3.872-2.633,4.899-7.894,2.302-11.79
                                               s-7.849-4.971-11.768-2.409l-25.6,17.067c-3.13,2.087-4.524,5.977-3.432,9.577C120.927,219.41,124.247,221.87,128.009,221.867z"
-                                />
-                                <path
-                                  d="M179.2,187.733c2.855,0.03,5.532-1.385,7.115-3.761c1.584-2.376,1.86-5.39,0.735-8.014
+                                  />
+                                  <path
+                                    d="M179.2,187.733c2.855,0.03,5.532-1.385,7.115-3.761c1.584-2.376,1.86-5.39,0.735-8.014
                                               c-1.031-2.685-3.362-4.656-6.181-5.227c-2.819-0.571-5.733,0.338-7.728,2.41c-0.755,0.829-1.363,1.782-1.796,2.817
                                               c-1.122,2.625-0.844,5.639,0.74,8.013C173.67,186.346,176.346,187.761,179.2,187.733z"
-                                />
-                                <path
-                                  d="M225.542,172.183l-110.933,76.8c-3.071,2.125-4.403,6.001-3.287,9.565c1.116,3.564,4.419,5.989,8.154,5.984
+                                  />
+                                  <path
+                                    d="M225.542,172.183l-110.933,76.8c-3.071,2.125-4.403,6.001-3.287,9.565c1.116,3.564,4.419,5.989,8.154,5.984
                                               c1.733,0.001,3.426-0.529,4.85-1.517l110.933-76.8c3.864-2.687,4.824-7.996,2.144-11.865
                                               C234.723,170.482,229.417,169.512,225.542,172.183z"
-                                />
-                                <path
-                                  d="M463.275,407.125c0.829,0.753,1.78,1.359,2.813,1.792c2.066,0.911,4.421,0.911,6.487,0
+                                  />
+                                  <path
+                                    d="M463.275,407.125c0.829,0.753,1.78,1.359,2.813,1.792c2.066,0.911,4.421,0.911,6.487,0
                                               c1.034-0.433,1.987-1.039,2.817-1.792c0.751-0.832,1.357-1.784,1.792-2.817c0.438-1.026,0.67-2.127,0.683-3.242
                                               c-0.016-0.545-0.073-1.088-0.171-1.625c-0.082-0.563-0.255-1.109-0.513-1.617c-0.187-0.546-0.447-1.064-0.771-1.542
                                               c-0.313-0.446-0.654-0.872-1.021-1.275c-0.816-0.771-1.772-1.379-2.817-1.792c-3.177-1.341-6.849-0.634-9.3,1.792l-1.025,1.275
                                               c-0.324,0.477-0.583,0.996-0.771,1.542c-0.258,0.507-0.43,1.053-0.508,1.617c-0.1,0.536-0.157,1.08-0.171,1.625
                                               c0.012,1.115,0.243,2.216,0.679,3.242C461.914,405.342,462.521,406.295,463.275,407.125z"
-                                />
-                                <path
-                                  d="M431.954,408.916c2.067,0.911,4.421,0.911,6.487,0c1.034-0.433,1.987-1.039,2.817-1.792
+                                  />
+                                  <path
+                                    d="M431.954,408.916c2.067,0.911,4.421,0.911,6.487,0c1.034-0.433,1.987-1.039,2.817-1.792
                                               c0.751-0.832,1.357-1.784,1.792-2.817c0.437-1.025,0.669-2.126,0.683-3.241c-0.016-0.545-0.073-1.088-0.171-1.625
                                               c-0.082-0.563-0.255-1.109-0.513-1.617c-0.187-0.546-0.447-1.064-0.771-1.542c-0.338-0.425-0.679-0.85-1.021-1.275
                                               c-0.83-0.753-1.783-1.359-2.817-1.792c-3.178-1.333-6.845-0.626-9.3,1.792l-1.025,1.275c-0.324,0.477-0.583,0.996-0.771,1.542
                                               c-0.258,0.507-0.43,1.053-0.508,1.617c-0.1,0.536-0.157,1.08-0.171,1.625c-0.029,1.119,0.204,2.229,0.679,3.242
                                               C428.126,406.449,429.813,408.136,431.954,408.916z"
-                                />
+                                  />
+                                </g>
                               </g>
                             </g>
-                          </g>
-                        </svg>
+                          </svg>
 
-                       <span class="text-sm leading-normal"> تصوير </span>
-                       </label>
-
-                       </a>
-                 
-                      
+                          <span class="text-sm leading-normal"> تصوير </span>
+                        </label>
+                      </a>
                     </div>
                   </div>
 
@@ -1185,7 +1217,6 @@
   </div>
 </template>
 
-
 <script
   type="text/javascript"
   src="http://cdn.asprise.com/scannerjs/scanner.js"
@@ -1197,13 +1228,13 @@ import navComponent from "@/components/navComponent.vue";
 import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 
 //***************
-import {HubConnectionBuilder} from "@microsoft/signalr";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 
-     const connection = new HubConnectionBuilder()
-    // .withUrl('http://172.16.0.12:82/api/Testhub')
-      .withUrl('http://localhost:58316/api/Testhub')
-     .withAutomaticReconnect([0, 1000, 5000, null])
-     .build();   
+const connection = new HubConnectionBuilder()
+  // .withUrl('http://172.16.0.12:82/api/Testhub')
+  .withUrl("http://localhost:58316/api/Testhub")
+  .withAutomaticReconnect([0, 1000, 5000, null])
+  .build();
 connection.start();
 //***************
 
@@ -1211,19 +1242,16 @@ export default {
   created() {},
 
   mounted() {
+    //*********
+    connection.on("resivemassage", (state1, massage) => {
+      // if(state1==true){
+      if (state1 == true && massage == "a") {
+        console.log("massage=" + massage);
 
-
-//*********
-connection.on("resivemassage",(state1,massage)=>{
-  
-   // if(state1==true){
-       if(state1==true && massage=="a"){
-         console.log("massage="+massage)
-
-         this.GetAllDocumentsToSend()
-    }else
-    //**********2/6/2022
-    /* if(state1==true && massage=="r"){
+        this.GetAllDocumentsToSend();
+      }
+      //**********2/6/2022
+      /* if(state1==true && massage=="r"){
          console.log("massage="+massage)
 
           this.GetReplyByDepartment(
@@ -1233,13 +1261,13 @@ connection.on("resivemassage",(state1,massage)=>{
             );
      }
      else*/
-    //**********end 2/6/2022
-    {
-      console.log("state1=false") 
-    }
-     })
-  
-//*****************
+      //**********end 2/6/2022
+      else {
+        console.log("state1=false");
+      }
+    });
+
+    //*****************
 
     var date = new Date();
 
@@ -1252,9 +1280,9 @@ connection.on("resivemassage",(state1,massage)=>{
     this.date_from = date.getFullYear() + "-" + month + "-" + day;
     this.date_to = date.getFullYear() + "-" + month + "-" + day;
 
-    this.my_user_id = localStorage.getItem("userId");
-    this.my_department_id = localStorage.getItem("departmentId");
-    this.roles = localStorage.getItem("roles");
+    this.my_user_id = localStorage.getItem("AY_LW");
+    this.my_department_id = localStorage.getItem("chrome");
+    this.roles = localStorage.getItem("Az07");
 
     this.GetSentMail();
 
@@ -1269,30 +1297,45 @@ connection.on("resivemassage",(state1,massage)=>{
     mailType: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
     date_from: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
     date_to: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
     mail_id: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
     general_incoming_number: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
@@ -1300,12 +1343,18 @@ connection.on("resivemassage",(state1,massage)=>{
     summary: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
     departmentIdSelected: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
@@ -1313,6 +1362,9 @@ connection.on("resivemassage",(state1,massage)=>{
     sideIdSelected: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
@@ -1320,12 +1372,18 @@ connection.on("resivemassage",(state1,massage)=>{
     measureIdSelected: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
     classificationIdSelected: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
@@ -1333,6 +1391,9 @@ connection.on("resivemassage",(state1,massage)=>{
     mail_caseIdSelected: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
@@ -1340,6 +1401,9 @@ connection.on("resivemassage",(state1,massage)=>{
     by_date_of_reply: function() {
       this.senders = [];
       this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = '';
       this.page_num = 1;
       this.GetSentMail();
     },
@@ -1362,11 +1426,10 @@ connection.on("resivemassage",(state1,massage)=>{
     return {
       roles: [],
       by_date_of_reply: false,
-      general_incoming_number:'',
+      general_incoming_number: "",
 
       imagesToSend: [],
       indexOfimagesToShow: 0,
-
 
       show_senders_mail: "",
       senders: [],
@@ -1439,26 +1502,47 @@ connection.on("resivemassage",(state1,massage)=>{
   },
 
   methods: {
+    //*************1/6/2022
+    reply1() {
+      console.log("replay" + "  id= " + this.mailId_to_get_mail_by_id);
+      document.getElementById("a3").href =
+        "SScaner:flag=0" +
+        "userId=" +
+        localStorage.getItem("AY_LW") +
+        "mId=" +
+        this.mailId_to_get_mail_by_id +
+        "send_ToId=" +
+        this.sends_id +
+        "to=" +
+        this.my_department_id_to_get_mail_by_id;
+      console.log(
+        "testreplay " +
+          "  id= " +
+          this.mailId_to_get_mail_by_id +
+          "userId=" +
+          localStorage.getItem("AY_LW") +
+          "send_ToId=" +
+          this.sends_id +
+          "to=" +
+          this.my_department_id_to_get_mail_by_id
+      );
+      //************
+    },
+    //*****End 1/6/2022
 
-//*************1/6/2022
- reply1(){
- console.log("replay"+"  id= "+this.mailId_to_get_mail_by_id)
-   document.getElementById("a3").href="SScaner:flag=0"+"userId="+localStorage.getItem("userId") + "mId="+this.mailId_to_get_mail_by_id +"send_ToId="+this.sends_id+"to="+this.my_department_id_to_get_mail_by_id
-     console.log("testreplay "+"  id= "+this.mailId_to_get_mail_by_id+"userId="+localStorage.getItem("userId")  +"send_ToId="+this.sends_id+"to="+this.my_department_id_to_get_mail_by_id)
-//************
-},
-//*****End 1/6/2022
-
-    print_image(){
-      this.to_test_print = true
+    print_image() {
+      this.to_test_print = true;
       this.$http.mailService
-        .PrintOrShowDocument(Number(this.mailId_to_get_mail_by_id), Number(localStorage.getItem("userId")), Number(this.from_reply_or_general))
+        .PrintOrShowDocument(
+          Number(this.mailId_to_get_mail_by_id),
+          Number(localStorage.getItem("AY_LW")),
+          Number(this.from_reply_or_general)
+        )
         .then((res) => {
           setTimeout(() => {
             console.log(res);
             this.loading = false;
             this.screenFreeze = false;
-       
           }, 500);
         })
         .catch((err) => {
@@ -1469,35 +1553,32 @@ connection.on("resivemassage",(state1,massage)=>{
           console.log(err);
         });
     },
-    
+
     show_reply_images(index, plase) {
       this.from_reply_or_general = plase;
-
 
       this.screenFreeze = true;
       this.loading = true;
 
-
       this.$http.mailService
         .PrintOrShowDocument(
           Number(this.mailId_to_get_mail_by_id),
-          Number(localStorage.getItem("userId")),
+          Number(localStorage.getItem("AY_LW")),
           2
         )
         .then((res) => {
-            this.show_images = [];
-            this.indextotest = 0;
+          this.show_images = [];
+          this.indextotest = 0;
 
-            this.show_images = this.replies[index].resources;
+          this.show_images = this.replies[index].resources;
 
-            this.testimage = this.show_images[0].path;
+          this.testimage = this.show_images[0].path;
 
-
-            setTimeout(() => {
-              this.show_images_model = true;
-              this.screenFreeze = false;
-              this.loading = false;
-            }, 300);
+          setTimeout(() => {
+            this.show_images_model = true;
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 300);
         })
         .catch((err) => {
           setTimeout(() => {
@@ -1506,7 +1587,6 @@ connection.on("resivemassage",(state1,massage)=>{
           }, 500);
           console.log(err);
         });
-
     },
 
     scanToJpg() {
@@ -1557,10 +1637,7 @@ connection.on("resivemassage",(state1,massage)=>{
         // }
       }
 
-
-
       // this.UploadImagesMail()
-
 
       // if (this.mailType == 1) {
       //   this.to_test_passing_mail_type = 1;
@@ -1572,7 +1649,6 @@ connection.on("resivemassage",(state1,massage)=>{
       //   this.to_test_passing_mail_type = 3;
       // }
 
-
       // setTimeout(() => {
       //   this.GetSentMailById();
       // }, 1000);
@@ -1583,17 +1659,17 @@ connection.on("resivemassage",(state1,massage)=>{
       this.loading = true;
 
       var ReplyViewModel = {
-        userId : Number(localStorage.getItem("userId")),
-        mailId : Number(this.mailId_to_get_mail_by_id),
+        userId: Number(localStorage.getItem("AY_LW")),
+        mailId: Number(this.mailId_to_get_mail_by_id),
         send_ToId: Number(this.sends_id),
         from: Number(1),
         reply: {
           mail_detail: this.reply_to_add,
           To: Number(this.my_department_id_to_get_mail_by_id),
         },
-        file : {
-          "list" : this.imagesToSend
-        }
+        file: {
+          list: this.imagesToSend,
+        },
       };
       this.$http.mailService
         .NewAddReply(ReplyViewModel)
@@ -1610,6 +1686,16 @@ connection.on("resivemassage",(state1,massage)=>{
 
             this.getMailById();
             this.imagesToSend = [];
+
+            for (let index = 0; index < this.senders.length; index++) {
+              if (this.senders[index].send_ToId == this.sends_id) {
+                if (this.senders[index].flag == 4) {
+                  this.senders[index].flag = 5;
+                  this.senders[index].state = "تم الرد من قبلك";
+                }
+              }
+            }
+
             // this.GetReplyByDepartment(
             //   this.replyByDepartmenId,
             //   this.sends_id,
@@ -1632,17 +1718,11 @@ connection.on("resivemassage",(state1,massage)=>{
       departmentName,
       flag
     ) {
-      this.departmentflag = 0
+      this.departmentflag = 0;
       this.my_department_id_to_get_mail_by_id = my_department_id_to_get_mail_by_id;
       this.sends_id = sends_id;
       this.departmentName = departmentName;
       this.departmentflag = flag;
-
-
-      console.log(this.departmentflag)
-
-      // this.sends_id_to_get_mail_by_id = sends_id_to_get_mail_by_id
-      // this.mangment_sender_to_get_mail_by_id = mangment_sender_to_get_mail_by_id
 
       this.getMailById();
     },
@@ -1672,7 +1752,7 @@ connection.on("resivemassage",(state1,massage)=>{
       this.to_test_passing_mail_type_to_get_mail_by_id = mail_type;
 
       this.replies = [];
-      this.departmentflag = 0
+      this.departmentflag = 0;
 
       this.$http.mailService
         .show_senders(id)
@@ -1712,9 +1792,9 @@ connection.on("resivemassage",(state1,massage)=>{
       this.from_reply_or_general = plase;
       this.screenFreeze = true;
       this.loading = true;
-      this.mailId_to_get_mail_by_id = id
+      this.mailId_to_get_mail_by_id = id;
       this.$http.mailService
-        .GetAllDocuments(id, Number(localStorage.getItem("userId")))
+        .GetAllDocuments(id, Number(localStorage.getItem("AY_LW")))
         .then((res) => {
           this.show_images = res.data;
 
@@ -1808,8 +1888,8 @@ connection.on("resivemassage",(state1,massage)=>{
     },
 
     selectsides(id, name) {
-      this.sideNameSelected  = name;
-      this.sideIdSelected  = id;
+      this.sideNameSelected = name;
+      this.sideIdSelected = id;
     },
 
     GetAllMeasures() {
@@ -1833,7 +1913,6 @@ connection.on("resivemassage",(state1,massage)=>{
         .AllStateSent()
         .then((res) => {
           this.mail_cases = res.data;
-
         })
         .catch((err) => {
           console.log(err);
@@ -1861,14 +1940,16 @@ connection.on("resivemassage",(state1,massage)=>{
       this.classificationIdSelected = id;
     },
 
-
-    print_report(){
-
-      this.$router.push({name:'Statistical_report',params:{dateFrom: this.date_from,
-                      dateTo: this.date_to,
-                      mailtype:this.mailType,
-                      }})
-    }
+    print_report() {
+      this.$router.push({
+        name: "Statistical_report",
+        params: {
+          dateFrom: this.date_from,
+          dateTo: this.date_to,
+          mailtype: this.mailType,
+        },
+      });
+    },
   },
 };
 </script>

@@ -3,7 +3,7 @@
     <div class="h-screen bg-gray-100 overflow-hidden flex">
       <div class="flex-1 bg-gray-200 w-0 overflow-y-auto">
         <div class="max-w-screen-2xl mx-auto flex flex-col md:px-8">
-           <logout class="mt-4 ml-4"></logout>
+          <logout class="mt-4 ml-4"></logout>
           <main class="flex-1 relative focus:outline-none pt-2 pb-6">
             <div class="flex justify-between items-center mt-6">
               <div class="">
@@ -1398,8 +1398,8 @@ export default {
     this.date_from = date.getFullYear() + "-" + month + "-" + day;
     this.date_to = date.getFullYear() + "-" + month + "-" + day;
 
-    this.my_user_id = localStorage.getItem("userId");
-    this.my_department_id = localStorage.getItem("departmentId");
+    this.my_user_id = localStorage.getItem("AY_LW");
+    this.my_department_id = localStorage.getItem("chrome");
 
     this.GetMailsForArchives();
 
@@ -1409,51 +1409,51 @@ export default {
   },
 
   watch: {
-    mailType: function () {
+    mailType: function() {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetMailsForArchives();
     },
-    date_from: function () {
+    date_from: function() {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetMailsForArchives();
     },
-    date_to: function () {
+    date_to: function() {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetMailsForArchives();
     },
-    mail_id: function () {
+    mail_id: function() {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetMailsForArchives();
     },
-    summary: function () {
+    summary: function() {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetMailsForArchives();
     },
-    departmentIdSelected: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.page_num = 1;
-      this.GetMailsForArchives();
-    },
-
-    sideIdSelected: function () {
+    departmentIdSelected: function() {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
       this.GetMailsForArchives();
     },
 
-    sectorIdSelected: function () {
+    sideIdSelected: function() {
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.page_num = 1;
+      this.GetMailsForArchives();
+    },
+
+    sectorIdSelected: function() {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
@@ -1608,7 +1608,7 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .GetAllDocuments(id, Number(localStorage.getItem("userId")))
+        .GetAllDocuments(id, Number(localStorage.getItem("AY_LW")))
         .then((res) => {
           console.log(res);
 
@@ -1753,7 +1753,7 @@ export default {
     UpdateArciveState(mail_id1) {
       var model = {
         MailId: mail_id1,
-        Current: Number(localStorage.getItem("userId")),
+        Current: Number(localStorage.getItem("AY_LW")),
       };
 
       this.$http.mailService
@@ -1790,7 +1790,7 @@ export default {
         Number_Of_Copies: Number(this.NoOfcopies),
         note: this.notes,
         delevery: del,
-        Current: Number(localStorage.getItem("userId")),
+        Current: Number(localStorage.getItem("AY_LW")),
       };
 
       this.$http.mailService
@@ -1828,7 +1828,7 @@ export default {
         Attachments: Boolean(this.attached),
         Number_Of_Copies: Number(this.NoOfcopies),
         note: this.notes,
-        Current: Number(localStorage.getItem("userId")),
+        Current: Number(localStorage.getItem("AY_LW")),
       };
 
       this.$http.mailService

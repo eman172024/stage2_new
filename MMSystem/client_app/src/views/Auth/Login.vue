@@ -24,16 +24,15 @@
             منظومة البريد الداخلي
           </h2>
         </div>
-        <div v-on:keyup.enter="submit"  class="mt-8 space-y-6">
+        <div v-on:keyup.enter="submit" class="mt-8 space-y-6">
           <input type="hidden" name="remember" value="true" />
           <div class="rounded-md shadow-sm">
-
             <div class="">
               <label
                 for="department"
                 class="block text-base font-semibold text-gray-800"
               >
-                الإدارات 
+                الإدارات
               </label>
 
               <div class="relative">
@@ -77,7 +76,6 @@
                     rounded-b-md
                   "
                 >
-
                   <button
                     class="block focus:outline-none w-full my-1 text-right"
                     @click="
@@ -145,14 +143,10 @@
                     rounded-b-md
                   "
                 >
-
                   <button
                     class="block focus:outline-none w-full my-1 text-right"
                     @click="
-                      selectUser(
-                        user.userId,
-                        user.userName
-                      );
+                      selectUser(user.userId, user.userName);
                       usersSelect = !usersSelect;
                     "
                     v-for="user in users"
@@ -165,7 +159,6 @@
             </div>
 
             <div>
-
               <label
                 for="email"
                 class="block text-base font-semibold text-gray-800"
@@ -200,10 +193,8 @@
                   focus:z-10
                   sm:text-sm
                 "
-              
               />
             </div>
-
           </div>
           <div>
             <button
@@ -299,7 +290,8 @@
             </div>
 
             <div class="">
-              <router-link v-if="this.user.administrator.departmentId != 19"
+              <router-link
+                v-if="this.user.administrator.departmentId != 19"
                 :to="{ name: 'dashboard' }"
                 class="
                   py-2
@@ -320,8 +312,8 @@
                 دخول
               </router-link>
 
-
-              <router-link v-else 
+              <router-link
+                v-else
                 :to="{ name: 'Archives' }"
                 class="
                   py-2
@@ -341,7 +333,6 @@
               >
                 دخول
               </router-link>
-
             </div>
           </div>
         </div>
@@ -467,8 +458,8 @@ export default {
   },
 
   watch: {
-    departmentIdSelected: function () {
-        this.GetUsersOfDepartment()
+    departmentIdSelected: function() {
+      this.GetUsersOfDepartment();
     },
   },
 
@@ -488,21 +479,14 @@ export default {
       departmentNameSelected: "",
       departmentIdSelected: "",
 
-
-
       users: [],
       usersSelect: false,
       userNameSelected: "",
       userIdSelected: "",
-
-
-
-      
     };
   },
   methods: {
-
-    GetUsersOfDepartment(){
+    GetUsersOfDepartment() {
       // console.log(this.departmentIdSelected)
       this.loading = true;
       this.screenFreeze = true;
@@ -510,18 +494,14 @@ export default {
       this.$http.mailService
         .GetUsersOfDepartment(this.departmentIdSelected)
         .then((res) => {
-
           this.loading = false;
           this.screenFreeze = false;
 
           this.users = res.data;
-
-          
         })
         .catch((err) => {
           console.log(err);
         });
-
     },
 
     selectUser(id, name) {
@@ -530,12 +510,11 @@ export default {
       this.userIdSelected = id;
     },
 
-
     GetAllDepartments() {
       this.$http.mailService
         .AllDepartments()
         .then((res) => {
-          console.log(res)
+          console.log(res);
           this.loading = false;
           this.screenFreeze = false;
           this.departments = res.data;
@@ -548,7 +527,7 @@ export default {
     },
 
     selectdepartment(id, name) {
-      this.userNameSelected = '';
+      this.userNameSelected = "";
       this.departmentNameSelected = name;
       this.departmentIdSelected = id;
     },
@@ -559,11 +538,9 @@ export default {
     },
 
     submit() {
-
       this.screenFreeze = true;
       this.loading = true;
       var Login = {
-        
         Password: this.Password,
         DepartmentId: this.departmentIdSelected,
         UserId: Number(this.userIdSelected),
@@ -583,12 +560,14 @@ export default {
 
             this.$authenticatedUser.userId = this.user.administrator.userId;
             this.$authenticatedUser.name = this.user.administrator.userName;
-            this.$authenticatedUser.departmentId =
-            this.user.administrator.departmentId;
+            this.$authenticatedUser.departmentId = this.user.administrator.departmentId;
 
-            localStorage.setItem("userId", this.user.administrator.userId);
-            localStorage.setItem( "departmentId", this.user.administrator.departmentId);
-            localStorage.setItem( "roles", this.user.listrole);
+            localStorage.setItem("AY_LW", this.user.administrator.userId);
+            localStorage.setItem(
+              "chrome",
+              this.user.administrator.departmentId
+            );
+            localStorage.setItem("Az07", this.user.listrole);
 
             // this.$authenticatedUser.userName = this.user.username
             // this.$authenticatedUser.validity = this.user.validity

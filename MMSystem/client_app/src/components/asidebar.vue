@@ -8,6 +8,7 @@
             aria-hidden="true"
           ></div>
         </div>
+
         <div
           class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-cyan-700"
         >
@@ -456,5 +457,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
