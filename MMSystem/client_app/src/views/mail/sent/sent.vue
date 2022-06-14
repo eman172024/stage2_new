@@ -1305,7 +1305,7 @@ export default {
       this.page_num = 1;
 
 
-      if(this.mailType==0){
+      if(this.mailType==0 || this.mailType==2){
           this.report_button=true;
       }
 
