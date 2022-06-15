@@ -432,7 +432,7 @@ namespace MMSystem.Services.ReplayServeic
                         reply.path = path + extention;
                         reply.order = item.index;
                         reply.State = true;
-                        reply.IsSend = true;
+                        reply.IsSend = false;
 
 
                         bool res = await AddResources(reply);

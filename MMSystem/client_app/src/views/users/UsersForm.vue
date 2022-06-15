@@ -84,6 +84,8 @@
               <input
                 id="national_id"
                 type="text"
+                name="price"  
+                 onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                 v-model="num"
                 class="
                 w-full
