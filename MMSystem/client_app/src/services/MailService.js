@@ -90,8 +90,8 @@ export default {
         return axios.post(`/api/Reply/AddReplyWithPhoto`, ReplyViewModel)
     },
 
-    UploadImagesMail(id, list, userId) {
-        return axios.post(`/api/Mail/Uplode`, { userId: userId, mail_id: Number(id), list: list, })
+    UploadImagesMail(id, list) {
+        return axios.post(`/api/Mail/Uplode`, { userId: 9, mail_id: Number(id), list: list, })
     },
 
     DeleteDocument(id,userId) {
