@@ -3988,7 +3988,7 @@ export default {
         .UploadImagesMail(
           this.mailId,
           this.imagesToSend,
-          Number(localStorage.getItem("AY_LW"))
+          Number(9)
         )
         .then((res) => {
           setTimeout(() => {
