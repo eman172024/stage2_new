@@ -335,6 +335,7 @@ export default {
             console.log(res);
             this.GetUsersOfDepartment(this.departmentIdSelected);
             // this.documentSection = true;
+            
             // this.proceduresSection = true;
           }, 500);
         })
