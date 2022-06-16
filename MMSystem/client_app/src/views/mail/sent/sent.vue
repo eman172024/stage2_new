@@ -477,8 +477,8 @@
 
               <button
 
-                :disabled="report_button"
-                v-if="roles.includes('c')"
+                
+                v-if="roles.includes('c') && !report_button"
                 class="
                   px-8
                   mr-2
