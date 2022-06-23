@@ -9,6 +9,8 @@ import report2 from "../views/Archives/report2.vue";
 import incoming_report from "../views/reports/incoming_report.vue";
 import Statistical_report from "../views/reports/Statistical_report.vue";
 
+import Sent_report from "../views/reports/Sent_report.vue"
+
 
 Vue.use(VueRouter);
 
@@ -179,45 +181,53 @@ const routes = [{
         path: "/UsersForm",
         name: "Add",
         component: Add,
-    
-      },
-     
-      {
+
+    },
+
+    {
         path: "/Show",
         name: "Show",
-       component: Show
-      },
+        component: Show
+    },
 
-      {
+    {
         path: "/Archives",
         name: "Archives",
-       component: Archives
-      },
-    
-      {
+        component: Archives
+    },
+
+    {
         path: "/report",
         name: "report",
-       component: report
-      },
-    
-      {
+        component: report
+    },
+
+    {
         path: "/report2",
         name: "report2",
-       component: report2
-      },
+        component: report2
+    },
 
-      {
+    {
         path: "/incoming_report",
         name: "incoming_report",
-       component: incoming_report
-      },
+        component: incoming_report
+    },
 
-      {
+    {
         path: "/Statistical_report",
         name: "Statistical_report",
-       component: Statistical_report
-      },
-    
+        component: Statistical_report
+    },
+
+
+
+    {
+        path: "/Sent_report",
+        name: "Sent_report",
+        component: Sent_report
+    },
+
 
 ];
 
