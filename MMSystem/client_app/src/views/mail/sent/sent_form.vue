@@ -3320,6 +3320,8 @@ export default {
 
           this.testimage_images_model = this.show_images_images_model[0].path;
 
+          this.test_image_id = this.show_images_images_model[0].id;
+
           setTimeout(() => {
             this.show_images_model = true;
             this.screenFreeze = false;
@@ -3898,6 +3900,7 @@ export default {
           this.imagesToShow = res.data;
 
           this.testimage = this.imagesToShow[0].path;
+          this.test_image_id = this.imagesToShow[0].id;
 
           setTimeout(() => {
             // this.show_images_model = true;
@@ -3985,11 +3988,7 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .UploadImagesMail(
-          this.mailId,
-          this.imagesToSend,
-          Number(9)
-        )
+        .UploadImagesMail(this.mailId, this.imagesToSend, Number(9))
         .then((res) => {
           setTimeout(() => {
             this.ButtonUploadImagesMail = false;
