@@ -44,7 +44,7 @@
               </router-link>
 
               <router-link
-                v-if="roles.includes('i')"
+                v-if="roles.includes('n')"
                 title="البريد الوارد"
                 :to="{ name: 'inbox' }"
                 class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center justify-center text-sm font-medium"
@@ -69,7 +69,7 @@
               </router-link>
 
               <router-link
-                v-if="roles.includes('k')"
+                v-if="roles.includes('a')"
                 title="البريد الصادر"
                 :to="{ name: 'sent' }"
                 class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center justify-center text-sm font-medium"

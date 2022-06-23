@@ -45,7 +45,7 @@
       </a> -->
 
       <router-link
-        v-if="roles.includes('d')"
+        v-if="roles.includes('b')"
         :to="{ name: 'sent-add' }"
         class="border border-black duration-300 bg-white px-4 py-2 rounded-md text-gray-900 font-bold hover:bg-green-600 hover:text-white focus:outline-none"
       >

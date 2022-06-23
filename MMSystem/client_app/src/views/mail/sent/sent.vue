@@ -478,7 +478,7 @@
               <button
 
                 
-                v-if="roles.includes('c') && !report_button"
+                v-if="roles.includes('m') && !report_button"
                 class="
                   px-8
                   mr-2
@@ -826,7 +826,7 @@
                       >
                         <div v-if="reply.resources != 0" class="mx-2">
                           <button
-                            v-if="roles.includes('h')"
+                            v-if="roles.includes('g')"
                             @click="show_reply_images(index, 3)"
                             class="
                               px-2
@@ -1144,7 +1144,7 @@
               </button>
 
               <button
-                v-if="roles.includes('g')"
+                v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#printMe'"
                 class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
