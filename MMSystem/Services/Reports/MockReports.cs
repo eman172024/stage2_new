@@ -713,7 +713,7 @@ namespace MMSystem.Services.Reports
                     {
 
 
-                        var c = await (from x in _data.Mails
+                        var sc = await (from x in _data.Mails
                                        join
 
 
@@ -734,9 +734,9 @@ namespace MMSystem.Services.Reports
                         list.Add(new ReportViewModel
                         {
 
-                            data = c,
+                            data = sc,
                             DepartmentName = item.DepartmentName,
-                            total = c.Count()
+                            total = sc.Count()
 
 
 
@@ -746,25 +746,7 @@ namespace MMSystem.Services.Reports
                     }
                   
 
-                    //var c = await (from x in _data.Mails.Where(p => p.Department_Id == departmentid)
-
-                    //               join z in _data.Sends on x.MailID equals z.MailID
-
-
-                    //               select new ReportViewModel { 
-
-                    //               DepartmentName=_data.Departments.FirstOrDefault(c=>c.Id==z.to).DepartmentName,
-
-
-
-                    //               }
-
-
-
-                    //              ).ToListAsync();
-
-
-
+                  
 
 
 
@@ -773,19 +755,16 @@ namespace MMSystem.Services.Reports
 
 
                     list.Clear();
-                    var dep2 = await _data.Departments.Where(x => x.Id != departmentid).ToListAsync();
 
 
-
-                    foreach (var item in dep2)
-                    {
-
+                    string depname = _data.Departments.FirstOrDefault(x => x.Id == departmentid).DepartmentName;
+                  
 
                         var c = await (from x in _data.Mails
                                        join
 
 
-                 z in _data.Sends.Where(p => p.to == item.Id&&(p.Send_time<=to  &&  p.Send_time>=@from)) on x.MailID equals z.MailID
+                 z in _data.Sends.Where(p => p.to == departmentidFrom && (p.Send_time<=to  &&  p.Send_time>=@from)) on x.MailID equals z.MailID
 
                                        select new DepartmentViewModelDto
                                        {
@@ -803,7 +782,7 @@ namespace MMSystem.Services.Reports
                         {
 
                             data = c,
-                            DepartmentName = item.DepartmentName,
+                            DepartmentName = depname,
                             total = c.Count()
 
 
@@ -811,7 +790,7 @@ namespace MMSystem.Services.Reports
                         });
 
 
-                    }
+               
 
 
 
