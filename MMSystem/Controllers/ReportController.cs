@@ -103,19 +103,29 @@ namespace MMSystem.Controllers
         }
 
         [HttpGet]
-        [Route("GetDepartment")]
+        [Route("GetReportDepartment")]
         public async Task<IActionResult> GetDepartment(int departmentid, int departmentidFrom, DateTime? from, DateTime? to, int type)
         {
-            var c = await _data.GetDepartment( departmentid,  departmentidFrom,  from,  to,  type);
-            if (c .Count()>0)
+
+            try
             {
-                return Ok(c);
+                var c = await _data.GetDepartment(departmentid, departmentidFrom, from, to, type);
+                if (c.Count() > 0)
+                {
+                    return Ok(c);
+                }
+                else
+                {
+                    return NotFound(new Result() { message = "التقارير غير موجودة", statusCode = 404 });
+
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return NotFound(new Result() { message = "التقارير غير موجودة", statusCode = 404 });
+                return BadRequest(new Result() { message =  ex.Message, statusCode = 404 });
 
             }
+
         }
     }
 }
