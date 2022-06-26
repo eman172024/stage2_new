@@ -695,6 +695,26 @@ namespace MMSystem.Services.Reports
         {
             List<ReportViewModel> list = new List<ReportViewModel>();
 
+
+            bool fr = false;
+
+            bool t = false;
+
+            if (from == null) {
+
+                fr = true;
+
+
+            }
+            if (to == null)
+            {
+
+                t = true;
+
+
+            }
+
+
             switch (type)
             {
 
@@ -702,10 +722,10 @@ namespace MMSystem.Services.Reports
 
                 case 1:
 
-                   
 
 
-                    var dep = await _data.Departments.Where(x => x.Id != departmentid).ToListAsync() ;
+
+                    var dep = await _data.Departments.Where(x => x.Id != departmentid).ToListAsync();
 
 
 
@@ -714,10 +734,10 @@ namespace MMSystem.Services.Reports
 
 
                         var sc = await (from x in _data.Mails
-                                       join
+                                        join
 
 
-                 z in _data.Sends.Where(p => p.to == item.Id) on x.MailID equals z.MailID
+                  z in _data.Sends.Where(p => p.to == item.Id && ((p.Send_time <= to || fr == true) && (p.Send_time >= @from)||fr == true)) on x.MailID equals z.MailID
 
                                        select new DepartmentViewModelDto
                                        {
@@ -757,14 +777,14 @@ namespace MMSystem.Services.Reports
                     list.Clear();
 
 
-                    string depname = _data.Departments.FirstOrDefault(x => x.Id == departmentid).DepartmentName;
+                    string depname = _data.Departments.FirstOrDefault(x => x.Id == departmentidFrom).DepartmentName;
                   
 
                         var c = await (from x in _data.Mails
                                        join
 
 
-                 z in _data.Sends.Where(p => p.to == departmentidFrom && (p.Send_time<=to  &&  p.Send_time>=@from)) on x.MailID equals z.MailID
+                 z in _data.Sends.Where(p => p.to == departmentidFrom &&  ((p.Send_time <= to || fr == true) && (p.Send_time >= @from) || fr == true)) on x.MailID equals z.MailID
 
                                        select new DepartmentViewModelDto
                                        {
