@@ -55,7 +55,7 @@ namespace MMSystem.Services.ReplayServeic
 
                 Send_to c = await _data.Sends.Where(x => x.to == depid && x.MailID == mailId && x.State == true ).FirstOrDefaultAsync();
 
-                model.list = await (from x in _data.Replies.Where(x => x.send_ToId == c.Id )
+                model.list = await (from x in _data.Replies.Where(x => x.send_ToId == c.Id && x.state.Equals(true) && x.IsSend.Equals(true))
                                         //       join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
                                     select new RViewModel
                                     {
