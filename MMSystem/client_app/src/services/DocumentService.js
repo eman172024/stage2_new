@@ -3,13 +3,13 @@ import axios from 'axios';
 export default {
 
     AddDocument(newDocuments) {
-        return axios.post(`http://172.16.0.12:82/api/Documents/AddDocuments`, newDocuments)
+        return axios.post(`/api/Documents/AddDocuments`, newDocuments)
 
 
     },
 
     GetDocmentForMail(mailId, marginalized) {
-        return axios.get(`http://172.16.0.12:82/api/Documents/GetDocments/`, {
+        return axios.get(`/api/Documents/GetDocments/`, {
             params: {
                 mailId: mailId,
                 marginalized: marginalized
@@ -18,7 +18,7 @@ export default {
     },
 
     DeleteDocument(documentId) {
-        return axios.delete(`http://172.16.0.12:82/api/Documents/DeleteDocument/`, {
+        return axios.delete(`/api/Documents/DeleteDocument/`, {
             params: {
                 documentId: documentId
             }
