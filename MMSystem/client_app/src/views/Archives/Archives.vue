@@ -398,7 +398,7 @@
                               my-1
                               text-right
                             "
-                            @click="sectorIdSelected = ''"
+                            @click="sectorIdSelected = 0,sectorNameSelected='الكل';get_sides(0,'الكل');"
                           >
                             الكل
                           </button>
@@ -482,9 +482,9 @@
                               text-right
                             "
                             @click="
-                              this.sideNameSelected = '';
-                              this.sideIdSelected = '';
-                              this.sides = [];
+                              
+
+                              pass_side(0, 'الكل')
                             "
                           >
                             الكل
@@ -1532,16 +1532,16 @@ export default {
       page_num: 1,
 
       sideselect: false,
-      sideNameSelected: "",
-      sideIdSelected: "",
+      sideNameSelected: "الكل",
+      sideIdSelected: 0,
       sides: [],
 
       send_to_sector: "",
 
       sectors: [],
       sectorselect: false,
-      sectorNameSelected: "",
-      sectorIdSelected: "",
+      sectorNameSelected: "الكل",
+      sectorIdSelected: 0,
 
       isDelivered: false,
       dtoff: false,
@@ -1555,15 +1555,22 @@ export default {
 
   methods: {
     pass_side(id, name) {
+
+     
+           
       this.sideNameSelected = name;
       this.sideIdSelected = id;
+
     },
 
     get_sides(sector, sector_name) {
-      this.sideNameSelected = "";
-      this.sideIdSelected = "";
+      this.sideNameSelected = "الكل";
+      this.sideIdSelected = 0;
       this.sides = [];
       this.sectorNameSelected = sector_name;
+
+      if(sector==null){sector = 0}
+
       this.$http.sectorsService
         .GetSides(sector)
         .then((res) => {
@@ -1575,13 +1582,13 @@ export default {
     },
 
     get_sectors(type) {
-      if (type == "" || type == 0) {
+      if (type == "" || type == null) {
         type = 0;
       }
-      this.sideNameSelected = "";
-      this.sideIdSelected = "";
-      this.sectorIdSelected = "";
-      this.sectorNameSelected = "";
+      this.sideNameSelected = "الكل";
+      this.sideIdSelected = 0;
+      this.sectorIdSelected = 0;
+      this.sectorNameSelected = "الكل";
       this.sectors = [];
       this.sides = [];
 
