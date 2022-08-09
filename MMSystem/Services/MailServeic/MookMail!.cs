@@ -989,28 +989,40 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
+
+                
                 Mail_Resourcescs res = await _appContext.Mail_Resourcescs.FirstOrDefaultAsync(x => x.ID == id);
+                var sends = await _appContext.Sends.Where(x => x.MailID == id).ToListAsync();
 
-                if (System.IO.File.Exists(res.path))
-                {
-                   // System.IO.File.Delete(res.path);
+                var c = sends.Any(x=>x.flag<2);
 
+                if (c) {
 
-                    res.State = false;
-                    _appContext.Mail_Resourcescs.Update(res);
-                    await _appContext.SaveChangesAsync();
-
-                    Historyes histor = new Historyes();
-                    histor.currentUser = userId;
-                    histor.mailid = res.MailID;
-                    histor.Time = DateTime.Now;
-                    histor.HistortyNameID = 5;
-                    histor.changes = res.path;
-                    bool resw = await _history.Add(histor);
+                    if (System.IO.File.Exists(res.path))
+                    {
+                        // System.IO.File.Delete(res.path);
 
 
-                    return true;
+                        res.State = false;
+                        _appContext.Mail_Resourcescs.Update(res);
+                        await _appContext.SaveChangesAsync();
+
+                        Historyes histor = new Historyes();
+                        histor.currentUser = userId;
+                        histor.mailid = res.MailID;
+                        histor.Time = DateTime.Now;
+                        histor.HistortyNameID = 5;
+                        histor.changes = res.path;
+                        bool resw = await _history.Add(histor);
+
+
+                        return true;
+                    }
+
                 }
+
+
+              
                 return false;
 
 
