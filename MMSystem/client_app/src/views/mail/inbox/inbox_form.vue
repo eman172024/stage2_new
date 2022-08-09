@@ -610,7 +610,7 @@
               </section>
 
               <section
-                v-if="roles.includes('m')"
+                v-if="roles.includes('r')"
                 class="bg-gray-100 rounded-md p-6"
               >
                 <p class="block text-base font-semibold text-gray-800">
@@ -649,7 +649,7 @@
                       >
                         <div v-if="reply.resources != 0" class="mx-2">
                           <button
-                            v-if="roles.includes('h')"
+                            v-if="roles.includes('r')"
                             @click="show_reply_images(index, 3)"
                             class="
                                 px-2
@@ -965,7 +965,7 @@
               </button>
 
               <button
-                v-if="roles.includes('g')"
+                v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#printMe'"
                 class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg"
@@ -1054,7 +1054,7 @@ import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 
 const connection = new HubConnectionBuilder()
-  // .withUrl('http://172.16.0.12:82/api/Testhub')
+//.withUrl('http://172.16.0.12:82/api/Testhub')
   .withUrl("http://localhost:58316/api/Testhub")
   .withAutomaticReconnect([0, 1000, 5000, null])
   .build();

@@ -211,6 +211,8 @@
                       <input
                         v-model="mail_id"
                         type="number"
+                         min="1"
+                        max="50000"
                         id="mail_id"
                         class="
                           block
@@ -1102,6 +1104,8 @@
         </label>
         <input
           type="number"
+           min="0"
+          max="50000"
           v-model="NoOfcopies"
           id="NoOfcopies"
           class="
@@ -1457,6 +1461,7 @@ export default {
       this.senders = [];
       this.show_senders_mail = "";
       this.page_num = 1;
+      
       this.GetMailsForArchives();
     },
   },

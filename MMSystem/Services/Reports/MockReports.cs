@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MMSystem.Model;
+using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel;
 using MMSystem.Model.ViewModel.Reports;
 using System;
@@ -688,6 +689,143 @@ namespace MMSystem.Services.Reports
                 throw;
             }
            
+        }
+
+        public async Task<List<ReportViewModel>> GetDepartment(int departmentid, int departmentidFrom,DateTime? from, DateTime? to,int type)
+        {
+            List<ReportViewModel> list = new List<ReportViewModel>();
+
+
+            bool fr = false;
+
+            bool t = false;
+
+            if (from == null) {
+
+                fr = true;
+
+
+            }
+            if (to == null)
+            {
+
+                t = true;
+
+
+            }
+
+
+            switch (type)
+            {
+
+
+
+                case 1:
+
+
+
+
+                    var dep = await _data.Departments.Where(x => x.Id != departmentid).ToListAsync();
+
+
+
+                    foreach (var item in dep)
+                    {
+
+
+                        var sc = await (from x in _data.Mails
+                                        join
+
+
+                  z in _data.Sends.Where(p => p.to == item.Id && ((p.Send_time <= to || fr == true) && (p.Send_time >= @from)||fr == true)) on x.MailID equals z.MailID
+
+                                       select new DepartmentViewModelDto
+                                       {
+
+                                           dateOfSend = z.Send_time.ToString("yyyy-MM-dd"),
+                                           Mail_Number = x.MailID,
+                                           Mail_Summary = x.Mail_Summary,
+                                           TimeOfSend = z.Send_time.ToString("HH:mm:ss"),
+                                          
+
+
+                                       }).ToListAsync();
+
+                        list.Add(new ReportViewModel
+                        {
+
+                            data = sc,
+                            DepartmentName = item.DepartmentName,
+                            total = sc.Count()
+
+
+
+                        }) ;
+
+
+                    }
+                  
+
+                  
+
+
+
+                    break;
+                case 2:
+
+
+                    list.Clear();
+
+
+                    string depname = _data.Departments.FirstOrDefault(x => x.Id == departmentidFrom).DepartmentName;
+                  
+
+                        var c = await (from x in _data.Mails
+                                       join
+
+
+                 z in _data.Sends.Where(p => p.to == departmentidFrom &&  ((p.Send_time <= to || fr == true) && (p.Send_time >= @from) || fr == true)) on x.MailID equals z.MailID
+
+                                       select new DepartmentViewModelDto
+                                       {
+
+                                           dateOfSend = z.Send_time.ToString("yyyy-MM-dd"),
+                                           Mail_Number = x.MailID,
+                                           Mail_Summary = x.Mail_Summary,
+                                           TimeOfSend = z.Send_time.ToString("HH:mm:ss"),
+
+
+
+                                       }).ToListAsync();
+
+                        list.Add(new ReportViewModel
+                        {
+
+                            data = c,
+                            DepartmentName = depname,
+                            total = c.Count()
+
+
+
+                        });
+
+
+               
+
+
+
+                    break;
+
+
+                default:
+                    break;
+            }
+
+            return list;     
+        
+        
+        
+        
         }
     }
 }

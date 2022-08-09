@@ -476,9 +476,64 @@
               </div>
 
               <button
+                v-if="roles.includes('m')"
+                class="
+                  px-8
+                  mr-2
+                  w-2/12
+                  bg-green-700
+                  text-green-50
+                  rounded-md
+                  border border-green-300
+                  hover:bg-green-800
+                  focus:outline-none
+                  flex
+                  items-center
+                  justify-center
+                  
+                "
+                @click="GetMailsToPrint()"
+              >
+                <span class="text-sm font-bold block ml-1  ">
+                  طباعة
+                </span>
 
-                
-                v-if="roles.includes('c') && !report_button"
+                <svg
+                  class="
+                    h-5
+                    w-5
+                    mr-1
+                    text-white
+                    block
+                    fill-current
+                    hover:text-blue-500
+                  "
+                  id="Capa_1"
+                  enable-background="new 0 0 512 512"
+                  height="512"
+                  viewBox="0 0 512 512"
+                  width="512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g>
+                    <path
+                      d="m437 129h-14v-54c0-41.355-33.645-75-75-75h-184c-41.355 0-75 33.645-75 75v54h-14c-41.355 0-75 33.645-75 75v120c0 41.355 33.645 75 75 75h14v68c0 24.813 20.187 45 45 45h244c24.813 0 45-20.187 45-45v-68h14c41.355 0 75-33.645 75-75v-120c0-41.355-33.645-75-75-75zm-318-54c0-24.813 20.187-45 45-45h184c24.813 0 45 20.187 45 45v54h-274zm274 392c0 8.271-6.729 15-15 15h-244c-8.271 0-15-6.729-15-15v-148h274zm89-143c0 24.813-20.187 45-45 45h-14v-50h9c8.284 0 15-6.716 15-15s-6.716-15-15-15h-352c-8.284 0-15 6.716-15 15s6.716 15 15 15h9v50h-14c-24.813 0-45-20.187-45-45v-120c0-24.813 20.187-45 45-45h362c24.813 0 45 20.187 45 45z"
+                    />
+                    <path
+                      d="m296 353h-80c-8.284 0-15 6.716-15 15s6.716 15 15 15h80c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
+                    />
+                    <path
+                      d="m296 417h-80c-8.284 0-15 6.716-15 15s6.716 15 15 15h80c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
+                    />
+                    <path
+                      d="m128 193h-48c-8.284 0-15 6.716-15 15s6.716 15 15 15h48c8.284 0 15-6.716 15-15s-6.716-15-15-15z"
+                    />
+                  </g>
+                </svg>
+              </button>
+
+              <button
+                v-if="roles.includes('m') && !report_button"
                 class="
                   px-8
                   mr-2
@@ -826,7 +881,7 @@
                       >
                         <div v-if="reply.resources != 0" class="mx-2">
                           <button
-                            v-if="roles.includes('h')"
+                            v-if="roles.includes('g')"
                             @click="show_reply_images(index, 3)"
                             class="
                               px-2
@@ -1144,7 +1199,7 @@
               </button>
 
               <button
-                v-if="roles.includes('g')"
+                v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#printMe'"
                 class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
@@ -1964,6 +2019,17 @@ export default {
         },
       });
     },
+
+    GetMailsToPrint(){
+        this.$router.push({
+        name: "Sent_report",
+          params: {
+            dateFrom: this.date_from,
+            dateTo: this.date_to,
+            mailtype: this.mailType,
+          },
+        });
+    }
   },
 };
 </script>

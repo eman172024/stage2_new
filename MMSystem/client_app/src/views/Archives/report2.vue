@@ -1,9 +1,12 @@
 <template>
-  <div class="h-full bg-gray-100">
-    <div class="overflow-hidden">
+
+<div class="bg-gray-100 h-screen">
+  
+  <div class=" bg-gray-100 ">
+    
       <div
         id="print"
-        class="w-full h-full text-center bg-gray-100 py-1 px-4"
+        class="w-full  text-center  py-1 px-4"
         style="
           width: 100%;
           height: 100%;
@@ -196,7 +199,14 @@
         </div>
       </div>
 
-      <div class="w-full mb-10">
+
+
+
+
+    <div class="flex justify-end ml-6">
+      
+  
+      <div class=" ">
         <button
           class="
             mx-auto
@@ -250,7 +260,33 @@
           </svg>
         </button>
       </div>
+
+        <div class=" ">
+          <button
+            class="
+            mr-4
+            w-40
+            bg-green-700
+            text-green-50
+            rounded-md
+            py-3
+            border border-green-300
+            hover:bg-green-800
+            focus:outline-none
+         
+          "
+            @click="back()"
+          >
+            <span class="text-sm font-bold block ml-1">رجوع</span>
+          </button>
+        </div>
+
     </div>
+
+
+
+    
+  </div>
   </div>
 </template>
 
@@ -291,6 +327,10 @@ export default {
             console.log(err);
           }, 100);
         });
+    },
+
+       back() {
+      this.$router.push("/Archives");
     },
   },
 };

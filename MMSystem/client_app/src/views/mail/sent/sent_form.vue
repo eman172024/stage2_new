@@ -6,7 +6,7 @@
         <div class="max-w-screen-2xl mx-auto flex flex-col md:px-8">
           <navComponent></navComponent>
 
-          <div v-if="roles.includes('d')" class="-mt-14 py-0.5 z-20 w-44">
+          <div v-if="roles.includes('b')" class="-mt-14 py-0.5 z-20 w-44">
             <button
               @click="clear_page()"
               class="
@@ -42,7 +42,7 @@
                   </legend>
 
                   <div class="flex justify-between items-center">
-                    <div v-if="roles.includes('o')" class="flex items-center">
+                    <div v-if="roles.includes('c')" class="flex items-center">
                       <input
                         v-model="mailType"
                         id="internal"
@@ -57,7 +57,7 @@
                     </div>
 
                     <div
-                      v-if="roles.includes('j')"
+                      v-if="roles.includes('e')"
                       class="flex items-center mx-4"
                     >
                       <input
@@ -76,7 +76,7 @@
                       </label>
                     </div>
 
-                    <div v-if="roles.includes('a')" class="flex items-center">
+                    <div v-if="roles.includes('d')" class="flex items-center">
                       <input
                         v-model="mailType"
                         id="external_incoming"
@@ -1014,7 +1014,7 @@
                        
                       
                     "
-                      v-if="show_images && roles.includes('h')"
+                      v-if="show_images && roles.includes('g')"
                     >
                       عرض الصور
                     </button>
@@ -1582,7 +1582,7 @@
                           classification &&
                           (consignees.length != 0 ||
                             newactionSenders.length != 0) &&
-                          roles.includes('s')
+                          roles.includes('i')
                       "
                       @click="deleteMail"
                       type="button"
@@ -1871,7 +1871,7 @@
                   </div>
 
                   <div
-                    v-if="sendButton && roles.includes('b')"
+                    v-if="sendButton && roles.includes('h')"
                     class="flex justify-end"
                   >
                     <button
@@ -2010,9 +2010,9 @@
                             : 'justify-end flex-row-reverse'
                         "
                       >
-                        <!--<div v-if="reply.resources != 0" class="mx-2">
+                        <div v-if="reply.resources != 0" class="mx-2">
                           <button
-                            v-if="roles.includes('h')"
+                            v-if="roles.includes('g')"
                             @click="show_reply_images(index, 3)"
                             class="
                               px-2
@@ -2054,7 +2054,7 @@
                               />
                             </svg>
                           </button>
-                        </div>-->
+                        </div>
 
                         <div
                           :class="
@@ -2348,7 +2348,7 @@
               </button>
 
               <button
-                v-if="roles.includes('g')"
+                v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#printMe'"
                 class="
@@ -3320,6 +3320,8 @@ export default {
 
           this.testimage_images_model = this.show_images_images_model[0].path;
 
+          this.test_image_id = this.show_images_images_model[0].id;
+
           setTimeout(() => {
             this.show_images_model = true;
             this.screenFreeze = false;
@@ -3898,6 +3900,7 @@ export default {
           this.imagesToShow = res.data;
 
           this.testimage = this.imagesToShow[0].path;
+          this.test_image_id = this.imagesToShow[0].id;
 
           setTimeout(() => {
             // this.show_images_model = true;
@@ -3985,11 +3988,7 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .UploadImagesMail(
-          this.mailId,
-          this.imagesToSend,
-          Number(9)
-        )
+        .UploadImagesMail(this.mailId, this.imagesToSend, Number(9))
         .then((res) => {
           setTimeout(() => {
             this.ButtonUploadImagesMail = false;

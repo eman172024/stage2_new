@@ -758,7 +758,7 @@
               </div>
 
               <button
-                v-if="roles.includes('g')"
+                v-if="roles.includes('m')"
                 class="
                   px-8
                   mr-2
@@ -952,7 +952,7 @@
 
                       <div class="w-1/3 flex justify-center items-center">
                         <button
-                          v-if="roles.includes('g')"
+                          v-if="roles.includes('k')"
                           @click="GetAllDocuments(mail.mail_id, 1)"
                           title="طباعة المستندات"
                           class="focus:outline-none"
@@ -985,8 +985,9 @@
                       </div>
 
                       <div class="w-1/3 flex justify-center items-center">
+                        <!-- v-if="roles.includes('g')" -->
                         <button
-                          v-if="roles.includes('g')"
+                          
                           :class="mail.flag != 2 ? 'hidden' : ''"
                           @click="read_it_mail(mail.mail_id)"
                           title="تأكيد قراءة البريد"
@@ -1112,7 +1113,7 @@
                 </div>
               </div>
 
-              <div v-if="roles.includes('m')" class="w-5/12 mr-2">
+              <div v-if="roles.includes('r')" class="w-5/12 mr-2">
                 الردود - {{ mangment_sender_to_get_mail_by_id }}
 
                 <div
@@ -1151,7 +1152,7 @@
                         >
                           <div v-if="reply.resources != 0" class="mx-2">
                             <button
-                              v-if="roles.includes('h')"
+                              v-if="roles.includes('s')"
                               @click="show_reply_images(index, 3)"
                               class="
                                 px-2
@@ -1495,7 +1496,7 @@
               </button>
 
               <button
-                v-if="roles.includes('g')"
+                v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#printMe'"
                 class="
@@ -1617,7 +1618,7 @@ import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 
 const connection = new HubConnectionBuilder()
-  // .withUrl('http://172.16.0.12:82/api/Testhub')
+ // .withUrl('http://172.16.0.12:82/api/Testhub')
   .withUrl("http://localhost:58316/api/Testhub")
   .withAutomaticReconnect([0, 1000, 5000, null])
   .build();

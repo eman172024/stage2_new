@@ -1,4 +1,5 @@
-﻿using MMSystem.Model.ViewModel;
+﻿using MMSystem.Model.Dto;
+using MMSystem.Model.ViewModel;
 using MMSystem.Model.ViewModel.Reports;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,8 @@ namespace MMSystem.Services.Reports
         Task<UserReports> GetAllUserMassageReport(int id, DateTime fromdate, DateTime todate, int ? MailType, string SendedOrRecieved);      
         Task<TotalCounts> GetAllSystemCount();
         Task<UsersConclsionReport> GetAllUserCount(int departmentid, DateTime fromdate, DateTime todate, int ? MailType, string RecievedOrSended);
+
+        Task<List<ReportViewModel>> GetDepartment(int departmentto, int departmentidFrom, DateTime? from, DateTime? to,int type);
+
     }
 }
