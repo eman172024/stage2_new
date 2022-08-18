@@ -2791,65 +2791,87 @@ export default {
     //*****************29/3/2022
     func() {
 
-    /* var link = document.getElementById('a1');
-      // var timeout;
-
-       //var ip= "//"+"\\172.16.0.12";
-
-        //var cpath=ip + "\\" +"aca-mail" + "\\" + "scan-setup.exe";
-
-       // window.addEventListener('blur',function(e){
-         //   window.clearTimeout(timeout);
-       // })
-        
-      //  link.addEventListener('click', function(e) { 
-        
-        //    timeout = window.setTimeout(function() {
-          //    console.log('timeout');
-             // console.log("//"+"file://mail/aca-mail/scan-setup.exe")
-               // window.location="//"+"file://mail/aca-mail/scan-setup.exe";
-            //   console.log(cpath);
-             //  window.location=cpath;
-              // window.location="//"+"file://mail/aca-mail/scan-setup.exe";
-           // }, 1000);
-        //console.log('timeout');
-           // window.location = "scanapp://";
-             //window.location=cpath;
-          //  e.preventDefault();
-        //});
-*/
-      //***********
-      console.log("bbbbbbbhhhhhhh" + "  id= " + this.mailId);
+      var link = document.getElementById('a1');
+           //***********
+            var mailid = this.mailId;
+  //    console.log("bbbbbbbhhhhhhh" + "  id= " + this.mailId);
       //document.getElementById("a1").href="SScaner:id=" + this.mailId;
-      document.getElementById("a1").href =
-        "SScaner:flag=1" + "mId=" + this.mailId;
-      console.log("test " + "  id= " + this.mailId);
+      
+   //   console.log("test " + "  id= " + this.mailId);
       //************
+
+       var timeout;
+        window.addEventListener('blur',function(e){
+            window.clearTimeout(timeout);
+        })
+        
+        link.addEventListener('click', function(e) { 
+        
+            timeout = window.setTimeout(function() {
+
+                window.location = "http://mail/scanner_app/Setup1.msi";
+
+            }, 1000);
+
+            link.href =
+        "SScaner:flag=1" + "mId=" + mailid;
+          //  e.preventDefault();
+        });
+
+     
     },
 
     reply1() {
-      document.getElementById("a2").href =
+
+
+var link =document.getElementById("a2");
+
+var replyByDepartmenId = this.replyByDepartmenId;
+var sends_id = this.sends_id;
+var mailId = this.mailId;
+
+
+
+    var timeout;
+        window.addEventListener('blur',function(e){
+            window.clearTimeout(timeout);
+        })
+        
+        link.addEventListener('click', function(e) { 
+        
+            timeout = window.setTimeout(function() {
+
+                window.location = "http://mail/scanner_app/Setup1.msi";
+
+            }, 1000);
+
+         
+      //*******************
+      link.href =
         "SScaner:flag=0" +
         "userId=" +
         localStorage.getItem("AY_LW") +
         "mId=" +
-        this.mailId +
+        mailId +
         "send_ToId=" +
-        this.sends_id +
+        sends_id +
         "to=" +
-        this.replyByDepartmenId;
+        replyByDepartmenId;
 
       console.log(
         "testreplay " +
           "  id= " +
-          this.mailId +
+          mailId +
           "userId=" +
           localStorage.getItem("AY_LW") +
           "send_ToId=" +
-          this.sends_id +
+          sends_id +
           "to=" +
-          this.replyByDepartmenId
+          replyByDepartmenId
       );
+        });
+
+    
 
       //************
     },
