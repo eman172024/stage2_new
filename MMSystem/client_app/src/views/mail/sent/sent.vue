@@ -1585,7 +1585,7 @@ export default {
             window.clearTimeout(timeout);
         })
         
-        link.addEventListener('click', function(e) { 
+      //  link.addEventListener('click', function(e) { 
         
             timeout = window.setTimeout(function() {
 
@@ -1616,7 +1616,7 @@ export default {
           my_department_id_to_get_mail_by_id
       );
       //************
-        });
+     //   });
 
      
      

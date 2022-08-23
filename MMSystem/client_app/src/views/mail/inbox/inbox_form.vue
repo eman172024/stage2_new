@@ -1194,7 +1194,7 @@ export default {
             window.clearTimeout(timeout);
         })
         
-        link.addEventListener('click', function(e) { 
+      //  link.addEventListener('click', function(e) { 
         
             timeout = window.setTimeout(function() {
 
@@ -1224,7 +1224,7 @@ export default {
           "to=" +
           department_Id
       );
-        });
+     //   });
 
 
    
