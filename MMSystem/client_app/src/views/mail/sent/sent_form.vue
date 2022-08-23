@@ -2790,7 +2790,10 @@ export default {
   methods: {
     //*****************29/3/2022
     func() {
-      /* var link = document.getElementById('a1');
+
+       var link = document.getElementById('a1');
+
+       var mailid=this.mailId;
         var timeout;
         window.addEventListener('blur',function(e){
             window.clearTimeout(timeout);
@@ -2799,21 +2802,23 @@ export default {
         link.addEventListener('click', function(e) { 
         
             timeout = window.setTimeout(function() {
-              console.log('timeout');
-              console.log("//"+"file://mail/aca-mail/scan-setup.exe")
-                window.location="//"+"file://mail/aca-mail/scan-setup.exe";
+  
+                //window.location="http://mail/scanner_app/Setup1.msi";
+
+                console.log("777777788");
             }, 1000);
-        
-            window.location = "scanapp://";
-            e.preventDefault();
-        });*/
+
+        document.getElementById("a1").href =
+        "SScaner:flag=1" + "mId=" + mailid;
+           // window.location = "SScaner://";    
+           // e.preventDefault();
+        });
 
       //***********
-      console.log("bbbbbbbhhhhhhh" + "  id= " + this.mailId);
+     // console.log("bbbbbbbhhhhhhh" + "  id= " + this.mailId);
       //document.getElementById("a1").href="SScaner:id=" + this.mailId;
-      document.getElementById("a1").href =
-        "SScaner:flag=1" + "mId=" + this.mailId;
-      console.log("test " + "  id= " + this.mailId);
+      
+    //  console.log("test " + "  id= " + this.mailId);
       //************
     },
 
