@@ -2790,7 +2790,8 @@ export default {
   methods: {
     //*****************29/3/2022
     func() {
-      /* var link = document.getElementById('a1');
+      
+       var link = document.getElementById('a1');
         var timeout;
         window.addEventListener('blur',function(e){
             window.clearTimeout(timeout);
