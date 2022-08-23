@@ -1619,7 +1619,7 @@ import { HubConnectionBuilder } from "@microsoft/signalr";
 
 const connection = new HubConnectionBuilder()
   //.withUrl('http://172.16.0.12:82/api/Testhub')
-   .withUrl("http://localhost:58316/api/Testhub")
+  .withUrl("http://localhost:58316/api/Testhub")
   .withAutomaticReconnect([0, 1000, 5000, null])
   .build();
 connection.start();
