@@ -1,354 +1,430 @@
 <template>
   <div class="h-full bg-gray-50">
     <div class="overflow-hidden">
-      <div
-        id="print"
-        class="w-full h-full text-center bg-gray-50 py-1 px-4"
-        style="
-          width: 100%;
-          height: 100%;
-          text-align: center;
-          direction: rtl;
-          --tw-bg-opacity: 1;
-          background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
-          padding-top: 4px;
-          padding-bottom: 4px;
-          padding-left: 16px;
-          padding-right: 16px;
-        "
-      >
+      <div id="content">
         <div
-          class="w-full h-full text-center"
-          style="width: 100%; height: 100%; text-align: center; direction: rtl"
+          id="print"
+          class="w-full h-full text-center bg-gray-50 py-1 px-4"
+          style="
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            direction: rtl;
+            --tw-bg-opacity: 1;
+            background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
+            padding-top: 4px;
+            padding-bottom: 4px;
+            padding-left: 16px;
+            padding-right: 16px;
+          "
         >
-          <div class="text-center" style="text-align: center">
-            <div
-              class="text-2xl text-center font-semibold"
-              style="
-                font-size: 24px;
-                line-height: 32px;
-                text-align: center;
-                font-weight: 600;
-                padding-top: 4px;
-                padding-bottom: 4px;
-                padding-left: 12px;
-                padding-right: 12px;
-              "
-            >
-              هيئة الرقابة الإدارية
-              <div class="my-4" style="margin-top: 16px; margin-bottom: 16px">
-                تقرير بصادر =مكتب رئيس الهيئة {{ this.mail_type }}
-              </div>
 
+        
+            <div id="pageFooter">Page </div>
+
+
+          <div
+            class="w-full h-full text-center"
+            style="width: 100%; height: 100%; text-align: center; direction: rtl"
+          >
+            <div class="text-center" style="text-align: center">
               <div
-                class="ml-4 mt-4"
-                style="margin-left: 16px; margin-top: 16px"
-              >
-                <span class="ml-2" style="margin-left: 8px">
-                  خلال الفترة من
-                  {{ this.$route.params.dateFrom }}
-                  الي 
-                  {{ this.$route.params.dateTo }}
-                </span>
-              </div>
-
-
-
-
-
-
-
-              <div
-                class="mt-8 text-left w-full"
-                style="margin-top: 32px; text-align: left; width: 100%"
-              >
-                <span class=""> تاريخ الطباعة : {{ date }}</span>
-              </div>
-              <div
-                class="w-full flex border-black border-2 mt-2 text-lg"
+                class="text-2xl text-center font-semibold"
                 style="
-                  width: 100%;
-                  display: flex;
-                  --tw-border-opacity: 1;
-                  border-color: rgba(0, 0, 0, var(--tw-border-opacity));
-                  border-width: 2px;
-                  border-style: solid;
-                  margin-top: 8px;
-                  font-size: 18px;
-                  line-height: 28px;
-                "
-              >
-                <div
-                  class="text-center border-black border-l-2 p-1"
-                  style="
-                    width: 45%;
-                    text-align: center;
-                    border-left: 2px solid black;
-                  "
-                >
-                  اسم المكتب أو الإدارة
-                </div>
-
-                <div
-                  class="text-center border-black border-l-2 p-1"
-                  style="
-                    width: 7.5%;
-                    text-align: center;
-                    border-left: 2px solid black;
-                    padding: 4px;
-                  "
-                >
-                  المرسل
-                </div>
-
-                <div
-                  class="text-center border-black border-l-2 p-1"
-                  style="
-                    width: 7.5%;
-                    text-align: center;
-                    border-left: 2px solid black;
-                    padding: 4px;
-                  "
-                >
-                  الرد
-                </div>
-
-                <div
-                  class="text-center p-1 border-black border-l-2"
-                  style="
-                    width: 7.5%;
-                    text-align: center;
-                    padding: 4px;
-                    border-left: 2px solid black;
-                  "
-                >
-                  لم يتم الرد
-                </div>
-
-                <div
-                  class="text-center p-1 border-black border-l-2"
-                  style="
-                    width: 7.5%;
-                    text-align: center;
-                    border-left: 2px solid black;
-                    padding: 4px;
-                  "
-                >
-                  النسبة %
-                </div>
-
-                <div
-                  class="text-center p-1 "
-                  style="
-                    width: 25%;
-                    text-align: center;
-                    
-                    padding: 4px;
-                  "
-                >
-                  ملاحظات
-                </div>
-              </div>
-
-              <div
-                v-for="(mail, index) in mails"
-                :key="index"
-                class="
-                  w-full
-                  flex
-                   border-r-2 border-l-2 border-black 
-                  
-                "
-                style="
-                  width: 100%;
-                  display: flex;
-                  border-right: 2px solid black;
-                  border-left: 2px solid black;
-                  border-bottom: 1px solid black;
-                  font-size: 15px;
-                  line-height: 25px;
+                  font-size: 24px;
+                  line-height: 32px;
+                  text-align: center;
                   font-weight: 900;
+                  padding-top: 44px;
+                  padding-bottom: 4px;
+                  padding-left: 12px;
+                  padding-right: 12px;
                 "
               >
-                <div
-                  class="text-center border-black border-l-2 px-1 pt-1  flex justify-center items-center"
-                  style="
-                    width: 45%;
-                    text-align: center;
-                    border-left: 2px solid black;
- 
-                display: flex; justify-content: center; align-items: center;
-                  "
-                >
-                  <span class="flex justify-center items-center">{{
-                    mail.departmentName
-                  }}</span>
+                هيئة الرقابة الإدارية
+                <div class="my-4" style="margin-top: 16px; margin-bottom: 16px">
+                  تقرير بصادر مكتب رئيس الهيئة {{ this.mail_type }}
                 </div>
 
                 <div
-                  class="text-center border-black border-l-2 px-1   flex justify-center items-center"
-                  style="
-                    width: 7.5%;
-                    text-align: center;
-                  
-                    border-left: 2px solid black;
-                    display: flex; justify-content: center; align-items: center;
-                  "
+                  class="ml-4 mt-4"
+                  style="margin-left: 16px; margin-top: 16px"
                 >
-                  {{ mail.totalOfReceived.totalOfMassage }}
+                  <span class="ml-2" style="margin-left: 8px">
+                    خلال الفترة من
+                    22-12-2022
+                    <!-- {{ this.$route.params.dateFrom }} -->
+                    الي 
+                    22-12-2022
+                    <!-- {{ this.$route.params.dateTo }} -->
+                  </span>
                 </div>
 
-                <div
-                  class="border-black border-l-2 text-center px-1 pt-1 pb-0.5 flex justify-center items-center"
-                  style="
-                    width: 7.5%;
-                    text-align: center;
-                    border-left: 2px solid black;
-                    
-                    display: flex; justify-content: center; align-items: center;
-                    
-                  "
-                >
-                  {{ mail.totalOfReceived.totalOfReplay }}
+
+                
+
+                <div style="margin-top:48px">
+                  <div style="text-align: right; font-size: 24px">
+                    الادارة العامة للتحقيق
+                  </div>
+                
+                  <table style="border:1px solid black; margin-top: 8px; font-size: 24px; width: 100%;">
+                    <tr style="border:1px solid black;">
+                      <th style="border:1px solid black; width: 10%; text-align: center;">
+                        رقم الوارد
+                      </th>
+                      <th style="border:1px solid black; width: 60%; text-align: center;">
+                        ملخص الرسالة
+                      </th>
+                      <th style="border:1px solid black; width: 10%; text-align: center;">
+                        تاريخ الارسال
+                      </th>
+                      <th style="border:1px solid black; width: 10%; text-align: center;">
+                        وقت الارسال
+                      </th>
+                      <th style="border:1px solid black; width: 10%; text-align: center;">
+                        حالة الرسالة
+                      </th>
+                    </tr>
+
+                    <tr style="border:1px solid black;font-weight: 600;">
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        19958
+                      </td>
+                      <td style="border:1px solid black; width: 60%; text-align: center;">
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        لم تقرا
+                      </td>
+                    </tr>
+
+                    <tr style="border:1px solid black;font-weight: 600;">
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        19958
+                      </td>
+                      <td style="border:1px solid black; width: 60%; text-align: center;">
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        لم تقرا
+                      </td>
+                    </tr>
+
+                    <tr style="border:1px solid black;font-weight: 600;">
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        19958
+                      </td>
+                      <td style="border:1px solid black; width: 60%; text-align: center;">
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        لم تقرا
+                      </td>
+                    </tr>
+                  </table>
+
+                  <div style="text-align: right; margin-top: 12px; font-size: 24px">
+                    اجمالي عدد المراسلات لهذه الادارة او المكتب  <span style="margin-right: 16px;">30</span>
+                  </div>
                 </div>
 
-                <div
-                  class="border-black border-l-2 px-1 pt-1 pb-0.5 flex justify-center items-center"
-                  style="
-                    width: 7.5%;
-                    
-                    border-left: 2px solid black;
-                    
-                    display: flex; justify-content: center; align-items: center;
-                    
-                  "
-                >
-                  <span class="">
-                    {{ mail.totalOfReceived.totalOfNotReplay }}</span
-                  >
+                <div style="margin-top:48px">
+                  <div style="text-align: right; font-size: 24px">
+                    الادارة العامة للتحقيق
+                  </div>
+                
+                  <table style="border:1px solid black; margin-top: 8px; font-size: 24px; width: 100%;">
+                    <tr style="border:1px solid black;">
+                      <th style="border:1px solid black; width: 10%; text-align: center;">
+                        رقم الوارد
+                      </th>
+                      <th style="border:1px solid black; width: 60%; text-align: center;">
+                        ملخص الرسالة
+                      </th>
+                      <th style="border:1px solid black; width: 10%; text-align: center;">
+                        تاريخ الارسال
+                      </th>
+                      <th style="border:1px solid black; width: 10%; text-align: center;">
+                        وقت الارسال
+                      </th>
+                      <th style="border:1px solid black; width: 10%; text-align: center;">
+                        حالة الرسالة
+                      </th>
+                    </tr>
+
+                    <tr style="border:1px solid black;font-weight: 600;">
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        19958
+                      </td>
+                      <td style="border:1px solid black; width: 60%; text-align: center;">
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        لم تقرا
+                      </td>
+                    </tr>
+
+                    <tr style="border:1px solid black;font-weight: 600;">
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        19958
+                      </td>
+                      <td style="border:1px solid black; width: 60%; text-align: center;">
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        لم تقرا
+                      </td>
+                    </tr>
+
+                    <tr style="border:1px solid black;font-weight: 600;">
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        19958
+                      </td>
+                      <td style="border:1px solid black; width: 60%; text-align: center;">
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        لم تقرا
+                      </td>
+                    </tr>
+                  </table>
+
+                  <div style="text-align: right; margin-top: 12px; font-size: 24px">
+                    اجمالي عدد المراسلات لهذه الادارة او المكتب  <span style="margin-right: 16px;">30</span>
+                  </div>
                 </div>
 
-                <div
-                  class="text-center border-black border-l-2 px-1 pt-1 pb-0.5 flex justify-center items-center"
-                  style="
-                    width: 7.5%;
-                    text-align: center;
-                    border-left: 2px solid black;
-                    
-                    display: flex; justify-content: center; align-items: center;
-                    
-                  "
-                >
-                  {{ mail.totalOfReceived.average }} %
+                <div style="margin-top:48px">
+                  <div style="text-align: right; font-size: 24px">
+                    الادارة العامة للتحقيق
+                  </div>
+                
+                  <table style="border:1px solid black; margin-top: 8px; font-size: 24px; width: 100%;">
+                    <tr style="border:1px solid black;">
+                      <th style="border:1px solid black; width: 10%; text-align: center;">
+                        رقم الوارد
+                      </th>
+                      <th style="border:1px solid black; width: 60%; text-align: center;">
+                        ملخص الرسالة
+                      </th>
+                      <th style="border:1px solid black; width: 10%; text-align: center;">
+                        تاريخ الارسال
+                      </th>
+                      <th style="border:1px solid black; width: 10%; text-align: center;">
+                        وقت الارسال
+                      </th>
+                      <th style="border:1px solid black; width: 10%; text-align: center;">
+                        حالة الرسالة
+                      </th>
+                    </tr>
+
+                    <tr style="border:1px solid black;font-weight: 600;">
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        19958
+                      </td>
+                      <td style="border:1px solid black; width: 60%; text-align: center;">
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        لم تقرا
+                      </td>
+                    </tr>
+
+                    <tr style="border:1px solid black;font-weight: 600;">
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        19958
+                      </td>
+                      <td style="border:1px solid black; width: 60%; text-align: center;">
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        لم تقرا
+                      </td>
+                    </tr>
+
+                    <tr style="border:1px solid black;font-weight: 600;">
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        19958
+                      </td>
+                      <td style="border:1px solid black; width: 60%; text-align: center;">
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        لم تقرا
+                      </td>
+                    </tr>
+                  </table>
+
+                  <div style="text-align: right; margin-top: 12px; font-size: 24px">
+                    اجمالي عدد المراسلات لهذه الادارة او المكتب  <span style="margin-right: 16px;">30</span>
+                  </div>
                 </div>
 
-                <div
-                  class="text-right   px-1 pt-1 pb-0.5 flex justify-center items-center"
-                  style="
-                    width: 25%;
-                    text-align: right;
-                    display: flex; justify-content: center; align-items: center;
-                    
-                  "
-                ></div>
-              </div>
+                <div style="margin-top:48px">
+                  <div style="text-align: right; font-size: 24px">
+                    الادارة العامة للتحقيق
+                  </div>
+                
+                  <table style="border:1px solid black; margin-top: 8px; font-size: 24px; width: 100%;">
+                    <tr style="border:1px solid black;">
+                      <th style="border:1px solid black; width: 10%; text-align: center;">
+                        رقم الوارد
+                      </th>
+                      <th style="border:1px solid black; width: 60%; text-align: center;">
+                        ملخص الرسالة
+                      </th>
+                      <th style="border:1px solid black; width: 10%; text-align: center;">
+                        تاريخ الارسال
+                      </th>
+                      <th style="border:1px solid black; width: 10%; text-align: center;">
+                        وقت الارسال
+                      </th>
+                      <th style="border:1px solid black; width: 10%; text-align: center;">
+                        حالة الرسالة
+                      </th>
+                    </tr>
 
-              <div
-                class="
-                  w-full
-                  flex
-                   border-r-2 border-l-2 border-black 
-                  
-                "
-                style="
-                  width: 100%;
-                  display: flex;
-                  border-right: 2px solid black;
-                  border-left: 2px solid black;
-                 
-                  border-bottom: 1px solid black;
-                  font-size: 15px;
-                  line-height: 25px;
-                  font-weight: 900;
-                "
-              >
-                <div
-                  class="text-center border-black border-l-2 px-1 pt-1  flex justify-center items-center"
-                  style="
-                    width: 45%;
-                    text-align: center;
-                    border-left: 2px solid black;
- 
-                display: flex; justify-content: center; align-items: center;
-                  "
-                >
-                  <span class="flex justify-center items-center">المجاميع</span>
+                    <tr style="border:1px solid black;font-weight: 600;">
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        19958
+                      </td>
+                      <td style="border:1px solid black; width: 60%; text-align: center;">
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        لم تقرا
+                      </td>
+                    </tr>
+
+                    <tr style="border:1px solid black;font-weight: 600;">
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        19958
+                      </td>
+                      <td style="border:1px solid black; width: 60%; text-align: center;">
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        لم تقرا
+                      </td>
+                    </tr>
+
+                    <tr style="border:1px solid black;font-weight: 600;">
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        19958
+                      </td>
+                      <td style="border:1px solid black; width: 60%; text-align: center;">
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
+                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        03:26:43م
+                      </td>
+                      <td style="border:1px solid black; width: 10%; text-align: center;">
+                        لم تقرا
+                      </td>
+                    </tr>
+                  </table>
+
+                  <div style="text-align: right; margin-top: 12px; font-size: 24px">
+                    اجمالي عدد المراسلات لهذه الادارة او المكتب  <span style="margin-right: 16px;">30</span>
+                  </div>
                 </div>
 
-                <div
-                  class="text-center border-black border-l-2 px-1   flex justify-center items-center"
-                  style="
-                    width: 7.5%;
-                    text-align: center;
-                  
-                    border-left: 2px solid black;
-                    display: flex; justify-content: center; align-items: center;
-                  "
-                >
-                  {{ this.total.totalOfMassage }}
-                </div>
 
-                <div
-                  class="border-black border-l-2 text-center px-1 pt-1 pb-0.5 flex justify-center items-center"
-                  style="
-                    width: 7.5%;
-                    text-align: center;
-                    border-left: 2px solid black;
-                    
-                    display: flex; justify-content: center; align-items: center;
-                    
-                  "
-                >
-                  {{ this.total.totalOfReplay }}
-                </div>
-
-                <div
-                  class="border-black border-l-2 px-1 pt-1 pb-0.5 flex justify-center items-center"
-                  style="
-                    width: 7.5%;
-                    
-                    border-left: 2px solid black;
-                    
-                    display: flex; justify-content: center; align-items: center;
-                    
-                  "
-                >
-                  <span class=""> {{ this.total.totalOfNotReplay }}</span>
-                </div>
-
-                <div
-                  class="text-center border-black border-l-2 px-1 pt-1 pb-0.5 flex justify-center items-center"
-                  style="
-                    width: 7.5%;
-                    text-align: center;
-                    border-left: 2px solid black;
-                    
-                    display: flex; justify-content: center; align-items: center;
-                    
-                  "
-                >
-                  {{ this.total.average }} %
-                </div>
-
-                <div
-                  class="text-right  px-1 pt-1 pb-0.5 flex justify-center items-center"
-                  style="
-                    width: 25%;
-                    text-align: right;
-                    display: flex; justify-content: center; align-items: center;
-                    
-                  "
-                ></div>
+              
               </div>
             </div>
           </div>
@@ -545,3 +621,19 @@ export default {
   },
 };
 </script>
+
+<style>
+#content {
+    display: table;
+}
+
+#pageFooter {
+    display: table-footer-group;
+}
+
+#pageFooter:after {
+    counter-increment: page;
+    content: counter(page);
+}
+
+</style>
