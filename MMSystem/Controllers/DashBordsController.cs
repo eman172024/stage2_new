@@ -24,7 +24,7 @@ namespace MMSystem.Controllers
        public async Task<IActionResult> GetDashbord(int ManagementId)
         {
 
-         var GetTotal=   await DashBord.GetDashbord(ManagementId);
+         var GetTotal =  await DashBord.GetDashbord(ManagementId);
            
                 return Ok(GetTotal);
      

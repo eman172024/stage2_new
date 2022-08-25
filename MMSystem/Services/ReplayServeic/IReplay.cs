@@ -14,12 +14,9 @@ namespace MMSystem.Services.ReplayServeic
         Task<bool> DeleteNotSendedReply(ReplayPhotoVM replayPhotoVM);
         Task<bool> AddReplay(ReplyViewModel model);
         Task<MVM> GetAllReplay(int depid, int mailId);
-
         Task<bool> Uplode(Uplode file);
         Task<bool> AddResources(Reply_Resources resources);
-
         Task<List<RViewModel>> GetResourse(int id);
-
         Task<int> AddReplayWithPhotoFromDeskApp(ReplayPhotoVM replay);
         Task<int> AddReplayWithPhoto(ReplayPhotoVM replay);
 

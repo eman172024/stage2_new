@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+
 using MMSystem.Model;
 using MMSystem.Model.ViewModel;
 using MMSystem.Services;
@@ -107,10 +108,22 @@ namespace MMSystem.Controllers
         [HttpGet("GetSides/{id}")]
         public async Task<IActionResult> GetSides(int id)
         {
-            var c = await appDb.Extrmal_Sections.Where(x => x.perent == id).ToListAsync();
+            List<Extrmal_Section> laist = new List<Extrmal_Section>();
+            switch (id)
+               
+            {
+                case 0:
 
-            if (c.Count > 0)
-                return Ok(c);
+                    laist = await appDb.Extrmal_Sections.Where(x => x.perent !=0).ToListAsync();
+                    break;
+                default:
+                    laist = await appDb.Extrmal_Sections.Where(x => x.perent == id).ToListAsync();
+                    break;
+            }
+            
+
+            if (laist.Count > 0)
+                return Ok(laist);
             return NotFound("لايوجد بيانات");
         }
 

@@ -989,28 +989,57 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
-                Mail_Resourcescs res = await _appContext.Mail_Resourcescs.FirstOrDefaultAsync(x => x.ID == id);
 
-                if (System.IO.File.Exists(res.path))
-                {
-                   // System.IO.File.Delete(res.path);
+                
+                Mail_Resourcescs res = await _appContext.Mail_Resourcescs.FirstOrDefaultAsync(x => x.ID == id&&x.State.Equals(true));
+                var sends = await _appContext.Sends.Where(x => x.MailID == res.MailID && x.State.Equals(true)).ToListAsync();
 
+                var c = sends.Any(x=>x.flag<3);
 
-                    res.State = false;
-                    _appContext.Mail_Resourcescs.Update(res);
-                    await _appContext.SaveChangesAsync();
+                if (c) {
 
-                    Historyes histor = new Historyes();
-                    histor.currentUser = userId;
-                    histor.mailid = res.MailID;
-                    histor.Time = DateTime.Now;
-                    histor.HistortyNameID = 5;
-                    histor.changes = res.path;
-                    bool resw = await _history.Add(histor);
+                    if (System.IO.File.Exists(res.path))
+                    {
+                        // System.IO.File.Delete(res.path);
 
 
-                    return true;
+                        res.State = false;
+                        _appContext.Mail_Resourcescs.Update(res);
+                        await _appContext.SaveChangesAsync();
+
+                        Historyes histor = new Historyes();
+                        histor.currentUser = userId;
+                        histor.mailid = res.MailID;
+                        histor.Time = DateTime.Now;
+                        histor.HistortyNameID = 5;
+                        histor.changes = res.path;
+                        bool resw = await _history.Add(histor);
+
+
+                        return true;
+                    }
+                    else {
+
+                        res.State = false;
+                        _appContext.Mail_Resourcescs.Update(res);
+                        await _appContext.SaveChangesAsync();
+
+                        Historyes histor = new Historyes();
+                        histor.currentUser = userId;
+                        histor.mailid = res.MailID;
+                        histor.Time = DateTime.Now;
+                        histor.HistortyNameID = 5;
+                        histor.changes = res.path;
+                        bool resw = await _history.Add(histor);
+
+
+                        return true;
+                    }
+
                 }
+
+
+              
                 return false;
 
 

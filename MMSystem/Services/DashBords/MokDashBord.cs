@@ -27,7 +27,7 @@ namespace MMSystem.Services.DashBords
             //////////// مجموع  الداخلي //////////////
 
             var Totale_internell_externl = await (from x in DbCon.Mails.Where(x=> x.Department_Id == ManagementId && x.Mail_Type==1 && x.state == true )
-                  join y in DbCon.Sends.Where(y => y.flag >= 1 && y.isMulti == true  ) on x.MailID equals y.MailID
+                  join y in DbCon.Sends.Where(y => y.flag >= 1 && y.isMulti == true ) on x.MailID equals y.MailID
                                  select x).ToListAsync();
             int Totale_internell_externl_count = Totale_internell_externl.Count();
 
@@ -79,12 +79,12 @@ namespace MMSystem.Services.DashBords
             //////////////////////////////////////////////////////////////////////////////////////
             //////////// مجموع  الداخلي //////////////
             var Totale_Internal_inbox = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 1)
-                                             join y in DbCon.Sends.Where(y => y.flag > 1 && y.to == ManagementId) on x.MailID equals y.MailID
+                                             join y in DbCon.Sends.Where(y => y.flag > 1 && y.to == ManagementId && y.State.Equals(true)) on x.MailID equals y.MailID
                                              select x).ToListAsync();
             int Totale_Internal_inbox_count = Totale_Internal_inbox.Count();
             //////////// مجموع  الداخلي التي لم تقرائ//////////////
             var Notreaded_Totale_Internal_inbox = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 1)
-                                             join y in DbCon.Sends.Where(y => y.flag == 2 && y.to == ManagementId) on x.MailID equals y.MailID
+                                             join y in DbCon.Sends.Where(y => y.flag == 2 && y.to == ManagementId && y.State.Equals(true)) on x.MailID equals y.MailID
                                              select x).ToListAsync();
             int Notreaded_Totale_Internal_inbox_count = Notreaded_Totale_Internal_inbox.Count();
 
@@ -93,12 +93,12 @@ namespace MMSystem.Services.DashBords
 
             //////////// مجموع الصادر الخارجي //////////////
             var Total_externl2 = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 2)
-                                             join y in DbCon.Sends.Where(y => y.flag > 1 && y.to == ManagementId) on x.MailID equals y.MailID
+                                             join y in DbCon.Sends.Where(y => y.flag > 1 && y.to == ManagementId && y.State.Equals(true)) on x.MailID equals y.MailID
                                              select x).ToListAsync();
             int Total_externl2_count = Total_externl2.Count();
             //////////// مجموع الصادر الخارجي التي لم تقرائ//////////////
             var Notreaded_Total_externl2 = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 2)
-                                             join y in DbCon.Sends.Where(y => y.flag == 2 && y.to == ManagementId) on x.MailID equals y.MailID
+                                             join y in DbCon.Sends.Where(y => y.flag == 2 && y.to == ManagementId && y.State.Equals(true)) on x.MailID equals y.MailID
                                              select x).ToListAsync();
             int Notreaded_Total_externl2_count = Notreaded_Total_externl2.Count();
 
@@ -107,12 +107,12 @@ namespace MMSystem.Services.DashBords
 
             //////////// مجموع الوارد الخارجي //////////////
             var Totale_inbox2 = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 3)
-                                             join y in DbCon.Sends.Where(y => y.flag > 1 && y.to == ManagementId) on x.MailID equals y.MailID
+                                             join y in DbCon.Sends.Where(y => y.flag > 1 && y.to == ManagementId && y.State.Equals(true)) on x.MailID equals y.MailID
                                              select x).ToListAsync();
             int Totale_inbox2_count = Totale_inbox2.Count();
             //////////// مجموع الوارد الخارجي التي لم تقرائ//////////////
             var Notreaded_Totale_inbox2 = await (from x in DbCon.Mails.Where(x => x.Mail_Type == 3)
-                                             join y in DbCon.Sends.Where(y => y.flag == 2 && y.to == ManagementId) on x.MailID equals y.MailID
+                                             join y in DbCon.Sends.Where(y => y.flag == 2 && y.to == ManagementId && y.State.Equals(true)) on x.MailID equals y.MailID
                                              select x).ToListAsync();
             int Notreaded_Totale_inbox2_count = Notreaded_Totale_inbox2.Count();
 

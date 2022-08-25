@@ -96,7 +96,9 @@
       <!-- <button @click="printpage()">طباعة</button> -->
     </div>
 
-    <div class="w-full  mt-8">
+    <div class="flex justify-end ml-6">
+
+    <div class="  mt-8 ml-2">
       <button
         class="
                     mx-auto 
@@ -151,6 +153,31 @@
         </svg>
       </button>
     </div>
+
+
+        <div class="mt-8 ">
+          <button
+            class="
+            mr-4
+            w-40
+            bg-green-700
+            text-green-50
+            rounded-md
+            py-3
+            border border-green-300
+            hover:bg-green-800
+            focus:outline-none
+         
+          "
+            @click="back()"
+          >
+            <span class="text-sm font-bold block ml-1">رجوع</span>
+          </button>
+        </div>
+
+    </div>
+
+
   </div>
 </template>
 
@@ -191,6 +218,10 @@ export default {
   methods: {
     printpage() {
       this.$htmlToPaper("print");
+    },
+
+        back() {
+      this.$router.push("/Archives");
     },
   },
 };

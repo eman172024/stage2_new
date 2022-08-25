@@ -35,7 +35,7 @@ namespace MMSystem.Services.Archives
             bool sides_id = false;
             bool mail_type = false;
             bool departments_id = false;
-            if (side_id == null)
+            if (side_id == null|| side_id == 0)
             {
                 sides_id = true;
             }
@@ -79,7 +79,7 @@ namespace MMSystem.Services.Archives
                 Summ = true;
 
             }
-            if (Perent==null)
+            if (Perent==null|| Perent==0)
             {
                 perent = true;
             }

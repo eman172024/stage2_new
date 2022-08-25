@@ -82,7 +82,7 @@ namespace MMSystem.Services.MailServeic
                 MVM model = new MVM();
 
                 model.mail = await Getdto(mail_id, tybe);
-                 List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id).ToListAsync();
+                 List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id&&x.State==true).ToListAsync();
                 Send_to c =  await _dbCon.Sends.Where(x => x.to == department_Id && x.MailID == mail_id&&x.State==true).FirstOrDefaultAsync();
                 model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>,List<Mail_ResourcescsDto>>(mail_Resourcescs);
               model.list = await (from x in _dbCon.Replies.Where(x => x.send_ToId == c.Id&&x.state.Equals(true)&&x.IsSend.Equals(true))
