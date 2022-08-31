@@ -26,11 +26,18 @@ using MMSystem.Services.DashBords;
 using MMSystem.Services.Archives;
 using MMSystem.Services.ReceivedMail;
 using MMSystem.Hubs;
+using System.Net.WebSockets;
+using Newtonsoft.Json;
+using System.Text;
+using System.Threading;
+using System.Collections.Concurrent;
 
 namespace MMSystem
 {
     public class Startup
     {
+        private ConcurrentDictionary<string, WebSocket> _conn = new ConcurrentDictionary<string, WebSocket>();
+        WebSocketReceiveResult result;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -77,9 +84,50 @@ namespace MMSystem
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            
 
-            
+            //*******************
+
+            var wsoption = new WebSocketOptions { KeepAliveInterval = TimeSpan.FromSeconds(120) };
+            app.UseWebSockets(wsoption);
+            app.Use(async (context, next) =>
+            {
+                                
+                if (context.WebSockets.IsWebSocketRequest)
+                {
+                    WebSocket websocket = await context.WebSockets.AcceptWebSocketAsync();
+                        var id = Guid.NewGuid().ToString();
+                    var str = _conn.TryAdd(id, websocket);
+                    await senid(websocket, id);
+                    await resivemassege(websocket, async (result, buffer) =>
+                    {
+                        if (result.MessageType == WebSocketMessageType.Text)
+                        {
+                            string msg = Encoding.UTF8.GetString(new ArraySegment<byte>(buffer, 0, result.Count));
+                                                       
+                            await resm(msg);
+                         
+
+                            return;
+                        }
+                        else if (result.MessageType == WebSocketMessageType.Close)
+                        {
+                            Console.WriteLine("close");
+                            string id1 = _conn.FirstOrDefault(x => x.Value == websocket).Key;
+                            _conn.TryRemove(id1, out WebSocket sockt1);
+                            await sockt1.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
+                            return;
+                        }
+                    });
+                }
+               
+                else
+                {
+                    await next();
+                }
+            });
+            //*************************
+
+
             app.UseRouting();
            //  app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
           //   app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
@@ -101,5 +149,87 @@ namespace MMSystem
             });
           
         }
+
+
+        //*****************
+        public async Task resm(string m)
+        
+        {
+            var obj11 = JsonConvert.DeserializeObject<dynamic>(m);
+
+            var iidd = obj11.keyid.Value;
+           
+            if (1 == 2)
+            {
+
+            }
+            else
+            {
+
+
+                foreach (var c in _conn.Values)
+                {
+                    var xx = _conn.FirstOrDefault(x => x.Value == c).Key;
+
+                    if (c.State == WebSocketState.Open)
+                    {
+                        if (xx == iidd)
+                        {
+                            // await c.SendAsync(Encoding.UTF8.GetBytes(r.m.Tostring()), WebSocketMessageType.Text,true, CancellationToken.None);
+                            await c.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
+                        }
+                    }
+                }
+            }
+        }
+        //******************
+        private async Task senid(WebSocket socket, string id)
+        {
+
+            // var buffer = Encoding.UTF8.GetBytes(id);
+            //*********
+            //string json = @"
+            //           {
+            //              ""index"":1,
+            //               ""keyid"":""02231bdd-52f1-4f80-94cb-82b7413fa400""
+            //            }";
+//************************************30/8/2022
+            //string json = @"
+            //           {
+            //              ""index"":1,
+            //               ""keyid"":""" + id + @"""
+            //            }";
+
+            string json = @"
+                       {
+                          ""index"":1,
+                          ""l"":0,
+                           ""keyid"":""" + id + @"""
+                        }";
+            //***************end 30/8/2022
+            var buffer = Encoding.UTF8.GetBytes(json);
+            // var buffer = Encoding.UTF8.GetBytes(id);
+
+
+            await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+
+
+
+        }
+        //******************
+        //************************************************************
+        private async Task resivemassege(WebSocket socket, Action<WebSocketReceiveResult, byte[]> handelms)
+        {
+           // var buffer = new byte[1024];
+          //  var buffer = new byte[1024 * 100 * 5 ];
+            var buffer = new byte[1024 * 100 * 5 * 1000];
+            while (socket.State == WebSocketState.Open)
+            {
+                var result = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                handelms(result, buffer);
+            }
+
+        }
+        //***********************************************************
     }
 }

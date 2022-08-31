@@ -2464,16 +2464,16 @@ import asideComponent from "@/components/asideComponent.vue";
 import navComponent from "@/components/navComponent.vue";
 import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 
-//***************
-import { HubConnectionBuilder } from "@microsoft/signalr";
+//***************18/8/2022
+/*import { HubConnectionBuilder } from "@microsoft/signalr";
 
 const connection = new HubConnectionBuilder()
    .withUrl('http://172.16.0.12:82/api/Testhub')
  // .withUrl("http://localhost:58316/api/Testhub")
   .withAutomaticReconnect([0, 1000, 5000, null])
   .build();
-connection.start();
-//***************
+connection.start();*/
+//***************end 18/8/2022
 
 export default {
   created() {},
@@ -2485,9 +2485,9 @@ export default {
   },
 
   mounted() {
-    //**************
+    //**************18/8/2022
 
-    connection.on("resivemassage", (state1, massage) => {
+   /* connection.on("resivemassage", (state1, massage) => {
       // if(state1==true){
       if (state1 == true && massage == "a") {
         console.log("massage=" + massage);
@@ -2508,9 +2508,75 @@ export default {
       else {
         console.log("state1=false");
       }
-    });
+    });*/
 
-    //*****************
+    //*****************end 18/8/2022
+//*********************websocket 18/8/2022
+this.conn=new WebSocket("ws://localhost:58316/ws")
+
+console.log("websocket connect ok")
+
+ this.conn.onopen =  (event)=> {
+    // console.log(event.data);
+     console.log("id="+ event.data);
+ }
+
+
+  this.conn.onmessage =  (event)=> {
+   
+    let scannedImage = event.data;
+      console.log("scanimages="+scannedImage);
+       
+    let mgs=JSON.parse(scannedImage);
+    console.log("msg="+typeof mgs);
+   //  console.log("index_ok="+ scannedImage.index);
+    this.imagesscantest=mgs;
+   // console.log("index_ok="+ mgs["index"]);
+    console.log("index_ok="+ this.imagesscantest.index);
+var ind=this.imagesscantest.index//msg["index"]
+console.log("ind="+ ind);
+ //16/7/2022
+ if(ind==1)
+ {
+    this.keyid=this.imagesscantest.keyid
+console.log("id ok="+this.keyid);
+ }
+ else{
+ //*end 16/7/2022
+   // console.log("msg="+typeof mgs);
+    console.log("image="+ mgs["image"].length);
+
+   console.log("flag="+ flag1);
+    console.log("lenght="+ mgs["image"].length);
+   //30/8/2022 this.imagesToSend=[]
+    //***********30/8/2022
+    var loop1=this.imagesscantest.l
+     console.log("loop="+this.imagesscantest.l);
+    //********end 30/8/2022
+ for(var i=0;i<mgs["image"].length;i++)
+ {
+ 
+ this.indexOfimagesToShow++
+  console.log("index_img="+this.indexOfimagesToShow);
+   this.imagesToSend.push({
+        
+           baseAs64: mgs["image"][i],
+          index: this.indexOfimagesToShow,
+        });
+       
+}
+//console.log("imageofsend="+this.imagesToSend);
+//******************30/8/2022
+if(loop1==1){
+//***********end 30/8/2022
+ this.UploadImagesMail()
+}
+ }
+ 
+  }
+
+   var  flag1=0;
+//*********************end 18/8/2022
 
     var date = new Date();
 
@@ -2567,6 +2633,16 @@ export default {
 
   data() {
     return {
+      //*************
+   keyid:"",
+    conn:null,
+
+      imagesscantest: [],
+      indexOfimagesToShow1:0,
+      arimage:[],
+      user11:[],
+     
+    //******************
       roles: [],
       show_images: false,
 
@@ -2821,9 +2897,11 @@ export default {
       //***********
       console.log("bbbbbbbhhhhhhh" + "  id= " + this.mailId);
       //document.getElementById("a1").href="SScaner:id=" + this.mailId;
-      document.getElementById("a1").href =
-        "SScaner:flag=1" + "mId=" + this.mailId;
-      console.log("test " + "  id= " + this.mailId);
+      //document.getElementById("a1").href ="SScaner:flag=1" + "mId=" + this.mailId;
+      document.getElementById("a1").href ="SScaner:flag=1" + "mId=" + this.mailId+"keyid="+this.keyid;
+     
+       //  "SScaner:flag=1" + "mId=" + this.mailId+"keyid="+thid.keyid;
+      console.log("test " + "  id= " + this.mailId+"keyid="+this.keyid);
       //************
     },
 
