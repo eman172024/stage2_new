@@ -1181,28 +1181,53 @@ export default {
   methods: {
     //*************1/6/2022
     reply1() {
-      console.log("replay" + "  id= " + this.mailId_to_get_mail_by_id);
-      document.getElementById("a5").href =
+
+      var link = document.getElementById('a5');
+      var mailId_to_get_mail_by_id = this.mailId_to_get_mail_by_id;
+      var mailId = this.mailId;
+      var sends_id = this.sends_id;
+      var department_Id = this.department_Id;
+
+
+   var timeout;
+        window.addEventListener('blur',function(e){
+            window.clearTimeout(timeout);
+        })
+        
+      //  link.addEventListener('click', function(e) { 
+        
+            timeout = window.setTimeout(function() {
+
+                window.location = "http://mail/scanner_app/Setup1.msi";
+
+            }, 1000);
+
+           console.log("replay" + "  id= " + mailId_to_get_mail_by_id);
+      link.href =
         "SScaner:flag=0" +
         "userId=" +
         localStorage.getItem("AY_LW") +
         "mId=" +
-        this.mailId +
+        mailId +
         "send_ToId=" +
-        this.sends_id +
+        sends_id +
         "to=" +
-        this.department_Id;
+        department_Id;
       console.log(
         "testreplay " +
           "  id= " +
-          this.mailId +
+          mailId +
           "userId=" +
           localStorage.getItem("AY_LW") +
           "send_ToId=" +
-          this.sends_id +
+          sends_id +
           "to=" +
-          this.department_Id
+          department_Id
       );
+     //   });
+
+
+   
       //************
     },
     //*****End 1/6/2022
