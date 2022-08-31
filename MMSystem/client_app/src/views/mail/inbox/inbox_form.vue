@@ -1050,16 +1050,16 @@ import asideComponent from "@/components/asideComponent.vue";
 import navComponent from "@/components/navComponent.vue";
 import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 
-//***************
+//***************31/8/2022
 import { HubConnectionBuilder } from "@microsoft/signalr";
 
-const connection = new HubConnectionBuilder()
+/*const connection = new HubConnectionBuilder()
 //.withUrl('http://172.16.0.12:82/api/Testhub')
   .withUrl("http://localhost:58316/api/Testhub")
   .withAutomaticReconnect([0, 1000, 5000, null])
   .build();
-connection.start();
-//***************
+connection.start();*/
+//***************end 31/8/2022
 export default {
   created() {},
 

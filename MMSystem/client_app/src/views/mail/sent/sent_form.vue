@@ -2548,10 +2548,10 @@ console.log("id ok="+this.keyid);
 
    console.log("flag="+ flag1);
     console.log("lenght="+ mgs["image"].length);
-   //30/8/2022 this.imagesToSend=[]
+    this.imagesToSend=[]
     //***********30/8/2022
-    var loop1=this.imagesscantest.l
-     console.log("loop="+this.imagesscantest.l);
+   // var loop1=this.imagesscantest.l
+    // console.log("loop="+this.imagesscantest.l);
     //********end 30/8/2022
  for(var i=0;i<mgs["image"].length;i++)
  {
@@ -2565,12 +2565,12 @@ console.log("id ok="+this.keyid);
         });
        
 }
-//console.log("imageofsend="+this.imagesToSend);
+//console.log("imageofsend.lenght="+this.imagesToSend.length);
 //******************30/8/2022
-if(loop1==1){
+//if(loop1==1){
 //***********end 30/8/2022
  this.UploadImagesMail()
-}
+//}
  }
  
   }
@@ -2893,7 +2893,7 @@ if(loop1==1){
              //window.location=cpath;
           //  e.preventDefault();
         //});
-*/
+
       //***********
       console.log("bbbbbbbhhhhhhh" + "  id= " + this.mailId);
       //document.getElementById("a1").href="SScaner:id=" + this.mailId;

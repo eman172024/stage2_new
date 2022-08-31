@@ -1287,12 +1287,12 @@ import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 //***************
 import { HubConnectionBuilder } from "@microsoft/signalr";
 
-const connection = new HubConnectionBuilder()
+/*const connection = new HubConnectionBuilder()
   // .withUrl('http://172.16.0.12:82/api/Testhub')
   .withUrl("http://localhost:58316/api/Testhub")
   .withAutomaticReconnect([0, 1000, 5000, null])
   .build();
-connection.start();
+connection.start();*/
 //***************
 
 export default {
@@ -1300,29 +1300,18 @@ export default {
 
   mounted() {
     //*********
-    connection.on("resivemassage", (state1, massage) => {
+  /*connection.on("resivemassage", (state1, massage) => {
       // if(state1==true){
       if (state1 == true && massage == "a") {
         console.log("massage=" + massage);
 
         this.GetAllDocumentsToSend();
       }
-      //**********2/6/2022
-      /* if(state1==true && massage=="r"){
-         console.log("massage="+massage)
-
-          this.GetReplyByDepartment(
-              this.replyByDepartmenId,
-              this.sends_id,
-              this.departmentName
-            );
-     }
-     else*/
-      //**********end 2/6/2022
+     
       else {
         console.log("state1=false");
       }
-    });
+    });31/8/2022*/
 
     //*****************
 
