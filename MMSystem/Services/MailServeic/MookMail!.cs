@@ -139,6 +139,7 @@ namespace MMSystem.Services.MailServeic
                                 sender.MailID = mail.mail.MailID;
                                 sender.to = mail.actionSenders[i].departmentId;
                                 sender.flag = 1;
+                                sender.update_At = DateTime.Now;
                                 sender.State = true;
                                 sender.type_of_send = mail.actionSenders[i].measureId;
                                 bool send = await _sender.Add(sender);
@@ -201,6 +202,7 @@ namespace MMSystem.Services.MailServeic
                                         sender.MailID = mail.mail.MailID;
                                         sender.to = mail.actionSenders[i].departmentId;
                                         sender.flag = 1;
+                                        sender.update_At = DateTime.Now;
                                         sender.State = true;
 
                                         sender.type_of_send = mail.actionSenders[i].measureId;
@@ -265,6 +267,7 @@ namespace MMSystem.Services.MailServeic
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = mail.actionSenders[i].departmentId;
                                     sender.flag = 1;
+                                    sender.update_At = DateTime.Now;
                                     sender.State = true;
 
                                     sender.type_of_send = mail.actionSenders[i].measureId;
@@ -664,7 +667,7 @@ namespace MMSystem.Services.MailServeic
                                     sender.flag = flag;
                                     if (sender.flag > 1) 
                                         sender.Send_time = DateTime.Now;
-                                    
+                                    sender.update_At= DateTime.Now;
                                     sender.State = true;
                                     sender.type_of_send = mail.newactionSenders[i].measureId;
                                     bool send = await _sender.Add(sender);
