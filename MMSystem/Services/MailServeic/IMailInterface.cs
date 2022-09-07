@@ -21,7 +21,7 @@ namespace MMSystem.Services.MailServeic
         Task<bool> Delete(int id, int userid,int MailId);
 
       
-     Task<int> GetLastMailNumber(int id,int mailType);
+        Task<int> GetLastMailNumber(int id,int mailType);
 
 
         Task<MailVM> GetMailById(int id, int type);

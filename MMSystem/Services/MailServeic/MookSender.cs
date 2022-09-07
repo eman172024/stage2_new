@@ -65,6 +65,7 @@ namespace MMSystem.Services.MailServeic
                             Department.Add(department);
 
                             item.flag = 2;
+                            item.update_At = DateTime.Now;
                             item.Send_time = DateTime.Now;
                             changes = changes + department.DepartmentName+"  ";
                             

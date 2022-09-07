@@ -809,7 +809,7 @@ namespace MMSystem.Services.MailServeic
                                     sender.to = mail.newactionSenders[i].departmentId;
                                     depname = " " + depname + mail.newactionSenders[i].departmentName + " ,";
 
-
+                                    sender.update_At = DateTime.Now;
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = mail.newactionSenders[i].departmentId;
                                     sender.flag = flag;
