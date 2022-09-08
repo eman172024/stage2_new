@@ -253,6 +253,7 @@ namespace MMSystem.Services.ReplayServeic
             {
 
                 send.flag = flag;
+                send.update_At = DateTime.Now;
                 model.reply.send_ToId = model.send_ToId;
                 model.reply.Date = DateTime.Now;
                 model.reply.state = true;
