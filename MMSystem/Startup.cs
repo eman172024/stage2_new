@@ -95,7 +95,7 @@ namespace MMSystem
                 if (context.WebSockets.IsWebSocketRequest)
                 {
                     WebSocket websocket = await context.WebSockets.AcceptWebSocketAsync();
-                        var id = Guid.NewGuid().ToString();
+                    var id = Guid.NewGuid().ToString();
                     var str = _conn.TryAdd(id, websocket);
                     await senid(websocket, id);
                     await resivemassege(websocket, async (result, buffer) =>
@@ -110,7 +110,7 @@ namespace MMSystem
                         }
                         else if (result.MessageType == WebSocketMessageType.Close)
                         {
-                            Console.WriteLine("close");
+                            
                             string id1 = _conn.FirstOrDefault(x => x.Value == websocket).Key;
                             _conn.TryRemove(id1, out WebSocket sockt1);
                             await sockt1.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
@@ -158,14 +158,7 @@ namespace MMSystem
 
             var iidd = obj11.keyid.Value;
            
-            if (1 == 2)
-            {
-
-            }
-            else
-            {
-
-
+           
                 foreach (var c in _conn.Values)
                 {
                     var xx = _conn.FirstOrDefault(x => x.Value == c).Key;
@@ -174,30 +167,17 @@ namespace MMSystem
                     {
                         if (xx == iidd)
                         {
-                            // await c.SendAsync(Encoding.UTF8.GetBytes(r.m.Tostring()), WebSocketMessageType.Text,true, CancellationToken.None);
-                            await c.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
+                               await c.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
                         }
                     }
                 }
-            }
+            
         }
         //******************
         private async Task senid(WebSocket socket, string id)
         {
 
-            // var buffer = Encoding.UTF8.GetBytes(id);
-            //*********
-            //string json = @"
-            //           {
-            //              ""index"":1,
-            //               ""keyid"":""02231bdd-52f1-4f80-94cb-82b7413fa400""
-            //            }";
-//************************************30/8/2022
-            //string json = @"
-            //           {
-            //              ""index"":1,
-            //               ""keyid"":""" + id + @"""
-            //            }";
+           
 
             string json = @"
                        {
@@ -205,22 +185,18 @@ namespace MMSystem
                           ""l"":0,
                            ""keyid"":""" + id + @"""
                         }";
-            //***************end 30/8/2022
+           
             var buffer = Encoding.UTF8.GetBytes(json);
-            // var buffer = Encoding.UTF8.GetBytes(id);
-
-
             await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
 
 
 
         }
-        //******************
+       
         //************************************************************
         private async Task resivemassege(WebSocket socket, Action<WebSocketReceiveResult, byte[]> handelms)
         {
-           // var buffer = new byte[1024];
-          //  var buffer = new byte[1024 * 100 * 5 ];
+          
             var buffer = new byte[1024 * 100 * 5 * 1000];
             while (socket.State == WebSocketState.Open)
             {

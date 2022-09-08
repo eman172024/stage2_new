@@ -1614,21 +1614,63 @@ import asideComponent from "@/components/asideComponent.vue";
 import navComponent from "@/components/navComponent.vue";
 import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 
-//***************31/8/2022
-/*import { HubConnectionBuilder } from "@microsoft/signalr";
 
-const connection = new HubConnectionBuilder()
-  //.withUrl('http://172.16.0.12:82/api/Testhub')
-  .withUrl("http://localhost:58316/api/Testhub")
-  .withAutomaticReconnect([0, 1000, 5000, null])
-  .build();
-connection.start();*/
-//***************end 31/8/2022
+//import { HubConnectionBuilder } from "@microsoft/signalr";
+
+
 
 export default {
   created() {},
 
   mounted() {
+
+//*********************websocket 
+this.conn=new WebSocket("ws://localhost:58316/ws")
+
+console.log("websocket connect ok")
+
+ /*this.conn.onopen =  (event)=> {
+   
+     console.log("id="+ event.data);
+ }*/
+
+
+  this.conn.onmessage =  (event)=> {
+   
+    let scannedImage = event.data;
+    let mgs=JSON.parse(scannedImage);
+    this.imagesscantest=mgs;
+ 
+    var ind=this.imagesscantest.index
+    if(ind==1)
+     {
+      this.keyid=this.imagesscantest.keyid
+     }
+    else
+    {
+       //this.imagesToSend=[]
+       for(var i=0;i<mgs["image"].length;i++)
+        {
+         this.indexOfimagesToShow++
+        
+         this.imagesToSend.push(
+          {
+        
+           baseAs64: mgs["image"][i],
+          index: this.indexOfimagesToShow,
+          });
+       
+        }
+
+ 
+
+    }
+ 
+  }
+
+ 
+//*********************end websocket
+
     var date = new Date();
 
     var month = date.getMonth() + 1;
@@ -1783,7 +1825,7 @@ export default {
   },
 
   methods: {
-    //*************1/6/2022
+    //************************
     reply1() {
 
 
@@ -1816,8 +1858,9 @@ export default {
         mailId_to_get_mail_by_id +
         "send_ToId=" +
         sends_id_to_get_mail_by_id +
-        "to=" +
-        department_Id;
+        "to=" +department_Id
+         +"keyid="+this.keyid;
+       
       console.log(
         "testreplay " +
           "  id= " +
@@ -1829,11 +1872,10 @@ export default {
           "to=" +
           department_Id
       );
-      //  });
+     
 
-      //************
     },
-    //*****End 1/6/2022
+    //***************************
 
     print_image() {
       this.to_test_print = true;

@@ -1285,35 +1285,63 @@ import navComponent from "@/components/navComponent.vue";
 import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 
 //***************
-import { HubConnectionBuilder } from "@microsoft/signalr";
+//import { HubConnectionBuilder } from "@microsoft/signalr";
 
-/*const connection = new HubConnectionBuilder()
-  // .withUrl('http://172.16.0.12:82/api/Testhub')
-  .withUrl("http://localhost:58316/api/Testhub")
-  .withAutomaticReconnect([0, 1000, 5000, null])
-  .build();
-connection.start();*/
-//***************
+
 
 export default {
   created() {},
 
   mounted() {
-    //*********
-  /*connection.on("resivemassage", (state1, massage) => {
-      // if(state1==true){
-      if (state1 == true && massage == "a") {
-        console.log("massage=" + massage);
+   
+this.conn=new WebSocket("ws://localhost:58316/ws")
 
-        this.GetAllDocumentsToSend();
-      }
-     
-      else {
-        console.log("state1=false");
-      }
-    });31/8/2022*/
+//console.log("websocket connect ok")
 
-    //*****************
+ /*this.conn.onopen =  (event)=> {
+   
+     console.log("id="+ event.data);
+ }*/
+
+
+  this.conn.onmessage =  (event)=> {
+   
+    let scannedImage = event.data;
+    console.log("scanimages="+scannedImage);
+       
+    let mgs=JSON.parse(scannedImage);
+    this.imagesscantest=mgs;
+ 
+    console.log("index_ok="+ this.imagesscantest.index);
+    var ind=this.imagesscantest.index
+    if(ind==1)
+    {
+    this.keyid=this.imagesscantest.keyid
+    }
+    else
+    {
+    //5/9/2022 this.imagesToSend=[]
+    
+     for(var i=0;i<mgs["image"].length;i++)
+      {
+       this.indexOfimagesToShow++
+       this.imagesToSend.push(
+        {
+        
+           baseAs64: mgs["image"][i],
+          index: this.indexOfimagesToShow,
+        });
+       
+}
+
+ 
+
+ }
+ 
+  }
+
+ 
+
 
     var date = new Date();
 
@@ -1560,7 +1588,7 @@ export default {
   },
 
   methods: {
-    //*************1/6/2022
+    
     reply1() {
 
       var link = document.getElementById('a3');
@@ -1592,7 +1620,10 @@ export default {
         "send_ToId=" +
         sends_id +
         "to=" +
-        my_department_id_to_get_mail_by_id;
+        my_department_id_to_get_mail_by_id
+        +"keyid="+this.keyid;
+       
+        
       console.log(
         "testreplay " +
           "  id= " +
@@ -1611,7 +1642,7 @@ export default {
      
      
     },
-    //*****End 1/6/2022
+   
 
     print_image() {
       this.to_test_print = true;
