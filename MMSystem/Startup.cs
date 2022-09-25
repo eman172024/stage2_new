@@ -176,9 +176,7 @@ namespace MMSystem
         //******************
         private async Task senid(WebSocket socket, string id)
         {
-
-           
-
+         
             string json = @"
                        {
                           ""index"":1,
@@ -188,8 +186,6 @@ namespace MMSystem
            
             var buffer = Encoding.UTF8.GetBytes(json);
             await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
-
-
 
         }
        
