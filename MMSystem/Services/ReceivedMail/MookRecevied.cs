@@ -114,6 +114,7 @@ namespace MMSystem.Services.ReceivedMail
                 var m = await dbcon.Departments.FindAsync(mangment);
 
                 PagenationSendedEmail<Sended_Maill> pag = new PagenationSendedEmail<Sended_Maill>();
+                PagenationSendedEmail<Sended_Maill> pagg = new PagenationSendedEmail<Sended_Maill>();
 
                 //chang where to firs or defult and remove order by 
                 var c = await (from mail in dbcon.Mails.Where(x => (x.Department_Id == mangment &&
@@ -408,7 +409,9 @@ namespace MMSystem.Services.ReceivedMail
 
 
                                   }).OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToListAsync();
-                PagenationSendedEmail<Sended_Maill> pagg = new PagenationSendedEmail<Sended_Maill>();
+
+
+              
                 if (Replay_Date == true && TheSection != null)
                 {
 
@@ -460,13 +463,12 @@ namespace MMSystem.Services.ReceivedMail
                         }
                     }
 
-                    pagg.mail = dd;
+                    pagg.mail = dd.OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToList();
                 }
                 else
                 {
                     if (Replay_Date == true && TheSection == null)
                     {
-
                        pagg.mail =
                         (from x in c
                               join vv in dbcon.Sends.Where(x => x.State == true)
@@ -494,9 +496,9 @@ namespace MMSystem.Services.ReceivedMail
                                          Sends_id = x.Sends_id
                                         
                               }
-                                      ).Distinct().ToList();
+                                      ).ToList();
                         List<Sended_Maill> dd = new List<Sended_Maill>();
-                        foreach (var item in pagg.mail)
+                        foreach (var item in zx)
                         {
 
 
@@ -507,7 +509,7 @@ namespace MMSystem.Services.ReceivedMail
                             }
                         }
 
-                        pagg.mail = dd;
+                        pagg.mail = dd.OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToList();
 
 
                     }
@@ -543,7 +545,7 @@ namespace MMSystem.Services.ReceivedMail
                                              Sends_id = x.Sends_id,
                                              SectionId = z == null && a == null ? 0 : z != null && a == null ? z.Sectionid : z == null && a != null ? a.SectionId : 0
 
-                                         }).Where(x => x.SectionId == TheSection).ToList();
+                                         }).Where(x => x.SectionId == TheSection).OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToList();
 
 
                         }
@@ -566,6 +568,8 @@ namespace MMSystem.Services.ReceivedMail
                 throw;
             }
         }
+
+
 
         public async Task<PagenationSendedEmail<Sended_Maill>> GetAllIncoming(
             int? mailnum_bool, int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string summary, int? mail_Readed,
@@ -753,6 +757,8 @@ namespace MMSystem.Services.ReceivedMail
             }
         }
 
+
+
         public async Task<int> GetMailState(int mailid)
         {
 
@@ -762,6 +768,8 @@ namespace MMSystem.Services.ReceivedMail
             return flag;
 
         }
+
+
 
         public async Task<dynamic> GetDynamic( int? mailnum_bool,
             int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string summary,
@@ -884,6 +892,8 @@ namespace MMSystem.Services.ReceivedMail
 
             return d;
         }
+
+
 
         public async Task<PagenationSendedEmail<ExtarnelinboxViewModel>> GetExtarnelinbox( int? mailnum_bool,
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
@@ -1159,7 +1169,7 @@ namespace MMSystem.Services.ReceivedMail
                                    Sends_id = ex.Id,
                                    is_multi = ex.isMulti
 
-                               }).OrderByDescending(v => v.date2).ToListAsync();
+                               }).OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToListAsync();
                     var lx = Replay_Date;
 
 
@@ -1185,6 +1195,8 @@ namespace MMSystem.Services.ReceivedMail
 
         }
 
+
+
         public async Task<int> GetState(int mail_id)
         {
             try
@@ -1200,6 +1212,8 @@ namespace MMSystem.Services.ReceivedMail
 
 
         }
+
+
 
         public async Task<PagenationSendedEmail<ExtarnelinboxViewModel>> GetExtarnelMail( int? mailnum_bool,
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
@@ -1530,7 +1544,7 @@ namespace MMSystem.Services.ReceivedMail
                         }
                     }
 
-                    pagg.mail = dd;
+                    pagg.mail = dd.OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToList();
                 }
                 else
                 {
@@ -1547,6 +1561,7 @@ namespace MMSystem.Services.ReceivedMail
             }
 
         }
+
 
         public async Task<PagenationSendedEmail<ExtarnelinboxViewModel>> Getextrmail(int depid, int size, int pagenum)
         {
@@ -1592,6 +1607,8 @@ namespace MMSystem.Services.ReceivedMail
                 throw;
             }
         }
+
+
 
         public async Task<PagenationSendedEmail<ExtarnelinboxViewModel>> Getextrmailincoming(int depid, int size, int pagenum)
         {
@@ -1731,6 +1748,8 @@ namespace MMSystem.Services.ReceivedMail
                 throw;
             }
         }
+
+
 
         public async Task<PagenationSendedEmail<ExtarnelinboxViewModel>> GetIncomingExtarnelinbox( int? mailnum_bool,
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
@@ -1928,6 +1947,8 @@ namespace MMSystem.Services.ReceivedMail
                 throw;
             }
         }
+
+
 
         public async Task<PagenationSendedEmail<ExtarnelinboxViewModel>> GetIncomingExtarnelMail( int? mailnum_bool,
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
@@ -2310,6 +2331,8 @@ namespace MMSystem.Services.ReceivedMail
             }
         }
 
+
+
         public async Task<dynamic> GetMail( int? mailnum_bool,
         int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
         int? mailReaded, int? mailnot_readed, int?
@@ -2447,19 +2470,28 @@ namespace MMSystem.Services.ReceivedMail
             }
         }
 
+
+
         public async Task<PagenationSendedEmail<Sended_Maill>> Getmail(int depid, int size, int pagenum)
         {
 
             PagenationSendedEmail<Sended_Maill> pag = new PagenationSendedEmail<Sended_Maill>();
 
+
             try
             {
                 var m = await dbcon.Departments.FindAsync(depid);
 
-             
+
                 var c2 = await (from mail in dbcon.Mails.Where(x => x.Department_Id == depid && x.Mail_Type == 1)
                                 join y in dbcon.Sends.Where(n => n.flag != 0) on mail.MailID equals y.MailID
                                 join z in dbcon.MailStatuses.Where(x => x.state == true) on y.flag equals z.flag
+
+                                join vv in dbcon.Sends.Where(x => x.State == true)
+                                on mail.MailID equals vv.MailID
+
+                                join rep in dbcon.Replies.Distinct().Where(rep => rep.state == true).Distinct()
+                                on vv.Id equals rep.send_ToId
 
                                 select new Sended_Maill()
                                 {
@@ -2490,6 +2522,9 @@ namespace MMSystem.Services.ReceivedMail
 
 
         }
+
+
+       
 
         public async Task<PagenationSendedEmail<Sended_Maill>> Getmailincoming(int depid, int size, int pagenum)
         {
@@ -2532,6 +2567,8 @@ namespace MMSystem.Services.ReceivedMail
                 throw;
             }
         }
+
+
 
         public async Task<PagenationSendedEmail<Sended_Maill>> GetSendedMail( int? mailnum_bool,
            int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
@@ -2798,7 +2835,7 @@ namespace MMSystem.Services.ReceivedMail
                         }
                     }
 
-                    pagg.mail = dd;
+                    pagg.mail = dd.OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToList();
                 }
                 else
                 {
@@ -2857,9 +2894,6 @@ namespace MMSystem.Services.ReceivedMail
                 throw;
             }
 
-
-
-            //   return c.flag;
 
         }
 
