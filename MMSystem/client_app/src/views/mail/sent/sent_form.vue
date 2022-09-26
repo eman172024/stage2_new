@@ -4053,7 +4053,7 @@ var mailId = this.mailId;
             this.imagesToSend = [];
             console.log(res);
 
-            this.GetSentMailById();
+           this.GetSentMailById();
           }, 500);
         })
         .catch((err) => {
