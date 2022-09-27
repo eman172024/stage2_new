@@ -1223,14 +1223,14 @@ console.log("websocket connect ok")
       var mailId = this.mailId;
       var sends_id = this.sends_id;
       var department_Id = this.department_Id;
-
+      var keyid = this.keyid;
 
    var timeout;
         window.addEventListener('blur',function(e){
             window.clearTimeout(timeout);
         })
         
-      //  link.addEventListener('click', function(e) { 
+      
         
             timeout = window.setTimeout(function() {
 
@@ -1248,7 +1248,7 @@ console.log("websocket connect ok")
         "send_ToId=" +
         sends_id +
         "to=" +department_Id
-        +"keyid="+this.keyid;
+        +"keyid="+ keyid;
         
       console.log(
         "testreplay " +

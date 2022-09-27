@@ -2812,34 +2812,20 @@ console.log("websocket connect ok")
        var link = document.getElementById('a1');
 
        var mailid = this.mailId;
-
+       var keyid = this.keyid;
         var timeout;
         window.addEventListener('blur',function(e){
             window.clearTimeout(timeout);
         })
         
-     //   link.addEventListener('click', function(e) { 
-        
-      //  link.addEventListener('click', function(e) { 
-        
-        //    timeout = window.setTimeout(function() {
-          //    console.log('timeout');
-             // console.log("//"+"file://mail/aca-mail/scan-setup.exe")
-               // window.location="//"+"file://mail/aca-mail/scan-setup.exe";
-            //   console.log(cpath);
-             //  window.location=cpath;
-              // window.location="//"+"file://mail/aca-mail/scan-setup.exe";
-           // }, 1000);
-        //console.log('timeout');
-           // window.location = "scanapp://";
-             //window.location=cpath;
-          //  e.preventDefault();
-        //});
+        timeout = window.setTimeout(function() {
 
-      //***********
-      console.log("bbbbbbbhhhhhhh" + "  id= " + this.mailId);
-      document.getElementById("a1").href ="SScaner:flag=1" + "mId=" + this.mailId+"keyid="+this.keyid;
-      //************
+window.location = "http://mail/scanner_app/Setup1.msi";
+
+}, 1000);
+   
+      link.href ="SScaner:flag=1" + "mId=" + mailid +"keyid="+ keyid;
+      
     },
 
     reply1() {
@@ -2850,7 +2836,7 @@ var link =document.getElementById("a2");
 var replyByDepartmenId = this.replyByDepartmenId;
 var sends_id = this.sends_id;
 var mailId = this.mailId;
-
+var keyid = this.keyid;
 
 
     var timeout;
@@ -2858,7 +2844,7 @@ var mailId = this.mailId;
             window.clearTimeout(timeout);
         })
         
-    //    link.addEventListener('click', function(e) { 
+    
         
             timeout = window.setTimeout(function() {
 
@@ -2867,7 +2853,7 @@ var mailId = this.mailId;
             }, 1000);
 
          
-      //*******************
+      
       link.href =
         "SScaner:flag=0" +
         "userId=" +
@@ -2878,7 +2864,7 @@ var mailId = this.mailId;
         sends_id +
         "to=" +
         replyByDepartmenId
-        +"keyid="+this.keyid;
+        +"keyid="+ keyid;
        
 
       console.log(
