@@ -602,7 +602,7 @@
                           "
                         >
                           {{ consignee.departmentName }} ,
-                          {{ consignee.measureName }} 
+                          {{ consignee.measureName }}
                           <button
                             v-if="mail_flag <= 2"
                             @click="
@@ -652,7 +652,7 @@
                           "
                         >
                           {{ consignee.departmentName }} ,
-                          {{ consignee.measureName }} 
+                          {{ consignee.measureName }}
                           <!--  -->
                           <button
                             @click="
@@ -2475,51 +2475,38 @@ export default {
   },
 
   mounted() {
-   
-//*********************websocket 18/8/2022
-this.conn=new WebSocket("ws://localhost:58316/ws")
+    //*********************websocket 18/8/2022
+    this.conn = new WebSocket("ws://localhost:58316/ws");
 
-console.log("websocket connect ok")
+    console.log("websocket connect ok");
 
- /*this.conn.onopen =  (event)=> {
+    /*this.conn.onopen =  (event)=> {
    
      console.log("id="+ event.data);
  }*/
 
+    this.conn.onmessage = (event) => {
+      let scannedImage = event.data;
+      let mgs = JSON.parse(scannedImage);
+      this.imagesscantest = mgs;
+      var ind = this.imagesscantest.index;
 
-  this.conn.onmessage =  (event)=> {
-   
-    let scannedImage = event.data;
-    let mgs=JSON.parse(scannedImage);
-    this.imagesscantest=mgs;
-    var ind=this.imagesscantest.index
-
-     if(ind==1)
-      {
-        this.keyid=this.imagesscantest.keyid
-      }
-      else
-      {
-        var flag1=this.imagesscantest.flag1
-        if(flag1==1)
-        this.imagesToSend=[]
-        for(var i=0;i<mgs["image"].length;i++)
-         {
-          this.indexOfimagesToShow++
-          this.imagesToSend.push(
-          {
-          baseAs64: mgs["image"][i],
-          index: this.indexOfimagesToShow,
+      if (ind == 1) {
+        this.keyid = this.imagesscantest.keyid;
+      } else {
+        var flag1 = this.imagesscantest.flag1;
+        if (flag1 == 1) this.imagesToSend = [];
+        for (var i = 0; i < mgs["image"].length; i++) {
+          this.indexOfimagesToShow++;
+          this.imagesToSend.push({
+            baseAs64: mgs["image"][i],
+            index: this.indexOfimagesToShow,
           });
-         }
+        }
 
-      if(flag1==1)
-       this.UploadImagesMail()
+        if (flag1 == 1) this.UploadImagesMail();
       }
- 
-  }
-
-  
+    };
 
     var date = new Date();
 
@@ -2578,16 +2565,16 @@ console.log("websocket connect ok")
     return {
       //*************
 
-      mail_flag: '',
-      keyid:"",
-      conn:null,
+      mail_flag: "",
+      keyid: "",
+      conn: null,
 
       imagesscantest: [],
-      indexOfimagesToShow1:0,
-      arimage:[],
-      user11:[],
-     
-    //******************
+      indexOfimagesToShow1: 0,
+      arimage: [],
+      user11: [],
+
+      //******************
       roles: [],
       show_images: false,
 
@@ -2811,52 +2798,39 @@ console.log("websocket connect ok")
   methods: {
     //*****************29/3/2022
     func() {
-      
-       var link = document.getElementById('a1');
+      var link = document.getElementById("a1");
 
-       var mailid = this.mailId;
-       var keyid = this.keyid;
-        var timeout;
-        window.addEventListener('blur',function(e){
-            window.clearTimeout(timeout);
-        })
-        
-        timeout = window.setTimeout(function() {
+      var mailid = this.mailId;
+      var keyid = this.keyid;
+      var timeout;
+      window.addEventListener("blur", function(e) {
+        window.clearTimeout(timeout);
+      });
 
-window.location = "http://mail/scanner_app/Setup1.msi";
+      timeout = window.setTimeout(function() {
+        window.location = "http://mail/scanner_app/Setup1.msi";
+      }, 1000);
 
-}, 1000);
-   
-      link.href ="SScaner:flag=1" + "mId=" + mailid +"keyid="+ keyid;
-      
+      link.href = "SScaner:flag=1" + "mId=" + mailid + "keyid=" + keyid;
     },
 
     reply1() {
+      var link = document.getElementById("a2");
 
+      var replyByDepartmenId = this.replyByDepartmenId;
+      var sends_id = this.sends_id;
+      var mailId = this.mailId;
+      var keyid = this.keyid;
 
-var link =document.getElementById("a2");
+      var timeout;
+      window.addEventListener("blur", function(e) {
+        window.clearTimeout(timeout);
+      });
 
-var replyByDepartmenId = this.replyByDepartmenId;
-var sends_id = this.sends_id;
-var mailId = this.mailId;
-var keyid = this.keyid;
+      timeout = window.setTimeout(function() {
+        window.location = "http://mail/scanner_app/Setup1.msi";
+      }, 1000);
 
-
-    var timeout;
-        window.addEventListener('blur',function(e){
-            window.clearTimeout(timeout);
-        })
-        
-    
-        
-            timeout = window.setTimeout(function() {
-
-                window.location = "http://mail/scanner_app/Setup1.msi";
-
-            }, 1000);
-
-         
-      
       link.href =
         "SScaner:flag=0" +
         "userId=" +
@@ -2866,9 +2840,9 @@ var keyid = this.keyid;
         "send_ToId=" +
         sends_id +
         "to=" +
-        replyByDepartmenId
-        +"keyid="+ keyid;
-       
+        replyByDepartmenId +
+        "keyid=" +
+        keyid;
 
       console.log(
         "testreplay " +
@@ -2881,13 +2855,7 @@ var keyid = this.keyid;
           "to=" +
           replyByDepartmenId
       );
-   
-
-    
-
-     
     },
-   
 
     print_image() {
       this.to_test_print_images_model = true;
@@ -3113,7 +3081,7 @@ var keyid = this.keyid;
           setTimeout(() => {
             this.loading = false;
             this.screenFreeze = false;
-  // this.consignees = res.data.actionSenders
+            // this.consignees = res.data.actionSenders
             this.GetSentMailById();
             // const index = this.consignees.findIndex((element, index) => {
             //   if (element.departmentId === department_id) {
@@ -3733,10 +3701,10 @@ var keyid = this.keyid;
           this.general_incoming_number = res.data.mail.genaral_inbox_Number;
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
-          this.consignees = res.data.actionSenders
+          this.consignees = res.data.actionSenders;
 
-          this.newactionSendersIncludesId = []
-          console.log('1');
+          this.newactionSendersIncludesId = [];
+          console.log("1");
 
           console.log(this.newactionSendersIncludesId);
 
@@ -3745,7 +3713,7 @@ var keyid = this.keyid;
               res.data.actionSenders[index].departmentId
             );
           }
-          console.log('2');
+          console.log("2");
 
           console.log(this.newactionSendersIncludesId);
 
@@ -4048,7 +4016,7 @@ var keyid = this.keyid;
             this.imagesToSend = [];
             console.log(res);
 
-           this.GetSentMailById();
+            this.GetSentMailById();
           }, 500);
         })
         .catch((err) => {
