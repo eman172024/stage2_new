@@ -45,7 +45,7 @@
                     mt-2
                     w-full
                     rounded-md
-                    h-10
+                    h-12
                     border
                     text-sm
                     bg-white
@@ -71,13 +71,13 @@
                     w-full
                     z-20
                     shadow
-                    h-24
+                    h-40
                     overflow-y-scroll
                     rounded-b-md
                   "
                 >
                   <button
-                    class="block focus:outline-none w-full my-1 text-right"
+                    class="block focus:outline-none w-full duration-500 px-1 py-2 text-right hover:bg-gray-200  "
                     @click="
                       selectdepartment(
                         department.id,
@@ -569,6 +569,15 @@ export default {
             );
             localStorage.setItem("Az07", this.user.listrole);
 
+            setTimeout(() => {
+              if (this.user.administrator.departmentId != 19) {
+                this.$router.push({ name: "dashboard" });
+              }else{
+                this.$router.push({ name: "Archives" });
+              }
+              
+              
+            }, 400);
             // this.$authenticatedUser.userName = this.user.username
             // this.$authenticatedUser.validity = this.user.validity
           }, 10);

@@ -116,7 +116,7 @@
                     min="1"
                     max="5000"
                     @keypress.enter="mail_search()"
-                    class="w-16 px-1 rounded-md focus:outline-none"
+                    class="w-24 px-1 rounded-md focus:outline-none"
                     v-model="mail_Number"
                   />
                   <div
@@ -602,8 +602,9 @@
                           "
                         >
                           {{ consignee.departmentName }} ,
-                          {{ consignee.measureName }}
+                          {{ consignee.measureName }} 
                           <button
+                            v-if="mail_flag <= 2"
                             @click="
                               delete_side_measure(
                                 consignee.departmentId,
@@ -651,7 +652,7 @@
                           "
                         >
                           {{ consignee.departmentName }} ,
-                          {{ consignee.measureName }}
+                          {{ consignee.measureName }} 
                           <!--  -->
                           <button
                             @click="
@@ -2576,6 +2577,8 @@ console.log("websocket connect ok")
   data() {
     return {
       //*************
+
+      mail_flag: '',
       keyid:"",
       conn:null,
 
@@ -3110,7 +3113,7 @@ var keyid = this.keyid;
           setTimeout(() => {
             this.loading = false;
             this.screenFreeze = false;
-
+  // this.consignees = res.data.actionSenders
             this.GetSentMailById();
             // const index = this.consignees.findIndex((element, index) => {
             //   if (element.departmentId === department_id) {
@@ -3722,6 +3725,7 @@ var keyid = this.keyid;
           this.mail_Number = res.data.mail.mail_Number;
           this.department_Id = res.data.mail.department_Id;
           this.mail_year = res.data.mail.mail_year;
+          this.mail_flag = res.data.mail.flag;
 
           this.releaseDate = res.data.mail.date_Of_Mail;
           this.classification = res.data.mail.clasification;
@@ -3729,16 +3733,21 @@ var keyid = this.keyid;
           this.general_incoming_number = res.data.mail.genaral_inbox_Number;
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
+          this.consignees = res.data.actionSenders
 
-          this.consignees = res.data.actionSenders;
+          this.newactionSendersIncludesId = []
+          console.log('1');
 
-          console.log(res.data.actionSenders);
+          console.log(this.newactionSendersIncludesId);
 
           for (let index = 0; index < res.data.actionSenders.length; index++) {
             this.newactionSendersIncludesId.push(
               res.data.actionSenders[index].departmentId
             );
           }
+          console.log('2');
+
+          console.log(this.newactionSendersIncludesId);
 
           // this.departments = res.data.departments;
 

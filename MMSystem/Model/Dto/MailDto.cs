@@ -23,6 +23,8 @@ namespace MMSystem.Model.Dto
 
         public string classification_name { get; set; }
 
+        public int flag { get; set; }
+
 
 
     }
