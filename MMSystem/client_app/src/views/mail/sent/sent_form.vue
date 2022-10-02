@@ -921,7 +921,7 @@
                           >
                             <button
                               title="prev"
-                              @click="previousImage()"
+                              @click="GetAllDoc('prev')"
                               class="
                                 w-8
                                 h-8
@@ -954,7 +954,7 @@
 
                             <button
                               title="next"
-                              @click="nextImage()"
+                              @click="GetAllDoc('next')"
                               class="
                                 w-8
                                 h-8
@@ -2704,6 +2704,10 @@ export default {
 
       loading: false,
       screenFreeze: false,
+
+
+
+      doc_number : 1
     };
   },
 
@@ -2796,6 +2800,36 @@ export default {
   },
 
   methods: {
+
+
+    GetAllDoc(x) {
+      if (x == 'next') {
+        this.doc_number ++
+      }else{
+        this.doc_number --
+      }
+      
+      this.screenFreeze = true;
+      this.loading = true;
+      this.$http.documentService
+        .GetAllDoc(this.mailId, this.doc_number)
+        .then((res) => {
+          console.log("2");
+          console.log(res);
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 200);
+        })
+        .catch((err) => {
+          this.screenFreeze = false;
+          this.loading = false;
+          console.log(err);
+        });
+    },
+
+
+
     //*****************29/3/2022
     func() {
       var link = document.getElementById("a1");

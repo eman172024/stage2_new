@@ -75,7 +75,7 @@ namespace MMSystem.Controllers
 
         }
 
-
+        //api/Resources/GetAllDoc
         [HttpGet("GetAllDoc")]
         public async Task<IActionResult> GetAllDoc(int mail_id, int page_number)
         {
