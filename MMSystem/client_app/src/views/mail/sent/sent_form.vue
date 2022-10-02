@@ -116,7 +116,7 @@
                     min="1"
                     max="5000"
                     @keypress.enter="mail_search()"
-                    class="w-16 px-1 rounded-md focus:outline-none"
+                    class="w-24 px-1 rounded-md focus:outline-none"
                     v-model="mail_Number"
                   />
                   <div
@@ -602,8 +602,9 @@
                           "
                         >
                           {{ consignee.departmentName }} ,
-                          {{ consignee.measureName }}
+                          {{ consignee.measureName }} 
                           <button
+                            v-if="mail_flag <= 2"
                             @click="
                               delete_side_measure(
                                 consignee.departmentId,
@@ -651,7 +652,7 @@
                           "
                         >
                           {{ consignee.departmentName }} ,
-                          {{ consignee.measureName }}
+                          {{ consignee.measureName }} 
                           <!--  -->
                           <button
                             @click="
@@ -2576,6 +2577,8 @@ console.log("websocket connect ok")
   data() {
     return {
       //*************
+
+      mail_flag: '',
       keyid:"",
       conn:null,
 
@@ -2812,34 +2815,20 @@ console.log("websocket connect ok")
        var link = document.getElementById('a1');
 
        var mailid = this.mailId;
-
+       var keyid = this.keyid;
         var timeout;
         window.addEventListener('blur',function(e){
             window.clearTimeout(timeout);
         })
         
-     //   link.addEventListener('click', function(e) { 
-        
-      //  link.addEventListener('click', function(e) { 
-        
-        //    timeout = window.setTimeout(function() {
-          //    console.log('timeout');
-             // console.log("//"+"file://mail/aca-mail/scan-setup.exe")
-               // window.location="//"+"file://mail/aca-mail/scan-setup.exe";
-            //   console.log(cpath);
-             //  window.location=cpath;
-              // window.location="//"+"file://mail/aca-mail/scan-setup.exe";
-           // }, 1000);
-        //console.log('timeout');
-           // window.location = "scanapp://";
-             //window.location=cpath;
-          //  e.preventDefault();
-        //});
+        timeout = window.setTimeout(function() {
 
-      //***********
-      console.log("bbbbbbbhhhhhhh" + "  id= " + this.mailId);
-      document.getElementById("a1").href ="SScaner:flag=1" + "mId=" + this.mailId+"keyid="+this.keyid;
-      //************
+window.location = "http://mail/scanner_app/Setup1.msi";
+
+}, 1000);
+   
+      link.href ="SScaner:flag=1" + "mId=" + mailid +"keyid="+ keyid;
+      
     },
 
     reply1() {
@@ -2850,7 +2839,7 @@ var link =document.getElementById("a2");
 var replyByDepartmenId = this.replyByDepartmenId;
 var sends_id = this.sends_id;
 var mailId = this.mailId;
-
+var keyid = this.keyid;
 
 
     var timeout;
@@ -2858,7 +2847,7 @@ var mailId = this.mailId;
             window.clearTimeout(timeout);
         })
         
-    //    link.addEventListener('click', function(e) { 
+    
         
             timeout = window.setTimeout(function() {
 
@@ -2867,7 +2856,7 @@ var mailId = this.mailId;
             }, 1000);
 
          
-      //*******************
+      
       link.href =
         "SScaner:flag=0" +
         "userId=" +
@@ -2878,7 +2867,7 @@ var mailId = this.mailId;
         sends_id +
         "to=" +
         replyByDepartmenId
-        +"keyid="+this.keyid;
+        +"keyid="+ keyid;
        
 
       console.log(
@@ -3124,7 +3113,7 @@ var mailId = this.mailId;
           setTimeout(() => {
             this.loading = false;
             this.screenFreeze = false;
-
+  // this.consignees = res.data.actionSenders
             this.GetSentMailById();
             // const index = this.consignees.findIndex((element, index) => {
             //   if (element.departmentId === department_id) {
@@ -3736,6 +3725,7 @@ var mailId = this.mailId;
           this.mail_Number = res.data.mail.mail_Number;
           this.department_Id = res.data.mail.department_Id;
           this.mail_year = res.data.mail.mail_year;
+          this.mail_flag = res.data.mail.flag;
 
           this.releaseDate = res.data.mail.date_Of_Mail;
           this.classification = res.data.mail.clasification;
@@ -3743,16 +3733,21 @@ var mailId = this.mailId;
           this.general_incoming_number = res.data.mail.genaral_inbox_Number;
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
+          this.consignees = res.data.actionSenders
 
-          this.consignees = res.data.actionSenders;
+          this.newactionSendersIncludesId = []
+          console.log('1');
 
-          console.log(res.data.actionSenders);
+          console.log(this.newactionSendersIncludesId);
 
           for (let index = 0; index < res.data.actionSenders.length; index++) {
             this.newactionSendersIncludesId.push(
               res.data.actionSenders[index].departmentId
             );
           }
+          console.log('2');
+
+          console.log(this.newactionSendersIncludesId);
 
           // this.departments = res.data.departments;
 
@@ -4053,7 +4048,7 @@ var mailId = this.mailId;
             this.imagesToSend = [];
             console.log(res);
 
-            this.GetSentMailById();
+           this.GetSentMailById();
           }, 500);
         })
         .catch((err) => {

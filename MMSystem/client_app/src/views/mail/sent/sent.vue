@@ -1595,14 +1595,14 @@ this.conn=new WebSocket("ws://localhost:58316/ws")
       var mailId_to_get_mail_by_id = this.mailId_to_get_mail_by_id;
       var sends_id = this.sends_id;
       var my_department_id_to_get_mail_by_id = this.my_department_id_to_get_mail_by_id;
-
+      var keyid = this.keyid
 
   var timeout;
         window.addEventListener('blur',function(e){
             window.clearTimeout(timeout);
         })
         
-      //  link.addEventListener('click', function(e) { 
+     
         
             timeout = window.setTimeout(function() {
 
@@ -1621,7 +1621,7 @@ this.conn=new WebSocket("ws://localhost:58316/ws")
         sends_id +
         "to=" +
         my_department_id_to_get_mail_by_id
-        +"keyid="+this.keyid;
+        +"keyid="+ keyid;
        
         
       console.log(
@@ -1635,8 +1635,7 @@ this.conn=new WebSocket("ws://localhost:58316/ws")
           "to=" +
           my_department_id_to_get_mail_by_id
       );
-      //************
-     //   });
+      
 
      
      
@@ -2102,10 +2101,8 @@ this.conn=new WebSocket("ws://localhost:58316/ws")
   background-color: red;
 }
 
-.page-item {
-  /* margin-left: .5rem;
-        margin-right: .5rem;*/
-}
+
+
 
 .page-link {
   padding-left: 0.5rem;

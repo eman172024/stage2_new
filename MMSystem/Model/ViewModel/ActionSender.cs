@@ -14,6 +14,8 @@ namespace MMSystem.Model.ViewModel
 
         public int send_ToId { get; set; }
 
+
+
         public int flag { get; set; }
     }
 }

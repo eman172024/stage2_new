@@ -418,6 +418,9 @@ namespace MMSystem.Services.MailServeic
                     case 1:
                         Mail mail = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 1 && x.state == true);
                         dto1 = _mapper.Map<Mail, MailDto>(mail);
+            
+
+
 
                         break;
                     case 2:
@@ -1378,6 +1381,7 @@ namespace MMSystem.Services.MailServeic
                     mail.resourcescs = res.data;
                     mail.total = res.total;
 
+                    mail.mail.flag = mail.actionSenders.Max(x => x.flag);
 
                     foreach (var xx in mail.resourcescs)
                     {
@@ -1563,6 +1567,7 @@ namespace MMSystem.Services.MailServeic
                         ex.total = res.total;
                        // ex.resourcescs = await _resourcescs.GetAll(id);
 
+                        ex.mail.flag = mail.actionSenders.Max(x => x.flag);
 
                         foreach (var xx in ex.resourcescs)
                         {
@@ -1657,6 +1662,7 @@ namespace MMSystem.Services.MailServeic
                     ex.total = res.total;
                    
 
+                    ex.mail.flag = mail.actionSenders.Max(x => x.flag);
 
                     foreach (var xx in ex.resourcescs)
                     {
