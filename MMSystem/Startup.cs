@@ -128,12 +128,12 @@ namespace MMSystem
 
 
             app.UseRouting();
-           //  app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+           app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
           //   app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 
          //  app.UseCors(x => x.WithOrigins("http://mail").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
           
-           app.UseCors(x => x.WithOrigins("http://localhost:8080").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+       //    app.UseCors(x => x.WithOrigins("http://localhost:8080").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 
             app.UseSignalR(route =>
             {

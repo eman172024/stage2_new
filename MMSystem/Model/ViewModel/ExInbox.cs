@@ -20,6 +20,9 @@ namespace MMSystem.Model.ViewModel
         public List<Extrmal_Section> sector { get; set; }
         public List<Department> departments { get; set; } = new List<Department> { };
 
+        public int total { get; set; }
+
+
         public ExInbox()
         {
             actionSenders = new List<ActionSender>();

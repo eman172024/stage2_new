@@ -74,5 +74,33 @@ namespace MMSystem.Controllers
             return BadRequest();
 
         }
+
+
+        [HttpPost("GetAllDoc")]
+        public async Task<IActionResult> GetAllDoc(int mail_id, int page_number)
+        {
+
+            try
+            {
+                var result = await _resourcescs.GetAllResswithPage(mail_id, page_number);
+
+                if (result.total > 0)
+                    return Ok(result);
+                else
+                {
+
+                    return NotFound("لايوجد صور");
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            return    BadRequest(new { massege=ex.Message,StatusCode=400});            }
+          
+
+
+        }
     }
 }
