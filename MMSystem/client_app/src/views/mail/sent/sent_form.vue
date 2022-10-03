@@ -2492,7 +2492,7 @@ console.log("websocket connect ok")
     let mgs=JSON.parse(scannedImage);
     this.imagesscantest=mgs;
     var ind=this.imagesscantest.index
-
+console.log("keyid="+this.imagesscantest.keyid)
      if(ind==1)
       {
         this.keyid=this.imagesscantest.keyid
@@ -2810,9 +2810,10 @@ console.log("websocket connect ok")
     func() {
       
        var link = document.getElementById('a1');
-
+       console.log("keyid_test="+this.keyid)
        var mailid = this.mailId;
        var keyid = this.keyid;
+        console.log("keyid_test22222="+keyid)
         var timeout;
         window.addEventListener('blur',function(e){
             window.clearTimeout(timeout);
@@ -2820,7 +2821,7 @@ console.log("websocket connect ok")
         
         timeout = window.setTimeout(function() {
 
-window.location = "http://mail/scanner_app/Setup1.msi";
+       window.location = "http://mail/scanner_app/Setup1.msi";
 
 }, 1000);
    
@@ -2837,7 +2838,7 @@ var replyByDepartmenId = this.replyByDepartmenId;
 var sends_id = this.sends_id;
 var mailId = this.mailId;
 var keyid = this.keyid;
-
+ //console.log("keyid_test22222="+keyid)
 
     var timeout;
         window.addEventListener('blur',function(e){
@@ -2877,6 +2878,7 @@ var keyid = this.keyid;
           sends_id +
           "to=" +
           replyByDepartmenId
+          +"keyid="+ keyid
       );
    
 
