@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default {
 
-    GetAllDoc(mail_id, page_number) {
+    GetAllDocN(mail_id, page_number) {
         return axios.get(`/api/Resources/GetAllDoc?mail_id=${mail_id}&page_number=${page_number}`);
     },
 
