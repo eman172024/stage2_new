@@ -2800,27 +2800,10 @@ export default {
   },
 
   methods: {
-<<<<<<< HEAD
     //*****************29/3/2022
-    func() {
+    
       
-       var link = document.getElementById('a1');
-       console.log("keyid_test="+this.keyid)
-       var mailid = this.mailId;
-       var keyid = this.keyid;
-        console.log("keyid_test22222="+keyid)
-        var timeout;
-        window.addEventListener('blur',function(e){
-            window.clearTimeout(timeout);
-        })
-        
-        timeout = window.setTimeout(function() {
-
-       window.location = "http://mail/scanner_app/Setup1.msi";
-=======
-
->>>>>>> 020a1b0dbe54ab836015b2e03a1b8a2dbbc4b6bc
-
+   
     GetAllDoc(x) {
       if (x == 'next') {
         this.doc_number ++
@@ -2853,15 +2836,14 @@ export default {
     func() {
       var link = document.getElementById("a1");
 
-<<<<<<< HEAD
+
 var replyByDepartmenId = this.replyByDepartmenId;
 var sends_id = this.sends_id;
-var mailId = this.mailId;
+var mailid = this.mailId;
 var keyid = this.keyid;
  //console.log("keyid_test22222="+keyid)
-=======
-      var mailid = this.mailId;
-      var keyid = this.keyid;
+
+     
       var timeout;
       window.addEventListener("blur", function(e) {
         window.clearTimeout(timeout);
@@ -2870,7 +2852,7 @@ var keyid = this.keyid;
       timeout = window.setTimeout(function() {
         window.location = "http://mail/scanner_app/Setup1.msi";
       }, 1000);
->>>>>>> 020a1b0dbe54ab836015b2e03a1b8a2dbbc4b6bc
+
 
       link.href = "SScaner:flag=1" + "mId=" + mailid + "keyid=" + keyid;
     },
