@@ -164,11 +164,16 @@
                       >
                         الملخص
                       </label>
+
+                      
+
                       <textarea
+                        v-if="mail_flag <= 2"
                         v-model="summary"
                         id="summary"
                         rows="3"
                         class="
+                        
                           block
                           mt-2
                           w-full
@@ -181,6 +186,22 @@
                         "
                       >
                       </textarea>
+
+                      <div
+                        v-else
+                        class="
+                          block
+                          mt-2
+                          w-full
+                          rounded-md
+                          h-24
+                          text-sm
+                          border border-gray-300
+                          p-2
+                        "
+                      >
+                        {{ summary }}
+                      </div>
                     </div>
 
                     <div class="sm:col-span-3">
@@ -191,6 +212,7 @@
                         التصنيف
                       </label>
                       <select
+                        v-if="mail_flag <= 2"
                         v-model="classification"
                         id="classification"
                         class="
@@ -217,6 +239,24 @@
                           {{ classification.name }}
                         </option>
                       </select>
+
+
+                      <div
+                        v-else
+                        class="
+                          block
+                          mt-2
+                          w-full
+                          rounded-md
+                          h-10
+                          text-sm
+                          border border-gray-300
+                          p-2
+                        "
+                      >
+                        {{ classification }}
+                      </div>
+
                     </div>
 
                     <div class="sm:col-span-3">
@@ -227,6 +267,7 @@
                         التاريخ
                       </label>
                       <input
+                        v-if="mail_flag <= 2"
                         v-model="releaseDate"
                         min="2000-01-01"
                         max="2040-12-30"
@@ -245,6 +286,23 @@
                           p-2
                         "
                       />
+
+                      <div  
+                        v-else
+                        class="
+                          block
+                          mt-2
+                          w-full
+                          rounded-md
+                          h-10
+                          text-sm
+                          border border-gray-300
+                          p-2
+                        "
+                      >
+                        {{ releaseDate }}
+                      </div>
+
                     </div>
 
                     <div class="sm:col-span-3">
@@ -255,6 +313,7 @@
                         رقم الوارد العام
                       </label>
                       <input
+                        v-if="mail_flag <= 2"
                         v-model="general_incoming_number"
                         type="number"
                         min="1"
@@ -274,6 +333,23 @@
                         "
                         required
                       />
+
+                      <div
+                        v-else
+                        class="
+                          block
+                          mt-2
+                          w-full
+                          rounded-md
+                          h-10
+                          text-sm
+                          border border-gray-300
+                          p-2
+                        "
+                      >
+                        {{ general_incoming_number }}
+                      </div>
+
                     </div>
 
                     <div class="sm:col-span-3">
@@ -283,7 +359,9 @@
                       >
                         السنة
                       </label>
+
                       <input
+                        v-if="mail_flag <= 2"
                         type="number"
                         placeholder="YYYY"
                         min="2011"
@@ -303,6 +381,23 @@
                           p-2
                         "
                       />
+
+                      <div
+                        v-else
+                        class="
+                          block
+                          mt-2
+                          w-full
+                          rounded-md
+                          h-10
+                          text-sm
+                          border border-gray-300
+                          p-2
+                        "
+                      >
+                        {{ genaral_inbox_year }}
+                      </div>
+
                     </div>
                   </section>
 
@@ -325,11 +420,14 @@
                       >
                         الإجراء المطلوب
                       </label>
+
                       <textarea
+                        v-if="mail_flag <= 2"
                         v-model="required_action"
-                        id="action_required"
+                        id="required_action"
                         rows="3"
                         class="
+                        
                           block
                           mt-2
                           w-full
@@ -342,6 +440,24 @@
                         "
                       >
                       </textarea>
+
+                      <div
+                        v-else
+                        class="
+                          block
+                          mt-2
+                          w-full
+                          rounded-md
+                          h-24
+                          text-sm
+                          border border-gray-300
+                          p-2
+                        "
+                      >
+                        {{ required_action }}
+                      </div>
+
+
                     </div>
 
                     <div
@@ -921,7 +1037,7 @@
                           >
                             <button
                               title="prev"
-                              @click="GetAllDoc('prev')"
+                              @click="GetAllDocN('prev')"
                               class="
                                 w-8
                                 h-8
@@ -949,12 +1065,12 @@
                             </button>
 
                             <div class="">
-                              {{ indextotest + 1 }} / {{ imagesToShow.length }}
+                              {{ doc_number }} / {{ imagesToShow.length }}
                             </div>
 
                             <button
                               title="next"
-                              @click="GetAllDoc('next')"
+                              @click="GetAllDocN('next')"
                               class="
                                 w-8
                                 h-8
@@ -1503,6 +1619,7 @@
                           classification &&
                           (consignees.length != 0 ||
                             newactionSenders.length != 0)
+                          
                       "
                       @click="updateMail"
                       type="button"
@@ -2804,7 +2921,10 @@ export default {
     
       
    
-    GetAllDoc(x) {
+ 
+
+    GetAllDocN(x) {
+
       if (x == 'next') {
         this.doc_number ++
       }else{
@@ -2814,7 +2934,7 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
       this.$http.documentService
-        .GetAllDoc(this.mailId, this.doc_number)
+        .GetAllDocN(this.mailId, this.doc_number)
         .then((res) => {
           console.log("2");
           console.log(res);
@@ -3011,6 +3131,7 @@ var keyid = this.keyid;
       this.updataButton = false;
       this.deleteButton = false;
       this.ButtonUploadImagesMail = false;
+      this.mail_flag = 0
 
       setTimeout(() => {
         this.screenFreeze = false;
@@ -3152,6 +3273,8 @@ var keyid = this.keyid;
       this.newactionSenders = [];
       this.newactionSendersIncludesId = [];
 
+      this.mail_flag = 0
+
       this.GetAllDepartments;
       this.$http.mailService
         .search(
@@ -3188,6 +3311,8 @@ var keyid = this.keyid;
           this.general_incoming_number = res.data.mail.genaral_inbox_Number;
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
+
+          this.mail_flag = res.data.mail.flag;
 
           this.consignees = res.data.actionSenders;
 
