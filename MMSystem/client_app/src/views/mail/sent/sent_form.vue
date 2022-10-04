@@ -116,7 +116,7 @@
                     min="1"
                     max="5000"
                     @keypress.enter="mail_search()"
-                    class="w-16 px-1 rounded-md focus:outline-none"
+                    class="w-24 px-1 rounded-md focus:outline-none"
                     v-model="mail_Number"
                   />
                   <div
@@ -604,6 +604,7 @@
                           {{ consignee.departmentName }} ,
                           {{ consignee.measureName }}
                           <button
+                            v-if="mail_flag <= 2"
                             @click="
                               delete_side_measure(
                                 consignee.departmentId,
@@ -920,7 +921,7 @@
                           >
                             <button
                               title="prev"
-                              @click="previousImage()"
+                              @click="GetAllDoc('prev')"
                               class="
                                 w-8
                                 h-8
@@ -953,7 +954,7 @@
 
                             <button
                               title="next"
-                              @click="nextImage()"
+                              @click="GetAllDoc('next')"
                               class="
                                 w-8
                                 h-8
@@ -2474,51 +2475,38 @@ export default {
   },
 
   mounted() {
-   
-//*********************websocket 18/8/2022
-this.conn=new WebSocket("ws://localhost:58316/ws")
+    //*********************websocket 18/8/2022
+    this.conn = new WebSocket("ws://localhost:58316/ws");
 
-console.log("websocket connect ok")
+    console.log("websocket connect ok");
 
- /*this.conn.onopen =  (event)=> {
+    /*this.conn.onopen =  (event)=> {
    
      console.log("id="+ event.data);
  }*/
 
+    this.conn.onmessage = (event) => {
+      let scannedImage = event.data;
+      let mgs = JSON.parse(scannedImage);
+      this.imagesscantest = mgs;
+      var ind = this.imagesscantest.index;
 
-  this.conn.onmessage =  (event)=> {
-   
-    let scannedImage = event.data;
-    let mgs=JSON.parse(scannedImage);
-    this.imagesscantest=mgs;
-    var ind=this.imagesscantest.index
-console.log("keyid="+this.imagesscantest.keyid)
-     if(ind==1)
-      {
-        this.keyid=this.imagesscantest.keyid
-      }
-      else
-      {
-        var flag1=this.imagesscantest.flag1
-        if(flag1==1)
-        this.imagesToSend=[]
-        for(var i=0;i<mgs["image"].length;i++)
-         {
-          this.indexOfimagesToShow++
-          this.imagesToSend.push(
-          {
-          baseAs64: mgs["image"][i],
-          index: this.indexOfimagesToShow,
+      if (ind == 1) {
+        this.keyid = this.imagesscantest.keyid;
+      } else {
+        var flag1 = this.imagesscantest.flag1;
+        if (flag1 == 1) this.imagesToSend = [];
+        for (var i = 0; i < mgs["image"].length; i++) {
+          this.indexOfimagesToShow++;
+          this.imagesToSend.push({
+            baseAs64: mgs["image"][i],
+            index: this.indexOfimagesToShow,
           });
-         }
+        }
 
-      if(flag1==1)
-       this.UploadImagesMail()
+        if (flag1 == 1) this.UploadImagesMail();
       }
- 
-  }
-
-  
+    };
 
     var date = new Date();
 
@@ -2576,15 +2564,17 @@ console.log("keyid="+this.imagesscantest.keyid)
   data() {
     return {
       //*************
-      keyid:"",
-      conn:null,
+
+      mail_flag: "",
+      keyid: "",
+      conn: null,
 
       imagesscantest: [],
-      indexOfimagesToShow1:0,
-      arimage:[],
-      user11:[],
-     
-    //******************
+      indexOfimagesToShow1: 0,
+      arimage: [],
+      user11: [],
+
+      //******************
       roles: [],
       show_images: false,
 
@@ -2714,6 +2704,10 @@ console.log("keyid="+this.imagesscantest.keyid)
 
       loading: false,
       screenFreeze: false,
+
+
+
+      doc_number : 1
     };
   },
 
@@ -2806,6 +2800,7 @@ console.log("keyid="+this.imagesscantest.keyid)
   },
 
   methods: {
+<<<<<<< HEAD
     //*****************29/3/2022
     func() {
       
@@ -2822,39 +2817,81 @@ console.log("keyid="+this.imagesscantest.keyid)
         timeout = window.setTimeout(function() {
 
        window.location = "http://mail/scanner_app/Setup1.msi";
+=======
 
-}, 1000);
-   
-      link.href ="SScaner:flag=1" + "mId=" + mailid +"keyid="+ keyid;
+>>>>>>> 020a1b0dbe54ab836015b2e03a1b8a2dbbc4b6bc
+
+    GetAllDoc(x) {
+      if (x == 'next') {
+        this.doc_number ++
+      }else{
+        this.doc_number --
+      }
       
+      this.screenFreeze = true;
+      this.loading = true;
+      this.$http.documentService
+        .GetAllDoc(this.mailId, this.doc_number)
+        .then((res) => {
+          console.log("2");
+          console.log(res);
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 200);
+        })
+        .catch((err) => {
+          this.screenFreeze = false;
+          this.loading = false;
+          console.log(err);
+        });
     },
 
-    reply1() {
 
 
-var link =document.getElementById("a2");
+    //*****************29/3/2022
+    func() {
+      var link = document.getElementById("a1");
 
+<<<<<<< HEAD
 var replyByDepartmenId = this.replyByDepartmenId;
 var sends_id = this.sends_id;
 var mailId = this.mailId;
 var keyid = this.keyid;
  //console.log("keyid_test22222="+keyid)
+=======
+      var mailid = this.mailId;
+      var keyid = this.keyid;
+      var timeout;
+      window.addEventListener("blur", function(e) {
+        window.clearTimeout(timeout);
+      });
 
-    var timeout;
-        window.addEventListener('blur',function(e){
-            window.clearTimeout(timeout);
-        })
-        
-    
-        
-            timeout = window.setTimeout(function() {
+      timeout = window.setTimeout(function() {
+        window.location = "http://mail/scanner_app/Setup1.msi";
+      }, 1000);
+>>>>>>> 020a1b0dbe54ab836015b2e03a1b8a2dbbc4b6bc
 
-                window.location = "http://mail/scanner_app/Setup1.msi";
+      link.href = "SScaner:flag=1" + "mId=" + mailid + "keyid=" + keyid;
+    },
 
-            }, 1000);
+    reply1() {
+      var link = document.getElementById("a2");
 
-         
-      
+      var replyByDepartmenId = this.replyByDepartmenId;
+      var sends_id = this.sends_id;
+      var mailId = this.mailId;
+      var keyid = this.keyid;
+
+      var timeout;
+      window.addEventListener("blur", function(e) {
+        window.clearTimeout(timeout);
+      });
+
+      timeout = window.setTimeout(function() {
+        window.location = "http://mail/scanner_app/Setup1.msi";
+      }, 1000);
+
       link.href =
         "SScaner:flag=0" +
         "userId=" +
@@ -2864,9 +2901,9 @@ var keyid = this.keyid;
         "send_ToId=" +
         sends_id +
         "to=" +
-        replyByDepartmenId
-        +"keyid="+ keyid;
-       
+        replyByDepartmenId +
+        "keyid=" +
+        keyid;
 
       console.log(
         "testreplay " +
@@ -2880,13 +2917,7 @@ var keyid = this.keyid;
           replyByDepartmenId
           +"keyid="+ keyid
       );
-   
-
-    
-
-     
     },
-   
 
     print_image() {
       this.to_test_print_images_model = true;
@@ -3112,7 +3143,7 @@ var keyid = this.keyid;
           setTimeout(() => {
             this.loading = false;
             this.screenFreeze = false;
-
+            // this.consignees = res.data.actionSenders
             this.GetSentMailById();
             // const index = this.consignees.findIndex((element, index) => {
             //   if (element.departmentId === department_id) {
@@ -3724,6 +3755,7 @@ var keyid = this.keyid;
           this.mail_Number = res.data.mail.mail_Number;
           this.department_Id = res.data.mail.department_Id;
           this.mail_year = res.data.mail.mail_year;
+          this.mail_flag = res.data.mail.flag;
 
           this.releaseDate = res.data.mail.date_Of_Mail;
           this.classification = res.data.mail.clasification;
@@ -3731,16 +3763,21 @@ var keyid = this.keyid;
           this.general_incoming_number = res.data.mail.genaral_inbox_Number;
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
-
           this.consignees = res.data.actionSenders;
 
-          console.log(res.data.actionSenders);
+          this.newactionSendersIncludesId = [];
+          console.log("1");
+
+          console.log(this.newactionSendersIncludesId);
 
           for (let index = 0; index < res.data.actionSenders.length; index++) {
             this.newactionSendersIncludesId.push(
               res.data.actionSenders[index].departmentId
             );
           }
+          console.log("2");
+
+          console.log(this.newactionSendersIncludesId);
 
           // this.departments = res.data.departments;
 
@@ -4041,7 +4078,7 @@ var keyid = this.keyid;
             this.imagesToSend = [];
             console.log(res);
 
-           this.GetSentMailById();
+            this.GetSentMailById();
           }, 500);
         })
         .catch((err) => {

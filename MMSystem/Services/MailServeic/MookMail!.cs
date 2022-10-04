@@ -418,6 +418,9 @@ namespace MMSystem.Services.MailServeic
                     case 1:
                         Mail mail = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 1 && x.state == true);
                         dto1 = _mapper.Map<Mail, MailDto>(mail);
+            
+
+
 
                         break;
                     case 2:
@@ -1214,7 +1217,7 @@ namespace MMSystem.Services.MailServeic
        
 
        
-        public async Task<dynamic> DynamicGet(int id, int type)
+        public async Task<dynamic> DynamicGet(int id, int type,int page)
         {
 
             try
@@ -1223,7 +1226,7 @@ namespace MMSystem.Services.MailServeic
                 switch (type)
                 {
                     case 1:
-                        MailVM mail = await GetMailById(id, type);
+                        MailVM mail = await GetMailById(id, type,page);
                         if (mail != null)
 
                         {
@@ -1244,7 +1247,7 @@ namespace MMSystem.Services.MailServeic
 
                     case 2:
 
-                        ExMail ddc = await GetMailById1(id, type);
+                        ExMail ddc = await GetMailById1(id, type, page);
                         if (ddc != null)
                         {
                             ddc.departments = await _appContext.Departments.ToListAsync();
@@ -1262,7 +1265,7 @@ namespace MMSystem.Services.MailServeic
 
                     case 3:
 
-                        ExInbox ccc = await GetMailById2(id, type);
+                        ExInbox ccc = await GetMailById2(id, type, page);
                         if (ccc != null)
                         {
                             ccc.departments = await _appContext.Departments.ToListAsync();
@@ -1337,7 +1340,7 @@ namespace MMSystem.Services.MailServeic
         //}
 
 
-        public async Task<MailVM> GetMailById(int id, int type)
+        public async Task<MailVM> GetMailById(int id, int type,int pagenumber)
         {
 
             try
@@ -1373,8 +1376,12 @@ namespace MMSystem.Services.MailServeic
 
                         );
                     }
-                    mail.resourcescs = await _resourcescs.GetAll(mail.mail.MailID);
 
+                    var res= await _resourcescs.GetAllResss(mail.mail.MailID, pagenumber);
+                    mail.resourcescs = res.data;
+                    mail.total = res.total;
+
+                    mail.mail.flag = mail.actionSenders.Max(x => x.flag);
 
                     foreach (var xx in mail.resourcescs)
                     {
@@ -1492,7 +1499,7 @@ namespace MMSystem.Services.MailServeic
 
 
 
-        public async Task<ExMail> GetMailById1(int id, int type)
+        public async Task<ExMail> GetMailById1(int id, int type,int page)
         {
 
             try
@@ -1553,8 +1560,14 @@ namespace MMSystem.Services.MailServeic
 
                             );
                         }
-                        ex.resourcescs = await _resourcescs.GetAll(id);
 
+
+                        var res = await _resourcescs.GetAllResss(mail.mail.MailID, page);
+                        ex.resourcescs = res.data;
+                        ex.total = res.total;
+                       // ex.resourcescs = await _resourcescs.GetAll(id);
+
+                        ex.mail.flag = mail.actionSenders.Max(x => x.flag);
 
                         foreach (var xx in ex.resourcescs)
                         {
@@ -1595,7 +1608,7 @@ namespace MMSystem.Services.MailServeic
 
        
 
-        public async Task<ExInbox> GetMailById2(int id, int type)
+        public async Task<ExInbox> GetMailById2(int id, int type,int page)
         {
 
             try
@@ -1642,8 +1655,14 @@ namespace MMSystem.Services.MailServeic
 
                         );
                     }
-                    ex.resourcescs = await _resourcescs.GetAll(id);
 
+
+                    var res = await _resourcescs.GetAllResss(mail.mail.MailID, page);
+                    ex.resourcescs = res.data;
+                    ex.total = res.total;
+                   
+
+                    ex.mail.flag = mail.actionSenders.Max(x => x.flag);
 
                     foreach (var xx in ex.resourcescs)
                     {
@@ -1990,7 +2009,7 @@ namespace MMSystem.Services.MailServeic
                                 );
                             }
                             ex1.resourcescs = await _resourcescs.GetAll(dto.MailID);
-
+                           
 
                             foreach (var xx in ex1.resourcescs)
                             {

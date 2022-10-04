@@ -52,7 +52,7 @@ namespace MMSystem.Controllers
 
         // GET api/<MailController>/5
         [HttpGet("GetMailById")]
-        public async Task<IActionResult> GetMailById(int id,int type)
+        public async Task<IActionResult> GetMailById(int id,int type,int page_number)
         {
             //switch (type) 
             //{
@@ -79,7 +79,7 @@ namespace MMSystem.Controllers
             //        break;
             //    default:break;
             //}
-            var c = await _Imail.DynamicGet(id,type);
+            var c = await _Imail.DynamicGet(id,type, page_number);
             if(c!=null)
             return Ok(c);
             return NotFound("لايوجد بريد ");
