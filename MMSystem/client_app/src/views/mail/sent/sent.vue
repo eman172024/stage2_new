@@ -1307,7 +1307,7 @@ this.conn=new WebSocket("ws://localhost:58316/ws")
   this.conn.onmessage =  (event)=> {
    
     let scannedImage = event.data;
-    console.log("scanimages="+scannedImage);
+    //console.log("scanimages="+scannedImage);
        
     let mgs=JSON.parse(scannedImage);
     this.imagesscantest=mgs;
@@ -1634,6 +1634,7 @@ this.conn=new WebSocket("ws://localhost:58316/ws")
           sends_id +
           "to=" +
           my_department_id_to_get_mail_by_id
+           +"keyid="+ keyid
       );
       
 
