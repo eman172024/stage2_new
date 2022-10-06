@@ -1035,67 +1035,76 @@
                               w-full
                             "
                           >
-                            <button
-                              title="prev"
-                              @click="GetAllDocN('prev')"
-                              class="
-                                w-8
-                                h-8
-                                bg-gray-300
-                                rounded
-                                flex
-                                justify-center
-                                items-center
-                              "
-                            >
-                              <svg
-                                class="w-4 h-4"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
+                            <div  class="w-8 h-8">
+                              <button
+                                title="prev"
+                                v-if="doc_number > total_of_doc "
+                                @click="GetAllDocN('prev')"
+                                class="
+                                  w-8
+                                  h-8
+                                  bg-gray-300
+                                  rounded
+                                  flex
+                                  justify-center
+                                  items-center
+                                "
                               >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M9 5l7 7-7 7"
-                                ></path>
-                              </svg>
-                            </button>
-
-                            <div class="">
-                              {{ doc_number }} / {{ imagesToShow.length }}
+                              P
+                                <!-- <svg
+                                  class="w-4 h-4"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M9 5l7 7-7 7"
+                                  ></path>
+                                </svg> -->
+                              </button>
                             </div>
 
-                            <button
-                              title="next"
-                              @click="GetAllDocN('next')"
-                              class="
-                                w-8
-                                h-8
-                                bg-gray-300
-                                rounded
-                                flex
-                                justify-center
-                                items-center
-                              "
-                            >
-                              <svg
-                                class="w-4 h-4"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
+                            <div class="">
+                              {{ doc_number }} / {{ total_of_doc }}
+                            </div>
+
+                            <div  class="w-8 h-8">
+                              <button
+                                v-if="doc_number < total_of_doc "
+                                title="next"
+                                @click="GetAllDocN('next')"
+                                class="
+                                  w-8
+                                  h-8
+                                  bg-gray-300
+                                  rounded
+                                  flex
+                                  justify-center
+                                  items-center
+                                "
                               >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M15 19l-7-7 7-7"
-                                ></path>
-                              </svg>
-                            </button>
+                                N
+                                <!-- <svg
+                                  class="w-4 h-4"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M15 19l-7-7 7-7"
+                                  ></path>
+                                </svg> -->
+                              </button>
+                            </div>
+                            
                           </div>
                         </div>
                       </div>
@@ -2660,6 +2669,7 @@ export default {
       setTimeout(() => {
         this.mailId = this.$route.params.mail;
         this.GetSentMailById();
+        this.GetAllDocN('next')
 
         this.sendButton = true;
         this.updataButton = true;
@@ -2824,7 +2834,8 @@ export default {
 
 
 
-      doc_number : 1
+      doc_number : 0,
+      total_of_doc : 0,
     };
   },
 
@@ -2938,6 +2949,12 @@ export default {
         .then((res) => {
           console.log("2");
           console.log(res);
+
+
+          this.total_of_doc = res.data.total
+
+          console.log(this.total_of_doc);
+
           setTimeout(() => {
             this.screenFreeze = false;
             this.loading = false;
