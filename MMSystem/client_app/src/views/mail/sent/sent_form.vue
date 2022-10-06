@@ -165,15 +165,12 @@
                         الملخص
                       </label>
 
-                      
-
                       <textarea
                         v-if="mail_flag <= 2"
                         v-model="summary"
                         id="summary"
                         rows="3"
                         class="
-                        
                           block
                           mt-2
                           w-full
@@ -240,7 +237,6 @@
                         </option>
                       </select>
 
-
                       <div
                         v-else
                         class="
@@ -256,7 +252,6 @@
                       >
                         {{ classification }}
                       </div>
-
                     </div>
 
                     <div class="sm:col-span-3">
@@ -287,7 +282,7 @@
                         "
                       />
 
-                      <div  
+                      <div
                         v-else
                         class="
                           block
@@ -302,7 +297,6 @@
                       >
                         {{ releaseDate }}
                       </div>
-
                     </div>
 
                     <div class="sm:col-span-3">
@@ -349,7 +343,6 @@
                       >
                         {{ general_incoming_number }}
                       </div>
-
                     </div>
 
                     <div class="sm:col-span-3">
@@ -397,7 +390,6 @@
                       >
                         {{ genaral_inbox_year }}
                       </div>
-
                     </div>
                   </section>
 
@@ -427,7 +419,6 @@
                         id="required_action"
                         rows="3"
                         class="
-                        
                           block
                           mt-2
                           w-full
@@ -456,8 +447,6 @@
                       >
                         {{ required_action }}
                       </div>
-
-
                     </div>
 
                     <div
@@ -815,6 +804,10 @@
                   <div class="flex justify-between items-center">
                     <h3 class="block text-sm font-semibold text-gray-800">
                       المستندات
+                      <!-- <div class="">
+                        doc_number : {{ doc_number }} //
+                        total_of_doc : {{ total_of_doc }}
+                      </div> -->
                     </h3>
 
                     <!-- <input
@@ -826,20 +819,20 @@
                       <label
                         v-if="mailId"
                         class="
-                        w-48
-                        flex
-                        justify-center
-                        items-center
-                        py-2
-                        bg-white
-                        rounded-lg
-                        tracking-wide
-                        border border-green-600
-                        cursor-pointer
-                        hover:text-white hover:bg-green-600
-                        focus:outline-none
-                        duration-300
-                      "
+                          w-48
+                          flex
+                          justify-center
+                          items-center
+                          py-2
+                          bg-white
+                          rounded-lg
+                          tracking-wide
+                          border border-green-600
+                          cursor-pointer
+                          hover:text-white hover:bg-green-600
+                          focus:outline-none
+                          duration-300
+                        "
                       >
                         <svg
                           class="w-5 h-5 ml-2"
@@ -928,15 +921,13 @@
                     </a>
                   </div>
 
-                  <div class="h-72 w-full bg-gray-100 rounded-md mt-4 mb-10">
-                    <div
-                      v-if="imagesToSend != '' || imagesToShow != ''"
-                      class="mt-4 pt-4 pb-4 rounded-md"
-                    >
-                      <div v-if="testimage" class="">
+                  <div v-if="image_of_doc" class="h-72 w-full bg-gray-100 rounded-md mt-4 mb-10">
+                    <!--  v-if="imagesToSend != '' || imagesToShow != ''" -->
+                    <div class="mt-4 pt-4 pb-4 rounded-md">
+                      <div class="">
                         <div class="relative h-64 w-full">
                           <img
-                            :src="testimage"
+                            :src="image_of_doc"
                             alt="image"
                             class="w-full h-full rounded object-contain"
                           />
@@ -951,7 +942,7 @@
                             "
                           >
                             <button
-                              @click="GetAllDocuments(mailId, 1)"
+                              @click="show_current_image_for_bigger_screen()"
                               type="button"
                               class="
                                 bg-green-600
@@ -1035,10 +1026,10 @@
                               w-full
                             "
                           >
-                            <div  class="w-8 h-8">
+                            <div class="w-8 h-8">
                               <button
                                 title="prev"
-                                v-if="doc_number > total_of_doc "
+                                v-if="doc_number > 1"
                                 @click="GetAllDocN('prev')"
                                 class="
                                   w-8
@@ -1050,8 +1041,7 @@
                                   items-center
                                 "
                               >
-                              P
-                                <!-- <svg
+                                <svg
                                   class="w-4 h-4"
                                   fill="none"
                                   stroke="currentColor"
@@ -1064,7 +1054,7 @@
                                     stroke-width="2"
                                     d="M9 5l7 7-7 7"
                                   ></path>
-                                </svg> -->
+                                </svg>
                               </button>
                             </div>
 
@@ -1072,9 +1062,9 @@
                               {{ doc_number }} / {{ total_of_doc }}
                             </div>
 
-                            <div  class="w-8 h-8">
+                            <div class="w-8 h-8">
                               <button
-                                v-if="doc_number < total_of_doc "
+                                v-if="doc_number < total_of_doc"
                                 title="next"
                                 @click="GetAllDocN('next')"
                                 class="
@@ -1087,8 +1077,7 @@
                                   items-center
                                 "
                               >
-                                N
-                                <!-- <svg
+                                <svg
                                   class="w-4 h-4"
                                   fill="none"
                                   stroke="currentColor"
@@ -1101,49 +1090,13 @@
                                     stroke-width="2"
                                     d="M15 19l-7-7 7-7"
                                   ></path>
-                                </svg> -->
+                                </svg>
                               </button>
                             </div>
-                            
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-
-                  <div class="w-full flex justify-center ">
-                    <button
-                      @click="GetAllDocumentsToSend()"
-                      type="button"
-                      class="
-                        w-full
-                        sm:w-auto sm:mr-3
-                        flex
-                        justify-center
-                        items-center
-                        py-2
-                        px-4
-                        border border-transparent
-                        shadow-sm
-                        text-sm
-                        font-medium
-                        rounded-md
-                        border-green-600
-                        text-white
-                        bg-green-600
-                        hover:shadow-lg
-                        focus:shadow-none
-                        duration-300
-                        focus:outline-none
-                     
-                    
-                       
-                      
-                    "
-                      v-if="show_images && roles.includes('g')"
-                    >
-                      عرض الصور
-                    </button>
                   </div>
                 </section>
               </div>
@@ -1628,7 +1581,6 @@
                           classification &&
                           (consignees.length != 0 ||
                             newactionSenders.length != 0)
-                          
                       "
                       @click="updateMail"
                       type="button"
@@ -2130,7 +2082,7 @@
                   >
                     <div class="">
                       <div
-                        class="flex "
+                        class="flex"
                         :class="
                           reply.reply.to == my_department_id
                             ? '  justify-end'
@@ -2189,7 +2141,14 @@
                               ? 'bg-gray-700'
                               : 'bg-blue-700'
                           "
-                          class="text-white max-w-10/12 py-0 leading-9 px-2 rounded"
+                          class="
+                            text-white
+                            max-w-10/12
+                            py-0
+                            leading-9
+                            px-2
+                            rounded
+                          "
                         >
                           {{ reply.reply.mail_detail }}
                         </div>
@@ -2418,6 +2377,181 @@
       </div>
     </div>
 
+
+
+
+
+
+    <div
+      v-if="show_current_image_for_bigger_screen_model"
+      class="w-screen h-full absolute inset-0 z-50 overflow-hidden"
+    >
+      <div class="relative">
+        <!-- <div
+          v-if="to_test_print_images_model"
+          id="printMe"
+          class="bg-black bg-opacity-50 h-screen-85"
+        >
+          <div
+            v-for="image in show_images_images_model"
+            :key="image.id"
+            class="h-screen-85"
+          >
+            <img
+              :src="image.path"
+              alt=""
+              class="h-full w-full object-contain"
+            />
+          </div>
+        </div> -->
+
+        <div
+          class="
+            h-screen
+            flex flex-col
+            justify-center
+            items-center
+            bg-black bg-opacity-90
+            absolute
+            top-0
+            inset-0
+            z-50
+            w-full
+          "
+        >
+          <div class="max-w-3xl mx-auto">
+            <div class="flex justify-between items-center w-full">
+              <button @click="show_current_image_for_bigger_screen_model = false">
+                <svg
+                  class="w-8 h-8 stroke-current text-red-500 hover:text-red-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </button>
+
+              <button
+                v-if="roles.includes('k')"
+                @click="print_image()"
+                v-print="'#printMe'"
+                class="
+                  bg-blue-500
+                  hover:bg-blue-400
+                  px-4
+                  py-2
+                  rounded-lg
+                  text-white
+                "
+              >
+                طباعة كافة المستندات
+              </button>
+            </div>
+
+            <div class="h-screen-85 mt-4">
+              <img
+                :src="image_of_doc"
+                alt="image"
+                class="h-full w-full object-contain"
+              />
+            </div>
+
+            <div
+              class="
+                flex
+                justify-between
+                items-center
+                max-w-xs
+                mx-auto
+                w-full
+                mt-4
+              "
+            >
+              <button
+                title="prev"
+                                v-if="doc_number > 1"
+                                @click="GetAllDocN('prev')"
+                class="
+                  focus:outline-none
+                  w-12
+                  h-8
+                  bg-gray-300
+                  rounded
+                  flex
+                  justify-center
+                  items-center
+                "
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  ></path>
+                </svg>
+              </button>
+
+              <div class="text-white">
+                {{ doc_number }} / {{ total_of_doc }}
+              </div>
+
+              <button
+                v-if="doc_number < total_of_doc"
+                                title="next"
+                                @click="GetAllDocN('next')"
+                class="
+                  focus:outline-none
+                  w-12
+                  h-8
+                  bg-gray-300
+                  rounded
+                  flex
+                  justify-center
+                  items-center
+                "
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 19l-7-7 7-7"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
     <div
       v-if="show_images_model"
       class="w-screen h-full absolute inset-0 z-50 overflow-hidden"
@@ -2604,11 +2738,8 @@ export default {
     //*********************websocket 18/8/2022
     this.conn = new WebSocket("ws://localhost:58316/ws");
 
-    console.log("websocket connect ok");
-
     /*this.conn.onopen =  (event)=> {
    
-     console.log("id="+ event.data);
  }*/
 
     this.conn.onmessage = (event) => {
@@ -2669,7 +2800,7 @@ export default {
       setTimeout(() => {
         this.mailId = this.$route.params.mail;
         this.GetSentMailById();
-        this.GetAllDocN('next')
+        this.GetAllDocN("next");
 
         this.sendButton = true;
         this.updataButton = true;
@@ -2832,10 +2963,14 @@ export default {
       loading: false,
       screenFreeze: false,
 
+      doc_number: 0,
+      total_of_doc: 0,
 
+      image_of_doc: "",
+      id_of_doc: "",
 
-      doc_number : 0,
-      total_of_doc : 0,
+      show_current_image_for_bigger_screen_model: false,
+
     };
   },
 
@@ -2929,31 +3064,33 @@ export default {
 
   methods: {
     //*****************29/3/2022
-    
-      
-   
- 
+
+    show_current_image_for_bigger_screen(){
+      this.screenFreeze = true;
+      this.loading = true;
+      setTimeout(() => {
+        this.show_current_image_for_bigger_screen_model = true;
+        this.screenFreeze = false;
+        this.loading = false;
+      }, 300);
+    },
 
     GetAllDocN(x) {
-
-      if (x == 'next') {
-        this.doc_number ++
-      }else{
-        this.doc_number --
+      if (x == "next") {
+        this.doc_number++;
+      } else {
+        this.doc_number--;
       }
-      
+
       this.screenFreeze = true;
       this.loading = true;
       this.$http.documentService
         .GetAllDocN(this.mailId, this.doc_number)
         .then((res) => {
-          console.log("2");
-          console.log(res);
+          this.total_of_doc = res.data.total;
 
-
-          this.total_of_doc = res.data.total
-
-          console.log(this.total_of_doc);
+          this.image_of_doc = res.data.data.path;
+          this.id_of_doc = res.data.data.id;
 
           setTimeout(() => {
             this.screenFreeze = false;
@@ -2967,20 +3104,15 @@ export default {
         });
     },
 
-
-
     //*****************29/3/2022
     func() {
       var link = document.getElementById("a1");
 
+      var replyByDepartmenId = this.replyByDepartmenId;
+      var sends_id = this.sends_id;
+      var mailid = this.mailId;
+      var keyid = this.keyid;
 
-var replyByDepartmenId = this.replyByDepartmenId;
-var sends_id = this.sends_id;
-var mailid = this.mailId;
-var keyid = this.keyid;
- //console.log("keyid_test22222="+keyid)
-
-     
       var timeout;
       window.addEventListener("blur", function(e) {
         window.clearTimeout(timeout);
@@ -2989,7 +3121,6 @@ var keyid = this.keyid;
       timeout = window.setTimeout(function() {
         window.location = "http://mail/scanner_app/Setup1.msi";
       }, 1000);
-
 
       link.href = "SScaner:flag=1" + "mId=" + mailid + "keyid=" + keyid;
     },
@@ -3023,19 +3154,6 @@ var keyid = this.keyid;
         replyByDepartmenId +
         "keyid=" +
         keyid;
-
-      console.log(
-        "testreplay " +
-          "  id= " +
-          mailId +
-          "userId=" +
-          localStorage.getItem("AY_LW") +
-          "send_ToId=" +
-          sends_id +
-          "to=" +
-          replyByDepartmenId
-          +"keyid="+ keyid
-      );
     },
 
     print_image() {
@@ -3111,6 +3229,15 @@ var keyid = this.keyid;
       this.departmentNameSelected = "";
       this.measureNameSelected = "";
 
+
+
+      this.doc_number = 0;
+      this.total_of_doc = 0;
+
+      this.image_of_doc = "";
+      this.id_of_doc = "";
+
+
       var date = new Date();
 
       var month = date.getMonth() + 1;
@@ -3148,7 +3275,7 @@ var keyid = this.keyid;
       this.updataButton = false;
       this.deleteButton = false;
       this.ButtonUploadImagesMail = false;
-      this.mail_flag = 0
+      this.mail_flag = 0;
 
       setTimeout(() => {
         this.screenFreeze = false;
@@ -3192,7 +3319,6 @@ var keyid = this.keyid;
         if (
           this.newactionSendersIncludesId.includes(this.departmentIdSelected)
         ) {
-          console.log("found");
           alert("تم اضافة الادارة من قبل");
           this.departmentNameSelected = "";
           this.departmentIdSelected = "";
@@ -3200,8 +3326,6 @@ var keyid = this.keyid;
           this.measureIdSelected = "";
           this.measureNameSelected = "";
         } else {
-          console.log("not found");
-
           this.newactionSendersIncludesId;
           this.newactionSenders.push({
             departmentId: this.departmentIdSelected,
@@ -3290,7 +3414,13 @@ var keyid = this.keyid;
       this.newactionSenders = [];
       this.newactionSendersIncludesId = [];
 
-      this.mail_flag = 0
+      this.doc_number = 0;
+      this.total_of_doc = 0;
+
+      this.image_of_doc = "";
+      this.id_of_doc = "";
+
+      this.mail_flag = 0;
 
       this.GetAllDepartments;
       this.$http.mailService
@@ -3301,6 +3431,8 @@ var keyid = this.keyid;
           this.mail_year
         )
         .then((res) => {
+          
+
           if (res.data.mail.is_send == true) {
             this.saveButton = false;
             this.updataButton = true;
@@ -3337,13 +3469,6 @@ var keyid = this.keyid;
             this.newactionSendersIncludesId.push(
               res.data.actionSenders[index].departmentId
             );
-          }
-
-          this.imagesToShow = res.data.resourcescs;
-
-          if (this.imagesToShow.length > 0) {
-            this.testimage = this.imagesToShow[0].path;
-            this.test_image_id = this.imagesToShow[0].id;
           }
 
           if (this.mailType == "2") {
@@ -3390,6 +3515,7 @@ var keyid = this.keyid;
           }
 
           setTimeout(() => {
+            this.GetAllDocN("next");
             this.screenFreeze = false;
             this.loading = false;
           }, 300);
@@ -3462,8 +3588,6 @@ var keyid = this.keyid;
         .GetReplyByDepartment(this.replyByDepartmenId, this.mailId)
         .then((res) => {
           this.replies = res.data.list;
-
-          console.log(this.replies);
         })
         .catch((err) => {
           console.log(err);
@@ -3731,6 +3855,7 @@ var keyid = this.keyid;
             }
 
             this.GetSentMailById();
+            this.GetAllDocN("next");
           }, 500);
         })
         .catch((err) => {
@@ -3841,8 +3966,6 @@ var keyid = this.keyid;
             this.mail_year = res.data.mail_year;
             this.to_test_passing_mail_type = this.mailType;
 
-            console.log("this.to_test_passing_mail_type");
-            console.log(this.to_test_passing_mail_type);
             this.GetSentMailById();
           }, 500);
         })
@@ -3890,27 +4013,14 @@ var keyid = this.keyid;
           this.consignees = res.data.actionSenders;
 
           this.newactionSendersIncludesId = [];
-          console.log("1");
-
-          console.log(this.newactionSendersIncludesId);
 
           for (let index = 0; index < res.data.actionSenders.length; index++) {
             this.newactionSendersIncludesId.push(
               res.data.actionSenders[index].departmentId
             );
           }
-          console.log("2");
-
-          console.log(this.newactionSendersIncludesId);
 
           // this.departments = res.data.departments;
-
-          this.imagesToShow = res.data.resourcescs;
-
-          if (this.imagesToShow.length > 0) {
-            this.testimage = this.imagesToShow[0].path;
-            this.test_image_id = this.imagesToShow[0].id;
-          }
 
           if (res.data.mail.mail_Type == 1) {
             this.GetAllDepartments();
@@ -3977,11 +4087,6 @@ var keyid = this.keyid;
     },
 
     sendMail() {
-      console.log(this.mailId);
-      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-      console.log(this.mailId);
-      console.log(this.mail_Number);
-
       this.screenFreeze = true;
       this.loading = true;
 
@@ -4041,7 +4146,6 @@ var keyid = this.keyid;
     displayReplyImagesOnPage(successful, mesg, response) {
       if (!successful) {
         // On error
-        console.error("Failed: " + mesg);
         return;
       }
 
@@ -4051,7 +4155,6 @@ var keyid = this.keyid;
         mesg.toLowerCase().indexOf("user cancel") >= 0
       ) {
         // User cancelled.
-        console.info("User cancelled");
         return;
       }
 
@@ -4092,37 +4195,6 @@ var keyid = this.keyid;
       // }, 1000);
     },
 
-    GetAllDocumentsToSend() {
-      this.screenFreeze = true;
-      this.loading = true;
-      this.$http.mailService
-        //  .GetAllDocuments(29, Number(localStorage.getItem("AY_LW")))
-        .GetAllDocuments(this.mailId, Number(localStorage.getItem("AY_LW")))
-        .then((res) => {
-          console.log(res);
-
-          this.imagesToShow = res.data;
-
-          this.testimage = this.imagesToShow[0].path;
-          this.test_image_id = this.imagesToShow[0].id;
-
-          setTimeout(() => {
-            // this.show_images_model = true;
-            this.screenFreeze = false;
-            this.loading = false;
-          }, 300);
-        })
-        .catch((err) => {
-          this.loading = false;
-          this.there_are_no_documents = true;
-          setTimeout(() => {
-            this.screenFreeze = false;
-            this.there_are_no_documents = false;
-            console.log(err);
-          }, 700);
-        });
-    },
-
     scanToJpg() {
       scanner.scan(this.displayImagesOnPage, {
         output_settings: [
@@ -4137,7 +4209,6 @@ var keyid = this.keyid;
     displayImagesOnPage(successful, mesg, response) {
       if (!successful) {
         // On error
-        console.error("Failed: " + mesg);
         return;
       }
 
@@ -4147,7 +4218,6 @@ var keyid = this.keyid;
         mesg.toLowerCase().indexOf("user cancel") >= 0
       ) {
         // User cancelled.
-        console.info("User cancelled");
         return;
       }
 
@@ -4185,6 +4255,7 @@ var keyid = this.keyid;
 
       setTimeout(() => {
         this.GetSentMailById();
+        this.GetAllDocN("next");
       }, 1000);
     },
 
@@ -4203,6 +4274,8 @@ var keyid = this.keyid;
             console.log(res);
 
             this.GetSentMailById();
+                        this.GetAllDocN("next");
+
           }, 500);
         })
         .catch((err) => {
@@ -4216,14 +4289,20 @@ var keyid = this.keyid;
     deleteDocument() {
       this.$http.mailService
         .DeleteDocument(
-          Number(this.test_image_id),
+          Number(this.id_of_doc),
           Number(localStorage.getItem("AY_LW"))
         )
         .then((res) => {
-          console.log("SSSSSSSSSSSSSSSSSSSSSS");
+          this.doc_number = 0;
+          this.total_of_doc = 0;
+
+          this.image_of_doc = "";
+          this.id_of_doc = "";
+
+          this.GetAllDocN("next");
+
           // this.imagesToShow.splice(index, 1);
           this.mail_search();
-          console.log(res);
           // this.imagesToShow = res.data.result.documents
         })
         .catch((err) => {

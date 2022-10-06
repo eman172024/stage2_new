@@ -354,12 +354,12 @@ namespace MMSystem.Services.MailServeic
 
         }
 
-        public async Task<RessPage> GetAllResswithPage(int id, int pageNumber)
+        public async Task<RessObj> GetAllResswithPage(int id, int pageNumber)
         {
             try
             {
 
-                RessPage ressPage = new RessPage();
+                RessObj ressPage = new RessObj();
 
 
                 ressPage.total = _dbCon.Mail_Resourcescs.Where(x => x.State.Equals(true) && x.MailID == id).ToList().Count();
@@ -370,13 +370,21 @@ namespace MMSystem.Services.MailServeic
                 if (list.Count > 0)
                 {
 
-                    ressPage.data = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(list);
+                   var data= _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(list);
 
                     foreach (var xx in list)
                     {
-                        string x = xx.path;
-                        xx.path = await tobase64(x);
+                        string pat = xx.path;
+                        xx.path = await tobase64(pat);
                     }
+
+
+                    ressPage.data = data.FirstOrDefault();
+                    string x = ressPage. data.path;
+
+                    ressPage.data.path = await tobase64(x);
+
+
                     return ressPage;
 
                 }
