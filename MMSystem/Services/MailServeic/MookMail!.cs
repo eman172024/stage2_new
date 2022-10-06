@@ -1853,7 +1853,6 @@ namespace MMSystem.Services.MailServeic
 
                             mail.mail = dto;
                             List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID&&x.State==true).ToListAsync();
-
                             ActionSender sender = new ActionSender();
                             foreach (var item in sends)
                             {
@@ -1872,6 +1871,8 @@ namespace MMSystem.Services.MailServeic
 
                                 );
                             }
+                            mail.mail.flag = sends.Max(x => x.flag);
+
                             mail.resourcescs = await _resourcescs.GetAll(mail.mail.MailID);
 
 
@@ -1942,6 +1943,7 @@ namespace MMSystem.Services.MailServeic
                                 );
                             }
                             ex.resourcescs = await _resourcescs.GetAll(dto.MailID);
+                            ex.mail.flag = sends.Max(x => x.flag);
 
 
                             foreach (var xx in ex.resourcescs)
@@ -2009,7 +2011,8 @@ namespace MMSystem.Services.MailServeic
                                 );
                             }
                             ex1.resourcescs = await _resourcescs.GetAll(dto.MailID);
-                           
+                            ex1.mail.flag = sends.Max(x => x.flag);
+
 
                             foreach (var xx in ex1.resourcescs)
                             {
