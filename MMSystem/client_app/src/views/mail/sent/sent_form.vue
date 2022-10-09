@@ -2358,44 +2358,23 @@
       </div>
     </div>
 
-    <div
-      v-if="screenFreeze"
-      class="
-        w-screen
-        h-screen
-        bg-black bg-opacity-30
-        absolute
-        inset-0
-        z-50
-        flex
-        justify-center
-        items-center
-      "
-    >
+    <div v-if="screenFreeze" class="w-screen h-screen bg-black bg-opacity-30 absolute inset-0 z-50 flex justify-center items-center">
       <div v-if="loading" class="">
         <svgLoadingComponent></svgLoadingComponent>
       </div>
     </div>
 
-
-
-
-
-
-    <div
-      v-if="show_current_image_for_bigger_screen_model"
-      class="w-screen h-full absolute inset-0 z-50 overflow-hidden"
-    >
+    <div v-if="show_current_image_for_bigger_screen_model" class="w-screen h-full absolute inset-0 z-50 overflow-hidden">
       <div class="relative">
-        <!-- <div
-          v-if="to_test_print_images_model"
+        <div
+          v-if="image_to_print_n_model"
           id="printMe"
-          class="bg-black bg-opacity-50 h-screen-85"
+          class="bg-black bg-opacity-50 h-screen-100"
         >
           <div
-            v-for="image in show_images_images_model"
+            v-for="image in image_to_print_n"
             :key="image.id"
-            class="h-screen-85"
+            class="h-screen-100"
           >
             <img
               :src="image.path"
@@ -2403,24 +2382,11 @@
               class="h-full w-full object-contain"
             />
           </div>
-        </div> -->
+        </div>
 
-        <div
-          class="
-            h-screen
-            flex flex-col
-            justify-center
-            items-center
-            bg-black bg-opacity-90
-            absolute
-            top-0
-            inset-0
-            z-50
-            w-full
-          "
-        >
-          <div class="max-w-3xl mx-auto">
-            <div class="flex justify-between items-center w-full">
+        <div class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full">
+          <div class="max-w-3xl mx-auto relative">
+            <div class="absolute top-6 z-50 flex justify-between items-center w-full">
               <button @click="show_current_image_for_bigger_screen_model = false">
                 <svg
                   class="w-8 h-8 stroke-current text-red-500 hover:text-red-400"
@@ -2442,20 +2408,13 @@
                 v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#printMe'"
-                class="
-                  bg-blue-500
-                  hover:bg-blue-400
-                  px-4
-                  py-2
-                  rounded-lg
-                  text-white
-                "
+                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
               >
                 طباعة كافة المستندات
               </button>
             </div>
 
-            <div class="h-screen-85 mt-4">
+            <div class="h-screen-93 mt-4">
               <img
                 :src="image_of_doc"
                 alt="image"
@@ -2463,82 +2422,76 @@
               />
             </div>
 
-            <div
-              class="
-                flex
-                justify-between
-                items-center
-                max-w-xs
-                mx-auto
-                w-full
-                mt-4
-              "
-            >
-              <button
-                title="prev"
-                                v-if="doc_number > 1"
-                                @click="GetAllDocN('prev')"
-                class="
-                  focus:outline-none
-                  w-12
-                  h-8
-                  bg-gray-300
-                  rounded
-                  flex
-                  justify-center
-                  items-center
-                "
-              >
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+            <div class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4">
+              <div class="w-12 h-8">
+                <button
+                  title="prev"
+                  v-if="doc_number > 1"
+                  @click="GetAllDocN('prev')"
+                  class="
+                    focus:outline-none
+                    w-12
+                    h-8
+                    bg-gray-300
+                    rounded
+                    flex
+                    justify-center
+                    items-center
+                  "
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"
-                  ></path>
-                </svg>
-              </button>
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
 
-              <div class="text-white">
+              <div class="text-black">
                 {{ doc_number }} / {{ total_of_doc }}
               </div>
 
-              <button
-                v-if="doc_number < total_of_doc"
-                                title="next"
-                                @click="GetAllDocN('next')"
-                class="
-                  focus:outline-none
-                  w-12
-                  h-8
-                  bg-gray-300
-                  rounded
-                  flex
-                  justify-center
-                  items-center
-                "
-              >
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+              <div class="w-12 h-8">
+                <button
+                  v-if="doc_number < total_of_doc"
+                                  title="next"
+                                  @click="GetAllDocN('next')"
+                  class="
+                    focus:outline-none
+                    w-12
+                    h-8
+                    bg-gray-300
+                    rounded
+                    flex
+                    justify-center
+                    items-center
+                  "
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 19l-7-7 7-7"
-                  ></path>
-                </svg>
-              </button>
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 19l-7-7 7-7"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -2552,20 +2505,27 @@
 
 
 
-    <div
-      v-if="show_images_model"
-      class="w-screen h-full absolute inset-0 z-50 overflow-hidden"
-    >
+
+
+
+
+
+
+
+
+
+
+    <div v-if="show_current_reply_image_to_for_bigger_screen_model" class="w-screen h-full absolute inset-0 z-50 overflow-hidden">
       <div class="relative">
         <div
-          v-if="to_test_print_images_model"
-          id="printMe"
-          class="bg-black bg-opacity-50 h-screen-85"
+          v-if="reply_image_to_print_n_model"
+          id="print_reply_doc_n"
+          class="bg-black bg-opacity-50 h-screen-100"
         >
           <div
-            v-for="image in show_images_images_model"
+            v-for="image in reply_image_to_print_n"
             :key="image.id"
-            class="h-screen-85"
+            class="h-screen-100"
           >
             <img
               :src="image.path"
@@ -2575,23 +2535,10 @@
           </div>
         </div>
 
-        <div
-          class="
-            h-screen
-            flex flex-col
-            justify-center
-            items-center
-            bg-black bg-opacity-90
-            absolute
-            top-0
-            inset-0
-            z-50
-            w-full
-          "
-        >
-          <div class="max-w-3xl mx-auto">
-            <div class="flex justify-between items-center w-full">
-              <button @click="show_images_model = false">
+        <div class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full">
+          <div class="max-w-3xl mx-auto relative">
+            <div class="absolute top-6 z-50 flex justify-between items-center w-full">
+              <button @click="show_current_reply_image_to_for_bigger_screen_model = false">
                 <svg
                   class="w-8 h-8 stroke-current text-red-500 hover:text-red-400"
                   fill="none"
@@ -2610,109 +2557,105 @@
 
               <button
                 v-if="roles.includes('k')"
-                @click="print_image()"
-                v-print="'#printMe'"
-                class="
-                  bg-blue-500
-                  hover:bg-blue-400
-                  px-4
-                  py-2
-                  rounded-lg
-                  text-white
-                "
+                @click="print_reply_image()"
+                v-print="'#print_reply_doc_n'"
+                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
               >
                 طباعة كافة المستندات
               </button>
             </div>
 
-            <div class="h-screen-85 mt-4">
+            <div class="h-screen-93 mt-4">
               <img
-                :src="testimage_images_model"
+                :src="reply_image_of_doc"
                 alt="image"
                 class="h-full w-full object-contain"
               />
             </div>
 
-            <div
-              v-if="testimage_images_model"
-              class="
-                flex
-                justify-between
-                items-center
-                max-w-xs
-                mx-auto
-                w-full
-                mt-4
-              "
-            >
-              <button
-                @click="previousImage_images_model()"
-                class="
-                  focus:outline-none
-                  w-12
-                  h-8
-                  bg-gray-300
-                  rounded
-                  flex
-                  justify-center
-                  items-center
-                "
-              >
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+            <div class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4">
+              <div class="w-12 h-8">
+                <button
+                  title="prev"
+                  v-if="reply_doc_number > 1"
+                  @click="GetAllDocN('prev')"
+                  class="
+                    focus:outline-none
+                    w-12
+                    h-8
+                    bg-gray-300
+                    rounded
+                    flex
+                    justify-center
+                    items-center
+                  "
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"
-                  ></path>
-                </svg>
-              </button>
-
-              <div class="text-white">
-                {{ indextotest_images_model + 1 }} /
-                {{ show_images_images_model.length }}
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </button>
               </div>
 
-              <button
-                title="next"
-                @click="nextImage_images_model()"
-                class="
-                  focus:outline-none
-                  w-12
-                  h-8
-                  bg-gray-300
-                  rounded
-                  flex
-                  justify-center
-                  items-center
-                "
-              >
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+              <div class="text-black">
+                {{ reply_doc_number }} / {{ reply_total_of_doc }}
+              </div>
+
+              <div class="w-12 h-8">
+                <button
+                  v-if="reply_doc_number < reply_total_of_doc"
+                  title="next"
+                  @click="GetAllDocN('next')"
+                  class="
+                    focus:outline-none
+                    w-12
+                    h-8
+                    bg-gray-300
+                    rounded
+                    flex
+                    justify-center
+                    items-center
+                  "
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 19l-7-7 7-7"
-                  ></path>
-                </svg>
-              </button>
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 19l-7-7 7-7"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+
+
+
+
+
+
+
   </div>
 </template>
 
@@ -2968,8 +2911,23 @@ export default {
 
       image_of_doc: "",
       id_of_doc: "",
+      image_to_print_n: [],
 
+      image_to_print_n_model: false,
       show_current_image_for_bigger_screen_model: false,
+
+
+
+      reply_doc_number: 0,
+      reply_total_of_doc: 0,
+
+      reply_image_of_doc: "",
+      reply_id_of_doc: "",
+      reply_image_to_print_n: [],
+
+      reply_image_to_print_n_model: false,
+      show_current_reply_image_to_for_bigger_screen_model: false,
+      
 
     };
   },
@@ -3156,28 +3114,52 @@ export default {
         keyid;
     },
 
-    print_image() {
-      this.to_test_print_images_model = true;
+
+    to_get_all_doc_of_mail(){
+      this.screenFreeze = true;
+      this.loading = true;
       this.$http.mailService
-        .PrintOrShowDocument(
-          Number(this.mailId),
-          Number(localStorage.getItem("AY_LW")),
-          Number(this.from_reply_or_general)
-        )
+        .GetAllDocuments(this.mailId, Number(localStorage.getItem("AY_LW")))
         .then((res) => {
+          this.image_to_print_n = res.data;
           setTimeout(() => {
-            console.log(res);
-            this.loading = false;
             this.screenFreeze = false;
-          }, 500);
+            this.loading = false;
+          }, 300);
         })
         .catch((err) => {
+          this.loading = false;
           setTimeout(() => {
-            this.loading = false;
             this.screenFreeze = false;
-          }, 500);
-          console.log(err);
+            console.log(err);
+          }, 700);
         });
+    },
+
+    print_image() {
+      
+      this.image_to_print_n_model = true;
+
+      // this.$http.mailService
+      //   .PrintOrShowDocument(
+      //     Number(this.mailId),
+      //     Number(localStorage.getItem("AY_LW")),
+      //     Number(this.from_reply_or_general)
+      //   )
+      //   .then((res) => {
+      //     setTimeout(() => {
+      //       console.log(res);
+      //       this.loading = false;
+      //       this.screenFreeze = false;
+      //     }, 500);
+      //   })
+      //   .catch((err) => {
+      //     setTimeout(() => {
+      //       this.loading = false;
+      //       this.screenFreeze = false;
+      //     }, 500);
+      //     console.log(err);
+      //   });
     },
 
     show_reply_images(index, plase) {
@@ -4069,6 +4051,8 @@ export default {
             this.procedure_type = res.data.external.procedure_type;
           }
 
+          this.to_get_all_doc_of_mail()
+
           // this.GetDocmentForMail();
           // this.GetDocmentForMailToShow();
 
@@ -4303,6 +4287,8 @@ export default {
 
           // this.imagesToShow.splice(index, 1);
           this.mail_search();
+
+          alert("تم حذف الصورة بنجاح")
           // this.imagesToShow = res.data.result.documents
         })
         .catch((err) => {

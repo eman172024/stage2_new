@@ -42,6 +42,8 @@ module.exports = {
 
             height: {
                 'screen-85': '85vh',
+                'screen-93': '93vh',
+                'screen-100': '100vh',
             },
 
             animation: {
