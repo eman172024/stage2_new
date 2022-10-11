@@ -921,7 +921,10 @@
                     </a>
                   </div>
 
-                  <div v-if="image_of_doc" class="h-72 w-full bg-gray-100 rounded-md mt-4 mb-10">
+                  <div
+                    v-if="image_of_doc"
+                    class="h-72 w-full bg-gray-100 rounded-md mt-4 mb-10"
+                  >
                     <!--  v-if="imagesToSend != '' || imagesToShow != ''" -->
                     <div class="mt-4 pt-4 pb-4 rounded-md">
                       <div class="">
@@ -2358,13 +2361,19 @@
       </div>
     </div>
 
-    <div v-if="screenFreeze" class="w-screen h-screen bg-black bg-opacity-30 absolute inset-0 z-50 flex justify-center items-center">
+    <div
+      v-if="screenFreeze"
+      class="w-screen h-screen bg-black bg-opacity-30 absolute inset-0 z-50 flex justify-center items-center"
+    >
       <div v-if="loading" class="">
         <svgLoadingComponent></svgLoadingComponent>
       </div>
     </div>
 
-    <div v-if="show_current_image_for_bigger_screen_model" class="w-screen h-full absolute inset-0 z-50 overflow-hidden">
+    <div
+      v-if="show_current_image_for_bigger_screen_model"
+      class="w-screen h-full absolute inset-0 z-50 overflow-hidden"
+    >
       <div class="relative">
         <div
           v-if="image_to_print_n_model"
@@ -2384,10 +2393,16 @@
           </div>
         </div>
 
-        <div class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full">
+        <div
+          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
+        >
           <div class="max-w-3xl mx-auto relative">
-            <div class="absolute top-6 z-50 flex justify-between items-center w-full">
-              <button @click="show_current_image_for_bigger_screen_model = false">
+            <div
+              class="absolute top-6 z-50 flex justify-between items-center w-full"
+            >
+              <button
+                @click="show_current_image_for_bigger_screen_model = false"
+              >
                 <svg
                   class="w-8 h-8 stroke-current text-red-500 hover:text-red-400"
                   fill="none"
@@ -2422,7 +2437,9 @@
               />
             </div>
 
-            <div class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4">
+            <div
+              class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
+            >
               <div class="w-12 h-8">
                 <button
                   title="prev"
@@ -2463,8 +2480,8 @@
               <div class="w-12 h-8">
                 <button
                   v-if="doc_number < total_of_doc"
-                                  title="next"
-                                  @click="GetAllDocN('next')"
+                  title="next"
+                  @click="GetAllDocN('next')"
                   class="
                     focus:outline-none
                     w-12
@@ -2498,24 +2515,10 @@
       </div>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div v-if="show_current_reply_image_to_for_bigger_screen_model" class="w-screen h-full absolute inset-0 z-50 overflow-hidden">
+    <div
+      v-if="show_current_reply_image_to_for_bigger_screen_model"
+      class="w-screen h-full absolute inset-0 z-50 overflow-hidden"
+    >
       <div class="relative">
         <div
           v-if="reply_image_to_print_n_model"
@@ -2535,10 +2538,18 @@
           </div>
         </div>
 
-        <div class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full">
+        <div
+          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
+        >
           <div class="max-w-3xl mx-auto relative">
-            <div class="absolute top-6 z-50 flex justify-between items-center w-full">
-              <button @click="show_current_reply_image_to_for_bigger_screen_model = false">
+            <div
+              class="absolute top-6 z-50 flex justify-between items-center w-full"
+            >
+              <button
+                @click="
+                  show_current_reply_image_to_for_bigger_screen_model = false
+                "
+              >
                 <svg
                   class="w-8 h-8 stroke-current text-red-500 hover:text-red-400"
                   fill="none"
@@ -2573,7 +2584,9 @@
               />
             </div>
 
-            <div class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4">
+            <div
+              class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
+            >
               <div class="w-12 h-8">
                 <button
                   title="prev"
@@ -2648,14 +2661,6 @@
         </div>
       </div>
     </div>
-
-
-
-
-
-
-
-
   </div>
 </template>
 
@@ -2916,8 +2921,6 @@ export default {
       image_to_print_n_model: false,
       show_current_image_for_bigger_screen_model: false,
 
-
-
       reply_doc_number: 0,
       reply_total_of_doc: 0,
 
@@ -2927,8 +2930,6 @@ export default {
 
       reply_image_to_print_n_model: false,
       show_current_reply_image_to_for_bigger_screen_model: false,
-      
-
     };
   },
 
@@ -3023,7 +3024,7 @@ export default {
   methods: {
     //*****************29/3/2022
 
-    show_current_image_for_bigger_screen(){
+    show_current_image_for_bigger_screen() {
       this.screenFreeze = true;
       this.loading = true;
       setTimeout(() => {
@@ -3114,8 +3115,7 @@ export default {
         keyid;
     },
 
-
-    to_get_all_doc_of_mail(){
+    to_get_all_doc_of_mail() {
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
@@ -3137,7 +3137,6 @@ export default {
     },
 
     print_image() {
-      
       this.image_to_print_n_model = true;
 
       // this.$http.mailService
@@ -3211,14 +3210,11 @@ export default {
       this.departmentNameSelected = "";
       this.measureNameSelected = "";
 
-
-
       this.doc_number = 0;
       this.total_of_doc = 0;
 
       this.image_of_doc = "";
       this.id_of_doc = "";
-
 
       var date = new Date();
 
@@ -3413,8 +3409,6 @@ export default {
           this.mail_year
         )
         .then((res) => {
-          
-
           if (res.data.mail.is_send == true) {
             this.saveButton = false;
             this.updataButton = true;
@@ -3560,6 +3554,9 @@ export default {
     },
 
     GetReplyByDepartment(id, send_ToId, name, flag) {
+      this.reply_to_add = "";
+      this.imagesToSend = [];
+
       this.departmentflag = 0;
       this.replyByDepartmenId = id;
       this.sends_id = send_ToId;
@@ -4051,7 +4048,7 @@ export default {
             this.procedure_type = res.data.external.procedure_type;
           }
 
-          this.to_get_all_doc_of_mail()
+          this.to_get_all_doc_of_mail();
 
           // this.GetDocmentForMail();
           // this.GetDocmentForMailToShow();
@@ -4258,8 +4255,7 @@ export default {
             console.log(res);
 
             this.GetSentMailById();
-                        this.GetAllDocN("next");
-
+            this.GetAllDocN("next");
           }, 500);
         })
         .catch((err) => {
@@ -4288,7 +4284,7 @@ export default {
           // this.imagesToShow.splice(index, 1);
           this.mail_search();
 
-          alert("تم حذف الصورة بنجاح")
+          alert("تم حذف الصورة بنجاح");
           // this.imagesToShow = res.data.result.documents
         })
         .catch((err) => {
