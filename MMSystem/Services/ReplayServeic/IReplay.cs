@@ -19,6 +19,7 @@ namespace MMSystem.Services.ReplayServeic
         Task<List<RViewModel>> GetResourse(int id);
         Task<int> AddReplayWithPhotoFromDeskApp(ReplayPhotoVM replay);
         Task<int> AddReplayWithPhoto(ReplayPhotoVM replay);
+        Task<Page_Reply_Resources> GetResources_ById(int id, int page_number);
 
 
     }
