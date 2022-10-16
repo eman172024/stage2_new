@@ -11,8 +11,9 @@ namespace MMSystem.Model.ViewModel.MailVModels
         public ReplayDto reply { get; set; }
 
 
-        public List<Reply_ResourcesDto> Resources { get; set; } = new List<Reply_ResourcesDto> { };
-
+       public bool Resources { get; set; } 
+       // public List<Reply_ResourcesDto> Resources { get; set; } = new List<Reply_ResourcesDto> { };
+    
 
     }
 }

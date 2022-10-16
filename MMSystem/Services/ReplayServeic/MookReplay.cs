@@ -60,23 +60,24 @@ namespace MMSystem.Services.ReplayServeic
                                     select new RViewModel
                                     {
                                         reply = _mapper.Map<Reply, ReplayDto>(x),
-                                        Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(x._Resources)
+                                        //Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(x._Resources).
+                                        Resources=x._Resources.Where(a=>a.State==true&&x.ReplyId==x.ReplyId).Any()
                                     }).ToListAsync();
 
 
-                foreach (var item in model.list)
-                {
-                    foreach (var item2 in item.Resources)
-                    {
-                        string x = item2.path;
-                        if (File.Exists(x))
-                        {
-                            item2.path = await tobase64(x);
+                //foreach (var item in model.list)
+                //{
+                //    foreach (var item2 in item.Resources)
+                //    {
+                //        string x = item2.path;
+                //        if (File.Exists(x))
+                //        {
+                //            item2.path = await tobase64(x);
 
-                        }
+                //        }
 
-                    }
-                }
+                //    }
+                //}
 
 
                 return model;
@@ -472,18 +473,18 @@ namespace MMSystem.Services.ReplayServeic
                                                select new RViewModel
                                                {
                                                    reply = _mapper.Map<Reply, ReplayDto>(x),
-                                                   Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(_data.Reply_Resources.Where(x => x.ReplyId == x.ID).ToList())
-                                              
+                                                   Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
+
                                                }).ToListAsync();
 
-                foreach (var item in list)
-                {
-                    foreach (var item2 in item.Resources)
-                    {
-                        string x1 = item2.path;
-                        item2.path = await tobase64(x1);
-                    }
-                }
+                //foreach (var item in list)
+                //{
+                //    foreach (var item2 in item.Resources)
+                //    {
+                //        string x1 = item2.path;
+                //        item2.path = await tobase64(x1);
+                //    }
+                //}
 
                 return list;
             }
