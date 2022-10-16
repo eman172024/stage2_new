@@ -7,6 +7,14 @@ export default {
     },
 
 
+    GetResources_ById(id, page_number) {
+        return axios.get(`/api/Reply/GetResources_ById?id=${id}&page_number=${page_number}`);
+    },
+
+
+
+
+
     AddDocument(newDocuments) {
         return axios.post(`/api/Documents/AddDocuments`, newDocuments)
 

@@ -2095,7 +2095,7 @@
                         <div v-if="reply.resources == true" class="mx-2">
                           <button
                             v-if="roles.includes('g')"
-                            @click="show_reply_images(index, 3)"
+                            @click="GetResources_ById(reply.reply.replyId)"
                             class="
                               px-2
                               text-xs
@@ -2566,14 +2566,14 @@
                 </svg>
               </button>
 
-              <button
+              <!-- <button
                 v-if="roles.includes('k')"
                 @click="print_reply_image()"
                 v-print="'#print_reply_doc_n'"
                 class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
               >
                 طباعة كافة المستندات
-              </button>
+              </button> -->
             </div>
 
             <div class="h-screen-93 mt-4">
@@ -2591,7 +2591,7 @@
                 <button
                   title="prev"
                   v-if="reply_doc_number > 1"
-                  @click="GetAllDocN('prev')"
+                  @click="Next_prevent_GetResources_ById('prev')"
                   class="
                     focus:outline-none
                     w-12
@@ -2628,7 +2628,7 @@
                 <button
                   v-if="reply_doc_number < reply_total_of_doc"
                   title="next"
-                  @click="GetAllDocN('next')"
+                  @click="Next_prevent_GetResources_ById('next')"
                   class="
                     focus:outline-none
                     w-12
@@ -2924,12 +2924,17 @@ export default {
       reply_doc_number: 0,
       reply_total_of_doc: 0,
 
+
+
       reply_image_of_doc: "",
       reply_id_of_doc: "",
       reply_image_to_print_n: [],
 
       reply_image_to_print_n_model: false,
       show_current_reply_image_to_for_bigger_screen_model: false,
+
+
+      id_reply_image: ''
     };
   },
 
@@ -3022,6 +3027,77 @@ export default {
   },
 
   methods: {
+
+
+    Next_prevent_GetResources_ById(x) {
+
+      if (x == "next") {
+        this.reply_doc_number++;
+      } else {
+        this.reply_doc_number--;
+      }
+
+      this.screenFreeze = true;
+      this.loading = true;
+      this.$http.documentService
+        .GetResources_ById(this.id_reply_image, this.reply_doc_number)
+        .then((res) => {
+
+          this.show_current_reply_image_to_for_bigger_screen_model = true
+          this.reply_total_of_doc = res.data.total;
+
+          this.reply_image_of_doc = res.data.date[0].path;
+          this.reply_id_of_doc = res.data.date[0].id;
+
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 200);
+        })
+        .catch((err) => {
+          this.screenFreeze = false;
+          this.loading = false;
+          console.log(err);
+        });
+    },
+
+    GetResources_ById(id) {
+
+      this.id_reply_image = id;
+
+
+      this.reply_doc_number = 1;
+      this.reply_image_of_doc = []
+      this.reply_id_of_doc = ''
+      this.reply_total_of_doc = ''
+     
+
+      this.screenFreeze = true;
+      this.loading = true;
+      this.$http.documentService
+        .GetResources_ById(id, this.reply_doc_number)
+        .then((res) => {
+
+          this.show_current_reply_image_to_for_bigger_screen_model = true
+          this.reply_total_of_doc = res.data.total;
+
+          this.reply_image_of_doc = res.data.date[0].path;
+          this.reply_id_of_doc = res.data.date[0].id;
+
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 200);
+        })
+        .catch((err) => {
+          this.screenFreeze = false;
+          this.loading = false;
+          console.log(err);
+        });
+    },
+
+
+
     //*****************29/3/2022
 
     show_current_image_for_bigger_screen() {

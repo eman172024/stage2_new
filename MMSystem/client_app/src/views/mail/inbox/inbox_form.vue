@@ -634,7 +634,7 @@
                         <div v-if="reply.resources != 0" class="mx-2">
                           <button
                             v-if="roles.includes('r')"
-                            @click="show_reply_images(index, 3)"
+                            @click="GetResources_ById(reply.reply.replyId)"
                             class="
                                 px-2
                                 text-xs
@@ -1161,6 +1161,158 @@
 
       <!-- w-full h-full rounded object-contain -->
     </div>
+
+
+
+    <div
+      v-if="show_current_reply_image_to_for_bigger_screen_model"
+      class="w-screen h-full absolute inset-0 z-50 overflow-hidden"
+    >
+      <div class="relative">
+        <div
+          v-if="reply_image_to_print_n_model"
+          id="print_reply_doc_n"
+          class="bg-black bg-opacity-50 h-screen-100"
+        >
+          <div
+            v-for="image in reply_image_to_print_n"
+            :key="image.id"
+            class="h-screen-100"
+          >
+            <img
+              :src="image.path"
+              alt=""
+              class="h-full w-full object-contain"
+            />
+          </div>
+        </div>
+
+        <div
+          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
+        >
+          <div class="max-w-3xl mx-auto relative">
+            <div
+              class="absolute top-6 z-50 flex justify-between items-center w-full"
+            >
+              <button
+                @click="
+                  show_current_reply_image_to_for_bigger_screen_model = false
+                "
+              >
+                <svg
+                  class="w-8 h-8 stroke-current text-red-500 hover:text-red-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </button>
+
+              <!-- <button
+                v-if="roles.includes('k')"
+                @click="print_reply_image()"
+                v-print="'#print_reply_doc_n'"
+                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+              >
+                طباعة كافة المستندات
+              </button> -->
+            </div>
+
+            <div class="h-screen-93 mt-4">
+              <img
+                :src="reply_image_of_doc"
+                alt="image"
+                class="h-full w-full object-contain"
+              />
+            </div>
+
+            <div
+              class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
+            >
+              <div class="w-12 h-8">
+                <button
+                  title="prev"
+                  v-if="reply_doc_number > 1"
+                  @click="Next_prevent_GetResources_ById('prev')"
+                  class="
+                    focus:outline-none
+                    w-12
+                    h-8
+                    bg-gray-300
+                    rounded
+                    flex
+                    justify-center
+                    items-center
+                  "
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="text-black">
+                {{ reply_doc_number }} / {{ reply_total_of_doc }}
+              </div>
+
+              <div class="w-12 h-8">
+                <button
+                  v-if="reply_doc_number < reply_total_of_doc"
+                  title="next"
+                  @click="Next_prevent_GetResources_ById('next')"
+                  class="
+                    focus:outline-none
+                    w-12
+                    h-8
+                    bg-gray-300
+                    rounded
+                    flex
+                    justify-center
+                    items-center
+                  "
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 19l-7-7 7-7"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    
   </div>
 </template>
 
@@ -1331,9 +1483,100 @@ export default {
 
       image_to_print_n_model: false,
       show_current_image_for_bigger_screen_model: false,
+
+
+
+
+      reply_doc_number: 0,
+      reply_total_of_doc: 0,
+
+
+
+      reply_image_of_doc: "",
+      reply_id_of_doc: "",
+      reply_image_to_print_n: [],
+
+      reply_image_to_print_n_model: false,
+      show_current_reply_image_to_for_bigger_screen_model: false,
+
+
+      id_reply_image: ''
+
+
     };
   },
   methods: {
+
+
+
+    Next_prevent_GetResources_ById(x) {
+
+      if (x == "next") {
+        this.reply_doc_number++;
+      } else {
+        this.reply_doc_number--;
+      }
+
+      this.screenFreeze = true;
+      this.loading = true;
+      this.$http.documentService
+        .GetResources_ById(this.id_reply_image, this.reply_doc_number)
+        .then((res) => {
+
+          this.show_current_reply_image_to_for_bigger_screen_model = true
+          this.reply_total_of_doc = res.data.total;
+
+          this.reply_image_of_doc = res.data.date[0].path;
+          this.reply_id_of_doc = res.data.date[0].id;
+
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 200);
+        })
+        .catch((err) => {
+          this.screenFreeze = false;
+          this.loading = false;
+          console.log(err);
+        });
+    },
+
+    GetResources_ById(id) {
+
+      this.id_reply_image = id;
+
+
+      this.reply_doc_number = 1;
+      this.reply_image_of_doc = []
+      this.reply_id_of_doc = ''
+      this.reply_total_of_doc = ''
+     
+
+      this.screenFreeze = true;
+      this.loading = true;
+      this.$http.documentService
+        .GetResources_ById(id, this.reply_doc_number)
+        .then((res) => {
+
+          this.show_current_reply_image_to_for_bigger_screen_model = true
+          this.reply_total_of_doc = res.data.total;
+
+          this.reply_image_of_doc = res.data.date[0].path;
+          this.reply_id_of_doc = res.data.date[0].id;
+
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 200);
+        })
+        .catch((err) => {
+          this.screenFreeze = false;
+          this.loading = false;
+          console.log(err);
+        });
+    },
+
+
 
     to_get_all_doc_of_mail(){
       this.screenFreeze = true;
