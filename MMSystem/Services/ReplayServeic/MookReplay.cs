@@ -643,5 +643,37 @@ namespace MMSystem.Services.ReplayServeic
                 throw;
             }
         }
+
+
+        public async Task<Page_Reply_Resources> GetResources_ById(int id,int page_number) {
+            Page_Reply_Resources model = new Page_Reply_Resources();
+            model.total  =  _data.Reply_Resources.Where(x => x.State.Equals(true) && x.ReplyId == id).ToList().Count();
+
+            model.date =await _data.Reply_Resources.Where(x => x.State.Equals(true) && x.ReplyId == id).Select(z=>new Reply_ResourcesDto
+            { 
+            
+            ID=z.ID,
+            order=z.order,
+            path=z.path,
+            ReplyId=z.ReplyId
+            
+            
+            }).Skip((page_number - 1) * 1).Take(1).ToListAsync();
+
+
+            foreach (var item in model.date)
+            {
+                  string x1 = item.path;
+                item.path = await tobase64(x1);
+                
+
+            }
+
+
+
+
+            return model;
+
+        }
     }
 }

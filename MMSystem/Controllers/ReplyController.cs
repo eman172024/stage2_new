@@ -151,5 +151,21 @@ namespace MMSystem.Controllers
             return Ok(massege);
 
         }
+
+        //GetResources_ById
+
+        [HttpGet("GetResources_ById")]
+        public async Task<IActionResult> GetResources_ById(int id, int page_number)
+        {
+            var result = await _Replay.GetResources_ById(id, page_number);
+            if (result.total>0)
+                return Ok(result);
+            return NotFound(new 
+            {
+                message = "لايوجد مرفقات ",
+                statusCode = 404
+            });
+
+        }
     }
 }
