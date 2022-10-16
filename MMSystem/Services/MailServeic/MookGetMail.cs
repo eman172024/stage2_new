@@ -43,24 +43,24 @@ namespace MMSystem.Services.MailServeic
                                    select new RViewModel
                                    {
                                        reply = _mapper.Map<Reply, ReplayDto>(x),
-                                      Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(x._Resources)
+                                       Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
                                    }).ToListAsync();
 
-                foreach (var xx in model.mail_Resourcescs)
-                {
-                    string x = xx.path;
-                    xx.path = await tobase64(x);
+                //foreach (var xx in model.mail_Resourcescs)
+                //{
+                //    string x = xx.path;
+                //    xx.path = await tobase64(x);
 
-                }
+                //}
 
-                foreach (var item in model.list)
-                {
-                    foreach (var item2 in item.Resources)
-                    {
-                        string x1 = item2.path;
-                        item2.path = await tobase64(x1);
-                    }
-                }
+                //foreach (var item in model.list)
+                //{
+                //    foreach (var item2 in item.Resources)
+                //    {
+                //        string x1 = item2.path;
+                //        item2.path = await tobase64(x1);
+                //    }
+                //}
 
 
                 return model;
@@ -89,33 +89,33 @@ namespace MMSystem.Services.MailServeic
                       //       join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
                                select new RViewModel { 
                                reply=_mapper.Map<Reply,ReplayDto>(x),
-                             Resources=_mapper.Map<List<Reply_Resources>,List<Reply_ResourcesDto>>( x._Resources)
+                                   Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
                                }).ToListAsync();
 
-                foreach (var xx in model.mail_Resourcescs)
-                {
-                    string x = xx.path;
-                    if (File.Exists(x))
-                    {
-                        xx.path = await tobase64(x);
+                //foreach (var xx in model.mail_Resourcescs)
+                //{
+                //    string x = xx.path;
+                //    if (File.Exists(x))
+                //    {
+                //        xx.path = await tobase64(x);
 
-                    }
+                //    }
 
-                }
+                //}
 
-                foreach (var item in model.list)
-                {
-                    foreach (var item2 in item.Resources)
-                    {
-                        string x = item2.path;
-                        if (File.Exists(x))
-                        {
-                            item2.path = await tobase64(x);
+                //foreach (var item in model.list)
+                //{
+                //    foreach (var item2 in item.Resources)
+                //    {
+                //        string x = item2.path;
+                //        if (File.Exists(x))
+                //        {
+                //            item2.path = await tobase64(x);
 
-                        }
+                //        }
 
-                    }
-                }
+                //    }
+                //}
             
 
                 return model;
@@ -218,34 +218,34 @@ namespace MMSystem.Services.MailServeic
                                    select new RViewModel
                                    {
                                        reply = _mapper.Map<Reply, ReplayDto>(x),
-                                      Resources = _mapper.Map<List<Reply_Resources>, List<Reply_ResourcesDto>>(x._Resources)
+                                       Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
                                    }).ToListAsync();
 
-                foreach (var xx in model.mail_Resourcescs)
-                {
-                    string x = xx.path;
-                    if (File.Exists(x))
-                    {
-                        xx.path = await tobase64(x);
+                //foreach (var xx in model.mail_Resourcescs)
+                //{
+                //    string x = xx.path;
+                //    if (File.Exists(x))
+                //    {
+                //        xx.path = await tobase64(x);
 
-                    }
+                //    }
 
-                }
+                //}
 
-                foreach (var item in model.list)
-                {
-                    foreach (var item2 in item.Resources)
-                    {
-                        string x1 = item2.path;
-                        if (File.Exists(x1))
-                        {
-                            item2.path = await tobase64(x1);
+                //foreach (var item in model.list)
+                //{
+                //    foreach (var item2 in item.Resources)
+                //    {
+                //        string x1 = item2.path;
+                //        if (File.Exists(x1))
+                //        {
+                //            item2.path = await tobase64(x1);
 
-                        }
+                //        }
 
 
-                    }
-                }
+                //    }
+                //}
 
 
                 return model;
