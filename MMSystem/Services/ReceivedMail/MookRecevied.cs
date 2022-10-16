@@ -4346,6 +4346,40 @@ namespace MMSystem.Services.ReceivedMail
 
         }
 
+        public async Task<int> print_Attachment(int mail_id, int department_Id, int userId)
+        {
+
+            try
+            {
+                var c = await dbcon.Sends.OrderBy(x => x.Id).LastOrDefaultAsync(x => x.MailID == mail_id && department_Id == x.to);
+                if (c != null)
+                {
+                    Historyes historyes = new Historyes();
+                    historyes.changes = "طباعة مستندات الرد";
+
+                    historyes.mailid = c.MailID;
+                    historyes.currentUser = userId;
+                    historyes.Time = DateTime.Now;
+                    historyes.HistortyNameID = 21;
+                    await dbcon.History.AddAsync(historyes);
+
+
+                    c.flag = 7;
+                    dbcon.Sends.Update(c);
+                    await dbcon.SaveChangesAsync();
+                    return c.flag;
+                }
+                return 0;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
 
         public async Task<List<Extrmal_SectionDto>> getExtrinlSection()
 

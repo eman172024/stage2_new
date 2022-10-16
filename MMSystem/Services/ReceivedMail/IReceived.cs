@@ -100,5 +100,8 @@ namespace MMSystem.Services.ReceivedMail
 
         //  Task<MailState> GetNamOfState(int flag);
 
-    }
+        Task<int> print_Attachment(int mail_id, int department_Id, int userId);
+        
+
+        }
 }
