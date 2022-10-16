@@ -4364,7 +4364,7 @@ namespace MMSystem.Services.ReceivedMail
                     await dbcon.History.AddAsync(historyes);
 
 
-                    c.flag = 7;
+                    c.flag = 6;
                     dbcon.Sends.Update(c);
                     await dbcon.SaveChangesAsync();
                     return c.flag;
