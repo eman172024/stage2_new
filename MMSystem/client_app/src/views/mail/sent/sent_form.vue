@@ -709,7 +709,7 @@
                           {{ consignee.departmentName }} ,
                           {{ consignee.measureName }}
                           <button
-                            v-if="mail_flag <= 2"
+                            v-if="mail_flag <= 2 && consignees.length > 1 "
                             @click="
                               delete_side_measure(
                                 consignee.departmentId,
@@ -756,6 +756,7 @@
                             m-0.5
                           "
                         >
+                        
                           {{ consignee.departmentName }} ,
                           {{ consignee.measureName }}
                           <!--  -->
