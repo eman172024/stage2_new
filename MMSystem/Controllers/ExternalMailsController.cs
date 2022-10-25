@@ -156,6 +156,24 @@ namespace MMSystem.Controllers
           
         }
 
+        [HttpPut("print_Attachment")]
+        public async Task<IActionResult> print_Attachment(int mail_id, int department_Id, int userId)
+
+        {
+
+            var c = await _re.print_Attachment(mail_id, department_Id, userId);
+            if (c > 0)
+                return Accepted("print_Attachment", new { 
+                message="j",
+                StatusCode=203
+                
+                }
+
+                     
+                );
+            return BadRequest("فشلت العملية");
+        }
+
 
     }
 

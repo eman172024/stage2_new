@@ -1127,7 +1127,7 @@ namespace MMSystem.Services.MailServeic
 
                 string name = "Mail_photos";
 
-
+                string depname = "";
 
 
                 string x1 = Path.Combine(this.iwebHostEnvironment.WebRootPath, name).ToLower();
@@ -1159,6 +1159,7 @@ namespace MMSystem.Services.MailServeic
 
                 foreach (var item in file.list)
                 {
+                    depname = "";
                     var index = item.baseAs64.IndexOf(',');
                     var bsee64string = item.baseAs64.Substring(index + 1);
                     index = item.baseAs64.IndexOf(';');
@@ -1167,7 +1168,11 @@ namespace MMSystem.Services.MailServeic
                     var extention = base64signtuer.Substring(index + 1);
                     byte[] bytes = Convert.FromBase64String(bsee64string);
                     Guid guid = Guid.NewGuid();
-                    string x = guid.ToString();
+
+                    var mail_ = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == file.mail_id);
+                    int depid = mail_.Department_Id;
+                     depname =  depname.ToString()+ "-";
+                    string x = depname+guid.ToString();
                     var path = Path.Combine(last + "/"+x + ".");
                    
 
