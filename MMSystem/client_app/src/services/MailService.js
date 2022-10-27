@@ -21,7 +21,7 @@ export default {
     UpdateMail(Mail) {
         return axios.put(`/api/Mail/UpdateMail`, Mail)
     },
-    
+
     cancel_sending_to_department(mailId, department_id, userId) {
         return axios.delete(`/api/Mail/DeleteMangament?mail_id=${mailId}&departmentId=${department_id}&userId=${userId}`);
     },
@@ -43,13 +43,13 @@ export default {
     },
 
     GetSentMailById(id, type) {
-        return axios.get(`/api/Mail/GetMailById?id=${id}&type=${type}`);
+        return axios.get(`/api/Mail/GetMailById?id=${id}&type=${type}&page_number=1`);
     },
 
     GetReplyByDepartment(department, mail) {
         return axios.get(`/api/Reply/GetReplyById?department_id=${department}&mail_id=${mail}`);
     },
-    
+
     show_senders(id) {
         return axios.get(`/api/Mail/GetDetalies?mail_id=${id}`);
     },
@@ -82,7 +82,7 @@ export default {
         return axios.get(`/api/WeatherForecast/GetMailInfo?mail_id=${id}&Department_Id=${department}&type=${type}`);
     },
 
-    GetAllDocuments(id,userId) {
+    GetAllDocuments(id, userId) {
         return axios.get(`/api/Resources/GetMailResources?mail_id=${id}&userId=${userId}`);
     },
 
@@ -94,7 +94,7 @@ export default {
         return axios.post(`/api/Mail/Uplode`, { userId: 9, mail_id: Number(id), list: list, })
     },
 
-    DeleteDocument(id,userId) {
+    DeleteDocument(id, userId) {
         return axios.delete(`/api/Mail/DeleteDocument?id=${id}&userId=${userId}`)
     },
 
@@ -102,7 +102,7 @@ export default {
         return axios.post(`/api/Resources/print?mail_id=${id}&userId=${userId}&type=${type}`);
     },
 
-    
+
 
 
 
@@ -126,19 +126,19 @@ export default {
 
 
     UpdateArchive(model) {
-        return axios.put(`/api/Archive/Update`,model)
+        return axios.put(`/api/Archive/Update`, model)
     },
 
     printHistory(model) {
-        return axios.put(`/api/Archive/Updates`,model)
+        return axios.put(`/api/Archive/Updates`, model)
     },
 
-    GetMailForArchives(page,pageSize,mail_number,date_time_of_day,date_time_from,department_id,side_id,mail_summary,MailType,Perent) {
+    GetMailForArchives(page, pageSize, mail_number, date_time_of_day, date_time_from, department_id, side_id, mail_summary, MailType, Perent) {
         return axios.get(`/api/Archive/GetAll?page=${page}&pageSize=${pageSize}&mail_number=${mail_number}&date_time_of_day=${date_time_of_day}&date_time_from=${date_time_from}&department_id=${department_id}&side_id=${side_id}&mail_summary=${mail_summary}&MailType=${MailType}&Perent=${Perent}`);
     },
 
-    Add_user(user){
-        return axios.post(`/api/Administrator/Add`,user);
+    Add_user(user) {
+        return axios.post(`/api/Administrator/Add`, user);
     },
 
     GetAllRoles() {
@@ -184,10 +184,10 @@ export default {
     },
 
 
-    GetMysectionReport(department_Id,fromdate,todate,mailtype) {
+    GetMysectionReport(department_Id, fromdate, todate, mailtype) {
 
 
-      
+
         return axios.get(`/api/Reports/GetMySectionReport?departmentid=${department_Id}&fromdate=${fromdate}&todate=${todate}&MailType=${mailtype}&SendedOrRecieved=${"sended"}`);
     },
 

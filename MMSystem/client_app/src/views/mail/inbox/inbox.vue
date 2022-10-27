@@ -987,7 +987,6 @@
                       <div class="w-1/3 flex justify-center items-center">
                         <!-- v-if="roles.includes('g')" -->
                         <button
-                          
                           :class="mail.flag != 2 ? 'hidden' : ''"
                           @click="read_it_mail(mail.mail_id)"
                           title="تأكيد قراءة البريد"
@@ -1150,10 +1149,10 @@
                               : 'justify-end flex-row-reverse'
                           "
                         >
-                          <div v-if="reply.resources != 0" class="mx-2">
+                          <div v-if="reply.resources == true" class="mx-2">
                             <button
                               v-if="roles.includes('s')"
-                              @click="show_reply_images(index, 3)"
+                              @click="GetResources_ById(reply.reply.replyId)"
                               class="
                                 px-2
                                 text-xs
@@ -1451,9 +1450,13 @@
         <div
           v-if="to_test_print"
           id="printMe"
-          class="bg-black bg-opacity-50 h-screen-85"
+          class="bg-black bg-opacity-50 h-screen-100"
         >
-          <div v-for="image in show_images" :key="image.id" class="h-screen-85">
+          <div
+            v-for="image in show_images"
+            :key="image.id"
+            class="h-screen-100"
+          >
             <img
               :src="image.path"
               alt=""
@@ -1463,24 +1466,15 @@
         </div>
 
         <div
-          class="
-            h-screen
-            flex flex-col
-            justify-center
-            items-center
-            bg-black bg-opacity-50
-            absolute
-            top-0
-            inset-0
-            z-50
-            w-full
-          "
+          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
         >
-          <div class="max-w-3xl mx-auto">
-            <div class="flex justify-between items-center w-full">
+          <div class="max-w-3xl mx-auto relative">
+            <div
+              class="absolute top-6 z-50 flex justify-between items-center w-full"
+            >
               <button @click="show_images_model = false">
                 <svg
-                  class="w-8 h-8 stroke-current hover:text-red-500"
+                  class="w-8 h-8 stroke-current text-red-500 hover:text-red-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -1499,20 +1493,13 @@
                 v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#printMe'"
-                class="
-                  bg-blue-500
-                  hover:bg-blue-400
-                  px-4
-                  py-2
-                  rounded-lg
-                  text-white
-                "
+                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
               >
                 طباعة كافة المستندات
               </button>
             </div>
 
-            <div class="h-screen-85 mt-4">
+            <div class="h-screen-93 mt-4">
               <img
                 :src="testimage"
                 alt="image"
@@ -1521,79 +1508,75 @@
             </div>
 
             <div
-              v-if="testimage"
-              class="
-                flex
-                justify-between
-                items-center
-                max-w-xs
-                mx-auto
-                w-full
-                mt-4
-              "
+              class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
             >
-              <button
-                @click="previousImage()"
-                class="
-                  focus:outline-none
-                  w-12
-                  h-8
-                  bg-gray-300
-                  rounded
-                  flex
-                  justify-center
-                  items-center
-                "
-              >
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+              <div v-if="testimage" class="w-12 h-8">
+                <button
+                  title="prev"
+                  @click="previousImage()"
+                  class="
+                    focus:outline-none
+                    w-12
+                    h-8
+                    bg-gray-300
+                    rounded
+                    flex
+                    justify-center
+                    items-center
+                  "
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"
-                  ></path>
-                </svg>
-              </button>
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
 
-              <div class="text-white">
+              <div class="text-black">
                 {{ indextotest + 1 }} / {{ show_images.length }}
               </div>
 
-              <button
-                title="next"
-                @click="nextImage()"
-                class="
-                  focus:outline-none
-                  w-12
-                  h-8
-                  bg-gray-300
-                  rounded
-                  flex
-                  justify-center
-                  items-center
-                "
-              >
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+              <div class="w-12 h-8">
+                <button
+                  title="next"
+                  @click="nextImage()"
+                  class="
+                    focus:outline-none
+                    w-12
+                    h-8
+                    bg-gray-300
+                    rounded
+                    flex
+                    justify-center
+                    items-center
+                  "
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 19l-7-7 7-7"
-                  ></path>
-                </svg>
-              </button>
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 19l-7-7 7-7"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -1601,6 +1584,158 @@
 
       <!-- w-full h-full rounded object-contain -->
     </div>
+
+
+
+    <div
+      v-if="show_current_reply_image_to_for_bigger_screen_model"
+      class="w-screen h-full absolute inset-0 z-50 overflow-hidden"
+    >
+      <div class="relative">
+        <div
+          v-if="reply_image_to_print_n_model"
+          id="print_reply_doc_n"
+          class="bg-black bg-opacity-50 h-screen-100"
+        >
+          <div
+            v-for="image in reply_image_to_print_n"
+            :key="image.id"
+            class="h-screen-100"
+          >
+            <img
+              :src="image.path"
+              alt=""
+              class="h-full w-full object-contain"
+            />
+          </div>
+        </div>
+
+        <div
+          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
+        >
+          <div class="max-w-3xl mx-auto relative">
+            <div
+              class="absolute top-6 z-50 flex justify-between items-center w-full"
+            >
+              <button
+                @click="
+                  show_current_reply_image_to_for_bigger_screen_model = false
+                "
+              >
+                <svg
+                  class="w-8 h-8 stroke-current text-red-500 hover:text-red-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </button>
+
+              <!-- <button
+                v-if="roles.includes('k')"
+                @click="print_reply_image()"
+                v-print="'#print_reply_doc_n'"
+                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+              >
+                طباعة كافة المستندات
+              </button> -->
+            </div>
+
+            <div class="h-screen-93 mt-4">
+              <img
+                :src="reply_image_of_doc"
+                alt="image"
+                class="h-full w-full object-contain"
+              />
+            </div>
+
+            <div
+              class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
+            >
+              <div class="w-12 h-8">
+                <button
+                  title="prev"
+                  v-if="reply_doc_number > 1"
+                  @click="Next_prevent_GetResources_ById('prev')"
+                  class="
+                    focus:outline-none
+                    w-12
+                    h-8
+                    bg-gray-300
+                    rounded
+                    flex
+                    justify-center
+                    items-center
+                  "
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="text-black">
+                {{ reply_doc_number }} / {{ reply_total_of_doc }}
+              </div>
+
+              <div class="w-12 h-8">
+                <button
+                  v-if="reply_doc_number < reply_total_of_doc"
+                  title="next"
+                  @click="Next_prevent_GetResources_ById('next')"
+                  class="
+                    focus:outline-none
+                    w-12
+                    h-8
+                    bg-gray-300
+                    rounded
+                    flex
+                    justify-center
+                    items-center
+                  "
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 19l-7-7 7-7"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
   </div>
 </template>
 
@@ -1614,62 +1749,41 @@ import asideComponent from "@/components/asideComponent.vue";
 import navComponent from "@/components/navComponent.vue";
 import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 
-
 //import { HubConnectionBuilder } from "@microsoft/signalr";
-
-
 
 export default {
   created() {},
 
   mounted() {
+    //*********************websocket
+    this.conn = new WebSocket("ws://localhost:58316/ws");
 
-//*********************websocket 
-this.conn=new WebSocket("ws://localhost:58316/ws")
-
-console.log("websocket connect ok")
-
- /*this.conn.onopen =  (event)=> {
+    /*this.conn.onopen =  (event)=> {
    
-     console.log("id="+ event.data);
  }*/
 
+    this.conn.onmessage = (event) => {
+      let scannedImage = event.data;
+      let mgs = JSON.parse(scannedImage);
+      this.imagesscantest = mgs;
 
-  this.conn.onmessage =  (event)=> {
-   
-    let scannedImage = event.data;
-    let mgs=JSON.parse(scannedImage);
-    this.imagesscantest=mgs;
- 
-    var ind=this.imagesscantest.index
-    if(ind==1)
-     {
-      this.keyid=this.imagesscantest.keyid
-     }
-    else
-    {
-       //this.imagesToSend=[]
-       for(var i=0;i<mgs["image"].length;i++)
-        {
-         this.indexOfimagesToShow++
-        
-         this.imagesToSend.push(
-          {
-        
-           baseAs64: mgs["image"][i],
-          index: this.indexOfimagesToShow,
+      var ind = this.imagesscantest.index;
+      if (ind == 1) {
+        this.keyid = this.imagesscantest.keyid;
+      } else {
+        //this.imagesToSend=[]
+        for (var i = 0; i < mgs["image"].length; i++) {
+          this.indexOfimagesToShow++;
+
+          this.imagesToSend.push({
+            baseAs64: mgs["image"][i],
+            index: this.indexOfimagesToShow,
           });
-       
         }
+      }
+    };
 
- 
-
-    }
- 
-  }
-
- 
-//*********************end websocket
+    //*********************end websocket
 
     var date = new Date();
 
@@ -1821,35 +1935,116 @@ console.log("websocket connect ok")
       mangment_sender_to_get_mail_by_id: "",
 
       mails_to_print: [],
+
+
+
+      reply_doc_number: 0,
+      reply_total_of_doc: 0,
+
+
+
+      reply_image_of_doc: "",
+      reply_id_of_doc: "",
+      reply_image_to_print_n: [],
+
+      reply_image_to_print_n_model: false,
+      show_current_reply_image_to_for_bigger_screen_model: false,
+
+
+      id_reply_image: ''
+
     };
   },
 
   methods: {
+
+
+
+    Next_prevent_GetResources_ById(x) {
+
+      if (x == "next") {
+        this.reply_doc_number++;
+      } else {
+        this.reply_doc_number--;
+      }
+
+      this.screenFreeze = true;
+      this.loading = true;
+      this.$http.documentService
+        .GetResources_ById(this.id_reply_image, this.reply_doc_number)
+        .then((res) => {
+
+          this.show_current_reply_image_to_for_bigger_screen_model = true
+          this.reply_total_of_doc = res.data.total;
+
+          this.reply_image_of_doc = res.data.date[0].path;
+          this.reply_id_of_doc = res.data.date[0].id;
+
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 200);
+        })
+        .catch((err) => {
+          this.screenFreeze = false;
+          this.loading = false;
+          console.log(err);
+        });
+    },
+
+    GetResources_ById(id) {
+
+      this.id_reply_image = id;
+
+
+      this.reply_doc_number = 1;
+      this.reply_image_of_doc = []
+      this.reply_id_of_doc = ''
+      this.reply_total_of_doc = ''
+     
+
+      this.screenFreeze = true;
+      this.loading = true;
+      this.$http.documentService
+        .GetResources_ById(id, this.reply_doc_number)
+        .then((res) => {
+
+          this.show_current_reply_image_to_for_bigger_screen_model = true
+          this.reply_total_of_doc = res.data.total;
+
+          this.reply_image_of_doc = res.data.date[0].path;
+          this.reply_id_of_doc = res.data.date[0].id;
+
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 200);
+        })
+        .catch((err) => {
+          this.screenFreeze = false;
+          this.loading = false;
+          console.log(err);
+        });
+    },
+
+    
     //************************
     reply1() {
-
-
-      var link = document.getElementById('a4');
-      var mailId_to_get_mail_by_id =this.mailId_to_get_mail_by_id;
+      var link = document.getElementById("a4");
+      var mailId_to_get_mail_by_id = this.mailId_to_get_mail_by_id;
       var sends_id_to_get_mail_by_id = this.sends_id_to_get_mail_by_id;
-      var department_Id =this.department_Id;
+      var department_Id = this.department_Id;
+      var keyid = this.keyid;
 
-   var timeout;
-        window.addEventListener('blur',function(e){
-            window.clearTimeout(timeout);
-        })
-        
-     //   link.addEventListener('click', function(e) { 
-        
-            timeout = window.setTimeout(function() {
+      var timeout;
+      window.addEventListener("blur", function(e) {
+        window.clearTimeout(timeout);
+      });
 
-                window.location = "http://mail/scanner_app/Setup1.msi";
+      timeout = window.setTimeout(function() {
+        window.location = "http://mail/scanner_app/Setup1.msi";
+      }, 1000);
 
-            }, 1000);
-
-           
-       
-      console.log("replay" + "  id= " + mailId_to_get_mail_by_id);
       link.href =
         "SScaner:flag=0" +
         "userId=" +
@@ -1858,22 +2053,10 @@ console.log("websocket connect ok")
         mailId_to_get_mail_by_id +
         "send_ToId=" +
         sends_id_to_get_mail_by_id +
-        "to=" +department_Id
-         +"keyid="+this.keyid;
-       
-      console.log(
-        "testreplay " +
-          "  id= " +
-          mailId_to_get_mail_by_id +
-          "userId=" +
-          localStorage.getItem("AY_LW") +
-          "send_ToId=" +
-          sends_id_to_get_mail_by_id +
-          "to=" +
-          department_Id
-      );
-     
-
+        "to=" +
+        department_Id +
+        "keyid=" +
+        keyid;
     },
     //***************************
 
@@ -1950,7 +2133,6 @@ console.log("websocket connect ok")
     displayReplyImagesOnPage(successful, mesg, response) {
       if (!successful) {
         // On error
-        console.error("Failed: " + mesg);
         return;
       }
 
@@ -1960,7 +2142,6 @@ console.log("websocket connect ok")
         mesg.toLowerCase().indexOf("user cancel") >= 0
       ) {
         // User cancelled.
-        console.info("User cancelled");
         return;
       }
 
@@ -2074,6 +2255,8 @@ console.log("websocket connect ok")
     },
 
     getMailById() {
+      this.reply_to_add = "";
+      this.imagesToSend = [];
       this.$http.mailService
         .GetInboxMailById(
           this.mailId_to_get_mail_by_id,
@@ -2166,8 +2349,6 @@ console.log("websocket connect ok")
       this.$http.mailService
         .GetAllDocuments(id, Number(localStorage.getItem("AY_LW")))
         .then((res) => {
-          console.log(res);
-
           this.show_images = res.data;
 
           this.testimage = this.show_images[0].path;
@@ -2213,7 +2394,6 @@ console.log("websocket connect ok")
           this.page_size
         )
         .then((res) => {
-          console.log(res);
           this.inboxMails = res.data.mail;
           this.replies = [];
           this.sends_id_to_get_mail_by_id = "";
@@ -2259,7 +2439,6 @@ console.log("websocket connect ok")
           this.page_size2
         )
         .then((res) => {
-          console.log(res);
           this.mails_to_print = res.data.mail;
           this.mails_to_print = res.data.mail;
 

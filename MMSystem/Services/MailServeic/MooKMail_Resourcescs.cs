@@ -176,7 +176,7 @@ namespace MMSystem.Services.MailServeic
                {
                 string x = xx.path;
                xx.path = await tobase64(x);
-}
+               }
 
 
                 return list;
@@ -311,5 +311,99 @@ namespace MMSystem.Services.MailServeic
 
         }
 
+        public async Task<RessPage> GetAllResss(int id,int pageNumber)
+        {
+            try
+            {
+                
+                RessPage ressPage = new RessPage();
+
+
+                ressPage.total = _dbCon.Mail_Resourcescs.Where(x => x.State.Equals(true) && x.MailID == id).ToList().Count();
+
+                var list = await _dbCon.Mail_Resourcescs.
+                 Where(x => x.MailID == id).Skip((pageNumber - 1) * 1).Take(1).ToListAsync();
+
+                if (list.Count > 0)
+                {
+
+                    ressPage.data = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(list);
+
+                    foreach (var xx in list)
+                    {
+                        string x = xx.path;
+                        xx.path = await tobase64(x);
+                    }
+                    return ressPage;
+
+                }
+
+                else {
+                    return ressPage;
+
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
+
+        public async Task<RessObj> GetAllResswithPage(int id, int pageNumber)
+        {
+            try
+            {
+
+                RessObj ressPage = new RessObj();
+
+
+                ressPage.total = _dbCon.Mail_Resourcescs.Where(x => x.State.Equals(true) && x.MailID == id).ToList().Count();
+
+                var list = await _dbCon.Mail_Resourcescs.
+                 Where(x => x.MailID == id&&x.State==true).Skip((pageNumber - 1) * 1).Take(1).ToListAsync();
+
+                if (list.Count > 0)
+                {
+
+                   var data= _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(list);
+
+                    foreach (var xx in list)
+                    {
+                        string pat = xx.path;
+                        xx.path = await tobase64(pat);
+                    }
+
+
+                    ressPage.data = data.FirstOrDefault();
+                    string x = ressPage. data.path;
+
+                    ressPage.data.path = await tobase64(x);
+
+
+                    return ressPage;
+
+                }
+
+                else
+                {
+                    return ressPage;
+
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
     }
 }

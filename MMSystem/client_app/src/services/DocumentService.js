@@ -2,6 +2,19 @@ import axios from 'axios';
 
 export default {
 
+    GetAllDocN(mail_id, page_number) {
+        return axios.get(`/api/Resources/GetAllDoc?mail_id=${mail_id}&page_number=${page_number}`);
+    },
+
+
+    GetResources_ById(id, page_number) {
+        return axios.get(`/api/Reply/GetResources_ById?id=${id}&page_number=${page_number}`);
+    },
+
+
+
+
+
     AddDocument(newDocuments) {
         return axios.post(`/api/Documents/AddDocuments`, newDocuments)
 

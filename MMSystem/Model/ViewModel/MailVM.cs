@@ -17,6 +17,8 @@ namespace MMSystem.Model.ViewModel
 
         public List<Department> departments { get; set; } = new List<Department> { };
 
+        public int total { get; set; }
+
         public MailVM()
         {
             actionSenders = new List<ActionSender>() { };
