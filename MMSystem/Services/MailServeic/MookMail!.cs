@@ -1181,11 +1181,7 @@ namespace MMSystem.Services.MailServeic
                     mail.MailID = file.mail_id;
                     mail.path = path + extention;
                     mail.order = item.index;
-                    Historyes histor = new Historyes();
-                    histor.currentUser = file.userId;
-                    histor.mailid = file.mail_id;
-                    histor.HistortyNameID = 4;
-                    histor.Time = DateTime.Now;
+                   
                  
                     bool res = await _resourcescs.Add(mail);
                     if (res)
@@ -1193,9 +1189,6 @@ namespace MMSystem.Services.MailServeic
                     
                     {
 
-                       await _appContext.History.AddAsync(histor);
-
-                        await _appContext.SaveChangesAsync();
                         result = true;
                     }
                     else
@@ -1205,6 +1198,17 @@ namespace MMSystem.Services.MailServeic
                     }
 
                 }
+
+                Historyes histor = new Historyes();
+                histor.currentUser = file.userId;
+                histor.mailid = file.mail_id;
+                histor.HistortyNameID = 4;
+                histor.Time = DateTime.Now;
+
+
+                await _appContext.History.AddAsync(histor);
+
+                await _appContext.SaveChangesAsync();
 
                 return result;
 
