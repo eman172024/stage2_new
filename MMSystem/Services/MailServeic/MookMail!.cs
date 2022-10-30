@@ -1567,29 +1567,36 @@ namespace MMSystem.Services.MailServeic
                         }
 
 
-                        var res = await _resourcescs.GetAllResss(mail.mail.MailID, page);
-                        ex.resourcescs = res.data;
-                        ex.total = res.total;
-                       // ex.resourcescs = await _resourcescs.GetAll(id);
-
-                        ex.mail.flag = mail.actionSenders.Max(x => x.flag);
-
-                        foreach (var xx in ex.resourcescs)
+                        RessPage res = await _resourcescs.GetAllResss(dto.MailID, page);
+                        if (res .total>0)
                         {
-                            string x = xx.path;
+                            ex.resourcescs = res.data;
+                            ex.total = res.total;
+                            // ex.resourcescs = await _resourcescs.GetAll(id);
 
-                            if (File.Exists(xx.path))
+                            ex.mail.flag = mail.actionSenders.Max(x => x.flag);
+
+                            foreach (var xx in ex.resourcescs)
                             {
-                                xx.path = await tobase64(x);
+                                string x = xx.path;
 
-                            }
-                            else
-                            {
+                                if (File.Exists(xx.path))
+                                {
+                                    xx.path = await tobase64(x);
 
+                                }
+                                else
+                                {
+
+
+                                }
 
                             }
 
                         }
+                        else { }
+
+                       
 
 
                         return ex;
@@ -1662,29 +1669,29 @@ namespace MMSystem.Services.MailServeic
                     }
 
 
-                    var res = await _resourcescs.GetAllResss(mail.mail.MailID, page);
-                    ex.resourcescs = res.data;
-                    ex.total = res.total;
-                   
+                    var res = await _resourcescs.GetAllResss(dto.MailID, page);
 
-                    ex.mail.flag = mail.actionSenders.Max(x => x.flag);
+                    if (res.total > 0) {
+                        ex.resourcescs = res.data;
+                        ex.total = res.total;
 
-                    foreach (var xx in ex.resourcescs)
-                    {
-                        string x = xx.path;
 
-                        if (File.Exists(xx.path))
+                        ex.mail.flag = mail.actionSenders.Max(x => x.flag);
+
+                        foreach (var xx in ex.resourcescs)
                         {
-                            xx.path = await tobase64(x);
+                            string x = xx.path;
+
+                            if (File.Exists(xx.path))
+                            {
+                                xx.path = await tobase64(x);
+
+                            }
+
 
                         }
-                        else
-                        {
-
-
-                        }
-
-                    }
+                    } else { }
+                    
 
 
                     return ex;
