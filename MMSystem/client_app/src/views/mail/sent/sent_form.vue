@@ -2521,23 +2521,30 @@
       class="w-screen h-full absolute inset-0 z-50 overflow-hidden"
     >
       <div class="relative">
+
+
+
         <div
           v-if="reply_image_to_print_n_model"
           id="print_reply_doc_n"
           class="bg-black bg-opacity-50 h-screen-100"
         >
+        <!--  v-for="image in reply_image_to_print_n"
+            :key="image.id" -->
           <div
-            v-for="image in reply_image_to_print_n"
-            :key="image.id"
+           
             class="h-screen-100"
           >
             <img
-              :src="image.path"
+              :src="reply_image_of_doc"
               alt=""
               class="h-full w-full object-contain"
             />
           </div>
         </div>
+
+
+       
 
         <div
           class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
@@ -2567,14 +2574,14 @@
                 </svg>
               </button>
 
-              <!-- <button
+              <button
                 v-if="roles.includes('k')"
                 @click="print_reply_image()"
                 v-print="'#print_reply_doc_n'"
                 class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
               >
-                طباعة كافة المستندات
-              </button> -->
+                طباعة المستند
+              </button>
             </div>
 
             <div class="h-screen-93 mt-4">
@@ -3079,6 +3086,9 @@ export default {
         .GetResources_ById(id, this.reply_doc_number)
         .then((res) => {
 
+
+          
+
           this.show_current_reply_image_to_for_bigger_screen_model = true
           this.reply_total_of_doc = res.data.total;
 
@@ -3211,6 +3221,32 @@ export default {
             console.log(err);
           }, 700);
         });
+    },
+
+
+    print_reply_image() {
+      this.reply_image_to_print_n_model = true;
+
+      // this.$http.mailService
+      //   .PrintOrShowDocument(
+      //     Number(this.mailId),
+      //     Number(localStorage.getItem("AY_LW")),
+      //     Number(this.from_reply_or_general)
+      //   )
+      //   .then((res) => {
+      //     setTimeout(() => {
+      //       console.log(res);
+      //       this.loading = false;
+      //       this.screenFreeze = false;
+      //     }, 500);
+      //   })
+      //   .catch((err) => {
+      //     setTimeout(() => {
+      //       this.loading = false;
+      //       this.screenFreeze = false;
+      //     }, 500);
+      //     console.log(err);
+      //   });
     },
 
     print_image() {
