@@ -3805,6 +3805,8 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
 
+      this.doc_number = 0
+
       if (this.mailType == "1") {
         var dataUpdate = {
           userId: Number(localStorage.getItem("AY_LW")),
