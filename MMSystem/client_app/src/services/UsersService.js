@@ -6,7 +6,7 @@ export default {
 
     GetUsersByName(UserName) {
         return axios.get(`/api/Administrator/GetByUserName?username=${UserName}`);
-       // return axios.get(`http://mail:82/api/Administrator/GetByUserName?username=${UserName}`);
+      //  return axios.get(`http://mail:82/api/Administrator/GetByUserName?username=${UserName}`);
     },
 
     StopUser(StopActive) {
@@ -25,7 +25,7 @@ export default {
 
         
         return axios.get(`/api/Role/GetAll`);
-    //    return axios.get(`http://mail:82/api/Role/GetAll`);
+     //  return axios.get(`http://mail:82/api/Role/GetAll`);
    },
     
     Add_user(user){
@@ -45,7 +45,7 @@ export default {
     GetUserById(id){
 
         return axios.get(`/api/Administrator/Get/${id}`);
-     //   return axios.get(`http://mail:82/api/Administrator/Get/${id}`);
+      //  return axios.get(`http://mail:82/api/Administrator/Get/${id}`);
 
     },
 

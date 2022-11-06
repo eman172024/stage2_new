@@ -4,7 +4,7 @@ export default {
 
     GetDocmentsDetails(mailId) {
         return axios.get(`/api/Documents/GetDocmentsDetails`, {
-         //   return axios.get(`http://mail:82/api/Documents/GetDocmentsDetails`, {
+        //    return axios.get(`http://mail:82/api/Documents/GetDocmentsDetails`, {
             params: {
                 mailId: mailId
             }
@@ -14,7 +14,7 @@ export default {
 
     test() {
         return axios.get('/api/WeatherForecast/test');
-     //   return axios.get('http://mail:82/api/WeatherForecast/test');
+     //  return axios.get('http://mail:82/api/WeatherForecast/test');
     },
 
 

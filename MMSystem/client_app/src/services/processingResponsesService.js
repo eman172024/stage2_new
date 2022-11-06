@@ -8,12 +8,12 @@ export default {
 
     GetProcessingResponses() {
         return axios.get(`/api/Replies/GetReplies`)
-     //   return axios.get(`http://mail:82/api/Replies/GetReplies`)
+      //  return axios.get(`http://mail:82/api/Replies/GetReplies`)
     },
 
     DeleteResponsesService(id) {
         return axios.delete(`/api/Replies/DeleteReply?replyId=${id}`);
-       // return axios.delete(`http://mail:82/api/Replies/DeleteReply?replyId=${id}`);
+     //   return axios.delete(`http://mail:82/api/Replies/DeleteReply?replyId=${id}`);
     },
 
 }

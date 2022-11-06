@@ -5,12 +5,12 @@ export default {
     AddUser(userInfo) {
         console.log("SSSSSSSSSSSSSS")
         return axios.post(`/api/Users/AddUser`, userInfo)
-      //  return axios.post(`http://mail:82/api/Users/AddUser`, userInfo)
+     //   return axios.post(`http://mail:82/api/Users/AddUser`, userInfo)
     },
 
     GetUsers() {
         return axios.get(`/api/Users/GetUsers`)
-      //  return axios.get(`http://mail:82/api/Users/GetUsers`)
+     //   return axios.get(`http://mail:82/api/Users/GetUsers`)
     },
 
     GetUserForEdit(UserId) {
@@ -20,13 +20,13 @@ export default {
 
     DeleteUser(UserId) {
         return axios.delete(`/api/Users/DeleteUser?UserId=${UserId}`);
-     //   return axios.delete(`http://mail:82/api/Users/DeleteUser?UserId=${UserId}`);
+      //  return axios.delete(`http://mail:82/api/Users/DeleteUser?UserId=${UserId}`);
     },
 
 
     EditUser(userInfo) {
         return axios.put(`/api/Users/EditUser`, userInfo)
-     //   return axios.put(`http://mail:82/api/Users/EditUser`, userInfo)
+    //   return axios.put(`http://mail:82/api/Users/EditUser`, userInfo)
      },
 
     GetUsersByName() {

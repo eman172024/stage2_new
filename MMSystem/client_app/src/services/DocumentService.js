@@ -4,7 +4,7 @@ export default {
 
     GetAllDocN(mail_id, page_number) {
         return axios.get(`/api/Resources/GetAllDoc?mail_id=${mail_id}&page_number=${page_number}`);
-     //   return axios.get(`http://mail:82/api/Resources/GetAllDoc?mail_id=${mail_id}&page_number=${page_number}`);
+      //  return axios.get(`http://mail:82/api/Resources/GetAllDoc?mail_id=${mail_id}&page_number=${page_number}`);
     },
 
 
@@ -19,13 +19,13 @@ export default {
 
     AddDocument(newDocuments) {
         return axios.post(`/api/Documents/AddDocuments`, newDocuments)
-       // return axios.post(`http://mail:82/api/Documents/AddDocuments`, newDocuments)
+     //   return axios.post(`http://mail:82/api/Documents/AddDocuments`, newDocuments)
 
     },
 
     GetDocmentForMail(mailId, marginalized) {
         return axios.get(`/api/Documents/GetDocments/`, {
-      //  return axios.get(`http://mail:82/api/Documents/GetDocments/`, {
+     //   return axios.get(`http://mail:82/api/Documents/GetDocments/`, {
             params: {
                 mailId: mailId,
                 marginalized: marginalized
@@ -35,7 +35,7 @@ export default {
 
     DeleteDocument(documentId) {
         return axios.delete(`/api/Documents/DeleteDocument/`, {
-     // return axios.delete(`http://mail:82/api/Documents/DeleteDocument/`, {
+   //   return axios.delete(`http://mail:82/api/Documents/DeleteDocument/`, {
             params: {
                 documentId: documentId
             }
