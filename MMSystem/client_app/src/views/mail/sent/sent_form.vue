@@ -2693,7 +2693,7 @@ export default {
   mounted() {
     //*********************websocket 18/8/2022
     this.conn = new WebSocket("ws://localhost:58316/ws");
-
+   //   this.conn = new WebSocket("ws://mail:82/ws");
     /*this.conn.onopen =  (event)=> {
    
  }*/
