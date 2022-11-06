@@ -1171,7 +1171,7 @@ namespace MMSystem.Services.MailServeic
 
                     var mail_ = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == file.mail_id);
                     int depid = mail_.Department_Id;
-                     depname =  depname.ToString()+ "-";
+                     depname = depid.ToString()+ "-";
                     string x = depname+guid.ToString();
                     var path = Path.Combine(last + "/"+x + ".");
                    
