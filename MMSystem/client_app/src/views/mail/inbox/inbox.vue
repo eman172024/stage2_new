@@ -1757,7 +1757,7 @@ export default {
   mounted() {
     //*********************websocket
     this.conn = new WebSocket("ws://localhost:58316/ws");
-
+     // this.conn = new WebSocket("ws://mail:82/ws");
     /*this.conn.onopen =  (event)=> {
    
  }*/

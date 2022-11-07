@@ -1171,7 +1171,7 @@ namespace MMSystem.Services.MailServeic
 
                     var mail_ = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == file.mail_id);
                     int depid = mail_.Department_Id;
-                     depname =  depname.ToString()+ "-";
+                     depname = depid.ToString()+ "-";
                     string x = depname+guid.ToString();
                     var path = Path.Combine(last + "/"+x + ".");
                    
@@ -1181,11 +1181,7 @@ namespace MMSystem.Services.MailServeic
                     mail.MailID = file.mail_id;
                     mail.path = path + extention;
                     mail.order = item.index;
-                    Historyes histor = new Historyes();
-                    histor.currentUser = file.userId;
-                    histor.mailid = file.mail_id;
-                    histor.HistortyNameID = 4;
-                    histor.Time = DateTime.Now;
+                   
                  
                     bool res = await _resourcescs.Add(mail);
                     if (res)
@@ -1193,9 +1189,6 @@ namespace MMSystem.Services.MailServeic
                     
                     {
 
-                       await _appContext.History.AddAsync(histor);
-
-                        await _appContext.SaveChangesAsync();
                         result = true;
                     }
                     else
@@ -1205,6 +1198,17 @@ namespace MMSystem.Services.MailServeic
                     }
 
                 }
+
+                Historyes histor = new Historyes();
+                histor.currentUser = file.userId;
+                histor.mailid = file.mail_id;
+                histor.HistortyNameID = 4;
+                histor.Time = DateTime.Now;
+
+
+                await _appContext.History.AddAsync(histor);
+
+                await _appContext.SaveChangesAsync();
 
                 return result;
 
@@ -1567,29 +1571,36 @@ namespace MMSystem.Services.MailServeic
                         }
 
 
-                        var res = await _resourcescs.GetAllResss(mail.mail.MailID, page);
-                        ex.resourcescs = res.data;
-                        ex.total = res.total;
-                       // ex.resourcescs = await _resourcescs.GetAll(id);
-
-                        ex.mail.flag = mail.actionSenders.Max(x => x.flag);
-
-                        foreach (var xx in ex.resourcescs)
+                        RessPage res = await _resourcescs.GetAllResss(dto.MailID, page);
+                        if (res .total>0)
                         {
-                            string x = xx.path;
+                            ex.resourcescs = res.data;
+                            ex.total = res.total;
+                            // ex.resourcescs = await _resourcescs.GetAll(id);
 
-                            if (File.Exists(xx.path))
+                            ex.mail.flag = mail.actionSenders.Max(x => x.flag);
+
+                            foreach (var xx in ex.resourcescs)
                             {
-                                xx.path = await tobase64(x);
+                                string x = xx.path;
 
-                            }
-                            else
-                            {
+                                if (File.Exists(xx.path))
+                                {
+                                    xx.path = await tobase64(x);
 
+                                }
+                                else
+                                {
+
+
+                                }
 
                             }
 
                         }
+                        else { }
+
+                       
 
 
                         return ex;
@@ -1662,29 +1673,29 @@ namespace MMSystem.Services.MailServeic
                     }
 
 
-                    var res = await _resourcescs.GetAllResss(mail.mail.MailID, page);
-                    ex.resourcescs = res.data;
-                    ex.total = res.total;
-                   
+                    var res = await _resourcescs.GetAllResss(dto.MailID, page);
 
-                    ex.mail.flag = mail.actionSenders.Max(x => x.flag);
+                    if (res.total > 0) {
+                        ex.resourcescs = res.data;
+                        ex.total = res.total;
 
-                    foreach (var xx in ex.resourcescs)
-                    {
-                        string x = xx.path;
 
-                        if (File.Exists(xx.path))
+                        ex.mail.flag = mail.actionSenders.Max(x => x.flag);
+
+                        foreach (var xx in ex.resourcescs)
                         {
-                            xx.path = await tobase64(x);
+                            string x = xx.path;
+
+                            if (File.Exists(xx.path))
+                            {
+                                xx.path = await tobase64(x);
+
+                            }
+
 
                         }
-                        else
-                        {
-
-
-                        }
-
-                    }
+                    } else { }
+                    
 
 
                     return ex;
