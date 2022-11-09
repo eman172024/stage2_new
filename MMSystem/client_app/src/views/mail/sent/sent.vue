@@ -620,7 +620,7 @@
                       v-for="mail in inboxMails"
                       :key="mail.mail_id"
                       :class="mail.flag | mail_state_inbox"
-                      class="group relative border-r-8 border-red-500 flex items-center bg-white hover:bg-gray-100  pl-2"
+                      class="group relative border-r-8  flex items-center bg-white hover:bg-gray-100  pl-2"
                     >
                       <button
                         @click="
@@ -803,7 +803,7 @@
                       v-for="sender in senders"
                       :key="sender.department_id"
                       :class="sender.flag | mail_state_inbox"
-                      class="group relative border-r-8 border-red-500  bg-white hover:bg-gray-100  pl-2 "
+                      class="group relative border-r-8   bg-white hover:bg-gray-100  pl-2 "
                     >
                       <button
                         @click="

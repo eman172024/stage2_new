@@ -19,7 +19,7 @@
                             </h4>
                             
                             <div class="flex items-center mt-4">
-                                <div class="w-8 h-8 border-2 border-black bg-red-500"></div>
+                                <div class="w-8 h-8 border-2 border-black bg-yellow-300"></div>
                                 <p class="mr-2">
                                     لم يتم إرسال البريد بعد.
                                 </p>

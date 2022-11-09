@@ -2948,6 +2948,9 @@ export default {
 
   watch: {
     mailType: function() {
+      this.mail_flag = '';
+      this.image_of_doc = '';
+      this.image_to_print_n = []
       this.indextotest_images_model = 0;
       this.show_images_images_model = [];
       this.mail_Number = "";
@@ -2985,6 +2988,7 @@ export default {
       this.deleteButton = false;
       this.ButtonUploadImagesMail = false;
       this.add_button_consignees = true;
+      
 
       this.GetAllDepartments();
 
