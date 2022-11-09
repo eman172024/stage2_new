@@ -4075,6 +4075,7 @@ export default {
       this.this_value_to_solve_repetition_department = false;
 
       this.newactionSenders = [];
+      this.doc_number = 0
 
       this.screenFreeze = true;
       this.loading = true;
