@@ -842,7 +842,7 @@
               </div>
               <!-- v-if="replies.length > 0" -->
               <section
-                v-if="departmentflag > 2"
+                v-if="departmentflag > 2 && roles.includes('f')"
                 class="bg-gray-100 rounded-md p-6 mt-16"
               >
                 <p class="block text-sm font-semibold text-gray-800">
@@ -850,6 +850,7 @@
                 </p>
 
                 <div
+                  
                   id="scroll"
                   class="
                     h-72
