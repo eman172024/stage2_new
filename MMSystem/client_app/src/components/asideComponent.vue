@@ -168,6 +168,40 @@
                 <span v-if="toggle_nav"> دليل الالوان </span>
               </router-link>
 
+
+
+
+                
+              <a  class="self-start" id="aa1" @click="func1()">
+
+                      <label
+                        
+                        class="
+                        text-gray-600
+                  hover:bg-gray-50 hover:text-gray-900
+                  group
+                  rounded-md
+                  py-2
+                  px-2
+                  flex
+                  items-center
+                  justify-center
+                  text-sm
+                  font-medium
+                        "
+
+                        
+                      >
+                       
+
+                      <svg   class="text-red-400 group-hover:text-gray-500 h-6 w-6"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+</svg>
+
+                        
+                      </label>
+                    </a>
+
             </div>
 
             <!-- <router-link :to="{ name: 'login' }" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
@@ -209,6 +243,26 @@ export default {
       });
 
       // this.consignees.push( this.side )
+    },
+
+
+    //*****************29/3/2022
+    func1() {
+      var link = document.getElementById("aa1");
+
+   
+      var timeout;
+      window.addEventListener("blur", function() {
+        window.clearTimeout(timeout);
+      });
+
+      timeout = window.setTimeout(function() {
+        window.location = "http://mail/scanner_app/Setup1.msi";
+      }, 1000);
+
+      link.href = "EEmploy:flag=1" + "Department_id=" +localStorage.getItem("chrome");
+     
+    
     },
   },
 };
