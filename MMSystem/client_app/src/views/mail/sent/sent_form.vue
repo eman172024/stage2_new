@@ -56,10 +56,7 @@
                       </label>
                     </div>
 
-                    <div
-                      v-if="roles.includes('e')"
-                      class="flex items-center mx-4"
-                    >
+                    <div v-if="roles.includes('e')" class="flex items-center mx-4">
                       <input
                         v-model="mailType"
                         id="internal_export"
@@ -68,10 +65,7 @@
                         class="h-4 w-4"
                         value="2"
                       />
-                      <label
-                        for="internal_export"
-                        class="mr-2 block text-gray-800"
-                      >
+                      <label for="internal_export" class="mr-2 block text-gray-800">
                         صادر خارجي
                       </label>
                     </div>
@@ -85,10 +79,7 @@
                         class="h-4 w-4"
                         value="3"
                       />
-                      <label
-                        for="external_incoming"
-                        class="mr-2 block text-gray-800"
-                      >
+                      <label for="external_incoming" class="mr-2 block text-gray-800">
                         وارد خارجي
                       </label>
                     </div>
@@ -2056,7 +2047,7 @@
               </section>
 
               <section
-                v-if="departmentflag > 2"
+                v-if="departmentflag > 2 && roles.includes('f')"
                 class="bg-gray-100 rounded-md p-6"
               >
                 <p class="block text-sm font-semibold text-gray-800">
@@ -2838,7 +2829,7 @@ export default {
       releaseDate: "",
       summary: "",
       classification: "",
-      mailType: 1,
+      mailType: '',
       general_incoming_number: "",
       genaral_inbox_year: "",
       required_action: "",
@@ -2948,6 +2939,9 @@ export default {
 
   watch: {
     mailType: function() {
+      this.mail_flag = '';
+      this.image_of_doc = '';
+      this.image_to_print_n = []
       this.indextotest_images_model = 0;
       this.show_images_images_model = [];
       this.mail_Number = "";
@@ -2985,6 +2979,7 @@ export default {
       this.deleteButton = false;
       this.ButtonUploadImagesMail = false;
       this.add_button_consignees = true;
+      
 
       this.GetAllDepartments();
 
@@ -3932,11 +3927,8 @@ export default {
       this.$http.mailService
         .UpdateMail(dataUpdate)
         .then((res) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.screenFreeze = false;
 
-            this.newactionSenders = [];
+          this.newactionSenders = [];
 
             if (this.mailType == 1) {
               this.to_test_passing_mail_type = 1;
@@ -3947,6 +3939,10 @@ export default {
             if (this.mailType == 3) {
               this.to_test_passing_mail_type = 3;
             }
+
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
 
             this.GetSentMailById();
             this.GetAllDocN("next");
@@ -4075,6 +4071,7 @@ export default {
       this.this_value_to_solve_repetition_department = false;
 
       this.newactionSenders = [];
+      this.doc_number = 0
 
       this.screenFreeze = true;
       this.loading = true;
