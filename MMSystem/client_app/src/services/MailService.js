@@ -234,7 +234,7 @@ export default {
 
     Get_sent_report_ayoub(department_Id, from, to) {
         return axios.get(`/api/Reports/GetReportDepartment?departmenti_d=${department_Id}&from=${from}&to=${to}`);
-        //  return axios.get(`http://mail:82/api/Reports/GetReportDepartment/?departmenti_d=${department_Id}&from=${from}&to=${to}`);
+        //  return axios.get(`http://mail:82/api/Reports/GetReportDepartment?departmenti_d=${department_Id}&from=${from}&to=${to}`);
     },
 
 
