@@ -3,7 +3,7 @@
     <asideComponent></asideComponent>
 
     <div class="bg-gray-200 h-screen w-full overflow-hidden" dir="rtl">
-      <logout class="pt-4 ml-12"></logout>
+      <logout class="pt-2 ml-12"></logout>
       <div
         class="
         min-h-full
@@ -11,8 +11,8 @@
         max-w-4xl
         p-2
         flex flex-col
-        justify-center
-        items-center
+        
+        
         relative
       "
       >
@@ -670,16 +670,41 @@ export default {
       this.departmentIdSelected = id;
     },
 
-    selectrole(id, name, index) {
+    selectrole(id, name,index) {
       this.roleNameselected = name;
       this.roleIdselected = id;
+        
+          this.index=index;
 
-      this.pirms.push({
+        var  role_is_exist=false;
+
+          for (var i = 0; i < this.pirms.length; i++) {
+
+          if(this.pirms[i].name==name){
+
+            role_is_exist=true;
+              break;
+
+               
+          }
+        }
+
+
+          if(!role_is_exist){
+
+           
+          this.pirms.push({
         roleId: id,
         name: name,
+
       });
 
-      this.roles.splice(index, 1);
+          }
+        
+      
+    
+
+      //this.roles.splice(index, 1);
 
       this.roleNameselected = "اختر الصلاحيات";
     },
@@ -692,10 +717,10 @@ export default {
       });
       this.pirms.splice(index, 1);
 
-      this.roles.push({
-        roleId: id,
-        name: name,
-      });
+      // this.roles.push({
+      //   roleId: id,
+      //   name: name,
+      // });
     },
 
     add_user() {
@@ -755,7 +780,10 @@ export default {
         !this.national_valid &&
         !this.username_valid &&
         this.pirms.length != 0
-      ) {
+      ) 
+      
+      
+      {
         this.roles1 = [];
         for (var i = 0; i < this.pirms.length; i++) {
           this.roles1.push(this.pirms[i].roleId);
@@ -790,13 +818,13 @@ export default {
           .catch(() => {
             setTimeout(() => {
               this.editesuccess =
-                "فشلت عملية التعديل الرجاء التأكد من البانات وإعادة المحاولة";
+                "فشلت عملية التعديل الرجاء التأكد من البيانات وإعادة المحاولة";
               this.iseditesuccess = true;
             }, 500);
           });
       } else {
         this.editesuccess =
-          "فشلت عملية التعديل الرجاء التأكد من البانات وإعادة المحاولة";
+          "فشلت عملية التعديل الرجاء التأكد من البيانات وإعادة المحاولة";
         this.iseditesuccess = true;
       }
     },
@@ -818,15 +846,16 @@ export default {
           } else {
             this.state1 = "";
           }
+
           this.pirms = res.data.listrole;
 
-          for (var i = 0; i < this.pirms.length; i++)
-            //   console.log(this.roles[i]);
-            for (var j = 0; j < this.roles.length; j++) {
-              if (this.roles[j].roleId == this.pirms[i].roleId) {
-                this.roles.splice(j, 1);
-              }
-            }
+          // for (var i = 0; i < this.pirms.length; i++)
+          //   //   console.log(this.roles[i]);
+          //   for (var j = 0; j < this.roles.length; j++) {
+          //     if (this.roles[j].roleId == this.pirms[i].roleId) {
+          //       this.roles.splice(j, 1);
+          //     }
+          //   }
           //    console.log(indexs);
         })
         .catch((err) => {

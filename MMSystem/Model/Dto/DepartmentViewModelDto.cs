@@ -15,5 +15,7 @@ namespace MMSystem.Model.Dto
         public string dateOfSend { get; set; }
 
         public string TimeOfSend { get; set; }
+
+        public string mail_state { get; set; }
     }
 }
