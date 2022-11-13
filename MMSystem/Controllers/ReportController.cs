@@ -112,6 +112,9 @@ namespace MMSystem.Controllers
                 var c = await _data.ReportForDep(departmenti_d, from, to);
                 if (c.Count() > 0)
                 {
+
+
+
                     return Ok(c);
                 }
                 else

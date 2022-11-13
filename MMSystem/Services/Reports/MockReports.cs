@@ -693,7 +693,11 @@ namespace MMSystem.Services.Reports
 
         public async Task<List<ReportViewModel>> ReportForDep(int departmentid,DateTime? from, DateTime? to)
         {
-            List<ReportViewModel> list = new List<ReportViewModel>();
+
+          
+        List<ReportViewModel> list  = new List<ReportViewModel>(){};
+            List<ReportViewModel> clear = new List<ReportViewModel>();
+
 
 
             bool fr = false;
@@ -763,15 +767,25 @@ namespace MMSystem.Services.Reports
 
 
                     }
-                  
 
-                  
+
+
+            foreach (var item in list)
+            {
+                if (item.data.Count()!= 0) {
+
+                    clear.Add(item);
+                }
+
+
+            }
+
 
 
 
                 
 
-            return list;     
+            return clear;     
         
         
         
