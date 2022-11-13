@@ -691,7 +691,7 @@ namespace MMSystem.Services.Reports
            
         }
 
-        public async Task<List<ReportViewModel>> GetDepartment(int departmentid, int departmentidFrom,DateTime? from, DateTime? to,int type)
+        public async Task<List<ReportViewModel>> ReportForDep(int departmentid, int departmentidFrom,DateTime? from, DateTime? to,int type)
         {
             List<ReportViewModel> list = new List<ReportViewModel>();
 
@@ -827,5 +827,7 @@ namespace MMSystem.Services.Reports
         
         
         }
+
+      
     }
 }
