@@ -691,7 +691,7 @@ namespace MMSystem.Services.Reports
            
         }
 
-        public async Task<List<ReportViewModel>> ReportForDep(int departmentid, int departmentidFrom,DateTime? from, DateTime? to,int type)
+        public async Task<List<ReportViewModel>> ReportForDep(int departmentid,DateTime? from, DateTime? to)
         {
             List<ReportViewModel> list = new List<ReportViewModel>();
 
@@ -715,13 +715,7 @@ namespace MMSystem.Services.Reports
             }
 
 
-            switch (type)
-            {
-
-
-
-                case 1:
-
+          
 
 
 
@@ -733,7 +727,7 @@ namespace MMSystem.Services.Reports
                     {
 
 
-                        var sc = await (from x in _data.Mails
+                        var sc = await (from x in _data.Mails.Where(x=>x.Department_Id== departmentid)
                                         join
 
 
@@ -770,56 +764,7 @@ namespace MMSystem.Services.Reports
 
 
 
-                    break;
-                case 2:
-
-
-                    list.Clear();
-
-
-                    string depname = _data.Departments.FirstOrDefault(x => x.Id == departmentidFrom).DepartmentName;
-                  
-
-                        var c = await (from x in _data.Mails
-                                       join
-
-
-                 z in _data.Sends.Where(p => p.to == departmentidFrom &&  ((p.Send_time <= to || fr == true) && (p.Send_time >= @from) || fr == true)) on x.MailID equals z.MailID
-
-                                       select new DepartmentViewModelDto
-                                       {
-
-                                           dateOfSend = z.Send_time.ToString("yyyy-MM-dd"),
-                                           Mail_Number = x.MailID,
-                                           Mail_Summary = x.Mail_Summary,
-                                           TimeOfSend = z.Send_time.ToString("HH:mm:ss"),
-
-
-
-                                       }).ToListAsync();
-
-                        list.Add(new ReportViewModel
-                        {
-
-                            data = c,
-                            DepartmentName = depname,
-                            total = c.Count()
-
-
-
-                        });
-
-
-               
-
-
-
-                    break;
-
-
-                default:
-                    break;
-            }
+                
 
             return list;     
         
