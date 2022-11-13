@@ -1776,9 +1776,6 @@ export default {
             },
           });
 
-      console.log(this.my_department_id)
-      console.log(this.date_from)
-      console.log(this.date_to)
      
     },
 

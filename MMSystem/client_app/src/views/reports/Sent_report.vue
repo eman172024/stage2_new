@@ -1,7 +1,7 @@
 <template>
   <div class="h-full bg-gray-50">
     <div class="overflow-hidden">
-      <div id="content">
+      <div id="content" style="width: 100%;">
         <div id="print" class="w-full h-full text-center bg-gray-50 py-1 px-4"
           style="width: 100%; height: 100%; text-align: center; direction: rtl; --tw-bg-opacity: 1; background-color: rgba(249, 250, 251, var(--tw-bg-opacity)); padding-top: 4px; padding-bottom: 4px; padding-left: 16px; padding-right: 16px;">
           <div id="pageFooter">Page </div>
@@ -32,14 +32,13 @@
 
 
                 
-
-                <div style="margin-top:48px">
+                <div v-for="(mail, index) in mails" :key="index" style="margin-top:48px">
                   <div style="text-align: right; font-size: 24px">
-                    الادارة العامة للتحقيق
+                    {{ mail.departmentName }}
                   </div>
                 
-                  <table style="border:1px solid black; margin-top: 8px; font-size: 24px; width: 100%;">
-                    <tr style="border:1px solid black;">
+                  <table style="width: 100%; border:1px solid black; margin-top: 8px; font-size: 24px; width: 100%;">
+                    <tr style="width: 100%; border:1px solid black;">
                       <th style="border:1px solid black; width: 10%; text-align: center;">
                         رقم الوارد
                       </th>
@@ -57,341 +56,35 @@
                       </th>
                     </tr>
 
-                    <tr style="border:1px solid black;font-weight: 600;">
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        19958
+                    <tr v-for="sub_mail in mail.data" :key="sub_mail.mail_Number" style="width: 100%; border:1px solid black;font-weight: 600;">
+                      <td style="border:1px solid black; width: 10%; text-align: center; padding-top:6px; padding-button: 6px;">
+                        {{ sub_mail.mail_Number }}
                       </td>
-                      <td style="border:1px solid black; width: 60%; text-align: center;">
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
+                      <td style="border:1px solid black; width: 60%; text-align: center; padding-top:6px; padding-button: 6px;">
+                        {{ sub_mail.mail_Summary }}
                       </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
+                      <td style="border:1px solid black; width: 10%; text-align: center; padding-top:6px; padding-button: 6px;">
+                        {{ sub_mail.dateOfSend }}
                       </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
+                      <td style="border:1px solid black; width: 10%; text-align: center; padding-top:6px; padding-button: 6px;">
+                        {{ sub_mail.timeOfSend }}
                       </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        لم تقرا
+                      <td style="border:1px solid black; width: 10%; text-align: center; padding-top:6px; padding-button: 6px;">
+                        {{ sub_mail.mail_state }}
                       </td>
                     </tr>
 
-                    <tr style="border:1px solid black;font-weight: 600;">
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        19958
-                      </td>
-                      <td style="border:1px solid black; width: 60%; text-align: center;">
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        لم تقرا
-                      </td>
-                    </tr>
-
-                    <tr style="border:1px solid black;font-weight: 600;">
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        19958
-                      </td>
-                      <td style="border:1px solid black; width: 60%; text-align: center;">
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        لم تقرا
-                      </td>
-                    </tr>
                   </table>
 
                   <div style="text-align: right; margin-top: 12px; font-size: 24px">
-                    اجمالي عدد المراسلات لهذه الادارة او المكتب  <span style="margin-right: 16px;">30</span>
+                    اجمالي عدد المراسلات لهذه الادارة او المكتب  
+                    <span style="margin-right: 16px;">
+                      {{ mail.total }}
+                    </span>
                   </div>
                 </div>
 
-                <div style="margin-top:48px">
-                  <div style="text-align: right; font-size: 24px">
-                    الادارة العامة للتحقيق
-                  </div>
-                
-                  <table style="border:1px solid black; margin-top: 8px; font-size: 24px; width: 100%;">
-                    <tr style="border:1px solid black;">
-                      <th style="border:1px solid black; width: 10%; text-align: center;">
-                        رقم الوارد
-                      </th>
-                      <th style="border:1px solid black; width: 60%; text-align: center;">
-                        ملخص الرسالة
-                      </th>
-                      <th style="border:1px solid black; width: 10%; text-align: center;">
-                        تاريخ الارسال
-                      </th>
-                      <th style="border:1px solid black; width: 10%; text-align: center;">
-                        وقت الارسال
-                      </th>
-                      <th style="border:1px solid black; width: 10%; text-align: center;">
-                        حالة الرسالة
-                      </th>
-                    </tr>
-
-                    <tr style="border:1px solid black;font-weight: 600;">
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        19958
-                      </td>
-                      <td style="border:1px solid black; width: 60%; text-align: center;">
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        لم تقرا
-                      </td>
-                    </tr>
-
-                    <tr style="border:1px solid black;font-weight: 600;">
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        19958
-                      </td>
-                      <td style="border:1px solid black; width: 60%; text-align: center;">
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        لم تقرا
-                      </td>
-                    </tr>
-
-                    <tr style="border:1px solid black;font-weight: 600;">
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        19958
-                      </td>
-                      <td style="border:1px solid black; width: 60%; text-align: center;">
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        لم تقرا
-                      </td>
-                    </tr>
-                  </table>
-
-                  <div style="text-align: right; margin-top: 12px; font-size: 24px">
-                    اجمالي عدد المراسلات لهذه الادارة او المكتب  <span style="margin-right: 16px;">30</span>
-                  </div>
-                </div>
-
-                <div style="margin-top:48px">
-                  <div style="text-align: right; font-size: 24px">
-                    الادارة العامة للتحقيق
-                  </div>
-                
-                  <table style="border:1px solid black; margin-top: 8px; font-size: 24px; width: 100%;">
-                    <tr style="border:1px solid black;">
-                      <th style="border:1px solid black; width: 10%; text-align: center;">
-                        رقم الوارد
-                      </th>
-                      <th style="border:1px solid black; width: 60%; text-align: center;">
-                        ملخص الرسالة
-                      </th>
-                      <th style="border:1px solid black; width: 10%; text-align: center;">
-                        تاريخ الارسال
-                      </th>
-                      <th style="border:1px solid black; width: 10%; text-align: center;">
-                        وقت الارسال
-                      </th>
-                      <th style="border:1px solid black; width: 10%; text-align: center;">
-                        حالة الرسالة
-                      </th>
-                    </tr>
-
-                    <tr style="border:1px solid black;font-weight: 600;">
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        19958
-                      </td>
-                      <td style="border:1px solid black; width: 60%; text-align: center;">
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        لم تقرا
-                      </td>
-                    </tr>
-
-                    <tr style="border:1px solid black;font-weight: 600;">
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        19958
-                      </td>
-                      <td style="border:1px solid black; width: 60%; text-align: center;">
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        لم تقرا
-                      </td>
-                    </tr>
-
-                    <tr style="border:1px solid black;font-weight: 600;">
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        19958
-                      </td>
-                      <td style="border:1px solid black; width: 60%; text-align: center;">
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        لم تقرا
-                      </td>
-                    </tr>
-                  </table>
-
-                  <div style="text-align: right; margin-top: 12px; font-size: 24px">
-                    اجمالي عدد المراسلات لهذه الادارة او المكتب  <span style="margin-right: 16px;">30</span>
-                  </div>
-                </div>
-
-                <div style="margin-top:48px">
-                  <div style="text-align: right; font-size: 24px">
-                    الادارة العامة للتحقيق
-                  </div>
-                
-                  <table style="border:1px solid black; margin-top: 8px; font-size: 24px; width: 100%;">
-                    <tr style="border:1px solid black;">
-                      <th style="border:1px solid black; width: 10%; text-align: center;">
-                        رقم الوارد
-                      </th>
-                      <th style="border:1px solid black; width: 60%; text-align: center;">
-                        ملخص الرسالة
-                      </th>
-                      <th style="border:1px solid black; width: 10%; text-align: center;">
-                        تاريخ الارسال
-                      </th>
-                      <th style="border:1px solid black; width: 10%; text-align: center;">
-                        وقت الارسال
-                      </th>
-                      <th style="border:1px solid black; width: 10%; text-align: center;">
-                        حالة الرسالة
-                      </th>
-                    </tr>
-
-                    <tr style="border:1px solid black;font-weight: 600;">
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        19958
-                      </td>
-                      <td style="border:1px solid black; width: 60%; text-align: center;">
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        لم تقرا
-                      </td>
-                    </tr>
-
-                    <tr style="border:1px solid black;font-weight: 600;">
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        19958
-                      </td>
-                      <td style="border:1px solid black; width: 60%; text-align: center;">
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        لم تقرا
-                      </td>
-                    </tr>
-
-                    <tr style="border:1px solid black;font-weight: 600;">
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        19958
-                      </td>
-                      <td style="border:1px solid black; width: 60%; text-align: center;">
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا
-                        م يستىن هت نتص ره سنىر صهت نصث رهتاسي رهتسي هت سريهخعلا 
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        03:26:43م
-                      </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center;">
-                        لم تقرا
-                      </td>
-                    </tr>
-                  </table>
-
-                  <div style="text-align: right; margin-top: 12px; font-size: 24px">
-                    اجمالي عدد المراسلات لهذه الادارة او المكتب  <span style="margin-right: 16px;">30</span>
-                  </div>
-                </div>
+             
 
 
               
@@ -540,16 +233,17 @@ export default {
   methods: {
 
     Get_sent_report_ayoub() {
+
+ 
       this.$http.mailService
         .Get_sent_report_ayoub(
-          localStorage.getItem("chrome"),
           this.$route.params.department_Id,
           this.$route.params.from,
           this.$route.params.to,
         )
         .then((res) => {
-          console.log(res);
-          // this.mails = res.data.sectionReport;
+          this.mails = res.data;
+          console.log(this.mails)
           // this.total = res.data.totalOfTotal;
         })
         .catch((err) => {
