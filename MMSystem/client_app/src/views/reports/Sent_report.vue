@@ -2,45 +2,15 @@
   <div class="h-full bg-gray-50">
     <div class="overflow-hidden">
       <div id="content">
-        <div
-          id="print"
-          class="w-full h-full text-center bg-gray-50 py-1 px-4"
-          style="
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            direction: rtl;
-            --tw-bg-opacity: 1;
-            background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
-            padding-top: 4px;
-            padding-bottom: 4px;
-            padding-left: 16px;
-            padding-right: 16px;
-          "
-        >
-
-        
-            <div id="pageFooter">Page </div>
-
-
+        <div id="print" class="w-full h-full text-center bg-gray-50 py-1 px-4"
+          style="width: 100%; height: 100%; text-align: center; direction: rtl; --tw-bg-opacity: 1; background-color: rgba(249, 250, 251, var(--tw-bg-opacity)); padding-top: 4px; padding-bottom: 4px; padding-left: 16px; padding-right: 16px;">
+          <div id="pageFooter">Page </div>
           <div
             class="w-full h-full text-center"
             style="width: 100%; height: 100%; text-align: center; direction: rtl"
           >
             <div class="text-center" style="text-align: center">
-              <div
-                class="text-2xl text-center font-semibold"
-                style="
-                  font-size: 24px;
-                  line-height: 32px;
-                  text-align: center;
-                  font-weight: 900;
-                  padding-top: 44px;
-                  padding-bottom: 4px;
-                  padding-left: 12px;
-                  padding-right: 12px;
-                "
-              >
+              <div class="text-2xl text-center font-semibold" style="font-size: 24px; line-height: 32px; text-align: center; font-weight: 900; padding-top: 44px; padding-bottom: 4px; padding-left: 12px; padding-right: 12px;">
                 هيئة الرقابة الإدارية
                 <div class="my-4" style="margin-top: 16px; margin-bottom: 16px">
                   تقرير بصادر مكتب رئيس الهيئة {{ this.mail_type }}
@@ -530,29 +500,29 @@ export default {
 
     this.date = date.getFullYear() + "-" + month + "-" + day;
 
-    switch (this.$route.params.mailtype) {
-      case "0":
-        this.mail_type_num = 0;
-        this.mail_type = "";
-        break;
+    // switch (this.$route.params.mailtype) {
+    //   case "0":
+    //     this.mail_type_num = 0;
+    //     this.mail_type = "";
+    //     break;
 
-      case "1":
-        this.mail_type_num = 1;
-        this.mail_type = "للداخلي";
-        break;
+    //   case "1":
+    //     this.mail_type_num = 1;
+    //     this.mail_type = "للداخلي";
+    //     break;
 
-      case "2":
-        this.mail_type_num = 2;
-        this.mail_type = "للصادر خارجي";
-        break;
+    //   case "2":
+    //     this.mail_type_num = 2;
+    //     this.mail_type = "للصادر خارجي";
+    //     break;
 
-      case "3":
-        this.mail_type_num = 3;
-        this.mail_type = "للوارد خارجي";
-        break;
-    }
+    //   case "3":
+    //     this.mail_type_num = 3;
+    //     this.mail_type = "للوارد خارجي";
+    //     break;
+    // }
 
-    // this.GetMysectionReport();
+    this.Get_sent_report_ayoub();
   },
 
   data() {
@@ -568,6 +538,32 @@ export default {
   },
 
   methods: {
+
+    Get_sent_report_ayoub() {
+      this.$http.mailService
+        .Get_sent_report_ayoub(
+          localStorage.getItem("chrome"),
+          this.$route.params.department_Id,
+          this.$route.params.from,
+          this.$route.params.to,
+        )
+        .then((res) => {
+          console.log(res);
+          // this.mails = res.data.sectionReport;
+          // this.total = res.data.totalOfTotal;
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+            console.log(err);
+          }, 100);
+        });
+    },
+
+
+
+
     printpage() {
       this.$htmlToPaper("print");
     },
@@ -592,28 +588,7 @@ export default {
         });
     },
 
-    GetMysectionReport() {
-      this.$http.mailService
-        .GetMysectionReport(
-          localStorage.getItem("chrome"),
-          this.$route.params.dateFrom,
-          this.$route.params.dateTo,
-          this.mail_type_num,
-          "sended"
-        )
-        .then((res) => {
-          console.log(res);
-          this.mails = res.data.sectionReport;
-          this.total = res.data.totalOfTotal;
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.screenFreeze = false;
-            this.loading = false;
-            console.log(err);
-          }, 100);
-        });
-    },
+    
 
     back() {
       this.$router.push("/sent");

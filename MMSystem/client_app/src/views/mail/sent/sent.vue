@@ -1764,6 +1764,24 @@ export default {
 
   methods: {
 
+        GetMailsToPrint() {
+
+          this.$router.push({
+            name: "Sent_report",
+            params: {
+              department_Id: this.my_department_id,
+              from: this.date_from,
+              to: this.date_to,
+              
+            },
+          });
+
+      console.log(this.my_department_id)
+      console.log(this.date_from)
+      console.log(this.date_to)
+     
+    },
+
 
 
 
@@ -2289,16 +2307,26 @@ export default {
       });
     },
 
-    GetMailsToPrint() {
-      this.$router.push({
-        name: "Sent_report",
-        params: {
-          dateFrom: this.date_from,
-          dateTo: this.date_to,
-          mailtype: this.mailType,
-        },
-      });
-    },
+
+
+
+
+
+
+
+
+
+
+    // GetMailsToPrint() {
+    //   this.$router.push({
+    //     name: "Sent_report",
+    //     params: {
+    //       dateFrom: this.date_from,
+    //       dateTo: this.date_to,
+    //       mailtype: this.mailType,
+    //     },
+    //   });
+    // },
   },
 };
 </script>
