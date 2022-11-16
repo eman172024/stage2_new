@@ -691,9 +691,13 @@ namespace MMSystem.Services.Reports
            
         }
 
-        public async Task<List<ReportViewModel>> GetDepartment(int departmentid, int departmentidFrom,DateTime? from, DateTime? to,int type)
+        public async Task<List<ReportViewModel>> ReportForDep(int departmentid,DateTime? from, DateTime? to)
         {
-            List<ReportViewModel> list = new List<ReportViewModel>();
+
+          
+        List<ReportViewModel> list  = new List<ReportViewModel>(){};
+            List<ReportViewModel> clear = new List<ReportViewModel>();
+
 
 
             bool fr = false;
@@ -715,41 +719,40 @@ namespace MMSystem.Services.Reports
             }
 
 
-            switch (type)
-            {
-
-
-
-                case 1:
-
+          
 
 
 
                     var dep = await _data.Departments.Where(x => x.Id != departmentid).ToListAsync();
+            var listOfStautes = await _data.MailStatuses.ToListAsync();
 
 
 
-                    foreach (var item in dep)
+            foreach (var item in dep)
                     {
 
 
-                        var sc = await (from x in _data.Mails
-                                        join
+                var sc = await (from x in _data.Mails.Where(x => x.Department_Id == departmentid)
+                                join
 
 
-                  z in _data.Sends.Where(p => p.to == item.Id && ((p.Send_time <= to || fr == true) && (p.Send_time >= @from)||fr == true)) on x.MailID equals z.MailID
+          z in _data.Sends.Where(p => p.to == item.Id && ((p.Send_time <= to || fr == true) && (p.Send_time >= @from) || fr == true)) on x.MailID equals z.MailID
 
-                                       select new DepartmentViewModelDto
-                                       {
+                                select new DepartmentViewModelDto
+                                {
 
-                                           dateOfSend = z.Send_time.ToString("yyyy-MM-dd"),
-                                           Mail_Number = x.MailID,
-                                           Mail_Summary = x.Mail_Summary,
-                                           TimeOfSend = z.Send_time.ToString("HH:mm:ss"),
-                                          
+                                    dateOfSend = z.Send_time.ToString("yyyy-MM-dd"),
+                                    Mail_Number = x.MailID,
+                                    Mail_Summary = x.Mail_Summary,
+                                    TimeOfSend = z.Send_time.ToString("HH:mm:ss"),
+                                    mail_state = (z.flag==1)? "لم ترسل " : (z.flag == 2)? "لم تقرأ" :
+                                    (z.flag == 3) ? "قرأت " : (z.flag == 4) ? "تم الرد":(z.flag == 5)?
+                                    "تم الرد من قبلك": (z.flag ==6) ?" تم السحب":""
 
 
-                                       }).ToListAsync();
+
+
+                                }).ToListAsync();
 
                         list.Add(new ReportViewModel
                         {
@@ -764,68 +767,31 @@ namespace MMSystem.Services.Reports
 
 
                     }
-                  
-
-                  
 
 
 
-                    break;
-                case 2:
+            foreach (var item in list)
+            {
+                if (item.data.Count()!= 0) {
+
+                    clear.Add(item);
+                }
 
 
-                    list.Clear();
-
-
-                    string depname = _data.Departments.FirstOrDefault(x => x.Id == departmentidFrom).DepartmentName;
-                  
-
-                        var c = await (from x in _data.Mails
-                                       join
-
-
-                 z in _data.Sends.Where(p => p.to == departmentidFrom &&  ((p.Send_time <= to || fr == true) && (p.Send_time >= @from) || fr == true)) on x.MailID equals z.MailID
-
-                                       select new DepartmentViewModelDto
-                                       {
-
-                                           dateOfSend = z.Send_time.ToString("yyyy-MM-dd"),
-                                           Mail_Number = x.MailID,
-                                           Mail_Summary = x.Mail_Summary,
-                                           TimeOfSend = z.Send_time.ToString("HH:mm:ss"),
-
-
-
-                                       }).ToListAsync();
-
-                        list.Add(new ReportViewModel
-                        {
-
-                            data = c,
-                            DepartmentName = depname,
-                            total = c.Count()
-
-
-
-                        });
-
-
-               
-
-
-
-                    break;
-
-
-                default:
-                    break;
             }
 
-            return list;     
+
+
+
+                
+
+            return clear;     
         
         
         
         
         }
+
+      
     }
 }

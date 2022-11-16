@@ -80,6 +80,8 @@ namespace MMSystem.Model
                 new Role { RoleId = 17, Name = "البحث في البريد صادر الخارجي", state = true, code = "q" },
                  new Role { RoleId = 18, Name = "الرد علي الوارد", state = true, code = "r" },
                 new Role { RoleId = 19, Name = "عرض الصورة الواردة", state = true, code = "s" }
+                
+                
              )
                 ;
 

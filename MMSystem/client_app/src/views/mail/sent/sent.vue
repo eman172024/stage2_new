@@ -620,7 +620,7 @@
                       v-for="mail in inboxMails"
                       :key="mail.mail_id"
                       :class="mail.flag | mail_state_inbox"
-                      class="group relative border-r-8 border-red-500 flex items-center bg-white hover:bg-gray-100  pl-2"
+                      class="group relative border-r-8  flex items-center bg-white hover:bg-gray-100  pl-2"
                     >
                       <button
                         @click="
@@ -803,7 +803,7 @@
                       v-for="sender in senders"
                       :key="sender.department_id"
                       :class="sender.flag | mail_state_inbox"
-                      class="group relative border-r-8 border-red-500  bg-white hover:bg-gray-100  pl-2 "
+                      class="group relative border-r-8   bg-white hover:bg-gray-100  pl-2 "
                     >
                       <button
                         @click="
@@ -842,7 +842,7 @@
               </div>
               <!-- v-if="replies.length > 0" -->
               <section
-                v-if="departmentflag > 2"
+                v-if="departmentflag > 2 && roles.includes('f')"
                 class="bg-gray-100 rounded-md p-6 mt-16"
               >
                 <p class="block text-sm font-semibold text-gray-800">
@@ -850,6 +850,7 @@
                 </p>
 
                 <div
+                  
                   id="scroll"
                   class="
                     h-72
@@ -1763,6 +1764,21 @@ export default {
 
   methods: {
 
+        GetMailsToPrint() {
+
+          this.$router.push({
+            name: "Sent_report",
+            params: {
+              department_Id: this.my_department_id,
+              from: this.date_from,
+              to: this.date_to,
+              
+            },
+          });
+
+     
+    },
+
 
 
 
@@ -2288,16 +2304,26 @@ export default {
       });
     },
 
-    GetMailsToPrint() {
-      this.$router.push({
-        name: "Sent_report",
-        params: {
-          dateFrom: this.date_from,
-          dateTo: this.date_to,
-          mailtype: this.mailType,
-        },
-      });
-    },
+
+
+
+
+
+
+
+
+
+
+    // GetMailsToPrint() {
+    //   this.$router.push({
+    //     name: "Sent_report",
+    //     params: {
+    //       dateFrom: this.date_from,
+    //       dateTo: this.date_to,
+    //       mailtype: this.mailType,
+    //     },
+    //   });
+    // },
   },
 };
 </script>
