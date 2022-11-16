@@ -1379,7 +1379,7 @@ namespace MMSystem.Services.ReceivedMail
             {
 
                 case 0:
-                    if (role_id.Any(x => x.RoleId == 10))
+                    if (role_id.Any(x => x.RoleId == 15) && role_id.Any(x => x.RoleId == 16) && role_id.Any(x => x.RoleId == 17))
                     {
 
                         var c0 = await GetAllIncoming( mailnum_bool,
@@ -1390,7 +1390,7 @@ namespace MMSystem.Services.ReceivedMail
                         d = c0;
                         break;
                     }
-                    else if (role_id.Any(x => x.RoleId == 15 && x.RoleId == 14))
+                    else if (role_id.Any(x => x.RoleId == 15 ))
                     {
                         mail_type = 1;
                         var a = await GetIncomingRecevidMail( mailnum_bool,
@@ -1434,7 +1434,7 @@ namespace MMSystem.Services.ReceivedMail
 
 
                 case 1:
-                    if (role_id.Any(x => x.RoleId == 10 || x.RoleId == 15))
+                    if (role_id.Any(x => x.RoleId == 15) && role_id.Any(x => x.RoleId == 16) && role_id.Any(x => x.RoleId == 17) || role_id.Any(x => x.RoleId == 15))
                     {
                         mail_type = 1;
                         var c = await GetIncomingRecevidMail( mailnum_bool,
@@ -1448,7 +1448,7 @@ namespace MMSystem.Services.ReceivedMail
                     d = null;
                     break;
                 case 2:
-                    if (role_id.Any(x => x.RoleId == 10 || x.RoleId == 17))
+                    if (role_id.Any(x => x.RoleId == 15) && role_id.Any(x => x.RoleId == 16) && role_id.Any(x => x.RoleId == 17) || role_id.Any(x => x.RoleId == 17))
                     {
                         mail_type = 2;
 
@@ -1464,7 +1464,7 @@ namespace MMSystem.Services.ReceivedMail
                     break;
 
                 case 3:
-                    if (role_id.Any(x => x.RoleId == 10 || x.RoleId == 16))
+                    if (role_id.Any(x => x.RoleId == 15) && role_id.Any(x => x.RoleId == 16) && role_id.Any(x => x.RoleId == 17) || role_id.Any(x => x.RoleId == 16))
                     {
                         mail_type = 3;
                         var ccc = await GetIncomingExtarnelinbox( mailnum_bool,
@@ -3612,7 +3612,7 @@ namespace MMSystem.Services.ReceivedMail
                 {
 
                     case 0:
-                        if (role_id.Any(x => x.RoleId == 10 ))
+                        if (role_id.Any(x => x.RoleId == 15) && role_id.Any(x => x.RoleId == 16) && role_id.Any(x => x.RoleId == 17))
                         {
 
                             var c0 = await GetAll( mailnum_bool,
@@ -3671,7 +3671,7 @@ namespace MMSystem.Services.ReceivedMail
 
 
                     case 1:
-                        if (role_id.Any(x => x.RoleId == 10 || x.RoleId == 15))
+                        if (role_id.Any(x => x.RoleId == 15) && role_id.Any(x => x.RoleId == 16) && role_id.Any(x => x.RoleId == 17) || role_id.Any(x => x.RoleId == 15))
                         {
                             mail_type = 1;
                             var c = await GetSendedMail( mailnum_bool,
@@ -3685,7 +3685,7 @@ namespace MMSystem.Services.ReceivedMail
                         d = null;
                         break;
                     case 2:
-                        if (role_id.Any(x => x.RoleId == 10 || x.RoleId == 17))
+                        if (role_id.Any(x => x.RoleId == 15) && role_id.Any(x => x.RoleId == 16) && role_id.Any(x => x.RoleId == 17) || role_id.Any(x => x.RoleId == 17))
                         {
                             mail_type = 2;
 
@@ -3702,7 +3702,7 @@ namespace MMSystem.Services.ReceivedMail
                         break;
 
                     case 3:
-                        if (role_id.Any(x => x.RoleId == 10 || x.RoleId == 16))
+                        if (role_id.Any(x => x.RoleId == 15) && role_id.Any(x => x.RoleId == 16) && role_id.Any(x => x.RoleId == 17) || role_id.Any(x => x.RoleId == 16))
                         {
                             mail_type = 3;
                             var ccc = await GetExtarnelinbox( mailnum_bool,
