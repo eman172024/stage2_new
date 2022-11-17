@@ -1578,24 +1578,24 @@ namespace MMSystem.Services.MailServeic
                             ex.total = res.total;
                             // ex.resourcescs = await _resourcescs.GetAll(id);
 
-                            ex.mail.flag = mail.actionSenders.Max(x => x.flag);
+                          //  ex.mail.flag = mail.actionSenders.Max(x => x.flag);
 
-                            foreach (var xx in ex.resourcescs)
-                            {
-                                string x = xx.path;
+                            //foreach (var xx in ex.resourcescs)
+                            //{
+                            //    string x = xx.path;
 
-                                if (File.Exists(xx.path))
-                                {
-                                    xx.path = await tobase64(x);
+                            //    if (File.Exists(xx.path))
+                            //    {
+                            //        xx.path = await tobase64(x);
 
-                                }
-                                else
-                                {
+                            //    }
+                            //    else
+                            //    {
 
 
-                                }
+                            //    }
 
-                            }
+                            //}
 
                         }
                         else { }
@@ -1680,20 +1680,20 @@ namespace MMSystem.Services.MailServeic
                         ex.total = res.total;
 
 
-                        ex.mail.flag = mail.actionSenders.Max(x => x.flag);
+                   //     ex.mail.flag = mail.actionSenders.Max(x => x.flag);
 
-                        foreach (var xx in ex.resourcescs)
-                        {
-                            string x = xx.path;
+                        //foreach (var xx in ex.resourcescs)
+                        //{
+                        //    string x = xx.path;
 
-                            if (File.Exists(xx.path))
-                            {
-                                xx.path = await tobase64(x);
+                        //    if (File.Exists(xx.path))
+                        //    {
+                        //        xx.path = await tobase64(x);
 
-                            }
+                        //    }
 
 
-                        }
+                        //}
                     } else { }
                     
 
