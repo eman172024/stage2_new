@@ -1389,25 +1389,25 @@ namespace MMSystem.Services.MailServeic
                     var res= await _resourcescs.GetAllResss(mail.mail.MailID, pagenumber);
                     mail.resourcescs = res.data;
                     mail.total = res.total;
-
+                   // var flag = 
                     mail.mail.flag = mail.actionSenders.Max(x => x.flag);
 
-                    foreach (var xx in mail.resourcescs)
-                    {
-                        string x = xx.path;
+                    //foreach (var xx in mail.resourcescs)
+                    //{
+                    //    string x = xx.path;
 
-                        if (File.Exists(xx.path))
-                        {
-                            xx.path = await tobase64(x);
+                    //    if (File.Exists(xx.path))
+                    //    {
+                    //        xx.path = await tobase64(x);
 
-                        }
-                        else
-                        {
+                    //    }
+                    //    else
+                    //    {
 
 
-                        }
+                    //    }
 
-                    }
+                    //}
 
 
 
