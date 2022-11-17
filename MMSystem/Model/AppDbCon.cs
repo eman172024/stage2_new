@@ -68,7 +68,6 @@ namespace MMSystem.Model
                 new Role { RoleId = 5, Name = "اضافة بريد صادر خارجي", state = true, code = "e" },
                 new Role { RoleId = 6, Name = " الرد علي الصادر", state = true, code = "f" },
                 new Role { RoleId = 7, Name = " عرض الصورة الصادرة", state = true, code = "g" },
-                new Role { RoleId = 8, Name = "  ارسال البريد بعد الحفظ ", state = true, code = "h" },
                 new Role { RoleId = 9, Name = "حذف البريد", state = true, code = "i" },
                 new Role { RoleId = 10, Name = "الاستلام", state = true, code = "j" },
                 new Role { RoleId = 11, Name = "السحب", state = true, code = "k" },
@@ -79,9 +78,21 @@ namespace MMSystem.Model
                 new Role { RoleId = 16, Name = "البحث في البريد الوارد الخارجي", state = true, code = "p" },
                 new Role { RoleId = 17, Name = "البحث في البريد صادر الخارجي", state = true, code = "q" },
                  new Role { RoleId = 18, Name = "الرد علي الوارد", state = true, code = "r" },
-                new Role { RoleId = 19, Name = "عرض الصورة الواردة", state = true, code = "s" }
-                
-                
+                new Role { RoleId = 19, Name = "عرض الصورة الواردة", state = true, code = "s" },
+               new Role { RoleId = 20, Name = "تصوير داخلي", state = true, code = "t" },
+                new Role { RoleId = 21, Name = "تصوير  صادر خارجي", state = true, code = "u" },
+                new Role { RoleId = 22, Name = "تصوير وارد خارجي", state = true, code = "v" },
+                new Role { RoleId = 23, Name = "تعديل الداخلي", state = true, code = "w" },
+                new Role { RoleId = 24, Name = "تعديل وارد خارجي", state = true, code = "x" },
+                new Role { RoleId = 25, Name = "تعديل صادر خارجي", state = true, code = "y" },
+                new Role { RoleId = 26, Name = " ارسال بريد داخلي", state = true, code = "z" },
+                new Role { RoleId = 27, Name = " ارسال وارد خارجي", state = true, code = "aa" },
+                   new Role { RoleId = 28, Name = " ارسال صادر خارجي", state = true, code = "ba" }
+
+
+
+
+
              )
                 ;
 
