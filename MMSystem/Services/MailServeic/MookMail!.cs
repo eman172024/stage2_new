@@ -65,6 +65,8 @@ namespace MMSystem.Services.MailServeic
             {
               
                 mail.Mail_Summary = mail.Mail_Summary + " ";
+                mail.insert_at = DateTime.Now;
+
                 await _appContext.Mails.AddAsync(mail);
 
                 await _appContext.SaveChangesAsync();
@@ -97,7 +99,7 @@ namespace MMSystem.Services.MailServeic
                         mail.mail.state = true;
 
                         mail.mail.Mail_Number = await GetLastMailNumber(mail.mail.Department_Id, port);
-
+                        
 
                         Email = await Add(mail.mail);
 

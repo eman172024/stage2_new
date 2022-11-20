@@ -27,7 +27,7 @@ namespace MMSystem.Model
 
         public bool is_send { get; set; }
         public Administrator user { get; set; }
-
+        public DateTime insert_at { get; set; }
         public External_Mail external_Mail { get; set; }
         public Extrenal_inbox extrenal_Inbox { get; set; }
         public bool state { get; set; }
