@@ -4982,7 +4982,10 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .UploadImagesMail(this.mailId, this.imagesToSend, Number(9))
+      //************20/11/2022
+      /*  .UploadImagesMail(this.mailId, this.imagesToSend, Number(9))*/
+        .UploadImagesMail(this.mailId, this.imagesToSend, Number(localStorage.getItem("AY_LW")))
+       //*************end 20/11/2022
         .then((res) => {
           setTimeout(() => {
             this.ButtonUploadImagesMail = false;
