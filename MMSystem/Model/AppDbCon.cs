@@ -86,8 +86,11 @@ namespace MMSystem.Model
                 new Role { RoleId = 24, Name = "تعديل وارد خارجي", state = true, code = "x" },
                 new Role { RoleId = 25, Name = "تعديل صادر خارجي", state = true, code = "y" },
                 new Role { RoleId = 26, Name = " ارسال بريد داخلي", state = true, code = "z" },
-                new Role { RoleId = 27, Name = " ارسال وارد خارجي", state = true, code = "aa" },
-                   new Role { RoleId = 28, Name = " ارسال صادر خارجي", state = true, code = "ba" }
+                new Role { RoleId = 27, Name = " ارسال وارد خارجي", state = true, code = "1" },
+                   new Role { RoleId = 28, Name = " ارسال صادر خارجي", state = true, code = "2" },
+                   new Role { RoleId = 29, Name = " حذف بريد داخلي", state = true, code = "3" },
+                new Role { RoleId = 30, Name = " حذف وارد خارجي", state = true, code = "4" },
+                   new Role { RoleId = 31, Name = " حذف صادر خارجي", state = true, code = "5" }
 
 
 
