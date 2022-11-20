@@ -68,7 +68,6 @@ namespace MMSystem.Model
                 new Role { RoleId = 5, Name = "اضافة بريد صادر خارجي", state = true, code = "e" },
                 new Role { RoleId = 6, Name = " الرد علي الصادر", state = true, code = "f" },
                 new Role { RoleId = 7, Name = " عرض الصورة الصادرة", state = true, code = "g" },
-                new Role { RoleId = 9, Name = "حذف البريد", state = true, code = "i" },
                 new Role { RoleId = 10, Name = "الاستلام", state = true, code = "j" },
                 new Role { RoleId = 11, Name = "السحب", state = true, code = "k" },
                 new Role { RoleId = 12, Name = "الاحصائيات", state = true, code = "l" },
