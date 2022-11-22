@@ -2435,7 +2435,7 @@
                   </div>
 
                   <div
-                    v-if="sendButton && roles.includes('h')"
+                    v-if="sendButton"
                     class="flex justify-end"
                   >
                     <div v-if="roles.includes('z') && mailType == '1'" class="">
