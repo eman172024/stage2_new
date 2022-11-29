@@ -759,7 +759,8 @@
                               )
                             "
                             class="mr-1 rounded-full"
-                          >
+                          > 
+                            w
                             <svg
                               aria-hidden="true"
                               focusable="false"
@@ -3449,6 +3450,7 @@ export default {
       departmentflag: 0,
 
       consignees: [],
+      consigneesIncludesId: [],
       newactionSenders: [],
       newactionSendersIncludesId: [],
 
@@ -3593,11 +3595,13 @@ export default {
       this.this_value_to_solve_repetition_department = true;
 
       this.consignees = [];
+      this.consigneesIncludesId = [];
+      this.newactionSenders = [];
       this.newactionSendersIncludesId = [];
 
       this.replies = [];
       this.imagesToShow = [];
-      this.newactionSenders = [];
+      
 
       this.saveButton = true;
       this.sendButton = false;
@@ -3936,6 +3940,7 @@ export default {
       this.loading = true;
 
       this.consignees = [];
+      this.consigneesIncludesId = [];
       this.newactionSendersIncludesId = [];
 
       this.newactionSenders = [];
@@ -4003,9 +4008,16 @@ export default {
     },
 
     add_to_array_of_side_measure() {
+
+      // consigneesIncludesId
+
+
+
       if (this.allDepartment) {
         for (let index = 0; index < this.blblbl.length; index++) {
-          if (this.newactionSendersIncludesId.includes(this.blblbl[index].id)) {
+          if (this.newactionSendersIncludesId.includes(this.blblbl[index].id) 
+              || 
+              this.consigneesIncludesId.includes(this.blblbl[index].id)) {
           } else {
             this.newactionSenders.push({
               departmentId: this.blblbl[index].id,
@@ -4028,9 +4040,11 @@ export default {
       } else {
         // array.includes('🍰');
 
-        if (
-          this.newactionSendersIncludesId.includes(this.departmentIdSelected)
-        ) {
+        if ( this.newactionSendersIncludesId.includes(this.departmentIdSelected)
+             ||
+             this.consigneesIncludesId.includes(this.departmentIdSelected)
+           ) 
+        {
           alert("تم اضافة الادارة من قبل");
           this.departmentNameSelected = "";
           this.departmentIdSelected = "";
@@ -4123,6 +4137,7 @@ export default {
       this.loading = true;
 
       this.consignees = [];
+      this.consigneesIncludesId = [];
       this.newactionSenders = [];
       this.newactionSendersIncludesId = [];
 
@@ -4175,8 +4190,16 @@ export default {
 
           this.consignees = res.data.actionSenders;
 
+          
+
+          // for (let index = 0; index < res.data.actionSenders.length; index++) {
+          //   this.newactionSendersIncludesId.push(
+          //     res.data.actionSenders[index].departmentId
+          //   );
+          // }
+
           for (let index = 0; index < res.data.actionSenders.length; index++) {
-            this.newactionSendersIncludesId.push(
+            this.consigneesIncludesId.push(
               res.data.actionSenders[index].departmentId
             );
           }
@@ -4555,6 +4578,7 @@ export default {
         .then((res) => {
 
           this.newactionSenders = [];
+          this.newactionSendersIncludesId = [];
 
             if (this.mailType == 1) {
               this.to_test_passing_mail_type = 1;
@@ -4697,6 +4721,7 @@ export default {
       this.this_value_to_solve_repetition_department = false;
 
       this.newactionSenders = [];
+      this.newactionSendersIncludesId = [];
       this.doc_number = 0
 
       this.screenFreeze = true;
@@ -4729,10 +4754,18 @@ export default {
           this.required_action = res.data.mail.action_Required;
           this.consignees = res.data.actionSenders;
 
-          this.newactionSendersIncludesId = [];
+          // this.newactionSendersIncludesId = [];
+
+          // for (let index = 0; index < res.data.actionSenders.length; index++) {
+          //   this.newactionSendersIncludesId.push(
+          //     res.data.actionSenders[index].departmentId
+          //   );
+          // }
+          
+          this.consigneesIncludesId = [];
 
           for (let index = 0; index < res.data.actionSenders.length; index++) {
-            this.newactionSendersIncludesId.push(
+            this.consigneesIncludesId.push(
               res.data.actionSenders[index].departmentId
             );
           }
