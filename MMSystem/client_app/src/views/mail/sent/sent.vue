@@ -1340,17 +1340,16 @@
     >
       <div class="relative">
         <div
-          v-if="reply_image_to_print_n_model"
+        
           id="print_reply_doc_n"
           class="bg-black bg-opacity-50 h-screen-100"
         >
           <div
-            v-for="image in reply_image_to_print_n"
-            :key="image.id"
+           
             class="h-screen-100"
           >
             <img
-              :src="image.path"
+              :src="reply_image_of_doc"
               alt=""
               class="h-full w-full object-contain"
             />
@@ -1385,14 +1384,13 @@
                 </svg>
               </button>
 
-              <!-- <button
+              <button
                 v-if="roles.includes('k')"
-                @click="print_reply_image()"
                 v-print="'#print_reply_doc_n'"
                 class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
               >
-                طباعة كافة المستندات
-              </button> -->
+                طباعة المستند الحالي
+              </button>
             </div>
 
             <div class="h-screen-93 mt-4">

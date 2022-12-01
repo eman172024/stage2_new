@@ -3179,10 +3179,7 @@
         >
         <!--  v-for="image in reply_image_to_print_n"
             :key="image.id" -->
-          <div
-           
-            class="h-screen-100"
-          >
+          <div class="h-screen-100">
             <img
               :src="reply_image_of_doc"
               alt=""
@@ -3191,21 +3188,10 @@
           </div>
         </div>
 
-
-       
-
-        <div
-          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
-        >
+        <div class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full">
           <div class="max-w-3xl mx-auto relative">
-            <div
-              class="absolute top-6 z-50 flex justify-between items-center w-full"
-            >
-              <button
-                @click="
-                  show_current_reply_image_to_for_bigger_screen_model = false
-                "
-              >
+            <div class="absolute top-6 z-50 flex justify-between items-center w-full">
+              <button @click="show_current_reply_image_to_for_bigger_screen_model = false">
                 <svg
                   class="w-8 h-8 stroke-current text-red-500 hover:text-red-400"
                   fill="none"
@@ -3228,7 +3214,7 @@
                 v-print="'#print_reply_doc_n'"
                 class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
               >
-                طباعة المستند
+                طباعة المستند الحالي
               </button>
             </div>
 
