@@ -760,7 +760,7 @@
                             "
                             class="mr-1 rounded-full"
                           > 
-                            w
+                           
                             <svg
                               aria-hidden="true"
                               focusable="false"
@@ -1085,7 +1085,10 @@
                     class="h-72 w-full bg-gray-100 rounded-md mt-4 mb-10"
                   >
                     <!--  v-if="imagesToSend != '' || imagesToShow != ''" -->
-                    <div class="mt-4 pt-4 pb-4 rounded-md">
+                    <div class="mt-4 pt-4 pb-4 rounded-md relative">
+                      <div v-if="!roles.includes('g')" class="cursor-not-allowed w-full h-full bg-gray-900 bg-opacity-90 absolute z-20 inset-0">
+                        
+                      </div>
                       <div class="">
                         <div class="relative h-64 w-full">
                           <img

@@ -698,10 +698,10 @@
                           </router-link>
                         </div>
 
-                        <div class="w-1/3 flex justify-center items-center">
+                        <div v-if="roles.includes('g')" class="w-1/3 flex justify-center items-center">
                           <button
                             @click="GetAllDocuments(mail.mail_id, 1)"
-                            title="طباعة المستندات"
+                            title="عرض المستندات"
                             class="focus:outline-none"
                           >
                             <svg

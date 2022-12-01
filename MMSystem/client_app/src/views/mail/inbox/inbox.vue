@@ -952,9 +952,9 @@
 
                       <div class="w-1/3 flex justify-center items-center">
                         <button
-                          v-if="roles.includes('k')"
+                          v-if="roles.includes('s')"
                           @click="GetAllDocuments(mail.mail_id, 1)"
-                          title="طباعة المستندات"
+                          title="عرض المستندات"
                           class="focus:outline-none"
                         >
                           <svg
