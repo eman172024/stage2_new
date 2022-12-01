@@ -1136,6 +1136,7 @@
                             </button>
 
                             <button
+                              v-if="roles.includes('6')"
                               type="button"
                               class="
                                 bg-red-600
