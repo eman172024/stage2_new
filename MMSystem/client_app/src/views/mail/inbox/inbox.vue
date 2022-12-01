@@ -1466,6 +1466,23 @@
         </div>
 
         <div
+          v-if="to_test_print"
+          id="print_one_dec"
+          class="bg-black bg-opacity-50 h-screen-100"
+        >
+          <div
+            
+            class="h-screen-100"
+          >
+            <img
+              :src="testimage"
+              alt=""
+              class="h-full w-full object-contain"
+            />
+          </div>
+        </div>
+
+        <div
           class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
         >
           <div class="max-w-3xl mx-auto relative">
@@ -1487,6 +1504,15 @@
                     d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
                   ></path>
                 </svg>
+              </button>
+
+              <button
+                v-if="roles.includes('k')"
+                @click="print_image()"
+                v-print="'#print_one_dec'"
+                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+              >
+                طباعة المستند الحالي
               </button>
 
               <button
