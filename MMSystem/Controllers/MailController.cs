@@ -211,7 +211,7 @@ namespace MMSystem.Controllers
                 bool state = await _Imail.DeletePhote(id,userId);
                 if (state)
                     return Ok( new Result() { message = "تمت عملية الحذف", statusCode = 203 });
-                return NotFound(new Result() { message = "لايوجد صور", statusCode = 404 });
+                return NotFound(new Result() { message = "لا يمكن حذف الصور ", statusCode = 404 });
 
          
         }

@@ -1147,7 +1147,7 @@
                                 focus:outline-none
                                 ml-2
                               "
-                              @click="deleteDocument()"
+                              @click="prepare_delete_document()"
                             >
                               <svg
                                 class="
@@ -2985,6 +2985,32 @@
     </div>
 
     <div
+      v-if="alert_prepare_delete_document"
+      class="w-screen h-full flex justify-center items-center absolute inset-0 z-50 overflow-hidden bg-black bg-opacity-70"
+    >
+      <div class="bg-yellow-100 rounded-md w-1/3 py-10 flex flex-col justify-center items-center">
+          <div class="">
+            <svg class="w-20 h-20 stroke-current text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+          </div>
+          <p class="text-xl font-bold mt-4">
+            هل انت متأكد من عملية الحذف؟
+          </p>
+          <p class="text-gray-600">
+            لن تتمكن من استرداد المستند بعد حذفه.
+          </p>
+
+          <div class="mt-6">
+            <button @click="deleteDocument()" class="bg-red-600 hover:bg-red-700 hover:shadow-lg duration-200 rounded text-white w-32 py-1 ml-2">
+              نعم ، احذفها
+            </button>
+            <button @click="alert_prepare_delete_document = false" class="bg-gray-400 hover:bg-gray-700 hover:shadow-lg duration-200 rounded text-white w-32 py-1 mr-2">
+              إلغاء
+            </button>
+          </div>
+      </div>
+    </div>
+
+    <div
       v-if="screenFreeze"
       class="w-screen h-screen bg-black bg-opacity-30 absolute inset-0 z-50 flex justify-center items-center"
     >
@@ -3303,6 +3329,41 @@
         </div>
       </div>
     </div>
+
+    <div
+      v-if="alert_state"
+      class="w-screen h-full flex justify-center items-center absolute inset-0 z-50 overflow-hidden bg-black bg-opacity-70"
+    >
+      <div class="bg-yellow-100 rounded-md w-1/3 py-10 flex flex-col justify-center items-center">
+
+        <div v-if="alert_state_true_false" class="flex flex-col justify-center items-center">
+          <div class="">
+            <svg class="w-14 h-14 stroke-current stroke-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          </div>
+          <p class="text-xl font-bold mt-4">
+            تمت العملية بنجاح..
+          </p>
+        </div>
+
+        <div v-else class="flex flex-col justify-center items-center">
+          <div class="">
+            <svg class="w-14 h-14 stroke-current stroke-2 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <p class="text-xl font-bold mt-4">
+            فشلت العملية..
+          </p>
+        </div>
+
+        <div class="mt-6">
+          <button @click="alert_state = false" class="bg-blue-500 hover:bg-blue-700 hover:shadow-lg duration-200 rounded text-white w-32 py-1 mr-2">
+            حسناً
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -3411,6 +3472,9 @@ export default {
 
   data() {
     return {
+      alert_state: false,
+      alert_state_true_false: false,
+      alert_prepare_delete_document: false,
       //*************
 
       mail_flag: "",
@@ -3676,6 +3740,47 @@ export default {
   },
 
   methods: {
+
+    prepare_delete_document(){
+      this.alert_prepare_delete_document = true;
+    },
+
+
+    deleteDocument() {
+
+      this.alert_prepare_delete_document = false;
+
+
+      this.$http.mailService
+        .DeleteDocument(
+          Number(this.id_of_doc),
+          Number(localStorage.getItem("AY_LW"))
+        )
+        .then((res) => {
+          this.doc_number = 0;
+          this.total_of_doc = 0;
+
+          this.image_of_doc = "";
+          this.id_of_doc = "";
+
+          
+          this.alert_state = true
+          this.alert_state_true_false = true
+
+          this.GetAllDocN("next");
+
+          // this.imagesToShow.splice(index, 1);
+          this.mail_search();
+
+          alert("تم حذف الصورة بنجاح");
+          // this.imagesToShow = res.data.result.documents
+        })
+        .catch((err) => {
+          this.alert_state = true
+          this.alert_state_true_false = false
+          this.addErorr = err.message;
+        });
+    },
 
 
     Next_prevent_GetResources_ById(x) {
@@ -5056,31 +5161,7 @@ export default {
         });
     },
 
-    deleteDocument() {
-      this.$http.mailService
-        .DeleteDocument(
-          Number(this.id_of_doc),
-          Number(localStorage.getItem("AY_LW"))
-        )
-        .then((res) => {
-          this.doc_number = 0;
-          this.total_of_doc = 0;
-
-          this.image_of_doc = "";
-          this.id_of_doc = "";
-
-          this.GetAllDocN("next");
-
-          // this.imagesToShow.splice(index, 1);
-          this.mail_search();
-
-          alert("تم حذف الصورة بنجاح");
-          // this.imagesToShow = res.data.result.documents
-        })
-        .catch((err) => {
-          this.addErorr = err.message;
-        });
-    },
+    
 
     GetDocmentForMailToShow() {
       this.$http.documentService
