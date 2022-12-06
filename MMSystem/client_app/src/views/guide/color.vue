@@ -42,7 +42,7 @@
                             <div class="flex items-center mt-4">
                                 <div class="w-8 h-8 border-2 border-black bg-blue-800"></div>
                                 <p class="mr-2">
-                                    يوجد در جديد من الادارة.
+                                    يوجد رد جديد من الادارة.
                                 </p>
                             </div>
 
@@ -90,7 +90,7 @@
                             <div class="flex items-center mt-4">
                                 <div class="w-8 h-8 border-2 border-black bg-yellow-800"></div>
                                 <p class="mr-2">
-                                    يوجد در جديد من الادارة.
+                                    يوجد رد جديد من الادارة.
                                 </p>
                             </div>
 

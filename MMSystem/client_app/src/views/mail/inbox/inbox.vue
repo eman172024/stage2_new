@@ -2400,6 +2400,7 @@ export default {
     },
 
     GetInboxs() {
+      this.page_num = 1;
       this.screenFreeze = true;
       this.loading = true;
       this.inboxMails = [];
