@@ -3772,7 +3772,7 @@ export default {
           // this.imagesToShow.splice(index, 1);
           this.mail_search();
 
-          alert("تم حذف الصورة بنجاح");
+        
           // this.imagesToShow = res.data.result.documents
         })
         .catch((err) => {

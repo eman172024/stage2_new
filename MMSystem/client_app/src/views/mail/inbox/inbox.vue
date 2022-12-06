@@ -1840,6 +1840,7 @@ export default {
 
   watch: {
     mailType: function() {
+      this.page_num = 1;
       this.GetInboxs();
     },
     date_from: function() {
@@ -2400,7 +2401,7 @@ export default {
     },
 
     GetInboxs() {
-      this.page_num = 1;
+      
       this.screenFreeze = true;
       this.loading = true;
       this.inboxMails = [];
