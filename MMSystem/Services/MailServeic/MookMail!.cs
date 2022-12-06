@@ -313,7 +313,7 @@ namespace MMSystem.Services.MailServeic
             {
               
 
-                    Mail mail = await _appContext.Mails.Where(x => x.Department_Id == id && x.MailID == mailId).FirstOrDefaultAsync();
+                    Mail mail = await _appContext.Mails.Where(x => x.Department_Id == id && x.MailID == mailId&&x.state==true).FirstOrDefaultAsync();
                     if (mail != null)
                     {
                     Historyes historyes = new Historyes();
@@ -1751,7 +1751,7 @@ namespace MMSystem.Services.MailServeic
                 historyes.HistortyNameID = 9;
 
             
-                Send_to send_ = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail_id && x.to == departmentId);
+                Send_to send_ = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail_id && x.to == departmentId&&x.State==true);
                 if (send_ != null)
                 {
                     if (send_.flag <= 2)
