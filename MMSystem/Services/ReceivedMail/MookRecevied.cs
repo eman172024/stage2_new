@@ -1013,7 +1013,7 @@ namespace MMSystem.Services.ReceivedMail
                                 }
                             }
 
-                            pagg.mail = dd.OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToList();
+                            pagg.mail = dd.OrderByDescending(v => v.date).Skip((pagenum - 1) * size).Take(size).ToList();
 
 
                         }
