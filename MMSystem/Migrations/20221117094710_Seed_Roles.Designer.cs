@@ -4,14 +4,16 @@ using MMSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMSystem.Migrations
 {
     [DbContext(typeof(AppDbCon))]
-    partial class AppDbConModelSnapshot : ModelSnapshot
+    [Migration("20221117094710_Seed_Roles")]
+    partial class Seed_Roles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,6 +161,20 @@ namespace MMSystem.Migrations
                         },
                         new
                         {
+                            Id = 3,
+                            DepartmentName = "الادارة العامة للشؤون الادارية والمالية ",
+                            perent = 1,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DepartmentName = "الادارة العامة للرقابة علي الشركات والمشروعات",
+                            perent = 1,
+                            state = true
+                        },
+                        new
+                        {
                             Id = 5,
                             DepartmentName = "الادارة العامة للرقابة علي رئاسة الوزراء",
                             perent = 1,
@@ -166,9 +182,23 @@ namespace MMSystem.Migrations
                         },
                         new
                         {
-                            Id = 8,
-                            DepartmentName = "مكتب مستشاري رئيس الهيئة",
+                            Id = 6,
+                            DepartmentName = "الادارة العامة للرقابة علي المؤسسات العامة",
                             perent = 1,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 8,
+                            DepartmentName = "مكتب المستشارين",
+                            perent = 1,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 10,
+                            DepartmentName = "الادارة العامة للرقابة علي المصارف",
+                            perent = 0,
                             state = true
                         },
                         new
@@ -187,6 +217,13 @@ namespace MMSystem.Migrations
                         },
                         new
                         {
+                            Id = 15,
+                            DepartmentName = "مكتب الرعاية الصحية",
+                            perent = 14,
+                            state = true
+                        },
+                        new
+                        {
                             Id = 16,
                             DepartmentName = "مكتب التخطيط",
                             perent = 14,
@@ -196,6 +233,13 @@ namespace MMSystem.Migrations
                         {
                             Id = 17,
                             DepartmentName = "مكتب التوثيق وتقنية المعلومات",
+                            perent = 14,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 18,
+                            DepartmentName = "مكتب متابعة الرقم الوطني",
                             perent = 14,
                             state = true
                         },
@@ -229,6 +273,13 @@ namespace MMSystem.Migrations
                         },
                         new
                         {
+                            Id = 24,
+                            DepartmentName = "مكتب التدريب",
+                            perent = 21,
+                            state = true
+                        },
+                        new
+                        {
                             Id = 25,
                             DepartmentName = "مكتب الشؤون الاعلامية",
                             perent = 0,
@@ -250,8 +301,36 @@ namespace MMSystem.Migrations
                         },
                         new
                         {
+                            Id = 29,
+                            DepartmentName = "مكتب الشكاوي والبلاغات   ",
+                            perent = 1,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 30,
+                            DepartmentName = "مكتب شؤون الفروع ",
+                            perent = 1,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 31,
+                            DepartmentName = "مكتب المتابعة",
+                            perent = 1,
+                            state = true
+                        },
+                        new
+                        {
                             Id = 32,
                             DepartmentName = "مكتب التعاون الدولي والتواصل",
+                            perent = 1,
+                            state = true
+                        },
+                        new
+                        {
+                            Id = 33,
+                            DepartmentName = "الادارة العامة للرقابة علي لجان الازمة واللجان التسييرية والمؤقتة",
                             perent = 1,
                             state = true
                         },
@@ -796,9 +875,6 @@ namespace MMSystem.Migrations
                     b.Property<int>("clasification")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("insert_at")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("is_send")
                         .HasColumnType("bit");
 
@@ -1129,6 +1205,13 @@ namespace MMSystem.Migrations
                         },
                         new
                         {
+                            RoleId = 9,
+                            Name = "حذف البريد",
+                            code = "i",
+                            state = true
+                        },
+                        new
+                        {
                             RoleId = 10,
                             Name = "الاستلام",
                             code = "j",
@@ -1250,42 +1333,14 @@ namespace MMSystem.Migrations
                         {
                             RoleId = 27,
                             Name = " ارسال وارد خارجي",
-                            code = "1",
+                            code = "aa",
                             state = true
                         },
                         new
                         {
                             RoleId = 28,
                             Name = " ارسال صادر خارجي",
-                            code = "2",
-                            state = true
-                        },
-                        new
-                        {
-                            RoleId = 29,
-                            Name = " حذف بريد داخلي",
-                            code = "3",
-                            state = true
-                        },
-                        new
-                        {
-                            RoleId = 30,
-                            Name = " حذف وارد خارجي",
-                            code = "4",
-                            state = true
-                        },
-                        new
-                        {
-                            RoleId = 31,
-                            Name = " حذف صادر خارجي",
-                            code = "5",
-                            state = true
-                        },
-                        new
-                        {
-                            RoleId = 32,
-                            Name = " حذف صورة",
-                            code = "6",
+                            code = "ba",
                             state = true
                         });
                 });

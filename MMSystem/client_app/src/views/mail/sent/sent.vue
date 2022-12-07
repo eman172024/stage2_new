@@ -698,10 +698,10 @@
                           </router-link>
                         </div>
 
-                        <div class="w-1/3 flex justify-center items-center">
+                        <div v-if="roles.includes('g')" class="w-1/3 flex justify-center items-center">
                           <button
                             @click="GetAllDocuments(mail.mail_id, 1)"
-                            title="طباعة المستندات"
+                            title="عرض المستندات"
                             class="focus:outline-none"
                           >
                             <svg
@@ -1181,6 +1181,24 @@
           </div>
         </div>
 
+
+        <div
+          v-if="to_test_print"
+          id="print_one_dec"
+          class="bg-black bg-opacity-50 h-screen-100"
+        >
+          <div
+           
+            class="h-screen-100"
+          >
+            <img
+              :src="testimage"
+              alt=""
+              class="h-full w-full object-contain"
+            />
+          </div>
+        </div>
+
         <div
           class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
         >
@@ -1203,6 +1221,15 @@
                     d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
                   ></path>
                 </svg>
+              </button>
+
+              <button
+                v-if="roles.includes('k')"
+                @click="print_image()"
+                v-print="'#print_one_dec'"
+                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+              >
+                طباعة المستند الحالي
               </button>
 
               <button
@@ -1313,17 +1340,16 @@
     >
       <div class="relative">
         <div
-          v-if="reply_image_to_print_n_model"
+        
           id="print_reply_doc_n"
           class="bg-black bg-opacity-50 h-screen-100"
         >
           <div
-            v-for="image in reply_image_to_print_n"
-            :key="image.id"
+           
             class="h-screen-100"
           >
             <img
-              :src="image.path"
+              :src="reply_image_of_doc"
               alt=""
               class="h-full w-full object-contain"
             />
@@ -1358,14 +1384,13 @@
                 </svg>
               </button>
 
-              <!-- <button
+              <button
                 v-if="roles.includes('k')"
-                @click="print_reply_image()"
                 v-print="'#print_reply_doc_n'"
                 class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
               >
-                طباعة كافة المستندات
-              </button> -->
+                طباعة المستند الحالي
+              </button>
             </div>
 
             <div class="h-screen-93 mt-4">

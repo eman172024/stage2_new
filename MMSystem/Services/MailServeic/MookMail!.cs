@@ -65,6 +65,8 @@ namespace MMSystem.Services.MailServeic
             {
               
                 mail.Mail_Summary = mail.Mail_Summary + " ";
+                mail.insert_at = DateTime.Now;
+
                 await _appContext.Mails.AddAsync(mail);
 
                 await _appContext.SaveChangesAsync();
@@ -97,7 +99,7 @@ namespace MMSystem.Services.MailServeic
                         mail.mail.state = true;
 
                         mail.mail.Mail_Number = await GetLastMailNumber(mail.mail.Department_Id, port);
-
+                        
 
                         Email = await Add(mail.mail);
 
@@ -311,7 +313,7 @@ namespace MMSystem.Services.MailServeic
             {
               
 
-                    Mail mail = await _appContext.Mails.Where(x => x.Department_Id == id && x.MailID == mailId).FirstOrDefaultAsync();
+                    Mail mail = await _appContext.Mails.Where(x => x.Department_Id == id && x.MailID == mailId&&x.state==true).FirstOrDefaultAsync();
                     if (mail != null)
                     {
                     Historyes historyes = new Historyes();
@@ -1389,25 +1391,25 @@ namespace MMSystem.Services.MailServeic
                     var res= await _resourcescs.GetAllResss(mail.mail.MailID, pagenumber);
                     mail.resourcescs = res.data;
                     mail.total = res.total;
-
+                   // var flag = 
                     mail.mail.flag = mail.actionSenders.Max(x => x.flag);
 
-                    foreach (var xx in mail.resourcescs)
-                    {
-                        string x = xx.path;
+                    //foreach (var xx in mail.resourcescs)
+                    //{
+                    //    string x = xx.path;
 
-                        if (File.Exists(xx.path))
-                        {
-                            xx.path = await tobase64(x);
+                    //    if (File.Exists(xx.path))
+                    //    {
+                    //        xx.path = await tobase64(x);
 
-                        }
-                        else
-                        {
+                    //    }
+                    //    else
+                    //    {
 
 
-                        }
+                    //    }
 
-                    }
+                    //}
 
 
 
@@ -1578,24 +1580,24 @@ namespace MMSystem.Services.MailServeic
                             ex.total = res.total;
                             // ex.resourcescs = await _resourcescs.GetAll(id);
 
-                            ex.mail.flag = mail.actionSenders.Max(x => x.flag);
+                          //  ex.mail.flag = mail.actionSenders.Max(x => x.flag);
 
-                            foreach (var xx in ex.resourcescs)
-                            {
-                                string x = xx.path;
+                            //foreach (var xx in ex.resourcescs)
+                            //{
+                            //    string x = xx.path;
 
-                                if (File.Exists(xx.path))
-                                {
-                                    xx.path = await tobase64(x);
+                            //    if (File.Exists(xx.path))
+                            //    {
+                            //        xx.path = await tobase64(x);
 
-                                }
-                                else
-                                {
+                            //    }
+                            //    else
+                            //    {
 
 
-                                }
+                            //    }
 
-                            }
+                            //}
 
                         }
                         else { }
@@ -1680,20 +1682,20 @@ namespace MMSystem.Services.MailServeic
                         ex.total = res.total;
 
 
-                        ex.mail.flag = mail.actionSenders.Max(x => x.flag);
+                   //     ex.mail.flag = mail.actionSenders.Max(x => x.flag);
 
-                        foreach (var xx in ex.resourcescs)
-                        {
-                            string x = xx.path;
+                        //foreach (var xx in ex.resourcescs)
+                        //{
+                        //    string x = xx.path;
 
-                            if (File.Exists(xx.path))
-                            {
-                                xx.path = await tobase64(x);
+                        //    if (File.Exists(xx.path))
+                        //    {
+                        //        xx.path = await tobase64(x);
 
-                            }
+                        //    }
 
 
-                        }
+                        //}
                     } else { }
                     
 
@@ -1749,7 +1751,7 @@ namespace MMSystem.Services.MailServeic
                 historyes.HistortyNameID = 9;
 
             
-                Send_to send_ = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail_id && x.to == departmentId);
+                Send_to send_ = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail_id && x.to == departmentId&&x.State==true);
                 if (send_ != null)
                 {
                     if (send_.flag <= 2)

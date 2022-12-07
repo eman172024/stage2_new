@@ -114,10 +114,14 @@ export default {
             //   return axios.post(`http://mail:82/api/Reply/AddReplyWithPhoto`, ReplyViewModel)
     },
 
-    UploadImagesMail(id, list) {
-        return axios.post(`/api/Mail/Uplode`, { userId: 9, mail_id: Number(id), list: list, })
+   // UploadImagesMail(id, list) {
+  //      return axios.post(`/api/Mail/Uplode`, { userId: 9, mail_id: Number(id), list: list, })
             //  return axios.post(`http://mail:82/api/Mail/Uplode`, { userId: 9, mail_id: Number(id), list: list, })
-    },
+    UploadImagesMail(id, list, userId) {
+        return axios.post(`/api/Mail/Uplode`, { userId: userId, mail_id: Number(id), list: list, })
+       // return axios.post(`http://mail:82/api/Mail/Uplode`, { userId: userId, mail_id: Number(id), list: list, })
+
+},
 
     DeleteDocument(id, userId) {
         return axios.delete(`/api/Mail/DeleteDocument?id=${id}&userId=${userId}`)

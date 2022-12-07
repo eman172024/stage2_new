@@ -68,8 +68,6 @@ namespace MMSystem.Model
                 new Role { RoleId = 5, Name = "اضافة بريد صادر خارجي", state = true, code = "e" },
                 new Role { RoleId = 6, Name = " الرد علي الصادر", state = true, code = "f" },
                 new Role { RoleId = 7, Name = " عرض الصورة الصادرة", state = true, code = "g" },
-                new Role { RoleId = 8, Name = "  ارسال البريد بعد الحفظ ", state = true, code = "h" },
-                new Role { RoleId = 9, Name = "حذف البريد", state = true, code = "i" },
                 new Role { RoleId = 10, Name = "الاستلام", state = true, code = "j" },
                 new Role { RoleId = 11, Name = "السحب", state = true, code = "k" },
                 new Role { RoleId = 12, Name = "الاحصائيات", state = true, code = "l" },
@@ -79,9 +77,26 @@ namespace MMSystem.Model
                 new Role { RoleId = 16, Name = "البحث في البريد الوارد الخارجي", state = true, code = "p" },
                 new Role { RoleId = 17, Name = "البحث في البريد صادر الخارجي", state = true, code = "q" },
                  new Role { RoleId = 18, Name = "الرد علي الوارد", state = true, code = "r" },
-                new Role { RoleId = 19, Name = "عرض الصورة الواردة", state = true, code = "s" }
-                
-                
+                new Role { RoleId = 19, Name = "عرض الصورة الواردة", state = true, code = "s" },
+               new Role { RoleId = 20, Name = "تصوير داخلي", state = true, code = "t" },
+                new Role { RoleId = 21, Name = "تصوير  صادر خارجي", state = true, code = "u" },
+                new Role { RoleId = 22, Name = "تصوير وارد خارجي", state = true, code = "v" },
+                new Role { RoleId = 23, Name = "تعديل الداخلي", state = true, code = "w" },
+                new Role { RoleId = 24, Name = "تعديل وارد خارجي", state = true, code = "x" },
+                new Role { RoleId = 25, Name = "تعديل صادر خارجي", state = true, code = "y" },
+                new Role { RoleId = 26, Name = " ارسال بريد داخلي", state = true, code = "z" },
+                new Role { RoleId = 27, Name = " ارسال وارد خارجي", state = true, code = "1" },
+                   new Role { RoleId = 28, Name = " ارسال صادر خارجي", state = true, code = "2" },
+                   new Role { RoleId = 29, Name = " حذف بريد داخلي", state = true, code = "3" },
+                new Role { RoleId = 30, Name = " حذف وارد خارجي", state = true, code = "4" },
+                   new Role { RoleId = 31, Name = " حذف صادر خارجي", state = true, code = "5" },
+                                      new Role { RoleId = 32, Name = " حذف صورة", state = true, code = "6" }
+
+
+
+
+
+
              )
                 ;
 
@@ -91,33 +106,33 @@ namespace MMSystem.Model
                 
                 new Department { Id=  1,  DepartmentName = "الادارة العامة للتحقيق ",perent=0,state=true},
                 new Department { Id = 2,  DepartmentName = "لجنة الحضور والانصراف", perent =0, state = true },
-                new Department { Id = 3,  DepartmentName = "الادارة العامة للشؤون الادارية والمالية ", perent =1, state = true },
-                new Department { Id = 4,  DepartmentName = "الادارة العامة للرقابة علي الشركات والمشروعات", perent =1, state = true },
+                //new Department { Id = 3,  DepartmentName = "الادارة العامة للشؤون الادارية والمالية ", perent =1, state = true },
+                //new Department { Id = 4,  DepartmentName = "الادارة العامة للرقابة علي الشركات والمشروعات", perent =1, state = true },
 
                 new Department { Id = 5,  DepartmentName = "الادارة العامة للرقابة علي رئاسة الوزراء", perent =1, state = true },
-                new Department { Id = 6,  DepartmentName = "الادارة العامة للرقابة علي المؤسسات العامة", perent =1, state = true },
-                new Department { Id = 8,  DepartmentName = "مكتب المستشارين", perent =1, state = true },
-                new Department { Id = 10, DepartmentName = "الادارة العامة للرقابة علي المصارف", perent =0, state = true },
+                //new Department { Id = 6,  DepartmentName = "الادارة العامة للرقابة علي المؤسسات العامة", perent =1, state = true },
+                new Department { Id = 8,  DepartmentName = "مكتب مستشاري رئيس الهيئة", perent =1, state = true },
+                //new Department { Id = 10, DepartmentName = "الادارة العامة للرقابة علي المصارف", perent =0, state = true },
                 new Department { Id = 13, DepartmentName = "مكتب المراجعة  الداخلية", perent =10, state = true },
                 new Department { Id = 14, DepartmentName = "مكتب التفتيش وتقييم الاداء ", perent =0, state = true },
-                new Department { Id = 15, DepartmentName = "مكتب الرعاية الصحية", perent =14, state = true },
+                //new Department { Id = 15, DepartmentName = "مكتب الرعاية الصحية", perent =14, state = true },
                 new Department { Id = 16, DepartmentName = "مكتب التخطيط", perent =14, state = true },
                 new Department { Id = 17, DepartmentName = "مكتب التوثيق وتقنية المعلومات", perent =14, state = true },
-                new Department { Id = 18, DepartmentName = "مكتب متابعة الرقم الوطني", perent =14, state = true },
+                //new Department { Id = 18, DepartmentName = "مكتب متابعة الرقم الوطني", perent =14, state = true },
                 new Department { Id = 19, DepartmentName = "مكتب المحفوظات ", perent =14, state = true },
                 new Department { Id = 20, DepartmentName = "مكتب الشؤون القانونية ودراسة التشريعات", perent =14, state = true },
                 new Department { Id = 21, DepartmentName = "مكتب رئيس الهيئة", perent =0, state = true },
                 new Department { Id = 22, DepartmentName = "مكتب وكيل الهيئة", perent =21, state = true },
-                new Department { Id = 24, DepartmentName = "مكتب التدريب", perent = 21, state = true },
+                //new Department { Id = 24, DepartmentName = "مكتب التدريب", perent = 21, state = true },
                 new Department { Id = 25, DepartmentName = "مكتب الشؤون الاعلامية", perent = 0, state = true },
 
                 new Department { Id = 26, DepartmentName = "الادارة العامة للرقابة الخارجية ", perent = 0, state = true },
                 new Department { Id = 28, DepartmentName = "لجنة صندوق العاملين", perent = 1, state = true },
-                new Department { Id = 29, DepartmentName = "مكتب الشكاوي والبلاغات   ", perent = 1, state = true },
-                new Department { Id = 30, DepartmentName = "مكتب شؤون الفروع ", perent = 1, state = true },
-                new Department { Id = 31, DepartmentName = "مكتب المتابعة", perent = 1, state = true },
+                //new Department { Id = 29, DepartmentName = "مكتب الشكاوي والبلاغات   ", perent = 1, state = true },
+                //new Department { Id = 30, DepartmentName = "مكتب شؤون الفروع ", perent = 1, state = true },
+                //new Department { Id = 31, DepartmentName = "مكتب المتابعة", perent = 1, state = true },
                 new Department { Id = 32, DepartmentName = "مكتب التعاون الدولي والتواصل", perent = 1, state = true },
-                new Department { Id = 33, DepartmentName = "الادارة العامة للرقابة علي لجان الازمة واللجان التسييرية والمؤقتة", perent = 1, state = true },
+                //new Department { Id = 33, DepartmentName = "الادارة العامة للرقابة علي لجان الازمة واللجان التسييرية والمؤقتة", perent = 1, state = true },
                 new Department { Id = 34, DepartmentName = " وحدة الحماية الشخصية", perent = 1, state = true },
                 new Department { Id = 35, DepartmentName = "وحدة العلاقات الخاصة بمكتب الرئيس", perent = 1, state = true },
                 new Department { Id = 36, DepartmentName = "مكتب التحري والمعلومات", perent = 10, state = true },

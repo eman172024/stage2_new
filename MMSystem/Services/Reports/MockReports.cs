@@ -732,11 +732,11 @@ namespace MMSystem.Services.Reports
                     {
 
 
-                var sc = await (from x in _data.Mails.Where(x => x.Department_Id == departmentid)
+                var sc = await (from x in _data.Mails.Where(x => x.Department_Id == departmentid&& ((x.Date_Of_Mail <= to || fr == true) && (x.Date_Of_Mail >= @from) || fr == true))
                                 join
 
 
-          z in _data.Sends.Where(p => p.to == item.Id && ((p.Send_time <= to || fr == true) && (p.Send_time >= @from) || fr == true)) on x.MailID equals z.MailID
+          z in _data.Sends.Where(p => p.to == item.Id&&p.State==true ) on x.MailID equals z.MailID
 
                                 select new DepartmentViewModelDto
                                 {
