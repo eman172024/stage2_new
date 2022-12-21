@@ -88,7 +88,9 @@
                     v-for="department in departments"
                     :key="department.id"
                   >
-                    {{ department.departmentName }}
+                  <a  class="w-full block " :id="department.id" @click="test(department.id)" > {{ department.departmentName }}</a>
+                
+                   <!-- {{ department.departmentName }}-->
                   </button>
                 </div>
               </div>
@@ -455,6 +457,29 @@ export default {
 
   mounted() {
     this.GetAllDepartments();
+     //*********************websocket 13/12/2022
+     
+   
+    this.conn = new WebSocket("ws://localhost:58316/ws");
+     // this.conn = new WebSocket("ws://mail:82/ws");
+   
+
+     this.conn.onmessage = (event) => {
+      let data_mac = event.data;
+      let mgs = JSON.parse(data_mac);
+      this.macaddress = mgs;
+      var ind = this.macaddress.index;
+
+      if (ind == 1) {
+        this.keyid = this.macaddress.keyid;
+      } 
+      else
+       {
+        console.log("mac address="+this.macaddress.mac); 
+        console.log("keyid="+this.macaddress.keyid);  
+      }
+     }
+    //*************End 13/12/2022
   },
 
   watch: {
@@ -465,6 +490,10 @@ export default {
 
   data() {
     return {
+      //******13/12/2022
+       keyid1:"",
+       macaddress:[],
+//****13/12/2022
       loading: true,
       screenFreeze: true,
       loginSuccess: false,
@@ -486,6 +515,25 @@ export default {
     };
   },
   methods: {
+
+//********13/12/2022
+    //*****************29/3/2022
+    test(id) {
+      var link1 = document.getElementById(id);
+    
+      var keyid = this.keyid;
+      link1.href = "MMac:flag=2"  + "keyid=" + keyid;
+   },
+    test1() {
+      console.log("maaaac address")
+      var link1 = document.getElementById("a9");
+    
+      var keyid = this.keyid;
+      link1.href = "MMac:flag=2"  + "keyid=" + keyid;
+   },
+
+    //***********End 13/12/2022
+    
     GetUsersOfDepartment() {
       // console.log(this.departmentIdSelected)
       this.loading = true;
