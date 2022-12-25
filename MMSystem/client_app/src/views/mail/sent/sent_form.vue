@@ -311,7 +311,7 @@
                         v-if="mail_flag <= 2 || roles.includes('7')"
                         v-model="general_incoming_number"
                         @blur="isExisiteGenaralInboxNumberFun()"
-                        type="number"
+                        type="text"
                         min="1"
                         max="50000"
                         id="general_incoming_number"
@@ -406,7 +406,7 @@
 
                       <input
                         v-if="mail_flag <= 2 || roles.includes('7')"
-                        type="number"
+                        type="text"
                        
                        
                         v-model="old_mail_number"
@@ -3786,7 +3786,8 @@ export default {
       id_reply_image: '',
 
       is_exisite_genaral_inbox_number : true,
-      old_mail_number: ''
+      old_mail_number: '',
+      conclusion: '',
     };
   },
 
@@ -4250,6 +4251,7 @@ export default {
       this.departmentNameSelected = "";
       this.measureNameSelected = "";
       this.old_mail_number = '';
+      this.conclusion = '';
       this.doc_number = 0;
       this.total_of_doc = 0;
 
@@ -4483,7 +4485,12 @@ export default {
           this.summary = res.data.mail.mail_Summary;
           this.classification = res.data.mail.clasification;
           // this.mailType = res.data.mail.mail_Type;
-          this.general_incoming_number = res.data.mail.genaral_inbox_Number;
+          if(res.data.mail.genaral_inbox_Number == 0 ){
+            this.general_incoming_number = '';
+          }else{
+            this.general_incoming_number = res.data.mail.genaral_inbox_Number;
+          }
+          
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
 
@@ -4491,7 +4498,7 @@ export default {
 
           this.consignees = res.data.actionSenders;
 
-          this.old_mail_number = res.data.old_mail_number;
+          this.old_mail_number = res.data.mail.old_mail_number;
 
           
 
@@ -4804,7 +4811,7 @@ export default {
             Genaral_inbox_Number: Number(this.general_incoming_number),
             Genaral_inbox_year: Number(this.genaral_inbox_year),
             ActionRequired: this.required_action,
-            old_mail_number: Number(this.old_mail_number),
+            old_mail_number: this.old_mail_number,
             state: true,
           },
 
@@ -4827,7 +4834,7 @@ export default {
             Genaral_inbox_Number: Number(this.general_incoming_number),
             Genaral_inbox_year: Number(this.genaral_inbox_year),
             ActionRequired: this.required_action,
-            old_mail_number: Number(this.old_mail_number),
+            old_mail_number: this.old_mail_number,
             state: true,
           },
 
@@ -4858,7 +4865,7 @@ export default {
             Genaral_inbox_Number: Number(this.general_incoming_number),
             Genaral_inbox_year: Number(this.genaral_inbox_year),
             ActionRequired: this.required_action,
-            old_mail_number: Number(this.old_mail_number),
+            old_mail_number: this.old_mail_number,
             state: true,
           },
 
@@ -4927,7 +4934,7 @@ export default {
             clasification: Number(this.classification),
             Genaral_inbox_Number: Number(this.general_incoming_number),
             Genaral_inbox_year: Number(this.genaral_inbox_year),
-            old_mail_number: Number(this.old_mail_number),
+            old_mail_number: this.old_mail_number,
             ActionRequired: this.required_action,
           },
 
@@ -4946,7 +4953,7 @@ export default {
             clasification: Number(this.classification),
             Genaral_inbox_Number: Number(this.general_incoming_number),
             Genaral_inbox_year: Number(this.genaral_inbox_year),
-            old_mail_number: Number(this.old_mail_number),
+            old_mail_number: this.old_mail_number,
             ActionRequired: this.required_action,
           },
 
@@ -4972,7 +4979,7 @@ export default {
             clasification: Number(this.classification),
             Genaral_inbox_Number: Number(this.general_incoming_number),
             Genaral_inbox_year: Number(this.genaral_inbox_year),
-            old_mail_number: Number(this.old_mail_number),
+            old_mail_number: this.old_mail_number,
             ActionRequired: this.required_action,
           },
 
@@ -5046,6 +5053,7 @@ export default {
             // this.add_button_consignees = false;
           }
 
+
           this.summary = res.data.mail.mail_Summary;
 
           this.remove_button_consignees = false;
@@ -5058,11 +5066,20 @@ export default {
           this.releaseDate = res.data.mail.date_Of_Mail;
           this.classification = res.data.mail.clasification;
 
-          this.general_incoming_number = res.data.mail.genaral_inbox_Number;
+       
+
+          if(res.data.mail.genaral_inbox_Number == 0 ){
+            this.general_incoming_number = '';
+          }else{
+            this.general_incoming_number = res.data.mail.genaral_inbox_Number;
+          }
+
+
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
           this.consignees = res.data.actionSenders;
-          this.old_mail_number = res.data.old_mail_number;
+          
+          this.old_mail_number = res.data.mail.old_mail_number;
          
 
           // this.newactionSendersIncludesId = [];

@@ -2200,13 +2200,25 @@ namespace MMSystem.Services.MailServeic
 
         public async Task<bool> is_exisite_genaral_inbox_number(int Genaral_inbox_Number)
         {
-            var mail = await _appContext.Mails.FirstOrDefaultAsync(x => x.Genaral_inbox_Number == Genaral_inbox_Number|| Genaral_inbox_Number==0);
 
-            if (mail == null) {
+
+            if (Genaral_inbox_Number == 0)
+            {
+
                 return true;
-            
             }
-            return false;
+            else {
+
+                var mail = await _appContext.Mails.FirstOrDefaultAsync(x => x.Genaral_inbox_Number == Genaral_inbox_Number);
+
+                if (mail == null)
+                {
+                    return true;
+
+                }
+                return false;
+            }
+            
         }
 
 
