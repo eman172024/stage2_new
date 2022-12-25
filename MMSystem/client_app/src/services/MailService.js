@@ -64,6 +64,17 @@ export default {
         //  return axios.get(`http://mail:82/api/Reply/GetReplyById?department_id=${department}&mail_id=${mail}`);
     },
 
+
+    isExisiteGenaralInboxNumberFun(Genaral_inbox_Number) {
+        return axios.get(`/api/mail/is_exisite_genaral_inbox_number?Genaral_inbox_Number_id=${Genaral_inbox_Number}`);
+    },
+
+
+
+
+
+
+
     show_senders(id) {
         return axios.get(`/api/Mail/GetDetalies?mail_id=${id}`);
         //  return axios.get(`http://mail:82/api/Mail/GetDetalies?mail_id=${id}`);
@@ -114,14 +125,14 @@ export default {
             //   return axios.post(`http://mail:82/api/Reply/AddReplyWithPhoto`, ReplyViewModel)
     },
 
-   // UploadImagesMail(id, list) {
-  //      return axios.post(`/api/Mail/Uplode`, { userId: 9, mail_id: Number(id), list: list, })
-            //  return axios.post(`http://mail:82/api/Mail/Uplode`, { userId: 9, mail_id: Number(id), list: list, })
+    // UploadImagesMail(id, list) {
+    //      return axios.post(`/api/Mail/Uplode`, { userId: 9, mail_id: Number(id), list: list, })
+    //  return axios.post(`http://mail:82/api/Mail/Uplode`, { userId: 9, mail_id: Number(id), list: list, })
     UploadImagesMail(id, list, userId) {
         return axios.post(`/api/Mail/Uplode`, { userId: userId, mail_id: Number(id), list: list, })
-       // return axios.post(`http://mail:82/api/Mail/Uplode`, { userId: userId, mail_id: Number(id), list: list, })
+            // return axios.post(`http://mail:82/api/Mail/Uplode`, { userId: userId, mail_id: Number(id), list: list, })
 
-},
+    },
 
     DeleteDocument(id, userId) {
         return axios.delete(`/api/Mail/DeleteDocument?id=${id}&userId=${userId}`)
