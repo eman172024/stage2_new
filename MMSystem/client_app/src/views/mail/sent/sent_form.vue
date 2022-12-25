@@ -157,7 +157,7 @@
                       </label>
 
                       <textarea
-                        v-if="mail_flag <= 2"
+                        v-if="mail_flag <= 2 || roles.includes('7')"
                         v-model="summary"
                         id="summary"
                         rows="3"
@@ -200,7 +200,7 @@
                         التصنيف
                       </label>
                       <select
-                        v-if="mail_flag <= 2"
+                        v-if="mail_flag <= 2 || roles.includes('7')"
                         v-model="classification"
                         id="classification"
                         class="
@@ -239,9 +239,19 @@
                           text-sm
                           border border-gray-300
                           p-2
+                          overflow-hidden
                         "
                       >
-                        {{ classification }}
+                        <div
+                          class="h-8"
+                          v-for="classification in classifications"
+                          :key="classification.id"
+                          :value="classification.id"
+                        >
+                          {{ classification.name }}
+                        </div>
+
+                        <!-- {{ classification }} -->
                       </div>
                     </div>
 
@@ -253,7 +263,7 @@
                         التاريخ
                       </label>
                       <input
-                        v-if="mail_flag <= 2"
+                        v-if="mail_flag <= 2 || roles.includes('7')"
                         v-model="releaseDate"
                         min="2000-01-01"
                         max="2040-12-30"
@@ -298,7 +308,7 @@
                         رقم الوارد العام
                       </label>
                       <input
-                        v-if="mail_flag <= 2"
+                        v-if="mail_flag <= 2 || roles.includes('7')"
                         v-model="general_incoming_number"
                         type="number"
                         min="1"
@@ -345,7 +355,7 @@
                       </label>
 
                       <input
-                        v-if="mail_flag <= 2"
+                        v-if="mail_flag <= 2 || roles.includes('7')"
                         type="number"
                         placeholder="YYYY"
                         min="2011"
@@ -405,7 +415,7 @@
                       </label>
 
                       <textarea
-                        v-if="mail_flag <= 2"
+                        v-if="mail_flag <= 2 || roles.includes('7')"
                         v-model="required_action"
                         id="required_action"
                         rows="3"
@@ -3426,6 +3436,7 @@ export default {
 
     this.releaseDate = date.getFullYear() + "-" + month + "-" + day;
 
+    this.genaral_inbox_year = date.getFullYear()
     this.mail_year = date.getFullYear();
     this.my_user_id = localStorage.getItem("AY_LW");
     this.my_department_id = localStorage.getItem("chrome");
@@ -3647,6 +3658,12 @@ export default {
 
   watch: {
     mailType: function() {
+
+      var date = new Date();
+
+      this.genaral_inbox_year = date.getFullYear()
+
+
       this.mail_flag = '';
       this.image_of_doc = '';
       this.image_to_print_n = []
@@ -3656,7 +3673,6 @@ export default {
       this.summary = "";
       this.classification = "";
       this.general_incoming_number = "";
-      this.genaral_inbox_year = "";
       this.required_action = "";
       this.mailId = "";
       this.mail_forwarding = "";

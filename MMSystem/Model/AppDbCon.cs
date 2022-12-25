@@ -90,7 +90,9 @@ namespace MMSystem.Model
                    new Role { RoleId = 29, Name = " حذف بريد داخلي", state = true, code = "3" },
                 new Role { RoleId = 30, Name = " حذف وارد خارجي", state = true, code = "4" },
                    new Role { RoleId = 31, Name = " حذف صادر خارجي", state = true, code = "5" },
-                                      new Role { RoleId = 32, Name = " حذف صورة", state = true, code = "6" }
+                                      new Role { RoleId = 32, Name = " حذف صورة", state = true, code = "6" },
+                                 new Role { RoleId = 33, Name = "  التعديل علي البريد بعد الارسال", state = true, code = "7" }
+
 
 
 
