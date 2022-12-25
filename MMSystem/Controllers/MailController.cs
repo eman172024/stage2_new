@@ -301,9 +301,29 @@ namespace MMSystem.Controllers
 
 
         }
+        [HttpGet("is_exisite_genaral_inbox_number")]
+        public async Task<IActionResult> is_exisite_genaral_inbox_number(int Genaral_inbox_Number)
+        {
+            try
+            {
+                bool is_existe = await _Imail.is_exisite_genaral_inbox_number(Genaral_inbox_Number);
+
+                if (is_existe)
+
+                    return Ok(new { is_existe= is_existe, statusCode = 200 });
+                return NotFound(new { is_existe = is_existe , statusCode = 404 });
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new Result() { message = "حدث خطأ", statusCode = 400 });
+            }
 
 
+        }
         
+
 
 
     }
