@@ -32,8 +32,13 @@ namespace MMSystem.Model
         public Extrenal_inbox extrenal_Inbox { get; set; }
         public bool state { get; set; }
 
+        public string old_mail_number { get; set; }
+        public bool Under_the_procedure { get; set; }
 
-       
+
+        public string conclusion { get; set; }
+
+
 
 
     }
