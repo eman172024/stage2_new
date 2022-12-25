@@ -2208,6 +2208,28 @@ namespace MMSystem.Services.MailServeic
             }
             return false;
         }
+
+
+        public async Task<bool> conclusion(int MailID,string conclusion)
+        {
+            var mail = await _appContext.Mails.FindAsync(MailID);
+
+            if (mail != null)
+            {
+
+                mail.conclusion = conclusion;
+                mail.Under_the_procedure = true;
+                 _appContext.Mails.Update(mail);
+           int res=     await _appContext.SaveChangesAsync();
+                if (res != 0) {
+                    return true;
+
+                }
+
+
+            }
+            return false;
+        }
     }
 }
 

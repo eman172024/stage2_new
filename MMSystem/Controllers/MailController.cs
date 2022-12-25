@@ -322,7 +322,37 @@ namespace MMSystem.Controllers
 
 
         }
-        
+
+        [HttpPut("conclusion")]
+        public async Task<IActionResult> conclusion(int MailID,string conclusion)
+        {
+            try
+            {
+                bool is_existe = await _Imail.conclusion(MailID,conclusion);
+
+                if (is_existe)
+
+                    return Created("conclusion", new
+                    {
+                        message = "تمت العملية بنجاح",
+                        statusCode = 201,
+
+                    });
+                return BadRequest(new Result()
+                {
+                    message = "فشلت العملية",
+                    statusCode = 400
+                });
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new Result() { message = "حدث خطأ", statusCode = 400 });
+            }
+
+
+        }
 
 
 

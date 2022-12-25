@@ -33,7 +33,10 @@ namespace MMSystem.Model
         public bool state { get; set; }
 
         public string old_mail_number { get; set; }
+        public bool Under_the_procedure { get; set; }
 
+
+        public string conclusion { get; set; }
 
 
 

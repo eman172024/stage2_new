@@ -48,6 +48,7 @@ namespace MMSystem.Services.MailServeic
 
         Task<bool> Update(int userid, Mail mail);
         Task<bool> is_exisite_genaral_inbox_number(int Genaral_inbox_Number);
+        Task<bool> conclusion(int MailID, string conclusion);
 
 
 
