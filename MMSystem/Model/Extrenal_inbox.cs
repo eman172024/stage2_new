@@ -29,6 +29,8 @@ namespace MMSystem.Model
 
         public int type { get; set; }
 
+        public int office_type { get; set; }
+
         public DateTime Send_time { get; set; }
 
         public int entity_reference_number { get; set; }

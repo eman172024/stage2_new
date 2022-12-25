@@ -32,8 +32,10 @@ namespace MMSystem.Model
         public Extrenal_inbox extrenal_Inbox { get; set; }
         public bool state { get; set; }
 
+        public string old_mail_number { get; set; }
 
-       
+
+
 
 
     }

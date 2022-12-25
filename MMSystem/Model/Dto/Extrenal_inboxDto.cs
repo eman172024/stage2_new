@@ -29,6 +29,8 @@ namespace MMSystem.Model.Dto
 
         public int procedure_type { get; set; }
 
+        public int office_type { get; set; }
+
 
     }
 }

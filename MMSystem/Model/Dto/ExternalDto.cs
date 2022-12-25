@@ -26,6 +26,7 @@ namespace MMSystem.Model.Dto
 
 
         public int type { get; set; }
-    
+
+
     }
 }
