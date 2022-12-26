@@ -25,6 +25,8 @@ namespace MMSystem.Model.Dto
 
         public int flag { get; set; }
 
+        public string old_mail_number { get; set; }
+
 
 
     }

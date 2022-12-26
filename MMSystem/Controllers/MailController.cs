@@ -301,9 +301,59 @@ namespace MMSystem.Controllers
 
 
         }
+        [HttpGet("is_exisite_genaral_inbox_number")]
+        public async Task<IActionResult> is_exisite_genaral_inbox_number(int Genaral_inbox_Number_id)
+        {
+            try
+            {
+                bool is_not_existe = await _Imail.is_exisite_genaral_inbox_number(Genaral_inbox_Number_id);
+
+                if (is_not_existe)
+
+                    return Ok(new { is_not_existe = is_not_existe, statusCode = 200 });
+                return NotFound(new { is_not_existe = is_not_existe, statusCode = 404 });
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new Result() { message = "حدث خطأ", statusCode = 400 });
+            }
 
 
-        
+        }
+
+        [HttpPut("conclusion")]
+        public async Task<IActionResult> conclusion(int MailID,string conclusion)
+        {
+            try
+            {
+                bool is_existe = await _Imail.conclusion(MailID,conclusion);
+
+                if (is_existe)
+
+                    return Created("conclusion", new
+                    {
+                        message = "تمت العملية بنجاح",
+                        statusCode = 201,
+
+                    });
+                return BadRequest(new Result()
+                {
+                    message = "فشلت العملية",
+                    statusCode = 400
+                });
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new Result() { message = "حدث خطأ", statusCode = 400 });
+            }
+
+
+        }
+
 
 
     }

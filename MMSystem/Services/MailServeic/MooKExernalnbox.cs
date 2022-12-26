@@ -123,6 +123,7 @@ namespace MMSystem.Services.MailServeic
                 _Inbox.to = model.to;
                 _Inbox.type = model.type;
                 _Inbox.Send_time = model.Send_time;
+                _Inbox.office_type = model.office_type;
 
                  _dbCon.Extrenal_Inboxes.Update(_Inbox);
                 await _dbCon.SaveChangesAsync();
@@ -176,7 +177,7 @@ namespace MMSystem.Services.MailServeic
 
                     _mail.clasification = mail.clasification;
                     _mail.ActionRequired = mail.ActionRequired;
-
+                    _mail.old_mail_number = mail.old_mail_number;
 
 
 
@@ -231,6 +232,7 @@ namespace MMSystem.Services.MailServeic
                         _Inbox.to = ex.to;
                         _Inbox.type = ex.type;
                         _Inbox.Send_time = ex.Send_time;
+                        _Inbox.office_type = ex.office_type;
 
                         _dbCon.Extrenal_Inboxes.Update(_Inbox);
 

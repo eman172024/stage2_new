@@ -671,12 +671,47 @@ export default {
     },
 
     selectrole(id, name,index) {
+
+      this.index=index;
       this.roleNameselected = name;
       this.roleIdselected = id;
-        
-          this.index=index;
+      var  role_is_exist=false;
 
-        var  role_is_exist=false;
+
+      if(id==100){
+
+        
+        for(var d=0;d<this.roles.length;d++){
+
+          if(this.roles[d].roleId!=100){
+
+            for (var c = 0; c < this.pirms.length; c++) {
+
+            if(this.pirms[c].name==this.roles[d].name){
+
+              role_is_exist=true;
+              break;
+
+   
+               }
+
+           
+              }
+
+              if(!role_is_exist){
+              this.pirms.push(this.roles[d]);
+              
+              }
+          }
+
+        }
+       
+      }
+
+
+    else{
+        
+          
 
           for (var i = 0; i < this.pirms.length; i++) {
 
@@ -706,7 +741,8 @@ export default {
 
       //this.roles.splice(index, 1);
 
-      this.roleNameselected = "اختر الصلاحيات";
+        }
+        this.roleNameselected = "اختر الصلاحيات";
     },
 
     remove_role(name, id) {
@@ -757,6 +793,7 @@ export default {
             setTimeout(() => {
               this.addsuccess = res.data.message;
               this.isaddsuccess = true;
+              this.$router.push("/show");
             }, 201);
           })
           .catch(() => {

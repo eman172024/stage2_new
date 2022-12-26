@@ -95,8 +95,29 @@ namespace MMSystem.Services.RoleService
             {
                List<Role> listOfRole =  _data.Roles.OrderBy(x => x.RoleId).Where(x => x.state == true).ToList();
 
-               List<RoleDto> list = _mapper.Map<List<Role>, List<RoleDto>>(listOfRole);
+                List<RoleDto> list = new List<RoleDto>();
 
+                    list.Add(new RoleDto
+                {
+                    Name = "الكل",
+                    RoleId = 100,
+                    state = true
+                });
+
+                foreach (var item in listOfRole)
+                {
+
+                    list.Add(new RoleDto
+                    {
+                        Name =item.Name,
+                        RoleId = item.RoleId,
+                        state = true
+                    });
+
+
+                }
+                //list = _mapper.Map<List<Role>, List<RoleDto>>(listOfRole);
+                
                 return list;
             }
             catch (Exception)

@@ -4,14 +4,16 @@ using MMSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMSystem.Migrations
 {
     [DbContext(typeof(AppDbCon))]
-    partial class AppDbConModelSnapshot : ModelSnapshot
+    [Migration("20221225114424_update_Mail_after_send")]
+    partial class update_Mail_after_send
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -455,9 +457,6 @@ namespace MMSystem.Migrations
                     b.Property<int>("entity_reference_number")
                         .HasColumnType("int");
 
-                    b.Property<int>("office_type")
-                        .HasColumnType("int");
-
                     b.Property<int>("procedure_type")
                         .HasColumnType("int");
 
@@ -796,23 +795,14 @@ namespace MMSystem.Migrations
                     b.Property<int>("Mail_Type")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Under_the_procedure")
-                        .HasColumnType("bit");
-
                     b.Property<int>("clasification")
                         .HasColumnType("int");
-
-                    b.Property<string>("conclusion")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("insert_at")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("is_send")
                         .HasColumnType("bit");
-
-                    b.Property<string>("old_mail_number")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("state")
                         .HasColumnType("bit");

@@ -157,7 +157,7 @@
                       </label>
 
                       <textarea
-                        v-if="mail_flag <= 2"
+                        v-if="mail_flag <= 2 || roles.includes('7')"
                         v-model="summary"
                         id="summary"
                         rows="3"
@@ -200,7 +200,7 @@
                         التصنيف
                       </label>
                       <select
-                        v-if="mail_flag <= 2"
+                        v-if="mail_flag <= 2 || roles.includes('7')"
                         v-model="classification"
                         id="classification"
                         class="
@@ -239,9 +239,19 @@
                           text-sm
                           border border-gray-300
                           p-2
+                          overflow-hidden
                         "
                       >
-                        {{ classification }}
+                        <div
+                          class="h-8"
+                          v-for="classification in classifications"
+                          :key="classification.id"
+                          :value="classification.id"
+                        >
+                          {{ classification.name }}
+                        </div>
+
+                        <!-- {{ classification }} -->
                       </div>
                     </div>
 
@@ -253,7 +263,7 @@
                         التاريخ
                       </label>
                       <input
-                        v-if="mail_flag <= 2"
+                        v-if="mail_flag <= 2 || roles.includes('7')"
                         v-model="releaseDate"
                         min="2000-01-01"
                         max="2040-12-30"
@@ -290,7 +300,7 @@
                       </div>
                     </div>
 
-                    <div class="sm:col-span-3">
+                    <div class="sm:col-span-2">
                       <label
                         for="general_incoming_number"
                         class="block text-sm font-semibold text-gray-800"
@@ -298,12 +308,14 @@
                         رقم الوارد العام
                       </label>
                       <input
-                        v-if="mail_flag <= 2"
+                        v-if="mail_flag <= 2 || roles.includes('7')"
                         v-model="general_incoming_number"
-                        type="number"
+                        @blur="isExisiteGenaralInboxNumberFun()"
+                        type="text"
                         min="1"
                         max="50000"
                         id="general_incoming_number"
+                        :class="is_exisite_genaral_inbox_number ? 'border-gray-200' : 'border-red-500'"
                         class="
                           block
                           mt-2
@@ -311,7 +323,7 @@
                           text-sm
                           w-full
                           rounded-md
-                          border border-gray-200
+                          border 
                           hover:shadow-sm
                           focus:outline-none focus:border-gray-300
                           px-2
@@ -336,7 +348,7 @@
                       </div>
                     </div>
 
-                    <div class="sm:col-span-3">
+                    <div class="sm:col-span-2">
                       <label
                         for="year"
                         class="block text-sm font-semibold text-gray-800"
@@ -345,7 +357,7 @@
                       </label>
 
                       <input
-                        v-if="mail_flag <= 2"
+                        v-if="mail_flag <= 2 || roles.includes('7')"
                         type="number"
                         placeholder="YYYY"
                         min="2011"
@@ -382,6 +394,55 @@
                         {{ genaral_inbox_year }}
                       </div>
                     </div>
+
+
+                    <div class="sm:col-span-2">
+                      <label
+                        for="year"
+                        class="block text-sm font-semibold text-gray-800"
+                      >
+                      رقم البريد القديم
+                      </label>
+
+                      <input
+                        v-if="mail_flag <= 2 || roles.includes('7')"
+                        type="text"
+                       
+                       
+                        v-model="old_mail_number"
+                        id="old_mail_number"
+                        class="
+                          block
+                          mt-2
+                          w-full
+                          rounded-md
+                          h-10
+                          text-sm
+                          border border-gray-200
+                          hover:shadow-sm
+                          focus:outline-none focus:border-gray-300
+                          p-2
+                        "
+                      />
+
+                      <div
+                        v-else
+                        class="
+                          block
+                          mt-2
+                          w-full
+                          rounded-md
+                          h-10
+                          text-sm
+                          border border-gray-300
+                          p-2
+                        "
+                      >
+                        {{ old_mail_number }}
+                      </div>
+                    </div>
+
+
                   </section>
 
                   <section
@@ -405,7 +466,7 @@
                       </label>
 
                       <textarea
-                        v-if="mail_flag <= 2"
+                        v-if="mail_flag <= 2 || roles.includes('7')"
                         v-model="required_action"
                         id="required_action"
                         rows="3"
@@ -1526,14 +1587,14 @@
                     gap-y-6 gap-x-4
                     sm:grid-cols-6
                     rounded-md
-                  "
+                  " 
                 >
-                  <fieldset class="sm:col-span-3">
+                  <fieldset class="sm:col-span-2">
                     <div class="flex items-center">
                       <legend
                         class="block text-sm font-semibold text-gray-800 w-24"
                       >
-                        وارد إلي
+                        وارد إلي 
                       </legend>
                       <div class="flex items-center w-32">
                         <input
@@ -1565,7 +1626,80 @@
                     </div>
                   </fieldset>
 
-                  <fieldset class="sm:col-span-3">
+                  <fieldset v-if="my_department_id == 21 || my_department_id == 22 " class="sm:col-span-2">
+                    <div class="flex items-center">
+                      <legend
+                        class="block text-sm font-semibold text-gray-800 w-24"
+                      >
+                        وارد إلي 
+                      </legend>
+                      <div v-if="my_department_id == 21" class="w-full flex items-center">
+                        <div class="flex items-center w-32">
+                          <input
+                            v-model="office_type"
+                            id="chief"
+                            type="radio"
+                            name="office_type"
+                            class="h-4 w-4"
+                            value="1"
+                          />
+                          <label for="chief" class="mr-3 block text-gray-800">
+                            رئيس الهيئة
+                          </label>
+                        </div>
+
+                        <div class="flex items-center w-32">
+                          <input
+                            v-model="office_type"
+                            id="proxy"
+                            type="radio"
+                            name="office_type"
+                            class="h-4 w-4"
+                            value="2"
+                          />
+                          <label for="proxy" class="mr-3 block text-gray-800">
+                            مدير المكتب
+                          </label>
+                        </div>
+                      </div>
+
+
+                      <div v-if="my_department_id == 22" class="w-full flex items-center">
+                        <div class="flex items-center w-32">
+                          <input
+                            v-model="office_type"
+                            id="chief"
+                            type="radio"
+                            name="office_type"
+                            class="h-4 w-4"
+                            value="1"
+                          />
+                          <label for="chief" class="mr-3 block text-gray-800">
+                            وكيل الهيئة
+                          </label>
+                        </div>
+
+                        <div class="flex items-center w-32">
+                          <input
+                            v-model="office_type"
+                            id="proxy"
+                            type="radio"
+                            name="office_type"
+                            class="h-4 w-4"
+                            value="2"
+                          />
+                          <label for="proxy" class="mr-3 block text-gray-800">
+                            مدير المكتب
+                          </label>
+                        </div>
+                      </div>
+
+                    </div>
+                  </fieldset>
+
+                  
+
+                  <fieldset class="sm:col-span-2">
                     <div class="flex items-center">
                       <legend
                         class="block text-sm font-semibold text-gray-800 w-24"
@@ -1745,6 +1879,7 @@
                       <button
                         v-if="
                           summary &&
+                          is_exisite_genaral_inbox_number == true &&
                             classification &&
                             (consignees.length != 0 ||
                               newactionSenders.length != 0)
@@ -1825,6 +1960,7 @@
                       <button
                         v-if="
                           summary &&
+                          is_exisite_genaral_inbox_number == true &&
                             classification &&
                             (consignees.length != 0 ||
                               newactionSenders.length != 0)
@@ -1905,6 +2041,7 @@
                       <button
                         v-if="
                           summary &&
+                          is_exisite_genaral_inbox_number == true &&
                             classification &&
                             (consignees.length != 0 ||
                               newactionSenders.length != 0)
@@ -2230,7 +2367,9 @@
                       <button
                         v-if="
                           summary &&
+                          is_exisite_genaral_inbox_number == true &&
                             classification &&
+                            
                             (consignees.length != 0 ||
                               newactionSenders.length != 0)
                         "
@@ -2298,6 +2437,7 @@
                         v-if="
                           summary &&
                             classification &&
+                            is_exisite_genaral_inbox_number == true &&
                             (consignees.length != 0 ||
                               newactionSenders.length != 0) &&
                             mail_forwarding &&
@@ -2369,6 +2509,7 @@
                         v-if="
                           summary &&
                             classification &&
+                            is_exisite_genaral_inbox_number == true &&
                             (consignees.length != 0 ||
                               newactionSenders.length != 0) &&
                             sectorNameSelected &&
@@ -3426,6 +3567,7 @@ export default {
 
     this.releaseDate = date.getFullYear() + "-" + month + "-" + day;
 
+    this.genaral_inbox_year = date.getFullYear()
     this.mail_year = date.getFullYear();
     this.my_user_id = localStorage.getItem("AY_LW");
     this.my_department_id = localStorage.getItem("chrome");
@@ -3581,7 +3723,7 @@ export default {
       entity_reference_number: "",
       procedure_type: 1,
       entity_mail_date: "",
-      mail_ward_type: "",
+      mail_ward_type: 1,
       ward_to: "",
 
       to_test_passing_mail_type: 1,
@@ -3641,12 +3783,22 @@ export default {
       show_current_reply_image_to_for_bigger_screen_model: false,
 
 
-      id_reply_image: ''
+      id_reply_image: '',
+
+      is_exisite_genaral_inbox_number : true,
+      old_mail_number: '',
+      conclusion: '',
     };
   },
 
   watch: {
     mailType: function() {
+
+      var date = new Date();
+
+      this.genaral_inbox_year = date.getFullYear()
+
+
       this.mail_flag = '';
       this.image_of_doc = '';
       this.image_to_print_n = []
@@ -3656,7 +3808,6 @@ export default {
       this.summary = "";
       this.classification = "";
       this.general_incoming_number = "";
-      this.genaral_inbox_year = "";
       this.required_action = "";
       this.mailId = "";
       this.mail_forwarding = "";
@@ -3666,8 +3817,15 @@ export default {
       this.sectorNameSelected = "";
 
       this.action_required_by_the_entity = "";
-      this.mail_ward_type = "";
-      this.ward_to = "";
+      this.mail_ward_type = 1;
+      if( this.my_department_id == 21 ){
+        this.ward_to = 1;
+      }else if(this.my_department_id == 22 ){
+        this.ward_to = 2;
+      }else{
+        this.ward_to = '';
+      }
+      
       this.entity_mail_date = "";
       this.entity_reference_number = "";
       this.procedure_type = 1;
@@ -3740,6 +3898,29 @@ export default {
   },
 
   methods: {
+
+
+    isExisiteGenaralInboxNumberFun(){
+
+      this.screenFreeze = true;
+      this.loading = true;
+
+      this.$http.mailService
+        .isExisiteGenaralInboxNumberFun( Number(this.general_incoming_number) )
+        .then((res) => {
+          this.is_exisite_genaral_inbox_number = true;
+          this.screenFreeze = false;
+          this.loading = false;
+        })
+        .catch((err) => {
+          this.is_exisite_genaral_inbox_number = false
+          this.screenFreeze = false;
+          this.loading = false;
+          alert("رقم الوارد العام موجود مسبقا.")
+          this.addErorr = err.message;
+        });
+    },
+
 
     prepare_delete_document(){
       this.alert_prepare_delete_document = true;
@@ -4069,7 +4250,8 @@ export default {
       this.show_images = false;
       this.departmentNameSelected = "";
       this.measureNameSelected = "";
-
+      this.old_mail_number = '';
+      this.conclusion = '';
       this.doc_number = 0;
       this.total_of_doc = 0;
 
@@ -4303,13 +4485,20 @@ export default {
           this.summary = res.data.mail.mail_Summary;
           this.classification = res.data.mail.clasification;
           // this.mailType = res.data.mail.mail_Type;
-          this.general_incoming_number = res.data.mail.genaral_inbox_Number;
+          if(res.data.mail.genaral_inbox_Number == 0 ){
+            this.general_incoming_number = '';
+          }else{
+            this.general_incoming_number = res.data.mail.genaral_inbox_Number;
+          }
+          
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
 
           this.mail_flag = res.data.mail.flag;
 
           this.consignees = res.data.actionSenders;
+
+          this.old_mail_number = res.data.mail.old_mail_number;
 
           
 
@@ -4622,6 +4811,7 @@ export default {
             Genaral_inbox_Number: Number(this.general_incoming_number),
             Genaral_inbox_year: Number(this.genaral_inbox_year),
             ActionRequired: this.required_action,
+            old_mail_number: this.old_mail_number,
             state: true,
           },
 
@@ -4644,6 +4834,7 @@ export default {
             Genaral_inbox_Number: Number(this.general_incoming_number),
             Genaral_inbox_year: Number(this.genaral_inbox_year),
             ActionRequired: this.required_action,
+            old_mail_number: this.old_mail_number,
             state: true,
           },
 
@@ -4674,6 +4865,7 @@ export default {
             Genaral_inbox_Number: Number(this.general_incoming_number),
             Genaral_inbox_year: Number(this.genaral_inbox_year),
             ActionRequired: this.required_action,
+            old_mail_number: this.old_mail_number,
             state: true,
           },
 
@@ -4742,6 +4934,7 @@ export default {
             clasification: Number(this.classification),
             Genaral_inbox_Number: Number(this.general_incoming_number),
             Genaral_inbox_year: Number(this.genaral_inbox_year),
+            old_mail_number: this.old_mail_number,
             ActionRequired: this.required_action,
           },
 
@@ -4760,6 +4953,7 @@ export default {
             clasification: Number(this.classification),
             Genaral_inbox_Number: Number(this.general_incoming_number),
             Genaral_inbox_year: Number(this.genaral_inbox_year),
+            old_mail_number: this.old_mail_number,
             ActionRequired: this.required_action,
           },
 
@@ -4785,6 +4979,7 @@ export default {
             clasification: Number(this.classification),
             Genaral_inbox_Number: Number(this.general_incoming_number),
             Genaral_inbox_year: Number(this.genaral_inbox_year),
+            old_mail_number: this.old_mail_number,
             ActionRequired: this.required_action,
           },
 
@@ -4858,6 +5053,7 @@ export default {
             // this.add_button_consignees = false;
           }
 
+
           this.summary = res.data.mail.mail_Summary;
 
           this.remove_button_consignees = false;
@@ -4870,10 +5066,21 @@ export default {
           this.releaseDate = res.data.mail.date_Of_Mail;
           this.classification = res.data.mail.clasification;
 
-          this.general_incoming_number = res.data.mail.genaral_inbox_Number;
+       
+
+          if(res.data.mail.genaral_inbox_Number == 0 ){
+            this.general_incoming_number = '';
+          }else{
+            this.general_incoming_number = res.data.mail.genaral_inbox_Number;
+          }
+
+
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
           this.consignees = res.data.actionSenders;
+          
+          this.old_mail_number = res.data.mail.old_mail_number;
+         
 
           // this.newactionSendersIncludesId = [];
 

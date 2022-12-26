@@ -4,14 +4,16 @@ using MMSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMSystem.Migrations
 {
     [DbContext(typeof(AppDbCon))]
-    partial class AppDbConModelSnapshot : ModelSnapshot
+    [Migration("20221225121608_office_type")]
+    partial class office_type
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -796,14 +798,8 @@ namespace MMSystem.Migrations
                     b.Property<int>("Mail_Type")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Under_the_procedure")
-                        .HasColumnType("bit");
-
                     b.Property<int>("clasification")
                         .HasColumnType("int");
-
-                    b.Property<string>("conclusion")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("insert_at")
                         .HasColumnType("datetime2");

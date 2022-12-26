@@ -2157,7 +2157,7 @@ namespace MMSystem.Services.MailServeic
 
                     _mail.clasification = mail.clasification;
                     _mail.ActionRequired = mail.ActionRequired;
-
+                    _mail.old_mail_number = mail.old_mail_number;
 
                     string chamges = Histoteyvm.getValue(hVModels);
                     if (!String.IsNullOrWhiteSpace(chamges)) {
@@ -2198,8 +2198,50 @@ namespace MMSystem.Services.MailServeic
 
         }
 
+        public async Task<bool> is_exisite_genaral_inbox_number(int Genaral_inbox_Number)
+        {
 
-       
+
+            if (Genaral_inbox_Number == 0)
+            {
+
+                return true;
+            }
+            else {
+
+                var mail = await _appContext.Mails.FirstOrDefaultAsync(x => x.Genaral_inbox_Number == Genaral_inbox_Number);
+
+                if (mail == null)
+                {
+                    return true;
+
+                }
+                return false;
+            }
+            
+        }
+
+
+        public async Task<bool> conclusion(int MailID,string conclusion)
+        {
+            var mail = await _appContext.Mails.FindAsync(MailID);
+
+            if (mail != null)
+            {
+
+                mail.conclusion = conclusion;
+                mail.Under_the_procedure = true;
+                 _appContext.Mails.Update(mail);
+           int res=     await _appContext.SaveChangesAsync();
+                if (res != 0) {
+                    return true;
+
+                }
+
+
+            }
+            return false;
+        }
     }
 }
 
