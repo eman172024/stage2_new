@@ -117,7 +117,7 @@ namespace MMSystem.Services.ReceivedMail
                 IEnumerable<Sended_Maill> zx;
                 PagenationSendedEmail<Sended_Maill> pag = new PagenationSendedEmail<Sended_Maill>();
                 PagenationSendedEmail<Sended_Maill> pagg = new PagenationSendedEmail<Sended_Maill>();
-                if (DateTime.Now.Date == d1) { 
+                if (DateTime.Now.Date != d1) { 
 
                 //chang where to firs or defult and remove order by 
                 var c = await (from mail in dbcon.Mails.Where(x => (x.Department_Id == mangment &&
@@ -610,7 +610,11 @@ namespace MMSystem.Services.ReceivedMail
                
                 return pagg;
                 }
+                
+               
                 ////////// في حالة التاريخ لا يساوي تاريخ اليوم
+                ///
+
                 else
                 {
                     //chang where to firs or defult and remove order by 
@@ -1096,7 +1100,16 @@ namespace MMSystem.Services.ReceivedMail
                 bool mail_accept = false;
                 bool State_filter = false;
                 bool incoing_num_filter = false;
+                bool mangmentrole = false;
 
+                if(genral_incoming_num != null && mangment==21)
+                {
+                    mangmentrole = true;
+                }
+                else
+                {
+                    mangmentrole = false;
+                }
 
 
                 if (genral_incoming_num == null)
@@ -1185,7 +1198,7 @@ namespace MMSystem.Services.ReceivedMail
                                           && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) &&
                                           x.state == true).OrderByDescending(x => x.MailID)
 
-                                   join ex in dbcon.Sends.Where(x => (x.flag > 1) && x.to == mangment &&
+                                   join ex in dbcon.Sends.Where(x => (x.flag > 1) &&( mangmentrole== true||(mangmentrole==false&& x.to == mangment)) &&
                                    (x.update_At.Date >= d1 && x.update_At.Date <= d2) &&
                                    ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                    (x.flag == mail_state || State_filter == true) && x.State == true)
@@ -1225,7 +1238,7 @@ namespace MMSystem.Services.ReceivedMail
                                                && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) &&
                                                x.state == true).OrderByDescending(x => x.MailID)
 
-                                      join ex in dbcon.Sends.Where(x => (x.flag > 1) && x.to == mangment &&
+                                      join ex in dbcon.Sends.Where(x => (x.flag > 1) && (mangmentrole == true || (mangmentrole == false && x.to == mangment)) &&
                                       (x.update_At.Date >= d1 && x.update_At.Date <= d2)&&
                                       ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                       (x.flag == mail_state || State_filter == true) && x.State == true)
@@ -1267,7 +1280,7 @@ namespace MMSystem.Services.ReceivedMail
                                          && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) &&
                                          x.state == true).OrderByDescending(x => x.MailID)
 
-                                   join ex in dbcon.Sends.Where(x => (x.flag > 1) && x.to == mangment &&
+                                   join ex in dbcon.Sends.Where(x => (x.flag > 1) && (mangmentrole == true || (mangmentrole == false && x.to == mangment)) &&
                                   
                                    ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                    (x.flag == mail_state || State_filter == true) && x.State == true)
@@ -1307,7 +1320,7 @@ namespace MMSystem.Services.ReceivedMail
                                                && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) &&
                                                x.state == true).OrderByDescending(x => x.MailID)
 
-                                      join ex in dbcon.Sends.Where(x => (x.flag > 1) && x.to == mangment &&
+                                      join ex in dbcon.Sends.Where(x => (x.flag > 1) && (mangmentrole == true || (mangmentrole == false && x.to == mangment)) &&
                                       (x.update_At.Date >= d1 && x.update_At.Date <= d2) &&
                                       ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                       (x.flag == mail_state || State_filter == true) && x.State == true)
