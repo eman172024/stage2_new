@@ -88,9 +88,9 @@
                     v-for="department in departments"
                     :key="department.id"
                   >
-                  <a  class="w-full block " :id="department.id" @click="test(department.id)" > {{ department.departmentName }}</a>
+                <!--  <a  class="w-full block " :id="department.id" @click="test(department.id)" > {{ department.departmentName }}</a>-->
                 
-                   <!-- {{ department.departmentName }}-->
+                 {{ department.departmentName }}
                   </button>
                 </div>
               </div>
