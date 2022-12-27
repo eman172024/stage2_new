@@ -616,6 +616,7 @@ export default {
             this.$authenticatedUser.departmentId = this.user.administrator.departmentId;
 
             localStorage.setItem("AY_LW", this.user.administrator.userId);
+            localStorage.setItem("current_department_name", this.departmentNameSelected);
             localStorage.setItem(
               "chrome",
               this.user.administrator.departmentId

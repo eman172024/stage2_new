@@ -40,6 +40,8 @@
                 منظومة البريد
               </div>
 
+              {{ this.current_department_name}} 
+              
               <div
                 class="ml-4 mt-4"
                 style="margin-left: 16px; margin-top: 16px"
@@ -485,6 +487,9 @@ export default {
       mail_type: "",
       mail_type_num: 1,
 
+    
+
+      current_department_name:localStorage.getItem("current_department_name"),
       date: "",
     };
   },

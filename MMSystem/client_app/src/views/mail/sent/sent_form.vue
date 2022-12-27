@@ -1441,6 +1441,7 @@
                           p-2
                         "
                       >
+                      
                         {{ sectorNameSelected }}
                       </button>
 
@@ -4477,6 +4478,7 @@ export default {
           }
 
           this.mailId = res.data.mail.mailID;
+          this.to_get_all_doc_of_mail();
           this.mail_Number = res.data.mail.mail_Number;
           this.department_Id = res.data.mail.department_Id;
           this.mail_year = res.data.mail.mail_year;

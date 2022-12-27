@@ -2325,6 +2325,7 @@ export default {
           dateFrom: this.date_from,
           dateTo: this.date_to,
           mailtype: this.mailType,
+          
         },
       });
     },

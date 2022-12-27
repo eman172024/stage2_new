@@ -1,8 +1,8 @@
 <template>
-  <div class="h-screen bg-gray-100 overflow-hidden flex">
+  <div class="h-screen bg-gray-100  flex overflow-scroll">
     <asideComponent></asideComponent>
 
-    <div class="bg-gray-200 h-screen w-full overflow-hidden" dir="rtl">
+    <div class="bg-gray-200 h-screen w-full " dir="rtl">
       <logout class="pt-2 ml-12"></logout>
       <div
         class="
@@ -99,6 +99,72 @@
                 placeholder="ادخل الرقم الوطني"
               />
             </div>
+
+
+
+
+
+            <div>
+              <label for="Mac Address 1" class="font-medium text-gray-700">
+                Mac Address 1
+              </label>
+
+              <label
+                v-if="mac1_valid"
+                for="Mac Address 1"
+                class="font-medium text-red-700"
+              >
+               يجب أن يتكون ال Mac Address من 17 خانة
+              </label>
+
+              <input
+                id="Mac Address 1"
+                type="text"
+               v-model="mac1"
+                class="
+                w-full
+                mt-1
+                focus:outline-none focus:border-green-300
+                border
+                rounded-md
+                px-2
+                py-1
+              "
+                placeholder="Mac Address 1"
+              />
+            </div>
+
+            <div>
+              <label for="Mac Address 2" class="font-medium text-gray-700">
+               Mac Address 2
+              </label>
+
+              <label
+                v-if="mac2_valid"
+                for="Mac Address 2"
+                class="font-medium text-red-700"
+              >
+               يجب أن يتكون ال Mac Address من 17 خانة
+              </label>
+
+              <input
+                id="Mac Address 2"
+                type="text"
+                v-model="mac2"
+                class="
+                w-full
+                mt-1
+                focus:outline-none focus:border-green-300
+                border
+                rounded-md
+                px-2
+                py-1
+              "
+                placeholder="Mac Address 2"
+              />
+            </div>
+
+
 
             <div>
               <label for="user_name" class="font-medium text-gray-700">
@@ -578,6 +644,9 @@ export default {
 
       aa: null,
 
+      mac1:"",
+      mac2:"",
+
       UserNet: "",
       UserName: "",
       pass: null,
@@ -604,8 +673,11 @@ export default {
       confir_pass: "",
 
       national_valid: false,
-
+      mac1_valid: false,
+      mac2_valid: false,
       username_valid: false,
+
+      testarry:[],
     };
   },
 
@@ -634,6 +706,24 @@ export default {
       }
     },
 
+    mac1: function() {
+      if (this.mac1.length != 17 && this.mac1.length != 0) {
+        this.mac1_valid = true;
+      } else {
+        this.mac1_valid = false;
+      }
+    },
+
+    mac2: function() {
+      if (this.mac2.length != 17 && this.mac2.length != 0) {
+        this.mac2_valid = true;
+      } else {
+        this.mac2_valid = false;
+      }
+    },
+
+
+
     UserName: function() {
       if (this.UserName.length < 12 && this.UserName.length != 0) {
         this.username_valid = true;
@@ -642,6 +732,7 @@ export default {
       }
     },
   },
+
   methods: {
     GetAllDepartments() {
       this.$http.mailService
@@ -766,7 +857,10 @@ export default {
         !this.national_valid &&
         !this.username_valid &&
         this.pirms.length != 0 &&
-        this.departmentIdSelected != ""
+        this.departmentIdSelected != "" &&
+        !this.mac1_valid &&
+        !this.mac2_valid&&
+        this.mac1!=""
       ) {
         for (var i = 0; i < this.pirms.length; i++) {
           this.roles1.push(this.pirms[i].roleId);
@@ -779,6 +873,10 @@ export default {
             userNetwork: this.UserNet,
             nationalNumber: this.num,
             DepartmentId: Number(this.departmentIdSelected),
+
+            FirstMACAddress: this.mac1,
+            SecandMACAddress: this.mac2,
+
             state: Boolean(this.state1),
           },
 
@@ -816,7 +914,11 @@ export default {
         this.pass_true &&
         !this.national_valid &&
         !this.username_valid &&
-        this.pirms.length != 0
+        this.pirms.length != 0 &&
+        this.departmentIdSelected != "" &&
+        !this.mac1_valid &&
+        !this.mac2_valid&&
+        this.mac1!=""
       ) 
       
       
@@ -834,6 +936,9 @@ export default {
             userNetwork: this.UserNet,
             nationalNumber: this.num,
             DepartmentId: Number(this.departmentIdSelected),
+            FirstMACAddress: this.mac1,
+            SecandMACAddress: this.mac2,
+
             state: Boolean(this.state1),
           },
 
@@ -870,6 +975,7 @@ export default {
       this.$http.usersService
         .GetUserById(this.$route.params.id)
         .then((res) => {
+         
           this.UserNet = res.data.administrator.userNetwork;
           this.UserName = res.data.administrator.userName;
           this.num = res.data.administrator.nationalNumber;
@@ -877,6 +983,8 @@ export default {
           this.confir_pass = res.data.administrator.password;
           this.departmentIdSelected = res.data.administrator.departmentId;
           this.departmentNameSelected = this.$route.params.departmentName11;
+          this.mac1=res.data.administrator.firstMACAddress;
+          this.mac2=res.data.administrator.secandMACAddress;
 
           if (res.data.administrator.state) {
             this.state1 = res.data.administrator.state;

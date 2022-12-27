@@ -13,6 +13,7 @@
         "axios": "^0.21.1",
         "core-js": "^3.6.5",
         "element-ui": "^2.15.1",
+        "node-sass": "^8.0.0",
         "scanner.js": "^2.10.3",
         "vue": "^2.6.11",
         "vue-html-to-paper": "^1.4.4",
