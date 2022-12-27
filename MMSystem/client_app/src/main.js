@@ -16,8 +16,8 @@ import Print from 'vue-print-nb'
 Vue.use(Print);
 
 
-import scanner from 'scanner.js'
-Vue.use(scanner)
+//import scanner from 'scanner.js'
+//Vue.use(scanner)
 
 Vue.config.productionTip = false
 

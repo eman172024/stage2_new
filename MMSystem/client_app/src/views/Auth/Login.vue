@@ -592,6 +592,11 @@ export default {
         Password: this.Password,
         DepartmentId: this.departmentIdSelected,
         UserId: Number(this.userIdSelected),
+
+ //******21/12/2022
+        Mac:this.macaddress.mac,
+        //*****end 21/12/2022
+
       };
 
       this.$http.securityService

@@ -226,9 +226,10 @@ namespace MMSystem.Services
             try
             {
                 UserWithOnlyRoleNum view = new UserWithOnlyRoleNum();
-
-                Administrator user = await _data.Administrator.FirstOrDefaultAsync(x => x.UserId == user1.UserId && x.state == true && x.DepartmentId == user1.DepartmentId);
-
+                //***** 21/12/2022
+                // Administrator user = await _data.Administrator.FirstOrDefaultAsync(x => x.UserId == user1.UserId && x.state == true && x.DepartmentId == user1.DepartmentId);
+                Administrator user = await _data.Administrator.FirstOrDefaultAsync(x => x.UserId == user1.UserId && x.state == true && x.DepartmentId == user1.DepartmentId && (x.FirstMACAddress == user1.Mac || x.SecandMACAddress == user1.Mac));
+                //*****end 21/12/2022
                 if (user != null)
                 {
                     bool isValid = BCrypt.Net.BCrypt.Verify(user1.Password, user.password);
