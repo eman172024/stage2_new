@@ -47,7 +47,7 @@ namespace MMSystem.Controllers
             int? mailnum_bool, int? mangment, DateTime? date_from, DateTime? date_to, int? mailnum, string? summary,
             int? mail_Readed, int? mailReaded, int? mailnot_readed, int? Typeof_send, int? mail_type, int? userid, int mailNumType, int page_num,
             int page_size, int? Measure_filter, int? Department_filter, 
-            int? Classfication, int? mail_state, int? genral_incoming_num, int? TheSection, bool? Replay_Date)
+            int? Classfication, int? mail_state, int? genral_incoming_num, int? TheSection, bool? Replay_Date, int? office_type)
 
         {
             
@@ -56,7 +56,7 @@ namespace MMSystem.Controllers
             mail_Readed, mailReaded, mailnot_readed, Typeof_send, userid, mailNumType,
              mail_type, page_num, page_size,
              Measure_filter, Department_filter, Classfication, mail_state,
-             genral_incoming_num,  TheSection,  Replay_Date);
+             genral_incoming_num,  TheSection,  Replay_Date, office_type);
 
             if (c != null)
                 return Ok(c);
