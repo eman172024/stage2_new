@@ -3,7 +3,7 @@
     <div class="h-screen bg-gray-100 overflow-hidden flex">
       <asideComponent></asideComponent>
       <div class="flex-1 bg-gray-200 w-0 overflow-y-auto">
-        <div class="max-w-screen-2xl  mx-auto flex flex-col md:px-8">
+        <div class="max-w-screen-2xl mx-auto flex flex-col md:px-8">
           <navComponent></navComponent>
           <main class="flex-1 relative focus:outline-none pt-2 pb-24">
             <div class="flex justify-between items-center">
@@ -13,8 +13,8 @@
                 </h1>
               </div>
 
-              <div class=" flex items-center">
-                <span class=" text-base font-medium text-gray-800">
+              <div class="flex items-center">
+                <span class="text-base font-medium text-gray-800">
                   التاريخ :
                 </span>
 
@@ -28,7 +28,17 @@
                     max="2040-12-30"
                     id="date_from"
                     v-model="date_from"
-                    class="block mr-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                    class="
+                      block
+                      mr-2
+                      w-full
+                      rounded-md
+                      h-10
+                      border border-gray-200
+                      hover:shadow-sm
+                      focus:outline-none focus:border-gray-300
+                      px-2
+                    "
                   />
                 </span>
 
@@ -42,14 +52,24 @@
                     max="2040-12-30"
                     id="date_to"
                     v-model="date_to"
-                    class="block mr-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                    class="
+                      block
+                      mr-2
+                      w-full
+                      rounded-md
+                      h-10
+                      border border-gray-200
+                      hover:shadow-sm
+                      focus:outline-none focus:border-gray-300
+                      px-2
+                    "
                   />
                 </span>
               </div>
 
               <fieldset class="">
-                <div class=" flex items-center">
-                  <legend class=" text-base font-medium text-gray-800 w-16">
+                <div class="flex items-center">
+                  <legend class="text-base font-medium text-gray-800 w-16">
                     نوع البريد
                   </legend>
 
@@ -62,7 +82,7 @@
                       class="h-4 w-4"
                       value="0"
                     />
-                    <label for="internal" class="mr-2 block  text-gray-800">
+                    <label for="internal" class="mr-2 block text-gray-800">
                       الكل
                     </label>
                   </div>
@@ -76,7 +96,7 @@
                       class="h-4 w-4"
                       value="1"
                     />
-                    <label for="internal" class="mr-2 block  text-gray-800">
+                    <label for="internal" class="mr-2 block text-gray-800">
                       داخلي
                     </label>
                   </div>
@@ -92,7 +112,7 @@
                     />
                     <label
                       for="internal_export"
-                      class="mr-2 block  text-gray-800"
+                      class="mr-2 block text-gray-800"
                     >
                       صادر خارجي
                     </label>
@@ -109,7 +129,7 @@
                     />
                     <label
                       for="external_incoming"
-                      class="mr-2 block  text-gray-800"
+                      class="mr-2 block text-gray-800"
                     >
                       وارد خارجي
                     </label>
@@ -118,12 +138,24 @@
               </fieldset>
             </div>
 
-            <div class=" mt-2  flex">
+            <div class="mt-2 flex">
               <div class="relative w-full">
                 <button
                   @click="filter = !filter"
                   :class="filter ? 'shadow-md' : ''"
-                  class="rounded-t-md border border-b-0 hover:text-blue-600 hover:font-bold group w-full p-2 bg-white flex items-center justify-between focus:outline-none"
+                  class="
+                    rounded-t-md
+                    border border-b-0
+                    hover:text-blue-600 hover:font-bold
+                    group
+                    w-full
+                    p-2
+                    bg-white
+                    flex
+                    items-center
+                    justify-between
+                    focus:outline-none
+                  "
                 >
                   <span class="flex items-center">
                     <svg
@@ -144,7 +176,7 @@
 
                   <span class="">
                     <svg
-                      class="w-6 h-6 stroke-current group-hover:stroke-2 "
+                      class="w-6 h-6 stroke-current group-hover:stroke-2"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -161,10 +193,27 @@
 
                 <div
                   v-if="filter"
-                  class="rounded-b-md shadow-md absolute top-10 border border-t-0 z-40 w-full bg-white px-4 py-8"
+                  class="
+                    rounded-b-md
+                    shadow-md
+                    absolute
+                    top-10
+                    border border-t-0
+                    z-40
+                    w-full
+                    bg-white
+                    px-4
+                    py-8
+                  "
                 >
                   <div
-                    class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 max-w-4xl mx-auto"
+                    class="
+                      grid grid-cols-1
+                      gap-y-6 gap-x-4
+                      sm:grid-cols-6
+                      max-w-4xl
+                      mx-auto
+                    "
                   >
                     <div class="sm:col-span-2">
                       <label
@@ -179,7 +228,17 @@
                         min="1"
                         max="5000"
                         id="mail_id"
-                        class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                        class="
+                          block
+                          mt-2
+                          h-10
+                          w-full
+                          rounded-md
+                          border border-gray-300
+                          hover:shadow-sm
+                          focus:outline-none focus:border-gray-300
+                          px-2
+                        "
                       />
                     </div>
 
@@ -195,17 +254,50 @@
                         <button
                           @click="departmentselect = !departmentselect"
                           id="department"
-                          class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                          class="
+                            text-right
+                            block
+                            mt-2
+                            w-full
+                            rounded-md
+                            h-10
+                            border
+                            text-sm
+                            bg-white
+                            border-gray-300
+                            hover:shadow-sm
+                            focus:outline-none focus:border-gray-300
+                            p-2
+                          "
                         >
                           {{ departmentNameSelected }}
                         </button>
 
                         <div
                           v-if="departmentselect"
-                          class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
+                          class="
+                            border
+                            text-sm
+                            bg-white
+                            border-gray-300
+                            p-2
+                            absolute
+                            w-full
+                            z-20
+                            shadow
+                            h-24
+                            overflow-y-scroll
+                            rounded-b-md
+                          "
                         >
                           <button
-                            class="block focus:outline-none w-full my-1 text-right"
+                            class="
+                              block
+                              focus:outline-none
+                              w-full
+                              my-1
+                              text-right
+                            "
                             @click="
                               selectdepartment('', 'الكل');
                               departmentselect = !departmentselect;
@@ -215,7 +307,13 @@
                           </button>
 
                           <button
-                            class="block focus:outline-none w-full my-1 text-right"
+                            class="
+                              block
+                              focus:outline-none
+                              w-full
+                              my-1
+                              text-right
+                            "
                             @click="
                               selectdepartment(
                                 department.id,
@@ -244,17 +342,50 @@
                         <button
                           @click="measureselect = !measureselect"
                           id="measure"
-                          class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                          class="
+                            text-right
+                            block
+                            mt-2
+                            w-full
+                            rounded-md
+                            h-10
+                            border
+                            text-sm
+                            bg-white
+                            border-gray-300
+                            hover:shadow-sm
+                            focus:outline-none focus:border-gray-300
+                            p-2
+                          "
                         >
                           {{ measureNameSelected }}
                         </button>
 
                         <div
                           v-if="measureselect"
-                          class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
+                          class="
+                            border
+                            text-sm
+                            bg-white
+                            border-gray-300
+                            p-2
+                            absolute
+                            w-full
+                            z-20
+                            shadow
+                            h-24
+                            overflow-y-scroll
+                            rounded-b-md
+                          "
                         >
                           <button
-                            class="block focus:outline-none w-full my-1 text-right"
+                            class="
+                              block
+                              focus:outline-none
+                              w-full
+                              my-1
+                              text-right
+                            "
                             @click="
                               selectmeasure('', 'الكل');
                               measureselect = !measureselect;
@@ -264,7 +395,13 @@
                           </button>
 
                           <button
-                            class="block focus:outline-none w-full my-1 text-right"
+                            class="
+                              block
+                              focus:outline-none
+                              w-full
+                              my-1
+                              text-right
+                            "
                             @click="
                               selectmeasure(
                                 measure.measuresId,
@@ -293,17 +430,50 @@
                         <button
                           @click="mail_caseselect = !mail_caseselect"
                           id="measure"
-                          class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                          class="
+                            text-right
+                            block
+                            mt-2
+                            w-full
+                            rounded-md
+                            h-10
+                            border
+                            text-sm
+                            bg-white
+                            border-gray-300
+                            hover:shadow-sm
+                            focus:outline-none focus:border-gray-300
+                            p-2
+                          "
                         >
                           {{ mail_caseNameSelected }}
                         </button>
 
                         <div
                           v-if="mail_caseselect"
-                          class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
+                          class="
+                            border
+                            text-sm
+                            bg-white
+                            border-gray-300
+                            p-2
+                            absolute
+                            w-full
+                            z-20
+                            shadow
+                            h-24
+                            overflow-y-scroll
+                            rounded-b-md
+                          "
                         >
                           <button
-                            class="block focus:outline-none w-full my-1 text-right"
+                            class="
+                              block
+                              focus:outline-none
+                              w-full
+                              my-1
+                              text-right
+                            "
                             @click="
                               select_mail_case('', 'الكل');
                               mail_caseselect = !mail_caseselect;
@@ -313,7 +483,13 @@
                           </button>
 
                           <button
-                            class="block focus:outline-none w-full my-1 text-right"
+                            class="
+                              block
+                              focus:outline-none
+                              w-full
+                              my-1
+                              text-right
+                            "
                             @click="
                               select_mail_case(
                                 mail_case.flag,
@@ -342,17 +518,50 @@
                         <button
                           @click="classificationselect = !classificationselect"
                           id="classification"
-                          class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                          class="
+                            text-right
+                            block
+                            mt-2
+                            w-full
+                            rounded-md
+                            h-10
+                            border
+                            text-sm
+                            bg-white
+                            border-gray-300
+                            hover:shadow-sm
+                            focus:outline-none focus:border-gray-300
+                            p-2
+                          "
                         >
                           {{ classificationNameSelected }}
                         </button>
 
                         <div
                           v-if="classificationselect"
-                          class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
+                          class="
+                            border
+                            text-sm
+                            bg-white
+                            border-gray-300
+                            p-2
+                            absolute
+                            w-full
+                            z-20
+                            shadow
+                            h-24
+                            overflow-y-scroll
+                            rounded-b-md
+                          "
                         >
                           <button
-                            class="block focus:outline-none w-full my-1 text-right"
+                            class="
+                              block
+                              focus:outline-none
+                              w-full
+                              my-1
+                              text-right
+                            "
                             @click="
                               selectClassification('', 'الكل');
                               classificationselect = !classificationselect;
@@ -362,7 +571,13 @@
                           </button>
 
                           <button
-                            class="block focus:outline-none w-full my-1 text-right"
+                            class="
+                              block
+                              focus:outline-none
+                              w-full
+                              my-1
+                              text-right
+                            "
                             @click="
                               selectClassification(
                                 classification.id,
@@ -390,7 +605,18 @@
                         type="text"
                         v-model="summary"
                         id="summary"
-                        class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        class="
+                          block
+                          mt-2
+                          w-full
+                          rounded-md
+                          h-10
+                          text-sm
+                          border border-gray-300
+                          hover:shadow-sm
+                          focus:outline-none focus:border-gray-300
+                          p-2
+                        "
                       />
                     </div>
 
@@ -406,17 +632,50 @@
                         <button
                           @click="sideselect = !sideselect"
                           id="side"
-                          class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                          class="
+                            text-right
+                            block
+                            mt-2
+                            w-full
+                            rounded-md
+                            h-10
+                            border
+                            text-sm
+                            bg-white
+                            border-gray-300
+                            hover:shadow-sm
+                            focus:outline-none focus:border-gray-300
+                            p-2
+                          "
                         >
                           {{ sideNameSelected }}
                         </button>
 
                         <div
                           v-if="sideselect"
-                          class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
+                          class="
+                            border
+                            text-sm
+                            bg-white
+                            border-gray-300
+                            p-2
+                            absolute
+                            w-full
+                            z-20
+                            shadow
+                            h-24
+                            overflow-y-scroll
+                            rounded-b-md
+                          "
                         >
                           <button
-                            class="block focus:outline-none w-full my-1 text-right"
+                            class="
+                              block
+                              focus:outline-none
+                              w-full
+                              my-1
+                              text-right
+                            "
                             @click="
                               selectsides('', 'الكل');
                               sideselect = !sideselect;
@@ -426,7 +685,13 @@
                           </button>
 
                           <button
-                            class="block focus:outline-none w-full my-1 text-right"
+                            class="
+                              block
+                              focus:outline-none
+                              w-full
+                              my-1
+                              text-right
+                            "
                             @click="
                               selectsides(side.id, side.section_Name);
                               sideselect = !sideselect;
@@ -453,7 +718,17 @@
                         min="1"
                         max="5000"
                         id="general_incoming_number"
-                        class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                        class="
+                          block
+                          mt-2
+                          h-10
+                          w-full
+                          rounded-md
+                          border border-gray-300
+                          hover:shadow-sm
+                          focus:outline-none focus:border-gray-300
+                          px-2
+                        "
                       />
                     </div>
 
@@ -468,7 +743,18 @@
                         v-model="by_date_of_reply"
                         type="checkbox"
                         id="by_date_of_reply"
-                        class="block mt-2 h-10 w-10 overflow-hidden rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                        class="
+                          block
+                          mt-2
+                          h-10
+                          w-10
+                          overflow-hidden
+                          rounded-md
+                          border border-gray-300
+                          hover:shadow-sm
+                          focus:outline-none focus:border-gray-300
+                          px-2
+                        "
                       />
                     </div>
                   </div>
@@ -490,13 +776,10 @@
                   flex
                   items-center
                   justify-center
-                  
                 "
                 @click="GetMailsToPrint()"
               >
-                <span class="text-sm font-bold block ml-1  ">
-                  طباعة
-                </span>
+                <span class="text-sm font-bold block ml-1"> طباعة </span>
 
                 <svg
                   class="
@@ -547,13 +830,10 @@
                   flex
                   items-center
                   justify-center
-                  
                 "
                 @click="print_report()"
               >
-                <span class="text-sm font-bold block ml-1  ">
-                  تقرير إحصائي
-                </span>
+                <span class="text-sm font-bold block ml-1"> تقرير إحصائي </span>
 
                 <svg
                   class="
@@ -595,24 +875,24 @@
                 <div class="w-5/12 ml-2">
                   البريد
                   <div
-                    class="flex items-center bg-gray-100 w-full text-sm pl-2 mt-2"
+                    class="
+                      flex
+                      items-center
+                      bg-gray-100
+                      w-full
+                      text-sm
+                      pl-2
+                      mt-2
+                    "
                   >
                     <div class="w-9/12 flex items-center">
-                      <div class="w-2/6 pr-4 py-1">
-                        رقم الرسالة
-                      </div>
-                      <div class="w-2/6 pr-2">
-                        النوع
-                      </div>
+                      <div class="w-2/6 pr-4 py-1">رقم الرسالة</div>
+                      <div class="w-2/6 pr-2">النوع</div>
 
-                      <div class="w-2/6">
-                        تاريخ البريد
-                      </div>
+                      <div class="w-2/6">تاريخ البريد</div>
                     </div>
 
-                    <div class="w-3/12 text-center">
-                      الإجراءات
-                    </div>
+                    <div class="w-3/12 text-center">الإجراءات</div>
                   </div>
 
                   <div class="min-h-64 text-sm bg-gray-100">
@@ -620,7 +900,16 @@
                       v-for="mail in inboxMails"
                       :key="mail.mail_id"
                       :class="mail.flag | mail_state_inbox"
-                      class="group relative border-r-8  flex items-center bg-white hover:bg-gray-100  pl-2"
+                      class="
+                        group
+                        relative
+                        border-r-8
+                        flex
+                        items-center
+                        bg-white
+                        hover:bg-gray-100
+                        pl-2
+                      "
                     >
                       <button
                         @click="
@@ -698,7 +987,10 @@
                           </router-link>
                         </div>
 
-                        <div v-if="roles.includes('g')" class="w-1/3 flex justify-center items-center">
+                        <div
+                          v-if="roles.includes('g')"
+                          class="w-1/3 flex justify-center items-center"
+                        >
                           <button
                             @click="GetAllDocuments(mail.mail_id, 1)"
                             title="عرض المستندات"
@@ -733,11 +1025,25 @@
                       </div>
 
                       <div
-                        class="group-hover:block items-end hidden absolute z-50 w-10/12  bottom-6 left-0  min-h-32 h-full bg-white p-2 border-4 rounded-md  overflow-y-auto "
+                        class="
+                          group-hover:block
+                          items-end
+                          hidden
+                          absolute
+                          z-50
+                          w-10/12
+                          bottom-6
+                          left-0
+                          min-h-32
+                          h-full
+                          bg-white
+                          p-2
+                          border-4
+                          rounded-md
+                          overflow-y-auto
+                        "
                       >
-                        <p class="font-bold">
-                          ملخص الرسالة
-                        </p>
+                        <p class="font-bold">ملخص الرسالة</p>
 
                         <p class="mt-2">
                           {{ mail.summary }}
@@ -747,7 +1053,18 @@
                   </div>
 
                   <div
-                    class="flex justify-end mt-8  mx-auto px-4 sm:px-6 lg:px-8 w-full bg-white relative"
+                    class="
+                      flex
+                      justify-end
+                      mt-8
+                      mx-auto
+                      px-4
+                      sm:px-6
+                      lg:px-8
+                      w-full
+                      bg-white
+                      relative
+                    "
                   >
                     <pagination
                       dir="rtl"
@@ -759,11 +1076,22 @@
                     />
                     <div class="">
                       <div
-                        class="absolute z-0 top-0 py-2 left-0 w-full text-left p-1 flex bg-white items-center justify-end"
+                        class="
+                          absolute
+                          z-0
+                          top-0
+                          py-2
+                          left-0
+                          w-full
+                          text-left
+                          p-1
+                          flex
+                          bg-white
+                          items-center
+                          justify-end
+                        "
                       >
-                        <span class="text-xs ml-1">
-                          عدد الرسائل
-                        </span>
+                        <span class="text-xs ml-1"> عدد الرسائل </span>
                         {{ total_of_transaction }}
                       </div>
                     </div>
@@ -777,33 +1105,45 @@
                     <span class="font-bold">{{ show_senders_mail }}</span>
                   </span>
                   <div
-                    class="flex items-center bg-gray-100 w-full text-sm pl-2 mt-2"
+                    class="
+                      flex
+                      items-center
+                      bg-gray-100
+                      w-full
+                      text-sm
+                      pl-2
+                      mt-2
+                    "
                   >
-                    <div class="w-6/12 py-1 pr-4">
-                      اسم الإدارة
-                    </div>
-                    <div class="w-2/12">
-                      تاريخ الإرسال
-                    </div>
-                    <div class="w-2/12">
-                      تاريخ الرد
-                    </div>
-                    <div class="w-1/12">
-                      الإجراء
-                    </div>
-                    <div class="w-1/12">
-                      الحالة
-                    </div>
+                    <div class="w-6/12 py-1 pr-4">اسم الإدارة</div>
+                    <div class="w-2/12">تاريخ الإرسال</div>
+                    <div class="w-2/12">تاريخ الرد</div>
+                    <div class="w-1/12">الإجراء</div>
+                    <div class="w-1/12">الحالة</div>
                   </div>
 
                   <div
-                    class="min-h-64 h-full overflow-y-auto max-h-64 text-sm bg-gray-100"
+                    class="
+                      min-h-64
+                      h-full
+                      overflow-y-auto
+                      max-h-64
+                      text-sm
+                      bg-gray-100
+                    "
                   >
                     <div
                       v-for="sender in senders"
                       :key="sender.department_id"
                       :class="sender.flag | mail_state_inbox"
-                      class="group relative border-r-8   bg-white hover:bg-gray-100  pl-2 "
+                      class="
+                        group
+                        relative
+                        border-r-8
+                        bg-white
+                        hover:bg-gray-100
+                        pl-2
+                      "
                     >
                       <button
                         @click="
@@ -850,7 +1190,6 @@
                 </p>
 
                 <div
-                  
                   id="scroll"
                   class="
                     h-72
@@ -873,7 +1212,7 @@
                   >
                     <div class="">
                       <div
-                        class="flex "
+                        class="flex"
                         :class="
                           reply.reply.to == my_department_id
                             ? '  justify-end'
@@ -932,7 +1271,14 @@
                               ? 'bg-gray-700'
                               : 'bg-blue-700'
                           "
-                          class="text-white max-w-10/12 py-0 leading-9 px-2 rounded"
+                          class="
+                            text-white
+                            max-w-10/12
+                            py-0
+                            leading-9
+                            px-2
+                            rounded
+                          "
                         >
                           {{ reply.reply.mail_detail }}
                         </div>
@@ -965,8 +1311,7 @@
                           rounded-md
                           border border-gray-200
                           hover:shadow-sm
-                          focus:outline-none
-                          focus:border-gray-300
+                          focus:outline-none focus:border-gray-300
                           p-2
                         "
                         v-model="reply_to_add"
@@ -980,22 +1325,21 @@
                         <label
                           v-if="reply_to_add != ''"
                           class="
-                          w-48
-                          h-full
-                          flex
-                          justify-center
-                          items-center
-                          py-2
-                          bg-white
-                          rounded-lg
-                          tracking-wide
-                          border border-green-600
-                          cursor-pointer
-                          hover:text-white
-                          hover:bg-green-600
-                          focus:outline-none
-                          duration-300
-                        "
+                            w-48
+                            h-full
+                            flex
+                            justify-center
+                            items-center
+                            py-2
+                            bg-white
+                            rounded-lg
+                            tracking-wide
+                            border border-green-600
+                            cursor-pointer
+                            hover:text-white hover:bg-green-600
+                            focus:outline-none
+                            duration-300
+                          "
                         >
                           <svg
                             class="w-5 h-5 ml-2"
@@ -1103,8 +1447,7 @@
                         tracking-wide
                         border border-blue-600
                         cursor-pointer
-                        hover:text-white
-                        hover:bg-blue-600
+                        hover:text-white hover:bg-blue-600
                         focus:outline-none
                         duration-300
                       "
@@ -1144,7 +1487,17 @@
     </div>
     <div
       v-if="screenFreeze"
-      class="w-screen h-screen bg-black bg-opacity-30 absolute inset-0 z-50 flex justify-center items-center"
+      class="
+        w-screen
+        h-screen
+        bg-black bg-opacity-30
+        absolute
+        inset-0
+        z-50
+        flex
+        justify-center
+        items-center
+      "
     >
       <div v-if="loading" class="">
         <svgLoadingComponent></svgLoadingComponent>
@@ -1181,30 +1534,41 @@
           </div>
         </div>
 
-
         <div
           v-if="to_test_print"
           id="print_one_dec"
           class="bg-black bg-opacity-50 h-screen-100"
         >
-          <div
-           
-            class="h-screen-100"
-          >
-            <img
-              :src="testimage"
-              alt=""
-              class="h-full w-full object-contain"
-            />
+          <div class="h-screen-100">
+            <img :src="testimage" alt="" class="h-full w-full object-contain" />
           </div>
         </div>
 
         <div
-          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
+          class="
+            h-screen
+            flex flex-col
+            justify-center
+            items-center
+            bg-black bg-opacity-90
+            absolute
+            top-0
+            inset-0
+            z-50
+            w-full
+          "
         >
           <div class="max-w-3xl mx-auto relative">
             <div
-              class="absolute top-6 z-50 flex justify-between items-center w-full"
+              class="
+                absolute
+                top-6
+                z-50
+                flex
+                justify-between
+                items-center
+                w-full
+              "
             >
               <button @click="show_images_model = false">
                 <svg
@@ -1227,7 +1591,14 @@
                 v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#print_one_dec'"
-                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+                class="
+                  bg-blue-500
+                  hover:bg-blue-400
+                  px-4
+                  py-2
+                  rounded-lg
+                  text-white
+                "
               >
                 طباعة المستند الحالي
               </button>
@@ -1236,7 +1607,14 @@
                 v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#printMe'"
-                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+                class="
+                  bg-blue-500
+                  hover:bg-blue-400
+                  px-4
+                  py-2
+                  rounded-lg
+                  text-white
+                "
               >
                 طباعة كافة المستندات
               </button>
@@ -1251,7 +1629,18 @@
             </div>
 
             <div
-              class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
+              class="
+                absolute
+                bottom-3
+                z-50
+                bg-gray-100
+                flex
+                justify-between
+                items-center
+                w-full
+                mx-auto
+                mt-4
+              "
             >
               <div v-if="testimage" class="w-12 h-8">
                 <button
@@ -1328,26 +1717,13 @@
       <!-- w-full h-full rounded object-contain -->
     </div>
 
-
-
-
-
-
-
     <div
       v-if="show_current_reply_image_to_for_bigger_screen_model"
       class="w-screen h-full absolute inset-0 z-50 overflow-hidden"
     >
       <div class="relative">
-        <div
-        
-          id="print_reply_doc_n"
-          class="bg-black bg-opacity-50 h-screen-100"
-        >
-          <div
-           
-            class="h-screen-100"
-          >
+        <div id="print_reply_doc_n" class="bg-black bg-opacity-50 h-screen-100">
+          <div class="h-screen-100">
             <img
               :src="reply_image_of_doc"
               alt=""
@@ -1357,11 +1733,30 @@
         </div>
 
         <div
-          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
+          class="
+            h-screen
+            flex flex-col
+            justify-center
+            items-center
+            bg-black bg-opacity-90
+            absolute
+            top-0
+            inset-0
+            z-50
+            w-full
+          "
         >
           <div class="max-w-3xl mx-auto relative">
             <div
-              class="absolute top-6 z-50 flex justify-between items-center w-full"
+              class="
+                absolute
+                top-6
+                z-50
+                flex
+                justify-between
+                items-center
+                w-full
+              "
             >
               <button
                 @click="
@@ -1387,7 +1782,14 @@
               <button
                 v-if="roles.includes('k')"
                 v-print="'#print_reply_doc_n'"
-                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+                class="
+                  bg-blue-500
+                  hover:bg-blue-400
+                  px-4
+                  py-2
+                  rounded-lg
+                  text-white
+                "
               >
                 طباعة المستند الحالي
               </button>
@@ -1402,7 +1804,18 @@
             </div>
 
             <div
-              class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
+              class="
+                absolute
+                bottom-3
+                z-50
+                bg-gray-100
+                flex
+                justify-between
+                items-center
+                w-full
+                mx-auto
+                mt-4
+              "
             >
               <div class="w-12 h-8">
                 <button
@@ -1478,9 +1891,6 @@
         </div>
       </div>
     </div>
-
-
-    
   </div>
 </template>
 
@@ -1554,7 +1964,7 @@ export default {
   },
 
   watch: {
-    mailType: function() {
+    mailType: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -1569,7 +1979,7 @@ export default {
       }
       this.GetSentMail();
     },
-    date_from: function() {
+    date_from: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -1578,7 +1988,7 @@ export default {
       this.page_num = 1;
       this.GetSentMail();
     },
-    date_to: function() {
+    date_to: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -1587,7 +1997,7 @@ export default {
       this.page_num = 1;
       this.GetSentMail();
     },
-    mail_id: function() {
+    mail_id: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -1596,26 +2006,7 @@ export default {
       this.page_num = 1;
       this.GetSentMail();
     },
-    general_incoming_number: function() {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
-
-    summary: function() {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
-    departmentIdSelected: function() {
+    general_incoming_number: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -1625,7 +2016,16 @@ export default {
       this.GetSentMail();
     },
 
-    sideIdSelected: function() {
+    summary: function () {
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = "";
+      this.page_num = 1;
+      this.GetSentMail();
+    },
+    departmentIdSelected: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -1635,16 +2035,7 @@ export default {
       this.GetSentMail();
     },
 
-    measureIdSelected: function() {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
-    classificationIdSelected: function() {
+    sideIdSelected: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -1654,7 +2045,16 @@ export default {
       this.GetSentMail();
     },
 
-    mail_caseIdSelected: function() {
+    measureIdSelected: function () {
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = "";
+      this.page_num = 1;
+      this.GetSentMail();
+    },
+    classificationIdSelected: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -1664,7 +2064,7 @@ export default {
       this.GetSentMail();
     },
 
-    by_date_of_reply: function() {
+    mail_caseIdSelected: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -1674,7 +2074,17 @@ export default {
       this.GetSentMail();
     },
 
-    show_senders_mail: function() {
+    by_date_of_reply: function () {
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = "";
+      this.page_num = 1;
+      this.GetSentMail();
+    },
+
+    show_senders_mail: function () {
       // this.senders = [];
       // this.show_senders_mail = "";
       // this.page_num = 1;
@@ -1766,13 +2176,8 @@ export default {
       reply_to_add: "",
       report_button: true,
 
-
-
-
       reply_doc_number: 0,
       reply_total_of_doc: 0,
-
-
 
       reply_image_of_doc: "",
       reply_id_of_doc: "",
@@ -1781,48 +2186,36 @@ export default {
       reply_image_to_print_n_model: false,
       show_current_reply_image_to_for_bigger_screen_model: false,
 
-
-      id_reply_image: ''
-
+      id_reply_image: "",
     };
   },
 
   methods: {
-
-        GetMailsToPrint() {
-
-          this.$router.push({
-            name: "Sent_report",
-            params: {
-              
-              
-          user_id:this.my_user_id,
-          mail_type:this.mailType,
+    GetMailsToPrint() {
+      this.$router.push({
+        name: "Sent_report",
+        params: {
+          user_id: this.my_user_id,
+          mail_type: this.mailType,
           department_Id: this.my_department_id,
           from: this.date_from,
           to: this.date_to,
-          date_of_reply:this.by_date_of_reply,
-          mail_id:this.mail_id,
-          g_in_num:this.general_incoming_number,
-          summary:this.summary,
-          department_id_selected:this.departmentIdSelected,
-          side_selected:this.sideIdSelected,
-          measure_selected:this.measureIdSelected,
-          classifaction_selected:this.classificationIdSelected,
-          mail_caseid:this.mail_caseIdSelected,
-          page_num:1,
-          page_size:1000000
-            },
-          });
-
-     
+          date_of_reply: this.by_date_of_reply,
+          mail_id: this.mail_id,
+          g_in_num: this.general_incoming_number,
+          summary: this.summary,
+          department_id_selected: this.departmentIdSelected,
+          side_selected: this.sideIdSelected,
+          measure_selected: this.measureIdSelected,
+          classifaction_selected: this.classificationIdSelected,
+          mail_caseid: this.mail_caseIdSelected,
+          page_num: 1,
+          page_size: 1000000,
+        },
+      });
     },
 
-
-
-
     Next_prevent_GetResources_ById(x) {
-
       if (x == "next") {
         this.reply_doc_number++;
       } else {
@@ -1834,8 +2227,7 @@ export default {
       this.$http.documentService
         .GetResources_ById(this.id_reply_image, this.reply_doc_number)
         .then((res) => {
-
-          this.show_current_reply_image_to_for_bigger_screen_model = true
+          this.show_current_reply_image_to_for_bigger_screen_model = true;
           this.reply_total_of_doc = res.data.total;
 
           this.reply_image_of_doc = res.data.date[0].path;
@@ -1854,23 +2246,19 @@ export default {
     },
 
     GetResources_ById(id) {
-
       this.id_reply_image = id;
 
-
       this.reply_doc_number = 1;
-      this.reply_image_of_doc = []
-      this.reply_id_of_doc = ''
-      this.reply_total_of_doc = ''
-     
+      this.reply_image_of_doc = [];
+      this.reply_id_of_doc = "";
+      this.reply_total_of_doc = "";
 
       this.screenFreeze = true;
       this.loading = true;
       this.$http.documentService
         .GetResources_ById(id, this.reply_doc_number)
         .then((res) => {
-
-          this.show_current_reply_image_to_for_bigger_screen_model = true
+          this.show_current_reply_image_to_for_bigger_screen_model = true;
           this.reply_total_of_doc = res.data.total;
 
           this.reply_image_of_doc = res.data.date[0].path;
@@ -1888,22 +2276,20 @@ export default {
         });
     },
 
-
-
     reply1() {
       var link = document.getElementById("a3");
       var mailId_to_get_mail_by_id = this.mailId_to_get_mail_by_id;
       var sends_id = this.sends_id;
-      var my_department_id_to_get_mail_by_id = this
-        .my_department_id_to_get_mail_by_id;
+      var my_department_id_to_get_mail_by_id =
+        this.my_department_id_to_get_mail_by_id;
       var keyid = this.keyid;
 
       var timeout;
-      window.addEventListener("blur", function(e) {
+      window.addEventListener("blur", function (e) {
         window.clearTimeout(timeout);
       });
 
-      timeout = window.setTimeout(function() {
+      timeout = window.setTimeout(function () {
         window.location = "http://mail/scanner_app/Setup1.msi";
       }, 1000);
 
@@ -2108,7 +2494,8 @@ export default {
       flag
     ) {
       this.departmentflag = 0;
-      this.my_department_id_to_get_mail_by_id = my_department_id_to_get_mail_by_id;
+      this.my_department_id_to_get_mail_by_id =
+        my_department_id_to_get_mail_by_id;
       this.sends_id = sends_id;
       this.departmentName = departmentName;
       this.departmentflag = flag;
@@ -2339,20 +2726,9 @@ export default {
           dateFrom: this.date_from,
           dateTo: this.date_to,
           mailtype: this.mailType,
-          
         },
       });
     },
-
-
-
-
-
-
-
-
-
-
 
     // GetMailsToPrint() {
     //   this.$router.push({
