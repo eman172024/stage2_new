@@ -1162,6 +1162,7 @@
         <input
           type="text"
           v-model="notes"
+          maxlength="30"
           id="notes"
           class="
             block

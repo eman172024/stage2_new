@@ -10,7 +10,11 @@ namespace MMSystem.Model
         public int DepartmentId { get; set; }
         public int UserId { get; set; }
         public string Password { get; set; }
-      
+       
+        //*******21/12/2022
+        public string Mac { get; set; }
+        //********end 21/12/2022
+
 
     }
 }

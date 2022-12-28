@@ -88,9 +88,9 @@
                     v-for="department in departments"
                     :key="department.id"
                   >
-                  <a  class="w-full block " :id="department.id" @click="test(department.id)" > {{ department.departmentName }}</a>
+                <!--  <a  class="w-full block " :id="department.id" @click="test(department.id)" > {{ department.departmentName }}</a>-->
                 
-                   <!-- {{ department.departmentName }}-->
+                 {{ department.departmentName }}
                   </button>
                 </div>
               </div>
@@ -592,6 +592,11 @@ export default {
         Password: this.Password,
         DepartmentId: this.departmentIdSelected,
         UserId: Number(this.userIdSelected),
+
+ //******21/12/2022
+        Mac:this.macaddress.mac,
+        //*****end 21/12/2022
+
       };
 
       this.$http.securityService
@@ -611,6 +616,7 @@ export default {
             this.$authenticatedUser.departmentId = this.user.administrator.departmentId;
 
             localStorage.setItem("AY_LW", this.user.administrator.userId);
+            localStorage.setItem("current_department_name", this.departmentNameSelected);
             localStorage.setItem(
               "chrome",
               this.user.administrator.departmentId

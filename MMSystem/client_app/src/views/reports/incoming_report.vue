@@ -45,7 +45,7 @@
                 style="margin-left: 16px; margin-top: 16px"
               >
                 <span class="ml-2" style="margin-left: 8px">
-                  تقرير بالرسائل الواردة للفترة من
+                  تقرير بالرسائل الواردة إلى  {{ this.current_department_name}}  للفترة من
                 </span>
 
                 <span
@@ -394,6 +394,7 @@ export default {
       mails: [],
 
       date: "",
+      current_department_name:localStorage.getItem("current_department_name"),
     };
   },
 

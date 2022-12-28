@@ -1,6 +1,6 @@
 <template>
 
-<div class="bg-gray-100 h-screen">
+<div class="bg-gray-100 h-full">
   
   <div class=" bg-gray-100 ">
     
@@ -203,7 +203,7 @@
 
 
 
-    <div class="flex justify-end ml-6">
+    <div class="flex justify-end ml-6 mb-8">
       
   
       <div class=" ">

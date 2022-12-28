@@ -13,7 +13,7 @@
               <div class="text-2xl text-center font-semibold" style="font-size: 24px; line-height: 32px; text-align: center; font-weight: 900; padding-top: 44px; padding-bottom: 4px; padding-left: 12px; padding-right: 12px;">
                 هيئة الرقابة الإدارية
                 <div class="my-4" style="margin-top: 16px; margin-bottom: 16px">
-                  تقرير بصادر مكتب رئيس الهيئة {{ this.mail_type }}
+                  تقرير بصادر  {{ this.current_department_name}}  {{ this.mail_type }}
                 </div>
 
                 <div
@@ -225,6 +225,7 @@ export default {
 
       mail_type: "",
       mail_type_num: 1,
+      current_department_name:localStorage.getItem("current_department_name"),
 
       date: "",
     };
