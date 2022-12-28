@@ -56,7 +56,10 @@
                       </label>
                     </div>
 
-                    <div v-if="roles.includes('e')" class="flex items-center mx-4">
+                    <div
+                      v-if="roles.includes('e')"
+                      class="flex items-center mx-4"
+                    >
                       <input
                         v-model="mailType"
                         id="internal_export"
@@ -65,7 +68,10 @@
                         class="h-4 w-4"
                         value="2"
                       />
-                      <label for="internal_export" class="mr-2 block text-gray-800">
+                      <label
+                        for="internal_export"
+                        class="mr-2 block text-gray-800"
+                      >
                         صادر خارجي
                       </label>
                     </div>
@@ -79,7 +85,10 @@
                         class="h-4 w-4"
                         value="3"
                       />
-                      <label for="external_incoming" class="mr-2 block text-gray-800">
+                      <label
+                        for="external_incoming"
+                        class="mr-2 block text-gray-800"
+                      >
                         وارد خارجي
                       </label>
                     </div>
@@ -315,7 +324,11 @@
                         min="1"
                         max="50000"
                         id="general_incoming_number"
-                        :class="is_exisite_genaral_inbox_number ? 'border-gray-200' : 'border-red-500'"
+                        :class="
+                          is_exisite_genaral_inbox_number
+                            ? 'border-gray-200'
+                            : 'border-red-500'
+                        "
                         class="
                           block
                           mt-2
@@ -323,7 +336,7 @@
                           text-sm
                           w-full
                           rounded-md
-                          border 
+                          border
                           hover:shadow-sm
                           focus:outline-none focus:border-gray-300
                           px-2
@@ -395,20 +408,17 @@
                       </div>
                     </div>
 
-
                     <div class="sm:col-span-2">
                       <label
                         for="year"
                         class="block text-sm font-semibold text-gray-800"
                       >
-                      رقم البريد القديم
+                        رقم البريد القديم
                       </label>
 
                       <input
                         v-if="mail_flag <= 2 || roles.includes('7')"
                         type="text"
-                       
-                       
                         v-model="old_mail_number"
                         id="old_mail_number"
                         class="
@@ -441,8 +451,6 @@
                         {{ old_mail_number }}
                       </div>
                     </div>
-
-
                   </section>
 
                   <section
@@ -761,7 +769,7 @@
                           {{ consignee.departmentName }} ,
                           {{ consignee.measureName }}
                           <button
-                            v-if="mail_flag <= 2 && consignees.length > 1 "
+                            v-if="mail_flag <= 2 && consignees.length > 0"
                             @click="
                               delete_side_measure(
                                 consignee.departmentId,
@@ -808,7 +816,6 @@
                             m-0.5
                           "
                         >
-                        
                           {{ consignee.departmentName }} ,
                           {{ consignee.measureName }}
                           <!--  -->
@@ -820,8 +827,7 @@
                               )
                             "
                             class="mr-1 rounded-full"
-                          > 
-                           
+                          >
                             <svg
                               aria-hidden="true"
                               focusable="false"
@@ -869,10 +875,29 @@
                         type="button"
                         @click="scanToJpg(), (show_images = true)"
                       /> -->
-                    <a v-if="roles.includes('t') && mailType == '1'" id="a1" @click="func()">
+                    <a
+                      v-if="roles.includes('t') && mailType == '1'"
+                      id="a1"
+                      @click="func()"
+                    >
                       <label
                         v-if="mailId"
-                        class="w-48 flex justify-center items-center py-2 bg-white rounded-lg tracking-wide border border-green-600 cursor-pointer hover:text-white hover:bg-green-600 focus:outline-none duration-300">
+                        class="
+                          w-48
+                          flex
+                          justify-center
+                          items-center
+                          py-2
+                          bg-white
+                          rounded-lg
+                          tracking-wide
+                          border border-green-600
+                          cursor-pointer
+                          hover:text-white hover:bg-green-600
+                          focus:outline-none
+                          duration-300
+                        "
+                      >
                         <svg
                           class="w-5 h-5 ml-2"
                           fill="currentColor"
@@ -959,10 +984,29 @@
                       </label>
                     </a>
 
-                    <a v-if="roles.includes('u') && mailType == '2'" id="a1" @click="func()">
+                    <a
+                      v-if="roles.includes('u') && mailType == '2'"
+                      id="a1"
+                      @click="func()"
+                    >
                       <label
                         v-if="mailId"
-                        class="w-48 flex justify-center items-center py-2 bg-white rounded-lg tracking-wide border border-green-600 cursor-pointer hover:text-white hover:bg-green-600 focus:outline-none duration-300">
+                        class="
+                          w-48
+                          flex
+                          justify-center
+                          items-center
+                          py-2
+                          bg-white
+                          rounded-lg
+                          tracking-wide
+                          border border-green-600
+                          cursor-pointer
+                          hover:text-white hover:bg-green-600
+                          focus:outline-none
+                          duration-300
+                        "
+                      >
                         <svg
                           class="w-5 h-5 ml-2"
                           fill="currentColor"
@@ -1049,10 +1093,29 @@
                       </label>
                     </a>
 
-                    <a v-if="roles.includes('v') && mailType == '3'" id="a1" @click="func()">
+                    <a
+                      v-if="roles.includes('v') && mailType == '3'"
+                      id="a1"
+                      @click="func()"
+                    >
                       <label
                         v-if="mailId"
-                        class="w-48 flex justify-center items-center py-2 bg-white rounded-lg tracking-wide border border-green-600 cursor-pointer hover:text-white hover:bg-green-600 focus:outline-none duration-300">
+                        class="
+                          w-48
+                          flex
+                          justify-center
+                          items-center
+                          py-2
+                          bg-white
+                          rounded-lg
+                          tracking-wide
+                          border border-green-600
+                          cursor-pointer
+                          hover:text-white hover:bg-green-600
+                          focus:outline-none
+                          duration-300
+                        "
+                      >
                         <svg
                           class="w-5 h-5 ml-2"
                           fill="currentColor"
@@ -1138,7 +1201,6 @@
                         <span class="text-sm leading-normal">تصوير</span>
                       </label>
                     </a>
-
                   </div>
 
                   <div
@@ -1147,9 +1209,18 @@
                   >
                     <!--  v-if="imagesToSend != '' || imagesToShow != ''" -->
                     <div class="mt-4 pt-4 pb-4 rounded-md relative">
-                      <div v-if="!roles.includes('g')" class="cursor-not-allowed w-full h-full bg-gray-900 bg-opacity-90 absolute z-20 inset-0">
-                        
-                      </div>
+                      <div
+                        v-if="!roles.includes('g')"
+                        class="
+                          cursor-not-allowed
+                          w-full
+                          h-full
+                          bg-gray-900 bg-opacity-90
+                          absolute
+                          z-20
+                          inset-0
+                        "
+                      ></div>
                       <div class="">
                         <div class="relative h-64 w-full">
                           <img
@@ -1441,7 +1512,6 @@
                           p-2
                         "
                       >
-                      
                         {{ sectorNameSelected }}
                       </button>
 
@@ -1494,6 +1564,7 @@
                     <div class="relative">
                       <button
                         @click="sideselect = !sideselect"
+                        @keyup.space.prevent
                         id="department"
                         class="
                           text-right
@@ -1511,7 +1582,12 @@
                           p-2
                         "
                       >
-                        {{ sideNameSelected }}
+                        <!-- {{ sideNameSelected }} -->
+                        <input
+                          v-model="sideNameSelected"
+                          type="text"
+                          class="h-6 w-full"
+                        />
                       </button>
 
                       <div
@@ -1543,7 +1619,7 @@
                             pass_side(side.id, side.section_Name);
                             sideselect = !sideselect;
                           "
-                          v-for="side in sides"
+                          v-for="side in filterByTerm"
                           :key="side.id"
                         >
                           {{ side.section_Name }}
@@ -1588,14 +1664,14 @@
                     gap-y-6 gap-x-4
                     sm:grid-cols-6
                     rounded-md
-                  " 
+                  "
                 >
                   <fieldset class="sm:col-span-2">
                     <div class="flex items-center">
                       <legend
                         class="block text-sm font-semibold text-gray-800 w-24"
                       >
-                        وارد إلي 
+                        وارد إلي
                       </legend>
                       <div class="flex items-center w-32">
                         <input
@@ -1627,14 +1703,20 @@
                     </div>
                   </fieldset>
 
-                  <fieldset v-if="my_department_id == 21 || my_department_id == 22 " class="sm:col-span-2">
+                  <fieldset
+                    v-if="my_department_id == 21 || my_department_id == 22"
+                    class="sm:col-span-2"
+                  >
                     <div class="flex items-center">
                       <legend
                         class="block text-sm font-semibold text-gray-800 w-24"
                       >
-                        وارد إلي 
+                        وارد إلي
                       </legend>
-                      <div v-if="my_department_id == 21" class="w-full flex items-center">
+                      <div
+                        v-if="my_department_id == 21"
+                        class="w-full flex items-center"
+                      >
                         <div class="flex items-center w-32">
                           <input
                             v-model="office_type"
@@ -1664,8 +1746,10 @@
                         </div>
                       </div>
 
-
-                      <div v-if="my_department_id == 22" class="w-full flex items-center">
+                      <div
+                        v-if="my_department_id == 22"
+                        class="w-full flex items-center"
+                      >
                         <div class="flex items-center w-32">
                           <input
                             v-model="office_type"
@@ -1694,11 +1778,8 @@
                           </label>
                         </div>
                       </div>
-
                     </div>
                   </fieldset>
-
-                  
 
                   <fieldset class="sm:col-span-2">
                     <div class="flex items-center">
@@ -1825,12 +1906,7 @@
                   <div class="flex justify-end ml-6">
                     <!--  :href="$router.resolve({ name: 'sent-add' }).href" -->
                     <button
-                      v-if="
-                        summary &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)
-                      "
+                      v-if="summary && classification"
                       @click="clear_page()"
                       class="
                         flex
@@ -1881,9 +1957,9 @@
                         v-if="
                           summary &&
                           is_exisite_genaral_inbox_number == true &&
-                            classification &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                         "
                         @click="updateMail"
                         type="button"
@@ -1962,9 +2038,9 @@
                         v-if="
                           summary &&
                           is_exisite_genaral_inbox_number == true &&
-                            classification &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                         "
                         @click="updateMail"
                         type="button"
@@ -2043,9 +2119,7 @@
                         v-if="
                           summary &&
                           is_exisite_genaral_inbox_number == true &&
-                            classification &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
+                          classification
                         "
                         @click="updateMail"
                         type="button"
@@ -2118,7 +2192,6 @@
                         تعديل
                       </button>
                     </div>
-
                   </div>
 
                   <div v-if="deleteButton" class="flex justify-end ml-6">
@@ -2126,9 +2199,9 @@
                       <button
                         v-if="
                           summary &&
-                            classification &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                         "
                         @click="deleteMail"
                         type="button"
@@ -2206,9 +2279,9 @@
                       <button
                         v-if="
                           summary &&
-                            classification &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                         "
                         @click="deleteMail"
                         type="button"
@@ -2284,12 +2357,7 @@
 
                     <div v-if="roles.includes('4') && mailType == '3'" class="">
                       <button
-                        v-if="
-                          summary &&
-                            classification &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
-                        "
+                        v-if="summary && classification"
                         @click="deleteMail"
                         type="button"
                         id="edit"
@@ -2369,10 +2437,9 @@
                         v-if="
                           summary &&
                           is_exisite_genaral_inbox_number == true &&
-                            classification &&
-                            
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                         "
                         class="
                           flex
@@ -2437,14 +2504,14 @@
                       <button
                         v-if="
                           summary &&
-                            classification &&
-                            is_exisite_genaral_inbox_number == true &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0) &&
-                            mail_forwarding &&
-                            sectorNameSelected &&
-                            sideNameSelected &&
-                            action_required_by_the_entity
+                          classification &&
+                          is_exisite_genaral_inbox_number == true &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0) &&
+                          mail_forwarding &&
+                          sectorNameSelected &&
+                          sideNameSelected &&
+                          action_required_by_the_entity
                         "
                         class="
                           flex
@@ -2509,17 +2576,15 @@
                       <button
                         v-if="
                           summary &&
-                            classification &&
-                            is_exisite_genaral_inbox_number == true &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0) &&
-                            sectorNameSelected &&
-                            sideNameSelected &&
-                            ward_to &&
-                            mail_ward_type &&
-                            entity_mail_date &&
-                            entity_reference_number &&
-                            procedure_type
+                          classification &&
+                          is_exisite_genaral_inbox_number == true &&
+                          sectorNameSelected &&
+                          sideNameSelected &&
+                          ward_to &&
+                          mail_ward_type &&
+                          entity_mail_date &&
+                          entity_reference_number &&
+                          procedure_type
                         "
                         class="
                           flex
@@ -2581,17 +2646,14 @@
                     </div>
                   </div>
 
-                  <div
-                    v-if="sendButton"
-                    class="flex justify-end"
-                  >
+                  <div v-if="sendButton" class="flex justify-end">
                     <div v-if="roles.includes('z') && mailType == '1'" class="">
                       <button
                         v-if="
                           summary &&
-                            classification &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                         "
                         class="
                           flex
@@ -2656,9 +2718,9 @@
                       <button
                         v-if="
                           summary &&
-                            classification &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                         "
                         class="
                           flex
@@ -2721,12 +2783,7 @@
 
                     <div v-if="roles.includes('1') && mailType == '3'" class="">
                       <button
-                        v-if="
-                          summary &&
-                            classification &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
-                        "
+                        v-if="summary && classification"
                         class="
                           flex
                           justify-center
@@ -3128,33 +3185,97 @@
 
     <div
       v-if="alert_prepare_delete_document"
-      class="w-screen h-full flex justify-center items-center absolute inset-0 z-50 overflow-hidden bg-black bg-opacity-70"
+      class="
+        w-screen
+        h-full
+        flex
+        justify-center
+        items-center
+        absolute
+        inset-0
+        z-50
+        overflow-hidden
+        bg-black bg-opacity-70
+      "
     >
-      <div class="bg-yellow-100 rounded-md w-1/3 py-10 flex flex-col justify-center items-center">
-          <div class="">
-            <svg class="w-20 h-20 stroke-current text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-          </div>
-          <p class="text-xl font-bold mt-4">
-            هل انت متأكد من عملية الحذف؟
-          </p>
-          <p class="text-gray-600">
-            لن تتمكن من استرداد المستند بعد حذفه.
-          </p>
+      <div
+        class="
+          bg-yellow-100
+          rounded-md
+          w-1/3
+          py-10
+          flex flex-col
+          justify-center
+          items-center
+        "
+      >
+        <div class="">
+          <svg
+            class="w-20 h-20 stroke-current text-red-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            ></path>
+          </svg>
+        </div>
+        <p class="text-xl font-bold mt-4">هل انت متأكد من عملية الحذف؟</p>
+        <p class="text-gray-600">لن تتمكن من استرداد المستند بعد حذفه.</p>
 
-          <div class="mt-6">
-            <button @click="deleteDocument()" class="bg-red-600 hover:bg-red-700 hover:shadow-lg duration-200 rounded text-white w-32 py-1 ml-2">
-              نعم ، احذفها
-            </button>
-            <button @click="alert_prepare_delete_document = false" class="bg-gray-400 hover:bg-gray-700 hover:shadow-lg duration-200 rounded text-white w-32 py-1 mr-2">
-              إلغاء
-            </button>
-          </div>
+        <div class="mt-6">
+          <button
+            @click="deleteDocument()"
+            class="
+              bg-red-600
+              hover:bg-red-700 hover:shadow-lg
+              duration-200
+              rounded
+              text-white
+              w-32
+              py-1
+              ml-2
+            "
+          >
+            نعم ، احذفها
+          </button>
+          <button
+            @click="alert_prepare_delete_document = false"
+            class="
+              bg-gray-400
+              hover:bg-gray-700 hover:shadow-lg
+              duration-200
+              rounded
+              text-white
+              w-32
+              py-1
+              mr-2
+            "
+          >
+            إلغاء
+          </button>
+        </div>
       </div>
     </div>
 
     <div
       v-if="screenFreeze"
-      class="w-screen h-screen bg-black bg-opacity-30 absolute inset-0 z-50 flex justify-center items-center"
+      class="
+        w-screen
+        h-screen
+        bg-black bg-opacity-30
+        absolute
+        inset-0
+        z-50
+        flex
+        justify-center
+        items-center
+      "
     >
       <div v-if="loading" class="">
         <svgLoadingComponent></svgLoadingComponent>
@@ -3184,15 +3305,12 @@
           </div>
         </div>
 
-
         <div
           v-if="image_to_print_n_model"
           id="print_one_dec"
           class="bg-black bg-opacity-50 h-screen-100"
         >
-          <div
-            class="h-screen-100"
-          >
+          <div class="h-screen-100">
             <img
               :src="image_of_doc"
               alt=""
@@ -3202,11 +3320,30 @@
         </div>
 
         <div
-          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
+          class="
+            h-screen
+            flex flex-col
+            justify-center
+            items-center
+            bg-black bg-opacity-90
+            absolute
+            top-0
+            inset-0
+            z-50
+            w-full
+          "
         >
           <div class="max-w-3xl mx-auto relative">
             <div
-              class="absolute top-6 z-50 flex justify-between items-center w-full"
+              class="
+                absolute
+                top-6
+                z-50
+                flex
+                justify-between
+                items-center
+                w-full
+              "
             >
               <button
                 @click="show_current_image_for_bigger_screen_model = false"
@@ -3231,7 +3368,14 @@
                 v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#print_one_dec'"
-                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+                class="
+                  bg-blue-500
+                  hover:bg-blue-400
+                  px-4
+                  py-2
+                  rounded-lg
+                  text-white
+                "
               >
                 طباعة المستند الحالي
               </button>
@@ -3240,7 +3384,14 @@
                 v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#printMe'"
-                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+                class="
+                  bg-blue-500
+                  hover:bg-blue-400
+                  px-4
+                  py-2
+                  rounded-lg
+                  text-white
+                "
               >
                 طباعة كافة المستندات
               </button>
@@ -3255,7 +3406,18 @@
             </div>
 
             <div
-              class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
+              class="
+                absolute
+                bottom-3
+                z-50
+                bg-gray-100
+                flex
+                justify-between
+                items-center
+                w-full
+                mx-auto
+                mt-4
+              "
             >
               <div class="w-12 h-8">
                 <button
@@ -3337,15 +3499,12 @@
       class="w-screen h-full absolute inset-0 z-50 overflow-hidden"
     >
       <div class="relative">
-
-
-
         <div
           v-if="reply_image_to_print_n_model"
           id="print_reply_doc_n"
           class="bg-black bg-opacity-50 h-screen-100"
         >
-        <!--  v-for="image in reply_image_to_print_n"
+          <!--  v-for="image in reply_image_to_print_n"
             :key="image.id" -->
           <div class="h-screen-100">
             <img
@@ -3356,10 +3515,37 @@
           </div>
         </div>
 
-        <div class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full">
+        <div
+          class="
+            h-screen
+            flex flex-col
+            justify-center
+            items-center
+            bg-black bg-opacity-90
+            absolute
+            top-0
+            inset-0
+            z-50
+            w-full
+          "
+        >
           <div class="max-w-3xl mx-auto relative">
-            <div class="absolute top-6 z-50 flex justify-between items-center w-full">
-              <button @click="show_current_reply_image_to_for_bigger_screen_model = false">
+            <div
+              class="
+                absolute
+                top-6
+                z-50
+                flex
+                justify-between
+                items-center
+                w-full
+              "
+            >
+              <button
+                @click="
+                  show_current_reply_image_to_for_bigger_screen_model = false
+                "
+              >
                 <svg
                   class="w-8 h-8 stroke-current text-red-500 hover:text-red-400"
                   fill="none"
@@ -3380,7 +3566,14 @@
                 v-if="roles.includes('k')"
                 @click="print_reply_image()"
                 v-print="'#print_reply_doc_n'"
-                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+                class="
+                  bg-blue-500
+                  hover:bg-blue-400
+                  px-4
+                  py-2
+                  rounded-lg
+                  text-white
+                "
               >
                 طباعة المستند الحالي
               </button>
@@ -3395,7 +3588,18 @@
             </div>
 
             <div
-              class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
+              class="
+                absolute
+                bottom-3
+                z-50
+                bg-gray-100
+                flex
+                justify-between
+                items-center
+                w-full
+                mx-auto
+                mt-4
+              "
             >
               <div class="w-12 h-8">
                 <button
@@ -3474,38 +3678,92 @@
 
     <div
       v-if="alert_state"
-      class="w-screen h-full flex justify-center items-center absolute inset-0 z-50 overflow-hidden bg-black bg-opacity-70"
+      class="
+        w-screen
+        h-full
+        flex
+        justify-center
+        items-center
+        absolute
+        inset-0
+        z-50
+        overflow-hidden
+        bg-black bg-opacity-70
+      "
     >
-      <div class="bg-yellow-100 rounded-md w-1/3 py-10 flex flex-col justify-center items-center">
-
-        <div v-if="alert_state_true_false" class="flex flex-col justify-center items-center">
+      <div
+        class="
+          bg-yellow-100
+          rounded-md
+          w-1/3
+          py-10
+          flex flex-col
+          justify-center
+          items-center
+        "
+      >
+        <div
+          v-if="alert_state_true_false"
+          class="flex flex-col justify-center items-center"
+        >
           <div class="">
-            <svg class="w-14 h-14 stroke-current stroke-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <svg
+              class="w-14 h-14 stroke-current stroke-2 text-green-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="{2}"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
           </div>
-          <p class="text-xl font-bold mt-4">
-            تمت العملية بنجاح..
-          </p>
+          <p class="text-xl font-bold mt-4">تمت العملية بنجاح..</p>
         </div>
 
         <div v-else class="flex flex-col justify-center items-center">
           <div class="">
-            <svg class="w-14 h-14 stroke-current stroke-2 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <svg
+              class="w-14 h-14 stroke-current stroke-2 text-red-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="{2}"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
           </div>
-          <p class="text-xl font-bold mt-4">
-            فشلت العملية..
-          </p>
+          <p class="text-xl font-bold mt-4">فشلت العملية..</p>
         </div>
 
         <div class="mt-6">
-          <button @click="alert_state = false" class="bg-blue-500 hover:bg-blue-700 hover:shadow-lg duration-200 rounded text-white w-32 py-1 mr-2">
+          <button
+            @click="alert_state = false"
+            class="
+              bg-blue-500
+              hover:bg-blue-700 hover:shadow-lg
+              duration-200
+              rounded
+              text-white
+              w-32
+              py-1
+              mr-2
+            "
+          >
             حسناً
           </button>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -3530,7 +3788,7 @@ export default {
   mounted() {
     //*********************websocket 18/8/2022
     this.conn = new WebSocket("ws://localhost:58316/ws");
-     // this.conn = new WebSocket("ws://mail:82/ws");
+    // this.conn = new WebSocket("ws://mail:82/ws");
     /*this.conn.onopen =  (event)=> {
    
  }*/
@@ -3568,7 +3826,7 @@ export default {
 
     this.releaseDate = date.getFullYear() + "-" + month + "-" + day;
 
-    this.genaral_inbox_year = date.getFullYear()
+    this.genaral_inbox_year = date.getFullYear();
     this.mail_year = date.getFullYear();
     this.my_user_id = localStorage.getItem("AY_LW");
     this.my_department_id = localStorage.getItem("chrome");
@@ -3620,6 +3878,7 @@ export default {
       alert_prepare_delete_document: false,
       //*************
 
+      filter_text: "",
       mail_flag: "",
       keyid: "",
       conn: null,
@@ -3680,7 +3939,7 @@ export default {
       releaseDate: "",
       summary: "",
       classification: "",
-      mailType: '',
+      mailType: "",
       general_incoming_number: "",
       genaral_inbox_year: "",
       required_action: "",
@@ -3774,8 +4033,6 @@ export default {
       reply_doc_number: 0,
       reply_total_of_doc: 0,
 
-
-
       reply_image_of_doc: "",
       reply_id_of_doc: "",
       reply_image_to_print_n: [],
@@ -3783,26 +4040,41 @@ export default {
       reply_image_to_print_n_model: false,
       show_current_reply_image_to_for_bigger_screen_model: false,
 
+      id_reply_image: "",
 
-      id_reply_image: '',
-
-      is_exisite_genaral_inbox_number : true,
-      old_mail_number: '',
-      conclusion: '',
+      is_exisite_genaral_inbox_number: true,
+      old_mail_number: "",
+      conclusion: "",
     };
   },
 
-  watch: {
-    mailType: function() {
+  computed: {
+    filterByTerm() {
+      return this.sides.filter((side) => {
+        return side.section_Name.toLowerCase().includes(this.sideNameSelected);
+      });
+    },
+  },
 
+  watch: {
+    // filter_text: function() {
+
+    //   this.action_required_by_the_entity=this.filter_text;
+
+    //   this.sides.filter(function (n) {
+    //             return n.section_Name.indexOf(this.filter_text) !== -1;
+    //         });
+
+    // },
+
+    mailType: function () {
       var date = new Date();
 
-      this.genaral_inbox_year = date.getFullYear()
+      this.genaral_inbox_year = date.getFullYear();
 
-
-      this.mail_flag = '';
-      this.image_of_doc = '';
-      this.image_to_print_n = []
+      this.mail_flag = "";
+      this.image_of_doc = "";
+      this.image_to_print_n = [];
       this.indextotest_images_model = 0;
       this.show_images_images_model = [];
       this.mail_Number = "";
@@ -3819,14 +4091,14 @@ export default {
 
       this.action_required_by_the_entity = "";
       this.mail_ward_type = 1;
-      if( this.my_department_id == 21 ){
+      if (this.my_department_id == 21) {
         this.ward_to = 1;
-      }else if(this.my_department_id == 22 ){
+      } else if (this.my_department_id == 22) {
         this.ward_to = 2;
-      }else{
-        this.ward_to = '';
+      } else {
+        this.ward_to = "";
       }
-      
+
       this.entity_mail_date = "";
       this.entity_reference_number = "";
       this.procedure_type = 1;
@@ -3840,7 +4112,6 @@ export default {
 
       this.replies = [];
       this.imagesToShow = [];
-      
 
       this.saveButton = true;
       this.sendButton = false;
@@ -3848,7 +4119,6 @@ export default {
       this.deleteButton = false;
       this.ButtonUploadImagesMail = false;
       this.add_button_consignees = true;
-      
 
       this.GetAllDepartments();
 
@@ -3899,39 +4169,32 @@ export default {
   },
 
   methods: {
-
-
-    isExisiteGenaralInboxNumberFun(){
-
+    isExisiteGenaralInboxNumberFun() {
       this.screenFreeze = true;
       this.loading = true;
 
       this.$http.mailService
-        .isExisiteGenaralInboxNumberFun( Number(this.general_incoming_number) )
+        .isExisiteGenaralInboxNumberFun(Number(this.general_incoming_number))
         .then((res) => {
           this.is_exisite_genaral_inbox_number = true;
           this.screenFreeze = false;
           this.loading = false;
         })
         .catch((err) => {
-          this.is_exisite_genaral_inbox_number = false
+          this.is_exisite_genaral_inbox_number = false;
           this.screenFreeze = false;
           this.loading = false;
-          alert("رقم الوارد العام موجود مسبقا.")
+          alert("رقم الوارد العام موجود مسبقا.");
           this.addErorr = err.message;
         });
     },
 
-
-    prepare_delete_document(){
+    prepare_delete_document() {
       this.alert_prepare_delete_document = true;
     },
 
-
     deleteDocument() {
-
       this.alert_prepare_delete_document = false;
-
 
       this.$http.mailService
         .DeleteDocument(
@@ -3945,28 +4208,24 @@ export default {
           this.image_of_doc = "";
           this.id_of_doc = "";
 
-          
-          this.alert_state = true
-          this.alert_state_true_false = true
+          this.alert_state = true;
+          this.alert_state_true_false = true;
 
           this.GetAllDocN("next");
 
           // this.imagesToShow.splice(index, 1);
           this.mail_search();
 
-        
           // this.imagesToShow = res.data.result.documents
         })
         .catch((err) => {
-          this.alert_state = true
-          this.alert_state_true_false = false
+          this.alert_state = true;
+          this.alert_state_true_false = false;
           this.addErorr = err.message;
         });
     },
 
-
     Next_prevent_GetResources_ById(x) {
-
       if (x == "next") {
         this.reply_doc_number++;
       } else {
@@ -3978,8 +4237,7 @@ export default {
       this.$http.documentService
         .GetResources_ById(this.id_reply_image, this.reply_doc_number)
         .then((res) => {
-
-          this.show_current_reply_image_to_for_bigger_screen_model = true
+          this.show_current_reply_image_to_for_bigger_screen_model = true;
           this.reply_total_of_doc = res.data.total;
 
           this.reply_image_of_doc = res.data.date[0].path;
@@ -3998,26 +4256,19 @@ export default {
     },
 
     GetResources_ById(id) {
-
       this.id_reply_image = id;
 
-
       this.reply_doc_number = 1;
-      this.reply_image_of_doc = []
-      this.reply_id_of_doc = ''
-      this.reply_total_of_doc = ''
-     
+      this.reply_image_of_doc = [];
+      this.reply_id_of_doc = "";
+      this.reply_total_of_doc = "";
 
       this.screenFreeze = true;
       this.loading = true;
       this.$http.documentService
         .GetResources_ById(id, this.reply_doc_number)
         .then((res) => {
-
-
-          
-
-          this.show_current_reply_image_to_for_bigger_screen_model = true
+          this.show_current_reply_image_to_for_bigger_screen_model = true;
           this.reply_total_of_doc = res.data.total;
 
           this.reply_image_of_doc = res.data.date[0].path;
@@ -4034,8 +4285,6 @@ export default {
           console.log(err);
         });
     },
-
-
 
     //*****************29/3/2022
 
@@ -4088,11 +4337,11 @@ export default {
       var keyid = this.keyid;
 
       var timeout;
-      window.addEventListener("blur", function(e) {
+      window.addEventListener("blur", function (e) {
         window.clearTimeout(timeout);
       });
 
-      timeout = window.setTimeout(function() {
+      timeout = window.setTimeout(function () {
         window.location = "http://mail/scanner_app/Setup1.msi";
       }, 1000);
 
@@ -4108,11 +4357,11 @@ export default {
       var keyid = this.keyid;
 
       var timeout;
-      window.addEventListener("blur", function(e) {
+      window.addEventListener("blur", function (e) {
         window.clearTimeout(timeout);
       });
 
-      timeout = window.setTimeout(function() {
+      timeout = window.setTimeout(function () {
         window.location = "http://mail/scanner_app/Setup1.msi";
       }, 1000);
 
@@ -4150,7 +4399,6 @@ export default {
           }, 700);
         });
     },
-
 
     print_reply_image() {
       this.reply_image_to_print_n_model = true;
@@ -4251,8 +4499,8 @@ export default {
       this.show_images = false;
       this.departmentNameSelected = "";
       this.measureNameSelected = "";
-      this.old_mail_number = '';
-      this.conclusion = '';
+      this.old_mail_number = "";
+      this.conclusion = "";
       this.doc_number = 0;
       this.total_of_doc = 0;
 
@@ -4312,16 +4560,14 @@ export default {
     },
 
     add_to_array_of_side_measure() {
-
       // consigneesIncludesId
-
-
 
       if (this.allDepartment) {
         for (let index = 0; index < this.blblbl.length; index++) {
-          if (this.newactionSendersIncludesId.includes(this.blblbl[index].id) 
-              || 
-              this.consigneesIncludesId.includes(this.blblbl[index].id)) {
+          if (
+            this.newactionSendersIncludesId.includes(this.blblbl[index].id) ||
+            this.consigneesIncludesId.includes(this.blblbl[index].id)
+          ) {
           } else {
             this.newactionSenders.push({
               departmentId: this.blblbl[index].id,
@@ -4344,11 +4590,10 @@ export default {
       } else {
         // array.includes('🍰');
 
-        if ( this.newactionSendersIncludesId.includes(this.departmentIdSelected)
-             ||
-             this.consigneesIncludesId.includes(this.departmentIdSelected)
-           ) 
-        {
+        if (
+          this.newactionSendersIncludesId.includes(this.departmentIdSelected) ||
+          this.consigneesIncludesId.includes(this.departmentIdSelected)
+        ) {
           alert("تم اضافة الادارة من قبل");
           this.departmentNameSelected = "";
           this.departmentIdSelected = "";
@@ -4487,12 +4732,12 @@ export default {
           this.summary = res.data.mail.mail_Summary;
           this.classification = res.data.mail.clasification;
           // this.mailType = res.data.mail.mail_Type;
-          if(res.data.mail.genaral_inbox_Number == 0 ){
-            this.general_incoming_number = '';
-          }else{
+          if (res.data.mail.genaral_inbox_Number == 0) {
+            this.general_incoming_number = "";
+          } else {
             this.general_incoming_number = res.data.mail.genaral_inbox_Number;
           }
-          
+
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
 
@@ -4501,8 +4746,6 @@ export default {
           this.consignees = res.data.actionSenders;
 
           this.old_mail_number = res.data.mail.old_mail_number;
-
-          
 
           // for (let index = 0; index < res.data.actionSenders.length; index++) {
           //   this.newactionSendersIncludesId.push(
@@ -4661,9 +4904,8 @@ export default {
     previousImage_images_model() {
       if (this.indextotest_images_model > 0) {
         this.indextotest_images_model--;
-        this.testimage_images_model = this.show_images_images_model[
-          this.indextotest_images_model
-        ].path;
+        this.testimage_images_model =
+          this.show_images_images_model[this.indextotest_images_model].path;
       }
     },
 
@@ -4673,9 +4915,8 @@ export default {
         this.show_images_images_model.length - 1
       ) {
         this.indextotest_images_model++;
-        this.testimage_images_model = this.show_images_images_model[
-          this.indextotest_images_model
-        ].path;
+        this.testimage_images_model =
+          this.show_images_images_model[this.indextotest_images_model].path;
       }
     },
 
@@ -4710,6 +4951,7 @@ export default {
     },
 
     pass_side(id, name) {
+      // this.filter_text=name;
       this.sideNameSelected = name;
       this.sideIdSelected = id;
     },
@@ -4797,7 +5039,7 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
 
-      this.doc_number = 0
+      this.doc_number = 0;
 
       if (this.mailType == "1") {
         var dataUpdate = {
@@ -4891,19 +5133,18 @@ export default {
       this.$http.mailService
         .UpdateMail(dataUpdate)
         .then((res) => {
-
           this.newactionSenders = [];
           this.newactionSendersIncludesId = [];
 
-            if (this.mailType == 1) {
-              this.to_test_passing_mail_type = 1;
-            }
-            if (this.mailType == 2) {
-              this.to_test_passing_mail_type = 2;
-            }
-            if (this.mailType == 3) {
-              this.to_test_passing_mail_type = 3;
-            }
+          if (this.mailType == 1) {
+            this.to_test_passing_mail_type = 1;
+          }
+          if (this.mailType == 2) {
+            this.to_test_passing_mail_type = 2;
+          }
+          if (this.mailType == 3) {
+            this.to_test_passing_mail_type = 3;
+          }
 
           setTimeout(() => {
             this.loading = false;
@@ -5040,7 +5281,7 @@ export default {
 
       this.newactionSenders = [];
       this.newactionSendersIncludesId = [];
-      this.doc_number = 0
+      this.doc_number = 0;
 
       this.screenFreeze = true;
       this.loading = true;
@@ -5055,7 +5296,6 @@ export default {
             // this.add_button_consignees = false;
           }
 
-
           this.summary = res.data.mail.mail_Summary;
 
           this.remove_button_consignees = false;
@@ -5068,21 +5308,17 @@ export default {
           this.releaseDate = res.data.mail.date_Of_Mail;
           this.classification = res.data.mail.clasification;
 
-       
-
-          if(res.data.mail.genaral_inbox_Number == 0 ){
-            this.general_incoming_number = '';
-          }else{
+          if (res.data.mail.genaral_inbox_Number == 0) {
+            this.general_incoming_number = "";
+          } else {
             this.general_incoming_number = res.data.mail.genaral_inbox_Number;
           }
-
 
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
           this.consignees = res.data.actionSenders;
-          
+
           this.old_mail_number = res.data.mail.old_mail_number;
-         
 
           // this.newactionSendersIncludesId = [];
 
@@ -5091,7 +5327,7 @@ export default {
           //     res.data.actionSenders[index].departmentId
           //   );
           // }
-          
+
           this.consigneesIncludesId = [];
 
           for (let index = 0; index < res.data.actionSenders.length; index++) {
@@ -5345,10 +5581,14 @@ export default {
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-      //************20/11/2022
-      /*  .UploadImagesMail(this.mailId, this.imagesToSend, Number(9))*/
-        .UploadImagesMail(this.mailId, this.imagesToSend, Number(localStorage.getItem("AY_LW")))
-       //*************end 20/11/2022
+        //************20/11/2022
+        /*  .UploadImagesMail(this.mailId, this.imagesToSend, Number(9))*/
+        .UploadImagesMail(
+          this.mailId,
+          this.imagesToSend,
+          Number(localStorage.getItem("AY_LW"))
+        )
+        //*************end 20/11/2022
         .then((res) => {
           setTimeout(() => {
             this.ButtonUploadImagesMail = false;
@@ -5369,8 +5609,6 @@ export default {
           }, 500);
         });
     },
-
-    
 
     GetDocmentForMailToShow() {
       this.$http.documentService

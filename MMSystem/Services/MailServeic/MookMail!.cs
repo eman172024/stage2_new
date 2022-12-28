@@ -1367,32 +1367,38 @@ namespace MMSystem.Services.MailServeic
 
                     mail.mail = dto;
                     List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID&&x.State==true).ToListAsync();
-
-                    ActionSender sender = new ActionSender();
-                    foreach (var item in sends)
-                    {
-                        Department departments = await _appContext.Departments.FindAsync(item.to);
-                        Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
-
-                        mail.actionSenders.Add(new ActionSender()
+                    if (sends.Count > 0) {
+                        foreach (var item in sends)
                         {
+                            Department departments = await _appContext.Departments.FindAsync(item.to);
+                            Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
 
-                            departmentName = departments.DepartmentName,
-                            measureId = item.type_of_send,
-                            measureName = measures.MeasuresName,
-                            departmentId = departments.Id,
-                            send_ToId = item.Id,
-                            flag=item.flag
+                            mail.actionSenders.Add(new ActionSender()
+                            {
+
+                                departmentName = departments.DepartmentName,
+                                measureId = item.type_of_send,
+                                measureName = measures.MeasuresName,
+                                departmentId = departments.Id,
+                                send_ToId = item.Id,
+                                flag = item.flag
+                            }
+
+                            );
+
+                            mail.mail.flag = mail.actionSenders.Max(x => x.flag);
+
                         }
 
-                        );
+
                     }
+                    ActionSender sender = new ActionSender();
+                    
 
                     var res= await _resourcescs.GetAllResss(mail.mail.MailID, pagenumber);
                     mail.resourcescs = res.data;
                     mail.total = res.total;
                    // var flag = 
-                    mail.mail.flag = mail.actionSenders.Max(x => x.flag);
 
                     //foreach (var xx in mail.resourcescs)
                     //{
@@ -1551,25 +1557,31 @@ namespace MMSystem.Services.MailServeic
                         List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == id&&x.State==true).ToListAsync();
 
 
-                        foreach (var item in sends)
-                        {
-                            Department departments = await _appContext.Departments.FindAsync(item.to);
-                            Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
 
-                            ex.actionSenders.Add(new ActionSender()
+                        if (sends.Count > 0) {
+                            foreach (var item in sends)
                             {
+                                Department departments = await _appContext.Departments.FindAsync(item.to);
+                                Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
 
-                                departmentName = departments.DepartmentName,
-                                measureId = item.type_of_send,
-                                measureName = measures.MeasuresName,
-                                departmentId = departments.Id,
-                                send_ToId = item.Id,
-                                
-                                flag = item.flag,
+                                ex.actionSenders.Add(new ActionSender()
+                                {
 
+                                    departmentName = departments.DepartmentName,
+                                    measureId = item.type_of_send,
+                                    measureName = measures.MeasuresName,
+                                    departmentId = departments.Id,
+                                    send_ToId = item.Id,
+
+                                    flag = item.flag,
+
+                                }
+
+                                );
                             }
 
-                            );
+
+
                         }
 
 
@@ -1654,25 +1666,32 @@ namespace MMSystem.Services.MailServeic
                     List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == id&&x.State==true).ToListAsync();
 
 
-                    foreach (var item in sends)
-                    {
-                        Department departments = await _appContext.Departments.FindAsync(item.to);
-                        Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
+                    if (sends.Count > 0) {
 
-                        ex.actionSenders.Add(new ActionSender()
+                        foreach (var item in sends)
                         {
+                            Department departments = await _appContext.Departments.FindAsync(item.to);
+                            Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
 
-                            departmentName = departments.DepartmentName,
-                            measureId = item.type_of_send,
-                            measureName = measures.MeasuresName,
-                            departmentId = departments.Id,
-                            send_ToId = item.Id,
-                            flag = item.flag
+                            ex.actionSenders.Add(new ActionSender()
+                            {
 
+                                departmentName = departments.DepartmentName,
+                                measureId = item.type_of_send,
+                                measureName = measures.MeasuresName,
+                                departmentId = departments.Id,
+                                send_ToId = item.Id,
+                                flag = item.flag
+
+                            }
+
+                            );
                         }
 
-                        );
                     }
+
+
+                   
 
 
                     var res = await _resourcescs.GetAllResss(dto.MailID, page);
@@ -1871,25 +1890,34 @@ namespace MMSystem.Services.MailServeic
 
                             mail.mail = dto;
                             List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID&&x.State==true).ToListAsync();
-                            ActionSender sender = new ActionSender();
-                            foreach (var item in sends)
-                            {
-                                Department departments = await _appContext.Departments.FindAsync(item.to);
-                                Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
 
-                                mail.actionSenders.Add(new ActionSender()
+                            if (sends.Count > 0) {
+
+                                foreach (var item in sends)
                                 {
+                                    Department departments = await _appContext.Departments.FindAsync(item.to);
+                                    Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
 
-                                    departmentName = departments.DepartmentName,
-                                    measureId = item.type_of_send,
-                                    measureName = measures.MeasuresName,
-                                    departmentId = departments.Id,
-                                    send_ToId = item.Id
+                                    mail.actionSenders.Add(new ActionSender()
+                                    {
+
+                                        departmentName = departments.DepartmentName,
+                                        measureId = item.type_of_send,
+                                        measureName = measures.MeasuresName,
+                                        departmentId = departments.Id,
+                                        send_ToId = item.Id
+                                    }
+
+                                    );
+
+                                    mail.mail.flag = sends.Max(x => x.flag);
+
                                 }
 
-                                );
                             }
-                            mail.mail.flag = sends.Max(x => x.flag);
+
+                            ActionSender sender = new ActionSender();
+                           
 
                             mail.resourcescs = await _resourcescs.GetAll(mail.mail.MailID);
 
@@ -1942,26 +1970,33 @@ namespace MMSystem.Services.MailServeic
 
                             List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == ex.mail.MailID&&x.State==true).ToListAsync();
 
+                            if (sends.Count > 0) {
 
-                            foreach (var item in sends)
-                            {
-                                Department departments = await _appContext.Departments.FindAsync(item.to);
-                                Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
-
-                                ex.actionSenders.Add(new ActionSender()
+                                foreach (var item in sends)
                                 {
+                                    Department departments = await _appContext.Departments.FindAsync(item.to);
+                                    Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
 
-                                    departmentName = departments.DepartmentName,
-                                    measureId = item.type_of_send,
-                                    measureName = measures.MeasuresName,
-                                    departmentId = departments.Id,
-                                    send_ToId = item.Id
+                                    ex.actionSenders.Add(new ActionSender()
+                                    {
+
+                                        departmentName = departments.DepartmentName,
+                                        measureId = item.type_of_send,
+                                        measureName = measures.MeasuresName,
+                                        departmentId = departments.Id,
+                                        send_ToId = item.Id
+                                    }
+
+                                    );
+
+
                                 }
+                                ex.mail.flag = sends.Max(x => x.flag);
 
-                                );
+
                             }
+
                             ex.resourcescs = await _resourcescs.GetAll(dto.MailID);
-                            ex.mail.flag = sends.Max(x => x.flag);
 
 
                             foreach (var xx in ex.resourcescs)
@@ -2011,25 +2046,37 @@ namespace MMSystem.Services.MailServeic
                             List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == dto.MailID && x.State == true).ToListAsync();
 
 
-                            foreach (var item in sends)
+
+                            if (sends.Count > 0)
                             {
-                                Department departments = await _appContext.Departments.FindAsync(item.to);
-                                Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
 
-                                ex1.actionSenders.Add(new ActionSender()
+                                foreach (var item in sends)
                                 {
+                                    Department departments = await _appContext.Departments.FindAsync(item.to);
+                                    Measures measures = await _appContext.measures.FindAsync(item.type_of_send);
 
-                                    departmentName = departments.DepartmentName,
-                                    measureId = item.type_of_send,
-                                    measureName = measures.MeasuresName,
-                                    departmentId = departments.Id,
-                                    send_ToId = item.Id
+                                    ex1.actionSenders.Add(new ActionSender()
+                                    {
+
+                                        departmentName = departments.DepartmentName,
+                                        measureId = item.type_of_send,
+                                        measureName = measures.MeasuresName,
+                                        departmentId = departments.Id,
+                                        send_ToId = item.Id
+                                    }
+
+                                    );
                                 }
+                                 ex1.mail.flag = sends.Max(x => x.flag);
 
-                                );
+
                             }
+
+
+
+                            //
+
                             ex1.resourcescs = await _resourcescs.GetAll(dto.MailID);
-                            ex1.mail.flag = sends.Max(x => x.flag);
 
 
                             foreach (var xx in ex1.resourcescs)

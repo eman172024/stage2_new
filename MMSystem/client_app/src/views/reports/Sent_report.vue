@@ -216,6 +216,8 @@ export default {
     // }
 
     this.Get_sent_report_ayoub();
+
+   
   },
 
   data() {
@@ -232,6 +234,25 @@ export default {
   },
 
   methods: {
+
+
+    // this.$route.params.user_id,
+    //       this.$route.params.mail_type,
+    //       this.$route.params.department_Id,
+    //       this.$route.params.from,
+    //       this.$route.params.to,
+    //       this.$route.params.date_of_reply,
+    //       this.$route.params.mail_id,
+    //       this.$route.params.g_in_num,
+    //       this.$route.params.summary,
+    //       this.$route.params.department_id_selected,
+    //       this.$route.params.side_selected,
+    //       this.$route.params.measure_selected,
+    //       this.$route.params.classifaction_selected,
+    //       this.$route.params.mail_caseid,
+    //       this.$route.params.page_num,
+    //       this.$route.params.page_size
+    
 
     Get_sent_report_ayoub() {
 

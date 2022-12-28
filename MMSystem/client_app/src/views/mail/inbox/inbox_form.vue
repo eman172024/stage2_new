@@ -230,9 +230,18 @@
                   >
                     <!--  v-if="imagesToSend != '' || imagesToShow != ''" -->
                     <div class="mt-4 pt-4 pb-4 rounded-md relative">
-                      <div v-if="!roles.includes('s')" class="cursor-not-allowed w-full h-full bg-gray-900 bg-opacity-90 absolute z-20 inset-0">
-                        
-                      </div>
+                      <div
+                        v-if="!roles.includes('s')"
+                        class="
+                          cursor-not-allowed
+                          w-full
+                          h-full
+                          bg-gray-900 bg-opacity-90
+                          absolute
+                          z-20
+                          inset-0
+                        "
+                      ></div>
                       <div class="">
                         <div class="relative h-64 w-full">
                           <img
@@ -278,8 +287,6 @@
                                 ></path>
                               </svg>
                             </button>
-
-                            
                           </div>
                         </div>
 
@@ -627,7 +634,7 @@
                   >
                     <div class="">
                       <div
-                        class="flex "
+                        class="flex"
                         :class="
                           reply.reply.to == my_department_id
                             ? '  justify-end'
@@ -639,15 +646,15 @@
                             v-if="roles.includes('r')"
                             @click="GetResources_ById(reply.reply.replyId)"
                             class="
-                                px-2
-                                text-xs
-                                rounded
-                                leading-9
-                                text-white
-                                bg-red-400
-                                flex
-                                items-center
-                              "
+                              px-2
+                              text-xs
+                              rounded
+                              leading-9
+                              text-white
+                              bg-red-400
+                              flex
+                              items-center
+                            "
                           >
                             عرض الصور
                             <svg
@@ -686,7 +693,14 @@
                               ? 'bg-gray-700'
                               : 'bg-blue-700'
                           "
-                          class="text-white max-w-10/12 py-0 leading-9 px-2 rounded"
+                          class="
+                            text-white
+                            max-w-10/12
+                            py-0
+                            leading-9
+                            px-2
+                            rounded
+                          "
                         >
                           {{ reply.reply.mail_detail }}
                         </div>
@@ -719,8 +733,7 @@
                           rounded-md
                           border border-gray-200
                           hover:shadow-sm
-                          focus:outline-none
-                          focus:border-gray-300
+                          focus:outline-none focus:border-gray-300
                           p-2
                         "
                         v-model="reply_to_add"
@@ -734,22 +747,21 @@
                         <label
                           v-if="reply_to_add != ''"
                           class="
-                          w-48
-                          h-full
-                          flex
-                          justify-center
-                          items-center
-                          py-2
-                          bg-white
-                          rounded-lg
-                          tracking-wide
-                          border border-green-600
-                          cursor-pointer
-                          hover:text-white
-                          hover:bg-green-600
-                          focus:outline-none
-                          duration-300
-                        "
+                            w-48
+                            h-full
+                            flex
+                            justify-center
+                            items-center
+                            py-2
+                            bg-white
+                            rounded-lg
+                            tracking-wide
+                            border border-green-600
+                            cursor-pointer
+                            hover:text-white hover:bg-green-600
+                            focus:outline-none
+                            duration-300
+                          "
                         >
                           <svg
                             class="w-5 h-5 ml-2"
@@ -857,8 +869,7 @@
                         tracking-wide
                         border border-blue-600
                         cursor-pointer
-                        hover:text-white
-                        hover:bg-blue-600
+                        hover:text-white hover:bg-blue-600
                         focus:outline-none
                         duration-300
                       "
@@ -899,13 +910,22 @@
 
     <div
       v-if="screenFreeze"
-      class="w-screen h-screen bg-black bg-opacity-30 absolute inset-0 z-50 flex justify-center items-center"
+      class="
+        w-screen
+        h-screen
+        bg-black bg-opacity-30
+        absolute
+        inset-0
+        z-50
+        flex
+        justify-center
+        items-center
+      "
     >
       <div v-if="loading" class="">
         <svgLoadingComponent></svgLoadingComponent>
       </div>
     </div>
-
 
     <div
       v-if="show_current_image_for_bigger_screen_model"
@@ -930,16 +950,12 @@
           </div>
         </div>
 
-
         <div
           v-if="image_to_print_n_model"
           id="print_one_dec"
           class="bg-black bg-opacity-50 h-screen-100"
         >
-          <div
-          
-            class="h-screen-100"
-          >
+          <div class="h-screen-100">
             <img
               :src="image_of_doc"
               alt=""
@@ -948,10 +964,35 @@
           </div>
         </div>
 
-        <div class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full">
+        <div
+          class="
+            h-screen
+            flex flex-col
+            justify-center
+            items-center
+            bg-black bg-opacity-90
+            absolute
+            top-0
+            inset-0
+            z-50
+            w-full
+          "
+        >
           <div class="max-w-3xl mx-auto relative">
-            <div class="absolute top-6 z-50 flex justify-between items-center w-full">
-              <button @click="show_current_image_for_bigger_screen_model = false">
+            <div
+              class="
+                absolute
+                top-6
+                z-50
+                flex
+                justify-between
+                items-center
+                w-full
+              "
+            >
+              <button
+                @click="show_current_image_for_bigger_screen_model = false"
+              >
                 <svg
                   class="w-8 h-8 stroke-current text-red-500 hover:text-red-400"
                   fill="none"
@@ -972,7 +1013,14 @@
                 v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#print_one_dec'"
-                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+                class="
+                  bg-blue-500
+                  hover:bg-blue-400
+                  px-4
+                  py-2
+                  rounded-lg
+                  text-white
+                "
               >
                 طباعة المستند الحالي
               </button>
@@ -981,7 +1029,14 @@
                 v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#printMe'"
-                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+                class="
+                  bg-blue-500
+                  hover:bg-blue-400
+                  px-4
+                  py-2
+                  rounded-lg
+                  text-white
+                "
               >
                 طباعة كافة المستندات
               </button>
@@ -995,7 +1050,20 @@
               />
             </div>
 
-            <div class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4">
+            <div
+              class="
+                absolute
+                bottom-3
+                z-50
+                bg-gray-100
+                flex
+                justify-between
+                items-center
+                w-full
+                mx-auto
+                mt-4
+              "
+            >
               <div class="w-12 h-8">
                 <button
                   title="prev"
@@ -1036,8 +1104,8 @@
               <div class="w-12 h-8">
                 <button
                   v-if="doc_number < total_of_doc"
-                                  title="next"
-                                  @click="GetAllDocN('next')"
+                  title="next"
+                  @click="GetAllDocN('next')"
                   class="
                     focus:outline-none
                     w-12
@@ -1071,10 +1139,9 @@
       </div>
     </div>
 
-
     <div
       v-if="show_images_model"
-      class="w-screen h-full absolute inset-0 z-50 overflow-hidden "
+      class="w-screen h-full absolute inset-0 z-50 overflow-hidden"
     >
       <div class="relative">
         <div
@@ -1096,7 +1163,18 @@
         </div>
 
         <div
-          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
+          class="
+            h-screen
+            flex flex-col
+            justify-center
+            items-center
+            bg-black bg-opacity-90
+            absolute
+            top-0
+            inset-0
+            z-50
+            w-full
+          "
         >
           <div class="max-w-3xl mx-auto">
             <div class="flex justify-between items-center w-full">
@@ -1137,11 +1215,29 @@
 
             <div
               v-if="testimage_images_model"
-              class="flex justify-between items-center max-w-xs mx-auto w-full mt-4 text-white"
+              class="
+                flex
+                justify-between
+                items-center
+                max-w-xs
+                mx-auto
+                w-full
+                mt-4
+                text-white
+              "
             >
               <button
                 @click="previousImage_images_model()"
-                class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
+                class="
+                  focus:outline-none
+                  w-12
+                  h-8
+                  bg-gray-300
+                  rounded
+                  flex
+                  justify-center
+                  items-center
+                "
               >
                 <svg
                   class="w-4 h-4"
@@ -1167,7 +1263,16 @@
               <button
                 title="next"
                 @click="nextImage_images_model()"
-                class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
+                class="
+                  focus:outline-none
+                  w-12
+                  h-8
+                  bg-gray-300
+                  rounded
+                  flex
+                  justify-center
+                  items-center
+                "
               >
                 <svg
                   class="w-4 h-4"
@@ -1192,17 +1297,12 @@
       <!-- w-full h-full rounded object-contain -->
     </div>
 
-
-
     <div
       v-if="show_current_reply_image_to_for_bigger_screen_model"
       class="w-screen h-full absolute inset-0 z-50 overflow-hidden"
     >
       <div class="relative">
-        <div
-          id="print_reply_doc_n"
-          class="bg-black bg-opacity-50 h-screen-100"
-        >
+        <div id="print_reply_doc_n" class="bg-black bg-opacity-50 h-screen-100">
           <div class="h-screen-100">
             <img
               :src="reply_image_of_doc"
@@ -1212,9 +1312,32 @@
           </div>
         </div>
 
-        <div class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full">
+        <div
+          class="
+            h-screen
+            flex flex-col
+            justify-center
+            items-center
+            bg-black bg-opacity-90
+            absolute
+            top-0
+            inset-0
+            z-50
+            w-full
+          "
+        >
           <div class="max-w-3xl mx-auto relative">
-            <div class="absolute top-6 z-50 flex justify-between items-center w-full">
+            <div
+              class="
+                absolute
+                top-6
+                z-50
+                flex
+                justify-between
+                items-center
+                w-full
+              "
+            >
               <button
                 @click="
                   show_current_reply_image_to_for_bigger_screen_model = false
@@ -1239,11 +1362,17 @@
               <button
                 v-if="roles.includes('k')"
                 v-print="'#print_reply_doc_n'"
-                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+                class="
+                  bg-blue-500
+                  hover:bg-blue-400
+                  px-4
+                  py-2
+                  rounded-lg
+                  text-white
+                "
               >
                 طباعة المستند الحالي
               </button>
-              
             </div>
 
             <div class="h-screen-93 mt-4">
@@ -1255,7 +1384,18 @@
             </div>
 
             <div
-              class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
+              class="
+                absolute
+                bottom-3
+                z-50
+                bg-gray-100
+                flex
+                justify-between
+                items-center
+                w-full
+                mx-auto
+                mt-4
+              "
             >
               <div class="w-12 h-8">
                 <button
@@ -1331,9 +1471,6 @@
         </div>
       </div>
     </div>
-
-
-    
   </div>
 </template>
 
@@ -1505,13 +1642,8 @@ export default {
       image_to_print_n_model: false,
       show_current_image_for_bigger_screen_model: false,
 
-
-
-
       reply_doc_number: 0,
       reply_total_of_doc: 0,
-
-
 
       reply_image_of_doc: "",
       reply_id_of_doc: "",
@@ -1520,18 +1652,11 @@ export default {
       reply_image_to_print_n_model: false,
       show_current_reply_image_to_for_bigger_screen_model: false,
 
-
-      id_reply_image: ''
-
-
+      id_reply_image: "",
     };
   },
   methods: {
-
-
-
     Next_prevent_GetResources_ById(x) {
-
       if (x == "next") {
         this.reply_doc_number++;
       } else {
@@ -1543,8 +1668,7 @@ export default {
       this.$http.documentService
         .GetResources_ById(this.id_reply_image, this.reply_doc_number)
         .then((res) => {
-
-          this.show_current_reply_image_to_for_bigger_screen_model = true
+          this.show_current_reply_image_to_for_bigger_screen_model = true;
           this.reply_total_of_doc = res.data.total;
 
           this.reply_image_of_doc = res.data.date[0].path;
@@ -1563,23 +1687,19 @@ export default {
     },
 
     GetResources_ById(id) {
-
       this.id_reply_image = id;
 
-
       this.reply_doc_number = 1;
-      this.reply_image_of_doc = []
-      this.reply_id_of_doc = ''
-      this.reply_total_of_doc = ''
-     
+      this.reply_image_of_doc = [];
+      this.reply_id_of_doc = "";
+      this.reply_total_of_doc = "";
 
       this.screenFreeze = true;
       this.loading = true;
       this.$http.documentService
         .GetResources_ById(id, this.reply_doc_number)
         .then((res) => {
-
-          this.show_current_reply_image_to_for_bigger_screen_model = true
+          this.show_current_reply_image_to_for_bigger_screen_model = true;
           this.reply_total_of_doc = res.data.total;
 
           this.reply_image_of_doc = res.data.date[0].path;
@@ -1597,9 +1717,7 @@ export default {
         });
     },
 
-
-
-    to_get_all_doc_of_mail(){
+    to_get_all_doc_of_mail() {
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
@@ -1669,11 +1787,11 @@ export default {
       var keyid = this.keyid;
 
       var timeout;
-      window.addEventListener("blur", function(e) {
+      window.addEventListener("blur", function (e) {
         window.clearTimeout(timeout);
       });
 
-      timeout = window.setTimeout(function() {
+      timeout = window.setTimeout(function () {
         window.location = "http://mail/scanner_app/Setup1.msi";
       }, 1000);
 
@@ -1707,9 +1825,7 @@ export default {
     },
     //**************************************
 
-
     print_image() {
-      
       this.image_to_print_n_model = true;
 
       // this.$http.mailService
@@ -1733,8 +1849,6 @@ export default {
       //     console.log(err);
       //   });
     },
-
-    
 
     show_reply_images(index, plase) {
       this.from_reply_or_general = plase;
@@ -1776,9 +1890,8 @@ export default {
     previousImage_images_model() {
       if (this.indextotest_images_model > 0) {
         this.indextotest_images_model--;
-        this.testimage_images_model = this.show_images_images_model[
-          this.indextotest_images_model
-        ].path;
+        this.testimage_images_model =
+          this.show_images_images_model[this.indextotest_images_model].path;
       }
     },
 
@@ -1788,9 +1901,8 @@ export default {
         this.show_images_images_model.length - 1
       ) {
         this.indextotest_images_model++;
-        this.testimage_images_model = this.show_images_images_model[
-          this.indextotest_images_model
-        ].path;
+        this.testimage_images_model =
+          this.show_images_images_model[this.indextotest_images_model].path;
       }
     },
 
@@ -1845,9 +1957,8 @@ export default {
           this.replies = res.data.list;
 
           setTimeout(() => {
-            document.getElementById(
-              "scroll"
-            ).scrollTop = document.getElementById("scroll").scrollHeight;
+            document.getElementById("scroll").scrollTop =
+              document.getElementById("scroll").scrollHeight;
           }, 100);
 
           this.consignees = res.data.actionSenders;
@@ -1895,8 +2006,7 @@ export default {
             this.procedure_type = res.data.inbox.procedure_type;
           }
 
-
-          this.to_get_all_doc_of_mail()
+          this.to_get_all_doc_of_mail();
           //   this.GetDocmentForMail();
           //   this.GetDocmentForMailToShow();
 

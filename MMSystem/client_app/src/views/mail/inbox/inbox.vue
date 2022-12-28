@@ -1142,7 +1142,7 @@
                     >
                       <div class="">
                         <div
-                          class="flex "
+                          class="flex"
                           :class="
                             reply.reply.to == my_department_id
                               ? '  justify-end'
@@ -1201,7 +1201,14 @@
                                 ? 'bg-gray-700'
                                 : 'bg-blue-700'
                             "
-                            class="text-white max-w-10/12 py-0 leading-9 px-2 rounded"
+                            class="
+                              text-white
+                              max-w-10/12
+                              py-0
+                              leading-9
+                              px-2
+                              rounded
+                            "
                           >
                             {{ reply.reply.mail_detail }}
                           </div>
@@ -1244,26 +1251,26 @@
                     </div>
 
                     <div class="w-3/12">
-                      <div class=" ">
+                      <div class="">
                         <a id="a4" @click="reply1()">
                           <label
                             v-if="reply_to_add != ''"
                             class="
-                            w-full
-                            h-10
-                            flex
-                            justify-center
-                            items-center
-                            py-2
-                            bg-white
-                            rounded-lg
-                            tracking-wide
-                            border border-green-600
-                            cursor-pointer
-                            hover:text-white hover:bg-green-600
-                            focus:outline-none
-                            duration-300
-                          "
+                              w-full
+                              h-10
+                              flex
+                              justify-center
+                              items-center
+                              py-2
+                              bg-white
+                              rounded-lg
+                              tracking-wide
+                              border border-green-600
+                              cursor-pointer
+                              hover:text-white hover:bg-green-600
+                              focus:outline-none
+                              duration-300
+                            "
                           >
                             <svg
                               class="w-4 h-4 ml-1"
@@ -1363,7 +1370,7 @@
                         v-if="reply_to_add != ''"
                         @click="AddReply()"
                         class="
-                        mt-2
+                          mt-2
                           w-full
                           flex
                           items-center
@@ -1470,24 +1477,36 @@
           id="print_one_dec"
           class="bg-black bg-opacity-50 h-screen-100"
         >
-          <div
-            
-            class="h-screen-100"
-          >
-            <img
-              :src="testimage"
-              alt=""
-              class="h-full w-full object-contain"
-            />
+          <div class="h-screen-100">
+            <img :src="testimage" alt="" class="h-full w-full object-contain" />
           </div>
         </div>
 
         <div
-          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
+          class="
+            h-screen
+            flex flex-col
+            justify-center
+            items-center
+            bg-black bg-opacity-90
+            absolute
+            top-0
+            inset-0
+            z-50
+            w-full
+          "
         >
           <div class="max-w-3xl mx-auto relative">
             <div
-              class="absolute top-6 z-50 flex justify-between items-center w-full"
+              class="
+                absolute
+                top-6
+                z-50
+                flex
+                justify-between
+                items-center
+                w-full
+              "
             >
               <button @click="show_images_model = false">
                 <svg
@@ -1510,7 +1529,14 @@
                 v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#print_one_dec'"
-                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+                class="
+                  bg-blue-500
+                  hover:bg-blue-400
+                  px-4
+                  py-2
+                  rounded-lg
+                  text-white
+                "
               >
                 طباعة المستند الحالي
               </button>
@@ -1519,7 +1545,14 @@
                 v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#printMe'"
-                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+                class="
+                  bg-blue-500
+                  hover:bg-blue-400
+                  px-4
+                  py-2
+                  rounded-lg
+                  text-white
+                "
               >
                 طباعة كافة المستندات
               </button>
@@ -1534,7 +1567,18 @@
             </div>
 
             <div
-              class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
+              class="
+                absolute
+                bottom-3
+                z-50
+                bg-gray-100
+                flex
+                justify-between
+                items-center
+                w-full
+                mx-auto
+                mt-4
+              "
             >
               <div v-if="testimage" class="w-12 h-8">
                 <button
@@ -1611,23 +1655,13 @@
       <!-- w-full h-full rounded object-contain -->
     </div>
 
-
-
     <div
       v-if="show_current_reply_image_to_for_bigger_screen_model"
       class="w-screen h-full absolute inset-0 z-50 overflow-hidden"
     >
       <div class="relative">
-
-        <div
-         
-          id="print_reply_doc_n"
-          class="bg-black bg-opacity-50 h-screen-100"
-        >
-          <div
-            
-            class="h-screen-100"
-          >
+        <div id="print_reply_doc_n" class="bg-black bg-opacity-50 h-screen-100">
+          <div class="h-screen-100">
             <img
               :src="reply_image_of_doc"
               alt=""
@@ -1636,15 +1670,31 @@
           </div>
         </div>
 
-
-      
-
         <div
-          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
+          class="
+            h-screen
+            flex flex-col
+            justify-center
+            items-center
+            bg-black bg-opacity-90
+            absolute
+            top-0
+            inset-0
+            z-50
+            w-full
+          "
         >
           <div class="max-w-3xl mx-auto relative">
             <div
-              class="absolute top-6 z-50 flex justify-between items-center w-full"
+              class="
+                absolute
+                top-6
+                z-50
+                flex
+                justify-between
+                items-center
+                w-full
+              "
             >
               <button
                 @click="
@@ -1669,9 +1719,15 @@
 
               <button
                 v-if="roles.includes('k')"
-                
                 v-print="'#print_reply_doc_n'"
-                class=" bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+                class="
+                  bg-blue-500
+                  hover:bg-blue-400
+                  px-4
+                  py-2
+                  rounded-lg
+                  text-white
+                "
               >
                 طباعة المستند الحالي
               </button>
@@ -1686,7 +1742,18 @@
             </div>
 
             <div
-              class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
+              class="
+                absolute
+                bottom-3
+                z-50
+                bg-gray-100
+                flex
+                justify-between
+                items-center
+                w-full
+                mx-auto
+                mt-4
+              "
             >
               <div class="w-12 h-8">
                 <button
@@ -1762,9 +1829,6 @@
         </div>
       </div>
     </div>
-
-
-
   </div>
 </template>
 
@@ -1786,7 +1850,7 @@ export default {
   mounted() {
     //*********************websocket
     this.conn = new WebSocket("ws://localhost:58316/ws");
-     // this.conn = new WebSocket("ws://mail:82/ws");
+    // this.conn = new WebSocket("ws://mail:82/ws");
     /*this.conn.onopen =  (event)=> {
    
  }*/
@@ -1839,44 +1903,44 @@ export default {
   },
 
   watch: {
-    mailType: function() {
+    mailType: function () {
       this.page_num = 1;
       this.GetInboxs();
     },
-    date_from: function() {
+    date_from: function () {
       this.GetInboxs();
     },
-    date_to: function() {
+    date_to: function () {
       this.GetInboxs();
     },
-    mail_id: function() {
-      this.GetInboxs();
-    },
-
-    general_incoming_number: function() {
+    mail_id: function () {
       this.GetInboxs();
     },
 
-    summary: function() {
-      this.GetInboxs();
-    },
-    departmentIdSelected: function() {
-      this.GetInboxs();
-    },
-    sideIdSelected: function() {
-      this.GetInboxs();
-    },
-    measureIdSelected: function() {
-      this.GetInboxs();
-    },
-    classificationIdSelected: function() {
+    general_incoming_number: function () {
       this.GetInboxs();
     },
 
-    mail_caseIdSelected: function() {
+    summary: function () {
       this.GetInboxs();
     },
-    by_date_of_reply: function() {
+    departmentIdSelected: function () {
+      this.GetInboxs();
+    },
+    sideIdSelected: function () {
+      this.GetInboxs();
+    },
+    measureIdSelected: function () {
+      this.GetInboxs();
+    },
+    classificationIdSelected: function () {
+      this.GetInboxs();
+    },
+
+    mail_caseIdSelected: function () {
+      this.GetInboxs();
+    },
+    by_date_of_reply: function () {
       this.GetInboxs();
     },
   },
@@ -1966,12 +2030,8 @@ export default {
 
       mails_to_print: [],
 
-
-
       reply_doc_number: 0,
       reply_total_of_doc: 0,
-
-
 
       reply_image_of_doc: "",
       reply_id_of_doc: "",
@@ -1980,18 +2040,12 @@ export default {
       reply_image_to_print_n_model: false,
       show_current_reply_image_to_for_bigger_screen_model: false,
 
-
-      id_reply_image: ''
-
+      id_reply_image: "",
     };
   },
 
   methods: {
-
-
-
     Next_prevent_GetResources_ById(x) {
-
       if (x == "next") {
         this.reply_doc_number++;
       } else {
@@ -2003,8 +2057,7 @@ export default {
       this.$http.documentService
         .GetResources_ById(this.id_reply_image, this.reply_doc_number)
         .then((res) => {
-
-          this.show_current_reply_image_to_for_bigger_screen_model = true
+          this.show_current_reply_image_to_for_bigger_screen_model = true;
           this.reply_total_of_doc = res.data.total;
 
           this.reply_image_of_doc = res.data.date[0].path;
@@ -2023,23 +2076,19 @@ export default {
     },
 
     GetResources_ById(id) {
-
       this.id_reply_image = id;
 
-
       this.reply_doc_number = 1;
-      this.reply_image_of_doc = []
-      this.reply_id_of_doc = ''
-      this.reply_total_of_doc = ''
-     
+      this.reply_image_of_doc = [];
+      this.reply_id_of_doc = "";
+      this.reply_total_of_doc = "";
 
       this.screenFreeze = true;
       this.loading = true;
       this.$http.documentService
         .GetResources_ById(id, this.reply_doc_number)
         .then((res) => {
-
-          this.show_current_reply_image_to_for_bigger_screen_model = true
+          this.show_current_reply_image_to_for_bigger_screen_model = true;
           this.reply_total_of_doc = res.data.total;
 
           this.reply_image_of_doc = res.data.date[0].path;
@@ -2057,7 +2106,6 @@ export default {
         });
     },
 
-    
     //************************
     reply1() {
       var link = document.getElementById("a4");
@@ -2067,11 +2115,11 @@ export default {
       var keyid = this.keyid;
 
       var timeout;
-      window.addEventListener("blur", function(e) {
+      window.addEventListener("blur", function (e) {
         window.clearTimeout(timeout);
       });
 
-      timeout = window.setTimeout(function() {
+      timeout = window.setTimeout(function () {
         window.location = "http://mail/scanner_app/Setup1.msi";
       }, 1000);
 
@@ -2276,10 +2324,13 @@ export default {
       mangment_sender_to_get_mail_by_id
     ) {
       this.mailId_to_get_mail_by_id = mailId_to_get_mail_by_id;
-      this.my_department_id_to_get_mail_by_id = my_department_id_to_get_mail_by_id;
-      this.to_test_passing_mail_type_to_get_mail_by_id = to_test_passing_mail_type_to_get_mail_by_id;
+      this.my_department_id_to_get_mail_by_id =
+        my_department_id_to_get_mail_by_id;
+      this.to_test_passing_mail_type_to_get_mail_by_id =
+        to_test_passing_mail_type_to_get_mail_by_id;
       this.sends_id_to_get_mail_by_id = sends_id_to_get_mail_by_id;
-      this.mangment_sender_to_get_mail_by_id = mangment_sender_to_get_mail_by_id;
+      this.mangment_sender_to_get_mail_by_id =
+        mangment_sender_to_get_mail_by_id;
 
       this.getMailById();
     },
@@ -2298,9 +2349,8 @@ export default {
           this.replies = res.data.list;
 
           setTimeout(() => {
-            document.getElementById(
-              "scroll"
-            ).scrollTop = document.getElementById("scroll").scrollHeight;
+            document.getElementById("scroll").scrollTop =
+              document.getElementById("scroll").scrollHeight;
           }, 100);
 
           this.consignees = res.data.actionSenders;
@@ -2401,7 +2451,6 @@ export default {
     },
 
     GetInboxs() {
-      
       this.screenFreeze = true;
       this.loading = true;
       this.inboxMails = [];
