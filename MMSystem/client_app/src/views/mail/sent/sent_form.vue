@@ -1491,9 +1491,10 @@
                       الجهة
                     </label>
 
-                    <div class="relative">
+                    <div  class="relative">
                       <button
                         @click="sideselect = !sideselect"
+                        @keyup.space.prevent
                         id="department"
                         class="
                           text-right
@@ -1511,7 +1512,9 @@
                           p-2
                         "
                       >
-                        {{ sideNameSelected }}
+                      <!-- {{ sideNameSelected }} -->
+                      <input   v-model="sideNameSelected" type="text" class="h-6 w-full">
+                        
                       </button>
 
                       <div
@@ -1543,7 +1546,7 @@
                             pass_side(side.id, side.section_Name);
                             sideselect = !sideselect;
                           "
-                          v-for="side in sides"
+                          v-for="side in filterByTerm"
                           :key="side.id"
                         >
                           {{ side.section_Name }}
@@ -1851,6 +1854,8 @@
                         focus:outline-none
                       "
                     >
+
+                    
                       <svg
                         class="w-5 h-5 stroke-current ml-2 fill-current"
                         enable-background="new 0 0 512 512"
@@ -3620,6 +3625,7 @@ export default {
       alert_prepare_delete_document: false,
       //*************
 
+      filter_text:"",
       mail_flag: "",
       keyid: "",
       conn: null,
@@ -3792,7 +3798,36 @@ export default {
     };
   },
 
+
+  computed: {
+
+    filterByTerm() {
+      return this.sides.filter(side => {
+        return side.section_Name.toLowerCase().includes(this.sideNameSelected);
+      });
+
+      
+    }
+  },
+
+
   watch: {
+
+
+
+    // filter_text: function() {
+
+
+    //   this.action_required_by_the_entity=this.filter_text;
+
+    //   this.sides.filter(function (n) {
+    //             return n.section_Name.indexOf(this.filter_text) !== -1;
+    //         });
+
+            
+    
+    // },
+
     mailType: function() {
 
       var date = new Date();
@@ -4710,6 +4745,7 @@ export default {
     },
 
     pass_side(id, name) {
+     // this.filter_text=name;
       this.sideNameSelected = name;
       this.sideIdSelected = id;
     },

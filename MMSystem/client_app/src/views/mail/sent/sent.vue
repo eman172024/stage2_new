@@ -1794,10 +1794,24 @@ export default {
           this.$router.push({
             name: "Sent_report",
             params: {
-              department_Id: this.my_department_id,
-              from: this.date_from,
-              to: this.date_to,
               
+              
+          user_id:this.my_user_id,
+          mail_type:this.mailType,
+          department_Id: this.my_department_id,
+          from: this.date_from,
+          to: this.date_to,
+          date_of_reply:this.by_date_of_reply,
+          mail_id:this.mail_id,
+          g_in_num:this.general_incoming_number,
+          summary:this.summary,
+          department_id_selected:this.departmentIdSelected,
+          side_selected:this.sideIdSelected,
+          measure_selected:this.measureIdSelected,
+          classifaction_selected:this.classificationIdSelected,
+          mail_caseid:this.mail_caseIdSelected,
+          page_num:1,
+          page_size:1000000
             },
           });
 
