@@ -691,7 +691,7 @@ namespace MMSystem.Services.Reports
            
         }
 
-        public async Task<List<ReportViewModel>> ReportForDep(int departmentid,DateTime? from, DateTime? to ,
+        public async Task<List<ReportViewModel>> ReportForDep(int departmentid,DateTime? fromm, DateTime? to ,
             int? Department_filter, int? mailnum, int? mailnum_bool, string? summary, int? mail_Readed,
             int? mailReaded, int? mailnot_readed , int? mail_type, int? Measure_filter, int? Classfication
  , int? mail_state, int? genral_incoming_num)
@@ -803,7 +803,7 @@ namespace MMSystem.Services.Reports
 
             bool t = false;
 
-            if (from == null) {
+            if (fromm == null) {
 
                 fr = true;
 
@@ -831,9 +831,9 @@ namespace MMSystem.Services.Reports
                     {
 
 
-                var sc = await (from x in _data.Mails.Where(x => x.Department_Id == departmentid&& ((x.Date_Of_Mail <= to || fr == true) && (x.Date_Of_Mail >= @from) || fr == true)&&
+                var sc = await (from x in _data.Mails.Where(x => x.Department_Id == departmentid&& ((x.Date_Of_Mail <= to || fr == true) && (x.Date_Of_Mail >= fromm) || fr == true)&&
                                 (mailnum_bool == 1 || x.Mail_Number == mailnum)&& (x.Mail_Summary.Contains(summary)) && (mailtype==true|| x.Mail_Type == mail_type)
-                                && (x.clasification == Classfication || clasf_filter == true)&& (x.Genaral_inbox_Number == genral_incoming_num || mangmentrole == true))
+                                && (clasf_filter == true || x.clasification == Classfication )&& (x.Genaral_inbox_Number == genral_incoming_num || mangmentrole == true))
                                 join
 
 
