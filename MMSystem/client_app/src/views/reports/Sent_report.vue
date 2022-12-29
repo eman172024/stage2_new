@@ -180,6 +180,18 @@ export default {
 
   mounted() {
 
+
+
+
+
+    if(this.$route.params.mail_type==0){
+
+          this.mailtype=""
+
+    }else{
+
+      this.mailtype=this.$route.params.mail_type
+    }
     console.log(this.$route.params)
 
 
@@ -230,6 +242,8 @@ export default {
       current_department_name:localStorage.getItem("current_department_name"),
 
       date: "",
+
+      mailtype:"",
     };
   },
 
@@ -241,12 +255,20 @@ export default {
     //       this.$route.params.department_Id,
     //       this.$route.params.from,
     //       this.$route.params.to,
-    //       this.$route.params.date_of_reply,
+    //       
     //       this.$route.params.mail_id,
     //       this.$route.params.g_in_num,
     //       this.$route.params.summary,
     //       this.$route.params.department_id_selected,
+
+
+
+   // this.$route.params.date_of_reply,
     //       this.$route.params.side_selected,
+
+
+
+
     //       this.$route.params.measure_selected,
     //       this.$route.params.classifaction_selected,
     //       this.$route.params.mail_caseid,
@@ -262,6 +284,16 @@ export default {
           this.$route.params.department_Id,
           this.$route.params.from,
           this.$route.params.to,
+          this.$route.params.department_id_selected,
+           this.$route.params.mail_id,
+           this.$route.params.summary,
+            this.mailtype,
+          
+          
+           this.$route.params.measure_selected,
+           this.$route.params.classifaction_selected,
+           this.$route.params.mail_caseid,
+           this.$route.params.g_in_num,
         )
         .then((res) => {
           this.mails = res.data;
