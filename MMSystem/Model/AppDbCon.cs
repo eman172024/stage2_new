@@ -165,92 +165,93 @@ namespace MMSystem.Model
                     id = 1,
                     type = 1,
                     Section_Name = "فروع الهيئة ",
-                    perent=0,
-                    state=true
-                },
-                new Extrmal_Section
-                {
-                    id = 2,
-                    type = 1,
-                    Section_Name = "فرع سبها ",
-                    perent =1,
-                    state = true
-                }, 
-                new Extrmal_Section
-                {
-                    id = 3,
-                    type = 1,
-                    Section_Name = "فرع مصراته ",
-                    perent = 1,
-                    state = true
-                },
-
-                new Extrmal_Section
-                {
-                    id = 4,
-                    type = 2,
-                    Section_Name = "الشركات الوطنية ",
                     perent = 0,
-                    state = true
-                },
-                new Extrmal_Section
-                {
-                    id = 5,
-                    type = 2,
-                    Section_Name = "الشركة العامة للكهرباء  ",
-                    perent =4,
-                    state = true
-                },
-                new Extrmal_Section
-                 {
-                     id = 6,
-                     type = 2,
-                     Section_Name = "شركة المياه والصرف الصحي ",
-                     perent = 4,
-                     state = true
-                 },
-                 
-                new Extrmal_Section
-                {
-                    id = 7,
-                    type = 2,
-                    Section_Name = "الشركات الاجنبية ",
-                    perent = 0,
-                    state = true
-                },
-                new Extrmal_Section
-                 {
-                     id = 8,
-                     type = 2,
-                     Section_Name = "Oil and Gas",
-                     perent = 7,
-                     state = true
-                 },
-                new Extrmal_Section
-                {
-                    id = 9,
-                    type = 2,
-                    Section_Name = "AVA",
-                    perent = 7,
-                    state = true
-                },
-
-                new Extrmal_Section
-                {
-                    id = 10,
-                    type = 3,
-                    Section_Name = "ذات المسؤولية المحدودة",
-                    perent = 0,
-                    state = true
-                },
-                new Extrmal_Section
-                {
-                    id = 11,
-                    type = 3,
-                    Section_Name = "النمو التقني",
-                    perent = 10,
                     state = true
                 }
+                //,
+                //new Extrmal_Section
+                //{
+                //    id = 2,
+                //    type = 1,
+                //    Section_Name = "فرع سبها ",
+                //    perent =1,
+                //    state = true
+                //}, 
+                //new Extrmal_Section
+                //{
+                //    id = 3,
+                //    type = 1,
+                //    Section_Name = "فرع مصراته ",
+                //    perent = 1,
+                //    state = true
+                //},
+
+                //new Extrmal_Section
+                //{
+                //    id = 4,
+                //    type = 2,
+                //    Section_Name = "الشركات الوطنية ",
+                //    perent = 0,
+                //    state = true
+                //},
+                //new Extrmal_Section
+                //{
+                //    id = 5,
+                //    type = 2,
+                //    Section_Name = "الشركة العامة للكهرباء  ",
+                //    perent =4,
+                //    state = true
+                //},
+                //new Extrmal_Section
+                // {
+                //     id = 6,
+                //     type = 2,
+                //     Section_Name = "شركة المياه والصرف الصحي ",
+                //     perent = 4,
+                //     state = true
+                // },
+
+                //new Extrmal_Section
+                //{
+                //    id = 7,
+                //    type = 2,
+                //    Section_Name = "الشركات الاجنبية ",
+                //    perent = 0,
+                //    state = true
+                //},
+                //new Extrmal_Section
+                // {
+                //     id = 8,
+                //     type = 2,
+                //     Section_Name = "Oil and Gas",
+                //     perent = 7,
+                //     state = true
+                // },
+                //new Extrmal_Section
+                //{
+                //    id = 9,
+                //    type = 2,
+                //    Section_Name = "AVA",
+                //    perent = 7,
+                //    state = true
+                //},
+
+                //new Extrmal_Section
+                //{
+                //    id = 10,
+                //    type = 3,
+                //    Section_Name = "ذات المسؤولية المحدودة",
+                //    perent = 0,
+                //    state = true
+                //},
+                //new Extrmal_Section
+                //{
+                //    id = 11,
+                //    type = 3,
+                //    Section_Name = "النمو التقني",
+                //    perent = 10,
+                //    state = true
+                //}
 
                 );
 
