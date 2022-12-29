@@ -691,11 +691,110 @@ namespace MMSystem.Services.Reports
            
         }
 
-        public async Task<List<ReportViewModel>> ReportForDep(int departmentid,DateTime? from, DateTime? to)
+        public async Task<List<ReportViewModel>> ReportForDep(int departmentid,DateTime? from, DateTime? to ,
+            int? Department_filter, int? mailnum, int? mailnum_bool, string? summary, int? mail_Readed,
+            int? mailReaded, int? mailnot_readed , int? mail_type, int? Measure_filter, int? Classfication
+ , int? mail_state, int? genral_incoming_num)
         {
 
-          
-        List<ReportViewModel> list  = new List<ReportViewModel>(){};
+            bool dep_filter = false;
+            bool mail_accept = false;
+            bool mailtype = true;
+            bool meas_filter = false;
+            bool clasf_filter = false;
+            bool State_filter = false;
+            bool mangmentrole = false;
+
+
+            if (genral_incoming_num == null )
+            {
+                mangmentrole = true;
+            }
+            else
+            {
+                mangmentrole = false;
+            }
+
+            if (mail_state == null)
+            {
+                State_filter = true;
+            }
+            else { State_filter = false; }
+
+
+
+            if (Classfication == null)
+            {
+                clasf_filter = true;
+            }
+            else { clasf_filter = false; }
+
+
+
+            if (Measure_filter == null)
+            {
+                meas_filter = true;
+            }
+            else { meas_filter = false; }
+
+
+
+            if (mail_type== null)
+            {
+                mailtype = true;
+            }
+            else
+            {
+                mailtype = false;
+            }
+
+
+
+            if (mail_Readed == null)
+            {
+                mail_accept = true;
+                mailReaded = -1;
+                mailnot_readed = -1;
+            }
+            else if (mail_Readed == 2)
+            {
+                mail_accept = false;
+                mailReaded = 2;
+                mailnot_readed = 5;
+            }
+            else if (mail_Readed == 1)
+            {
+                mail_accept = false;
+                mailnot_readed = 1;
+                mailReaded = 1;
+            }
+
+
+            if (summary == null)
+            { summary = " "; }
+
+
+            if (mailnum != null)
+            {
+                mailnum_bool = 0;
+            }
+            else
+            {
+                mailnum_bool = 1;
+            }
+
+
+
+            if (Department_filter == null)
+            {
+
+                dep_filter = true;
+
+            }
+            else { dep_filter = false; }
+
+
+            List<ReportViewModel> list  = new List<ReportViewModel>(){};
             List<ReportViewModel> clear = new List<ReportViewModel>();
 
 
@@ -732,12 +831,16 @@ namespace MMSystem.Services.Reports
                     {
 
 
-                var sc = await (from x in _data.Mails.Where(x => x.Department_Id == departmentid&& ((x.Date_Of_Mail <= to || fr == true) && (x.Date_Of_Mail >= @from) || fr == true))
+                var sc = await (from x in _data.Mails.Where(x => x.Department_Id == departmentid&& ((x.Date_Of_Mail <= to || fr == true) && (x.Date_Of_Mail >= @from) || fr == true)&&
+                                (mailnum_bool == 1 || x.Mail_Number == mailnum)&& (x.Mail_Summary.Contains(summary)) && (mailtype==true|| x.Mail_Type == mail_type)
+                                && (x.clasification == Classfication || clasf_filter == true)&& (x.Genaral_inbox_Number == genral_incoming_num || mangmentrole == true))
                                 join
 
 
-          z in _data.Sends.Where(p => p.to == item.Id&&p.State==true ) on x.MailID equals z.MailID
-
+          z in _data.Sends.Where(p => p.to == item.Id&&p.State==true && ((p.flag >= mailReaded && p.flag <= mailnot_readed) || mail_accept == true) &&
+          (p.flag == mail_state || State_filter == true)) on x.MailID equals z.MailID
+                                join n in _data.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on z.to equals n.Id
+                                join dx in _data.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on z.type_of_send equals dx.MeasuresId
                                 select new DepartmentViewModelDto
                                 {
 

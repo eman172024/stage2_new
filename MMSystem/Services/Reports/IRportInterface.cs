@@ -15,7 +15,7 @@ namespace MMSystem.Services.Reports
         Task<TotalCounts> GetAllSystemCount();
         Task<UsersConclsionReport> GetAllUserCount(int departmentid, DateTime fromdate, DateTime todate, int ? MailType, string RecievedOrSended);
 
-        Task<List<ReportViewModel>> ReportForDep(int departmentid, DateTime? from, DateTime? to);
+        Task<List<ReportViewModel>> ReportForDep(int departmentid, DateTime? from, DateTime? to, int? Department_filter);
 
     }
 }

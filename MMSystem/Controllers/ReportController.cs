@@ -104,12 +104,12 @@ namespace MMSystem.Controllers
 
         [HttpGet]
         [Route("GetReportDepartment")]
-        public async Task<IActionResult> GetDepartment(int departmenti_d, DateTime? from, DateTime? to)
+        public async Task<IActionResult> GetDepartment(int departmenti_d, DateTime? from, DateTime? to, int? Department_filter)
         {
 
             try
             {
-                var c = await _data.ReportForDep(departmenti_d, from, to);
+                var c = await _data.ReportForDep(departmenti_d, from, to, Department_filter);
                 if (c.Count() > 0)
                 {
 
