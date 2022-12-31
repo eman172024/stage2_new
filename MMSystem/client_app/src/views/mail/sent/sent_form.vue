@@ -2783,7 +2783,10 @@
 
                     <div v-if="roles.includes('1') && mailType == '3'" class="">
                       <button
-                        v-if="summary && classification"
+                        v-if="summary &&
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)"
                         class="
                           flex
                           justify-center
