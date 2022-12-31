@@ -201,7 +201,7 @@
                           type="radio"
                           name="office_type"
                           class="h-4 w-4"
-                          value="1"
+                          value="3"
                         />
                         <label for="chief" class="mr-3 block text-gray-800">
                           وكيل الهيئة
@@ -215,7 +215,7 @@
                           type="radio"
                           name="office_type"
                           class="h-4 w-4"
-                          value="2"
+                          value="4"
                         />
                         <label for="proxy" class="mr-3 block text-gray-800">
                           مدير المكتب
@@ -4059,6 +4059,8 @@ export default {
       is_exisite_genaral_inbox_number: true,
       old_mail_number: "",
       conclusion: "",
+
+      office_type:'',
     };
   },
 
@@ -4521,6 +4523,8 @@ export default {
       this.image_of_doc = "";
       this.id_of_doc = "";
 
+      this.office_type = '';
+
       var date = new Date();
 
       var month = date.getMonth() + 1;
@@ -4712,6 +4716,8 @@ export default {
 
       this.mail_flag = 0;
 
+      this.office_type = '';
+
       this.GetAllDepartments;
       this.$http.mailService
         .search(
@@ -4745,6 +4751,7 @@ export default {
           this.releaseDate = res.data.mail.date_Of_Mail;
           this.summary = res.data.mail.mail_Summary;
           this.classification = res.data.mail.clasification;
+               this.office_type = res.data.mail.office_type;
           // this.mailType = res.data.mail.mail_Type;
           if (res.data.mail.genaral_inbox_Number == 0) {
             this.general_incoming_number = "";
@@ -5071,6 +5078,7 @@ export default {
             ActionRequired: this.required_action,
             old_mail_number: this.old_mail_number,
             state: true,
+            office_type : this.office_type,
           },
 
           // actionSenders: this.consignees,
@@ -5094,6 +5102,7 @@ export default {
             ActionRequired: this.required_action,
             old_mail_number: this.old_mail_number,
             state: true,
+            office_type : this.office_type,
           },
 
           // actionSenders: this.consignees,
@@ -5125,6 +5134,7 @@ export default {
             ActionRequired: this.required_action,
             old_mail_number: this.old_mail_number,
             state: true,
+            office_type : this.office_type,
           },
 
           // actionSenders: this.consignees,
@@ -5193,6 +5203,7 @@ export default {
             Genaral_inbox_year: Number(this.genaral_inbox_year),
             old_mail_number: this.old_mail_number,
             ActionRequired: this.required_action,
+            office_type : this.office_type,
           },
 
           actionSenders: this.newactionSenders,
@@ -5212,6 +5223,7 @@ export default {
             Genaral_inbox_year: Number(this.genaral_inbox_year),
             old_mail_number: this.old_mail_number,
             ActionRequired: this.required_action,
+            office_type : this.office_type,
           },
 
           actionSenders: this.newactionSenders,
@@ -5238,6 +5250,7 @@ export default {
             Genaral_inbox_year: Number(this.genaral_inbox_year),
             old_mail_number: this.old_mail_number,
             ActionRequired: this.required_action,
+            office_type : this.office_type,
           },
 
           actionSenders: this.newactionSenders,
@@ -5321,6 +5334,9 @@ export default {
 
           this.releaseDate = res.data.mail.date_Of_Mail;
           this.classification = res.data.mail.clasification;
+          this.office_type = res.data.mail.office_type;
+
+         
 
           if (res.data.mail.genaral_inbox_Number == 0) {
             this.general_incoming_number = "";
