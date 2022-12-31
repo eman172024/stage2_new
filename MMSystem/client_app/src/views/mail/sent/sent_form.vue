@@ -26,120 +26,207 @@
             </button>
           </div>
           <main class="flex-1 relative focus:outline-none py-6">
-            <div class="flex justify-between items-center">
-              <h3 class="text-xl font-semibold text-gray-900">
-                معلومات البريد
-              </h3>
-              <!-- 
-                    animate-bounce
-                    v-if="mailId"
-                 -->
+            <div class="grid grid-cols-7 gap-6">
+              <section class="col-span-5 flex justify-between items-stretch">
+                <div class="w-6/12 ml-3">
+                  <h3 class="text-xl font-semibold text-gray-900">
+                    معلومات البريد
+                  </h3>
+                </div>
 
-              <fieldset class="">
-                <div class="flex items-center">
-                  <legend class="text-sm font-semibold text-gray-800 ml-6">
-                    نوع البريد
-                  </legend>
+                <fieldset class="w-6/12 mr-3">
+                  <div class="flex items-center">
+                    <legend class="text-sm font-semibold text-gray-800 ml-6">
+                      نوع البريد
+                    </legend>
 
-                  <div class="flex justify-between items-center">
-                    <div v-if="roles.includes('c')" class="flex items-center">
-                      <input
-                        v-model="mailType"
-                        id="internal"
-                        type="radio"
-                        name="type"
-                        class="h-4 w-4"
-                        value="1"
-                      />
-                      <label for="internal" class="mr-2 block text-gray-800">
-                        داخلي
-                      </label>
+                    <div class="flex justify-between items-center">
+                      <div v-if="roles.includes('c')" class="flex items-center">
+                        <input
+                          v-model="mailType"
+                          id="internal"
+                          type="radio"
+                          name="type"
+                          class="h-4 w-4"
+                          value="1"
+                        />
+                        <label for="internal" class="mr-2 block text-gray-800">
+                          داخلي
+                        </label>
+                      </div>
+
+                      <div
+                        v-if="roles.includes('e')"
+                        class="flex items-center mx-4"
+                      >
+                        <input
+                          v-model="mailType"
+                          id="internal_export"
+                          type="radio"
+                          name="type"
+                          class="h-4 w-4"
+                          value="2"
+                        />
+                        <label
+                          for="internal_export"
+                          class="mr-2 block text-gray-800"
+                        >
+                          صادر خارجي
+                        </label>
+                      </div>
+
+                      <div v-if="roles.includes('d')" class="flex items-center">
+                        <input
+                          v-model="mailType"
+                          id="external_incoming"
+                          type="radio"
+                          name="type"
+                          class="h-4 w-4"
+                          value="3"
+                        />
+                        <label
+                          for="external_incoming"
+                          class="mr-2 block text-gray-800"
+                        >
+                          وارد خارجي
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </section>
+
+              <section class="col-span-2 ">
+                <div
+                  class="
+                    float-left
+                    text-sm
+                    font-semibold
+                    text-gray-800
+                    flex
+                    items-center
+                  "
+                >
+                  رقم الرسالة
+
+                  <span
+                    class="mr-4 underline font-bold text-2xl flex items-center"
+                  >
+                    <input
+                      type="number"
+                      min="1"
+                      max="5000"
+                      @keypress.enter="mail_search()"
+                      class="w-24 px-1 rounded-md focus:outline-none"
+                      v-model="mail_Number"
+                    />
+                    <div
+                      class="
+                        w-16
+                        px-1
+                        rounded-md
+                        font-normal
+                        focus:outline-none
+                        mx-4
+                        bg-white
+                      "
+                    >
+                      {{ my_department_id }}
+                    </div>
+                    <input
+                      type="number"
+                      @keypress.enter="mail_search()"
+                      class="w-20 px-1 rounded-md focus:outline-none"
+                      v-model="mail_year"
+                    />
+                  </span>
+                </div>
+              </section>
+            </div>
+
+
+            <div v-if="my_department_id == 21 || my_department_id == 22"  class="grid grid-cols-7 gap-6">
+              <section class="col-span-5 flex justify-between items-stretch">
+                <div class="w-6/12 ml-3">
+                  
+                </div>
+                <fieldset class="  w-6/12 mr-3 ">
+                  <div class="flex items-center">
+                    <legend
+                      class="block text-sm font-semibold text-gray-800 w-24"
+                    >
+                     
+                    </legend>
+                    <div
+                      v-if="my_department_id == 21"
+                      class="w-full flex items-center"
+                    >
+                      <div class="flex items-center w-32">
+                        <input
+                          v-model="office_type"
+                          id="chief"
+                          type="radio"
+                          name="office_type"
+                          class="h-4 w-4"
+                          value="1"
+                        />
+                        <label for="chief" class="mr-3 block text-gray-800">
+                          رئيس الهيئة
+                        </label>
+                      </div>
+
+                      <div class="flex items-center w-32">
+                        <input
+                          v-model="office_type"
+                          id="proxy"
+                          type="radio"
+                          name="office_type"
+                          class="h-4 w-4"
+                          value="2"
+                        />
+                        <label for="proxy" class="mr-3 block text-gray-800">
+                          مدير المكتب
+                        </label>
+                      </div>
                     </div>
 
                     <div
-                      v-if="roles.includes('e')"
-                      class="flex items-center mx-4"
+                      v-if="my_department_id == 22"
+                      class="w-full flex items-center"
                     >
-                      <input
-                        v-model="mailType"
-                        id="internal_export"
-                        type="radio"
-                        name="type"
-                        class="h-4 w-4"
-                        value="2"
-                      />
-                      <label
-                        for="internal_export"
-                        class="mr-2 block text-gray-800"
-                      >
-                        صادر خارجي
-                      </label>
-                    </div>
+                      <div class="flex items-center w-32">
+                        <input
+                          v-model="office_type"
+                          id="chief"
+                          type="radio"
+                          name="office_type"
+                          class="h-4 w-4"
+                          value="1"
+                        />
+                        <label for="chief" class="mr-3 block text-gray-800">
+                          وكيل الهيئة
+                        </label>
+                      </div>
 
-                    <div v-if="roles.includes('d')" class="flex items-center">
-                      <input
-                        v-model="mailType"
-                        id="external_incoming"
-                        type="radio"
-                        name="type"
-                        class="h-4 w-4"
-                        value="3"
-                      />
-                      <label
-                        for="external_incoming"
-                        class="mr-2 block text-gray-800"
-                      >
-                        وارد خارجي
-                      </label>
+                      <div class="flex items-center w-32">
+                        <input
+                          v-model="office_type"
+                          id="proxy"
+                          type="radio"
+                          name="office_type"
+                          class="h-4 w-4"
+                          value="2"
+                        />
+                        <label for="proxy" class="mr-3 block text-gray-800">
+                          مدير المكتب
+                        </label>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </fieldset>
+                </fieldset>
+              </section>
 
-              <div
-                class="
-                  float-left
-                  text-sm
-                  font-semibold
-                  text-gray-800
-                  flex
-                  items-center
-                "
-              >
-                رقم الرسالة
-
-                <span
-                  class="mr-4 underline font-bold text-2xl flex items-center"
-                >
-                  <input
-                    type="number"
-                    min="1"
-                    max="5000"
-                    @keypress.enter="mail_search()"
-                    class="w-24 px-1 rounded-md focus:outline-none"
-                    v-model="mail_Number"
-                  />
-                  <div
-                    class="
-                      w-16
-                      px-1
-                      rounded-md
-                      font-normal
-                      focus:outline-none
-                      mx-4
-                      bg-white
-                    "
-                  >
-                    {{ my_department_id }}
-                  </div>
-                  <input
-                    type="number"
-                    @keypress.enter="mail_search()"
-                    class="w-20 px-1 rounded-md focus:outline-none"
-                    v-model="mail_year"
-                  />
-                </span>
-              </div>
+              
             </div>
 
             <div class="mt-6 space-y-6">
@@ -1666,7 +1753,7 @@
                     rounded-md
                   "
                 >
-                  <fieldset class="sm:col-span-2">
+                  <fieldset class="sm:col-span-3">
                     <div class="flex items-center">
                       <legend
                         class="block text-sm font-semibold text-gray-800 w-24"
@@ -1703,85 +1790,9 @@
                     </div>
                   </fieldset>
 
-                  <fieldset
-                    v-if="my_department_id == 21 || my_department_id == 22"
-                    class="sm:col-span-2"
-                  >
-                    <div class="flex items-center">
-                      <legend
-                        class="block text-sm font-semibold text-gray-800 w-24"
-                      >
-                        وارد إلي
-                      </legend>
-                      <div
-                        v-if="my_department_id == 21"
-                        class="w-full flex items-center"
-                      >
-                        <div class="flex items-center w-32">
-                          <input
-                            v-model="office_type"
-                            id="chief"
-                            type="radio"
-                            name="office_type"
-                            class="h-4 w-4"
-                            value="1"
-                          />
-                          <label for="chief" class="mr-3 block text-gray-800">
-                            رئيس الهيئة
-                          </label>
-                        </div>
+                  
 
-                        <div class="flex items-center w-32">
-                          <input
-                            v-model="office_type"
-                            id="proxy"
-                            type="radio"
-                            name="office_type"
-                            class="h-4 w-4"
-                            value="2"
-                          />
-                          <label for="proxy" class="mr-3 block text-gray-800">
-                            مدير المكتب
-                          </label>
-                        </div>
-                      </div>
-
-                      <div
-                        v-if="my_department_id == 22"
-                        class="w-full flex items-center"
-                      >
-                        <div class="flex items-center w-32">
-                          <input
-                            v-model="office_type"
-                            id="chief"
-                            type="radio"
-                            name="office_type"
-                            class="h-4 w-4"
-                            value="1"
-                          />
-                          <label for="chief" class="mr-3 block text-gray-800">
-                            وكيل الهيئة
-                          </label>
-                        </div>
-
-                        <div class="flex items-center w-32">
-                          <input
-                            v-model="office_type"
-                            id="proxy"
-                            type="radio"
-                            name="office_type"
-                            class="h-4 w-4"
-                            value="2"
-                          />
-                          <label for="proxy" class="mr-3 block text-gray-800">
-                            مدير المكتب
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </fieldset>
-
-                  <fieldset class="sm:col-span-2">
+                  <fieldset class="sm:col-span-3">
                     <div class="flex items-center">
                       <legend
                         class="block text-sm font-semibold text-gray-800 w-24"
