@@ -229,7 +229,13 @@
               
             </div>
 
-            <div class="mt-6 space-y-6">
+            
+
+            <div class="mt-6 space-y-6 relative">
+              <div v-if="mailType == '' " class="bg-gray-200  bg-opacity-80 rounded-lg absolute z-50 inset-0">
+                            
+              </div>
+
               <div class="grid grid-cols-7 gap-6">
                 <section class="col-span-5 flex justify-between items-stretch">
                   <section
