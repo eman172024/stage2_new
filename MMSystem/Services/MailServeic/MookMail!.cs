@@ -629,7 +629,7 @@ namespace MMSystem.Services.MailServeic
                 int flag = 0;
 
                 string numOfSend = "";
-
+                
 
                 int port = mail.mail.Mail_Type;
 
@@ -2271,7 +2271,7 @@ namespace MMSystem.Services.MailServeic
                     _mail.clasification = mail.clasification;
                     _mail.ActionRequired = mail.ActionRequired;
                     _mail.old_mail_number = mail.old_mail_number;
-
+                    _mail.office_type = mail.office_type;
                     string chamges = Histoteyvm.getValue(hVModels);
                     if (!String.IsNullOrWhiteSpace(chamges)) {
                         histor.changes = chamges;

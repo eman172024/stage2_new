@@ -170,7 +170,8 @@ namespace MMSystem.Services.MailServeic
 
                     _mail.clasification = mail1.clasification;
                     _mail.ActionRequired = mail1.ActionRequired;
-
+                    _mail.old_mail_number = mail1.old_mail_number;
+                    _mail.office_type = mail1.office_type;
 
 
 
