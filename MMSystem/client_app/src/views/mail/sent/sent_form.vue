@@ -354,9 +354,7 @@
                       >
                         <div
                           class="h-8"
-                          v-for="classification in classifications"
-                          :key="classification.id"
-                          :value="classification.id"
+                        
                         >
                           {{ new_class }}
                         </div>
