@@ -507,25 +507,23 @@ namespace MMSystem.Services.MailServeic
 
                         break;
                     case 2:
-                        External_Mail external_Mail = await _appContext.External_Mails.OrderBy(x => x.ID).LastOrDefaultAsync();
-                        if (external_Mail != null)
+                        Mail mail1 = await _appContext.Mails.OrderBy(x => x.MailID).Where(x=> x.Mail_Type == 2 && x.Date_Of_Mail.Year == year).LastOrDefaultAsync();
+                        if (mail1 != null)
                         {
-                            LastNumber = external_Mail.ID + 1;
+                            LastNumber = mail1.Mail_Number + 1;
                             break;
-
                         }
-                        LastNumber = LastNumber + 1;
+                        LastNumber += 1;
                         break;
                     case 3:
 
-                        Extrenal_inbox _Inbox = await _appContext.Extrenal_Inboxes.OrderBy(x => x.Id).LastOrDefaultAsync();
-                        if (_Inbox != null)
+                        Mail mail13 = await _appContext.Mails.OrderBy(x => x.MailID).Where(x => x.Mail_Type == 3 && x.Date_Of_Mail.Year == year).LastOrDefaultAsync();
+                        if (mail13 != null)
                         {
-                            LastNumber = _Inbox.Id + 1;
+                            LastNumber = mail13.Mail_Number + 1;
                             break;
-
                         }
-                        LastNumber = LastNumber + 1;
+                        LastNumber += 1;
 
                         break;
                     default:
