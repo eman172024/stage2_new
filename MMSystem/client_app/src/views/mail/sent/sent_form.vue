@@ -3799,6 +3799,10 @@ export default {
   },
 
   mounted() {
+
+    
+
+
     //*********************websocket 18/8/2022
     this.conn = new WebSocket("ws://localhost:58316/ws");
     // this.conn = new WebSocket("ws://mail:82/ws");
@@ -3877,11 +3881,23 @@ export default {
           this.loading = false;
         }, 100);
       }, 500);
+
+
+      
+
+
     } else {
       this.GetAllDepartments();
     }
     this.GetAllClassifications();
     this.GetAllMeasures();
+
+    if (this.my_department_id == 21) {
+        this.office_type = 1
+      }
+      if (this.my_department_id == 22) {
+        this.office_type = 3
+      }
   },
 
   data() {
@@ -4136,8 +4152,16 @@ export default {
       this.deleteButton = false;
       this.ButtonUploadImagesMail = false;
       this.add_button_consignees = true;
-
+      this.office_type = ""
       this.GetAllDepartments();
+
+
+      if (this.my_department_id == 21) {
+        this.office_type = 1
+      }
+      if (this.my_department_id == 22) {
+        this.office_type = 3
+      }
 
       setTimeout(() => {
         if (this.mailType == 2) {
