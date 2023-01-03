@@ -14,7 +14,7 @@ namespace MMSystem.Services
         Task<bool> Update(Model model);
 
         Task<List<dto>> getsub(int par);
-        Task<bool> add(int par, Model model);
+        Task<bool> add( Model model);
        
         Task<Model> find(int id);
 

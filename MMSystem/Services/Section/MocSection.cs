@@ -20,14 +20,14 @@ namespace MMSystem.Services.Section
         }
         private AppDbCon _db { get; }
         private IMapper _mapper { get; }
-       public async Task<bool> add(int par, Extrmal_Section model)
+       public async Task<bool> add( Extrmal_Section model)
          
         {
             if (model != null)
 
             {
 
-                model.perent = par;
+              
                 model.state = true;
                 await _db.Extrmal_Sections.AddAsync(model);
                 await _db.SaveChangesAsync();
@@ -127,6 +127,8 @@ namespace MMSystem.Services.Section
                 ex1.perent = model.perent;
                 ex1.state = model.state;
                 ex1.Section_Name = model.Section_Name;
+
+                _db.Extrmal_Sections.Update(ex1);
                 await _db.SaveChangesAsync();
                 return true;
             }

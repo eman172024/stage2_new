@@ -62,30 +62,38 @@ namespace MMSystem.Controllers
             }
         }
 
-      
+
 
         [HttpPost]
         [Route("Add")]
 
-       public async Task<IActionResult> Add(int par, [FromBody] Extrmal_Section ext)
-            
+        public async Task<IActionResult> Add( [FromBody] Extrmal_Section ext)
+
         {
-
-            bool results = await _data.add(par, ext);
-            if (results)
+            try
             {
-                //var test=     _mm.Map<DepartmentDto>(dep);
-                //     return CreatedAtRoute("", new { id = test.Id },test);
-                return Created("Addext", new Result() { message = "تمت عملية الاضافة بنجاح", statusCode = 201 });
+                bool results = await _data.add( ext);
+                if (results)
+                {
+                    //var test=     _mm.Map<DepartmentDto>(dep);
+                    //     return CreatedAtRoute("", new { id = test.Id },test);
+                    return Created("Add", new Result() { message = "تمت عملية الاضافة بنجاح", statusCode = 201 });
+                }
+                else
+
+                    return BadRequest(new Result() { message = "قشل في عملية الاضافة  ", statusCode = 400 });
+
+
+
             }
-            else
 
-                return BadRequest(new Result() { message = "قشل في عملية الاضافة  ", statusCode = 400 });
+            catch (Exception ex)
+            {
 
-
+                return BadRequest(new  { message = "قشل في عملية الاضافة  ", statusCode = 400 , ma=ex.Message});
+            }
 
         }
-
 
         [HttpPut]
         [Route("Update")]
@@ -93,10 +101,19 @@ namespace MMSystem.Controllers
 
 
         {
-            bool results = await _data.Update(extr1);
-            if (results)
-                return Ok(new Result() { message = "تمت عملية التحديث ", statusCode = 200 });
-            return StatusCode(304, new Result() { message = "لم تتم عملية التحديث ", statusCode = 304 });
+            try
+            {
+                bool results = await _data.Update(extr1);
+                if (results)
+                    return Ok(new Result() { message = "تمت عملية التحديث ", statusCode = 200 });
+                return StatusCode(304, new Result() { message = "لم تتم عملية التحديث ", statusCode = 304 });
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { message = "قشل في عملية التعديل  ", statusCode = 400, ma = ex.Message });
+            }
+
         }
 
         [HttpPut]
