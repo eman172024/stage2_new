@@ -840,9 +840,9 @@
                 >
                   <div class="w-11/12 flex items-center">
                     <div class="w-20 py-1 pr-4">رقم الرسالة</div>
-                    <div class="w-3/12 mr-2">الحالة</div>
-                    <div class="w-1/12">النوع</div>
-                    <div class="w-5/12">الإدارة المرسلة</div>
+                    <div class="w-3/12 mr-2 text-center ">الحالة</div>
+                    <div class="w-2/12">النوع</div>
+                    <div class="w-4/12">الإدارة المرسلة</div>
                     <div class="w-1/12">نوع الإجراء</div>
                   </div>
 
@@ -880,15 +880,15 @@
                       <div class="w-16 pr-4 py-1">
                         {{ mail.mail_Number }}
                       </div>
-                      <div class="w-3/12 mr-4 truncate">
+                      <div class="w-3/12 mr-4 truncate text-center">
                         {{ mail.state }}
                       </div>
 
-                      <div class="w-1/12">
+                      <div class="w-2/12">
                         {{ mail.type_of_mail | mail_type }}
                       </div>
 
-                      <div class="w-5/12 truncate">
+                      <div class="w-4/12 truncate">
                         {{ mail.mangment_sender }}
                       </div>
 
@@ -1037,7 +1037,7 @@
                         absolute
                         z-50
                         w-10/12
-                        bottom-6
+                        bottom-20
                         left-0
                         min-h-32
                         h-full
