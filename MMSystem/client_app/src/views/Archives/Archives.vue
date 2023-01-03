@@ -837,9 +837,9 @@
                           items-end
                           hidden
                           absolute
-                          z-50
+                          z-20
                           w-10/12
-                          bottom-6
+                          bottom-20
                           left-0
                           min-h-32
                           h-full

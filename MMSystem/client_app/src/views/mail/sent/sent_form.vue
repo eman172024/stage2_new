@@ -265,9 +265,9 @@
                       >
                         الملخص
                       </label>
-
+                      <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
                       <textarea
-                        v-if="mail_flag <= 2 || roles.includes('7')"
+                        
                         v-model="summary"
                         id="summary"
                         rows="3"
@@ -285,7 +285,7 @@
                       >
                       </textarea>
 
-                      <div
+                      <!-- <div
                         v-else
                         class="
                           block
@@ -299,7 +299,7 @@
                         "
                       >
                         {{ summary }}
-                      </div>
+                      </div> -->
                     </div>
 
                     <div class="sm:col-span-3">
@@ -309,8 +309,9 @@
                       >
                         التصنيف
                       </label>
+                      <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
                       <select
-                        v-if="mail_flag <= 2 || roles.includes('7')"
+                       
                         v-model="classification"
                         id="classification"
                         class="
@@ -337,7 +338,7 @@
                           {{ classification.name }}
                         </option>
                       </select>
-
+<!-- 
                       <div
                         v-else
                         class="
@@ -359,8 +360,8 @@
                           {{ new_class }}
                         </div>
 
-                        <!-- {{ classification }} -->
-                      </div>
+                         {{ classification }} 
+                      </div> -->
                     </div>
 
                     <div class="sm:col-span-3">
@@ -370,8 +371,9 @@
                       >
                         التاريخ
                       </label>
+                      <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
                       <input
-                        v-if="mail_flag <= 2 || roles.includes('7')"
+                        
                         v-model="releaseDate"
                         min="2000-01-01"
                         max="2040-12-30"
@@ -391,7 +393,7 @@
                         "
                       />
 
-                      <div
+                      <!-- <div
                         v-else
                         class="
                           block
@@ -405,7 +407,7 @@
                         "
                       >
                         {{ releaseDate }}
-                      </div>
+                      </div> -->
                     </div>
 
                     <div class="sm:col-span-2">
@@ -415,8 +417,9 @@
                       >
                         رقم الوارد العام
                       </label>
+                      <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
                       <input
-                        v-if="mail_flag <= 2 || roles.includes('7')"
+                        
                         v-model="general_incoming_number"
                         @blur="isExisiteGenaralInboxNumberFun()"
                         type="text"
@@ -443,7 +446,7 @@
                         required
                       />
 
-                      <div
+                      <!-- <div
                         v-else
                         class="
                           block
@@ -457,7 +460,7 @@
                         "
                       >
                         {{ general_incoming_number }}
-                      </div>
+                      </div> -->
                     </div>
 
                     <div class="sm:col-span-2">
@@ -467,9 +470,9 @@
                       >
                         السنة
                       </label>
-
+                      <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
                       <input
-                        v-if="mail_flag <= 2 || roles.includes('7')"
+                        
                         type="number"
                         placeholder="YYYY"
                         min="2011"
@@ -490,7 +493,7 @@
                         "
                       />
 
-                      <div
+                      <!-- <div
                         v-else
                         class="
                           block
@@ -504,7 +507,7 @@
                         "
                       >
                         {{ genaral_inbox_year }}
-                      </div>
+                      </div> -->
                     </div>
 
                     <div class="sm:col-span-2">
@@ -514,9 +517,9 @@
                       >
                         رقم البريد القديم
                       </label>
-
+                      <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
                       <input
-                        v-if="mail_flag <= 2 || roles.includes('7')"
+                       
                         type="text"
                         v-model="old_mail_number"
                         id="old_mail_number"
@@ -534,7 +537,7 @@
                         "
                       />
 
-                      <div
+                      <!-- <div
                         v-else
                         class="
                           block
@@ -548,7 +551,7 @@
                         "
                       >
                         {{ old_mail_number }}
-                      </div>
+                      </div> -->
                     </div>
                   </section>
 
@@ -571,9 +574,9 @@
                       >
                         الإجراء المطلوب
                       </label>
-
+                      <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
                       <textarea
-                        v-if="mail_flag <= 2 || roles.includes('7')"
+                        
                         v-model="required_action"
                         id="required_action"
                         rows="3"
@@ -591,7 +594,7 @@
                       >
                       </textarea>
 
-                      <div
+                      <!-- <div
                         v-else
                         class="
                           block
@@ -605,7 +608,7 @@
                         "
                       >
                         {{ required_action }}
-                      </div>
+                      </div> -->
                     </div>
 
                     <div
