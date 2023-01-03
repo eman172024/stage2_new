@@ -1032,8 +1032,8 @@
                           absolute
                           z-50
                           w-10/12
-                          bottom-6
-                          left-0
+                          bottom-16
+                          -left-0  
                           min-h-32
                           h-full
                           bg-white
