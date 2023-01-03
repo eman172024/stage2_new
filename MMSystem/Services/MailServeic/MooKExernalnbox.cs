@@ -74,7 +74,7 @@ namespace MMSystem.Services.MailServeic
                     var c= _mapper.Map<Mail, MailDto>(mail);
 
                    
-                    Extrenal_inbox external = await _dbCon.Extrenal_Inboxes.FirstAsync(x => x.MailID == id);
+                    Extrenal_inbox external = await _dbCon.Extrenal_Inboxes.FirstOrDefaultAsync(x => x.MailID == id);
                   Extrenal_inboxDto dto = _mapper.Map<Extrenal_inbox, Extrenal_inboxDto>(external);
                   
 
