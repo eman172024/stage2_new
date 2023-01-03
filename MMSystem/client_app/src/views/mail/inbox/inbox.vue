@@ -823,7 +823,7 @@
                 divide-y-2 divide-gray-200
               "
             >
-              <div class="w-7/12 ml-2">
+              <div class="w-8/12 ml-2">
                 البريد
 
                 <div
@@ -839,14 +839,14 @@
                   "
                 >
                   <div class="w-11/12 flex items-center">
-                    <div class="w-20 py-1 pr-4">رقم الرسالة</div>
-                    <div class="w-3/12 mr-2 text-center ">الحالة</div>
-                    <div class="w-2/12">النوع</div>
-                    <div class="w-4/12">الإدارة المرسلة</div>
-                    <div class="w-1/12">نوع الإجراء</div>
+                    <div class="w-16 py-1 pr-2  text-right">رقم الرسالة</div>
+                    <div class="w-2/12 mr-2 text-center ">الحالة</div>
+                    <div class="w-2/12 text-center">النوع</div>
+                    <div class="w-5/12 text-center">الإدارة المرسلة</div>
+                    <div class="w-1/12 text-center ">نوع الإجراء</div>
                   </div>
 
-                  <div class="w-1/12 text-center">الإجراءات</div>
+                  <div class="w-1/12 text-center ">الإجراءات</div>
                 </div>
 
                 <div class="min-h-64 text-sm bg-gray-100">
@@ -866,7 +866,7 @@
                     "
                   >
                     <button
-                      class="w-11/12 flex items-center text-right"
+                      class="w-11/12 flex items-center  "
                       @click="
                         to_pass_data_to_get_mail_by_id(
                           mail.mail_id,
@@ -877,22 +877,22 @@
                         )
                       "
                     >
-                      <div class="w-16 pr-4 py-1">
+                      <div class="w-12 pr-2 py-1 text-right">
                         {{ mail.mail_Number }}
                       </div>
-                      <div class="w-3/12 mr-4 truncate text-center">
+                      <div class="w-2/12 mr-4 truncate text-center ">
                         {{ mail.state }}
                       </div>
 
-                      <div class="w-2/12">
+                      <div class="w-2/12 text-center">
                         {{ mail.type_of_mail | mail_type }}
                       </div>
 
-                      <div class="w-4/12 truncate">
+                      <div class="w-5/12 truncate text-center">
                         {{ mail.mangment_sender }}
                       </div>
 
-                      <div class="w-1/12">
+                      <div class="w-1/12 text-center ">
                         {{ mail.masure_type }}
                       </div>
                     </button>
@@ -1112,7 +1112,7 @@
                 </div>
               </div>
 
-              <div v-if="roles.includes('r')" class="w-5/12 mr-2">
+              <div v-if="roles.includes('r')" class="w-4/12 mr-2">
                 الردود - {{ mangment_sender_to_get_mail_by_id }}
 
                 <div
