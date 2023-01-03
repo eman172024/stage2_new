@@ -178,7 +178,7 @@ namespace MMSystem.Services.MailServeic
                     _mail.clasification = mail.clasification;
                     _mail.ActionRequired = mail.ActionRequired;
                     _mail.old_mail_number = mail.old_mail_number;
-
+                    _mail.office_type = mail.office_type;
 
 
                     _dbCon.Mails.Update(_mail);

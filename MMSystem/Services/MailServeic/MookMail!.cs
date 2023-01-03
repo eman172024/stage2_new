@@ -507,25 +507,23 @@ namespace MMSystem.Services.MailServeic
 
                         break;
                     case 2:
-                        External_Mail external_Mail = await _appContext.External_Mails.OrderBy(x => x.ID).LastOrDefaultAsync();
-                        if (external_Mail != null)
+                        Mail mail1 = await _appContext.Mails.OrderBy(x => x.MailID).Where(x=> x.Mail_Type == 2 && x.Date_Of_Mail.Year == year).LastOrDefaultAsync();
+                        if (mail1 != null)
                         {
-                            LastNumber = external_Mail.ID + 1;
+                            LastNumber = mail1.Mail_Number + 1;
                             break;
-
                         }
-                        LastNumber = LastNumber + 1;
+                        LastNumber += 1;
                         break;
                     case 3:
 
-                        Extrenal_inbox _Inbox = await _appContext.Extrenal_Inboxes.OrderBy(x => x.Id).LastOrDefaultAsync();
-                        if (_Inbox != null)
+                        Mail mail13 = await _appContext.Mails.OrderBy(x => x.MailID).Where(x => x.Mail_Type == 3 && x.Date_Of_Mail.Year == year).LastOrDefaultAsync();
+                        if (mail13 != null)
                         {
-                            LastNumber = _Inbox.Id + 1;
+                            LastNumber = mail13.Mail_Number + 1;
                             break;
-
                         }
-                        LastNumber = LastNumber + 1;
+                        LastNumber += 1;
 
                         break;
                     default:
@@ -629,7 +627,7 @@ namespace MMSystem.Services.MailServeic
                 int flag = 0;
 
                 string numOfSend = "";
-
+                
 
                 int port = mail.mail.Mail_Type;
 
@@ -643,16 +641,22 @@ namespace MMSystem.Services.MailServeic
                         
                         {
                             var obj1 = await _appContext.Sends.FirstOrDefaultAsync(x=>x.MailID==mail.mail.MailID);
-                           
-                            if (obj1.flag > 1)
-                            {
-                                flag = 2;
-                            }
-                            else
-                            {
-                                flag = 1;
+
+
+                            if (obj1 != null) {
+                                if (obj1.flag > 1)
+                                {
+                                    flag = 2;
+                                }
+                                else
+                                {
+                                    flag = 1;
+
+                                }
 
                             }
+                           
+                            
 
                             string depname = "";
 
@@ -715,15 +719,23 @@ namespace MMSystem.Services.MailServeic
 
                         
                         var obj = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail.mail.MailID);
-                        if (obj.flag > 1)
-                        {
-                            flag = 2;
-                        }
-                        else
-                        {
-                            flag = 1;
+
+                        if (obj != null) {
+                            if (obj.flag > 1)
+                            {
+                                flag = 2;
+                            }
+                            else
+                            {
+                                flag = 1;
+
+                            }
+
 
                         }
+
+
+                       
 
                         bool isUpdate = await _external.Update(mail.mail,mail.external_Mail,mail.userId);
 
@@ -783,19 +795,41 @@ namespace MMSystem.Services.MailServeic
                         //ende start
                     case 3:
 
-
-
+                        bool isMulti = false;
                         //new function
                         var obj2 = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail.mail.MailID);
-                        if (obj2.flag > 1)
+
+                        if (obj2 != null)
                         {
-                            flag = 2;
-                        }
-                        else
-                        {
-                            flag = 1;
+
+
+
+                            if (obj2.flag > 1)
+                            {
+                                flag = 2;
+                            }
+                            else if (flag == 0)
+                            {
+                                flag = 1;
+
+                            }
+
+                            else
+                            {
+                                flag = 1;
+
+                            }
 
                         }
+                        else {
+
+                            flag = 1;
+
+
+                        }
+
+                      
+                       
                        
 
                         Ex_inboxmail = await _extrenal_Inbox.Update(mail.mail, mail.extrenal_Inbox, mail.userId);
@@ -804,9 +838,39 @@ namespace MMSystem.Services.MailServeic
                             string depname = "";
                             if (mail.newactionSenders.Count > 0)
                             {
-                                for (int i = 0; i < mail.newactionSenders.Count; i++)
+                                var list = _appContext.Sends.Where(x => x.MailID == mail.mail.MailID && x.isMulti == true&&x.State==true).ToList();
+
+                                if (list.Count > 0)
+                                {
+
+                                    isMulti = false;
+
+
+                                }
+                                else {
+
+
+                                    isMulti = true;
+                                }
+
+                                //var list = _appContext.Sends.Where(x => x.MailID == mail.mail.MailID && x.State == true);
+
+
+                                for (int i =0; i < mail.newactionSenders.Count; i++)
                                 {
                                     Send_to sender = new Send_to();
+
+
+                                    if (i == (mail.newactionSenders.Count()-1))
+                                    {
+                                        sender.isMulti = isMulti;
+                                    }
+                                    else
+                                    {
+                                        sender.isMulti = false;
+                                    }
+
+
 
                                     sender.State = true;
 
@@ -866,7 +930,7 @@ namespace MMSystem.Services.MailServeic
                 return result;
             }
 
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
@@ -2205,7 +2269,7 @@ namespace MMSystem.Services.MailServeic
                     _mail.clasification = mail.clasification;
                     _mail.ActionRequired = mail.ActionRequired;
                     _mail.old_mail_number = mail.old_mail_number;
-
+                    _mail.office_type = mail.office_type;
                     string chamges = Histoteyvm.getValue(hVModels);
                     if (!String.IsNullOrWhiteSpace(chamges)) {
                         histor.changes = chamges;

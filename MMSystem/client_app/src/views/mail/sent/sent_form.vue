@@ -34,99 +34,89 @@
                   </h3>
                 </div>
 
+                <div
+                  v-if="my_department_id == 21 || my_department_id == 22"
+                  class="grid grid-cols-7 gap-6  "
+                >
+                  <section
+                    class="col-span-5 flex justify-between items-stretch"
+                  >
+                    <div class="w-6/12 ml-3"></div>
 
+                    <fieldset class="  w-6/12 mr-3 ">
+                      <div class="flex items-center">
+                        <legend
+                          class="block text-sm font-semibold text-gray-800 w-24"
+                        ></legend>
+                        <div
+                          v-if="my_department_id == 21"
+                          class="w-full flex items-center"
+                        >
+                          <div class="flex items-center w-32">
+                            <input
+                              v-model="office_type"
+                              id="chief"
+                              type="radio"
+                              name="office_type"
+                              class="h-4 w-4"
+                              value="1"
+                            />
+                            <label for="chief" class="mr-3 block text-gray-800">
+                              رئيس الهيئة
+                            </label>
+                          </div>
 
-                
+                          <div class="flex items-center w-32">
+                            <input
+                              v-model="office_type"
+                              id="proxy"
+                              type="radio"
+                              name="office_type"
+                              class="h-4 w-4"
+                              value="2"
+                            />
+                            <label for="proxy" class="mr-3 block text-gray-800">
+                              مدير المكتب
+                            </label>
+                          </div>
+                        </div>
 
-            <div v-if="my_department_id == 21 || my_department_id == 22"  class="grid grid-cols-7 gap-6  ">
-              <section class="col-span-5 flex justify-between items-stretch">
-                <div class="w-6/12 ml-3">
-                  
+                        <div
+                          v-if="my_department_id == 22"
+                          class="w-full flex items-center"
+                        >
+                          <div class="flex items-center w-32">
+                            <input
+                              v-model="office_type"
+                              id="chief"
+                              type="radio"
+                              name="office_type"
+                              class="h-4 w-4"
+                              value="3"
+                            />
+                            <label for="chief" class="mr-3 block text-gray-800">
+                              وكيل الهيئة
+                            </label>
+                          </div>
+
+                          <div class="flex items-center w-32">
+                            <input
+                              v-model="office_type"
+                              id="proxy"
+                              type="radio"
+                              name="office_type"
+                              class="h-4 w-4"
+                              value="4"
+                            />
+                            <label for="proxy" class="mr-3 block text-gray-800">
+                              مدير المكتب
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </section>
                 </div>
-
-
-                <fieldset class="  w-6/12 mr-3 ">
-                  <div class="flex items-center">
-                    <legend
-                      class="block text-sm font-semibold text-gray-800 w-24"
-                    >
-                     
-                    </legend>
-                    <div
-                      v-if="my_department_id == 21"
-                      class="w-full flex items-center"
-                    >
-                      <div class="flex items-center w-32">
-                        <input
-                          v-model="office_type"
-                          id="chief"
-                          type="radio"
-                          name="office_type"
-                          class="h-4 w-4"
-                          value="1"
-                        />
-                        <label for="chief" class="mr-3 block text-gray-800">
-                          رئيس الهيئة
-                        </label>
-                      </div>
-
-                      <div class="flex items-center w-32">
-                        <input
-                          v-model="office_type"
-                          id="proxy"
-                          type="radio"
-                          name="office_type"
-                          class="h-4 w-4"
-                          value="2"
-                        />
-                        <label for="proxy" class="mr-3 block text-gray-800">
-                          مدير المكتب
-                        </label>
-                      </div>
-                    </div>
-
-                    <div
-                      v-if="my_department_id == 22"
-                      class="w-full flex items-center"
-                    >
-                      <div class="flex items-center w-32">
-                        <input
-                          v-model="office_type"
-                          id="chief"
-                          type="radio"
-                          name="office_type"
-                          class="h-4 w-4"
-                          value="3"
-                        />
-                        <label for="chief" class="mr-3 block text-gray-800">
-                          وكيل الهيئة
-                        </label>
-                      </div>
-
-                      <div class="flex items-center w-32">
-                        <input
-                          v-model="office_type"
-                          id="proxy"
-                          type="radio"
-                          name="office_type"
-                          class="h-4 w-4"
-                          value="4"
-                        />
-                        <label for="proxy" class="mr-3 block text-gray-800">
-                          مدير المكتب
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </fieldset>
-              </section>
-
-              
-            </div>
-
-            
-
-
 
                 <fieldset class="w-8/12 mr-3">
                   <div class="flex items-center">
@@ -238,11 +228,11 @@
               </section>
             </div>
 
-
             <div class="mt-6 space-y-6 relative">
-              <div v-if="mailType == '' " class="bg-gray-200  bg-opacity-80 rounded-lg absolute z-50 inset-0">
-                            
-              </div>
+              <div
+                v-if="mailType == ''"
+                class="bg-gray-200  bg-opacity-80 rounded-lg absolute z-50 inset-0"
+              ></div>
 
               <div class="grid grid-cols-7 gap-6">
                 <section class="col-span-5 flex justify-between items-stretch">
@@ -353,10 +343,7 @@
                           overflow-hidden
                         "
                       >
-                        <div
-                          class="h-8"
-                        
-                        >
+                        <div class="h-8">
                           {{ new_class }}
                         </div>
 
@@ -1805,8 +1792,6 @@
                     </div>
                   </fieldset>
 
-                  
-
                   <fieldset class="sm:col-span-3">
                     <div class="flex items-center">
                       <legend
@@ -1982,10 +1967,10 @@
                       <button
                         v-if="
                           summary &&
-                          is_exisite_genaral_inbox_number == true &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)
+                            is_exisite_genaral_inbox_number == true &&
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0)
                         "
                         @click="updateMail"
                         type="button"
@@ -2063,10 +2048,10 @@
                       <button
                         v-if="
                           summary &&
-                          is_exisite_genaral_inbox_number == true &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)
+                            is_exisite_genaral_inbox_number == true &&
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0)
                         "
                         @click="updateMail"
                         type="button"
@@ -2144,8 +2129,8 @@
                       <button
                         v-if="
                           summary &&
-                          is_exisite_genaral_inbox_number == true &&
-                          classification
+                            is_exisite_genaral_inbox_number == true &&
+                            classification
                         "
                         @click="updateMail"
                         type="button"
@@ -2225,9 +2210,9 @@
                       <button
                         v-if="
                           summary &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0)
                         "
                         @click="deleteMail"
                         type="button"
@@ -2305,9 +2290,9 @@
                       <button
                         v-if="
                           summary &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0)
                         "
                         @click="deleteMail"
                         type="button"
@@ -2462,10 +2447,10 @@
                       <button
                         v-if="
                           summary &&
-                          is_exisite_genaral_inbox_number == true &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)
+                            is_exisite_genaral_inbox_number == true &&
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0)
                         "
                         class="
                           flex
@@ -2530,14 +2515,14 @@
                       <button
                         v-if="
                           summary &&
-                          classification &&
-                          is_exisite_genaral_inbox_number == true &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0) &&
-                          mail_forwarding &&
-                          sectorNameSelected &&
-                          sideNameSelected &&
-                          action_required_by_the_entity
+                            classification &&
+                            is_exisite_genaral_inbox_number == true &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0) &&
+                            mail_forwarding &&
+                            sectorNameSelected &&
+                            sideNameSelected &&
+                            action_required_by_the_entity
                         "
                         class="
                           flex
@@ -2602,15 +2587,15 @@
                       <button
                         v-if="
                           summary &&
-                          classification &&
-                          is_exisite_genaral_inbox_number == true &&
-                          sectorNameSelected &&
-                          sideNameSelected &&
-                          ward_to &&
-                          mail_ward_type &&
-                          entity_mail_date &&
-                          entity_reference_number &&
-                          procedure_type
+                            classification &&
+                            is_exisite_genaral_inbox_number == true &&
+                            sectorNameSelected &&
+                            sideNameSelected &&
+                            ward_to &&
+                            mail_ward_type &&
+                            entity_mail_date &&
+                            entity_reference_number &&
+                            procedure_type
                         "
                         class="
                           flex
@@ -2677,9 +2662,9 @@
                       <button
                         v-if="
                           summary &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0)
                         "
                         class="
                           flex
@@ -2744,9 +2729,9 @@
                       <button
                         v-if="
                           summary &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0)
                         "
                         class="
                           flex
@@ -2809,10 +2794,12 @@
 
                     <div v-if="roles.includes('1') && mailType == '3'" class="">
                       <button
-                        v-if="summary &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)"
+                        v-if="
+                          summary &&
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0)
+                        "
                         class="
                           flex
                           justify-center
@@ -3815,6 +3802,10 @@ export default {
   },
 
   mounted() {
+
+    
+
+
     //*********************websocket 18/8/2022
     this.conn = new WebSocket("ws://localhost:58316/ws");
     // this.conn = new WebSocket("ws://mail:82/ws");
@@ -3893,11 +3884,23 @@ export default {
           this.loading = false;
         }, 100);
       }, 500);
+
+
+      
+
+
     } else {
       this.GetAllDepartments();
     }
     this.GetAllClassifications();
     this.GetAllMeasures();
+
+    if (this.my_department_id == 21) {
+        this.office_type = 1
+      }
+      if (this.my_department_id == 22) {
+        this.office_type = 3
+      }
   },
 
   data() {
@@ -4075,7 +4078,7 @@ export default {
       old_mail_number: "",
       conclusion: "",
 
-      office_type:'',
+      office_type: "",
     };
   },
 
@@ -4098,7 +4101,7 @@ export default {
 
     // },
 
-    mailType: function () {
+    mailType: function() {
       var date = new Date();
 
       this.genaral_inbox_year = date.getFullYear();
@@ -4115,6 +4118,8 @@ export default {
       this.required_action = "";
       this.mailId = "";
       this.mail_forwarding = "";
+
+      this.old_mail_number = "";
 
       this.sideNameSelected = "";
       this.sideIdSelected = "";
@@ -4150,8 +4155,16 @@ export default {
       this.deleteButton = false;
       this.ButtonUploadImagesMail = false;
       this.add_button_consignees = true;
-
+      this.office_type = ""
       this.GetAllDepartments();
+
+
+      if (this.my_department_id == 21) {
+        this.office_type = 1
+      }
+      if (this.my_department_id == 22) {
+        this.office_type = 3
+      }
 
       setTimeout(() => {
         if (this.mailType == 2) {
@@ -4368,11 +4381,11 @@ export default {
       var keyid = this.keyid;
 
       var timeout;
-      window.addEventListener("blur", function (e) {
+      window.addEventListener("blur", function(e) {
         window.clearTimeout(timeout);
       });
 
-      timeout = window.setTimeout(function () {
+      timeout = window.setTimeout(function() {
         window.location = "http://mail/scanner_app/Setup1.msi";
       }, 1000);
 
@@ -4388,11 +4401,11 @@ export default {
       var keyid = this.keyid;
 
       var timeout;
-      window.addEventListener("blur", function (e) {
+      window.addEventListener("blur", function(e) {
         window.clearTimeout(timeout);
       });
 
-      timeout = window.setTimeout(function () {
+      timeout = window.setTimeout(function() {
         window.location = "http://mail/scanner_app/Setup1.msi";
       }, 1000);
 
@@ -4538,7 +4551,7 @@ export default {
       this.image_of_doc = "";
       this.id_of_doc = "";
 
-      this.office_type = '';
+      this.office_type = "";
 
       var date = new Date();
 
@@ -4731,7 +4744,9 @@ export default {
 
       this.mail_flag = 0;
 
-      this.office_type = '';
+      this.office_type = "";
+
+      this.old_mail_number = "";
 
       this.GetAllDepartments;
       this.$http.mailService
@@ -4767,8 +4782,10 @@ export default {
           this.summary = res.data.mail.mail_Summary;
           this.classification = res.data.mail.clasification;
 
-          this.new_class=this.classifications[Number(this.classification)-1].name;
-               this.office_type = res.data.mail.office_type;
+          this.new_class = this.classifications[
+            Number(this.classification) - 1
+          ].name;
+          this.office_type = res.data.mail.office_type;
           // this.mailType = res.data.mail.mail_Type;
           if (res.data.mail.genaral_inbox_Number == 0) {
             this.general_incoming_number = "";
@@ -4942,8 +4959,9 @@ export default {
     previousImage_images_model() {
       if (this.indextotest_images_model > 0) {
         this.indextotest_images_model--;
-        this.testimage_images_model =
-          this.show_images_images_model[this.indextotest_images_model].path;
+        this.testimage_images_model = this.show_images_images_model[
+          this.indextotest_images_model
+        ].path;
       }
     },
 
@@ -4953,8 +4971,9 @@ export default {
         this.show_images_images_model.length - 1
       ) {
         this.indextotest_images_model++;
-        this.testimage_images_model =
-          this.show_images_images_model[this.indextotest_images_model].path;
+        this.testimage_images_model = this.show_images_images_model[
+          this.indextotest_images_model
+        ].path;
       }
     },
 
@@ -5095,7 +5114,7 @@ export default {
             ActionRequired: this.required_action,
             old_mail_number: this.old_mail_number,
             state: true,
-            office_type : this.office_type,
+            office_type: this.office_type,
           },
 
           // actionSenders: this.consignees,
@@ -5119,7 +5138,7 @@ export default {
             ActionRequired: this.required_action,
             old_mail_number: this.old_mail_number,
             state: true,
-            office_type : this.office_type,
+            office_type: this.office_type,
           },
 
           // actionSenders: this.consignees,
@@ -5151,7 +5170,7 @@ export default {
             ActionRequired: this.required_action,
             old_mail_number: this.old_mail_number,
             state: true,
-            office_type : this.office_type,
+            office_type: this.office_type,
           },
 
           // actionSenders: this.consignees,
@@ -5220,7 +5239,7 @@ export default {
             Genaral_inbox_year: Number(this.genaral_inbox_year),
             old_mail_number: this.old_mail_number,
             ActionRequired: this.required_action,
-            office_type : this.office_type,
+            office_type: this.office_type,
           },
 
           actionSenders: this.newactionSenders,
@@ -5240,7 +5259,7 @@ export default {
             Genaral_inbox_year: Number(this.genaral_inbox_year),
             old_mail_number: this.old_mail_number,
             ActionRequired: this.required_action,
-            office_type : this.office_type,
+            office_type: this.office_type,
           },
 
           actionSenders: this.newactionSenders,
@@ -5267,7 +5286,7 @@ export default {
             Genaral_inbox_year: Number(this.genaral_inbox_year),
             old_mail_number: this.old_mail_number,
             ActionRequired: this.required_action,
-            office_type : this.office_type,
+            office_type: this.office_type,
           },
 
           actionSenders: this.newactionSenders,
@@ -5351,10 +5370,10 @@ export default {
 
           this.releaseDate = res.data.mail.date_Of_Mail;
           this.classification = res.data.mail.clasification;
-          this.new_class=this.classifications[Number(this.classification)-1].name;
+          this.new_class = this.classifications[
+            Number(this.classification) - 1
+          ].name;
           this.office_type = res.data.mail.office_type;
-
-         
 
           if (res.data.mail.genaral_inbox_Number == 0) {
             this.general_incoming_number = "";
