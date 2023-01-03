@@ -1610,7 +1610,7 @@ namespace MMSystem.Services.MailServeic
 
                         ex.side.Add(side);
 
-                        var sector = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.perent == 0 && x.type == side.type);
+                        var sector = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.id ==side.perent);
                         ex.sector.Add(sector);
 
 
@@ -1722,8 +1722,8 @@ namespace MMSystem.Services.MailServeic
                     var side = await _appContext.Extrmal_Sections.FindAsync(ex.external.SectionId);
 
                     ex.side.Add(side);
-
-                    var sector = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.perent == 0 && x.type == side.type);
+                    
+                    var sector = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.id == side.perent);
                     ex.sector.Add(sector);
 
 
@@ -2024,7 +2024,7 @@ namespace MMSystem.Services.MailServeic
 
                             ex.side.Add(side);
 
-                            var sector = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.perent == 0 && x.type == side.type);
+                            var sector = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.id == side.perent);
                             ex.sector.Add(sector);
 
 
@@ -2103,7 +2103,7 @@ namespace MMSystem.Services.MailServeic
 
                             ex1.side.Add(side);
 
-                            var sector = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.perent == 0 && x.type == side.type);
+                            var sector = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.id ==side.perent );
                             ex1.sector.Add(sector);
 
 
