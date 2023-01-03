@@ -507,20 +507,29 @@ namespace MMSystem.Services.MailServeic
 
                         break;
                     case 2:
-                        Mail mail1 = await _appContext.Mails.OrderBy(x => x.MailID).Where(x=> x.Mail_Type == 2 && x.Date_Of_Mail.Year == year).LastOrDefaultAsync();
-                        if (mail1 != null)
+                        //     var mail_number =  _appContext.Mails.Where(x=> x.Mail_Type == 2 && x.Date_Of_Mail.Year == year).Max(p => p.Mail_Number);
+
+                       // int mail_number = _appContext.Mails.Where(x => x.Mail_Type == 2 && x.Date_Of_Mail.Year == year).Select(x => x.Mail_Number).DefaultIfEmpty(0).Max();
+
+
+
+                        int mail_number = _appContext.Mails.Where(x => x.Mail_Type == 2 && x.Date_Of_Mail.Year == year).Max(x => (int?)x.Mail_Number) ?? 0;
+
+
+                        if (mail_number!=0)
                         {
-                            LastNumber = mail1.Mail_Number + 1;
+                            LastNumber = mail_number + 1;
                             break;
                         }
                         LastNumber += 1;
                         break;
                     case 3:
+                        int mail_number1 = _appContext.Mails.Where(x => x.Mail_Type == 3 && x.Date_Of_Mail.Year == year).Max(x => (int?)x.Mail_Number) ?? 0;
 
-                        Mail mail13 = await _appContext.Mails.OrderBy(x => x.MailID).Where(x => x.Mail_Type == 3 && x.Date_Of_Mail.Year == year).LastOrDefaultAsync();
-                        if (mail13 != null)
+                        //  Mail mail13 = await _appContext.Mails.OrderBy(x => x.MailID).Where(x => x.Mail_Type == 3 && x.Date_Of_Mail.Year == year).LastOrDefaultAsync();
+                        if (mail_number1 !=0)
                         {
-                            LastNumber = mail13.Mail_Number + 1;
+                            LastNumber = mail_number1 + 1;
                             break;
                         }
                         LastNumber += 1;
@@ -536,7 +545,7 @@ namespace MMSystem.Services.MailServeic
 
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
