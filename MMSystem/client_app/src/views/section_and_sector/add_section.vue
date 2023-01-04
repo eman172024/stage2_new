@@ -52,7 +52,7 @@
                      
 
                   
-                    <div class="flex items-center ml-4">
+                    <div v-if="!isedit" class="flex items-center ml-4">
                       <input
                         v-model="mail_forwarding"
                         id="sector_radio"
@@ -70,7 +70,7 @@
                       </label>
                     </div>
 
-                    <div class="flex items-center mr-4 ">
+                    <div v-if="!isedit" class="flex items-center mr-4 ">
                       <input
                         v-model="mail_forwarding"
                         id="side_radio"
@@ -188,6 +188,7 @@
                   class="
                   w-full
                   h-10
+                  text-red-600
                  
                 "
                   
@@ -345,7 +346,7 @@
               <button
                 type="button"
                 id="edit"
-                @click="edit_user()"
+                @click="edit_sector()"
                 class="
                 mx-auto
                 w-96
@@ -416,13 +417,14 @@
   
     mounted() {
 
+      this.get_sides(0);
+      
       if (this.$route.params.id) {
       this.isedit = true;
       this.get_one_sector(this.$route.params.id);
-      this.departmentselect = false;
+      
     }
-      this.get_sectors(0);
-      this.get_sides(0);
+      
       
     },
   
@@ -443,7 +445,7 @@
       sectors:[],
       sectorselect:false,
 
-        mail_forwarding:1,
+        mail_forwarding:2,
         mail_type:0,
 
      
@@ -451,7 +453,7 @@
   
         
   
-       
+       item:[],
         name: "",
        
         state1: "true",
@@ -550,7 +552,7 @@
 
        
             return this.sides.filter((side) => {
-        return side.section_Name.toLowerCase().includes(this.name);
+        return side.section_Name.includes(this.name);
       });
 
            }
@@ -603,9 +605,26 @@
 
    
     this.$http.sectorsService
-       .GetSectors(id)
+       .GetSide(id)
        .then((res) => {
          this.name = res.data.section_Name;
+         this.mail_type=res.data.type;
+         this.sectorIdSelected=res.data.perent;
+
+         this.get_sectors(res.data.type);
+         
+
+          this.sectorNameSelected=this.sectors.find((item) => item.id == res.data.perent).section_Name;
+            
+   
+
+         if (res.data.state) {
+            this.state1 = res.data.state;
+          } else {
+            this.state1 = "";
+          }
+
+         
        })
        .catch((err) => {
          console.log(err);
@@ -614,6 +633,67 @@
 
    },
 
+
+   
+   edit_sector() {
+
+
+
+    var isvalid=1;
+        if(this.mail_forwarding==2&&this.sectorIdSelected=="")
+        {
+            isvalid=0;
+        }
+
+
+       if(this.name!=""&&this.mail_type!=0&&isvalid==1){
+      
+      
+      
+        var perent1;
+        if(this.mail_forwarding==1){
+          perent1=0;
+        }
+        else{
+          perent1=Number(this.sectorIdSelected);
+        }
+
+
+        var sector = {
+              id:this.$route.params.id,
+              Section_Name: this.name,
+              type: Number(this.mail_type),
+              perent: perent1,
+              state: Boolean(this.state1),
+         
+
+  
+        };
+
+        this.$http.sectorsService
+            .edit_sector(sector)
+            .then((res) => {
+              setTimeout(() => {
+                this.editesuccess = res.data.message;
+                this.iseditesuccess = true;
+                this.get_one_sector(this.$route.params.id)
+              }, 201);
+            })
+            .catch(() => {
+              setTimeout(() => {
+                this.editesuccess =
+                  "فشلت عملية التعديل الرجاء التأكد من البيانات وإعادة المحاولة";
+                this.iseditesuccess = true;
+              }, 500);
+            });}
+
+            else {
+        this.editesuccess =
+          "فشلت عملية التعديل الرجاء التأكد من البيانات وإعادة المحاولة";
+        this.iseditesuccess = true;
+      }
+
+    },
 
 
 

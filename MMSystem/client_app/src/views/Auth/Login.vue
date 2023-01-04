@@ -162,7 +162,7 @@
 
             <div>
               <label
-                for="email"
+                for="password"
                 class="block text-base font-semibold text-gray-800"
               >
                 كلمه المرور

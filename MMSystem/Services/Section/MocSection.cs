@@ -132,6 +132,7 @@ namespace MMSystem.Services.Section
             if (ex1 != null)
             {
                 ex1.perent = model.perent;
+                ex1.type = model.type;
                 ex1.state = model.state;
                 ex1.Section_Name = model.Section_Name;
 

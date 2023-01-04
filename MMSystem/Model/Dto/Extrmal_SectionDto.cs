@@ -11,6 +11,8 @@ namespace MMSystem.Model.Dto
         public string Section_Name { get; set; }
         
         public int perent { get; set; }
+
+        public int type { get; set; }
         public bool state { get; set; }
     }
 }

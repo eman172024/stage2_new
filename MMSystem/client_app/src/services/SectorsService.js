@@ -18,9 +18,21 @@ export default {
        
     },
 
+    edit_sector(sector) {
+        return axios.put(`/api/ExtrmalSection/Update`,sector)
+       
+    },
+
     stop_sector(id) {
         return axios.put(`/api/ExtrmalSection/Delete?id=${id}`)
        
     },
+
+    GetSide(id) {
+        return axios.get(`/api/ExtrmalSection/GetSide?id=${id}`)
+      
+     },
+
+    
 
 }

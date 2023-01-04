@@ -408,7 +408,7 @@
                       <input
                         
                         v-model="general_incoming_number"
-                        @blur="isExisiteGenaralInboxNumberFun()"
+                        
                         type="text"
                         min="1"
                         max="50000"
@@ -4213,25 +4213,26 @@ export default {
   },
 
   methods: {
-    isExisiteGenaralInboxNumberFun() {
-      this.screenFreeze = true;
-      this.loading = true;
 
-      this.$http.mailService
-        .isExisiteGenaralInboxNumberFun(Number(this.general_incoming_number))
-        .then((res) => {
-          this.is_exisite_genaral_inbox_number = true;
-          this.screenFreeze = false;
-          this.loading = false;
-        })
-        .catch((err) => {
-          this.is_exisite_genaral_inbox_number = false;
-          this.screenFreeze = false;
-          this.loading = false;
-          alert("رقم الوارد العام موجود مسبقا.");
-          this.addErorr = err.message;
-        });
-    },
+    // isExisiteGenaralInboxNumberFun() {
+    //   this.screenFreeze = true;
+    //   this.loading = true;
+
+    //   this.$http.mailService
+    //     .isExisiteGenaralInboxNumberFun(Number(this.general_incoming_number))
+    //     .then((res) => {
+    //       this.is_exisite_genaral_inbox_number = true;
+    //       this.screenFreeze = false;
+    //       this.loading = false;
+    //     })
+    //     .catch((err) => {
+    //       this.is_exisite_genaral_inbox_number = false;
+    //       this.screenFreeze = false;
+    //       this.loading = false;
+    //       alert("رقم الوارد العام موجود مسبقا.");
+    //       this.addErorr = err.message;
+    //     });
+    // },
 
     prepare_delete_document() {
       this.alert_prepare_delete_document = true;

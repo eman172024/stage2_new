@@ -42,6 +42,23 @@ namespace MMSystem.Controllers
 
             }
         }
+        [HttpGet]
+        [Route("GetSide")]
+        public async Task<ActionResult<List<Extrmal_Section>>> Get( int id)
+        {
+            var extr1 = await _data.Get(id);
+
+            if (extr1 != null)
+            {
+                return Ok(extr1);
+            }
+            else
+            {
+                return NotFound();
+
+            }
+        }
+
 
         [HttpGet]
         [Route("Getsub")]
