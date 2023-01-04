@@ -3896,10 +3896,10 @@ export default {
     this.GetAllMeasures();
 
     if (this.my_department_id == 21) {
-        this.office_type = 1
+        this.office_type = "1"
       }
       if (this.my_department_id == 22) {
-        this.office_type = 3
+        this.office_type = "3"
       }
   },
 
@@ -4160,10 +4160,10 @@ export default {
 
 
       if (this.my_department_id == 21) {
-        this.office_type = 1
+        this.office_type = "1"
       }
       if (this.my_department_id == 22) {
-        this.office_type = 3
+        this.office_type = "3"
       }
 
       setTimeout(() => {

@@ -46,7 +46,14 @@ namespace MMSystem.Services.Section
 
                 if (d != null)
                 {
-                    d.state = false;
+                    if (d.state != true)
+                    {
+                        d.state = true;
+                    }
+                    else
+                    {
+                        d.state = false;
+                    }             
                     _db.Extrmal_Sections.Update(d);
                     await _db.SaveChangesAsync();
                     return true;

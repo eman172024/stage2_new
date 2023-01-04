@@ -119,11 +119,11 @@ namespace MMSystem.Controllers
         [HttpPut]
         // [Route("Delete/{id}")]
         [Route("Delete")]
-        public async Task<IActionResult> Deleteextr(int id)
+        public async Task<IActionResult> Deleteextr( int id)
         {
             bool results = await _data.Delete(id);
             if (results)
-                return Accepted(new Result() { message = "تمت عملية الحذف", statusCode = 202 });
+                return Accepted(new Result() { message = "تمت عملية التعديل", statusCode = 202 });
 
             return NotFound(new Result() { message = "هذا القطاع غير موجود", statusCode = 404 });
 

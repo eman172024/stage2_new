@@ -8,6 +8,8 @@ import report from "../views/Archives/report.vue";
 import report2 from "../views/Archives/report2.vue";
 import incoming_report from "../views/reports/incoming_report.vue";
 import Statistical_report from "../views/reports/Statistical_report.vue";
+import show_sections from "../views/section_and_sector/show_sections.vue";
+import add_section from "../views/section_and_sector/add_section.vue";
 
 import Sent_report from "../views/reports/Sent_report.vue"
 
@@ -204,6 +206,20 @@ const routes = [{
         path: "/Show",
         name: "Show",
         component: Show
+    },
+
+
+    {
+        path: "/sectionForm",
+        name: "sectionForm",
+        component: add_section,
+
+    },
+
+    {
+        path: "/show_sections",
+        name: "show_sections",
+        component: show_sections
     },
 
     {
