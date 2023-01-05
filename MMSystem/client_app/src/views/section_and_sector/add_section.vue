@@ -733,6 +733,7 @@
               setTimeout(() => {
                 this.addsuccess = res.data.message;
                 this.isaddsuccess = true;
+                this.$router.push("/sectionForm");
                 
               }, 201);
             })

@@ -37,7 +37,7 @@
               <div class="relative">
                 <button
                 @click="sectorselect = !sectorselect"
-                  id="department"
+                  id="sector"
                   class="
                   text-right
                   block

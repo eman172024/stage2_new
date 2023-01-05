@@ -2214,7 +2214,7 @@
                             (consignees.length != 0 ||
                               newactionSenders.length != 0)
                         "
-                        @click="deleteMail"
+                        @click="prepare_delete_mail()"
                         type="button"
                         id="edit"
                         class="
@@ -2294,7 +2294,7 @@
                             (consignees.length != 0 ||
                               newactionSenders.length != 0)
                         "
-                        @click="deleteMail"
+                        @click="prepare_delete_mail()"
                         type="button"
                         id="edit"
                         class="
@@ -2369,7 +2369,7 @@
                     <div v-if="roles.includes('4') && mailType == '3'" class="">
                       <button
                         v-if="summary && classification"
-                        @click="deleteMail"
+                        @click="prepare_delete_mail()"
                         type="button"
                         id="edit"
                         class="
@@ -3279,6 +3279,93 @@
       </div>
     </div>
 
+
+
+
+
+
+    <div
+      v-if="alert_prepare_delete_mail"
+      class="
+        w-screen
+        h-full
+        flex
+        justify-center
+        items-center
+        absolute
+        inset-0
+        z-50
+        overflow-hidden
+        bg-black bg-opacity-70
+      "
+    >
+      <div
+        class="
+          bg-yellow-100
+          rounded-md
+          w-1/3
+          py-10
+          flex flex-col
+          justify-center
+          items-center
+        "
+      >
+        <div class="">
+          <svg
+            class="w-20 h-20 stroke-current text-red-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            ></path>
+          </svg>
+        </div>
+        <p class="text-xl font-bold mt-4">هل انت متأكد من عملية الحذف؟</p>
+        <p class="text-gray-600">لن تتمكن من استرداد البريد بعد حذفه.</p>
+
+        <div class="mt-6">
+          <button
+            @click="deleteMail"
+            class="
+              bg-red-600
+              hover:bg-red-700 hover:shadow-lg
+              duration-200
+              rounded
+              text-white
+              w-32
+              py-1
+              ml-2
+            "
+          >
+            نعم ، احذفها
+          </button>
+          <button
+            @click="alert_prepare_delete_mail = false"
+            class="
+              bg-gray-400
+              hover:bg-gray-700 hover:shadow-lg
+              duration-200
+              rounded
+              text-white
+              w-32
+              py-1
+              mr-2
+            "
+          >
+            إلغاء
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+
     <div
       v-if="screenFreeze"
       class="
@@ -3908,6 +3995,7 @@ export default {
       alert_state: false,
       alert_state_true_false: false,
       alert_prepare_delete_document: false,
+      alert_prepare_delete_mail: false,
       //*************
 
       filter_text: "",
@@ -4236,6 +4324,10 @@ export default {
 
     prepare_delete_document() {
       this.alert_prepare_delete_document = true;
+    },
+
+    prepare_delete_mail() {
+      this.alert_prepare_delete_mail = true;
     },
 
     deleteDocument() {
@@ -5498,6 +5590,7 @@ export default {
     deleteMail() {
       this.screenFreeze = true;
       this.loading = true;
+      this.alert_prepare_delete_mail = false;
 
       this.$http.mailService
         .DeleteMail(this.my_department_id, this.my_user_id, this.mailId)
