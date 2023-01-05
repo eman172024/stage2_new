@@ -630,6 +630,7 @@
 
                       <div class="relative">
                         <button
+                        @keyup.space.prevent
                           @click="sideselect = !sideselect"
                           id="side"
                           class="
@@ -648,7 +649,12 @@
                             p-2
                           "
                         >
-                          {{ sideNameSelected }}
+                          <!-- {{ sideNameSelected }} -->
+                          <input
+                          v-model="sideNameSelected"
+                          type="text"
+                          class="h-6 w-full"
+                        />
                         </button>
 
                         <div
@@ -696,7 +702,7 @@
                               selectsides(side.id, side.section_Name);
                               sideselect = !sideselect;
                             "
-                            v-for="side in sides"
+                            v-for="side in filterByTerm"
                             :key="side.id"
                           >
                             {{ side.section_Name }}
@@ -2189,6 +2195,16 @@ export default {
       id_reply_image: "",
     };
   },
+
+
+  computed: {
+    filterByTerm() {
+      return this.sides.filter((side) => {
+        return side.section_Name.toLowerCase().includes(this.sideNameSelected);
+      });
+    },
+  },
+
 
   methods: {
     GetMailsToPrint() {
