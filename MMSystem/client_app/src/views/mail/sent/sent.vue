@@ -630,7 +630,7 @@
 
                       <div class="relative">
                         <button
-                        @keyup.space.prevent
+                          @keyup.space.prevent
                           @click="sideselect = !sideselect"
                           id="side"
                           class="
@@ -651,10 +651,10 @@
                         >
                           <!-- {{ sideNameSelected }} -->
                           <input
-                          v-model="sideNameSelected"
-                          type="text"
-                          class="h-6 w-full"
-                        />
+                            v-model="sideNameSelected"
+                            type="text"
+                            class="h-6 w-full"
+                          />
                         </button>
 
                         <div
@@ -876,9 +876,9 @@
               </button>
             </div>
 
-            <div class="w-full mt-2 rounded-md divide-y-2 divide-gray-200">
+            <div class=" w-full mt-2 rounded-md divide-y-2 divide-gray-200">
               <div class="flex justify-between">
-                <div class="w-5/12 ml-2">
+                <div class="w-5/12 ml-2 relative">
                   البريد
                   <div
                     class="
@@ -901,14 +901,17 @@
                     <div class="w-3/12 text-center">الإجراءات</div>
                   </div>
 
-                  <div class="min-h-64 text-sm bg-gray-100">
+                  <div
+                    id="handleScrollForAyoubTest"
+                    class=" h-64 overflow-y-scroll text-sm bg-gray-100"
+                  >
                     <div
                       v-for="mail in inboxMails"
                       :key="mail.mail_id"
                       :class="mail.flag | mail_state_inbox"
                       class="
                         group
-                        relative
+                        
                         border-r-8
                         flex
                         items-center
@@ -1037,14 +1040,16 @@
                           hidden
                           absolute
                           z-50
-                          w-10/12
-                          bottom-16
-                          -left-0  
-                          min-h-32
-                          h-full
+                          w-full
+                          -top-24
+                          -left-0
+                          -right-0  
+                          h-40
                           bg-white
                           p-2
                           border-4
+                          border-gray-300
+                          shadow-2xl
                           rounded-md
                           overflow-y-auto
                         "
@@ -1072,14 +1077,14 @@
                       relative
                     "
                   >
-                    <pagination
+                    <!-- <pagination
                       dir="rtl"
                       v-model="page_num"
                       :per-page="page_size"
                       :records="total_of_transaction"
                       @paginate="GetSentMail"
                       class="z-10"
-                    />
+                    /> -->
                     <div class="">
                       <div
                         class="
@@ -1953,6 +1958,9 @@ export default {
     if (month < 10) month = "0" + month;
     if (day < 10) day = "0" + day;
 
+    document
+      .querySelector("#handleScrollForAyoubTest")
+      .addEventListener("scroll", this.handleScroll);
     this.date_from = date.getFullYear() + "-" + month + "-" + day;
     this.date_to = date.getFullYear() + "-" + month + "-" + day;
 
@@ -1970,7 +1978,7 @@ export default {
   },
 
   watch: {
-    mailType: function () {
+    mailType: function() {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -1985,7 +1993,7 @@ export default {
       }
       this.GetSentMail();
     },
-    date_from: function () {
+    date_from: function() {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -1994,7 +2002,7 @@ export default {
       this.page_num = 1;
       this.GetSentMail();
     },
-    date_to: function () {
+    date_to: function() {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -2003,7 +2011,7 @@ export default {
       this.page_num = 1;
       this.GetSentMail();
     },
-    mail_id: function () {
+    mail_id: function() {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -2012,26 +2020,7 @@ export default {
       this.page_num = 1;
       this.GetSentMail();
     },
-    general_incoming_number: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
-
-    summary: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
-    departmentIdSelected: function () {
+    general_incoming_number: function() {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -2041,7 +2030,16 @@ export default {
       this.GetSentMail();
     },
 
-    sideIdSelected: function () {
+    summary: function() {
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = "";
+      this.page_num = 1;
+      this.GetSentMail();
+    },
+    departmentIdSelected: function() {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -2051,16 +2049,7 @@ export default {
       this.GetSentMail();
     },
 
-    measureIdSelected: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
-    classificationIdSelected: function () {
+    sideIdSelected: function() {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -2070,7 +2059,16 @@ export default {
       this.GetSentMail();
     },
 
-    mail_caseIdSelected: function () {
+    measureIdSelected: function() {
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = "";
+      this.page_num = 1;
+      this.GetSentMail();
+    },
+    classificationIdSelected: function() {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -2080,7 +2078,7 @@ export default {
       this.GetSentMail();
     },
 
-    by_date_of_reply: function () {
+    mail_caseIdSelected: function() {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -2090,7 +2088,17 @@ export default {
       this.GetSentMail();
     },
 
-    show_senders_mail: function () {
+    by_date_of_reply: function() {
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = "";
+      this.page_num = 1;
+      this.GetSentMail();
+    },
+
+    show_senders_mail: function() {
       // this.senders = [];
       // this.show_senders_mail = "";
       // this.page_num = 1;
@@ -2170,7 +2178,7 @@ export default {
       date_from: "",
       date_to: "",
 
-      page_size: 10,
+      page_size: 11,
       page_num: 1,
 
       mailId_to_get_mail_by_id: "",
@@ -2196,7 +2204,6 @@ export default {
     };
   },
 
-
   computed: {
     filterByTerm() {
       return this.sides.filter((side) => {
@@ -2205,8 +2212,63 @@ export default {
     },
   },
 
-
   methods: {
+    handleScroll() {
+      const obj = document.querySelector("#handleScrollForAyoubTest");
+      if (obj.scrollTop === obj.scrollHeight - obj.offsetHeight) {
+        if (this.inboxMails.length < this.total_of_transaction) {
+          this.PushNewSentMail();
+        }
+      }
+    },
+
+    PushNewSentMail() {
+      this.page_num = this.page_num + 1;
+
+      this.senders = [];
+      this.show_senders_mail = "";
+
+      this.screenFreeze = true;
+      this.loading = true;
+      this.$http.mailService
+        .sent(
+          this.my_user_id,
+          this.mailType,
+          this.my_department_id,
+          this.date_from,
+          this.date_to,
+          this.by_date_of_reply,
+          this.mail_id,
+          this.general_incoming_number,
+          this.summary,
+          this.departmentIdSelected,
+          this.sideIdSelected,
+          this.measureIdSelected,
+          this.classificationIdSelected,
+          this.mail_caseIdSelected,
+          this.page_num,
+          this.page_size
+        )
+        .then((res) => {
+          for (let index = 0; index < res.data.mail.length; index++) {
+            const element = res.data.mail[index];
+            this.inboxMails.push(element);
+          }
+
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 300);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+            console.log(err);
+          }, 100);
+        });
+    },
+
     GetMailsToPrint() {
       this.$router.push({
         name: "Sent_report",
@@ -2296,16 +2358,16 @@ export default {
       var link = document.getElementById("a3");
       var mailId_to_get_mail_by_id = this.mailId_to_get_mail_by_id;
       var sends_id = this.sends_id;
-      var my_department_id_to_get_mail_by_id =
-        this.my_department_id_to_get_mail_by_id;
+      var my_department_id_to_get_mail_by_id = this
+        .my_department_id_to_get_mail_by_id;
       var keyid = this.keyid;
 
       var timeout;
-      window.addEventListener("blur", function (e) {
+      window.addEventListener("blur", function(e) {
         window.clearTimeout(timeout);
       });
 
-      timeout = window.setTimeout(function () {
+      timeout = window.setTimeout(function() {
         window.location = "http://mail/scanner_app/Setup1.msi";
       }, 1000);
 
@@ -2510,8 +2572,7 @@ export default {
       flag
     ) {
       this.departmentflag = 0;
-      this.my_department_id_to_get_mail_by_id =
-        my_department_id_to_get_mail_by_id;
+      this.my_department_id_to_get_mail_by_id = my_department_id_to_get_mail_by_id;
       this.sends_id = sends_id;
       this.departmentName = departmentName;
       this.departmentflag = flag;
