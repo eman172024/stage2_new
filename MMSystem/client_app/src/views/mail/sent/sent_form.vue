@@ -3894,13 +3894,56 @@ export default {
 
 
     //*********************websocket 18/8/2022
-    this.conn = new WebSocket("ws://localhost:58316/ws");
+   // this.conn = new WebSocket("ws://localhost:58316/ws");
     // this.conn = new WebSocket("ws://mail:82/ws");
-    /*this.conn.onopen =  (event)=> {
-   
- }*/
+     //*********************websocket 8/1/2023
+   // this.conn = new WebSocket("ws://localhost:58316/ws");
+    // this.conn = new WebSocket("ws://mail:82/ws");
+   //*********end 8/1/2023
 
-    this.conn.onmessage = (event) => {
+//************8/1/2023
+this.connect1();
+
+//  this.massage1();
+this.conn.onerror =(error) =>{
+  console.error(error.message);
+this.conn.close();
+};
+
+this.conn.onopen =(event) =>{
+console.log("open")
+};
+
+//**************onmassage
+ // this.massage_on();
+
+
+/*this.conn.onclose =(event) =>{
+
+console.log("WebSocket close");
+this.conn.close();
+
+setTimeout(()=>{
+  this.conn=null;
+  this.massage1();
+
+},1000);
+
+
+};*/
+
+setInterval(()=>{
+  if(this.conn.readyState===3){
+    this.conn=null;
+   this.massage1();
+   console.log("setinterval");
+  
+  }
+},10000)
+
+this.massage_on();
+
+   /* this.conn.onmessage = (event) => {
       let scannedImage = event.data;
       let mgs = JSON.parse(scannedImage);
       this.imagesscantest = mgs;
@@ -3921,7 +3964,7 @@ export default {
 
         if (flag1 == 1) this.UploadImagesMail();
       }
-    };
+    };*/
 
     var date = new Date();
 
@@ -4301,6 +4344,72 @@ export default {
   },
 
   methods: {
+
+//************8/1/2023
+connect1(){
+this.conn = new WebSocket("ws://localhost:58316/ws");
+console.log("connect_fun_connect1");
+},
+async massage_on(){
+
+  try
+  {
+  
+  console.log("in massage_on");
+
+  this.conn.onmessage = (event) => {
+      console.log("WebSocket onmassage fun");
+      let scannedImage = event.data;
+      let mgs = JSON.parse(scannedImage);
+      this.imagesscantest = mgs;
+      var ind = this.imagesscantest.index;
+       console.log("keyid_testttttt fun="+this.imagesscantest.keyid);
+//console.log("WebSocket onmassage11111 fun");
+      if (ind == 1) {
+        this.keyid = this.imagesscantest.keyid;
+        console.log("WebSocket ind =1 keyid fun="+this.keyid);
+      } else {
+        console.log("WebSocket onmassage else fun");
+        var flag1 = this.imagesscantest.flag1;
+        if (flag1 == 1) this.imagesToSend = [];
+        for (var i = 0; i < mgs["image"].length; i++) {
+          this.indexOfimagesToShow++;
+          this.imagesToSend.push({
+            baseAs64: mgs["image"][i],
+            index: this.indexOfimagesToShow,
+          });
+        }
+
+        if (flag1 == 1) {
+          console.log("WebSocket uploadimage function fun");
+          this.UploadImagesMail()};
+      }
+
+  
+    };
+}
+catch (error)
+{
+  console.log("catch error");
+}
+},
+
+  async  massage1(){
+
+console.log("fun1");
+
+    await this.connect1();
+    await this.massage_on();
+  
+   console.log("fun2");
+
+
+
+    },
+
+   
+    
+//**************end 8/1/2023
 
     // isExisiteGenaralInboxNumberFun() {
     //   this.screenFreeze = true;

@@ -154,30 +154,45 @@ namespace MMSystem
         public async Task resm(string m)
         
         {
-            var obj11 = JsonConvert.DeserializeObject<dynamic>(m);
 
-            var iidd = obj11.keyid.Value;
-           
-           
-                foreach (var c in _conn.Values)
+            try
+            {
+                var obj11 = JsonConvert.DeserializeObject<dynamic>(m);
+
+
+               
+                var iidd = obj11.keyid.Value;
+                //***8/1/2023
+                var tt = _conn.FirstOrDefault(y => y.Key == iidd);
+
+
+
+                //  foreach (var c in _conn.Values)
+                // {
+                // var xx = _conn.FirstOrDefault(x => x.Value == c).Key;
+
+                //   if (c.State == WebSocketState.Open)
+                if (tt.Value.State == WebSocketState.Open)
+                   
                 {
-                    var xx = _conn.FirstOrDefault(x => x.Value == c).Key;
+                    //  if (xx == iidd)
+                    //  {
+                    //  await c.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
+                    // }
+                    //*****end 8/1/2023
+                    await tt.Value.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
 
-                    if (c.State == WebSocketState.Open)
-                    {
-                        if (xx == iidd)
-                        {
-                               await c.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
-                        }
-                    }
                 }
-            
+           // }
+            }
+            catch { Console.WriteLine("error in resm"); }
         }
         //******************
         private async Task senid(WebSocket socket, string id)
         {
-         
-            string json = @"
+            try
+            {
+                string json = @"
                        {
                           ""index"":1,
                           ""l"":0,
@@ -187,20 +202,31 @@ namespace MMSystem
             var buffer = Encoding.UTF8.GetBytes(json);
             await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
 
+            }
+            catch { Console.WriteLine("error in senid"); }
         }
-       
+
         //************************************************************
         private async Task resivemassege(WebSocket socket, Action<WebSocketReceiveResult, byte[]> handelms)
         {
-          
-            var buffer = new byte[1024 * 100 * 5 * 1000];
-            while (socket.State == WebSocketState.Open)
-            {
-                var result = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-                handelms(result, buffer);
-            }
 
+            try
+            {
+                var buffer = new byte[1024 * 100 * 5 * 1000];
+                while (socket.State == WebSocketState.Open)
+                {
+                    var result = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                    handelms(result, buffer);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("\nMessage ---\n{0}", ex.Message);
+
+            }
+            //***********************************************************
         }
-        //***********************************************************
-    }
+        }
 }
