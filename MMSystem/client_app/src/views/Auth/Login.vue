@@ -457,10 +457,11 @@ export default {
 
   mounted() {
     this.GetAllDepartments();
+    
+    //**********8/1/2023 stop websocket
      //*********************websocket 13/12/2022
-     
-   
-    this.conn = new WebSocket("ws://localhost:58316/ws");
+      
+    /*this.conn = new WebSocket("ws://localhost:58316/ws");
      // this.conn = new WebSocket("ws://mail:82/ws");
    
 
@@ -478,8 +479,9 @@ export default {
         console.log("mac address="+this.macaddress.mac); 
         console.log("keyid="+this.macaddress.keyid);  
       }
-     }
+     }*/
     //*************End 13/12/2022
+    //*******end stop websocket 8/1/2023
   },
 
   watch: {
