@@ -10,7 +10,7 @@ import Pagination from 'vue-pagination-2';
 
 Vue.component('pagination', Pagination);
 
-
+//axios.defaults.baseURL='http://mail:82/';
 import Print from 'vue-print-nb'
 // Global instruction 
 Vue.use(Print);
@@ -22,7 +22,7 @@ Vue.use(Print);
 Vue.config.productionTip = false
 
 import VueHtmlToPaper from "vue-html-to-paper";
-
+//import axios from 'axios';
 const options = {
     name: 'report',
     specs: [
