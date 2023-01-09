@@ -3971,23 +3971,28 @@ console.log("WebSocket Error " + error);
 };
 
 this.conn.onclose =(event) =>{
-
+console.log("readystate"+this.conn.readyState);
 console.log("WebSocket close");
 
-
-};
-
-    this.conn.onmessage = (event) => {
+setTimeout(()=>{
+ // this.conn=null;
+  this.conn = new WebSocket("ws://localhost:58316/ws");
+ this.conn.onmessage = (event) => {
+      console.log("settime onmessage");
       let scannedImage = event.data;
       let mgs = JSON.parse(scannedImage);
       this.imagesscantest = mgs;
       var ind = this.imagesscantest.index;
-
+console.log("index="+ind);
       if (ind == 1) {
         this.keyid = this.imagesscantest.keyid;
+        console.log("settime keyid="+this.keyid);
       } else {
         var flag1 = this.imagesscantest.flag1;
-        if (flag1 == 1) this.imagesToSend = [];
+        if (flag1 == 1){
+          console.log("settime flag="+flag1);
+           this.imagesToSend = [];
+        }
         for (var i = 0; i < mgs["image"].length; i++) {
           this.indexOfimagesToShow++;
           this.imagesToSend.push({
@@ -3996,7 +4001,49 @@ console.log("WebSocket close");
           });
         }
 
-        if (flag1 == 1) this.UploadImagesMail();
+        if (flag1 == 1){
+           this.UploadImagesMail();
+           console.log("settime uploadimagemail function");
+        }
+      }
+    };
+
+},1000);
+};
+
+
+this.conn.onopen =(event) =>{
+console.log("open")
+};
+
+    this.conn.onmessage = (event) => {
+      console.log("onmessage");
+      let scannedImage = event.data;
+      let mgs = JSON.parse(scannedImage);
+      this.imagesscantest = mgs;
+      var ind = this.imagesscantest.index;
+console.log("index="+ind);
+      if (ind == 1) {
+        this.keyid = this.imagesscantest.keyid;
+        console.log("keyid="+this.keyid);
+      } else {
+        var flag1 = this.imagesscantest.flag1;
+        if (flag1 == 1){
+          console.log("flag="+flag1);
+           this.imagesToSend = [];
+        }
+        for (var i = 0; i < mgs["image"].length; i++) {
+          this.indexOfimagesToShow++;
+          this.imagesToSend.push({
+            baseAs64: mgs["image"][i],
+            index: this.indexOfimagesToShow,
+          });
+        }
+
+        if (flag1 == 1){
+           this.UploadImagesMail();
+           console.log("uploadimagemail function");
+        }
       }
     };
 
@@ -4074,7 +4121,7 @@ console.log("WebSocket close");
       alert_prepare_delete_document: false,
       alert_prepare_delete_mail: false,
       //*************
-
+      rs:1000, 
       filter_text: "",
       mail_flag: "",
       keyid: "",
@@ -4256,6 +4303,8 @@ console.log("WebSocket close");
   },
 
   watch: {
+
+
     // filter_text: function() {
 
     //   this.action_required_by_the_entity=this.filter_text;

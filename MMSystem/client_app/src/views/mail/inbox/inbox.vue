@@ -1854,16 +1854,29 @@ export default {
     /*this.conn.onopen =  (event)=> {
    
  }*/
+this.conn.onerror =(error) =>{
+console.log("inbox WebSocket Error " + error);
+};
 
+this.conn.onclose =(event) =>{
+console.log("inbox.vue readystate"+this.conn.readyState);
+console.log(" inbox.vue WebSocket close");
+
+
+};
     this.conn.onmessage = (event) => {
+      console.log("inbox onmessage");
       let scannedImage = event.data;
       let mgs = JSON.parse(scannedImage);
       this.imagesscantest = mgs;
 
       var ind = this.imagesscantest.index;
+       console.log("inbox index="+ind);
       if (ind == 1) {
         this.keyid = this.imagesscantest.keyid;
+        console.log("inbox keyid="+this.keyid);
       } else {
+         console.log("inbox.vue else");
         //this.imagesToSend=[]
         for (var i = 0; i < mgs["image"].length; i++) {
           this.indexOfimagesToShow++;

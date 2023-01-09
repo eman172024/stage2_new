@@ -1928,18 +1928,31 @@ export default {
    
  }*/
 
+this.conn.onerror =(error) =>{
+console.log("WebSocket Error send.vue " + error);
+};
+
+this.conn.onclose =(event) =>{
+console.log("readystate send.vue"+this.conn.readyState);
+console.log("WebSocket close  send.vue");
+
+
+};
+
     this.conn.onmessage = (event) => {
+        console.log("onmessage send.vue");
       let scannedImage = event.data;
 
       let mgs = JSON.parse(scannedImage);
       this.imagesscantest = mgs;
-
+console.log(" send.vue index="+ind);
       var ind = this.imagesscantest.index;
       if (ind == 1) {
         this.keyid = this.imagesscantest.keyid;
+         console.log("send.vue keyid="+this.keyid);
       } else {
         //5/9/2022 this.imagesToSend=[]
-
+ console.log("send.vue else");
         for (var i = 0; i < mgs["image"].length; i++) {
           this.indexOfimagesToShow++;
           this.imagesToSend.push({
