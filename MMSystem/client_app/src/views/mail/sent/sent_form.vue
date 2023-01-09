@@ -3896,7 +3896,7 @@ export default {
     //*********************websocket 18/8/2022
     this.conn = new WebSocket("ws://localhost:58316/ws");
     // this.conn = new WebSocket("ws://mail:82/ws");
-     //*********************websocket 8/1/2023
+    // //*********************websocket 8/1/2023
   
 
    // this.conn = new WebSocket("ws://localhost:58316/ws");
