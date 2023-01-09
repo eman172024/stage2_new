@@ -468,7 +468,7 @@
                   <label
                     class="block text-base font-semibold text-gray-800 w-24"
                   >
-                    وارد إلي
+                    وارد إلى
                   </label>
 
                   <div

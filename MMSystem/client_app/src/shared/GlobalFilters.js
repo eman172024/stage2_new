@@ -40,6 +40,7 @@ Vue.filter("ward_to_filter", function(status) {
     let statusName = "";
     if (status === 1) statusName = "رئيس الهيئة";
     else if (status === 2) statusName = "وكيل الهيئة";
+    else if (status === 3) statusName = "مدير  إدارة أو مكتب";
     return statusName;
 });
 

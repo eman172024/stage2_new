@@ -1789,6 +1789,22 @@
                           وكيل الهيئة
                         </label>
                       </div>
+
+
+                          <div class="flex items-center w-48">
+                        <input
+                          v-model="ward_to"
+                          id="proxy"
+                          type="radio"
+                          name="ward_to"
+                          class="h-4 w-4"
+                          value="3"
+                        />
+                        <label for="proxy" class="mr-3 block text-gray-800">
+                          مدير إدارة أو مكتب
+                        </label>
+                      </div>
+
                     </div>
                   </fieldset>
 
