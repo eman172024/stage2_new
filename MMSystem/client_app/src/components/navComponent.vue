@@ -30,7 +30,7 @@
         class="
           bg-yellow-100
           rounded-md
-          w-2/4
+          w-full
           py-10
           flex 
           justify-center

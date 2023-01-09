@@ -28,26 +28,93 @@
           <main class="flex-1 relative focus:outline-none py-6">
             <div class="grid grid-cols-7 gap-6">
               <section class="col-span-5 flex justify-between items-stretch">
-                <div class="w-3/12 ml-3 ">
+                <div class="w-2/12 ml-3 ">
                   <h3 class="text-xl font-semibold text-gray-900">
                     معلومات البريد
                   </h3>
                 </div>
 
+                
+
+                <fieldset class="w-6/12 mr-3 mt-2">
+                  <div class="flex items-center">
+                    <legend class="text-sm font-semibold text-gray-800 ml-4">
+                      نوع البريد
+                    </legend>
+
+                    <div class="flex justify-between items-center">
+                      <div v-if="roles.includes('c')" class="flex items-center">
+                        <input
+                          v-model="mailType"
+                          id="internal"
+                          type="radio"
+                          name="type"
+                          class="h-4 w-4"
+                          value="1"
+                        />
+                        <label for="internal" class="mr-2 block text-gray-800">
+                          داخلي
+                        </label>
+                      </div>
+
+                      <div
+                        v-if="roles.includes('e')"
+                        class="flex items-center mx-4"
+                      >
+                        <input
+                          v-model="mailType"
+                          id="internal_export"
+                          type="radio"
+                          name="type"
+                          class="h-4 w-4"
+                          value="2"
+                        />
+                        <label
+                          for="internal_export"
+                          class="mr-2 block text-gray-800"
+                        >
+                          صادر خارجي
+                        </label>
+                      </div>
+
+                      <div v-if="roles.includes('d')" class="flex items-center">
+                        <input
+                          v-model="mailType"
+                          id="external_incoming"
+                          type="radio"
+                          name="type"
+                          class="h-4 w-4"
+                          value="3"
+                        />
+                        <label
+                          for="external_incoming"
+                          class="mr-2 block text-gray-800"
+                        >
+                          وارد خارجي
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+
+
+
                 <div
                   v-if="my_department_id == 21 || my_department_id == 22"
-                  class="grid grid-cols-7 gap-6  "
+                  class="grid grid-cols-7 gap-3 border-black border-2 rounded-xl  w-4/12 mb-2 pr-3 py-2 "
                 >
+            
                   <section
-                    class="col-span-5 flex justify-between items-stretch"
+                    class="col-span-5 flex justify-between items-center"
                   >
-                    <div class="w-6/12 ml-3"></div>
-
-                    <fieldset class="  w-6/12 mr-3 ">
+                   
+                  <div
+                v-if="mailType == ''"
+                class="bg-gray-200  bg-opacity-80 rounded-lg absolute z-50 w-full h-full"
+              ></div>
+                    <fieldset class="    ">
                       <div class="flex items-center">
-                        <legend
-                          class="block text-sm font-semibold text-gray-800 w-24"
-                        ></legend>
+               
                         <div
                           v-if="my_department_id == 21"
                           class="w-full flex items-center"
@@ -118,66 +185,6 @@
                   </section>
                 </div>
 
-                <fieldset class="w-8/12 mr-3">
-                  <div class="flex items-center">
-                    <legend class="text-sm font-semibold text-gray-800 ml-6">
-                      نوع البريد
-                    </legend>
-
-                    <div class="flex justify-between items-center">
-                      <div v-if="roles.includes('c')" class="flex items-center">
-                        <input
-                          v-model="mailType"
-                          id="internal"
-                          type="radio"
-                          name="type"
-                          class="h-4 w-4"
-                          value="1"
-                        />
-                        <label for="internal" class="mr-2 block text-gray-800">
-                          داخلي
-                        </label>
-                      </div>
-
-                      <div
-                        v-if="roles.includes('e')"
-                        class="flex items-center mx-4"
-                      >
-                        <input
-                          v-model="mailType"
-                          id="internal_export"
-                          type="radio"
-                          name="type"
-                          class="h-4 w-4"
-                          value="2"
-                        />
-                        <label
-                          for="internal_export"
-                          class="mr-2 block text-gray-800"
-                        >
-                          صادر خارجي
-                        </label>
-                      </div>
-
-                      <div v-if="roles.includes('d')" class="flex items-center">
-                        <input
-                          v-model="mailType"
-                          id="external_incoming"
-                          type="radio"
-                          name="type"
-                          class="h-4 w-4"
-                          value="3"
-                        />
-                        <label
-                          for="external_incoming"
-                          class="mr-2 block text-gray-800"
-                        >
-                          وارد خارجي
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </fieldset>
               </section>
 
               <section class="col-span-2 ">
