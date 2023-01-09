@@ -3894,17 +3894,19 @@ export default {
 
 
     //*********************websocket 18/8/2022
-   // this.conn = new WebSocket("ws://localhost:58316/ws");
+    this.conn = new WebSocket("ws://localhost:58316/ws");
     // this.conn = new WebSocket("ws://mail:82/ws");
      //*********************websocket 8/1/2023
+  
+
    // this.conn = new WebSocket("ws://localhost:58316/ws");
     // this.conn = new WebSocket("ws://mail:82/ws");
-   //*********end 8/1/2023
+   
 
 //************8/1/2023
-this.connect1();
+/*this.connect1();
+this.massage_on();
 
-//  this.massage1();
 this.conn.onerror =(error) =>{
   console.error(error.message);
 this.conn.close();
@@ -3915,22 +3917,22 @@ console.log("open")
 };
 
 //**************onmassage
- // this.massage_on();
 
 
-/*this.conn.onclose =(event) =>{
 
-console.log("WebSocket close");
-this.conn.close();
+//this.conn.onclose =(event) =>{
 
-setTimeout(()=>{
-  this.conn=null;
-  this.massage1();
+//console.log("WebSocket close");
+//this.conn.close();
 
-},1000);
+//setTimeout(()=>{
+  //this.conn=null;
+  //this.massage1();
+
+//},1000);
 
 
-};*/
+//};
 
 setInterval(()=>{
   if(this.conn.readyState===3){
@@ -3939,11 +3941,20 @@ setInterval(()=>{
    console.log("setinterval");
   
   }
-},10000)
+},10000)*/
 
-this.massage_on();
+this.conn.onerror =(error) =>{
+console.log("WebSocket Error " + error);
+};
 
-   /* this.conn.onmessage = (event) => {
+this.conn.onclose =(event) =>{
+
+console.log("WebSocket close");
+
+
+};
+
+    this.conn.onmessage = (event) => {
       let scannedImage = event.data;
       let mgs = JSON.parse(scannedImage);
       this.imagesscantest = mgs;
@@ -3964,7 +3975,7 @@ this.massage_on();
 
         if (flag1 == 1) this.UploadImagesMail();
       }
-    };*/
+    };
 
     var date = new Date();
 
@@ -4346,7 +4357,7 @@ this.massage_on();
   methods: {
 
 //************8/1/2023
-connect1(){
+/*connect1(){
 this.conn = new WebSocket("ws://localhost:58316/ws");
 console.log("connect_fun_connect1");
 },
@@ -4405,7 +4416,7 @@ console.log("fun1");
 
 
 
-    },
+    },*/
 
    
     
