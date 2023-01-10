@@ -38,7 +38,7 @@
               <div class="relative">
                 <button
                   @click="departmentselect = !departmentselect"
-                  @keyup.space.prevent
+                 
                   id="department"
                   class="
                     text-right
@@ -58,16 +58,7 @@
                   "
                 >
 
-                <input
-                        
-                          v-model="departmentNameSelected"
-                          id="ff0"
-                          name="password"
-                          type="text"
-                          class="h-6 w-full"
-                          
-                        />
-                  <!-- {{ departmentNameSelected }} -->
+                  {{ departmentNameSelected }}
                 </button>
 
                 <div
@@ -96,7 +87,7 @@
                       );
                       departmentselect = !departmentselect;
                     "
-                    v-for="department in filterByTerm1"
+                    v-for="department in departments"
                     :key="department.id"
                   >
                 <!--  <a  class="w-full block " :id="department.id" @click="test(department.id)" > {{ department.departmentName }}</a>-->
@@ -500,19 +491,7 @@ export default {
       this.GetUsersOfDepartment();
     },
   },
-
-  computed: {
-
-filterByTerm1() {
-    return this.departments.filter((department) => {
-      return department.departmentName.includes(this.departmentNameSelected);
-    });
-  },
-
-
-},
-
-
+  
   data() {
     return {
       //******13/12/2022
