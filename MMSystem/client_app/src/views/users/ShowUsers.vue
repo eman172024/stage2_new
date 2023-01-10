@@ -36,6 +36,7 @@
             <div class="relative">
               <button
                 @click="departmentselect = !departmentselect"
+                @keyup.space.prevent
                 id="department"
                 class="
                 text-right
@@ -53,7 +54,12 @@
                 p-2
               "
               >
-                {{ departmentNameSelected }}
+              <input
+                          v-model="departmentNameSelected"
+                          type="text"
+                          class="h-6 w-full"
+                        />
+                <!-- {{ departmentNameSelected }} -->
               </button>
 
               <div
@@ -79,7 +85,7 @@
                     selectdepartment(department.id, department.departmentName);
                     departmentselect = !departmentselect;
                   "
-                  v-for="department in departments"
+                  v-for="department in filterByTerm1"
                   :key="department.id"
                 >
                   {{ department.departmentName }}
@@ -291,6 +297,15 @@ export default {
     };
   },
 
+  computed: {
+
+  filterByTerm1() {
+      return this.departments.filter((department) => {
+        return department.departmentName.includes(this.departmentNameSelected);
+      });
+    },
+
+  },
   methods: {
     GetUsersOfDepartment() {
       // console.log(this.departmentIdSelected)

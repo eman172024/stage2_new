@@ -24,7 +24,7 @@
             منظومة البريد الداخلي
           </h2>
         </div>
-        <div v-on:keyup.enter="submit" class="mt-8 space-y-6">
+        <div v-on:keyup.enter="submit" class="mt-8 space-y-6 ">
           <input type="hidden" name="remember" value="true" />
           <div class="rounded-md shadow-sm">
             <div class="">
@@ -38,6 +38,7 @@
               <div class="relative">
                 <button
                   @click="departmentselect = !departmentselect"
+                  @keyup.space.prevent
                   id="department"
                   class="
                     text-right
@@ -56,7 +57,17 @@
                     p-2
                   "
                 >
-                  {{ departmentNameSelected }}
+
+                <input
+                        
+                          v-model="departmentNameSelected"
+                          id="ff0"
+                          name="password"
+                          type="text"
+                          class="h-6 w-full"
+                          
+                        />
+                  <!-- {{ departmentNameSelected }} -->
                 </button>
 
                 <div
@@ -85,7 +96,7 @@
                       );
                       departmentselect = !departmentselect;
                     "
-                    v-for="department in departments"
+                    v-for="department in filterByTerm1"
                     :key="department.id"
                   >
                 <!--  <a  class="w-full block " :id="department.id" @click="test(department.id)" > {{ department.departmentName }}</a>-->
@@ -490,6 +501,18 @@ export default {
     },
   },
 
+  computed: {
+
+filterByTerm1() {
+    return this.departments.filter((department) => {
+      return department.departmentName.includes(this.departmentNameSelected);
+    });
+  },
+
+
+},
+
+
   data() {
     return {
       //******13/12/2022
@@ -505,6 +528,9 @@ export default {
 
       user: {},
 
+
+      clear_text:0,
+
       departments: [],
       departmentselect: false,
       departmentNameSelected: "",
@@ -517,6 +543,15 @@ export default {
     };
   },
   methods: {
+
+    clear_textf(){
+
+      if(this.clear_text==0){
+
+        this.departmentNameSelected="";
+        this.clear_text++
+      }
+    },
 
 //********13/12/2022
     //*****************29/3/2022

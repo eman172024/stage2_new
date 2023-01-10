@@ -15,7 +15,9 @@ import Print from 'vue-print-nb'
 // Global instruction 
 Vue.use(Print);
 
+import DisableAutocomplete from 'vue-disable-autocomplete';
 
+Vue.use(DisableAutocomplete);
 //import scanner from 'scanner.js'
 //Vue.use(scanner)
 

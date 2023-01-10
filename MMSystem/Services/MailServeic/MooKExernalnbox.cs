@@ -201,6 +201,10 @@ namespace MMSystem.Services.MailServeic
                                 to = "وكيل الهيئة";
                                 break;
 
+                            case 3:
+                                to = "مدير إدارة أو مكتب";
+                                break;
+
                         }
                         switch (ex.to)
                         {
@@ -209,6 +213,10 @@ namespace MMSystem.Services.MailServeic
                                 break;
                             case 2:
                                 to2 = "وكيل الهيئة";
+                                break;
+
+                            case 3:
+                                to2 = "مدير إدارة أو مكتب";
                                 break;
 
                         }

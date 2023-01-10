@@ -249,6 +249,7 @@
                       <div class="relative">
                         <button
                           @click="departmentselect = !departmentselect"
+                          @keyup.space.prevent
                           id="department"
                           class="
                             text-right
@@ -266,7 +267,13 @@
                             p-2
                           "
                         >
-                          {{ departmentNameSelected }}
+                        <input
+                          v-model="departmentNameSelected"
+                          type="text"
+                          class="h-6 w-full"
+                        />
+
+                          <!-- {{ departmentNameSelected }} -->
                         </button>
 
                         <div
@@ -317,7 +324,7 @@
                               );
                               departmentselect = !departmentselect;
                             "
-                            v-for="department in departments"
+                            v-for="department in filterByTerm"
                             :key="department.id"
                           >
                             {{ department.departmentName }}
@@ -1901,6 +1908,15 @@ export default {
     this.GetAllSides();
     this.GetAllMeasures();
   },
+
+  computed: {
+    filterByTerm() {
+      return this.departments.filter((department) => {
+        return department.departmentName.includes(this.departmentNameSelected);
+      });
+    },
+  },
+
 
   watch: {
     mailType: function () {
