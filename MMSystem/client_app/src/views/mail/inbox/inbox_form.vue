@@ -1492,21 +1492,36 @@ export default {
     //*********************websocket
     this.conn = new WebSocket("ws://localhost:58316/ws");
     //  this.conn = new WebSocket("ws://mail:82/ws");
-    console.log("websocket connect ok");
+    console.log("inbox_form websocket connect ok");
 
     /* this.conn.onopen =  (event)=> {
    
      console.log("id="+ event.data);
  }*/
 
+this.conn.onerror =(error) =>{
+console.log("inbox_form.vue  WebSocket Error " + error);
+};
+
+this.conn.onclose =(event) =>{
+console.log("inbox_form.vue readystate"+this.conn.readyState);
+console.log(" inbox_form.vue WebSocket close");
+
+
+};
+
     this.conn.onmessage = (event) => {
+       console.log("inbox_form onmessage");
       let scannedImage = event.data;
       let mgs = JSON.parse(scannedImage);
       this.imagesscantest = mgs;
       var ind = this.imagesscantest.index;
+      console.log("inbox_form index="+ind);
       if (ind == 1) {
         this.keyid = this.imagesscantest.keyid;
+        console.log("inbox keyid="+this.keyid);
       } else {
+         console.log("inbox_form.vue else");
         //this.imagesToSend=[]
         for (var i = 0; i < mgs["image"].length; i++) {
           this.indexOfimagesToShow++;
