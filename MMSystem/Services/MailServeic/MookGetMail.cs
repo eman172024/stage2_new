@@ -31,7 +31,7 @@ namespace MMSystem.Services.MailServeic
                 //   Mail mail = await _dbCon.Mails.FindAsync(mail_id);
                 model.mail =await Getdto(mail_id, type);
                 External_Mail external_Mail = await _dbCon.External_Mails.OrderBy(x => x.ID).FirstOrDefaultAsync(x => x.MailID == mail_id);
-           model.side= await _dbCon.Extrmal_Sections.FindAsync(external_Mail.Sectionid);
+                model.side= await _dbCon.Extrmal_Sections.FindAsync(external_Mail.Sectionid);
                 model.Sector = await _dbCon.Extrmal_Sections.FirstOrDefaultAsync(x => x.id == model.side.perent);
               
                 model.External = _mapper.Map<External_Mail, ExternalDto>(external_Mail);
