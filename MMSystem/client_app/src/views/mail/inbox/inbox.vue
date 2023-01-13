@@ -735,6 +735,70 @@
                       />
                     </div>
 
+
+                    <div class="sm:col-span-2 mt-2">
+                      <label
+                        class="block text-base font-semibold text-gray-800"
+                      >
+                        السنة
+                      </label>
+
+                      <select id="small" class="block p-2  w-28  text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" v-model="year_filter" >
+                              
+                              <option value="0" selected>اختر السنة</option>
+                              <option value="0" >إلغاء</option>
+                              <option value="2023">2023</option>
+                              <!-- <option value="2024">2024</option>
+                              <option value="2025">2025</option>
+                              <option value="2026">2026</option>
+                              <option value="2027">2027</option>
+                              <option value="2028">2028</option>
+                              <option value="2029">2029</option>
+                              <option value="2030">2030</option>
+                              <option value="2031">2031</option>
+                              <option value="2032">2032</option>
+                              <option value="2033">2033</option>
+                              <option value="2034">2034</option>
+                              <option value="2035">2035</option>
+                              <option value="2036">2036</option>
+                              <option value="2037">2037</option>
+                              <option value="2038">2038</option>
+                              <option value="2039">2039</option>
+                              <option value="2040">2040</option>
+                              <option value="2041">2041</option>
+                              <option value="2042">2042</option>
+                              <option value="2043">2043</option>
+                              <option value="2044">2044</option>
+                              <option value="2045">2045</option>
+                              <option value="2046">2046</option>
+                              <option value="2047">2047</option>
+                              <option value="2048">2048</option>
+                              <option value="2049">2049</option>
+                              <option value="2050">2050</option>
+                              <option value="2051">2051</option>
+                              <option value="2052">2052</option>
+                              <option value="2053">2053</option>
+                              <option value="2054">2054</option>
+                              <option value="2055">2055</option>
+                              <option value="2056">2056</option>
+                              <option value="2057">2057</option>
+                              <option value="2058">2058</option>
+                              <option value="2059">2059</option>
+                              <option value="2060">2060</option>
+                              <option value="2061">2061</option>
+                              <option value="2062">2062</option>
+                              <option value="2063">2063</option>
+                              <option value="2064">2064</option>
+                              <option value="2065">2065</option>
+                              <option value="2066">2066</option>
+                              <option value="2067">2067</option>
+                              <option value="2068">2068</option>
+                              <option value="2069">2069</option>
+                              <option value="2070">2070</option> -->
+                            </select>
+                    </div>
+
+
                     <!-- <div class="sm:col-span-2">
                       <label
                         for="by_date_of_reply"
@@ -1932,6 +1996,12 @@ console.log(" inbox.vue WebSocket close");
 
 
   watch: {
+
+
+    year_filter: function() {
+      this.GetInboxs();
+    },
+
     mailType: function () {
       this.page_num = 1;
       this.GetInboxs();
@@ -1984,7 +2054,7 @@ console.log(" inbox.vue WebSocket close");
     return {
       roles: [],
       from_reply_or_general: "",
-
+      year_filter:0,
       by_date_of_reply: false,
       general_incoming_number: "",
       indexOfimagesToShow: 0,
@@ -2480,6 +2550,15 @@ console.log(" inbox.vue WebSocket close");
     },
 
     GetInboxs() {
+
+
+      var date_from2=this.date_from;
+      var date_to2=this.date_to;
+
+      if(this.year_filter!=0){
+        date_from2= this.year_filter + "-01-01"
+        date_to2= this.year_filter + "-12-31"
+      }
       this.screenFreeze = true;
       this.loading = true;
       this.inboxMails = [];
@@ -2488,8 +2567,8 @@ console.log(" inbox.vue WebSocket close");
           this.my_user_id,
           this.mailType,
           this.my_department_id,
-          this.date_from,
-          this.date_to,
+          date_from2,
+          date_to2,
           this.by_date_of_reply,
           this.mail_id,
           this.general_incoming_number,

@@ -3405,7 +3405,7 @@ namespace MMSystem.Services.ReceivedMail
                 { 
 
                 var c = await (from mail in dbcon.Mails.Where(x => (
-                                           x.Mail_Summary.Contains(summary) )
+                                           x.Mail_Summary.Contains(summary))&&(x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2)
                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
                                            (x.clasification == Classfication || clasf_filter == true)
                                           
@@ -3413,7 +3413,8 @@ namespace MMSystem.Services.ReceivedMail
 
                                join ex in dbcon.Sends.Where(x => (x.flag >1) && (mangmentrole == true || (mangmentrole == false && x.to == mangment))
  &&
-                                 (x.update_At.Date >= d1 && x.update_At.Date <= d2) &&
+                                
+
                                ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                (x.flag == mail_state || State_filter == true) && x.State==true)
                                on mail.MailID equals ex.MailID
@@ -3444,14 +3445,14 @@ namespace MMSystem.Services.ReceivedMail
 
                                }).OrderByDescending(v => v.date2).ToListAsync();
                 pag.mail = await (from mail in dbcon.Mails.Where(x => (
-              x.Mail_Summary.Contains(summary) )
+              x.Mail_Summary.Contains(summary) ) && (x.Date_Of_Mail.Date >= d1 && x.Date_Of_Mail.Date <= d2)
               && (mailnum_bool == 1 || x.Mail_Number == mailnum) && x.Mail_Type == mail_type &&
               (x.clasification == Classfication || clasf_filter == true)
               
               &&(x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true) && x.state == true).OrderByDescending(x => x.MailID)
 
                                   join ex in dbcon.Sends.Where(x => (x.flag > 1) && (mangmentrole == true || (mangmentrole == false && x.to == mangment))&&
-                                    (x.update_At.Date >= d1 && x.update_At.Date <= d2) &&
+                                    
                                   ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                   (x.flag == mail_state || State_filter == true) && x.State == true)
                                   on mail.MailID equals ex.MailID
