@@ -3925,7 +3925,7 @@ export default {
 
 
     //*********************websocket 18/8/2022
-    this.conn = new WebSocket("ws://localhost:58316/ws");
+   // this.conn = new WebSocket("ws://localhost:58316/ws");
     // this.conn = new WebSocket("ws://mail:82/ws");
     // //*********************websocket 8/1/2023
   
@@ -3974,86 +3974,86 @@ setInterval(()=>{
   }
 },10000)*/
 
-this.conn.onerror =(error) =>{
-console.log("WebSocket Error " + error);
-};
+// this.conn.onerror =(error) =>{
+// console.log("WebSocket Error " + error);
+// };
 
-this.conn.onclose =(event) =>{
-console.log("readystate"+this.conn.readyState);
-console.log("WebSocket close");
+// this.conn.onclose =(event) =>{
+// console.log("readystate"+this.conn.readyState);
+// console.log("WebSocket close");
 
-setTimeout(()=>{
- // this.conn=null;
-  this.conn = new WebSocket("ws://localhost:58316/ws");
- this.conn.onmessage = (event) => {
-      console.log("settime onmessage");
-      let scannedImage = event.data;
-      let mgs = JSON.parse(scannedImage);
-      this.imagesscantest = mgs;
-      var ind = this.imagesscantest.index;
-console.log("index="+ind);
-      if (ind == 1) {
-        this.keyid = this.imagesscantest.keyid;
-        console.log("settime keyid="+this.keyid);
-      } else {
-        var flag1 = this.imagesscantest.flag1;
-        if (flag1 == 1){
-          console.log("settime flag="+flag1);
-           this.imagesToSend = [];
-        }
-        for (var i = 0; i < mgs["image"].length; i++) {
-          this.indexOfimagesToShow++;
-          this.imagesToSend.push({
-            baseAs64: mgs["image"][i],
-            index: this.indexOfimagesToShow,
-          });
-        }
+// setTimeout(()=>{
+//   this.conn=null;
+//   this.conn = new WebSocket("ws://localhost:58316/ws");
+//  this.conn.onmessage = (event) => {
+//       console.log("settime onmessage");
+//       let scannedImage = event.data;
+//       let mgs = JSON.parse(scannedImage);
+//       this.imagesscantest = mgs;
+//       var ind = this.imagesscantest.index;
+// console.log("index="+ind);
+//       if (ind == 1) {
+//         this.keyid = this.imagesscantest.keyid;
+//         console.log("settime keyid="+this.keyid);
+//       } else {
+//         var flag1 = this.imagesscantest.flag1;
+//         if (flag1 == 1){
+//           console.log("settime flag="+flag1);
+//            this.imagesToSend = [];
+//         }
+//         for (var i = 0; i < mgs["image"].length; i++) {
+//           this.indexOfimagesToShow++;
+//           this.imagesToSend.push({
+//             baseAs64: mgs["image"][i],
+//             index: this.indexOfimagesToShow,
+//           });
+//         }
 
-        if (flag1 == 1){
-           this.UploadImagesMail();
-           console.log("settime uploadimagemail function");
-        }
-      }
-    };
+//         if (flag1 == 1){
+//            this.UploadImagesMail();
+//            console.log("settime uploadimagemail function");
+//         }
+//       }
+//     };
 
-},1000);
-};
+// },1000);
+// };
 
 
-this.conn.onopen =(event) =>{
-console.log("open")
-};
+// this.conn.onopen =(event) =>{
+// console.log("open")
+// };
 
-    this.conn.onmessage = (event) => {
-      console.log("onmessage");
-      let scannedImage = event.data;
-      let mgs = JSON.parse(scannedImage);
-      this.imagesscantest = mgs;
-      var ind = this.imagesscantest.index;
-console.log("index="+ind);
-      if (ind == 1) {
-        this.keyid = this.imagesscantest.keyid;
-        console.log("keyid="+this.keyid);
-      } else {
-        var flag1 = this.imagesscantest.flag1;
-        if (flag1 == 1){
-          console.log("flag="+flag1);
-           this.imagesToSend = [];
-        }
-        for (var i = 0; i < mgs["image"].length; i++) {
-          this.indexOfimagesToShow++;
-          this.imagesToSend.push({
-            baseAs64: mgs["image"][i],
-            index: this.indexOfimagesToShow,
-          });
-        }
+//     this.conn.onmessage = (event) => {
+//       console.log("onmessage");
+//       let scannedImage = event.data;
+//       let mgs = JSON.parse(scannedImage);
+//       this.imagesscantest = mgs;
+//       var ind = this.imagesscantest.index;
+// console.log("index="+ind);
+//       if (ind == 1) {
+//         this.keyid = this.imagesscantest.keyid;
+//         console.log("keyid="+this.keyid);
+//       } else {
+//         var flag1 = this.imagesscantest.flag1;
+//         if (flag1 == 1){
+//           console.log("flag="+flag1);
+//            this.imagesToSend = [];
+//         }
+//         for (var i = 0; i < mgs["image"].length; i++) {
+//           this.indexOfimagesToShow++;
+//           this.imagesToSend.push({
+//             baseAs64: mgs["image"][i],
+//             index: this.indexOfimagesToShow,
+//           });
+//         }
 
-        if (flag1 == 1){
-           this.UploadImagesMail();
-           console.log("uploadimagemail function");
-        }
-      }
-    };
+//         if (flag1 == 1){
+//            this.UploadImagesMail();
+//            console.log("uploadimagemail function");
+//         }
+//       }
+//     };
 
     var date = new Date();
 
@@ -4672,25 +4672,102 @@ console.log("fun1");
     },
 
     //*****************29/3/2022
-    func() {
-      var link = document.getElementById("a1");
+    // func() {
+    //   var link = document.getElementById("a1");
 
-      var replyByDepartmenId = this.replyByDepartmenId;
-      var sends_id = this.sends_id;
-      var mailid = this.mailId;
-      var keyid = this.keyid;
+    //   var replyByDepartmenId = this.replyByDepartmenId;
+    //   var sends_id = this.sends_id;
+    //   var mailid = this.mailId;
+    //   var keyid = this.keyid;
 
-      var timeout;
-      window.addEventListener("blur", function(e) {
-        window.clearTimeout(timeout);
-      });
+    //   var timeout;
+    //   window.addEventListener("blur", function(e) {
+    //     window.clearTimeout(timeout);
+    //   });
 
-      timeout = window.setTimeout(function() {
-        window.location = "http://mail/scanner_app/Setup1.msi";
-      }, 1000);
+    //   timeout = window.setTimeout(function() {
+    //     window.location = "http://mail/scanner_app/Setup1.msi";
+    //   }, 1000);
 
-      link.href = "SScaner:flag=1" + "mId=" + mailid + "keyid=" + keyid;
-    },
+    //   link.href = "SScaner:flag=1" + "mId=" + mailid + "keyid=" + keyid;
+    // },
+
+
+     func() {
+      
+      //this.conn = new WebSocket("ws://localhost:58316/ws");
+          // console.log("readystate="+this.conn.readyState);
+           if(this.conn==null){
+            // this.conn.readystate=1;
+     //console.log("readystate11111111111="+this.conn.readyState);
+           
+          //var data= '{"keyid":'+this.keyid+'}';
+          // var data= '{"keyid":"989764312fgr"}';
+            // var data=this.keyid;
+              //  this.conn.send(data);
+                //************10/1/2023
+            this.conn = new WebSocket("ws://localhost:58316/ws");
+            this.conn.onmessage = (event) => {
+           console.log("onmessage");
+           let scannedImage = event.data;
+           let mgs = JSON.parse(scannedImage);
+           this.imagesscantest = mgs;
+           var ind = this.imagesscantest.index;
+     console.log("index="+ind);
+           if (ind == 1) {
+             this.keyid = this.imagesscantest.keyid;
+             console.log("keyid="+this.keyid);
+           } else {
+             var flag1 = this.imagesscantest.flag1;
+             if (flag1 == 1){
+               console.log("flag="+flag1);
+                this.imagesToSend = [];
+             }
+             for (var i = 0; i < mgs["image"].length; i++) {
+               this.indexOfimagesToShow++;
+               this.imagesToSend.push({
+                 baseAs64: mgs["image"][i],
+                 index: this.indexOfimagesToShow,
+               });
+             }
+     
+             if (flag1 == 1){
+                this.UploadImagesMail();
+                console.log("uploadimagemail function");
+             }
+           }
+         };
+            
+           }
+           else if(this.conn.readyState===3||this.conn.readyState===2){
+            
+                  this.conn=null;
+                  this.func();
+           }
+     
+           else {
+        //   var link = document.getElementById("a1");
+     
+          //  var replyByDepartmenId = this.replyByDepartmenId;
+          //  var sends_id = this.sends_id;
+           var mailid = this.mailId;
+           var keyid = this.keyid;
+     
+           var timeout;
+           window.addEventListener("blur", function(e) {
+             window.clearTimeout(timeout);
+           });
+     
+           timeout = window.setTimeout(function() {
+             window.location = "http://mail/scanner_app/Setup1.msi";
+           }, 1000);
+           
+      
+          document.location="SScaner:flag=1" + "mId=" + mailid + "keyid=" + keyid;
+           }
+     },
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
 
     reply1() {
       var link = document.getElementById("a2");
