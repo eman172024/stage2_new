@@ -4054,7 +4054,7 @@ setInterval(()=>{
 //         }
 //       }
 //     };
-
+//var   conn= null;
     var date = new Date();
 
     var month = date.getMonth() + 1;
@@ -4133,7 +4133,7 @@ setInterval(()=>{
       filter_text: "",
       mail_flag: "",
       keyid: "",
-      conn: null,
+     conn: null,
 
       imagesscantest: [],
       indexOfimagesToShow1: 0,
@@ -4699,7 +4699,7 @@ console.log("fun1");
           // console.log("readystate="+this.conn.readyState);
            if(this.conn==null){
             // this.conn.readystate=1;
-     //console.log("readystate11111111111="+this.conn.readyState);
+     console.log("conn=null");
            
           //var data= '{"keyid":'+this.keyid+'}';
           // var data= '{"keyid":"989764312fgr"}';
@@ -4740,7 +4740,7 @@ console.log("fun1");
             
            }
            else if(this.conn.readyState===3||this.conn.readyState===2){
-            
+            console.log("readystate="+this.conn.readyState)
                   this.conn=null;
                   this.func();
            }
