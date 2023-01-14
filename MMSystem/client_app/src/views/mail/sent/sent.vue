@@ -2472,6 +2472,8 @@ console.log(" send.vue index="+ind);
     },
 
     reply1() {
+
+      
       var link = document.getElementById("a3");
       var mailId_to_get_mail_by_id = this.mailId_to_get_mail_by_id;
       var sends_id = this.sends_id;

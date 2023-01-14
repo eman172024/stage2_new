@@ -3169,7 +3169,7 @@
                           type="button"
                           @click="scanToReply"
                         />-->
-                        <a id="a2" @click="reply1()"> الماسح الضوئي الرد</a>
+                        <a id="a2" @click="reply1()"> الماسح الضوئي </a>
                       </label>
                     </div>
                   </div>
@@ -4770,6 +4770,44 @@ console.log("fun1");
     ////////////////////////////////////////////////////////////////////////////////////////////
 
     reply1() {
+
+//**********14/1/2023
+ if(this.conn==null){
+    console.log("conn=null");
+    this.conn = new WebSocket("ws://localhost:58316/ws");
+    this.conn.onmessage = (event) => {
+    console.log("onmessage sent_form rep");
+      let scannedImage = event.data;
+
+      let mgs = JSON.parse(scannedImage);
+      this.imagesscantest = mgs;
+console.log("rep index="+ind);
+      var ind = this.imagesscantest.index;
+      if (ind == 1) {
+        this.keyid = this.imagesscantest.keyid;
+         console.log("rep keyid="+this.keyid);
+      } else {
+        //5/9/2022 this.imagesToSend=[]
+ console.log("rep else");
+        for (var i = 0; i < mgs["image"].length; i++) {
+          this.indexOfimagesToShow++;
+          this.imagesToSend.push({
+            baseAs64: mgs["image"][i],
+            index: this.indexOfimagesToShow,
+          });
+        }
+      }
+    };
+ }
+ else if(this.conn.readyState===3||this.conn.readyState===2){
+            console.log("readystate="+this.conn.readyState)
+                  this.conn=null;
+                  this.reply1();
+           }
+     
+           else {
+//*********end 14/1/2023
+
       var link = document.getElementById("a2");
 
       var replyByDepartmenId = this.replyByDepartmenId;
@@ -4798,6 +4836,7 @@ console.log("fun1");
         replyByDepartmenId +
         "keyid=" +
         keyid;
+    }
     },
 
     to_get_all_doc_of_mail() {
