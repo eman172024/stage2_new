@@ -164,15 +164,15 @@ namespace MMSystem
                 var iidd = obj11.keyid.Value;
                 
                 //*********14/1/2023
-                foreach (var soc in _conn.Values)
-                {
-                    if (soc.State == WebSocketState.Aborted)
-                    {
+                //foreach (var soc in _conn.Values)
+                //{
+                //    if (soc.State == WebSocketState.Aborted)
+                //    {
                      
-                        string id_c = _conn.FirstOrDefault(x => x.Value == soc).Key;
-                        _conn.TryRemove(id_c, out WebSocket sock);
-                    }
-                }
+                //        string id_c = _conn.FirstOrDefault(x => x.Value == soc).Key;
+                //        _conn.TryRemove(id_c, out WebSocket sock);
+                //    }
+                //}
                 //************14/1/2023
 
                 //********end 14/1/2023
