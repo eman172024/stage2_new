@@ -132,6 +132,46 @@ namespace MMSystem.Services.ReplayServeic
             }
             return false;
         }
+
+
+        public async Task<bool> DeleteReply(int id) 
+        {
+
+            try
+            {
+                Reply reply = await _data.Replies.FindAsync(id);
+
+                if (reply != null)
+
+                {
+                    reply.state = false;
+                    _data.Replies.Update(reply);
+                    await _data.SaveChangesAsync();
+
+                    List<Reply_Resources> replyResours = await _data.Reply_Resources.Where(x => x.ReplyId == reply.ReplyId && x.State == true ).ToListAsync() ;
+
+                    if (replyResours != null)
+                    {
+                        foreach (var item in replyResours)
+                        {
+    
+                       item.State = false;
+                        _data.Reply_Resources.Update(item);
+                        await _data.SaveChangesAsync();
+
+                        }
+                    }
+
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public async Task<bool> Delete(int id)
         {
             try

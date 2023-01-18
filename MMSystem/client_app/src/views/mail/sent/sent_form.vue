@@ -4514,6 +4514,8 @@ console.log("fun1");
     },
 
     deleteDocument() {
+
+      
       this.alert_prepare_delete_document = false;
 
       this.$http.mailService
@@ -4669,6 +4671,15 @@ console.log("fun1");
     // },
 
     func() {
+
+
+
+      if(this.conn==null){
+
+
+
+        
+      }
       var link = document.getElementById("a1");
 
       var replyByDepartmenId = this.replyByDepartmenId;
