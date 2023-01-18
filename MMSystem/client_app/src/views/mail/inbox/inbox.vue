@@ -2604,6 +2604,19 @@ console.log(" inbox.vue WebSocket close");
     },
 
     GetMailsToPrint() {
+
+
+      var date_from2=this.date_from;
+      var date_to2=this.date_to;
+
+
+      if(this.year_filter!=0){
+        date_from2= this.year_filter + "-01-01"
+        date_to2= this.year_filter + "-12-31"
+      }
+
+
+
       this.screenFreeze = true;
       this.loading = true;
       this.mails_to_print = [];
@@ -2612,8 +2625,8 @@ console.log(" inbox.vue WebSocket close");
           this.my_user_id,
           this.mailType,
           this.my_department_id,
-          this.date_from,
-          this.date_to,
+          date_from2,
+          date_to2,
           this.by_date_of_reply,
           this.mail_id,
           this.general_incoming_number,

@@ -2018,8 +2018,9 @@ console.log("WebSocket close  send.vue");
 
       let mgs = JSON.parse(scannedImage);
       this.imagesscantest = mgs;
-console.log(" send.vue index="+ind);
+
       var ind = this.imagesscantest.index;
+      console.log(" send.vue index="+ind);
       if (ind == 1) {
         this.keyid = this.imagesscantest.keyid;
          console.log("send.vue keyid="+this.keyid);
@@ -2342,6 +2343,17 @@ console.log(" send.vue index="+ind);
     PushNewSentMail() {
       this.page_num = this.page_num + 1;
 
+
+      var date_from2=this.date_from;
+      var date_to2=this.date_to;
+
+
+      if(this.year_filter!=0){
+        date_from2= this.year_filter + "-01-01"
+        date_to2= this.year_filter + "-12-31"
+      }
+
+
       this.senders = [];
       this.show_senders_mail = "";
 
@@ -2352,8 +2364,8 @@ console.log(" send.vue index="+ind);
           this.my_user_id,
           this.mailType,
           this.my_department_id,
-          this.date_from,
-          this.date_to,
+          date_from2,
+          date_to2,
           this.by_date_of_reply,
           this.mail_id,
           this.general_incoming_number,
@@ -2387,14 +2399,27 @@ console.log(" send.vue index="+ind);
     },
 
     GetMailsToPrint() {
+
+
+
+      var date_from2=this.date_from;
+      var date_to2=this.date_to;
+
+
+      if(this.year_filter!=0){
+        date_from2= this.year_filter + "-01-01"
+        date_to2= this.year_filter + "-12-31"
+      }
+
+
       this.$router.push({
         name: "Sent_report",
         params: {
           user_id: this.my_user_id,
           mail_type: this.mailType,
           department_Id: this.my_department_id,
-          from: this.date_from,
-          to: this.date_to,
+          from: date_from2,
+          to: date_to2,
           date_of_reply: this.by_date_of_reply,
           mail_id: this.mail_id,
           g_in_num: this.general_incoming_number,
@@ -2925,11 +2950,22 @@ console.log(" send.vue index="+ind);
     },
 
     print_report() {
+
+
+       var date_from2=this.date_from;
+      var date_to2=this.date_to;
+
+
+      if(this.year_filter!=0){
+        date_from2= this.year_filter + "-01-01"
+        date_to2= this.year_filter + "-12-31"
+      }
+      
       this.$router.push({
         name: "Statistical_report",
         params: {
-          dateFrom: this.date_from,
-          dateTo: this.date_to,
+          dateFrom: date_from2,
+          dateTo: date_to2,
           mailtype: this.mailType,
         },
       });
