@@ -1220,6 +1220,133 @@
                               : 'justify-end flex-row-reverse'
                           "
                         >
+
+
+                        <button
+                              @click="alert_delete_document=true"
+                              type="button"
+                              class="
+                                
+                                hover:bg-red-500
+                                duration-500
+                                p-1
+                                rounded-full
+                                focus:outline-none
+                                ml-2
+                              "
+                             
+                            >
+                              <svg
+                                class="
+                                  w-4
+                                  h-4
+                                  stroke-current
+                                  text-red
+                                  mx-auto
+                                "
+                                width="24"
+                                height="25"
+                                viewBox="0 0 24 25"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M3 6.5H5H21"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M8 6.5V4.5C8 3.96957 8.21071 3.46086 8.58579 3.08579C8.96086 2.71071 9.46957 2.5 10 2.5H14C14.5304 2.5 15.0391 2.71071 15.4142 3.08579C15.7893 3.46086 16 3.96957 16 4.5V6.5M19 6.5V20.5C19 21.0304 18.7893 21.5391 18.4142 21.9142C18.0391 22.2893 17.5304 22.5 17 22.5H7C6.46957 22.5 5.96086 22.2893 5.58579 21.9142C5.21071 21.5391 5 21.0304 5 20.5V6.5H19Z"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </button>
+
+
+
+                        
+                            <div
+      v-if="alert_delete_document"
+      class="
+        w-screen
+        h-full
+        flex
+        justify-center
+        items-center
+        absolute
+        inset-0
+        z-50
+        overflow-hidden
+        bg-black bg-opacity-70
+      "
+    >
+      <div
+        class="
+          bg-yellow-100
+          rounded-md
+          w-1/3
+          py-10
+          flex flex-col
+          justify-center
+          items-center
+        "
+      >
+        <div class="">
+          <svg
+            class="w-20 h-20 stroke-current text-red-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            ></path>
+          </svg>
+        </div>
+        <p class="text-xl font-bold mt-4">هل انت متأكد من عملية الحذف؟</p>
+        <p class="text-gray-600">لن تتمكن من استرداد الرد بعد حذفه.</p>
+
+        <div class="mt-6">
+          <button
+            @click="deletereply(reply.reply.replyId)"
+            class="
+              bg-red-600
+              hover:bg-red-700 hover:shadow-lg
+              duration-200
+              rounded
+              text-white
+              w-32
+              py-1
+              ml-2
+            "
+          >
+            نعم متأكد
+          </button>
+          <button
+            @click="alert_delete_document = false"
+            class="
+              bg-gray-400
+              hover:bg-gray-700 hover:shadow-lg
+              duration-200
+              rounded
+              text-white
+              w-32
+              py-1
+              mr-2
+            "
+          >
+            إلغاء
+          </button>
+        </div>
+      </div>
+    </div>
                           <div v-if="reply.resources == true" class="mx-2">
                             <button
                               v-if="roles.includes('s')"
@@ -1266,6 +1393,9 @@
                             </button>
                           </div>
 
+                   
+
+
                           <div
                             :class="
                               reply.reply.to == my_department_id
@@ -1283,8 +1413,9 @@
                           >
                             {{ reply.reply.mail_detail }}
                           </div>
+                          
                         </div>
-
+                          
                         <div
                           class="mt-1 text-sm"
                           :class="
@@ -1295,9 +1426,17 @@
                         >
                           {{ reply.reply.date }}
                         </div>
+
+
                       </div>
+
+                      
+
                     </div>
                   </div>
+
+
+
 
                   <div class="flex justify-between items-center mt-4">
                     <div class="w-8/12 flex justify-between">
@@ -2052,6 +2191,9 @@ console.log(" inbox.vue WebSocket close");
 
   data() {
     return {
+
+
+      alert_delete_document:false,
       roles: [],
       from_reply_or_general: "",
       year_filter:0,
@@ -2144,6 +2286,41 @@ console.log(" inbox.vue WebSocket close");
   },
 
   methods: {
+
+
+
+    deletereply(id){
+
+        
+      this.alert_delete_document = false;
+
+      this.$http.mailService
+        .delete_reply(
+          Number(id)
+        )
+        .then((res) => {
+
+          
+
+          this.getMailById();
+          // this.to_pass_data_to_get_mail_by_id(
+          //                 this.mail.mail_id,
+          //                 this.my_department_id,
+          //                 this.mail.type_of_mail,
+          //                 this.mail.sends_id,
+          //                 this.mail.mangment_sender
+          //               )
+                      
+        })
+        .catch((err) => {
+     
+        });
+
+
+    },
+
+
+
     Next_prevent_GetResources_ById(x) {
       if (x == "next") {
         this.reply_doc_number++;
@@ -2604,6 +2781,19 @@ console.log(" inbox.vue WebSocket close");
     },
 
     GetMailsToPrint() {
+
+
+      var date_from2=this.date_from;
+      var date_to2=this.date_to;
+
+
+      if(this.year_filter!=0){
+        date_from2= this.year_filter + "-01-01"
+        date_to2= this.year_filter + "-12-31"
+      }
+
+
+
       this.screenFreeze = true;
       this.loading = true;
       this.mails_to_print = [];
@@ -2612,8 +2802,8 @@ console.log(" inbox.vue WebSocket close");
           this.my_user_id,
           this.mailType,
           this.my_department_id,
-          this.date_from,
-          this.date_to,
+          date_from2,
+          date_to2,
           this.by_date_of_reply,
           this.mail_id,
           this.general_incoming_number,

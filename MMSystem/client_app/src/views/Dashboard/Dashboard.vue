@@ -3,23 +3,35 @@
     <div class="h-screen bg-white overflow-hidden flex">
       <asideComponent></asideComponent>
       <div class="flex-1 bg-gray-100 w-0 overflow-y-auto">
-        <div class="max-w-screen-2xl  mx-auto flex flex-col md:px-8">
+        <div class="max-w-screen-2xl mx-auto flex flex-col md:px-8">
           <navComponent></navComponent>
           <main class="flex-1 relative focus:outline-none pt-2 pb-6">
             <h1 class="text-xl font-semibold text-black">البريد في أرقام</h1>
 
             <section class="grid grid-cols-2 gap-8">
-              <div class="border border-gray-400 rounded mt-8 p-4 ">
+              <div class="border border-gray-400 rounded mt-8 p-4">
                 <p class="text-center text-lg font-bold">الصادر</p>
                 <section class="grid grid-cols-2 gap-8 mt-8">
                   <div
-                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
+                    class="
+                      bg-white
+                      p-4
+                      hover:shadow
+                      focus:outline-none
+                      group
+                      border-t-4 border-green-500
+                    "
                   >
                     <div class="flex justify-between items-start">
                       <div class="">
                         <p class="text-gray-900">مجموع الداخلي</p>
                         <p
-                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                          class="
+                            font-bold
+                            text-gray-600 text-3xl
+                            mt-2
+                            text-right
+                          "
                         >
                           {{ Reports.totale_internell_externl }}
                         </p>
@@ -60,13 +72,25 @@
                   </div>
 
                   <div
-                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
+                    class="
+                      bg-white
+                      p-4
+                      hover:shadow
+                      focus:outline-none
+                      group
+                      border-t-4 border-red-700
+                    "
                   >
                     <div class="flex justify-between items-start">
                       <div class="">
                         <p class="text-gray-900">داخلي لم يقرأ</p>
                         <p
-                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                          class="
+                            font-bold
+                            text-gray-600 text-3xl
+                            mt-2
+                            text-right
+                          "
                         >
                           {{ Reports.notreaded_internell_externl }}
                         </p>
@@ -106,13 +130,25 @@
                   </div>
 
                   <div
-                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
+                    class="
+                      bg-white
+                      p-4
+                      hover:shadow
+                      focus:outline-none
+                      group
+                      border-t-4 border-green-500
+                    "
                   >
                     <div class="flex justify-between items-start">
                       <div class="">
                         <p class="text-gray-900">مجموع الصادر الخارجي</p>
                         <p
-                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                          class="
+                            font-bold
+                            text-gray-600 text-3xl
+                            mt-2
+                            text-right
+                          "
                         >
                           {{ Reports.totale_externl }}
                         </p>
@@ -153,13 +189,25 @@
                   </div>
 
                   <div
-                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
+                    class="
+                      bg-white
+                      p-4
+                      hover:shadow
+                      focus:outline-none
+                      group
+                      border-t-4 border-red-700
+                    "
                   >
                     <div class="flex justify-between items-start">
                       <div class="">
                         <p class="text-gray-900">صادر خارجي لم يقرأ</p>
                         <p
-                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                          class="
+                            font-bold
+                            text-gray-600 text-3xl
+                            mt-2
+                            text-right
+                          "
                         >
                           {{ Reports.notreaded_Totale_externl }}
                         </p>
@@ -199,13 +247,25 @@
                   </div>
 
                   <div
-                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
+                    class="
+                      bg-white
+                      p-4
+                      hover:shadow
+                      focus:outline-none
+                      group
+                      border-t-4 border-green-500
+                    "
                   >
                     <div class="flex justify-between items-start">
                       <div class="">
                         <p class="text-gray-900">مجموع الوارد الخارجي</p>
                         <p
-                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                          class="
+                            font-bold
+                            text-gray-600 text-3xl
+                            mt-2
+                            text-right
+                          "
                         >
                           {{ Reports.totale_inbox }}
                         </p>
@@ -246,13 +306,25 @@
                   </div>
 
                   <div
-                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
+                    class="
+                      bg-white
+                      p-4
+                      hover:shadow
+                      focus:outline-none
+                      group
+                      border-t-4 border-red-700
+                    "
                   >
                     <div class="flex justify-between items-start">
                       <div class="">
                         <p class="text-gray-900">وارد لم يقرأ</p>
                         <p
-                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                          class="
+                            font-bold
+                            text-gray-600 text-3xl
+                            mt-2
+                            text-right
+                          "
                         >
                           {{ Reports.notreaded_Totale_inbox }}
                         </p>
@@ -297,13 +369,25 @@
                 <p class="text-center text-lg font-bold">الوارد</p>
                 <section class="grid grid-cols-2 gap-8 mt-8">
                   <div
-                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
+                    class="
+                      bg-white
+                      p-4
+                      hover:shadow
+                      focus:outline-none
+                      group
+                      border-t-4 border-green-500
+                    "
                   >
                     <div class="flex justify-between items-start">
                       <div class="">
                         <p class="text-gray-900">مجموع الداخلي</p>
                         <p
-                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                          class="
+                            font-bold
+                            text-gray-600 text-3xl
+                            mt-2
+                            text-right
+                          "
                         >
                           {{ Reports.totale_Internal_inbox }}
                         </p>
@@ -312,13 +396,25 @@
                   </div>
 
                   <div
-                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
+                    class="
+                      bg-white
+                      p-4
+                      hover:shadow
+                      focus:outline-none
+                      group
+                      border-t-4 border-red-700
+                    "
                   >
                     <div class="flex justify-between items-start">
                       <div class="">
                         <p class="text-gray-900">داخلي لم يقرأ</p>
                         <p
-                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                          class="
+                            font-bold
+                            text-gray-600 text-3xl
+                            mt-2
+                            text-right
+                          "
                         >
                           {{ Reports.notreaded_Totale_Internal_inbox }}
                         </p>
@@ -358,13 +454,25 @@
                   </div>
 
                   <div
-                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
+                    class="
+                      bg-white
+                      p-4
+                      hover:shadow
+                      focus:outline-none
+                      group
+                      border-t-4 border-green-500
+                    "
                   >
                     <div class="flex justify-between items-start">
                       <div class="">
                         <p class="text-gray-900">مجموع الصادر الخارجي</p>
                         <p
-                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                          class="
+                            font-bold
+                            text-gray-600 text-3xl
+                            mt-2
+                            text-right
+                          "
                         >
                           {{ Reports.total_externl2 }}
                         </p>
@@ -405,13 +513,25 @@
                   </div>
 
                   <div
-                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
+                    class="
+                      bg-white
+                      p-4
+                      hover:shadow
+                      focus:outline-none
+                      group
+                      border-t-4 border-red-700
+                    "
                   >
                     <div class="flex justify-between items-start">
                       <div class="">
                         <p class="text-gray-900">صادر خارجي لم يقرأ</p>
                         <p
-                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                          class="
+                            font-bold
+                            text-gray-600 text-3xl
+                            mt-2
+                            text-right
+                          "
                         >
                           {{ Reports.notreaded_Total_externl2 }}
                         </p>
@@ -451,13 +571,25 @@
                   </div>
 
                   <div
-                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-green-500"
+                    class="
+                      bg-white
+                      p-4
+                      hover:shadow
+                      focus:outline-none
+                      group
+                      border-t-4 border-green-500
+                    "
                   >
                     <div class="flex justify-between items-start">
                       <div class="">
                         <p class="text-gray-900">مجموع الوارد الخارجي</p>
                         <p
-                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                          class="
+                            font-bold
+                            text-gray-600 text-3xl
+                            mt-2
+                            text-right
+                          "
                         >
                           {{ Reports.totale_inbox2 }}
                         </p>
@@ -498,13 +630,25 @@
                   </div>
 
                   <div
-                    class="bg-white p-4 hover:shadow focus:outline-none group border-t-4 border-red-700"
+                    class="
+                      bg-white
+                      p-4
+                      hover:shadow
+                      focus:outline-none
+                      group
+                      border-t-4 border-red-700
+                    "
                   >
                     <div class="flex justify-between items-start">
                       <div class="">
                         <p class="text-gray-900">وارد خارجي لم يقرأ</p>
                         <p
-                          class="font-bold text-gray-600 text-3xl mt-2 text-right"
+                          class="
+                            font-bold
+                            text-gray-600 text-3xl
+                            mt-2
+                            text-right
+                          "
                         >
                           {{ Reports.notreaded_Totale_inbox2 }}
                         </p>
@@ -551,7 +695,17 @@
     </div>
     <div
       v-if="screenFreeze"
-      class="w-screen h-screen bg-black bg-opacity-30 absolute inset-0 z-50 flex justify-center items-center"
+      class="
+        w-screen
+        h-screen
+        bg-black bg-opacity-30
+        absolute
+        inset-0
+        z-50
+        flex
+        justify-center
+        items-center
+      "
     >
       <div v-if="loading" class="">
         <svgLoadingComponent></svgLoadingComponent>

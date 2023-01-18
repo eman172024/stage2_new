@@ -704,6 +704,7 @@
                         >
                           {{ reply.reply.mail_detail }}
                         </div>
+                        
                       </div>
 
                       <div
@@ -1794,6 +1795,13 @@ console.log(" inbox_form.vue WebSocket close");
 
     //*******************
     reply1() {
+
+
+
+
+
+
+      
       var link = document.getElementById("a5");
       var mailId_to_get_mail_by_id = this.mailId_to_get_mail_by_id;
       var mailId = this.mailId;

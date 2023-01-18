@@ -271,11 +271,11 @@
                             p-2
                           "
                         >
-                        <input
-                          v-model="departmentNameSelected"
-                          type="text"
-                          class="h-6 w-full"
-                        />
+                          <input
+                            v-model="departmentNameSelected"
+                            type="text"
+                            class="h-6 w-full"
+                          />
                           <!-- {{ departmentNameSelected }} -->
                         </button>
 
@@ -770,22 +770,38 @@
                       />
                     </div>
 
-
-
-
-                    <div class="sm:col-span-2 ">
+                    <div class="sm:col-span-2">
                       <label
                         class="block text-base font-semibold text-gray-800"
                       >
                         السنة
                       </label>
 
-                      <select id="small" class="block p-2 mb-6 w-28  text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" v-model="year_filter" >
-                              
-                              <option value="0" selected>اختر السنة</option>
-                              <option value="0" >إلغاء</option>
-                              <option value="2023">2023</option>
-                              <!-- <option value="2024">2024</option>
+                      <select
+                        id="small"
+                        class="
+                          block
+                          p-2
+                          mb-6
+                          w-28
+                          text-sm text-gray-900
+                          bg-gray-50
+                          rounded-lg
+                          border border-gray-300
+                          focus:ring-blue-500 focus:border-blue-500
+                          dark:bg-gray-700
+                          dark:border-gray-600
+                          dark:placeholder-gray-400
+                          dark:text-white
+                          dark:focus:ring-blue-500
+                          dark:focus:border-blue-500
+                        "
+                        v-model="year_filter"
+                      >
+                        <option value="0" selected>اختر السنة</option>
+                        <option value="0">إلغاء</option>
+                        <option value="2023">2023</option>
+                        <!-- <option value="2024">2024</option>
                               <option value="2025">2025</option>
                               <option value="2026">2026</option>
                               <option value="2027">2027</option>
@@ -832,10 +848,8 @@
                               <option value="2068">2068</option>
                               <option value="2069">2069</option>
                               <option value="2070">2070</option> -->
-                            </select>
+                      </select>
                     </div>
-
-
                   </div>
                 </div>
               </div>
@@ -949,7 +963,7 @@
               </button>
             </div>
 
-            <div class=" w-full mt-2 rounded-md divide-y-2 divide-gray-200">
+            <div class="w-full mt-2 rounded-md divide-y-2 divide-gray-200">
               <div class="flex justify-between">
                 <div class="w-5/12 ml-2 relative">
                   البريد
@@ -976,7 +990,7 @@
 
                   <div
                     id="handleScrollForAyoubTest"
-                    class=" h-64 overflow-y-scroll text-sm bg-gray-100"
+                    class="h-64 overflow-y-scroll text-sm bg-gray-100"
                   >
                     <div
                       v-for="mail in inboxMails"
@@ -984,7 +998,6 @@
                       :class="mail.flag | mail_state_inbox"
                       class="
                         group
-                        
                         border-r-8
                         flex
                         items-center
@@ -1116,12 +1129,11 @@
                           w-full
                           -top-24
                           -left-0
-                          -right-0  
+                          -right-0
                           h-40
                           bg-white
                           p-2
-                          border-4
-                          border-gray-300
+                          border-4 border-gray-300
                           shadow-2xl
                           rounded-md
                           overflow-y-auto
@@ -2001,31 +2013,29 @@ export default {
    
  }*/
 
-this.conn.onerror =(error) =>{
-console.log("WebSocket Error send.vue " + error);
-};
+    this.conn.onerror = (error) => {
+      console.log("WebSocket Error send.vue " + error);
+    };
 
-this.conn.onclose =(event) =>{
-console.log("readystate send.vue"+this.conn.readyState);
-console.log("WebSocket close  send.vue");
-
-
-};
+    this.conn.onclose = (event) => {
+      console.log("readystate send.vue" + this.conn.readyState);
+      console.log("WebSocket close  send.vue");
+    };
 
     this.conn.onmessage = (event) => {
-        console.log("onmessage send.vue");
+      console.log("onmessage send.vue");
       let scannedImage = event.data;
 
       let mgs = JSON.parse(scannedImage);
       this.imagesscantest = mgs;
-console.log(" send.vue index="+ind);
       var ind = this.imagesscantest.index;
+      console.log(" send.vue index="+ind);
       if (ind == 1) {
         this.keyid = this.imagesscantest.keyid;
-         console.log("send.vue keyid="+this.keyid);
+        console.log("send.vue keyid=" + this.keyid);
       } else {
         //5/9/2022 this.imagesToSend=[]
- console.log("send.vue else");
+        console.log("send.vue else");
         for (var i = 0; i < mgs["image"].length; i++) {
           this.indexOfimagesToShow++;
           this.imagesToSend.push({
@@ -2064,8 +2074,7 @@ console.log(" send.vue index="+ind);
   },
 
   watch: {
-
-    year_filter: function() {
+    year_filter: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -2081,8 +2090,7 @@ console.log(" send.vue index="+ind);
       this.GetSentMail();
     },
 
-
-    mailType: function() {
+    mailType: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -2097,7 +2105,7 @@ console.log(" send.vue index="+ind);
       }
       this.GetSentMail();
     },
-    date_from: function() {
+    date_from: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -2106,7 +2114,7 @@ console.log(" send.vue index="+ind);
       this.page_num = 1;
       this.GetSentMail();
     },
-    date_to: function() {
+    date_to: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -2115,7 +2123,7 @@ console.log(" send.vue index="+ind);
       this.page_num = 1;
       this.GetSentMail();
     },
-    mail_id: function() {
+    mail_id: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -2124,26 +2132,7 @@ console.log(" send.vue index="+ind);
       this.page_num = 1;
       this.GetSentMail();
     },
-    general_incoming_number: function() {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
-
-    summary: function() {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
-    departmentIdSelected: function() {
+    general_incoming_number: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -2153,7 +2142,16 @@ console.log(" send.vue index="+ind);
       this.GetSentMail();
     },
 
-    sideIdSelected: function() {
+    summary: function () {
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = "";
+      this.page_num = 1;
+      this.GetSentMail();
+    },
+    departmentIdSelected: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -2163,16 +2161,7 @@ console.log(" send.vue index="+ind);
       this.GetSentMail();
     },
 
-    measureIdSelected: function() {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
-    classificationIdSelected: function() {
+    sideIdSelected: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -2182,7 +2171,16 @@ console.log(" send.vue index="+ind);
       this.GetSentMail();
     },
 
-    mail_caseIdSelected: function() {
+    measureIdSelected: function () {
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = "";
+      this.page_num = 1;
+      this.GetSentMail();
+    },
+    classificationIdSelected: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -2192,7 +2190,7 @@ console.log(" send.vue index="+ind);
       this.GetSentMail();
     },
 
-    by_date_of_reply: function() {
+    mail_caseIdSelected: function () {
       this.senders = [];
       this.show_senders_mail = "";
       this.replies = [];
@@ -2202,7 +2200,17 @@ console.log(" send.vue index="+ind);
       this.GetSentMail();
     },
 
-    show_senders_mail: function() {
+    by_date_of_reply: function () {
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = "";
+      this.page_num = 1;
+      this.GetSentMail();
+    },
+
+    show_senders_mail: function () {
       // this.senders = [];
       // this.show_senders_mail = "";
       // this.page_num = 1;
@@ -2218,9 +2226,7 @@ console.log(" send.vue index="+ind);
 
   data() {
     return {
-
-
-      year_filter:0,
+      year_filter: 0,
 
       roles: [],
       by_date_of_reply: false,
@@ -2319,14 +2325,11 @@ console.log(" send.vue index="+ind);
       });
     },
 
-    
     filterByTerm1() {
       return this.departments.filter((department) => {
         return department.departmentName.includes(this.departmentNameSelected);
       });
     },
-  
-
   },
 
   methods: {
@@ -2342,6 +2345,17 @@ console.log(" send.vue index="+ind);
     PushNewSentMail() {
       this.page_num = this.page_num + 1;
 
+
+      var date_from2=this.date_from;
+      var date_to2=this.date_to;
+
+
+      if(this.year_filter!=0){
+        date_from2= this.year_filter + "-01-01"
+        date_to2= this.year_filter + "-12-31"
+      }
+
+
       this.senders = [];
       this.show_senders_mail = "";
 
@@ -2352,8 +2366,8 @@ console.log(" send.vue index="+ind);
           this.my_user_id,
           this.mailType,
           this.my_department_id,
-          this.date_from,
-          this.date_to,
+          date_from2,
+          date_to2,
           this.by_date_of_reply,
           this.mail_id,
           this.general_incoming_number,
@@ -2387,14 +2401,27 @@ console.log(" send.vue index="+ind);
     },
 
     GetMailsToPrint() {
+
+
+
+      var date_from2=this.date_from;
+      var date_to2=this.date_to;
+
+
+      if(this.year_filter!=0){
+        date_from2= this.year_filter + "-01-01"
+        date_to2= this.year_filter + "-12-31"
+      }
+
+
       this.$router.push({
         name: "Sent_report",
         params: {
           user_id: this.my_user_id,
           mail_type: this.mailType,
           department_Id: this.my_department_id,
-          from: this.date_from,
-          to: this.date_to,
+          from: date_from2,
+          to: date_to2,
           date_of_reply: this.by_date_of_reply,
           mail_id: this.mail_id,
           g_in_num: this.general_incoming_number,
@@ -2472,21 +2499,19 @@ console.log(" send.vue index="+ind);
     },
 
     reply1() {
-
-      
       var link = document.getElementById("a3");
       var mailId_to_get_mail_by_id = this.mailId_to_get_mail_by_id;
       var sends_id = this.sends_id;
-      var my_department_id_to_get_mail_by_id = this
-        .my_department_id_to_get_mail_by_id;
+      var my_department_id_to_get_mail_by_id =
+        this.my_department_id_to_get_mail_by_id;
       var keyid = this.keyid;
 
       var timeout;
-      window.addEventListener("blur", function(e) {
+      window.addEventListener("blur", function (e) {
         window.clearTimeout(timeout);
       });
 
-      timeout = window.setTimeout(function() {
+      timeout = window.setTimeout(function () {
         window.location = "http://mail/scanner_app/Setup1.msi";
       }, 1000);
 
@@ -2691,7 +2716,8 @@ console.log(" send.vue index="+ind);
       flag
     ) {
       this.departmentflag = 0;
-      this.my_department_id_to_get_mail_by_id = my_department_id_to_get_mail_by_id;
+      this.my_department_id_to_get_mail_by_id =
+        my_department_id_to_get_mail_by_id;
       this.sends_id = sends_id;
       this.departmentName = departmentName;
       this.departmentflag = flag;
@@ -2796,16 +2822,13 @@ console.log(" send.vue index="+ind);
       this.senders = [];
       this.show_senders_mail = "";
 
+      var date_from2 = this.date_from;
+      var date_to2 = this.date_to;
 
-      var date_from2=this.date_from;
-      var date_to2=this.date_to;
-
-
-      if(this.year_filter!=0){
-        date_from2= this.year_filter + "-01-01"
-        date_to2= this.year_filter + "-12-31"
+      if (this.year_filter != 0) {
+        date_from2 = this.year_filter + "-01-01";
+        date_to2 = this.year_filter + "-12-31";
       }
-
 
       this.screenFreeze = true;
       this.loading = true;
@@ -2927,11 +2950,22 @@ console.log(" send.vue index="+ind);
     },
 
     print_report() {
+
+
+       var date_from2=this.date_from;
+      var date_to2=this.date_to;
+
+
+      if(this.year_filter!=0){
+        date_from2= this.year_filter + "-01-01"
+        date_to2= this.year_filter + "-12-31"
+      }
+      
       this.$router.push({
         name: "Statistical_report",
         params: {
-          dateFrom: this.date_from,
-          dateTo: this.date_to,
+          dateFrom: date_from2,
+          dateTo: date_to2,
           mailtype: this.mailType,
         },
       });
