@@ -5,7 +5,7 @@ export default {
 
     delete_reply(id){
 
-        return axios.put(`api/Reply/DeleteReply/${id}`);
+        return axios.put(`/api/Reply/DeleteReply/${id}`);
         
     },
 

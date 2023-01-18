@@ -1223,7 +1223,8 @@
 
 
                         <button
-                              @click="alert_delete_document=true"
+                        v-if="reply.reply.to != my_department_id"
+                              @click="alert_delete_document=true,reply_id_to_delete=reply.reply.replyId"
                               type="button"
                               class="
                                 
@@ -1315,7 +1316,7 @@
 
         <div class="mt-6">
           <button
-            @click="deletereply(reply.reply.replyId)"
+            @click="deletereply()"
             class="
               bg-red-600
               hover:bg-red-700 hover:shadow-lg
@@ -2192,7 +2193,7 @@ console.log(" inbox.vue WebSocket close");
   data() {
     return {
 
-
+      reply_id_to_delete:"",
       alert_delete_document:false,
       roles: [],
       from_reply_or_general: "",
@@ -2289,14 +2290,14 @@ console.log(" inbox.vue WebSocket close");
 
 
 
-    deletereply(id){
+    deletereply(){
 
         
       this.alert_delete_document = false;
 
       this.$http.mailService
         .delete_reply(
-          Number(id)
+          Number(this.reply_id_to_delete)
         )
         .then((res) => {
 
