@@ -155,37 +155,53 @@ namespace MMSystem
         
         {
 
-            //try
-            //{
+            try
+            {
                 var obj11 = JsonConvert.DeserializeObject<dynamic>(m);
 
 
                
                 var iidd = obj11.keyid.Value;
-                //***8/1/2023
+                
+                //*********14/1/2023
+                //foreach (var soc in _conn.Values)
+                //{
+                //    if (soc.State == WebSocketState.Aborted)
+                //    {
+                     
+                //        string id_c = _conn.FirstOrDefault(x => x.Value == soc).Key;
+                //        _conn.TryRemove(id_c, out WebSocket sock);
+                //    }
+                //}
+                //************14/1/2023
+
+                //********end 14/1/2023
                 var tt = _conn.FirstOrDefault(y => y.Key == iidd);
 
 
+            //***********14/1/2023
+            //foreach (var c in _conn.Values)
+            //{
+            //    var xx = _conn.FirstOrDefault(x => x.Value == c).Key;
 
-                foreach (var c in _conn.Values)
-                {
-                    var xx = _conn.FirstOrDefault(x => x.Value == c).Key;
-
-                    if (c.State == WebSocketState.Open)
-                    //  if (tt.Value.State == WebSocketState.Open)
+            //    if (c.State == WebSocketState.Open)
+            //***********end 14/1/2023
+            if (tt.Value.State == WebSocketState.Open)
+              
 
                     {
-                        if (xx == iidd)
-                        {
-                            await c.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
-                        }
-                        //*****end 8/1/2023
-                     //   await tt.Value.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
+                //*********14/1/2023
+                        //if (xx == iidd)
+                        //{
+                        //    await c.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
+                        //}
+                //*****end 14/1/2023
+                        await tt.Value.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
 
-                }
+               // }
             }
-            //}
-            //catch { Console.WriteLine("error in resm"); }
+            }
+            catch { Console.WriteLine("error in resm"); }
         }
         //******************
         private async Task senid(WebSocket socket, string id)
