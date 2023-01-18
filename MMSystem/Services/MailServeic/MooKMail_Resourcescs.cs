@@ -415,5 +415,58 @@ namespace MMSystem.Services.MailServeic
             }
 
         }
+
+
+        public async Task<dynamic> delete_all_image(int id)
+        {
+            try
+            {
+                bool IsDelete = false;
+                string massage = "";
+
+                List<Mail_Resourcescs> mailResourse = await _dbCon.Mail_Resourcescs.Where(x=>x.MailID==id&&x.State.Equals(true)).ToListAsync();
+                if (mailResourse .Count>0)
+                {
+
+
+                    foreach (var item in mailResourse)
+                    {
+                        item.State = false;
+
+                        _dbCon.Mail_Resourcescs.Update(item);
+                   int res=     await _dbCon.SaveChangesAsync();
+                        if (res != 0)
+                        {
+                            IsDelete = true;
+                            massage = "تمت العملية بنجاح";
+
+                        }
+                        else {
+
+                            massage = "حدث خطأ";
+
+
+                        }
+
+
+                    }
+
+
+                    return new { IsDelete,massage};
+
+                }
+                massage = "لايوجد صور";
+
+                return new { IsDelete, massage };
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 }

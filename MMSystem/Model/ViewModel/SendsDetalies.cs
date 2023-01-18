@@ -18,6 +18,10 @@ namespace MMSystem.Model.ViewModel
         public string date { get; set; }
         public string date_read { get; set; }
 
+        public string time_of_send { get; set; }
+        public string time_of_read{ get; set; }
+
+
 
 
         // public List<ReplayDto> Replies { get; set; } = new List<ReplayDto>();
