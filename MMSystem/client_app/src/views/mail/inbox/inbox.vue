@@ -1932,7 +1932,7 @@ console.log("inbox WebSocket Error " + error);
 this.conn.onclose =(event) =>{
 console.log("inbox.vue readystate"+this.conn.readyState);
 console.log(" inbox.vue WebSocket close");
-
+consol.log("code inbox.vue="+event.code);
 
 };
     this.conn.onmessage = (event) => {
