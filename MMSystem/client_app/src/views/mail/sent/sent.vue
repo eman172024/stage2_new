@@ -2022,11 +2022,7 @@ console.log("readystate send.vue"+this.conn.readyState);
 console.log("WebSocket close  send.vue");
 console.log("code sent.vue="+event.code);
 
-    this.conn.onclose = (event) => {
-      console.log("readystate send.vue" + this.conn.readyState);
-      console.log("WebSocket close  send.vue");
-    };
-
+   }
     this.conn.onmessage = (event) => {
       console.log("onmessage send.vue");
       let scannedImage = event.data;
