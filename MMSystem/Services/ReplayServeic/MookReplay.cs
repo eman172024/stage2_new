@@ -150,25 +150,38 @@ namespace MMSystem.Services.ReplayServeic
 
                     List<Reply_Resources> replyResours = await _data.Reply_Resources.Where(x => x.ReplyId == reply.ReplyId && x.State == true ).ToListAsync() ;
                     Historyes historyes = new Historyes();
-                    if (replyResours != null)
+
+                    if (replyResours.Count != 0)
                     {
                         foreach (var item in replyResours)
                         {
-    
-                         item.State = false;
-                        _data.Reply_Resources.Update(item);
-                        await _data.SaveChangesAsync();
+
+                            item.State = false;
+                            _data.Reply_Resources.Update(item);
+                            await _data.SaveChangesAsync();
 
                         }
+
+                        historyes.changes = "  تم حذف الرد مع الصور " + id;
+                        historyes.currentUser = UserId;
+                        historyes.HistortyNameID = 7;
+                        historyes.Time = System.DateTime.Now;
+                        historyes.mailid = id;
+                        _data.History.Add(historyes);
+                        await _data.SaveChangesAsync();
+                        return true;
                     }
-                    historyes.changes = "رد رقم" + id;
-                    historyes.currentUser = UserId;
-                    historyes.HistortyNameID = 7;
-                    historyes.Time = System.DateTime.Now;
-                    historyes.mailid = 4;
-                     _data.History.Add(historyes);
-                    await _data.SaveChangesAsync();
-                    return true;
+                    else
+                    {
+                        historyes.changes ="  تم حذف الرد بدون صور " ;
+                        historyes.currentUser = UserId;
+                        historyes.HistortyNameID = 7;
+                        historyes.Time = System.DateTime.Now;
+                        historyes.mailid = id;
+                        _data.History.Add(historyes);
+                        await _data.SaveChangesAsync();
+                        return true;
+                    }
                 }
                 return false;
             }
