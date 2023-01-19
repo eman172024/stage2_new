@@ -1447,7 +1447,7 @@
       </div>
     </div>
 
-    
+
                         <div v-if="reply.resources == true" class="mx-2">
                           <button
                             v-if="roles.includes('g')"
@@ -2488,7 +2488,7 @@ this.alert_delete_document = false;
 
 this.$http.mailService
   .delete_reply(
-    Number(this.reply_id_to_delete)
+    Number(this.reply_id_to_delete),Number(localStorage.getItem("AY_LW"))
   )
   .then((res) => {
 

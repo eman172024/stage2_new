@@ -3,9 +3,9 @@ import axios from 'axios';
 export default {
 
 
-    delete_reply(id){
+    delete_reply(id,userid){
 
-        return axios.put(`/api/Reply/DeleteReply/${id}`);
+        return axios.put(`/api/Reply/DeleteReply?id=${id}&&UserId=${userid}`);
         
     },
 
