@@ -83,12 +83,16 @@ namespace MMSystem.Controllers
                 statusCode = 400
             });
         }
-        [HttpPut("DeleteReply/{id}")]
-        public async Task<IActionResult> DeleteReply(int id)
+        [HttpPut("DeleteReply")]
+        public async Task<IActionResult> DeleteReply(int id,int UserId)
         {
-            var result = await _Replay.DeleteReply(id);
-            
+            var result = await _Replay.DeleteReply(id,UserId);
+           
+            if (result) {                        
+                
+
                 return Ok(result);
+            }
             return BadRequest(new Result()
             {
                 message = "فشلت العملية",

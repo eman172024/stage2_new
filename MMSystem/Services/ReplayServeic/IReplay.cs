@@ -10,7 +10,7 @@ namespace MMSystem.Services.ReplayServeic
 {
     public interface IReplay : GenericInterface<Reply,ReplayDto>
     {
-        Task<bool> DeleteReply(int ReplayId);
+        Task<bool> DeleteReply(int ReplayId,int UserId);
         Task<bool> DeleteNotSendedReply(ReplayPhotoVM replayPhotoVM);
         Task<bool> AddReplay(ReplyViewModel model);
         Task<MVM> GetAllReplay(int depid, int mailId);
