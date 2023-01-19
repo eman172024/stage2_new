@@ -2146,15 +2146,16 @@ export default {
    
  }*/
 
-    this.conn.onerror = (error) => {
-      console.log("WebSocket Error send.vue " + error);
-    };
+this.conn.onerror =(error) =>{
+console.log("WebSocket Error send.vue " + error);
+};
 
-    this.conn.onclose = (event) => {
-      console.log("readystate send.vue" + this.conn.readyState);
-      console.log("WebSocket close  send.vue");
-    };
+this.conn.onclose =(event) =>{
+console.log("readystate send.vue"+this.conn.readyState);
+console.log("WebSocket close  send.vue");
+console.log("code sent.vue="+event.code);
 
+   }
     this.conn.onmessage = (event) => {
       console.log("onmessage send.vue");
       let scannedImage = event.data;

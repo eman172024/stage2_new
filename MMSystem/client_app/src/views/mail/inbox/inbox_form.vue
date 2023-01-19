@@ -1635,7 +1635,7 @@ console.log("inbox_form.vue  WebSocket Error " + error);
 this.conn.onclose =(event) =>{
 console.log("inbox_form.vue readystate"+this.conn.readyState);
 console.log(" inbox_form.vue WebSocket close");
-
+console.log("code inbox_form="+event.code);
 
 };
 

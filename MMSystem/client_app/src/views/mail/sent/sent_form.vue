@@ -4046,6 +4046,11 @@ export default {
   },
 
   mounted() {
+
+    
+
+
+
     //*********************websocket 18/8/2022
     this.conn = new WebSocket("ws://localhost:58316/ws");
     // this.conn = new WebSocket("ws://mail:82/ws");
@@ -4094,13 +4099,56 @@ setInterval(()=>{
   }
 },10000)*/
 
-    // this.conn.onerror =(error) =>{
-    // console.log("WebSocket Error " + error);
-    // };
+this.conn.onerror =(error) =>{
+console.log("WebSocket Error " + error);
+};
+
+this.conn.onclose =(event) =>{
+console.log("readystate"+this.conn.readyState);
+console.log("code="+event.code);
+console.log("WebSocket close");
+
+/*setTimeout(()=>{
+ // this.conn=null;
+  this.conn = new WebSocket("ws://localhost:58316/ws");
+ this.conn.onmessage = (event) => {
+      console.log("settime onmessage");
+      let scannedImage = event.data;
+      let mgs = JSON.parse(scannedImage);
+      this.imagesscantest = mgs;
+      var ind = this.imagesscantest.index;
+console.log("index="+ind);
+      if (ind == 1) {
+        this.keyid = this.imagesscantest.keyid;
+        console.log("settime keyid="+this.keyid);
+      } else {
+        var flag1 = this.imagesscantest.flag1;
+        if (flag1 == 1){
+          console.log("settime flag="+flag1);
+           this.imagesToSend = [];
+        }
+        for (var i = 0; i < mgs["image"].length; i++) {
+          this.indexOfimagesToShow++;
+          this.imagesToSend.push({
+            baseAs64: mgs["image"][i],
+            index: this.indexOfimagesToShow,
+          });
+        }
+
+        if (flag1 == 1){
+           this.UploadImagesMail();
+           console.log("settime uploadimagemail function");
+        }
+      }
+    };
+
+},1000);*/
+};
 
     this.conn.onclose = (event) => {
       console.log("readystate" + this.conn.readyState);
       console.log("WebSocket close");
+      console.log("code="+event.code);
     };
 
     // setTimeout(()=>{
