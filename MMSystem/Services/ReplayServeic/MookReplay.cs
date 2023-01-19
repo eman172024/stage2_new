@@ -134,7 +134,7 @@ namespace MMSystem.Services.ReplayServeic
         }
 
 
-        public async Task<bool> DeleteReply(int id) 
+        public async Task<bool> DeleteReply(int id,int UserId) 
         {
 
             try
@@ -149,19 +149,25 @@ namespace MMSystem.Services.ReplayServeic
                     await _data.SaveChangesAsync();
 
                     List<Reply_Resources> replyResours = await _data.Reply_Resources.Where(x => x.ReplyId == reply.ReplyId && x.State == true ).ToListAsync() ;
-
+                    Historyes historyes = new Historyes();
                     if (replyResours != null)
                     {
                         foreach (var item in replyResours)
                         {
     
-                       item.State = false;
+                         item.State = false;
                         _data.Reply_Resources.Update(item);
                         await _data.SaveChangesAsync();
 
                         }
                     }
-
+                    historyes.changes = "رد رقم" + id;
+                    historyes.currentUser = UserId;
+                    historyes.HistortyNameID = 7;
+                    historyes.Time = System.DateTime.Now;
+                    historyes.mailid = 4;
+                     _data.History.Add(historyes);
+                    await _data.SaveChangesAsync();
                     return true;
                 }
                 return false;
