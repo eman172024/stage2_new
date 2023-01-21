@@ -2139,12 +2139,21 @@ import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 export default {
   created() {},
 
+    destroyed() {
+  console.log("destroyed_sent.vue")
+  if(this.conn!=null){
+ if (this.conn.readystate!=3){
+         this.conn.close();
+         this.conn=null;
+ }
+ 
+}},
+
   mounted() {
-    this.conn = new WebSocket("ws://localhost:58316/ws");
+    //*******21/1/2023
+ /*   this.conn = new WebSocket("ws://localhost:58316/ws");
     //  this.conn = new WebSocket("ws://mail:82/ws");
-    /*this.conn.onopen =  (event)=> {
-   
- }*/
+  
 
 this.conn.onerror =(error) =>{
 console.log("WebSocket Error send.vue " + error);
@@ -2178,7 +2187,8 @@ console.log("code sent.vue="+event.code);
           });
         }
       }
-    };
+    };*/
+    //*************21/1/2023
 
     var date = new Date();
 
@@ -2366,6 +2376,10 @@ console.log("code sent.vue="+event.code);
   data() {
     return {
 
+//********21/1/2023
+  conn:null,
+  keyid:"",
+//**********end 21/1/2023
       reply_id_to_delete:"",
       alert_delete_document:false,
 
@@ -2678,7 +2692,78 @@ this.$http.mailService
     },
 
     reply1() {
-      var link = document.getElementById("a3");
+
+  if(this.conn==null){
+        console.log("conn="+this.conn);
+      this.conn = new WebSocket("ws://localhost:58316/ws");
+   //  this.conn = new WebSocket("ws://mail:82/ws");
+   
+  this.conn.onclose=(event)=>{
+  console.log("close code_sent.vue="+event.code);
+  }
+
+      this.conn.onmessage = (event) => {
+      console.log("onmessage send.vue");
+      let scannedImage = event.data;
+
+      let mgs = JSON.parse(scannedImage);
+      this.imagesscantest = mgs;
+      var ind = this.imagesscantest.index;
+      console.log(" send.vue index="+ind);
+      if (ind == 1) {
+        this.keyid = this.imagesscantest.keyid;
+        console.log("send.vue keyid=" + this.keyid);
+      } else {
+       
+        console.log("send.vue else");
+        for (var i = 0; i < mgs["image"].length; i++) {
+          this.indexOfimagesToShow++;
+          this.imagesToSend.push({
+            baseAs64: mgs["image"][i],
+            index: this.indexOfimagesToShow,
+          });
+        }
+      }
+    };
+       }
+        else if(this.conn.readyState===3||this.conn.readyState===2){
+            console.log("readystate="+this.conn.readyState)
+            this.conn.close();
+                  this.conn=null;
+                  this.reply1();
+           }
+            else
+             {
+        //       var link = document.getElementById("a3");
+      var mailId_to_get_mail_by_id = this.mailId_to_get_mail_by_id;
+      var sends_id = this.sends_id;
+      var my_department_id_to_get_mail_by_id =
+      this.my_department_id_to_get_mail_by_id;
+     var keyid = this.keyid;
+      console.log("keyid_sent="+keyid);
+    
+      var timeout;
+      window.addEventListener("blur", function (e) {
+        window.clearTimeout(timeout);
+      });
+
+      timeout = window.setTimeout(function () {
+        window.location = "http://mail/scanner_app/Setup1.msi";
+      }, 1000);
+  document.location= "SScaner:flag=0" +
+        "userId=" +
+        localStorage.getItem("AY_LW") +
+        "mId=" +
+        mailId_to_get_mail_by_id +
+        "send_ToId=" +
+        sends_id +
+        "to=" +
+        my_department_id_to_get_mail_by_id +
+        "keyid=" +
+        keyid;
+             }
+      //******21/1/2023
+      /*var link = document.getElementById("a3");
       var mailId_to_get_mail_by_id = this.mailId_to_get_mail_by_id;
       var sends_id = this.sends_id;
       var my_department_id_to_get_mail_by_id =
@@ -2705,7 +2790,8 @@ this.$http.mailService
         "to=" +
         my_department_id_to_get_mail_by_id +
         "keyid=" +
-        keyid;
+        keyid;*/
+        //************21/1/2023
     },
 
     print_image() {
