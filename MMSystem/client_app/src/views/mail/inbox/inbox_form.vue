@@ -1617,16 +1617,24 @@ import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 export default {
   created() {},
 
+  destroyed() {
+  console.log("destroyed_inbox_form")
+  if(this.conn!=null){
+ if (this.conn.readystate!=3){
+   console.log("readystate destory_inbox_form="+this.conn.readyState);
+           this.conn.close();
+           console.log("close_inbox_form");
+         this.conn=null;
+ }
+}},
+
   mounted() {
-    //*********************websocket
-    this.conn = new WebSocket("ws://localhost:58316/ws");
+    //21/1/2023*********************websocket
+  /***********  this.conn = new WebSocket("ws://localhost:58316/ws");
     //  this.conn = new WebSocket("ws://mail:82/ws");
     console.log("inbox_form websocket connect ok");
 
-    /* this.conn.onopen =  (event)=> {
-   
-     console.log("id="+ event.data);
- }*/
+ 
 
 this.conn.onerror =(error) =>{
 console.log("inbox_form.vue  WebSocket Error " + error);
@@ -1660,8 +1668,8 @@ console.log("code inbox_form="+event.code);
           });
         }
       }
-    };
-
+    };*/
+//****************21/1/2023
     this.my_user_id = localStorage.getItem("AY_LW");
     this.my_department_id = localStorage.getItem("chrome");
     this.roles = localStorage.getItem("Az07");
@@ -1694,6 +1702,10 @@ console.log("code inbox_form="+event.code);
   data() {
     return {
 
+//********21/1/2023
+      keyid: "",
+      conn: null,
+//**end 21/1/2023
       reply_id_to_delete:"",
       alert_delete_document:false,
 
@@ -1966,12 +1978,94 @@ this.$http.mailService
     reply1() {
 
 
+ if(this.conn==null){
+        console.log("conn="+this.conn);
+      this.conn = new WebSocket("ws://localhost:58316/ws");
+   //  this.conn = new WebSocket("ws://mail:82/ws");
+
+    this.conn.onclose=(event)=>{
+  console.log("close code_inbox_form="+event.code);
+  }
+this.conn.onmessage = (event) => {
+       console.log("inbox_form onmessage");
+      let scannedImage = event.data;
+      let mgs = JSON.parse(scannedImage);
+      this.imagesscantest = mgs;
+      var ind = this.imagesscantest.index;
+      console.log("inbox_form index="+ind);
+      if (ind == 1) {
+        this.keyid = this.imagesscantest.keyid;
+        console.log("inbox keyid="+this.keyid);
+      } else {
+         console.log("inbox_form.vue else");
+        //this.imagesToSend=[]
+        for (var i = 0; i < mgs["image"].length; i++) {
+          this.indexOfimagesToShow++;
+          this.imagesToSend.push({
+            baseAs64: mgs["image"][i],
+            index: this.indexOfimagesToShow,
+          });
+        }
+      }
+
+ }
+ }
+  else if(this.conn.readyState===3||this.conn.readyState===2){
+            console.log("readystate="+this.conn.readyState)
+                  this.conn=null;
+                  this.reply1();
+           }
+  
+   else
+    {
+      var mailId_to_get_mail_by_id = this.mailId_to_get_mail_by_id;
+      var mailId = this.mailId;
+      var sends_id = this.sends_id;
+      var department_Id = this.department_Id;
+      var keyid = this.keyid;
+
+      var timeout;
+      window.addEventListener("blur", function (e) {
+        window.clearTimeout(timeout);
+      });
+
+      timeout = window.setTimeout(function () {
+        window.location = "http://mail/scanner_app/Setup1.msi";
+      }, 1000);
+
+      console.log("replay" + "  id= " + mailId_to_get_mail_by_id);
+      document.location=
+        "SScaner:flag=0" +
+        "userId=" +
+        localStorage.getItem("AY_LW") +
+        "mId=" +
+        mailId +
+        "send_ToId=" +
+        sends_id +
+        "to=" +
+        department_Id +
+        "keyid=" +
+        keyid;
+
+      console.log(
+        "testreplay " +
+          "  id= " +
+          mailId +
+          "userId=" +
+          localStorage.getItem("AY_LW") +
+          "send_ToId=" +
+          sends_id +
+          "to=" +
+          department_Id +
+          "keyid=" +
+          keyid
+      );
+             }
 
 
 
-
-      
-      var link = document.getElementById("a5");
+     //***********21/1/2023 
+     /* var link = document.getElementById("a5");
       var mailId_to_get_mail_by_id = this.mailId_to_get_mail_by_id;
       var mailId = this.mailId;
       var sends_id = this.sends_id;
@@ -2013,7 +2107,8 @@ this.$http.mailService
           department_Id +
           "keyid=" +
           keyid
-      );
+      );*/
+      //*************21/1/2023
     },
     //**************************************
 

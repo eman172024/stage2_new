@@ -4039,6 +4039,16 @@ import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 export default {
   created() {},
 
+destroyed() {
+  console.log("destroyed_send_form")
+  if(this.conn!=null){
+ if (this.conn.readystate!=3){
+   console.log("readystate destory_sent_form="+this.conn.readyState);
+           this.conn.close();
+           console.log("close_sent_form");
+         this.conn=null;
+ }
+}},
   components: {
     asideComponent,
     navComponent,
@@ -4052,14 +4062,11 @@ export default {
 
 
     //*********************websocket 18/8/2022
-    this.conn = new WebSocket("ws://localhost:58316/ws");
+  //  this.conn = new WebSocket("ws://localhost:58316/ws");
     // this.conn = new WebSocket("ws://mail:82/ws");
     // //*********************websocket 8/1/2023
 
-    // this.conn = new WebSocket("ws://localhost:58316/ws");
-    // this.conn = new WebSocket("ws://mail:82/ws");
-
-    //************8/1/2023
+   
     /*this.connect1();
 this.massage_on();
 
@@ -4099,14 +4106,16 @@ setInterval(()=>{
   }
 },10000)*/
 
-this.conn.onerror =(error) =>{
+//21/1/2023
+/*this.conn.onerror =(error) =>{
 console.log("WebSocket Error " + error);
 };
 
 this.conn.onclose =(event) =>{
 console.log("readystate"+this.conn.readyState);
 console.log("code="+event.code);
-console.log("WebSocket close");
+console.log("WebSocket close");*/
+//*********23/1/2023
 
 /*setTimeout(()=>{
  // this.conn=null;
@@ -4143,13 +4152,13 @@ console.log("index="+ind);
     };
 
 },1000);*/
-};
+//};
 
-    this.conn.onclose = (event) => {
+   /* this.conn.onclose = (event) => {
       console.log("readystate" + this.conn.readyState);
       console.log("WebSocket close");
       console.log("code="+event.code);
-    };
+    };*/
 
     // setTimeout(()=>{
     //   this.conn=null;
@@ -4188,7 +4197,8 @@ console.log("index="+ind);
     // },1000);
     // };
 
-    this.conn.onopen = (event) => {
+//21/1/2023
+   /* this.conn.onopen = (event) => {
       console.log("open");
     };
 
@@ -4221,7 +4231,7 @@ console.log("index="+ind);
           console.log("uploadimagemail function");
         }
       }
-    };
+    };end 21/1/2023*/
     //var   conn= null;
     var date = new Date();
 
@@ -4297,7 +4307,7 @@ console.log("index="+ind);
       alert_prepare_delete_document: false,
       alert_prepare_delete_mail: false,
       //*************
-      rs: 1000,
+   
       filter_text: "",
       mail_flag: "",
       keyid: "",
@@ -4884,16 +4894,76 @@ this.$http.mailService
     // },
 
     func() {
+     
+  if(this.conn==null){
+     console.log("conn="+this.conn);
+      this.conn = new WebSocket("ws://localhost:58316/ws");
+     //  this.conn = new WebSocket("ws://mail:94/ws");
+   
+  this.conn.onclose=(event)=>{
+  console.log("close code_sent_form="+event.code);
+  }
+    
+        this.conn.onmessage = (event) => {
+           console.log("onmessage");
+           let scannedImage = event.data;
+           let mgs = JSON.parse(scannedImage);
+           this.imagesscantest = mgs;
+           var ind = this.imagesscantest.index;
+           console.log("index="+ind);
+           if (ind == 1) {
+             this.keyid = this.imagesscantest.keyid;
+          //   localStorage.setItem("keyid",this.keyid);
+             console.log("keyid="+this.keyid);
+           } else {
+             var flag1 = this.imagesscantest.flag1;
+             if (flag1 == 1){
+               console.log("flag="+flag1);
+                this.imagesToSend = [];
+             }
+             for (var i = 0; i < mgs["image"].length; i++) {
+               this.indexOfimagesToShow++;
+               this.imagesToSend.push({
+                 baseAs64: mgs["image"][i],
+                 index: this.indexOfimagesToShow,
+               });
+             }
+     
+             if (flag1 == 1){
+                this.UploadImagesMail();
+                console.log("uploadimagemail function");
+             }
+           }
+         };
+    }
+  
+     else if(this.conn.readyState===3||this.conn.readyState===2){
+            console.log("readystate="+this.conn.readyState)
+            this.conn.close();
+                  this.conn=null;
+                  this.func();
+           }
+  
+           else {
+           console.log("func");
+           var mailid = this.mailId;
+           var keyid = this.keyid;
+     
+           var timeout;
+           window.addEventListener("blur", function(e) {
+             window.clearTimeout(timeout);
+           });
+     
+           timeout = window.setTimeout(function() {
+             window.location = "http://mail/scanner_app/Setup1.msi";
+           }, 1000);
+           
+      
+          document.location="SScaner:flag=1" + "mId=" + mailid + "keyid=" + keyid;
+           }
 
-
-
-      if(this.conn==null){
-
-
-
-        
-      }
-      var link = document.getElementById("a1");
+     //21/1/2023
+     /* var link = document.getElementById("a1");
 
       var replyByDepartmenId = this.replyByDepartmenId;
       var sends_id = this.sends_id;
@@ -4909,13 +4979,91 @@ this.$http.mailService
         window.location = "http://mail/scanner_app/Setup1.msi";
       }, 1000);
 
-      link.href = "SScaner:flag=1" + "mId=" + mailid + "keyid=" + keyid;
+      link.href = "SScaner:flag=1" + "mId=" + mailid + "keyid=" + keyid;*/
+      //end 21/1/2023
     },
 
     ////////////////////////////////////////////////////////////////////////////////////////////
 
     reply1() {
-      var link = document.getElementById("a2");
+     
+
+  /*     if(this.conn==null){
+ console.log("conn="+this.conn);
+      this.conn = new WebSocket("ws://localhost:58316/ws");
+     //  this.conn = new WebSocket("ws://mail:94/ws");
+    // localStorage.setItem("connect",this.conn);
+
+this.conn.onclose=(event)=>{
+console.log("close code="+event.code);
+//this.conn.close();
+}
+
+//********
+  this.conn.onmessage = (event) => {
+      console.log("onmessage replay1");
+      let scannedImage = event.data;
+
+      let mgs = JSON.parse(scannedImage);
+      this.imagesscantest = mgs;
+      var ind = this.imagesscantest.index;
+      console.log(" replay1 index="+ind);
+      if (ind == 1) {
+        this.keyid = this.imagesscantest.keyid;
+        console.log("replay1 keyid=" + this.keyid);
+      } else {
+       
+        console.log("replay1 else");
+        for (var i = 0; i < mgs["image"].length; i++) {
+          this.indexOfimagesToShow++;
+          this.imagesToSend.push({
+            baseAs64: mgs["image"][i],
+            index: this.indexOfimagesToShow,
+          });
+        }
+      }
+    };
+//*********
+
+       }
+  else if(this.conn.readyState===3||this.conn.readyState===2){
+     console.log("readystate="+this.conn.readyState)
+     this.conn.close();
+     this.conn=null;
+     this.reply1();
+     }
+      else {
+
+      var replyByDepartmenId = this.replyByDepartmenId;
+      var sends_id = this.sends_id;
+      var mailId = this.mailId;
+      var keyid = this.keyid;
+
+      var timeout;
+      window.addEventListener("blur", function (e) {
+        window.clearTimeout(timeout);
+      });
+
+      timeout = window.setTimeout(function () {
+        window.location = "http://mail/scanner_app/Setup1.msi";
+      }, 1000);
+
+      document.location=
+        "SScaner:flag=0" +
+        "userId=" +
+        localStorage.getItem("AY_LW") +
+        "mId=" +
+        mailId +
+        "send_ToId=" +
+        sends_id +
+        "to=" +
+        replyByDepartmenId +
+        "keyid=" +
+        keyid;
+
+            }*/
+     //********21/1/2023
+     /* var link = document.getElementById("a2");
 
       var replyByDepartmenId = this.replyByDepartmenId;
       var sends_id = this.sends_id;
@@ -4942,7 +5090,8 @@ this.$http.mailService
         "to=" +
         replyByDepartmenId +
         "keyid=" +
-        keyid;
+        keyid;*/
+        //********21/1/2023
     },
 
     to_get_all_doc_of_mail() {

@@ -2058,13 +2058,20 @@ import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 export default {
   created() {},
 
+ destroyed() {
+  console.log("destroyed_inbox.vue")
+  if(this.conn!=null){
+ if (this.conn.readystate!=3){
+   console.log("readystate destory_inbox.vue="+this.conn.readyState);
+           this.conn.close();
+           console.log("close_inbox.vue");
+         this.conn=null;
+ }
+}},
   mounted() {
-    //*********************websocket
-    this.conn = new WebSocket("ws://localhost:58316/ws");
-    // this.conn = new WebSocket("ws://mail:82/ws");
-    /*this.conn.onopen =  (event)=> {
-   
- }*/
+    //21/1/2023*********************websocket
+  /*  this.conn = new WebSocket("ws://localhost:58316/ws");
+    
 this.conn.onerror =(error) =>{
 console.log("inbox WebSocket Error " + error);
 };
@@ -2098,9 +2105,9 @@ consol.log("code inbox.vue="+event.code);
           });
         }
       }
-    };
+    };*/
 
-    //*********************end websocket
+    //*********************end websocket 21/1/2023
 
     var date = new Date();
 
@@ -2196,6 +2203,11 @@ consol.log("code inbox.vue="+event.code);
 
   data() {
     return {
+
+//*********21/1/2023
+    keyid: "",
+    conn: null,
+//**********end 21/1/2023
 
       reply_id_to_delete:"",
       alert_delete_document:false,
@@ -2389,7 +2401,81 @@ consol.log("code inbox.vue="+event.code);
 
     //************************
     reply1() {
-      var link = document.getElementById("a4");
+
+if(this.conn==null){
+     console.log("conn="+this.conn);
+      this.conn = new WebSocket("ws://localhost:58316/ws");
+     //  this.conn = new WebSocket("ws://mail:82/ws");
+   
+  this.conn.onclose=(event)=>{
+  console.log("close code_inbox.vue="+event.code);
+  }
+this.conn.onmessage = (event) => {
+      console.log("inbox onmessage");
+      let scannedImage = event.data;
+      let mgs = JSON.parse(scannedImage);
+      this.imagesscantest = mgs;
+
+      var ind = this.imagesscantest.index;
+       console.log("inbox index="+ind);
+      if (ind == 1) {
+        this.keyid = this.imagesscantest.keyid;
+        console.log("inbox keyid="+this.keyid);
+      } else {
+         console.log("inbox.vue else");
+        //this.imagesToSend=[]
+        for (var i = 0; i < mgs["image"].length; i++) {
+          this.indexOfimagesToShow++;
+
+          this.imagesToSend.push({
+            baseAs64: mgs["image"][i],
+            index: this.indexOfimagesToShow,
+          });
+        }
+      }
+    };
+
+}
+ else if(this.conn.readyState===3||this.conn.readyState===2){
+            console.log("readystate="+this.conn.readyState)
+            this.conn.close();
+                  this.conn=null;
+                  this.reply1();
+           }
+  
+           else {
+ var mailId_to_get_mail_by_id = this.mailId_to_get_mail_by_id;
+      var sends_id_to_get_mail_by_id = this.sends_id_to_get_mail_by_id;
+      var department_Id = this.department_Id;
+      var keyid = this.keyid;
+
+      var timeout;
+      window.addEventListener("blur", function (e) {
+        window.clearTimeout(timeout);
+      });
+
+      timeout = window.setTimeout(function () {
+        window.location = "http://mail/scanner_app/Setup1.msi";
+      }, 1000);
+
+    document.location=
+        "SScaner:flag=0" +
+        "userId=" +
+        localStorage.getItem("AY_LW") +
+        "mId=" +
+        mailId_to_get_mail_by_id +
+        "send_ToId=" +
+        sends_id_to_get_mail_by_id +
+        "to=" +
+        department_Id +
+        "keyid=" +
+        keyid;
+
+           }
+
+
+      //**********21/1/2023
+     /* var link = document.getElementById("a4");
       var mailId_to_get_mail_by_id = this.mailId_to_get_mail_by_id;
       var sends_id_to_get_mail_by_id = this.sends_id_to_get_mail_by_id;
       var department_Id = this.department_Id;
@@ -2415,7 +2501,8 @@ consol.log("code inbox.vue="+event.code);
         "to=" +
         department_Id +
         "keyid=" +
-        keyid;
+        keyid;*/
+        //***********21/1/2023
     },
     //***************************
 

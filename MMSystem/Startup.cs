@@ -161,24 +161,30 @@ namespace MMSystem
                           
                 var iidd = obj11.keyid.Value;
 
-          
 
-            //  var tt = _conn.FirstOrDefault(y => y.Key == iidd);
+            var count = _conn.Values;
 
-            foreach (var c in _conn.Values)
+            var tt = _conn.FirstOrDefault(y => y.Key == iidd);
+            if (tt.Value != null)
             {
-                var xx = _conn.FirstOrDefault(x => x.Value == c).Key;
-               // if (tt.Value.State == WebSocketState.Open)
-                  if (c.State == WebSocketState.Open)
-                {
-                    if (xx == iidd)
-                    {
-                        await c.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
-                     //   await tt.Value.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
+                if (tt.Value.State == WebSocketState.Open)
+                    await tt.Value.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
 
-                    }
-                }
             }
+            //    foreach (var c in _conn.Values)
+            //{
+            //    var xx = _conn.FirstOrDefault(x => x.Value == c).Key;
+            //   // if (tt.Value.State == WebSocketState.Open)
+            //      if (c.State == WebSocketState.Open)
+            //    {
+            //        if (xx == iidd)
+            //        {
+            //            await c.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
+            //         //   await tt.Value.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
+
+            //        }
+            //    }
+            //}
             //***********14/1/2023
             //foreach (var c in _conn.Values)
             //{
@@ -187,20 +193,20 @@ namespace MMSystem
             //    if (c.State == WebSocketState.Open)
             //***********end 14/1/2023
 
-          //  if (tt.Value.State == WebSocketState.Open)
+            //  if (tt.Value.State == WebSocketState.Open)
             //  {
-                //*********14/1/2023
-                        //if (xx == iidd)
-                        //{
-                        //    await c.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
-                        //}
-                //*****end 14/1/2023
-                 //       await tt.Value.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
+            //*********14/1/2023
+            //if (xx == iidd)
+            //{
+            //    await c.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
+            //}
+            //*****end 14/1/2023
+            //       await tt.Value.SendAsync(Encoding.UTF8.GetBytes(m), WebSocketMessageType.Text, true, CancellationToken.None);
 
-               // }
-           // }
-          //  }
-         //   catch { Console.WriteLine("error in resm"); }
+            // }
+            // }
+            //  }
+            //   catch { Console.WriteLine("error in resm"); }
         }
         //******************
         private async Task senid(WebSocket socket, string id)
@@ -225,8 +231,8 @@ namespace MMSystem
         private async Task resivemassege(WebSocket socket, Action<WebSocketReceiveResult, byte[]> handelms)
         {
 
-            //try
-            //{
+           try
+           {
                 var buffer = new byte[1024 * 100 * 5 * 1000];
                 while (socket.State == WebSocketState.Open)
                 {
@@ -234,13 +240,22 @@ namespace MMSystem
                     handelms(result, buffer);
                 }
 
-            //}
-            //catch (Exception ex)
-            //{
+            }
+            catch (Exception ex)
+            {
+                foreach (var x1 in _conn.Values)
+                {
+                    if (x1.State == WebSocketState.Aborted)
+                    {
+                        string id2 = _conn.FirstOrDefault(x => x.Value == x1).Key;
+                        _conn.TryRemove(id2, out WebSocket sockt2);
+                       
+                    }
 
-            //    Console.WriteLine("\nMessage ---\n{0}", ex.Message);
+                }
+                Console.WriteLine("\nMessage ---\n{0}", ex.Message);
 
-            //}
+            }
             //***********************************************************
         }
         }
