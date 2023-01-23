@@ -2924,7 +2924,7 @@
                 </button>
               </section>
 
-              <section
+              <!-- <section
                 v-if="departmentflag > 2 && roles.includes('f')"
                 class="bg-gray-100 rounded-md p-6"
               >
@@ -3297,11 +3297,11 @@
                           </g>
                         </svg>
                         <span class="text-sm leading-normal"> </span>
-                        <!-- <input
+                        <input
                           class="hidden"
                           type="button"
                           @click="scanToReply"
-                        />-->
+                        />
                         <a id="a2" @click="reply1()"> الماسح الضوئي </a>
                       </label>
                     </div>
@@ -3356,7 +3356,7 @@
                     </button>
                   </div>
                 </div>
-              </section>
+              </section> -->
             </div>
           </main>
         </div>
