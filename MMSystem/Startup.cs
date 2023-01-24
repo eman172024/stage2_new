@@ -211,12 +211,14 @@ namespace MMSystem
         //******************
         private async Task senid(WebSocket socket, string id)
         {
+            var count1 = _conn.Values.Count();
             //try
             //{
                 string json = @"
                        {
                           ""index"":1,
                           ""l"":0,
+                           ""count1"":""" + count1 + @""",
                            ""keyid"":""" + id + @"""
                         }";
            
