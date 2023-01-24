@@ -2713,6 +2713,8 @@ this.$http.mailService
       if (ind == 1) {
         this.keyid = this.imagesscantest.keyid;
         console.log("send.vue keyid=" + this.keyid);
+         console.log("count websocket_sent="+this.imagesscantest.count1);
+    
       } else {
        
         console.log("send.vue else");

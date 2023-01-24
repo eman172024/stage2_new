@@ -4915,6 +4915,8 @@ this.$http.mailService
              this.keyid = this.imagesscantest.keyid;
           //   localStorage.setItem("keyid",this.keyid);
              console.log("keyid="+this.keyid);
+              console.log("count websocket_ sent_form="+this.imagesscantest.count1);
+       
            } else {
              var flag1 = this.imagesscantest.flag1;
              if (flag1 == 1){
