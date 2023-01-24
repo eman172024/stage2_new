@@ -1527,9 +1527,9 @@ namespace MMSystem.Services.MailServeic
 
                             );
 
-                            mail.mail.flag = mail.actionSenders.Max(x => x.flag);
 
                         }
+                        mail.mail.flag = mail.actionSenders.Max(x => x.flag);
 
 
                     }
@@ -1663,8 +1663,8 @@ namespace MMSystem.Services.MailServeic
             try
             {
 
-
-                MailVM mail = new MailVM();
+//
+              //  MailVM mail = new MailVM();
                 ExMail ex = new ExMail();
 
 
@@ -1719,7 +1719,10 @@ namespace MMSystem.Services.MailServeic
                                 }
 
                                 );
+
+
                             }
+                            ex.mail.flag = ex.actionSenders.Max(x => x.flag);
 
 
 
@@ -2343,7 +2346,6 @@ namespace MMSystem.Services.MailServeic
                     _mail.Genaral_inbox_year = mail.Genaral_inbox_year;
                     _mail.Genaral_inbox_Number = mail.Genaral_inbox_Number;
                     _mail.Date_Of_Mail = mail.Date_Of_Mail;
-
                     _mail.clasification = mail.clasification;
                     _mail.ActionRequired = mail.ActionRequired;
                     _mail.old_mail_number = mail.old_mail_number;
