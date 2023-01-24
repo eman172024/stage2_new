@@ -2,6 +2,13 @@ import axios from 'axios';
 
 export default {
 
+
+    delete_reply(id,userid){
+
+        return axios.put(`/api/Reply/DeleteReply?id=${id}&&UserId=${userid}`);
+        
+    },
+
     testsss(page_num) {
         return axios.get(`/api/ExternalMails/GetMail?userid=5&mailNumType=0&mangment=1&date_from=2021-11-04&date_to=2023-01-07&Replay_Date=false&mailnum=&genral_incoming_num=&summary=&Department_filter=&&TheSection=&Measure_filter=&Classfication=&mail_state=&page_num=${page_num}&page_size=5`);
 

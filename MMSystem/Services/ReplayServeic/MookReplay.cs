@@ -132,6 +132,65 @@ namespace MMSystem.Services.ReplayServeic
             }
             return false;
         }
+
+
+        public async Task<bool> DeleteReply(int id,int UserId) 
+        {
+
+            try
+            {
+                Reply reply = await _data.Replies.FindAsync(id);
+
+                if (reply != null)
+
+                {
+                    reply.state = false;
+                    _data.Replies.Update(reply);
+                    await _data.SaveChangesAsync();
+
+                    List<Reply_Resources> replyResours = await _data.Reply_Resources.Where(x => x.ReplyId == reply.ReplyId && x.State == true ).ToListAsync() ;
+                    Historyes historyes = new Historyes();
+
+                    if (replyResours.Count != 0)
+                    {
+                        foreach (var item in replyResours)
+                        {
+
+                            item.State = false;
+                            _data.Reply_Resources.Update(item);
+                            await _data.SaveChangesAsync();
+
+                        }
+
+                        historyes.changes = "  تم حذف الرد مع الصور " + id;
+                        historyes.currentUser = UserId;
+                        historyes.HistortyNameID = 7;
+                        historyes.Time = System.DateTime.Now;
+                        historyes.mailid = id;
+                        _data.History.Add(historyes);
+                        await _data.SaveChangesAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        historyes.changes ="  تم حذف الرد بدون صور " ;
+                        historyes.currentUser = UserId;
+                        historyes.HistortyNameID = 7;
+                        historyes.Time = System.DateTime.Now;
+                        historyes.mailid = id;
+                        _data.History.Add(historyes);
+                        await _data.SaveChangesAsync();
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public async Task<bool> Delete(int id)
         {
             try

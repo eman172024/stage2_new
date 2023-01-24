@@ -83,7 +83,22 @@ namespace MMSystem.Controllers
                 statusCode = 400
             });
         }
+        [HttpPut("DeleteReply")]
+        public async Task<IActionResult> DeleteReply(int id,int UserId)
+        {
+            var result = await _Replay.DeleteReply(id,UserId);
+           
+            if (result) {                        
+                
 
+                return Ok(result);
+            }
+            return BadRequest(new Result()
+            {
+                message = "فشلت العملية",
+                statusCode = 400
+            });
+        }
 
         [HttpPost("AddReplyWithPhoto")]
         public async Task<IActionResult> AddReplyWithPhoto([FromBody] ReplayPhotoVM mail)

@@ -28,13 +28,11 @@
           <main class="flex-1 relative focus:outline-none py-6">
             <div class="grid grid-cols-7 gap-6">
               <section class="col-span-5 flex justify-between items-stretch">
-                <div class="w-2/12 ml-3 ">
+                <div class="w-2/12 ml-3">
                   <h3 class="text-xl font-semibold text-gray-900">
                     معلومات البريد
                   </h3>
                 </div>
-
-                
 
                 <fieldset class="w-6/12 mr-3 mt-2">
                   <div class="flex items-center">
@@ -97,24 +95,33 @@
                   </div>
                 </fieldset>
 
-
-
                 <div
                   v-if="my_department_id == 21 || my_department_id == 22"
-                  class="grid grid-cols-7 gap-3 border-black border-2 rounded-xl  w-4/12 mb-2 pr-3 py-2 "
+                  class="
+                    grid grid-cols-7
+                    gap-3
+                    border-black border-2
+                    rounded-xl
+                    w-4/12
+                    mb-2
+                    pr-3
+                    py-2
+                  "
                 >
-            
-                  <section
-                    class="col-span-5 flex justify-between items-center"
-                  >
-                   
-                  <div
-                v-if="mailType == ''"
-                class="bg-gray-200  bg-opacity-80 rounded-lg absolute z-50 w-full h-full"
-              ></div>
-                    <fieldset class="    ">
+                  <section class="col-span-5 flex justify-between items-center">
+                    <div
+                      v-if="mailType == ''"
+                      class="
+                        bg-gray-200 bg-opacity-80
+                        rounded-lg
+                        absolute
+                        z-50
+                        w-full
+                        h-full
+                      "
+                    ></div>
+                    <fieldset class="">
                       <div class="flex items-center">
-               
                         <div
                           v-if="my_department_id == 21"
                           class="w-full flex items-center"
@@ -184,10 +191,9 @@
                     </fieldset>
                   </section>
                 </div>
-
               </section>
 
-              <section class="col-span-2 ">
+              <section class="col-span-2">
                 <div
                   class="
                     float-left
@@ -238,7 +244,13 @@
             <div class="mt-6 space-y-6 relative">
               <div
                 v-if="mailType == ''"
-                class="bg-gray-200  bg-opacity-80 rounded-lg absolute z-50 inset-0"
+                class="
+                  bg-gray-200 bg-opacity-80
+                  rounded-lg
+                  absolute
+                  z-50
+                  inset-0
+                "
               ></div>
 
               <div class="grid grid-cols-7 gap-6">
@@ -264,7 +276,6 @@
                       </label>
                       <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
                       <textarea
-                        
                         v-model="summary"
                         id="summary"
                         rows="3"
@@ -308,7 +319,6 @@
                       </label>
                       <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
                       <select
-                       
                         v-model="classification"
                         id="classification"
                         class="
@@ -335,7 +345,7 @@
                           {{ classification.name }}
                         </option>
                       </select>
-<!-- 
+                      <!-- 
                       <div
                         v-else
                         class="
@@ -367,7 +377,6 @@
                       </label>
                       <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
                       <input
-                        
                         v-model="releaseDate"
                         min="2000-01-01"
                         max="2040-12-30"
@@ -413,9 +422,7 @@
                       </label>
                       <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
                       <input
-                        
                         v-model="general_incoming_number"
-                        
                         type="text"
                         min="1"
                         max="50000"
@@ -466,7 +473,6 @@
                       </label>
                       <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
                       <input
-                        
                         type="number"
                         placeholder="YYYY"
                         min="2011"
@@ -513,7 +519,6 @@
                       </label>
                       <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
                       <input
-                       
                         type="text"
                         v-model="old_mail_number"
                         id="old_mail_number"
@@ -570,7 +575,6 @@
                       </label>
                       <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
                       <textarea
-                        
                         v-model="required_action"
                         id="required_action"
                         rows="3"
@@ -643,12 +647,11 @@
                               p-2
                             "
                           >
-
-                          <input
-                          v-model="departmentNameSelected"
-                          type="text"
-                          class="h-6 w-full"
-                        />
+                            <input
+                              v-model="departmentNameSelected"
+                              type="text"
+                              class="h-6 w-full"
+                            />
 
                             <!-- {{ departmentNameSelected }} -->
                           </button>
@@ -1805,8 +1808,7 @@
                         </label>
                       </div>
 
-
-                          <div class="flex items-center w-48">
+                      <div class="flex items-center w-48">
                         <input
                           v-model="ward_to"
                           id="proxy"
@@ -1819,7 +1821,6 @@
                           مدير إدارة أو مكتب
                         </label>
                       </div>
-
                     </div>
                   </fieldset>
 
@@ -1998,10 +1999,10 @@
                       <button
                         v-if="
                           summary &&
-                            is_exisite_genaral_inbox_number == true &&
-                            classification &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
+                          is_exisite_genaral_inbox_number == true &&
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                         "
                         @click="updateMail"
                         type="button"
@@ -2079,10 +2080,10 @@
                       <button
                         v-if="
                           summary &&
-                            is_exisite_genaral_inbox_number == true &&
-                            classification &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
+                          is_exisite_genaral_inbox_number == true &&
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                         "
                         @click="updateMail"
                         type="button"
@@ -2160,8 +2161,8 @@
                       <button
                         v-if="
                           summary &&
-                            is_exisite_genaral_inbox_number == true &&
-                            classification
+                          is_exisite_genaral_inbox_number == true &&
+                          classification
                         "
                         @click="updateMail"
                         type="button"
@@ -2241,9 +2242,9 @@
                       <button
                         v-if="
                           summary &&
-                            classification &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                         "
                         @click="prepare_delete_mail()"
                         type="button"
@@ -2321,9 +2322,9 @@
                       <button
                         v-if="
                           summary &&
-                            classification &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                         "
                         @click="prepare_delete_mail()"
                         type="button"
@@ -2478,10 +2479,10 @@
                       <button
                         v-if="
                           summary &&
-                            is_exisite_genaral_inbox_number == true &&
-                            classification &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
+                          is_exisite_genaral_inbox_number == true &&
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                         "
                         class="
                           flex
@@ -2546,14 +2547,14 @@
                       <button
                         v-if="
                           summary &&
-                            classification &&
-                            is_exisite_genaral_inbox_number == true &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0) &&
-                            mail_forwarding &&
-                            sectorNameSelected &&
-                            sideNameSelected &&
-                            action_required_by_the_entity
+                          classification &&
+                          is_exisite_genaral_inbox_number == true &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0) &&
+                          mail_forwarding &&
+                          sectorNameSelected &&
+                          sideNameSelected &&
+                          action_required_by_the_entity
                         "
                         class="
                           flex
@@ -2618,15 +2619,15 @@
                       <button
                         v-if="
                           summary &&
-                            classification &&
-                            is_exisite_genaral_inbox_number == true &&
-                            sectorNameSelected &&
-                            sideNameSelected &&
-                            ward_to &&
-                            mail_ward_type &&
-                            entity_mail_date &&
-                            entity_reference_number &&
-                            procedure_type
+                          classification &&
+                          is_exisite_genaral_inbox_number == true &&
+                          sectorNameSelected &&
+                          sideNameSelected &&
+                          ward_to &&
+                          mail_ward_type &&
+                          entity_mail_date &&
+                          entity_reference_number &&
+                          procedure_type
                         "
                         class="
                           flex
@@ -2693,9 +2694,9 @@
                       <button
                         v-if="
                           summary &&
-                            classification &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                         "
                         class="
                           flex
@@ -2760,9 +2761,9 @@
                       <button
                         v-if="
                           summary &&
-                            classification &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                         "
                         class="
                           flex
@@ -2827,9 +2828,9 @@
                       <button
                         v-if="
                           summary &&
-                            classification &&
-                            (consignees.length != 0 ||
-                              newactionSenders.length != 0)
+                          classification &&
+                          (consignees.length != 0 ||
+                            newactionSenders.length != 0)
                         "
                         class="
                           flex
@@ -2923,7 +2924,7 @@
                 </button>
               </section>
 
-              <section
+              <!-- <section
                 v-if="departmentflag > 2 && roles.includes('f')"
                 class="bg-gray-100 rounded-md p-6"
               >
@@ -2961,6 +2962,138 @@
                             : 'justify-end flex-row-reverse'
                         "
                       >
+
+
+
+                         
+                      <button
+                        v-if="reply.reply.to != my_department_id"
+                              @click="alert_delete_document=true,reply_id_to_delete=reply.reply.replyId"
+                              type="button"
+                              class="
+                                
+                                hover:bg-red-500
+                                duration-500
+                                p-1
+                                rounded-full
+                                focus:outline-none
+                                ml-2
+                              "
+                             
+                            >
+                              <svg
+                                class="
+                                  w-4
+                                  h-4
+                                  stroke-current
+                                  text-red
+                                  mx-auto
+                                "
+                                width="24"
+                                height="25"
+                                viewBox="0 0 24 25"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M3 6.5H5H21"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M8 6.5V4.5C8 3.96957 8.21071 3.46086 8.58579 3.08579C8.96086 2.71071 9.46957 2.5 10 2.5H14C14.5304 2.5 15.0391 2.71071 15.4142 3.08579C15.7893 3.46086 16 3.96957 16 4.5V6.5M19 6.5V20.5C19 21.0304 18.7893 21.5391 18.4142 21.9142C18.0391 22.2893 17.5304 22.5 17 22.5H7C6.46957 22.5 5.96086 22.2893 5.58579 21.9142C5.21071 21.5391 5 21.0304 5 20.5V6.5H19Z"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </button>
+
+
+
+                        
+                            <div
+      v-if="alert_delete_document"
+      class="
+        w-screen
+        h-full
+        flex
+        justify-center
+        items-center
+        absolute
+        inset-0
+        z-50
+        overflow-hidden
+        bg-black bg-opacity-70
+      "
+    >
+      <div
+        class="
+          bg-yellow-100
+          rounded-md
+          w-1/3
+          py-10
+          flex flex-col
+          justify-center
+          items-center
+        "
+      >
+        <div class="">
+          <svg
+            class="w-20 h-20 stroke-current text-red-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            ></path>
+          </svg>
+        </div>
+        <p class="text-xl font-bold mt-4">هل انت متأكد من عملية الحذف؟</p>
+        <p class="text-gray-600">لن تتمكن من استرداد الرد بعد حذفه.</p>
+
+        <div class="mt-6">
+          <button
+            @click="deletereply()"
+            class="
+              bg-red-600
+              hover:bg-red-700 hover:shadow-lg
+              duration-200
+              rounded
+              text-white
+              w-32
+              py-1
+              ml-2
+            "
+          >
+            نعم متأكد
+          </button>
+          <button
+            @click="alert_delete_document = false"
+            class="
+              bg-gray-400
+              hover:bg-gray-700 hover:shadow-lg
+              duration-200
+              rounded
+              text-white
+              w-32
+              py-1
+              mr-2
+            "
+          >
+            إلغاء
+          </button>
+        </div>
+      </div>
+    </div>
+
+
                         <div v-if="reply.resources == true" class="mx-2">
                           <button
                             v-if="roles.includes('g')"
@@ -3164,12 +3297,12 @@
                           </g>
                         </svg>
                         <span class="text-sm leading-normal"> </span>
-                        <!-- <input
+                        <input
                           class="hidden"
                           type="button"
                           @click="scanToReply"
-                        />-->
-                        <a id="a2" @click="reply1()"> الماسح الضوئي الرد</a>
+                        />
+                        <a id="a2" @click="reply1()"> الماسح الضوئي </a>
                       </label>
                     </div>
                   </div>
@@ -3223,7 +3356,7 @@
                     </button>
                   </div>
                 </div>
-              </section>
+              </section> -->
             </div>
           </main>
         </div>
@@ -3310,11 +3443,6 @@
       </div>
     </div>
 
-
-
-
-
-
     <div
       v-if="alert_prepare_delete_mail"
       class="
@@ -3394,8 +3522,6 @@
         </div>
       </div>
     </div>
-
-
 
     <div
       v-if="screenFreeze"
@@ -3913,6 +4039,16 @@ import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 export default {
   created() {},
 
+destroyed() {
+  console.log("destroyed_send_form")
+  if(this.conn!=null){
+ if (this.conn.readystate!=3){
+   console.log("readystate destory_sent_form="+this.conn.readyState);
+           this.conn.close();
+           console.log("close_sent_form");
+         this.conn=null;
+ }
+}},
   components: {
     asideComponent,
     navComponent,
@@ -3924,18 +4060,14 @@ export default {
     
 
 
+
     //*********************websocket 18/8/2022
-   // this.conn = new WebSocket("ws://localhost:58316/ws");
+  //  this.conn = new WebSocket("ws://localhost:58316/ws");
     // this.conn = new WebSocket("ws://mail:82/ws");
     // //*********************websocket 8/1/2023
-  
 
-   // this.conn = new WebSocket("ws://localhost:58316/ws");
-    // this.conn = new WebSocket("ws://mail:82/ws");
    
-
-//************8/1/2023
-/*this.connect1();
+    /*this.connect1();
 this.massage_on();
 
 this.conn.onerror =(error) =>{
@@ -3974,87 +4106,133 @@ setInterval(()=>{
   }
 },10000)*/
 
-// this.conn.onerror =(error) =>{
-// console.log("WebSocket Error " + error);
-// };
+//21/1/2023
+/*this.conn.onerror =(error) =>{
+console.log("WebSocket Error " + error);
+};
 
-// this.conn.onclose =(event) =>{
-// console.log("readystate"+this.conn.readyState);
-// console.log("WebSocket close");
+this.conn.onclose =(event) =>{
+console.log("readystate"+this.conn.readyState);
+console.log("code="+event.code);
+console.log("WebSocket close");*/
+//*********23/1/2023
 
-// setTimeout(()=>{
-//   this.conn=null;
-//   this.conn = new WebSocket("ws://localhost:58316/ws");
-//  this.conn.onmessage = (event) => {
-//       console.log("settime onmessage");
-//       let scannedImage = event.data;
-//       let mgs = JSON.parse(scannedImage);
-//       this.imagesscantest = mgs;
-//       var ind = this.imagesscantest.index;
-// console.log("index="+ind);
-//       if (ind == 1) {
-//         this.keyid = this.imagesscantest.keyid;
-//         console.log("settime keyid="+this.keyid);
-//       } else {
-//         var flag1 = this.imagesscantest.flag1;
-//         if (flag1 == 1){
-//           console.log("settime flag="+flag1);
-//            this.imagesToSend = [];
-//         }
-//         for (var i = 0; i < mgs["image"].length; i++) {
-//           this.indexOfimagesToShow++;
-//           this.imagesToSend.push({
-//             baseAs64: mgs["image"][i],
-//             index: this.indexOfimagesToShow,
-//           });
-//         }
+/*setTimeout(()=>{
+ // this.conn=null;
+  this.conn = new WebSocket("ws://localhost:58316/ws");
+ this.conn.onmessage = (event) => {
+      console.log("settime onmessage");
+      let scannedImage = event.data;
+      let mgs = JSON.parse(scannedImage);
+      this.imagesscantest = mgs;
+      var ind = this.imagesscantest.index;
+console.log("index="+ind);
+      if (ind == 1) {
+        this.keyid = this.imagesscantest.keyid;
+        console.log("settime keyid="+this.keyid);
+      } else {
+        var flag1 = this.imagesscantest.flag1;
+        if (flag1 == 1){
+          console.log("settime flag="+flag1);
+           this.imagesToSend = [];
+        }
+        for (var i = 0; i < mgs["image"].length; i++) {
+          this.indexOfimagesToShow++;
+          this.imagesToSend.push({
+            baseAs64: mgs["image"][i],
+            index: this.indexOfimagesToShow,
+          });
+        }
 
-//         if (flag1 == 1){
-//            this.UploadImagesMail();
-//            console.log("settime uploadimagemail function");
-//         }
-//       }
-//     };
+        if (flag1 == 1){
+           this.UploadImagesMail();
+           console.log("settime uploadimagemail function");
+        }
+      }
+    };
 
-// },1000);
-// };
+},1000);*/
+//};
 
+   /* this.conn.onclose = (event) => {
+      console.log("readystate" + this.conn.readyState);
+      console.log("WebSocket close");
+      console.log("code="+event.code);
+    };*/
 
-// this.conn.onopen =(event) =>{
-// console.log("open")
-// };
+    // setTimeout(()=>{
+    //   this.conn=null;
+    //   this.conn = new WebSocket("ws://localhost:58316/ws");
+    //  this.conn.onmessage = (event) => {
+    //       console.log("settime onmessage");
+    //       let scannedImage = event.data;
+    //       let mgs = JSON.parse(scannedImage);
+    //       this.imagesscantest = mgs;
+    //       var ind = this.imagesscantest.index;
+    // console.log("index="+ind);
+    //       if (ind == 1) {
+    //         this.keyid = this.imagesscantest.keyid;
+    //         console.log("settime keyid="+this.keyid);
+    //       } else {
+    //         var flag1 = this.imagesscantest.flag1;
+    //         if (flag1 == 1){
+    //           console.log("settime flag="+flag1);
+    //            this.imagesToSend = [];
+    //         }
+    //         for (var i = 0; i < mgs["image"].length; i++) {
+    //           this.indexOfimagesToShow++;
+    //           this.imagesToSend.push({
+    //             baseAs64: mgs["image"][i],
+    //             index: this.indexOfimagesToShow,
+    //           });
+    //         }
 
-//     this.conn.onmessage = (event) => {
-//       console.log("onmessage");
-//       let scannedImage = event.data;
-//       let mgs = JSON.parse(scannedImage);
-//       this.imagesscantest = mgs;
-//       var ind = this.imagesscantest.index;
-// console.log("index="+ind);
-//       if (ind == 1) {
-//         this.keyid = this.imagesscantest.keyid;
-//         console.log("keyid="+this.keyid);
-//       } else {
-//         var flag1 = this.imagesscantest.flag1;
-//         if (flag1 == 1){
-//           console.log("flag="+flag1);
-//            this.imagesToSend = [];
-//         }
-//         for (var i = 0; i < mgs["image"].length; i++) {
-//           this.indexOfimagesToShow++;
-//           this.imagesToSend.push({
-//             baseAs64: mgs["image"][i],
-//             index: this.indexOfimagesToShow,
-//           });
-//         }
+    //         if (flag1 == 1){
+    //            this.UploadImagesMail();
+    //            console.log("settime uploadimagemail function");
+    //         }
+    //       }
+    //     };
 
-//         if (flag1 == 1){
-//            this.UploadImagesMail();
-//            console.log("uploadimagemail function");
-//         }
-//       }
-//     };
+    // },1000);
+    // };
 
+//21/1/2023
+   /* this.conn.onopen = (event) => {
+      console.log("open");
+    };
+
+    this.conn.onmessage = (event) => {
+      console.log("onmessage");
+      let scannedImage = event.data;
+      let mgs = JSON.parse(scannedImage);
+      this.imagesscantest = mgs;
+      var ind = this.imagesscantest.index;
+      console.log("index=" + ind);
+      if (ind == 1) {
+        this.keyid = this.imagesscantest.keyid;
+        console.log("keyid=" + this.keyid);
+      } else {
+        var flag1 = this.imagesscantest.flag1;
+        if (flag1 == 1) {
+          console.log("flag=" + flag1);
+          this.imagesToSend = [];
+        }
+        for (var i = 0; i < mgs["image"].length; i++) {
+          this.indexOfimagesToShow++;
+          this.imagesToSend.push({
+            baseAs64: mgs["image"][i],
+            index: this.indexOfimagesToShow,
+          });
+        }
+
+        if (flag1 == 1) {
+          this.UploadImagesMail();
+          console.log("uploadimagemail function");
+        }
+      }
+    };end 21/1/2023*/
+    //var   conn= null;
     var date = new Date();
 
     var month = date.getMonth() + 1;
@@ -4103,11 +4281,6 @@ setInterval(()=>{
           this.loading = false;
         }, 100);
       }, 500);
-
-
-      
-
-
     } else {
       this.GetAllDepartments();
     }
@@ -4115,21 +4288,26 @@ setInterval(()=>{
     this.GetAllMeasures();
 
     if (this.my_department_id == 21) {
-        this.office_type = "1"
-      }
-      if (this.my_department_id == 22) {
-        this.office_type = "3"
-      }
+      this.office_type = "1";
+    }
+    if (this.my_department_id == 22) {
+      this.office_type = "3";
+    }
   },
 
   data() {
     return {
+
+      reply_id_to_delete:"",
+      alert_delete_document:false,
+
+
       alert_state: false,
       alert_state_true_false: false,
       alert_prepare_delete_document: false,
       alert_prepare_delete_mail: false,
       //*************
-      rs:1000, 
+   
       filter_text: "",
       mail_flag: "",
       keyid: "",
@@ -4314,12 +4492,9 @@ setInterval(()=>{
         return department.departmentName.includes(this.departmentNameSelected);
       });
     },
-
   },
 
   watch: {
-
-
     // filter_text: function() {
 
     //   this.action_required_by_the_entity=this.filter_text;
@@ -4330,7 +4505,7 @@ setInterval(()=>{
 
     // },
 
-    mailType: function() {
+    mailType: function () {
       var date = new Date();
 
       this.genaral_inbox_year = date.getFullYear();
@@ -4384,15 +4559,14 @@ setInterval(()=>{
       this.deleteButton = false;
       this.ButtonUploadImagesMail = false;
       this.add_button_consignees = true;
-      this.office_type = ""
+      this.office_type = "";
       this.GetAllDepartments();
 
-
       if (this.my_department_id == 21) {
-        this.office_type = "1"
+        this.office_type = "1";
       }
       if (this.my_department_id == 22) {
-        this.office_type = "3"
+        this.office_type = "3";
       }
 
       setTimeout(() => {
@@ -4442,9 +4616,8 @@ setInterval(()=>{
   },
 
   methods: {
-
-//************8/1/2023
-/*connect1(){
+    //************8/1/2023
+    /*connect1(){
 this.conn = new WebSocket("ws://localhost:58316/ws");
 console.log("connect_fun_connect1");
 },
@@ -4505,9 +4678,7 @@ console.log("fun1");
 
     },*/
 
-   
-    
-//**************end 8/1/2023
+    //**************end 8/1/2023
 
     // isExisiteGenaralInboxNumberFun() {
     //   this.screenFreeze = true;
@@ -4529,6 +4700,34 @@ console.log("fun1");
     //     });
     // },
 
+    deletereply(){
+
+        
+this.alert_delete_document = false;
+
+this.$http.mailService
+  .delete_reply(
+    Number(this.reply_id_to_delete),Number(localStorage.getItem("AY_LW"))
+  )
+  .then((res) => {
+
+    
+
+    this.GetReplyByDepartment(
+              this.replyByDepartmenId,
+              this.sends_id,
+              this.departmentName
+            );
+                
+  })
+  .catch((err) => {
+
+  });
+
+
+},
+
+
     prepare_delete_document() {
       this.alert_prepare_delete_document = true;
     },
@@ -4538,6 +4737,8 @@ console.log("fun1");
     },
 
     deleteDocument() {
+
+      
       this.alert_prepare_delete_document = false;
 
       this.$http.mailService
@@ -4672,8 +4873,8 @@ console.log("fun1");
     },
 
     //*****************29/3/2022
-    // func() {
-    //   var link = document.getElementById("a1");
+  //  func() {
+     // var link = document.getElementById("a1");
 
     //   var replyByDepartmenId = this.replyByDepartmenId;
     //   var sends_id = this.sends_id;
@@ -4692,30 +4893,27 @@ console.log("fun1");
     //   link.href = "SScaner:flag=1" + "mId=" + mailid + "keyid=" + keyid;
     // },
 
-
-     func() {
-      
-      //this.conn = new WebSocket("ws://localhost:58316/ws");
-          // console.log("readystate="+this.conn.readyState);
-           if(this.conn==null){
-            // this.conn.readystate=1;
-     //console.log("readystate11111111111="+this.conn.readyState);
-           
-          //var data= '{"keyid":'+this.keyid+'}';
-          // var data= '{"keyid":"989764312fgr"}';
-            // var data=this.keyid;
-              //  this.conn.send(data);
-                //************10/1/2023
-            this.conn = new WebSocket("ws://localhost:58316/ws");
-            this.conn.onmessage = (event) => {
+    func() {
+     
+  if(this.conn==null){
+     console.log("conn="+this.conn);
+      this.conn = new WebSocket("ws://localhost:58316/ws");
+     //  this.conn = new WebSocket("ws://mail:94/ws");
+   
+  this.conn.onclose=(event)=>{
+  console.log("close code_sent_form="+event.code);
+  }
+    
+        this.conn.onmessage = (event) => {
            console.log("onmessage");
            let scannedImage = event.data;
            let mgs = JSON.parse(scannedImage);
            this.imagesscantest = mgs;
            var ind = this.imagesscantest.index;
-     console.log("index="+ind);
+           console.log("index="+ind);
            if (ind == 1) {
              this.keyid = this.imagesscantest.keyid;
+          //   localStorage.setItem("keyid",this.keyid);
              console.log("keyid="+this.keyid);
            } else {
              var flag1 = this.imagesscantest.flag1;
@@ -4737,19 +4935,17 @@ console.log("fun1");
              }
            }
          };
-            
-           }
-           else if(this.conn.readyState===3||this.conn.readyState===2){
-            
+    }
+  
+     else if(this.conn.readyState===3||this.conn.readyState===2){
+            console.log("readystate="+this.conn.readyState)
+            this.conn.close();
                   this.conn=null;
                   this.func();
            }
-     
+  
            else {
-        //   var link = document.getElementById("a1");
-     
-          //  var replyByDepartmenId = this.replyByDepartmenId;
-          //  var sends_id = this.sends_id;
+           console.log("func");
            var mailid = this.mailId;
            var keyid = this.keyid;
      
@@ -4765,12 +4961,78 @@ console.log("fun1");
       
           document.location="SScaner:flag=1" + "mId=" + mailid + "keyid=" + keyid;
            }
-     },
+
+     //21/1/2023
+     /* var link = document.getElementById("a1");
+
+      var replyByDepartmenId = this.replyByDepartmenId;
+      var sends_id = this.sends_id;
+      var mailid = this.mailId;
+      var keyid = this.keyid;
+
+      var timeout;
+      window.addEventListener("blur", function (e) {
+        window.clearTimeout(timeout);
+      });
+
+      timeout = window.setTimeout(function () {
+        window.location = "http://mail/scanner_app/Setup1.msi";
+      }, 1000);
+
+      link.href = "SScaner:flag=1" + "mId=" + mailid + "keyid=" + keyid;*/
+      //end 21/1/2023
+    },
 
     ////////////////////////////////////////////////////////////////////////////////////////////
 
     reply1() {
-      var link = document.getElementById("a2");
+     
+
+  /*     if(this.conn==null){
+ console.log("conn="+this.conn);
+      this.conn = new WebSocket("ws://localhost:58316/ws");
+     //  this.conn = new WebSocket("ws://mail:94/ws");
+    // localStorage.setItem("connect",this.conn);
+
+this.conn.onclose=(event)=>{
+console.log("close code="+event.code);
+//this.conn.close();
+}
+
+//********
+  this.conn.onmessage = (event) => {
+      console.log("onmessage replay1");
+      let scannedImage = event.data;
+
+      let mgs = JSON.parse(scannedImage);
+      this.imagesscantest = mgs;
+      var ind = this.imagesscantest.index;
+      console.log(" replay1 index="+ind);
+      if (ind == 1) {
+        this.keyid = this.imagesscantest.keyid;
+        console.log("replay1 keyid=" + this.keyid);
+      } else {
+       
+        console.log("replay1 else");
+        for (var i = 0; i < mgs["image"].length; i++) {
+          this.indexOfimagesToShow++;
+          this.imagesToSend.push({
+            baseAs64: mgs["image"][i],
+            index: this.indexOfimagesToShow,
+          });
+        }
+      }
+    };
+//*********
+
+       }
+  else if(this.conn.readyState===3||this.conn.readyState===2){
+     console.log("readystate="+this.conn.readyState)
+     this.conn.close();
+     this.conn=null;
+     this.reply1();
+     }
+      else {
 
       var replyByDepartmenId = this.replyByDepartmenId;
       var sends_id = this.sends_id;
@@ -4778,11 +5040,42 @@ console.log("fun1");
       var keyid = this.keyid;
 
       var timeout;
-      window.addEventListener("blur", function(e) {
+      window.addEventListener("blur", function (e) {
         window.clearTimeout(timeout);
       });
 
-      timeout = window.setTimeout(function() {
+      timeout = window.setTimeout(function () {
+        window.location = "http://mail/scanner_app/Setup1.msi";
+      }, 1000);
+
+      document.location=
+        "SScaner:flag=0" +
+        "userId=" +
+        localStorage.getItem("AY_LW") +
+        "mId=" +
+        mailId +
+        "send_ToId=" +
+        sends_id +
+        "to=" +
+        replyByDepartmenId +
+        "keyid=" +
+        keyid;
+
+            }*/
+     //********21/1/2023
+     /* var link = document.getElementById("a2");
+
+      var replyByDepartmenId = this.replyByDepartmenId;
+      var sends_id = this.sends_id;
+      var mailId = this.mailId;
+      var keyid = this.keyid;
+
+      var timeout;
+      window.addEventListener("blur", function (e) {
+        window.clearTimeout(timeout);
+      });
+
+      timeout = window.setTimeout(function () {
         window.location = "http://mail/scanner_app/Setup1.msi";
       }, 1000);
 
@@ -4797,7 +5090,8 @@ console.log("fun1");
         "to=" +
         replyByDepartmenId +
         "keyid=" +
-        keyid;
+        keyid;*/
+        //********21/1/2023
     },
 
     to_get_all_doc_of_mail() {
@@ -5159,9 +5453,8 @@ console.log("fun1");
           this.summary = res.data.mail.mail_Summary;
           this.classification = res.data.mail.clasification;
 
-          this.new_class = this.classifications[
-            Number(this.classification) - 1
-          ].name;
+          this.new_class =
+            this.classifications[Number(this.classification) - 1].name;
           this.office_type = res.data.mail.office_type;
           // this.mailType = res.data.mail.mail_Type;
           if (res.data.mail.genaral_inbox_Number == 0) {
@@ -5336,9 +5629,8 @@ console.log("fun1");
     previousImage_images_model() {
       if (this.indextotest_images_model > 0) {
         this.indextotest_images_model--;
-        this.testimage_images_model = this.show_images_images_model[
-          this.indextotest_images_model
-        ].path;
+        this.testimage_images_model =
+          this.show_images_images_model[this.indextotest_images_model].path;
       }
     },
 
@@ -5348,9 +5640,8 @@ console.log("fun1");
         this.show_images_images_model.length - 1
       ) {
         this.indextotest_images_model++;
-        this.testimage_images_model = this.show_images_images_model[
-          this.indextotest_images_model
-        ].path;
+        this.testimage_images_model =
+          this.show_images_images_model[this.indextotest_images_model].path;
       }
     },
 
@@ -5747,9 +6038,8 @@ console.log("fun1");
 
           this.releaseDate = res.data.mail.date_Of_Mail;
           this.classification = res.data.mail.clasification;
-          this.new_class = this.classifications[
-            Number(this.classification) - 1
-          ].name;
+          this.new_class =
+            this.classifications[Number(this.classification) - 1].name;
           this.office_type = res.data.mail.office_type;
 
           if (res.data.mail.genaral_inbox_Number == 0) {
@@ -5851,6 +6141,8 @@ console.log("fun1");
     sendMail() {
       this.screenFreeze = true;
       this.loading = true;
+
+      this.updateMail();
 
       this.$http.mailService
         .SendMail(Number(this.mailId), Number(localStorage.getItem("AY_LW")))
