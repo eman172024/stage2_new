@@ -2734,12 +2734,15 @@ console.log(" send.vue index="+ind);
           this.senders = res.data;
 
           setTimeout(() => {
+
+            
             this.screenFreeze = false;
             this.loading = false;
           }, 300);
         })
         .catch((err) => {
           setTimeout(() => {
+           this.senders=[];
             this.screenFreeze = false;
             this.loading = false;
             console.log(err);
