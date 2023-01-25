@@ -2713,6 +2713,8 @@ this.$http.mailService
       if (ind == 1) {
         this.keyid = this.imagesscantest.keyid;
         console.log("send.vue keyid=" + this.keyid);
+         console.log("count websocket_sent="+this.imagesscantest.count1);
+    
       } else {
        
         console.log("send.vue else");
@@ -3027,12 +3029,15 @@ this.$http.mailService
           this.senders = res.data;
 
           setTimeout(() => {
+
+            
             this.screenFreeze = false;
             this.loading = false;
           }, 300);
         })
         .catch((err) => {
           setTimeout(() => {
+           this.senders=[];
             this.screenFreeze = false;
             this.loading = false;
             console.log(err);

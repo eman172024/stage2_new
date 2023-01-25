@@ -7,12 +7,17 @@ namespace MMSystem.Model.ViewModel
 {
     public class ExtarnelinboxViewModel
     {
-
         public int mail_id { get; set; }
         public int Mail_Number { get; set; }
+        public int typeofsend { get; set; }
+        public bool mail_state { get; set; }
+        public int measure_id { get; set; }
+        public int clasfiction { get; set; }
+        public int tomangment { get; set; }
+        public int genralinboxnumber { get; set; }
+        public DateTime date { get; set; }
 
-        public string date { get; set; }
-
+        public bool sends_state { get; set; }
         public DateTime date2 { get; set; }
 
         public String Masure_type { get; set; }
@@ -39,7 +44,7 @@ namespace MMSystem.Model.ViewModel
         public string sectionName { get; set; }
 
         public int Sends_id { get; set; }
-        
+
 
         public string actionrequer { get; set; }
 

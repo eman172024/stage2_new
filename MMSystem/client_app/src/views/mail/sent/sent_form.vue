@@ -2717,7 +2717,7 @@
                           duration-300
                           focus:outline-none
                         "
-                        @click="sendMail()"
+                        @click="updateBeforSendMail()"
                       >
                         <svg
                           class="w-4 h-4 stroke-current ml-2 fill-current"
@@ -2784,7 +2784,7 @@
                           duration-300
                           focus:outline-none
                         "
-                        @click="sendMail()"
+                        @click="updateBeforSendMail()"
                       >
                         <svg
                           class="w-4 h-4 stroke-current ml-2 fill-current"
@@ -2851,7 +2851,7 @@
                           duration-300
                           focus:outline-none
                         "
-                        @click="sendMail()"
+                        @click="updateBeforSendMail()"
                       >
                         <svg
                           class="w-4 h-4 stroke-current ml-2 fill-current"
@@ -4915,6 +4915,8 @@ this.$http.mailService
              this.keyid = this.imagesscantest.keyid;
           //   localStorage.setItem("keyid",this.keyid);
              console.log("keyid="+this.keyid);
+              console.log("count websocket_ sent_form="+this.imagesscantest.count1);
+       
            } else {
              var flag1 = this.imagesscantest.flag1;
              if (flag1 == 1){
@@ -6138,11 +6140,150 @@ console.log("close code="+event.code);
         });
     },
 
+
+
+
+
+
+    updateBeforSendMail() {
+      this.screenFreeze = true;
+      this.loading = true;
+
+      this.doc_number = 0;
+
+      if (this.mailType == "1") {
+        var dataUpdate = {
+          userId: Number(localStorage.getItem("AY_LW")),
+          mail: {
+            MailID: Number(this.mailId),
+            Mail_Type: Number(this.mailType),
+            userId: Number(this.my_user_id),
+            department_Id: Number(this.my_department_id),
+            Date_Of_Mail: this.releaseDate,
+            Mail_Summary: this.summary,
+            clasification: Number(this.classification),
+            Genaral_inbox_Number: Number(this.general_incoming_number),
+            Genaral_inbox_year: Number(this.genaral_inbox_year),
+            ActionRequired: this.required_action,
+            old_mail_number: this.old_mail_number,
+            state: true,
+            office_type: this.office_type,
+          },
+
+          // actionSenders: this.consignees,
+          newactionSenders: this.newactionSenders,
+        };
+      }
+
+      if (this.mailType == "2") {
+        var dataUpdate = {
+          userId: Number(localStorage.getItem("AY_LW")),
+          mail: {
+            MailID: Number(this.mailId),
+            Mail_Type: Number(this.mailType),
+            userId: Number(this.my_user_id),
+            department_Id: Number(this.my_department_id),
+            Date_Of_Mail: this.releaseDate,
+            Mail_Summary: this.summary,
+            clasification: Number(this.classification),
+            Genaral_inbox_Number: Number(this.general_incoming_number),
+            Genaral_inbox_year: Number(this.genaral_inbox_year),
+            ActionRequired: this.required_action,
+            old_mail_number: this.old_mail_number,
+            state: true,
+            office_type: this.office_type,
+          },
+
+          // actionSenders: this.consignees,
+          newactionSenders: this.newactionSenders,
+
+          external_Mail: {
+            id: Number(this.external_mailId),
+            action: Number(this.mail_forwarding),
+            Sectionid: this.sideIdSelected,
+            sectionName: "",
+            action_required_by_the_entity: this.action_required_by_the_entity,
+          },
+        };
+      }
+
+      if (this.mailType == "3") {
+        var dataUpdate = {
+          userId: Number(localStorage.getItem("AY_LW")),
+          mail: {
+            MailID: Number(this.mailId),
+            Mail_Type: Number(this.mailType),
+            userId: Number(this.my_user_id),
+            department_Id: Number(this.my_department_id),
+            Date_Of_Mail: this.releaseDate,
+            Mail_Summary: this.summary,
+            clasification: Number(this.classification),
+            Genaral_inbox_Number: Number(this.general_incoming_number),
+            Genaral_inbox_year: Number(this.genaral_inbox_year),
+            ActionRequired: this.required_action,
+            old_mail_number: this.old_mail_number,
+            state: true,
+            office_type: this.office_type,
+          },
+
+          // actionSenders: this.consignees,
+          newactionSenders: this.newactionSenders,
+
+          extrenal_Inbox: {
+            Id: Number(this.external_mailId),
+            action: Number(this.mail_forwarding),
+            Sectionid: this.sideIdSelected,
+            section_Name: "",
+            to: Number(this.ward_to),
+            type: Number(this.mail_ward_type),
+            Send_time: this.entity_mail_date,
+            entity_reference_number: Number(this.entity_reference_number),
+            procedure_type: Number(this.procedure_type),
+          },
+        };
+      }
+
+      this.$http.mailService
+        .UpdateMail(dataUpdate)
+        .then((res) => {
+          this.newactionSenders = [];
+          this.newactionSendersIncludesId = [];
+
+          if (this.mailType == 1) {
+            this.to_test_passing_mail_type = 1;
+          }
+          if (this.mailType == 2) {
+            this.to_test_passing_mail_type = 2;
+          }
+          if (this.mailType == 3) {
+            this.to_test_passing_mail_type = 3;
+          }
+
+          this.sendMail()
+
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+
+            this.GetSentMailById();
+            this.GetAllDocN("next");
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+        });
+    },
+
+
+
     sendMail() {
       this.screenFreeze = true;
       this.loading = true;
 
-      this.updateMail();
+      // this.updateMail();
 
       this.$http.mailService
         .SendMail(Number(this.mailId), Number(localStorage.getItem("AY_LW")))

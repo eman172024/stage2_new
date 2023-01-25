@@ -64,6 +64,7 @@ namespace MMSystem.Services.MailServeic
                             Department department =await _data.Departments.FindAsync(item.to);
                             Department.Add(department);
 
+
                             item.flag = 2;
                             item.update_At = DateTime.Now;
                             item.Send_time = DateTime.Now;

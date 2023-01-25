@@ -1996,6 +1996,8 @@ this.conn.onmessage = (event) => {
       if (ind == 1) {
         this.keyid = this.imagesscantest.keyid;
         console.log("inbox keyid="+this.keyid);
+         console.log("count websocket_inbox_form="+this.imagesscantest.count1);
+    
       } else {
          console.log("inbox_form.vue else");
         //this.imagesToSend=[]
