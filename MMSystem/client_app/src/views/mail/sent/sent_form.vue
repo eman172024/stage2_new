@@ -2717,7 +2717,7 @@
                           duration-300
                           focus:outline-none
                         "
-                        @click="updateBeforSendMail()"
+                        @click="sendMail()"
                       >
                         <svg
                           class="w-4 h-4 stroke-current ml-2 fill-current"
@@ -2784,7 +2784,7 @@
                           duration-300
                           focus:outline-none
                         "
-                        @click="updateBeforSendMail()"
+                        @click="sendMail()"
                       >
                         <svg
                           class="w-4 h-4 stroke-current ml-2 fill-current"
@@ -2829,8 +2829,7 @@
                         v-if="
                           summary &&
                           classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)
+                          (consignees.length != 0 )
                         "
                         class="
                           flex
@@ -2851,7 +2850,7 @@
                           duration-300
                           focus:outline-none
                         "
-                        @click="updateBeforSendMail()"
+                        @click="sendMail()"
                       >
                         <svg
                           class="w-4 h-4 stroke-current ml-2 fill-current"
@@ -4362,6 +4361,7 @@ console.log("index="+ind);
       departmentflag: 0,
 
       consignees: [],
+      consignees1: [],
       consigneesIncludesId: [],
       newactionSenders: [],
       newactionSendersIncludesId: [],
@@ -4546,6 +4546,7 @@ console.log("index="+ind);
       this.this_value_to_solve_repetition_department = true;
 
       this.consignees = [];
+      this.consignees1 = [];
       this.consigneesIncludesId = [];
       this.newactionSenders = [];
       this.newactionSendersIncludesId = [];
@@ -5208,6 +5209,7 @@ console.log("close code="+event.code);
       this.loading = true;
 
       this.consignees = [];
+      this.consignees1 = [];
       this.consigneesIncludesId = [];
       this.newactionSendersIncludesId = [];
 
@@ -5405,6 +5407,7 @@ console.log("close code="+event.code);
       this.loading = true;
 
       this.consignees = [];
+      this.consignees1 = [];
       this.consigneesIncludesId = [];
       this.newactionSenders = [];
       this.newactionSendersIncludesId = [];
@@ -5471,7 +5474,7 @@ console.log("close code="+event.code);
           this.mail_flag = res.data.mail.flag;
 
           this.consignees = res.data.actionSenders;
-
+          this.consignees1 = res.data.actionSenders;
           this.old_mail_number = res.data.mail.old_mail_number;
 
           // for (let index = 0; index < res.data.actionSenders.length; index++) {
@@ -6053,7 +6056,7 @@ console.log("close code="+event.code);
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
           this.consignees = res.data.actionSenders;
-
+          this.consignees1 = res.data.actionSenders;
           this.old_mail_number = res.data.mail.old_mail_number;
 
           // this.newactionSendersIncludesId = [];
