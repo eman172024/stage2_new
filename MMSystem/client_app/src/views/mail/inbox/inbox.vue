@@ -2150,6 +2150,7 @@ consol.log("code inbox.vue="+event.code);
 
 
     year_filter: function() {
+      this.page_num = 1;
       this.GetInboxs();
     },
 
@@ -2158,29 +2159,37 @@ consol.log("code inbox.vue="+event.code);
       this.GetInboxs();
     },
     date_from: function () {
+      this.page_num = 1;
       this.GetInboxs();
     },
     date_to: function () {
+      this.page_num = 1;
       this.GetInboxs();
     },
     mail_id: function () {
+      this.page_num = 1;
       this.GetInboxs();
     },
 
     general_incoming_number: function () {
+      this.page_num = 1;
       this.GetInboxs();
     },
 
     summary: function () {
+      this.page_num = 1;
       this.GetInboxs();
     },
     departmentIdSelected: function () {
+      this.page_num = 1;
       this.GetInboxs();
     },
     sideIdSelected: function () {
+      this.page_num = 1;
       this.GetInboxs();
     },
     measureIdSelected: function () {
+      this.page_num = 1;
       this.GetInboxs();
     },
     classificationIdSelected: function () {
@@ -2188,9 +2197,11 @@ consol.log("code inbox.vue="+event.code);
     },
 
     mail_caseIdSelected: function () {
+      this.page_num = 1;
       this.GetInboxs();
     },
     by_date_of_reply: function () {
+      this.page_num = 1;
       this.GetInboxs();
     },
   },
