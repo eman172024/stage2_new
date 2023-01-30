@@ -690,12 +690,11 @@ namespace MMSystem.Services.MailServeic
                                     //
                                     if (i == 0) {
 
-                                        if (isHaveIsMulti)
-                                        {
-                                            sender.isMulti = true;
+                                       
+                                            sender.isMulti = isMulti_valu;
    
 
-                                    }
+                                    
 
                                     }
 
@@ -801,7 +800,7 @@ namespace MMSystem.Services.MailServeic
 
                                         if (isHaveIsMulti)
                                         {
-                                            sender.isMulti = true;
+                                            sender.isMulti = isMulti_valu1;
 
 
                                         }
