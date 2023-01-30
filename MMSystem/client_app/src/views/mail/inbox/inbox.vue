@@ -2193,6 +2193,7 @@ consol.log("code inbox.vue="+event.code);
       this.GetInboxs();
     },
     classificationIdSelected: function () {
+      this.page_num = 1;
       this.GetInboxs();
     },
 
