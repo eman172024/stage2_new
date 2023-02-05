@@ -24,6 +24,6 @@ namespace MMSystem.Services.MailServeic
         Task<RessPage> GetAllResss(int id, int pageNumber);
         Task<RessObj> GetAllResswithPage(int id, int pageNumber);
 
-        Task<dynamic> delete_all_image(int id);
+        Task<dynamic> delete_all_image(int id,int userid);
     }
 }

@@ -1310,12 +1310,73 @@
                     </a>
                   </div>
 
+                 <div class="flex justify-between items-center mt-2">
+                  <div class="w-1/2 flex items-center">
+                    <input
+                        type="text"
+                        v-model="doc_number_to_search"
+                        id="doc_number"
+                        class="
+                          ml-2
+                          block
+                          w-16
+                          rounded-md
+                          h-10
+                          text-sm
+                          border border---200
+                          hover:shadow-sm
+                          focus:outline-none focus:border-blue-300
+                          p-2
+                        "
+                      />
+
+                        <button
+                          v-if="mailId"
+                          @click="search_the_doc()"
+                          class="
+                            py-2
+                            px-4
+                            bg-white
+                            rounded-lg
+                            tracking-wide
+                            border border-blue-600
+                            cursor-pointer
+                            hover:text-white hover:bg-blue-600
+                            focus:outline-none
+                            duration-300
+                            text-sm leading-normal
+                          "
+                        >
+                        بحث
+                      </button>
+                  </div>
+
+                  <div class="w-1/2 flex justify-end">
+                    <button
+                      v-if="roles.includes('6')"
+                      @click="prepare_delete_all_documents()"
+                    
+                      class="
+                        bg-red-500
+                        hover:bg-red-400
+                        px-4
+                        py-2
+                        rounded-lg
+                        text-white
+                      "
+                    >
+                      حذف كل الصور
+                    </button>
+                  </div>
+                 </div>
+
+
                   <div
                     v-if="image_of_doc"
-                    class="h-72 w-full bg-gray-100 rounded-md mt-4 mb-10"
+                    class="h-72 w-full rounded-md mt-2 mb-10"
                   >
                     <!--  v-if="imagesToSend != '' || imagesToShow != ''" -->
-                    <div class="mt-4 pt-4 pb-4 rounded-md relative">
+                    <div class="mt-2 pt-2 pb-4 rounded-md relative">
                       <div
                         v-if="!roles.includes('g')"
                         class="
@@ -1338,85 +1399,127 @@
 
                           <div
                             class="
+                           
                               absolute
                               inset-0
                               flex
-                              justify-center
+                              justify-between
                               items-center
                             "
-                          >
-                            <button
-                              @click="show_current_image_for_bigger_screen()"
-                              type="button"
-                              class="
-                                bg-green-600
-                                hover:bg-green-500
-                                duration-500
-                                p-2
-                                rounded-full
-                                focus:outline-none
-                                ml-2
-                              "
-                            >
-                              <svg
-                                class="w-4 h-4 text-white mx-auto"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-                                ></path>
-                              </svg>
-                            </button>
-
-                            <button
-                              v-if="roles.includes('6')"
-                              type="button"
-                              class="
-                                bg-red-600
-                                hover:bg-red-500
-                                duration-500
-                                p-2
-                                rounded-full
-                                focus:outline-none
-                                ml-2
-                              "
-                              @click="prepare_delete_document()"
-                            >
-                              <svg
+                          > 
+                            <div class="">
+                              <button
+                                @click="farst_documents()"
+                              
                                 class="
-                                  w-4
-                                  h-4
-                                  stroke-current
+                                  bg-gray-500
+                                  hover:bg-gray-400
+                                  px-2
+                                  py-2
+                                  rounded-lg
+                                  text-xs
                                   text-white
-                                  mx-auto
                                 "
-                                width="24"
-                                height="25"
-                                viewBox="0 0 24 25"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M3 6.5H5H21"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                />
-                                <path
-                                  d="M8 6.5V4.5C8 3.96957 8.21071 3.46086 8.58579 3.08579C8.96086 2.71071 9.46957 2.5 10 2.5H14C14.5304 2.5 15.0391 2.71071 15.4142 3.08579C15.7893 3.46086 16 3.96957 16 4.5V6.5M19 6.5V20.5C19 21.0304 18.7893 21.5391 18.4142 21.9142C18.0391 22.2893 17.5304 22.5 17 22.5H7C6.46957 22.5 5.96086 22.2893 5.58579 21.9142C5.21071 21.5391 5 21.0304 5 20.5V6.5H19Z"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                />
-                              </svg>
-                            </button>
+                              &#x276E; &#x276E;
+                              </button>
+                            </div>
+
+                            <div class="">
+                              <button
+                                @click="show_current_image_for_bigger_screen()"
+                                type="button"
+                                class="
+                                  bg-green-600
+                                  hover:bg-green-500
+                                  duration-500
+                                  p-2
+                                  rounded-full
+                                  focus:outline-none
+                                  ml-2
+                                "
+                              >
+                                <svg
+                                  class="w-4 h-4 text-white mx-auto"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+                                  ></path>
+                                </svg>
+                              </button>
+
+                              <button
+                                v-if="roles.includes('6')"
+                                type="button"
+                                class="
+                                  bg-red-600
+                                  hover:bg-red-500
+                                  duration-500
+                                  p-2
+                                  rounded-full
+                                  focus:outline-none
+                                  ml-2
+                                "
+                                @click="prepare_delete_document()"
+                              >
+                                <svg
+                                  class="
+                                    w-4
+                                    h-4
+                                    stroke-current
+                                    text-white
+                                    mx-auto
+                                  "
+                                  width="24"
+                                  height="25"
+                                  viewBox="0 0 24 25"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M3 6.5H5H21"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                  />
+                                  <path
+                                    d="M8 6.5V4.5C8 3.96957 8.21071 3.46086 8.58579 3.08579C8.96086 2.71071 9.46957 2.5 10 2.5H14C14.5304 2.5 15.0391 2.71071 15.4142 3.08579C15.7893 3.46086 16 3.96957 16 4.5V6.5M19 6.5V20.5C19 21.0304 18.7893 21.5391 18.4142 21.9142C18.0391 22.2893 17.5304 22.5 17 22.5H7C6.46957 22.5 5.96086 22.2893 5.58579 21.9142C5.21071 21.5391 5 21.0304 5 20.5V6.5H19Z"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
+
+                            <div class="">
+                              <button
+                                @click="last_documents()"
+                              
+                                class="
+                                  bg-gray-500
+                                  hover:bg-gray-400
+                                  px-2
+                                  py-2
+                                  rounded-lg
+                                  text-xs
+                                  text-white
+                                "
+                              >
+                              &#x276F; &#x276F;
+                              </button>
+                            </div>
                           </div>
+
+
+
                         </div>
 
                         <div
@@ -3408,7 +3511,27 @@
         <p class="text-gray-600">لن تتمكن من استرداد المستند بعد حذفه.</p>
 
         <div class="mt-6">
+
           <button
+          v-if="delete_all_documents"
+            @click="deleteAllDocuments()"
+            class="
+              bg-red-600
+              hover:bg-red-700 hover:shadow-lg
+              duration-200
+              rounded
+              text-white
+              w-32
+              py-1
+              ml-2
+            "
+          >
+            نعم ، احذفها
+          </button>
+
+
+          <button
+          v-else
             @click="deleteDocument()"
             class="
               bg-red-600
@@ -3654,6 +3777,10 @@
               >
                 طباعة كافة المستندات
               </button>
+
+              
+
+              
             </div>
 
             <div class="h-screen-93 mt-4">
@@ -3836,6 +3963,9 @@
               >
                 طباعة المستند الحالي
               </button>
+
+              
+              
             </div>
 
             <div class="h-screen-93 mt-4">
@@ -4296,6 +4426,8 @@ console.log("index="+ind);
 
   data() {
     return {
+      doc_number_to_search: '',
+      delete_all_documents: false,
 
       reply_id_to_delete:"",
       alert_delete_document:false,
@@ -4617,6 +4749,53 @@ console.log("index="+ind);
   },
 
   methods: {
+
+    farst_documents(){
+      this.doc_number_to_search = 1
+      this.search_the_doc()
+    },
+
+    last_documents(){
+      this.doc_number_to_search = this.total_of_doc
+      this.search_the_doc()
+    },
+
+    search_the_doc(){
+      // doc_number_to_search
+
+
+        this.doc_number = this.doc_number_to_search;
+     
+
+      this.screenFreeze = true;
+      this.loading = true;
+      this.$http.documentService
+        .GetAllDocN(this.mailId, this.doc_number)
+        .then((res) => {
+          this.total_of_doc = res.data.total;
+
+          this.image_of_doc = res.data.data.path;
+          this.id_of_doc = res.data.data.id;
+
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 200);
+        })
+        .catch((err) => {
+          this.screenFreeze = false;
+          this.loading = false;
+          console.log(err);
+        });
+
+
+    },
+
+
+
+   
+
+
     //************8/1/2023
     /*connect1(){
 this.conn = new WebSocket("ws://localhost:58316/ws");
@@ -4728,14 +4907,56 @@ this.$http.mailService
 
 },
 
+prepare_delete_all_documents() {
+  this.delete_all_documents = true
+
+      this.alert_prepare_delete_document = true;
+    },
 
     prepare_delete_document() {
+      this.delete_all_documents = false
       this.alert_prepare_delete_document = true;
     },
 
     prepare_delete_mail() {
       this.alert_prepare_delete_mail = true;
     },
+
+
+    deleteAllDocuments() {
+
+      
+this.alert_prepare_delete_document = false;
+
+this.$http.mailService
+  .DeleteAllDocuments(
+    Number(this.mailId),
+    Number(localStorage.getItem("AY_LW"))
+  )
+  .then((res) => {
+    this.doc_number = 0;
+    this.total_of_doc = 0;
+
+    this.image_of_doc = "";
+    this.id_of_doc = "";
+
+    this.alert_state = true;
+    this.alert_state_true_false = true;
+
+    // this.GetAllDocN("next");
+
+    // this.imagesToShow.splice(index, 1);
+    // this.mail_search();
+
+    // this.imagesToShow = res.data.result.documents
+  })
+  .catch((err) => {
+    this.alert_state = true;
+    this.alert_state_true_false = false;
+    this.addErorr = err.message;
+  });
+},
+
 
     deleteDocument() {
 

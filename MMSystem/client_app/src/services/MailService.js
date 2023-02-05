@@ -148,6 +148,12 @@ export default {
 
     },
 
+    DeleteAllDocuments(id, userId) {
+        return axios.delete(`/api/Resources/delete_all_image?id=${id}&userId=${userId}`)
+            //   return axios.delete(`http://mail:82/api/Mail/DeleteDocument?id=${id}&userId=${userId}`)
+    },
+
+
     DeleteDocument(id, userId) {
         return axios.delete(`/api/Mail/DeleteDocument?id=${id}&userId=${userId}`)
             //   return axios.delete(`http://mail:82/api/Mail/DeleteDocument?id=${id}&userId=${userId}`)

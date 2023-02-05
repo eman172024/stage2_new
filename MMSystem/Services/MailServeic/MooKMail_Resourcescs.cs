@@ -417,7 +417,7 @@ namespace MMSystem.Services.MailServeic
         }
 
 
-        public async Task<dynamic> delete_all_image(int id)
+        public async Task<dynamic> delete_all_image(int id,int userid)
         {
             try
             {
@@ -438,6 +438,19 @@ namespace MMSystem.Services.MailServeic
                         if (res != 0)
                         {
                             IsDelete = true;
+                            Historyes histor = new Historyes();
+                            histor.mailid = id;
+                            histor.currentUser = userid;
+                            histor.changes = "حدف جميع الصور " +  "  "+ id.ToString();
+                            histor.Time = DateTime.Now;
+                            histor.HistortyNameID = 5;
+                            await _dbCon.History.AddAsync(histor);
+                            await _dbCon.SaveChangesAsync();
+
+
+
+                         
+
                             massage = "تمت العملية بنجاح";
 
                         }

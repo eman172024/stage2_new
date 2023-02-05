@@ -103,10 +103,10 @@ namespace MMSystem.Controllers
 
         }
         [HttpDelete("delete_all_image")]
-        public async Task<IActionResult> delete_all_image(int id)
+        public async Task<IActionResult> delete_all_image(int id,int userId)
         {
 
-            var resulte = await _resourcescs.delete_all_image(id);
+            var resulte = await _resourcescs.delete_all_image(id, userId);
             
                 return Ok(resulte);
         }

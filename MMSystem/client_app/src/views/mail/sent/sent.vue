@@ -1211,11 +1211,13 @@
                       mt-2
                     "
                   >
-                    <div class="w-6/12 py-1 pr-4">اسم الإدارة</div>
+                    <div class="w-3/12 py-1 pr-1">اسم الإدارة</div>
                     <div class="w-2/12">تاريخ الإرسال</div>
+                    <div class="w-2/12">وقت الإرسال</div>
                     <div class="w-2/12">تاريخ الرد</div>
                     <div class="w-1/12">الإجراء</div>
                     <div class="w-1/12">الحالة</div>
+                    <div class="w-1/12">وقت القراءة</div>
                   </div>
 
                   <div
@@ -1252,12 +1254,16 @@
                         "
                         class="flex items-center w-full text-right"
                       >
-                        <div class="w-6/12 pr-4 py-1">
+                        <div class="w-3/12 pr-1 py-1">
                           {{ sender.department_name }}
                         </div>
 
                         <div class="w-2/12">
                           {{ sender.date }}
+                        </div>
+
+                        <div class="w-2/12">
+                          {{ sender.time_of_send }}
                         </div>
 
                         <div class="w-2/12">
@@ -1271,6 +1277,11 @@
                         <div class="w-1/12">
                           {{ sender.state }}
                         </div>
+
+                        <div class="w-1/12">
+                          {{ sender.time_of_read }}
+                        </div>
+
                       </button>
                     </div>
                   </div>
