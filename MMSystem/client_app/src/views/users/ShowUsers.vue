@@ -264,7 +264,7 @@ export default {
   },
 
   mounted() {
-    if (localStorage.getItem("AY_LW") == null) {
+    if (localStorage.getItem("AY_LW") == null || localStorage.getItem("AY_LW") !=29 || localStorage.getItem("chrome")!=17) {
       this.$router.push("/");
     }
     this.$http.mailService

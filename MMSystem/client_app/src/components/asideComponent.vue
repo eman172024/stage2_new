@@ -104,7 +104,7 @@
               </router-link>
 
               <router-link
-                v-if="user_department == 17"
+                v-if="user_department == 17 && my_user_id == 29"
                 title=" المستخدمين"
                 :to="{ name: 'Show' }"
                 class="
@@ -140,7 +140,7 @@
 
 
               <router-link
-                v-if="user_department == 17"
+                v-if="user_department == 17 && my_user_id == 29"
                 title=" القطاعات والجهات"
                 :to="{ name: 'show_sections' }"
                 class="
@@ -265,6 +265,7 @@ export default {
       roles: [],
       toggle_nav: false,
       user_department: localStorage.getItem("chrome"),
+      my_user_id : localStorage.getItem("AY_LW"),
     };
   },
   methods: {
