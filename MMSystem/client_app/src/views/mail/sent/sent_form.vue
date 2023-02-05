@@ -1311,7 +1311,7 @@
                   </div>
 
                  <div class="flex justify-between items-center mt-2">
-                  <div class="w-1/2 flex items-center">
+                  <div v-if="image_of_doc" class="w-1/2 flex items-center">
                     <input
                         type="text"
                         v-model="doc_number_to_search"
@@ -1331,7 +1331,7 @@
                       />
 
                         <button
-                          v-if="mailId"
+                          
                           @click="search_the_doc()"
                           class="
                             py-2
@@ -1353,7 +1353,7 @@
 
                   <div class="w-1/2 flex justify-end">
                     <button
-                      v-if="roles.includes('6')"
+                      v-if="roles.includes('6') && image_of_doc"
                       @click="prepare_delete_all_documents()"
                     
                       class="
