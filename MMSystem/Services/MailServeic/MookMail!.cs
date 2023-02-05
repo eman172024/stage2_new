@@ -632,6 +632,7 @@ namespace MMSystem.Services.MailServeic
         {
             try
             {
+              
                 bool Email, Exmail, Ex_inboxmail, result = false;
                 int flag = 0;
 
@@ -643,12 +644,13 @@ namespace MMSystem.Services.MailServeic
                 switch (port)
                 {
                     case 1:
-
+                        bool isMulti_valu = false;
                         Email = await Update(mail.userId,mail.mail);
                         if (Email)
                 
                         
                         {
+                           
                             var obj1 = await _appContext.Sends.FirstOrDefaultAsync(x=>x.MailID==mail.mail.MailID);
 
 
@@ -664,8 +666,18 @@ namespace MMSystem.Services.MailServeic
                                 }
 
                             }
-                           
-                            
+
+                            bool isHaveIsMulti = await _appContext.Sends.AnyAsync(x => x.isMulti == true && x.MailID == mail.mail.MailID);
+
+                            if (isHaveIsMulti) {
+                                isMulti_valu = false;
+
+
+                            } else {
+
+                                isMulti_valu = true;
+
+                            }
 
                             string depname = "";
 
@@ -675,8 +687,16 @@ namespace MMSystem.Services.MailServeic
                                 for (int i = 0; i < mail.newactionSenders.Count; i++)
                                 {
                                     Send_to sender = new Send_to();
-                                 //
+                                    //
+                                    if (i == 0) {
 
+                                       
+                                            sender.isMulti = isMulti_valu;
+   
+
+                                    
+
+                                    }
 
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = mail.newactionSenders[i].departmentId;
@@ -690,6 +710,8 @@ namespace MMSystem.Services.MailServeic
                                     sender.type_of_send = mail.newactionSenders[i].measureId;
                                     bool send = await _sender.Add(sender);
                                 }
+
+
                                 Historyes histor = new Historyes();
                                 histor.currentUser = mail.userId;
 
@@ -724,9 +746,9 @@ namespace MMSystem.Services.MailServeic
 
                         break;
                     case 2:
-                       
 
-                        
+
+                        bool isMulti_valu1 = false;
                         var obj = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail.mail.MailID);
 
                         if (obj != null) {
@@ -754,11 +776,36 @@ namespace MMSystem.Services.MailServeic
 
                             if (mail.newactionSenders.Count > 0)
                             {
+                                bool isHaveIsMulti = await _appContext.Sends.AnyAsync(x => x.isMulti == true && x.MailID == mail.mail.MailID);
+
+                                if (isHaveIsMulti)
+                                {
+                                    isMulti_valu1 = false;
+
+
+                                }
+                                else
+                                {
+
+                                    isMulti_valu1 = true;
+
+                                }
                                 for (int i = 0; i < mail.newactionSenders.Count; i++)
                                 {
+                                   
                                     Send_to sender = new Send_to();
 
-                                    
+                                    if (i == 0)
+                                    {
+
+                                        if (isHaveIsMulti)
+                                        {
+                                            sender.isMulti = isMulti_valu1;
+
+
+                                        }
+
+                                    }
                                     sender.State = true;                                   
                                     sender.MailID = mail.mail.MailID;
                                     sender.to = mail.newactionSenders[i].departmentId;
@@ -1919,6 +1966,24 @@ namespace MMSystem.Services.MailServeic
                 {
                     if (send_.flag <= 2)
                     {
+                        if (send_.isMulti == true)
+                        {
+                            var sen = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail_id && x.Id != send_.Id&&x.State==true);
+
+
+                            if (sen != null)
+                            {
+
+                                sen.isMulti = true;
+                                _appContext.Sends.Update(sen);
+                                await _appContext.SaveChangesAsync();
+
+                            }
+
+
+
+                        }
+                    
 
                         send_.State = false;
 
