@@ -3730,6 +3730,8 @@
               <button
                 @click="show_current_image_for_bigger_screen_model = false"
               >
+
+
                 <svg
                   class="w-8 h-8 stroke-current text-red-500 hover:text-red-400"
                   fill="none"
@@ -3760,6 +3762,7 @@
                 "
               >
                 طباعة المستند الحالي
+                
               </button>
 
               <button
@@ -3778,7 +3781,45 @@
                 طباعة كافة المستندات
               </button>
 
-              
+              <div v-if="image_of_doc" class="flex items-center border border-blue-400 rounded-md">
+                <input
+                    type="text"
+                    v-model="doc_number_to_search"
+                    id="doc_number"
+                    class="
+                      ml-2
+                      block
+                      w-16
+                      rounded-md
+                      h-10
+                      text-sm
+                      border border---200
+                      hover:shadow-sm
+                      focus:outline-none focus:border-blue-300
+                      p-2
+                    "
+                  />
+
+                    <button
+                      
+                      @click="search_the_doc()"
+                      class="
+                        py-2
+                        px-4
+                        bg-white
+                        rounded-lg
+                        tracking-wide
+                        border border-blue-600
+                        cursor-pointer
+                        hover:text-white hover:bg-blue-600
+                        focus:outline-none
+                        duration-300
+                        text-sm leading-normal
+                      "
+                    >
+                    بحث
+                  </button>
+              </div>
 
               
             </div>
@@ -3805,6 +3846,27 @@
                 mt-4
               "
             >
+
+            <div class="">
+              <button
+                @click="farst_documents()"
+              
+                class="
+                  bg-gray-500
+                  hover:bg-gray-400
+                  px-2
+                  py-2
+                  rounded-lg
+                  text-xs
+                  text-white
+                "
+              >
+              &#x276E; &#x276E;
+              </button>
+            </div>
+
+            
+
               <div class="w-12 h-8">
                 <button
                   title="prev"
@@ -3836,6 +3898,7 @@
                     ></path>
                   </svg>
                 </button>
+
               </div>
 
               <div class="text-black">
@@ -3874,6 +3937,25 @@
                   </svg>
                 </button>
               </div>
+
+              <div class="">
+                <button
+                  @click="last_documents()"
+                
+                  class="
+                    bg-gray-500
+                    hover:bg-gray-400
+                    px-2
+                    py-2
+                    rounded-lg
+                    text-xs
+                    text-white
+                  "
+                >
+                &#x276F; &#x276F;
+                </button>
+              </div>
+
             </div>
           </div>
         </div>
