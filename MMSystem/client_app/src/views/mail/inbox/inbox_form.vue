@@ -645,7 +645,7 @@
 
 
                       <button
-                        v-if="reply.reply.to != my_department_id"
+                        v-if="reply.reply.to != my_department_id && reply.reply.userId==my_user_id"
                               @click="alert_delete_document=true,reply_id_to_delete=reply.reply.replyId"
                               type="button"
                               class="
