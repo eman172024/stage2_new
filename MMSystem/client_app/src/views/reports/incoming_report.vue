@@ -23,7 +23,7 @@
         >
           <div class="text-center" style="text-align: center">
             <div
-              class="text-2xl text-center font-semibold"
+              class="text-2xl text-center font-semibold py-1 px-3"
               style="
                 font-size: 24px;
                 line-height: 32px;
@@ -96,6 +96,7 @@
                     width: 4%;
                     text-align: center;
                     border-left: 2px solid black;
+                    padding: 4px;
                   "
                 >
                   ر.ت
@@ -190,19 +191,37 @@
                   font-weight: 900;
                 "
               >
+
+
+              <!-- class="text-center border-black border-l-2 p-1"
+                  style="
+                    width: 4%;
+                    text-align: center;
+                    border-left: 2px solid black;
+                    padding: 4px; -->
+
+
                 <div
                   class="text-center border-black border-l-2 px-1 pt-1  flex justify-center items-center"
                   style="
                     width: 4%;
                     text-align: center;
                     border-left: 2px solid black;
- 
+                    --tw-border-opacity: 1;
+                    border-color: rgba(0, 0, 0, var(--tw-border-opacity));
+                    padding-left: 0.25rem/* 4px */;
+                    padding-right: 0.25rem/* 4px */;
+                    padding-top: 0.25rem/* 4px */;
                 display: flex; justify-content: center; align-items: center;
                   "
                 >
-                  <span class="flex justify-center items-center">{{
+                  <!-- <span class="flex justify-center items-center" style="display: flex; justify-content: center;align-items: center;"> -->
+                  
+                  {{
                     index + 1
-                  }}</span>
+                  }}
+                  
+                <!-- </span> -->
                 </div>
 
                 <div
@@ -210,9 +229,11 @@
                   style="
                     width: 4%;
                     text-align: center;
-                  
+                    padding-left: 0.25rem/* 4px */;
+                    padding-right: 0.25rem/* 4px */;
                     border-left: 2px solid black;
                     display: flex; justify-content: center; align-items: center;
+                    align-items: center;
                   "
                 >
                   {{ mail.mail_Number }}
@@ -224,7 +245,10 @@
                     width: 12%;
                     text-align: center;
                     border-left: 2px solid black;
-                    
+                    padding-left: 0.25rem/* 4px */;
+                    padding-right: 0.25rem/* 4px */;
+                    padding-top: 0.25rem/* 4px */;
+                    padding-bottom: 0.125rem/* 2px */;
                     display: flex; justify-content: center; align-items: center;
                     
                   "
@@ -236,9 +260,12 @@
                   class="border-black border-l-2 px-1 pt-1 pb-0.5 flex justify-center items-center"
                   style="
                     width: 17%;
-                    
+                    padding-left: 0.25rem/* 4px */;
+                    padding-right: 0.25rem/* 4px */;
+                    padding-top: 0.25rem/* 4px */;
+                    padding-bottom: 0.125rem/* 2px */;
                     border-left: 2px solid black;
-                    
+                    align-items: center;
                     display: flex; justify-content: center; align-items: center;
                     
                   "
@@ -252,7 +279,11 @@
                     width: 8%;
                     text-align: center;
                     border-left: 2px solid black;
-                    
+                    align-items: center;
+                    padding-left: 0.25rem/* 4px */;
+                    padding-right: 0.25rem/* 4px */;
+                    padding-top: 0.25rem/* 4px */;
+                    padding-bottom: 0.125rem/* 2px */;
                     display: flex; justify-content: center; align-items: center;
                     
                   "
@@ -266,7 +297,10 @@
                     width: 32%;
                     text-align: right;
                     border-left: 2px solid black;
-                    
+                    padding-left: 0.25rem/* 4px */;
+                    padding-right: 0.25rem/* 4px */;
+                    padding-top: 0.25rem/* 4px */;
+                    padding-bottom: 0.125rem/* 2px */;
                     display: flex; justify-content: center; align-items: center;
                     
                   "
@@ -279,7 +313,10 @@
                   style="
                     width: 23%;
                     text-align: right;
-                   
+                    padding-left: 0.25rem/* 4px */;
+                    padding-right: 0.25rem/* 4px */;
+                    padding-top: 0.25rem/* 4px */;
+                    padding-bottom: 0.125rem/* 2px */;
                     display: flex; justify-content: center; align-items: center;
                   "
                 >
@@ -294,6 +331,7 @@
       <div class="flex justify-end mb-10 mt-6 pl-7">
         <div class="">
           <button
+          
             class="
             ml-2
             w-64
@@ -308,6 +346,7 @@
             items-center
             justify-center
           "
+          
             @click="printpage(), printHistory()"
           >
             <span class="text-sm font-bold block ml-1">طباعة</span>

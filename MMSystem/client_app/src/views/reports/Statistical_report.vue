@@ -98,6 +98,7 @@
                     width: 45%;
                     text-align: center;
                     border-left: 2px solid black;
+                    padding: 0.25rem/* 4px */;
                   "
                 >
                   اسم المكتب أو الإدارة
@@ -190,6 +191,9 @@
                     width: 45%;
                     text-align: center;
                     border-left: 2px solid black;
+                    padding-left: 0.25rem/* 4px */;
+                    padding-right: 0.25rem/* 4px */;
+                    padding-top: 0.25rem/* 4px */;
  
                 display: flex; justify-content: center; align-items: center;
                   "
@@ -204,7 +208,8 @@
                   style="
                     width: 7.5%;
                     text-align: center;
-                  
+                    padding-left: 0.25rem/* 4px */;
+                    padding-right: 0.25rem/* 4px */;
                     border-left: 2px solid black;
                     display: flex; justify-content: center; align-items: center;
                   "
@@ -218,7 +223,10 @@
                     width: 7.5%;
                     text-align: center;
                     border-left: 2px solid black;
-                    
+                    padding-left: 0.25rem/* 4px */;
+                    padding-right: 0.25rem/* 4px */;
+                    padding-top: 0.25rem/* 4px */;
+                    padding-bottom: 0.125rem/* 2px */;
                     display: flex; justify-content: center; align-items: center;
                     
                   "
@@ -230,7 +238,10 @@
                   class="border-black border-l-2 px-1 pt-1 pb-0.5 flex justify-center items-center"
                   style="
                     width: 7.5%;
-                    
+                    padding-left: 0.25rem/* 4px */;
+                    padding-right: 0.25rem/* 4px */;
+                    padding-top: 0.25rem/* 4px */;
+                    padding-bottom: 0.125rem/* 2px */;
                     border-left: 2px solid black;
                     
                     display: flex; justify-content: center; align-items: center;
@@ -248,7 +259,10 @@
                     width: 7.5%;
                     text-align: center;
                     border-left: 2px solid black;
-                    
+                    padding-left: 0.25rem/* 4px */;
+                    padding-right: 0.25rem/* 4px */;
+                    padding-top: 0.25rem/* 4px */;
+                    padding-bottom: 0.125rem/* 2px */;
                     display: flex; justify-content: center; align-items: center;
                     
                   "
@@ -262,7 +276,10 @@
                     width: 25%;
                     text-align: right;
                     display: flex; justify-content: center; align-items: center;
-                    
+                    padding-left: 0.25rem/* 4px */;
+                    padding-right: 0.25rem/* 4px */;
+                    padding-top: 0.25rem/* 4px */;
+                    padding-bottom: 0.125rem/* 2px */;
                   "
                 ></div>
               </div>
@@ -292,7 +309,10 @@
                     width: 45%;
                     text-align: center;
                     border-left: 2px solid black;
- 
+                    padding-left: 0.25rem/* 4px */;
+                    padding-right: 0.25rem/* 4px */;
+                    padding-top: 0.25rem/* 4px */;
+                    
                 display: flex; justify-content: center; align-items: center;
                   "
                 >
