@@ -822,7 +822,7 @@ namespace MMSystem.Services.Reports
 
 
 
-                    var dep = await _data.Departments.Where(x => x.Id != departmentid).ToListAsync();
+            var dep = await _data.Departments.Where(x => x.Id != departmentid).ToListAsync();
             var listOfStautes = await _data.MailStatuses.ToListAsync();
 
 
@@ -838,14 +838,14 @@ namespace MMSystem.Services.Reports
 
 
           z in _data.Sends.Where(p => p.to == item.Id&&p.State==true && ((p.flag >= mailReaded && p.flag <= mailnot_readed) || mail_accept == true) &&
-          (p.flag == mail_state || State_filter == true)) on x.MailID equals z.MailID
+          (p.flag == mail_state || (State_filter == true &&p.flag!=1))) on x.MailID equals z.MailID
                                 join n in _data.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on z.to equals n.Id
-                                join dx in _data.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on z.type_of_send equals dx.MeasuresId
+                                join dx in _data.measures.Where(x => (x.MeasuresId == Measure_filter || (meas_filter == true && x.MeasuresId != 1))) on z.type_of_send equals dx.MeasuresId
                                 select new DepartmentViewModelDto
                                 {
 
                                     dateOfSend = z.Send_time.ToString("yyyy-MM-dd"),
-                                    Mail_Number = x.MailID,
+                                    Mail_Number = x.Mail_Number,
                                     Mail_Summary = x.Mail_Summary,
                                     TimeOfSend = z.Send_time.ToString("HH:mm:ss"),
                                     mail_state = (z.flag==1)? "لم ترسل " : (z.flag == 2)? "لم تقرأ" :

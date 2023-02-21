@@ -13,7 +13,7 @@
               <div class="text-2xl text-center font-semibold" style="font-size: 24px; line-height: 32px; text-align: center; font-weight: 900; padding-top: 44px; padding-bottom: 4px; padding-left: 12px; padding-right: 12px;">
                 هيئة الرقابة الإدارية
                 <div class="my-4" style="margin-top: 16px; margin-bottom: 16px">
-                  تقرير بصادر  {{ this.current_department_name}}  {{ this.mail_type }}
+                  تقرير بصادر  {{ this.current_department_name}}  {{ this.mailtype2 }}
                 </div>
 
                 <div
@@ -22,11 +22,11 @@
                 >
                   <span class="ml-2" style="margin-left: 8px">
                     خلال الفترة من
-                    22-12-2022
-                    <!-- {{ this.$route.params.dateFrom }} -->
+                    
+                    {{ this.$route.params.from }}
                     الي 
-                    22-12-2022
-                    <!-- {{ this.$route.params.dateTo }} -->
+                    
+                    {{ this.$route.params.to }}
                   </span>
                 </div>
 
@@ -56,7 +56,7 @@
                       </th>
                     </tr>
 
-                    <tr v-for="sub_mail in mail.data" :key="sub_mail.mail_Number" style="width: 100%; border:1px solid black;font-weight: 600;">
+                    <tr  v-for="sub_mail in mail.data" :key="sub_mail.mail_Number" style="width: 100%; border:1px solid black;font-weight: 600; font-size: 1rem/* 24px */;line-height: 1.5rem/* 32px */;">
                       <td style="border:1px solid black; width: 10%; text-align: center; padding-top:6px; padding-button: 6px;">
                         {{ sub_mail.mail_Number }}
                       </td>
@@ -188,10 +188,30 @@ export default {
 
           this.mailtype=""
 
-    }else{
-
+    }else
+    
+      if(this.$route.params.mail_type==1){
       this.mailtype=this.$route.params.mail_type
+      this.mailtype2="لرسائل البريد الداخلي"
+      
+    }else
+
+      if(this.$route.params.mail_type==2){
+      this.mailtype=this.$route.params.mail_type
+      this.mailtype2="لرسائل البريد الصادر الخارجي"
+      
+    }else
+
+      if(this.$route.params.mail_type==3){
+      this.mailtype=this.$route.params.mail_type
+      this.mailtype2="لرسائل البريد الوارد الخارجي"
+      
     }
+
+
+
+
+
     console.log(this.$route.params)
 
 
@@ -238,6 +258,7 @@ export default {
       total: [],
 
       mail_type: "",
+      mail_type2: "",
       mail_type_num: 1,
       current_department_name:localStorage.getItem("current_department_name"),
 
