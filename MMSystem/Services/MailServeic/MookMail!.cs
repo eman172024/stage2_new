@@ -1771,7 +1771,17 @@ namespace MMSystem.Services.MailServeic
                     else
                     {
 
-                        ex.external_sectoin  = _appContext.external_Departments.Where(x => x.Mail_id == ex.mail.MailID).ToList();
+                        ex.external_sectoin  =await _appContext.external_Departments.Where(x => x.Mail_id == ex.mail.MailID&&x.state==true).Select(z=>new Ex_Departments { 
+                        
+                        department_name=z.department_name,
+                        department_number=z.department_number,
+                        id=z.id,
+                        Mail_id=z.Mail_id,
+                        sector_name=z.sector_name,
+                        sector_number=z.sector_number
+                        
+                        })
+                            .ToListAsync();
 
 
                         //if(lsit.Count>0)
@@ -1894,7 +1904,18 @@ namespace MMSystem.Services.MailServeic
                     ex.external = await _extrenal_Inbox.Get(id);
 
 
-                    ex.external_sectoin = _appContext.external_Departments.Where(x => x.Mail_id == ex.mail.MailID).ToList();
+                    ex.external_sectoin = await _appContext.external_Departments.Where(x => x.Mail_id == ex.mail.MailID && x.state == true).Select(z => new Ex_Departments
+                    {
+
+                        department_name = z.department_name,
+                        department_number = z.department_number,
+                        id = z.id,
+                        Mail_id = z.Mail_id,
+                        sector_name = z.sector_name,
+                        sector_number = z.sector_number
+
+                    })
+                                                               .ToListAsync();
 
                     //var side = await _appContext.Extrmal_Sections.FindAsync(ex.external.SectionId);
 
@@ -2223,8 +2244,18 @@ namespace MMSystem.Services.MailServeic
                             //var sector = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.id == side.perent);
                             //ex.sector.Add(sector);
 
-                            ex.external_sectoin = await _appContext.external_Departments.Where(x => x.Mail_id == ex.mail.MailID).ToListAsync();
+                            ex.external_sectoin = await _appContext.external_Departments.Where(x => x.Mail_id == ex.mail.MailID && x.state == true).Select(z => new Ex_Departments
+                            {
 
+                                department_name = z.department_name,
+                                department_number = z.department_number,
+                                id = z.id,
+                                Mail_id = z.Mail_id,
+                                sector_name = z.sector_name,
+                                sector_number = z.sector_number
+
+                            })
+                           .ToListAsync();
 
 
 
@@ -2303,8 +2334,18 @@ namespace MMSystem.Services.MailServeic
                             //var sector = await _appContext.Extrmal_Sections.FirstOrDefaultAsync(x => x.id ==side.perent );
                             //ex1.sector.Add(sector);
 
-                            ex1.external_sectoin = await _appContext.external_Departments.Where(x => x.Mail_id == ex1.mail.MailID).ToListAsync();
+                            ex1.external_sectoin = await _appContext.external_Departments.Where(x => x.Mail_id == ex1.mail.MailID && x.state == true).Select(z => new Ex_Departments
+                            {
 
+                                department_name = z.department_name,
+                                department_number = z.department_number,
+                                id = z.id,
+                                Mail_id = z.Mail_id,
+                                sector_name = z.sector_name,
+                                sector_number = z.sector_number
+
+                            })
+                                                      .ToListAsync();
 
 
                             List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == dto.MailID && x.State == true).ToListAsync();

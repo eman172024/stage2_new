@@ -19,7 +19,7 @@ namespace MMSystem.Model.ViewModel
         public int total { get; set; }
 
 
-        public List<External_Department> external_sectoin { get; set; } = new List<External_Department>();
+        public List<Ex_Departments> external_sectoin { get; set; } = new List<Ex_Departments>();
         public List<Department> departments { get; set; } = new List<Department> { };
 
         public ExMail()
