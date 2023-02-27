@@ -26,7 +26,8 @@ namespace MMSystem.Model
         public DbSet<Historyes> History { get; set; }
         public DbSet<MailStatus> MailStatuses { get; set; }
         public DbSet<HistortyName> histortyNames { get; set; }
-        
+        public DbSet<External_Department> external_Departments { get; set; }
+
 
 
         public AppDbCon(DbContextOptions<AppDbCon>options):base(options)

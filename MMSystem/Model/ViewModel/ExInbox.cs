@@ -14,6 +14,7 @@ namespace MMSystem.Model.ViewModel
 
         public List<Mail_ResourcescsDto> resourcescs { get; set; }
         public List<ActionSender> actionSenders { get; set; }
+        public List<External_Department> external_sectoin { get; set; } = new List<External_Department>();
 
 
         public List<Extrmal_Section> side { get; set; }
