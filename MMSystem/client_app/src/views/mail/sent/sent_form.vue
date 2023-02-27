@@ -1310,9 +1310,9 @@
                     </a>
                   </div>
 
-                 <div class="flex justify-between items-center mt-2">
-                  <div v-if="image_of_doc" class="w-1/2 flex items-center">
-                    <input
+                  <div class="flex justify-between items-center mt-2">
+                    <div v-if="image_of_doc" class="w-1/2 flex items-center">
+                      <input
                         type="text"
                         v-model="doc_number_to_search"
                         id="doc_number"
@@ -1330,10 +1330,9 @@
                         "
                       />
 
-                        <button
-                          
-                          @click="search_the_doc()"
-                          class="
+                      <button
+                        @click="search_the_doc()"
+                        class="
                             py-2
                             px-4
                             bg-white
@@ -1346,17 +1345,16 @@
                             duration-300
                             text-sm leading-normal
                           "
-                        >
+                      >
                         بحث
                       </button>
-                  </div>
+                    </div>
 
-                  <div class="w-1/2 flex justify-end">
-                    <button
-                      v-if="roles.includes('6') && image_of_doc"
-                      @click="prepare_delete_all_documents()"
-                    
-                      class="
+                    <div class="w-1/2 flex justify-end">
+                      <button
+                        v-if="roles.includes('6') && image_of_doc"
+                        @click="prepare_delete_all_documents()"
+                        class="
                         bg-red-500
                         hover:bg-red-400
                         px-4
@@ -1364,12 +1362,11 @@
                         rounded-lg
                         text-white
                       "
-                    >
-                      حذف كل الصور
-                    </button>
+                      >
+                        حذف كل الصور
+                      </button>
+                    </div>
                   </div>
-                 </div>
-
 
                   <div
                     v-if="image_of_doc"
@@ -1406,11 +1403,10 @@
                               justify-between
                               items-center
                             "
-                          > 
+                          >
                             <div class="">
                               <button
                                 @click="farst_documents()"
-                              
                                 class="
                                   bg-gray-500
                                   hover:bg-gray-400
@@ -1421,7 +1417,7 @@
                                   text-white
                                 "
                               >
-                              &#x276E; &#x276E;
+                                &#x276E; &#x276E;
                               </button>
                             </div>
 
@@ -1502,7 +1498,6 @@
                             <div class="">
                               <button
                                 @click="last_documents()"
-                              
                                 class="
                                   bg-gray-500
                                   hover:bg-gray-400
@@ -1513,13 +1508,10 @@
                                   text-white
                                 "
                               >
-                              &#x276F; &#x276F;
+                                &#x276F; &#x276F;
                               </button>
                             </div>
                           </div>
-
-
-
                         </div>
 
                         <div
@@ -2102,10 +2094,10 @@
                       <button
                         v-if="
                           summary &&
-                          is_exisite_genaral_inbox_number == true &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)
+                            is_exisite_genaral_inbox_number == true &&
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0)
                         "
                         @click="updateMail"
                         type="button"
@@ -2183,10 +2175,10 @@
                       <button
                         v-if="
                           summary &&
-                          is_exisite_genaral_inbox_number == true &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)
+                            is_exisite_genaral_inbox_number == true &&
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0)
                         "
                         @click="updateMail"
                         type="button"
@@ -2264,8 +2256,8 @@
                       <button
                         v-if="
                           summary &&
-                          is_exisite_genaral_inbox_number == true &&
-                          classification
+                            is_exisite_genaral_inbox_number == true &&
+                            classification
                         "
                         @click="updateMail"
                         type="button"
@@ -2345,9 +2337,9 @@
                       <button
                         v-if="
                           summary &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0)
                         "
                         @click="prepare_delete_mail()"
                         type="button"
@@ -2425,9 +2417,9 @@
                       <button
                         v-if="
                           summary &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0)
                         "
                         @click="prepare_delete_mail()"
                         type="button"
@@ -2582,10 +2574,10 @@
                       <button
                         v-if="
                           summary &&
-                          is_exisite_genaral_inbox_number == true &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)
+                            is_exisite_genaral_inbox_number == true &&
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0)
                         "
                         class="
                           flex
@@ -2650,14 +2642,14 @@
                       <button
                         v-if="
                           summary &&
-                          classification &&
-                          is_exisite_genaral_inbox_number == true &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0) &&
-                          mail_forwarding &&
-                          sectorNameSelected &&
-                          sideNameSelected &&
-                          action_required_by_the_entity
+                            classification &&
+                            is_exisite_genaral_inbox_number == true &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0) &&
+                            mail_forwarding &&
+                            sectorNameSelected &&
+                            sideNameSelected &&
+                            action_required_by_the_entity
                         "
                         class="
                           flex
@@ -2722,15 +2714,15 @@
                       <button
                         v-if="
                           summary &&
-                          classification &&
-                          is_exisite_genaral_inbox_number == true &&
-                          sectorNameSelected &&
-                          sideNameSelected &&
-                          ward_to &&
-                          mail_ward_type &&
-                          entity_mail_date &&
-                          entity_reference_number &&
-                          procedure_type
+                            classification &&
+                            is_exisite_genaral_inbox_number == true &&
+                            sectorNameSelected &&
+                            sideNameSelected &&
+                            ward_to &&
+                            mail_ward_type &&
+                            entity_mail_date &&
+                            entity_reference_number &&
+                            procedure_type
                         "
                         class="
                           flex
@@ -2797,9 +2789,9 @@
                       <button
                         v-if="
                           summary &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0)
                         "
                         class="
                           flex
@@ -2864,9 +2856,9 @@
                       <button
                         v-if="
                           summary &&
-                          classification &&
-                          (consignees.length != 0 ||
-                            newactionSenders.length != 0)
+                            classification &&
+                            (consignees.length != 0 ||
+                              newactionSenders.length != 0)
                         "
                         class="
                           flex
@@ -2930,9 +2922,7 @@
                     <div v-if="roles.includes('1') && mailType == '3'" class="">
                       <button
                         v-if="
-                          summary &&
-                          classification &&
-                          (consignees.length != 0 )
+                          summary && classification && consignees.length != 0
                         "
                         class="
                           flex
@@ -3511,9 +3501,8 @@
         <p class="text-gray-600">لن تتمكن من استرداد المستند بعد حذفه.</p>
 
         <div class="mt-6">
-
           <button
-          v-if="delete_all_documents"
+            v-if="delete_all_documents"
             @click="deleteAllDocuments()"
             class="
               bg-red-600
@@ -3529,9 +3518,8 @@
             نعم ، احذفها
           </button>
 
-
           <button
-          v-else
+            v-else
             @click="deleteDocument()"
             class="
               bg-red-600
@@ -3730,8 +3718,6 @@
               <button
                 @click="show_current_image_for_bigger_screen_model = false"
               >
-
-
                 <svg
                   class="w-8 h-8 stroke-current text-red-500 hover:text-red-400"
                   fill="none"
@@ -3762,7 +3748,6 @@
                 "
               >
                 طباعة المستند الحالي
-                
               </button>
 
               <button
@@ -3781,12 +3766,15 @@
                 طباعة كافة المستندات
               </button>
 
-              <div v-if="image_of_doc" class="flex items-center border border-blue-400 rounded-md">
+              <div
+                v-if="image_of_doc"
+                class="flex items-center border border-blue-400 rounded-md"
+              >
                 <input
-                    type="text"
-                    v-model="doc_number_to_search"
-                    id="doc_number"
-                    class="
+                  type="text"
+                  v-model="doc_number_to_search"
+                  id="doc_number"
+                  class="
                       ml-2
                       block
                       w-16
@@ -3798,12 +3786,11 @@
                       focus:outline-none focus:border-blue-300
                       p-2
                     "
-                  />
+                />
 
-                    <button
-                      
-                      @click="search_the_doc()"
-                      class="
+                <button
+                  @click="search_the_doc()"
+                  class="
                         py-2
                         px-4
                         bg-white
@@ -3816,12 +3803,10 @@
                         duration-300
                         text-sm leading-normal
                       "
-                    >
-                    بحث
-                  </button>
+                >
+                  بحث
+                </button>
               </div>
-
-              
             </div>
 
             <div class="h-screen-93 mt-4">
@@ -3846,12 +3831,10 @@
                 mt-4
               "
             >
-
-            <div class="">
-              <button
-                @click="farst_documents()"
-              
-                class="
+              <div class="">
+                <button
+                  @click="farst_documents()"
+                  class="
                   bg-gray-500
                   hover:bg-gray-400
                   px-2
@@ -3860,12 +3843,10 @@
                   text-xs
                   text-white
                 "
-              >
-              &#x276E; &#x276E;
-              </button>
-            </div>
-
-            
+                >
+                  &#x276E; &#x276E;
+                </button>
+              </div>
 
               <div class="w-12 h-8">
                 <button
@@ -3898,7 +3879,6 @@
                     ></path>
                   </svg>
                 </button>
-
               </div>
 
               <div class="text-black">
@@ -3941,7 +3921,6 @@
               <div class="">
                 <button
                   @click="last_documents()"
-                
                   class="
                     bg-gray-500
                     hover:bg-gray-400
@@ -3952,10 +3931,9 @@
                     text-white
                   "
                 >
-                &#x276F; &#x276F;
+                  &#x276F; &#x276F;
                 </button>
               </div>
-
             </div>
           </div>
         </div>
@@ -4045,9 +4023,6 @@
               >
                 طباعة المستند الحالي
               </button>
-
-              
-              
             </div>
 
             <div class="h-screen-93 mt-4">
@@ -4250,16 +4225,17 @@ import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 export default {
   created() {},
 
-destroyed() {
-  console.log("destroyed_send_form")
-  if(this.conn!=null){
- if (this.conn.readystate!=3){
-   console.log("readystate destory_sent_form="+this.conn.readyState);
-           this.conn.close();
-           console.log("close_sent_form");
-         this.conn=null;
- }
-}},
+  destroyed() {
+    console.log("destroyed_send_form");
+    if (this.conn != null) {
+      if (this.conn.readystate != 3) {
+        console.log("readystate destory_sent_form=" + this.conn.readyState);
+        this.conn.close();
+        console.log("close_sent_form");
+        this.conn = null;
+      }
+    }
+  },
   components: {
     asideComponent,
     navComponent,
@@ -4267,17 +4243,11 @@ destroyed() {
   },
 
   mounted() {
-
-    
-
-
-
     //*********************websocket 18/8/2022
-  //  this.conn = new WebSocket("ws://localhost:58316/ws");
+    //  this.conn = new WebSocket("ws://localhost:58316/ws");
     // this.conn = new WebSocket("ws://mail:82/ws");
     // //*********************websocket 8/1/2023
 
-   
     /*this.connect1();
 this.massage_on();
 
@@ -4317,8 +4287,8 @@ setInterval(()=>{
   }
 },10000)*/
 
-//21/1/2023
-/*this.conn.onerror =(error) =>{
+    //21/1/2023
+    /*this.conn.onerror =(error) =>{
 console.log("WebSocket Error " + error);
 };
 
@@ -4326,9 +4296,9 @@ this.conn.onclose =(event) =>{
 console.log("readystate"+this.conn.readyState);
 console.log("code="+event.code);
 console.log("WebSocket close");*/
-//*********23/1/2023
+    //*********23/1/2023
 
-/*setTimeout(()=>{
+    /*setTimeout(()=>{
  // this.conn=null;
   this.conn = new WebSocket("ws://localhost:58316/ws");
  this.conn.onmessage = (event) => {
@@ -4363,9 +4333,9 @@ console.log("index="+ind);
     };
 
 },1000);*/
-//};
+    //};
 
-   /* this.conn.onclose = (event) => {
+    /* this.conn.onclose = (event) => {
       console.log("readystate" + this.conn.readyState);
       console.log("WebSocket close");
       console.log("code="+event.code);
@@ -4408,8 +4378,8 @@ console.log("index="+ind);
     // },1000);
     // };
 
-//21/1/2023
-   /* this.conn.onopen = (event) => {
+    //21/1/2023
+    /* this.conn.onopen = (event) => {
       console.log("open");
     };
 
@@ -4508,19 +4478,18 @@ console.log("index="+ind);
 
   data() {
     return {
-      doc_number_to_search: '',
+      doc_number_to_search: "",
       delete_all_documents: false,
 
-      reply_id_to_delete:"",
-      alert_delete_document:false,
-
+      reply_id_to_delete: "",
+      alert_delete_document: false,
 
       alert_state: false,
       alert_state_true_false: false,
       alert_prepare_delete_document: false,
       alert_prepare_delete_mail: false,
       //*************
-   
+
       filter_text: "",
       mail_flag: "",
       keyid: "",
@@ -4719,7 +4688,7 @@ console.log("index="+ind);
 
     // },
 
-    mailType: function () {
+    mailType: function() {
       var date = new Date();
 
       this.genaral_inbox_year = date.getFullYear();
@@ -4831,52 +4800,45 @@ console.log("index="+ind);
   },
 
   methods: {
-
-    farst_documents(){
-      this.doc_number_to_search = 1
-      this.search_the_doc()
+    farst_documents() {
+      this.doc_number_to_search = 1;
+      this.search_the_doc();
     },
 
-    last_documents(){
-      this.doc_number_to_search = this.total_of_doc
-      this.search_the_doc()
+    last_documents() {
+      this.doc_number_to_search = this.total_of_doc;
+      this.search_the_doc();
     },
 
-    search_the_doc(){
+    search_the_doc() {
       // doc_number_to_search
 
-
+      if (this.doc_number_to_search > this.total_of_doc) {
+        alert("لقد ادخلة رقم خطا الرجاء إعادة المحاولة");
+      } else {
         this.doc_number = this.doc_number_to_search;
-     
+        this.screenFreeze = true;
+        this.loading = true;
+        this.$http.documentService
+          .GetAllDocN(this.mailId, this.doc_number)
+          .then((res) => {
+            this.total_of_doc = res.data.total;
 
-      this.screenFreeze = true;
-      this.loading = true;
-      this.$http.documentService
-        .GetAllDocN(this.mailId, this.doc_number)
-        .then((res) => {
-          this.total_of_doc = res.data.total;
+            this.image_of_doc = res.data.data.path;
+            this.id_of_doc = res.data.data.id;
 
-          this.image_of_doc = res.data.data.path;
-          this.id_of_doc = res.data.data.id;
-
-          setTimeout(() => {
+            setTimeout(() => {
+              this.screenFreeze = false;
+              this.loading = false;
+            }, 200);
+          })
+          .catch((err) => {
             this.screenFreeze = false;
             this.loading = false;
-          }, 200);
-        })
-        .catch((err) => {
-          this.screenFreeze = false;
-          this.loading = false;
-          console.log(err);
-        });
-
-
+            console.log(err);
+          });
+      }
     },
-
-
-
-   
-
 
     //************8/1/2023
     /*connect1(){
@@ -4962,41 +4924,32 @@ console.log("fun1");
     //     });
     // },
 
-    deletereply(){
+    deletereply() {
+      this.alert_delete_document = false;
 
-        
-this.alert_delete_document = false;
+      this.$http.mailService
+        .delete_reply(
+          Number(this.reply_id_to_delete),
+          Number(localStorage.getItem("AY_LW"))
+        )
+        .then((res) => {
+          this.GetReplyByDepartment(
+            this.replyByDepartmenId,
+            this.sends_id,
+            this.departmentName
+          );
+        })
+        .catch((err) => {});
+    },
 
-this.$http.mailService
-  .delete_reply(
-    Number(this.reply_id_to_delete),Number(localStorage.getItem("AY_LW"))
-  )
-  .then((res) => {
-
-    
-
-    this.GetReplyByDepartment(
-              this.replyByDepartmenId,
-              this.sends_id,
-              this.departmentName
-            );
-                
-  })
-  .catch((err) => {
-
-  });
-
-
-},
-
-prepare_delete_all_documents() {
-  this.delete_all_documents = true
+    prepare_delete_all_documents() {
+      this.delete_all_documents = true;
 
       this.alert_prepare_delete_document = true;
     },
 
     prepare_delete_document() {
-      this.delete_all_documents = false
+      this.delete_all_documents = false;
       this.alert_prepare_delete_document = true;
     },
 
@@ -5004,45 +4957,39 @@ prepare_delete_all_documents() {
       this.alert_prepare_delete_mail = true;
     },
 
-
     deleteAllDocuments() {
+      this.alert_prepare_delete_document = false;
 
-      
-this.alert_prepare_delete_document = false;
+      this.$http.mailService
+        .DeleteAllDocuments(
+          Number(this.mailId),
+          Number(localStorage.getItem("AY_LW"))
+        )
+        .then((res) => {
+          this.doc_number = 0;
+          this.total_of_doc = 0;
 
-this.$http.mailService
-  .DeleteAllDocuments(
-    Number(this.mailId),
-    Number(localStorage.getItem("AY_LW"))
-  )
-  .then((res) => {
-    this.doc_number = 0;
-    this.total_of_doc = 0;
+          this.image_of_doc = "";
+          this.id_of_doc = "";
 
-    this.image_of_doc = "";
-    this.id_of_doc = "";
+          this.alert_state = true;
+          this.alert_state_true_false = true;
 
-    this.alert_state = true;
-    this.alert_state_true_false = true;
+          // this.GetAllDocN("next");
 
-    // this.GetAllDocN("next");
+          // this.imagesToShow.splice(index, 1);
+          // this.mail_search();
 
-    // this.imagesToShow.splice(index, 1);
-    // this.mail_search();
-
-    // this.imagesToShow = res.data.result.documents
-  })
-  .catch((err) => {
-    this.alert_state = true;
-    this.alert_state_true_false = false;
-    this.addErorr = err.message;
-  });
-},
-
+          // this.imagesToShow = res.data.result.documents
+        })
+        .catch((err) => {
+          this.alert_state = true;
+          this.alert_state_true_false = false;
+          this.addErorr = err.message;
+        });
+    },
 
     deleteDocument() {
-
-      
       this.alert_prepare_delete_document = false;
 
       this.$http.mailService
@@ -5177,8 +5124,8 @@ this.$http.mailService
     },
 
     //*****************29/3/2022
-  //  func() {
-     // var link = document.getElementById("a1");
+    //  func() {
+    // var link = document.getElementById("a1");
 
     //   var replyByDepartmenId = this.replyByDepartmenId;
     //   var sends_id = this.sends_id;
@@ -5198,78 +5145,74 @@ this.$http.mailService
     // },
 
     func() {
-     
-  if(this.conn==null){
-     console.log("conn="+this.conn);
-      this.conn = new WebSocket("ws://localhost:58316/ws");
-     //  this.conn = new WebSocket("ws://mail:94/ws");
-   
-  this.conn.onclose=(event)=>{
-  console.log("close code_sent_form="+event.code);
-  }
-    
-        this.conn.onmessage = (event) => {
-           console.log("onmessage");
-           let scannedImage = event.data;
-           let mgs = JSON.parse(scannedImage);
-           this.imagesscantest = mgs;
-           var ind = this.imagesscantest.index;
-           console.log("index="+ind);
-           if (ind == 1) {
-             this.keyid = this.imagesscantest.keyid;
-          //   localStorage.setItem("keyid",this.keyid);
-             console.log("keyid="+this.keyid);
-              console.log("count websocket_ sent_form="+this.imagesscantest.count1);
-       
-           } else {
-             var flag1 = this.imagesscantest.flag1;
-             if (flag1 == 1){
-               console.log("flag="+flag1);
-                this.imagesToSend = [];
-             }
-             for (var i = 0; i < mgs["image"].length; i++) {
-               this.indexOfimagesToShow++;
-               this.imagesToSend.push({
-                 baseAs64: mgs["image"][i],
-                 index: this.indexOfimagesToShow,
-               });
-             }
-     
-             if (flag1 == 1){
-                this.UploadImagesMail();
-                console.log("uploadimagemail function");
-             }
-           }
-         };
-    }
-  
-     else if(this.conn.readyState===3||this.conn.readyState===2){
-            console.log("readystate="+this.conn.readyState)
-            this.conn.close();
-                  this.conn=null;
-                  this.func();
-           }
-  
-           else {
-           console.log("func");
-           var mailid = this.mailId;
-           var keyid = this.keyid;
-     
-           var timeout;
-           window.addEventListener("blur", function(e) {
-             window.clearTimeout(timeout);
-           });
-     
-           timeout = window.setTimeout(function() {
-             window.location = "http://mail/scanner_app/Setup1.msi";
-           }, 1000);
-           
-      
-          document.location="SScaner:flag=1" + "mId=" + mailid + "keyid=" + keyid;
-           }
+      if (this.conn == null) {
+        console.log("conn=" + this.conn);
+        this.conn = new WebSocket("ws://localhost:58316/ws");
+        //  this.conn = new WebSocket("ws://mail:94/ws");
 
-     //21/1/2023
-     /* var link = document.getElementById("a1");
+        this.conn.onclose = (event) => {
+          console.log("close code_sent_form=" + event.code);
+        };
+
+        this.conn.onmessage = (event) => {
+          console.log("onmessage");
+          let scannedImage = event.data;
+          let mgs = JSON.parse(scannedImage);
+          this.imagesscantest = mgs;
+          var ind = this.imagesscantest.index;
+          console.log("index=" + ind);
+          if (ind == 1) {
+            this.keyid = this.imagesscantest.keyid;
+            //   localStorage.setItem("keyid",this.keyid);
+            console.log("keyid=" + this.keyid);
+            console.log(
+              "count websocket_ sent_form=" + this.imagesscantest.count1
+            );
+          } else {
+            var flag1 = this.imagesscantest.flag1;
+            if (flag1 == 1) {
+              console.log("flag=" + flag1);
+              this.imagesToSend = [];
+            }
+            for (var i = 0; i < mgs["image"].length; i++) {
+              this.indexOfimagesToShow++;
+              this.imagesToSend.push({
+                baseAs64: mgs["image"][i],
+                index: this.indexOfimagesToShow,
+              });
+            }
+
+            if (flag1 == 1) {
+              this.UploadImagesMail();
+              console.log("uploadimagemail function");
+            }
+          }
+        };
+      } else if (this.conn.readyState === 3 || this.conn.readyState === 2) {
+        console.log("readystate=" + this.conn.readyState);
+        this.conn.close();
+        this.conn = null;
+        this.func();
+      } else {
+        console.log("func");
+        var mailid = this.mailId;
+        var keyid = this.keyid;
+
+        var timeout;
+        window.addEventListener("blur", function(e) {
+          window.clearTimeout(timeout);
+        });
+
+        timeout = window.setTimeout(function() {
+          window.location = "http://mail/scanner_app/Setup1.msi";
+        }, 1000);
+
+        document.location =
+          "SScaner:flag=1" + "mId=" + mailid + "keyid=" + keyid;
+      }
+
+      //21/1/2023
+      /* var link = document.getElementById("a1");
 
       var replyByDepartmenId = this.replyByDepartmenId;
       var sends_id = this.sends_id;
@@ -5292,9 +5235,7 @@ this.$http.mailService
     ////////////////////////////////////////////////////////////////////////////////////////////
 
     reply1() {
-     
-
-  /*     if(this.conn==null){
+      /*     if(this.conn==null){
  console.log("conn="+this.conn);
       this.conn = new WebSocket("ws://localhost:58316/ws");
      //  this.conn = new WebSocket("ws://mail:94/ws");
@@ -5368,8 +5309,8 @@ console.log("close code="+event.code);
         keyid;
 
             }*/
-     //********21/1/2023
-     /* var link = document.getElementById("a2");
+      //********21/1/2023
+      /* var link = document.getElementById("a2");
 
       var replyByDepartmenId = this.replyByDepartmenId;
       var sends_id = this.sends_id;
@@ -5397,7 +5338,7 @@ console.log("close code="+event.code);
         replyByDepartmenId +
         "keyid=" +
         keyid;*/
-        //********21/1/2023
+      //********21/1/2023
     },
 
     to_get_all_doc_of_mail() {
@@ -5761,8 +5702,9 @@ console.log("close code="+event.code);
           this.summary = res.data.mail.mail_Summary;
           this.classification = res.data.mail.clasification;
 
-          this.new_class =
-            this.classifications[Number(this.classification) - 1].name;
+          this.new_class = this.classifications[
+            Number(this.classification) - 1
+          ].name;
           this.office_type = res.data.mail.office_type;
           // this.mailType = res.data.mail.mail_Type;
           if (res.data.mail.genaral_inbox_Number == 0) {
@@ -5937,8 +5879,9 @@ console.log("close code="+event.code);
     previousImage_images_model() {
       if (this.indextotest_images_model > 0) {
         this.indextotest_images_model--;
-        this.testimage_images_model =
-          this.show_images_images_model[this.indextotest_images_model].path;
+        this.testimage_images_model = this.show_images_images_model[
+          this.indextotest_images_model
+        ].path;
       }
     },
 
@@ -5948,8 +5891,9 @@ console.log("close code="+event.code);
         this.show_images_images_model.length - 1
       ) {
         this.indextotest_images_model++;
-        this.testimage_images_model =
-          this.show_images_images_model[this.indextotest_images_model].path;
+        this.testimage_images_model = this.show_images_images_model[
+          this.indextotest_images_model
+        ].path;
       }
     },
 
@@ -6346,8 +6290,9 @@ console.log("close code="+event.code);
 
           this.releaseDate = res.data.mail.date_Of_Mail;
           this.classification = res.data.mail.clasification;
-          this.new_class =
-            this.classifications[Number(this.classification) - 1].name;
+          this.new_class = this.classifications[
+            Number(this.classification) - 1
+          ].name;
           this.office_type = res.data.mail.office_type;
 
           if (res.data.mail.genaral_inbox_Number == 0) {
@@ -6445,11 +6390,6 @@ console.log("close code="+event.code);
           console.log(err);
         });
     },
-
-
-
-
-
 
     updateBeforSendMail() {
       this.screenFreeze = true;
@@ -6565,7 +6505,7 @@ console.log("close code="+event.code);
             this.to_test_passing_mail_type = 3;
           }
 
-          this.sendMail()
+          this.sendMail();
 
           setTimeout(() => {
             this.loading = false;
@@ -6582,8 +6522,6 @@ console.log("close code="+event.code);
           }, 500);
         });
     },
-
-
 
     sendMail() {
       this.screenFreeze = true;
