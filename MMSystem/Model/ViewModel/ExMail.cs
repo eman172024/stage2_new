@@ -18,6 +18,8 @@ namespace MMSystem.Model.ViewModel
         public List<Extrmal_Section> sector { get; set; }
         public int total { get; set; }
 
+
+        public List<External_Department> external_sectoin { get; set; } = new List<External_Department>();
         public List<Department> departments { get; set; } = new List<Department> { };
 
         public ExMail()
