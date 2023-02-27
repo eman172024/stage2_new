@@ -67,30 +67,25 @@ namespace MMSystem.Controllers
         public async Task<IActionResult> pag(int depid, int size, int pagenum , int type)
 
         {
-            switch (type)
+
+
+            try
             {
-
-                case 1: var c = await _re.Getmail(depid, size, pagenum);
-                    p = c;
-                    break;
-
-                         case 2:
-                    var c1 = await _re.Getextrmail(depid, size, pagenum);
-                    p = c1;
-                    break;
-
-                case 3:
-                    var c2 = await _re.Getinboxmail(depid, size, pagenum);
-                    p = c2;
-                    break;
-
-                default:
-                    p = null;
-                    break;
+                var c = await _re.Getmail(depid, size, pagenum);
+                p = c;
+                return Ok(p);
             }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        
+                   
 
+              
 
-            return Ok(p);
+           
         }
 
         [HttpGet("GetIncomingMail")]
