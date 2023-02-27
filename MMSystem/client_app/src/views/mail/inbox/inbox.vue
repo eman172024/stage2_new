@@ -2687,6 +2687,18 @@ this.conn.onmessage = (event) => {
 
             this.reply_to_add = "";
             this.getMailById();
+
+            // from Ayoub to eman
+
+            
+            var index_of_reply_img = 12
+
+            if(index_of_reply_img > 10)
+            {
+              var id_of_reply_from_beackend = 1
+              this.update_reply_to_complet_sent_img(id_of_reply_from_beackend);
+            }
+            
           }, 500);
         })
         .catch((err) => {
@@ -2696,6 +2708,82 @@ this.conn.onmessage = (event) => {
           }, 500);
           console.log(err);
         });
+    },
+
+    update_reply_to_complet_sent_img(id){
+      var new_index_of_reply_img = 10
+
+      if(index_of_reply_img > new_index_of_reply_img)
+      {
+      this.screenFreeze = true;
+      this.loading = true;
+
+      var ReplyViewModel = {
+        userId: Number(localStorage.getItem("AY_LW")),
+        mailId: Number(this.mailId_to_get_mail_by_id),
+        send_ToId: Number(this.sends_id_to_get_mail_by_id),
+        from: Number(2),
+        reply: {
+          mail_detail: this.reply_to_add,
+          To: Number(this.department_Id),
+        },
+        file: {
+          list: this.imagesToSend,
+        },
+        id_of_reply: id
+      };
+      this.$http.mailService
+        .NewAddReply(ReplyViewModel)
+        .then((res) => {
+          setTimeout(() => {
+            console.log(res);
+            this.imagesToSend = [];
+            // this.documentSection = true;
+            // this.proceduresSection = true;
+
+            for (let index = 0; index < this.inboxMails.length; index++) {
+              if (
+                this.inboxMails[index].mail_id == this.mailId_to_get_mail_by_id
+              ) {
+                if (
+                  this.inboxMails[index].flag == 2 ||
+                  this.inboxMails[index].flag == 3
+                ) {
+                  this.inboxMails[index].flag = 4;
+                  this.inboxMails[index].state = " تم الرد من قيلك ";
+                }
+              }
+            }
+
+            this.loading = false;
+            this.screenFreeze = false;
+
+            this.reply_to_add = "";
+            // this.getMailById();
+
+            // from Ayoub to eman
+
+            
+            var index_of_reply_img = 12
+
+            if(index_of_reply_img > 10)
+            {
+              var id_of_reply_from_beackend = 1
+              this.update_reply_to_complet_sent_img(id_of_reply_from_beackend);
+            }
+            
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+          console.log(err);
+        });
+
+
+      }
     },
 
     to_pass_data_to_get_mail_by_id(
