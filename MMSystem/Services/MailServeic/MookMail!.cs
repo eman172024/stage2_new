@@ -2643,6 +2643,35 @@ namespace MMSystem.Services.MailServeic
             }
             return false;
         }
+
+
+
+
+
+
+        public async Task<bool> delete_sector(int id)
+        {
+            var obj = await _appContext.external_Departments.FindAsync(id);
+
+            if (obj != null)
+            {
+                obj.state = false;
+               
+
+               
+                _appContext.external_Departments.Update(obj);
+                int res = await _appContext.SaveChangesAsync();
+                if (res != 0)
+                {
+                    return true;
+
+                }
+
+
+            }
+            return false;
+        }
+
     }
 }
 

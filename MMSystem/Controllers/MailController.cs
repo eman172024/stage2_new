@@ -355,6 +355,35 @@ namespace MMSystem.Controllers
         }
 
 
+        [HttpDelete("delete_sector")]
+        public async Task<IActionResult> delete_sector(int id)
+        {
+            try
+            {
+                bool is_existe = await _Imail.delete_sector(id);
 
+                if (is_existe)
+
+                    return Created("conclusion", new
+                    {
+                        message = "تمت العملية بنجاح",
+                        statusCode = 201,
+
+                    });
+                return BadRequest(new Result()
+                {
+                    message = "فشلت العملية",
+                    statusCode = 400
+                });
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new Result() { message = "حدث خطأ", statusCode = 400 });
+            }
+
+
+        }
     }
 }

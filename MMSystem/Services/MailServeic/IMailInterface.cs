@@ -51,7 +51,7 @@ namespace MMSystem.Services.MailServeic
         Task<bool> conclusion(int MailID, string conclusion);
 
 
-
+        Task<bool> delete_sector(int id);
 
     }
 }
