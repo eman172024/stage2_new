@@ -356,7 +356,7 @@ namespace MMSystem.Controllers
 
 
         [HttpDelete("delete_sector")]
-        public async Task<IActionResult> delete_sector(int id)
+        public async Task<IActionResult> delete_sector(int id, int userId)
         {
             try
             {

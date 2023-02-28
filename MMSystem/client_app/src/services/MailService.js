@@ -3,10 +3,15 @@ import axios from 'axios';
 export default {
 
 
-    delete_reply(id,userid){
+    delete_reply(id, userid) {
 
         return axios.put(`/api/Reply/DeleteReply?id=${id}&&UserId=${userid}`);
-        
+
+    },
+
+    cancel_sending_to_sector_side(id, userId) {
+        return axios.delete(`/api/Mail/delete_sector?id=${id}&userId=${userId}`);
+        //  return axios.delete(`http://mail:82/api/Mail/DeleteMangament?mail_id=${mailId}&departmentId=${department_id}&userId=${userId}`);
     },
 
     testsss(page_num) {
