@@ -985,6 +985,44 @@ namespace MMSystem.Services.MailServeic
                                     isMulti = true;
                                 }
 
+
+
+
+                                if (mail.external_Departments.Count > 0)
+                                {
+
+                                    var list1 = await _appContext.external_Departments.Where(x => x.Mail_id == mail.mail.MailID).ToListAsync();
+
+
+                                    if (list1.Count > 0)
+                                    {
+                                        foreach (var item in list1)
+                                        {
+                                            item.state = false;
+                                        }
+                                        _appContext.external_Departments.UpdateRange(list1);
+                                        await _appContext.SaveChangesAsync();
+
+                                    }
+
+
+                                }
+                                else
+                                {
+                                    foreach (var item in mail.external_Departments)
+                                    {
+                                        item.Mail_id = mail.mail.MailID;
+                                        item.insert_at = DateTime.Now;
+                                        item.state = true;
+
+                                    }
+                                    await _appContext.external_Departments.AddRangeAsync(mail.external_Departments);
+                                    await _appContext.SaveChangesAsync();
+
+                                }
+
+
+
                                 //var list = _appContext.Sends.Where(x => x.MailID == mail.mail.MailID && x.State == true);
 
 
