@@ -815,6 +815,41 @@ namespace MMSystem.Services.MailServeic
                         {
                             string depname = "";
 
+
+                            if (mail.external_Departments.Count > 0)
+                            {
+
+                                var list = await _appContext.external_Departments.Where(x => x.Mail_id == mail.mail.MailID).ToListAsync();
+
+
+                                if (list.Count > 0)
+                                {
+                                    foreach (var item in list)
+                                    {
+                                        item.state = false;
+                                    }
+                                    _appContext.external_Departments.UpdateRange(list);
+                                    await _appContext.SaveChangesAsync();
+
+                                }
+
+
+                            }
+                            else {
+                                foreach (var item in mail.external_Departments)
+                                {
+                                    item.Mail_id = mail.mail.MailID;
+                                    item.insert_at = DateTime.Now;
+                                    item.state = true;
+
+                                }
+                              await  _appContext.external_Departments.AddRangeAsync(mail.external_Departments);
+                                await _appContext.SaveChangesAsync();
+
+                            }
+                            
+
+
                             if (mail.newactionSenders.Count > 0)
                             {
                                 bool isHaveIsMulti = await _appContext.Sends.AnyAsync(x => x.isMulti == true && x.MailID == mail.mail.MailID);
