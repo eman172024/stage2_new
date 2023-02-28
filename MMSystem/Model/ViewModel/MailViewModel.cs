@@ -20,7 +20,7 @@ namespace MMSystem.Model.ViewModel
 
         public List<ActionSender> newactionSenders { get; set; }
 
-        public List<External_Department> external_Departments { get; set; }
+        public List<External_Department> external_sectoin { get; set; }
 
 
 

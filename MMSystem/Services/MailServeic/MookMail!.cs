@@ -172,11 +172,11 @@ namespace MMSystem.Services.MailServeic
                                 if (Exmail)
                                 {
 
-                                    if (mail.external_Departments.Count > 0) {
+                                    if (mail.external_sectoin.Count > 0) {
 
 
 
-                                        foreach (var item in mail.external_Departments)
+                                        foreach (var item in mail.external_sectoin)
                                         {
                                             item.Mail_id = mail.mail.MailID;
 
@@ -185,7 +185,7 @@ namespace MMSystem.Services.MailServeic
                                                  
                                         }
 
-                                        await _appContext.external_Departments.AddRangeAsync(mail.external_Departments);
+                                        await _appContext.external_Departments.AddRangeAsync(mail.external_sectoin);
                                         await _appContext.SaveChangesAsync();
 
                                       //  await _appContext.
@@ -257,19 +257,19 @@ namespace MMSystem.Services.MailServeic
 
                         if (Email)
                         {
-                            mail.external_Mail.Sectionid = 1;
+                            mail.extrenal_Inbox.SectionId = 1;
 
                             mail.extrenal_Inbox.MailID = mail.mail.MailID;
                             Ex_inboxmail = await _extrenal_Inbox.Add(mail.extrenal_Inbox);
 
                             if (Ex_inboxmail)
                             {
-                                if (mail.external_Departments.Count > 0)
+                                if (mail.external_sectoin.Count > 0)
                                 {
 
 
 
-                                    foreach (var item in mail.external_Departments)
+                                    foreach (var item in mail.external_sectoin)
                                     {
                                         item.Mail_id = mail.mail.MailID;
 
@@ -278,7 +278,7 @@ namespace MMSystem.Services.MailServeic
 
                                     }
 
-                                    await _appContext.external_Departments.AddRangeAsync(mail.external_Departments);
+                                    await _appContext.external_Departments.AddRangeAsync(mail.external_sectoin);
                                     await _appContext.SaveChangesAsync();
 
                                     //  await _appContext.
@@ -816,35 +816,27 @@ namespace MMSystem.Services.MailServeic
                             string depname = "";
 
 
-                            if (mail.external_Departments.Count > 0)
+                            if (mail.external_sectoin.Count > 0)
                             {
 
-                                var list = await _appContext.external_Departments.Where(x => x.Mail_id == mail.mail.MailID).ToListAsync();
+                                // var list = await _appContext.external_Departments.Where(x => x.Mail_id == mail.mail.MailID).ToListAsync();
 
 
-                                if (list.Count > 0)
-                                {
-                                    foreach (var item in list)
-                                    {
-                                        item.state = false;
-                                    }
-                                    _appContext.external_Departments.UpdateRange(list);
-                                    await _appContext.SaveChangesAsync();
-
-                                }
-
-
-                            }
-                            else {
-                                foreach (var item in mail.external_Departments)
+                                foreach (var item in mail.external_sectoin)
                                 {
                                     item.Mail_id = mail.mail.MailID;
+
+                                    item.id = 0;
+
                                     item.insert_at = DateTime.Now;
                                     item.state = true;
 
                                 }
-                              await  _appContext.external_Departments.AddRangeAsync(mail.external_Departments);
+                                await _appContext.external_Departments.AddRangeAsync(mail.external_sectoin);
                                 await _appContext.SaveChangesAsync();
+
+
+
 
                             }
                             
@@ -988,38 +980,6 @@ namespace MMSystem.Services.MailServeic
 
 
 
-                                if (mail.external_Departments.Count > 0)
-                                {
-
-                                    var list1 = await _appContext.external_Departments.Where(x => x.Mail_id == mail.mail.MailID).ToListAsync();
-
-
-                                    if (list1.Count > 0)
-                                    {
-                                        foreach (var item in list1)
-                                        {
-                                            item.state = false;
-                                        }
-                                        _appContext.external_Departments.UpdateRange(list1);
-                                        await _appContext.SaveChangesAsync();
-
-                                    }
-
-
-                                }
-                                else
-                                {
-                                    foreach (var item in mail.external_Departments)
-                                    {
-                                        item.Mail_id = mail.mail.MailID;
-                                        item.insert_at = DateTime.Now;
-                                        item.state = true;
-
-                                    }
-                                    await _appContext.external_Departments.AddRangeAsync(mail.external_Departments);
-                                    await _appContext.SaveChangesAsync();
-
-                                }
 
 
 
@@ -1074,6 +1034,24 @@ namespace MMSystem.Services.MailServeic
 
                             }
                             else { }
+
+                            if (mail.external_sectoin.Count > 0)
+                            {
+
+                                foreach (var item in mail.external_sectoin)
+                                {
+                                    item.id = 0;
+
+                                    item.Mail_id = mail.mail.MailID;
+                                    item.insert_at = DateTime.Now;
+                                    item.state = true;
+
+                                }
+                                await _appContext.external_Departments.AddRangeAsync(mail.external_sectoin);
+                                await _appContext.SaveChangesAsync();
+
+
+                            }
 
 
                             result = true;
@@ -1844,11 +1822,11 @@ namespace MMSystem.Services.MailServeic
                     else
                     {
 
-                        ex.external_sectoin  =await _appContext.external_Departments.Where(x => x.Mail_id == ex.mail.MailID&&x.state==true).Select(z=>new Ex_Departments { 
-                        
-                        department_name=z.department_name,
-                        department_number=z.department_number,
-                        id=z.id,
+                        ex.external_sectoin  =await _appContext.external_Departments.Where(x => x.Mail_id == ex.mail.MailID&&x.state==true).Select(z=>new Ex_Departments {
+
+                            side_name = z.side_name,
+                            side_number = z.side_number,
+                            id =z.id,
                         Mail_id=z.Mail_id,
                         sector_name=z.sector_name,
                         sector_number=z.sector_number
@@ -1980,8 +1958,8 @@ namespace MMSystem.Services.MailServeic
                     ex.external_sectoin = await _appContext.external_Departments.Where(x => x.Mail_id == ex.mail.MailID && x.state == true).Select(z => new Ex_Departments
                     {
 
-                        department_name = z.department_name,
-                        department_number = z.department_number,
+                        side_name = z.side_name,
+                        side_number = z.side_number,
                         id = z.id,
                         Mail_id = z.Mail_id,
                         sector_name = z.sector_name,
@@ -2319,9 +2297,8 @@ namespace MMSystem.Services.MailServeic
 
                             ex.external_sectoin = await _appContext.external_Departments.Where(x => x.Mail_id == ex.mail.MailID && x.state == true).Select(z => new Ex_Departments
                             {
-
-                                department_name = z.department_name,
-                                department_number = z.department_number,
+                                side_name = z.side_name,
+                                side_number = z.side_number,
                                 id = z.id,
                                 Mail_id = z.Mail_id,
                                 sector_name = z.sector_name,
@@ -2410,8 +2387,8 @@ namespace MMSystem.Services.MailServeic
                             ex1.external_sectoin = await _appContext.external_Departments.Where(x => x.Mail_id == ex1.mail.MailID && x.state == true).Select(z => new Ex_Departments
                             {
 
-                                department_name = z.department_name,
-                                department_number = z.department_number,
+                                side_name = z.side_name,
+                                side_number = z.side_number,
                                 id = z.id,
                                 Mail_id = z.Mail_id,
                                 sector_name = z.sector_name,

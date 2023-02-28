@@ -1686,138 +1686,169 @@
 
                   <br />
 
-                  <div class="sm:col-span-3">
-                    <label
-                      for="send_to_sector"
-                      class="block text-sm font-semibold text-gray-800"
+
+
+
+                  <div
+                      class="
+                        sm:col-span-6
+                        grid grid-cols-1
+                        gap-y-6 gap-x-2
+                        sm:grid-cols-7
+                      "
                     >
-                      القطاع
-                    </label>
+                      <div class="sm:col-span-4">
+                        <label
+                          for="department"
+                          class="block text-sm font-semibold text-gray-800"
+                        >
+                          القطاع  
+                        </label>
 
-                    <div class="relative">
-                      <button
-                        @click="sectorselect = !sectorselect"
-                        id="department"
-                        class="
-                          text-right
-                          block
-                          mt-2
-                          w-full
-                          rounded-md
-                          h-10
-                          border
-                          text-sm
-                          bg-white
-                          border-gray-200
-                          hover:shadow-sm
-                          focus:outline-none focus:border-gray-300
-                          p-2
-                        "
-                      >
-                        {{ sectorNameSelected }}
-                      </button>
+                        <div class="relative">
+                          <button
+                            @click="sectorselect = !sectorselect"
+                          
+                            id="department"
+                            class="
+                              overflow-hidden
+                              text-right
+                              block
+                              mt-2
+                              w-full
+                              rounded-md
+                              h-10
+                              border
+                              text-xs
+                              bg-white
+                              border-gray-200
+                              hover:shadow-sm
+                              focus:outline-none focus:border-gray-300
+                              p-2
+                            "
+                          >
+                            
 
-                      <div
-                        v-if="sectorselect"
-                        class="
-                          border
-                          text-sm
-                          bg-white
-                          border-gray-200
-                          p-2
-                          absolute
-                          w-full
-                          z-20
-                          shadow
-                          h-40
-                          overflow-y-scroll
-                          rounded-b-md
-                        "
-                      >
-                        <button
-                          class="
-                            block
-                            focus:outline-none
-                            w-full
-                            my-1
-                            text-right
-                          "
-                          @click="
-                            get_sides(sector.id, sector.section_Name);
+                            {{ sectorNameSelected }}
+                          </button>
+
+                          <div
+                            v-if="sectorselect"
+                            class="
+                              border
+                              text-sm
+                              bg-white
+                              border-gray-200
+                              p-2
+                              absolute
+                              w-full
+                              z-20
+                              shadow
+                              h-40
+                              overflow-y-scroll
+                              rounded-b-md
+                            "
+                          >
+                            <!-- <button
+                              v-if="allDepartmentButton"
+                              class="
+                                block
+                                focus:outline-none
+                                w-full
+                                my-1
+                                text-right
+                              "
+                              @click="
+                                selectAllDepartment(departments, 'الكل');
+                                departmentselect = !departmentselect;
+                              "
+                            >
+                          
+                              الكل
+                            </button> -->
+
+                            <button
+                              class="
+                                block
+                                focus:outline-none
+                                w-full
+                                my-1
+                                text-right
+                              "
+
+
+                              @click="
+                            get_sides(sector.id, sector.section_Name, index);
                             sectorselect = !sectorselect;
                           "
-                          v-for="sector in sectors"
-                          :key="sector.id"
-                        >
-                          {{ sector.section_Name }}
-                        </button>
+
+
+                              v-for="(sector, index) in sectors"
+                              :key="sector.id"
+                            >
+                              {{ sector.section_Name }}
+                            </button>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
 
-                  <div class="sm:col-span-3">
-                    <label
-                      for="sideIdSelected"
-                      class="block text-sm font-semibold text-gray-800"
-                    >
-                      الجهة
-                    </label>
+                      <div class="sm:col-span-2">
+                        <label
+                          for="measure"
+                          class="block text-sm font-semibold text-gray-800"
+                        >
+                        الجهة
+                        </label>
 
-                    <div class="relative">
-                      <button
-                        @click="sideselect = !sideselect"
-                        @keyup.space.prevent
-                        id="department"
-                        class="
-                          text-right
-                          block
-                          mt-2
-                          w-full
-                          rounded-md
-                          h-10
-                          border
-                          text-sm
-                          bg-white
-                          border-gray-200
-                          hover:shadow-sm
-                          focus:outline-none focus:border-gray-300
-                          p-2
-                        "
-                      >
-                        <!-- {{ sideNameSelected }} -->
-                        <input
-                          v-model="sideNameSelected"
-                          type="text"
-                          class="h-6 w-full"
-                        />
-                      </button>
+                        <div class="relative">
+                          <button
+                          @click="sideselect = !sideselect"
+                            id="measure"
+                            class="
+                              text-right
+                              block
+                              mt-2
+                              w-full
+                              rounded-md
+                              h-10
+                              border
+                              text-xs
+                              bg-white
+                              border-gray-200
+                              hover:shadow-sm
+                              focus:outline-none focus:border-gray-300
+                              p-2
+                            "
+                          >
+                            {{ sideNameSelected }}
+                          </button>
 
-                      <div
-                        v-if="sideselect"
-                        class="
-                          border
-                          text-sm
-                          bg-white
-                          border-gray-200
-                          p-2
-                          absolute
-                          w-full
-                          z-20
-                          shadow
-                          h-40
-                          overflow-y-scroll
-                          rounded-b-md
-                        "
-                      >
-                        <button
-                          class="
-                            block
-                            focus:outline-none
-                            w-full
-                            my-1
-                            text-right
-                          "
-                          @click="
+                          <div
+                            v-if="sideselect"
+                            class="
+                              border
+                              text-sm
+                              bg-white
+                              border-gray-200
+                              p-2
+                              absolute
+                              w-full
+                              z-20
+                              shadow
+                              h-40
+                              overflow-y-scroll
+                              rounded-b-md
+                            "
+                          >
+                            <button
+                              class="
+                                block
+                                focus:outline-none
+                                w-full
+                                my-1
+                                text-right
+                              "
+                              @click="
                             pass_side(side.id, side.section_Name);
                             sideselect = !sideselect;
                           "
@@ -1825,10 +1856,203 @@
                           :key="side.id"
                         >
                           {{ side.section_Name }}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        class="sm:col-span-1 flex justify-end"
+                        v-if="sectorNameSelected && sideNameSelected"
+                      >
+                        <button
+                          v-if="add_button_consignees"
+                          @click="add_sector_side_to_array()"
+                          class="
+                            mt-8
+                            rounded-md
+                            text-green-400
+                            duration-200
+                            hover:text-green-500
+                            text-base
+                            font-semibold
+                            w-8
+                            h-8
+                          "
+                        >
+                          <svg
+                            class="fill-current w-full h-full"
+                            version="1.1"
+                            id="Capa_1"
+                            x="0px"
+                            y="0px"
+                            viewBox="0 0 512 512"
+                            style="enable-background: new 0 0 512 512"
+                            xml:space="preserve"
+                          >
+                            <g>
+                              <g>
+                                <path
+                                  d="M256,0C114.833,0,0,114.833,0,256s114.833,256,256,256s256-114.853,256-256S397.167,0,256,0z M256,472.341
+                                                        c-119.275,0-216.341-97.046-216.341-216.341S136.725,39.659,256,39.659S472.341,136.705,472.341,256S375.295,472.341,256,472.341z
+                                                        "
+                                />
+                              </g>
+                            </g>
+                            <g>
+                              <g>
+                                <path
+                                  d="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318
+                                                        c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83
+                                                        s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"
+                                />
+                              </g>
+                            </g>
+                          </svg>
                         </button>
                       </div>
                     </div>
-                  </div>
+
+
+
+
+
+                    <div class="sm:col-span-6">
+                      <label
+                        for="consignees"
+                        class="block text-sm font-semibold text-gray-800"
+                      >
+                        المرسل إليهم
+                      </label>
+                      <div
+                        class="
+                          mt-2
+                          w-full
+                          rounded-md
+                          border border-gray-200
+                          p-2
+                          h-24
+                          overflow-y-scroll
+                          flex flex-wrap
+                          items-center
+                        "
+                      >
+                      
+
+
+                        
+
+
+
+                        <div
+                          v-for="sector_side in sector_side_old_array"
+                          :key="sector_side.side"
+                          class="
+                            border border-gary-200
+                            rounded-md
+                            text-sm
+                            flex
+                            items-center
+                            p-2
+                            m-0.5
+                          "
+                        >
+                          {{ sector_side.sector_name }} ,
+                          {{ sector_side.side_name }}
+                          <!--  -->
+                          <button
+                            @click="
+                              delete_sector_side_from_array(
+                                sector_side.id,
+                                
+                              )
+                            "
+                            class="mr-1 rounded-full"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              focusable="false"
+                              data-prefix="far"
+                              data-icon="times-circle"
+                              class="
+                                w-5
+                                h-5
+                                stroke-current
+                                text-red-400
+                                hover:text-red-500
+                                duration-200
+                              "
+                              role="img"
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 512 512"
+                            >
+                              <path
+                                fill="currentColor"
+                                d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"
+                              ></path>
+                            </svg>
+                          </button>
+                        </div>
+
+
+
+                        <div
+                          v-for="sector_side in sector_side_array"
+                          :key="sector_side.side"
+                          class="
+                            border border-gary-200
+                            rounded-md
+                            text-sm
+                            flex
+                            items-center
+                            p-2
+                            m-0.5
+                          "
+                        >
+                          {{ sector_side.sector_name }} ,
+                          {{ sector_side.side_name }}
+                          <!--  -->
+                          <button
+                            @click="
+                              remove_sector_side_from_array(
+                                sector_side.side_number,
+                                sector_side.side_name,
+                                sector_side.sector_number,
+                                sector_side.sector_name,
+                              )
+                            "
+                            class="mr-1 rounded-full"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              focusable="false"
+                              data-prefix="far"
+                              data-icon="times-circle"
+                              class="
+                                w-5
+                                h-5
+                                stroke-current
+                                text-red-400
+                                hover:text-red-500
+                                duration-200
+                              "
+                              role="img"
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 512 512"
+                            >
+                              <path
+                                fill="currentColor"
+                                d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"
+                              ></path>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                
                 </div>
 
                 <div v-if="mailType == '2'" class="sm:col-span-6">
@@ -2647,8 +2871,7 @@
                             (consignees.length != 0 ||
                               newactionSenders.length != 0) &&
                             mail_forwarding &&
-                            sectorNameSelected &&
-                            sideNameSelected &&
+                            sector_side_array &&
                             action_required_by_the_entity
                         "
                         class="
@@ -2716,8 +2939,7 @@
                           summary &&
                             classification &&
                             is_exisite_genaral_inbox_number == true &&
-                            sectorNameSelected &&
-                            sideNameSelected &&
+                            sector_side_array &&
                             ward_to &&
                             mail_ward_type &&
                             entity_mail_date &&
@@ -4660,6 +4882,10 @@ console.log("index="+ind);
       conclusion: "",
 
       office_type: "",
+
+      sector_side_array: [],
+      sector_side_old_array: [],
+      sector_side_array_id: [],
     };
   },
 
@@ -4753,6 +4979,7 @@ console.log("index="+ind);
         this.office_type = "3";
       }
 
+      this.sector_side_array = []
       setTimeout(() => {
         if (this.mailType == 2) {
           this.newactionSendersIncludesId = [];
@@ -4800,6 +5027,118 @@ console.log("index="+ind);
   },
 
   methods: {
+
+    
+
+    delete_sector_side_from_array(id) {
+      this.screenFreeze = true;
+      this.loading = true;
+
+      console.log(id)
+      // this.$http.mailService
+      //   .cancel_sending_to_department(
+      //     this.mailId,
+      //     department_id,
+      //     Number(localStorage.getItem("AY_LW"))
+      //   )
+      //   .then((res) => {
+      //     setTimeout(() => {
+      //       this.loading = false;
+      //       this.screenFreeze = false;
+        
+      //       this.GetSentMailById();
+            
+      //     }, 500);
+      //   })
+      //   .catch((err) => {
+      //     setTimeout(() => {
+      //       this.loading = false;
+      //       this.screenFreeze = false;
+      //     }, 500);
+      //     alert("لا يمكن إلغاء الإدارة بعد القراءة");
+      //   });
+    },
+
+
+    remove_sector_side_from_array(sideId, sideName, sectorId, sectorName) {
+
+      // sideId: this.sideIdSelected,
+      //                   sideName: this.sideNameSelected,
+      //                   sectorId: this.sectorIdSelected,
+      //                   sectorName: this.sectorNameSelected,
+
+
+      
+        const index = this.sector_side_array.findIndex((element, index) => {
+          if (element.side_number === sideId && element.sector_number === sectorId) {
+            return true;
+          }
+        });
+        this.sector_side_array.splice(index, 1);
+        // this.newactionSendersIncludesId.splice(index, 1);
+     
+        console.log(this.sector_side_array)
+    },
+
+
+    pass_side(id, name) {
+      // this.filter_text=name;
+      this.sideNameSelected = name;
+      this.sideIdSelected = id;
+    },
+
+
+    get_sides(sector, sector_name, id) {
+      this.sideNameSelected = "";
+      this.sideIdSelected = "";
+      this.sides = [];
+      this.sectorNameSelected = sector_name;
+      this.sectorIdSelected = sector
+      this.$http.sectorsService
+        .GetSides(sector)
+        .then((res) => {
+          this.sides = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    
+
+
+    add_sector_side_to_array() {
+      
+      // sector_side
+       
+          // this.sector_side_array_id;
+          this.sector_side_array.push(
+            {
+              side_number: this.sideIdSelected,
+              side_name: this.sideNameSelected,
+              sector_number: this.sectorIdSelected,
+              sector_name: this.sectorNameSelected,
+            }
+          );
+
+
+          console.log(this.sector_side_array)
+          // this.sector_side_array_id.push(this.departmentIdSelected);
+
+          this.sideIdSelected = "";
+          this.sideNameSelected = "";
+
+          this.sectorIdSelected = "";
+          this.sectorNameSelected = "";
+        
+
+        // this.departments.splice(this.indexOfDepartment, 1);
+     
+    },
+
+
+
+
     farst_documents() {
       this.doc_number_to_search = 1;
       this.search_the_doc();
@@ -5656,6 +5995,8 @@ console.log("close code="+event.code);
       this.newactionSenders = [];
       this.newactionSendersIncludesId = [];
 
+      this.sector_side_array = []
+
       this.doc_number = 0;
       this.total_of_doc = 0;
 
@@ -5677,6 +6018,8 @@ console.log("close code="+event.code);
           this.mail_year
         )
         .then((res) => {
+
+
           if (res.data.mail.is_send == true) {
             this.saveButton = false;
             this.updataButton = true;
@@ -5697,6 +6040,11 @@ console.log("close code="+event.code);
           this.mail_Number = res.data.mail.mail_Number;
           this.department_Id = res.data.mail.department_Id;
           this.mail_year = res.data.mail.mail_year;
+
+
+          
+
+
 
           this.releaseDate = res.data.mail.date_Of_Mail;
           this.summary = res.data.mail.mail_Summary;
@@ -5742,28 +6090,35 @@ console.log("close code="+event.code);
 
             this.mail_forwarding = res.data.external.action;
 
-            this.get_sectors(this.mail_forwarding);
 
-            this.sectorNameSelected = res.data.sector[0].section_Name;
-            this.sectorIdSelected = res.data.sector[0].id;
+            this.sector_side_old_array = res.data.external_sectoin 
 
-            this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
-            this.sideNameSelected = res.data.side[0].section_Name;
-            this.sideIdSelected = res.data.side[0].id;
+
+            // this.get_sectors(this.mail_forwarding);
+
+            // this.sectorNameSelected = res.data.sector[0].section_Name;
+            // this.sectorIdSelected = res.data.sector[0].id;
+
+            // this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
+            // this.sideNameSelected = res.data.side[0].section_Name;
+            // this.sideIdSelected = res.data.side[0].id;
           }
           if (this.mailType == "3") {
             this.external_mailId = res.data.external.id;
 
             this.mail_forwarding = res.data.external.action;
 
-            this.get_sectors(this.mail_forwarding);
 
-            this.sectorNameSelected = res.data.sector[0].section_Name;
-            this.sectorIdSelected = res.data.sector[0].id;
+            this.sector_side_old_array = res.data.external_sectoin 
 
-            this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
-            this.sideNameSelected = res.data.side[0].section_Name;
-            this.sideIdSelected = res.data.side[0].id;
+            // this.get_sectors(this.mail_forwarding);
+
+            // this.sectorNameSelected = res.data.sector[0].section_Name;
+            // this.sectorIdSelected = res.data.sector[0].id;
+
+            // this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
+            // this.sideNameSelected = res.data.side[0].section_Name;
+            // this.sideIdSelected = res.data.side[0].id;
 
             this.ward_to = res.data.external.to;
 
@@ -5927,26 +6282,9 @@ console.log("close code="+event.code);
         });
     },
 
-    pass_side(id, name) {
-      // this.filter_text=name;
-      this.sideNameSelected = name;
-      this.sideIdSelected = id;
-    },
+    
 
-    get_sides(sector, sector_name) {
-      this.sideNameSelected = "";
-      this.sideIdSelected = "";
-      this.sides = [];
-      this.sectorNameSelected = sector_name;
-      this.$http.sectorsService
-        .GetSides(sector)
-        .then((res) => {
-          this.sides = res.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+    
 
     get_sectors(type) {
       this.sideNameSelected = "";
@@ -6067,10 +6405,12 @@ console.log("close code="+event.code);
           external_Mail: {
             id: Number(this.external_mailId),
             action: Number(this.mail_forwarding),
-            Sectionid: this.sideIdSelected,
-            sectionName: "",
+           
             action_required_by_the_entity: this.action_required_by_the_entity,
           },
+
+          external_sectoin : this.sector_side_array,
+
         };
       }
 
@@ -6099,14 +6439,15 @@ console.log("close code="+event.code);
           extrenal_Inbox: {
             Id: Number(this.external_mailId),
             action: Number(this.mail_forwarding),
-            Sectionid: this.sideIdSelected,
-            section_Name: "",
+            
             to: Number(this.ward_to),
             type: Number(this.mail_ward_type),
             Send_time: this.entity_mail_date,
             entity_reference_number: Number(this.entity_reference_number),
             procedure_type: Number(this.procedure_type),
           },
+
+          external_sectoin : this.sector_side_array,
         };
       }
 
@@ -6186,10 +6527,17 @@ console.log("close code="+event.code);
 
           external_Mail: {
             action: Number(this.mail_forwarding),
-            Sectionid: this.sideIdSelected,
-            sectionName: "",
+            
             action_required_by_the_entity: this.action_required_by_the_entity,
           },
+
+          external_sectoin : this.sector_side_array,
+          
+
+
+         
+
+
         };
       }
 
@@ -6213,14 +6561,15 @@ console.log("close code="+event.code);
 
           extrenal_Inbox: {
             action: Number(this.mail_forwarding),
-            Sectionid: this.sideIdSelected,
-            section_Name: "",
+           
             to: Number(this.ward_to),
             type: Number(this.mail_ward_type),
             Send_time: this.entity_mail_date,
             entity_reference_number: Number(this.entity_reference_number),
             procedure_type: Number(this.procedure_type),
           },
+
+          external_sectoin : this.sector_side_array,
         };
       }
 
@@ -6259,12 +6608,16 @@ console.log("close code="+event.code);
         });
     },
 
+    
+
     GetSentMailById() {
       this.this_value_to_solve_repetition_department = false;
 
       this.newactionSenders = [];
       this.newactionSendersIncludesId = [];
       this.doc_number = 0;
+
+      this.sector_side_array = []
 
       this.screenFreeze = true;
       this.loading = true;
@@ -6278,6 +6631,8 @@ console.log("close code="+event.code);
             this.deleteButton = false;
             // this.add_button_consignees = false;
           }
+
+          this.sector_side_old_array = res.data.external_sectoin 
 
           this.summary = res.data.mail.mail_Summary;
 
@@ -6337,28 +6692,32 @@ console.log("close code="+event.code);
 
             this.mail_forwarding = res.data.external.action;
 
-            this.get_sectors(this.mail_forwarding);
+            this.sector_side_old_array = res.data.external_sectoin 
 
-            this.sectorNameSelected = res.data.sector[0].section_Name;
-            this.sectorIdSelected = res.data.sector[0].id;
+            // this.get_sectors(this.mail_forwarding);
 
-            this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
-            this.sideNameSelected = res.data.side[0].section_Name;
-            this.sideIdSelected = res.data.side[0].id;
+            // this.sectorNameSelected = res.data.sector[0].section_Name;
+            // this.sectorIdSelected = res.data.sector[0].id;
+
+            // this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
+            // this.sideNameSelected = res.data.side[0].section_Name;
+            // this.sideIdSelected = res.data.side[0].id;
           }
           if (this.to_test_passing_mail_type == "3") {
             this.external_mailId = res.data.external.id;
 
             this.mail_forwarding = res.data.external.action;
 
-            this.get_sectors(this.mail_forwarding);
+            this.sector_side_old_array = res.data.external_sectoin 
 
-            this.sectorNameSelected = res.data.sector[0].section_Name;
-            this.sectorIdSelected = res.data.sector[0].id;
+            // this.get_sectors(this.mail_forwarding);
 
-            this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
-            this.sideNameSelected = res.data.side[0].section_Name;
-            this.sideIdSelected = res.data.side[0].id;
+            // this.sectorNameSelected = res.data.sector[0].section_Name;
+            // this.sectorIdSelected = res.data.sector[0].id;
+
+            // this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
+            // this.sideNameSelected = res.data.side[0].section_Name;
+            // this.sideIdSelected = res.data.side[0].id;
 
             this.ward_to = res.data.external.to;
 
@@ -6446,10 +6805,12 @@ console.log("close code="+event.code);
           external_Mail: {
             id: Number(this.external_mailId),
             action: Number(this.mail_forwarding),
-            Sectionid: this.sideIdSelected,
-            sectionName: "",
+           
             action_required_by_the_entity: this.action_required_by_the_entity,
           },
+
+          external_sectoin : this.sector_side_array,
+
         };
       }
 
@@ -6478,14 +6839,15 @@ console.log("close code="+event.code);
           extrenal_Inbox: {
             Id: Number(this.external_mailId),
             action: Number(this.mail_forwarding),
-            Sectionid: this.sideIdSelected,
-            section_Name: "",
+            
             to: Number(this.ward_to),
             type: Number(this.mail_ward_type),
             Send_time: this.entity_mail_date,
             entity_reference_number: Number(this.entity_reference_number),
             procedure_type: Number(this.procedure_type),
           },
+
+          external_sectoin : this.sector_side_array,
         };
       }
 
