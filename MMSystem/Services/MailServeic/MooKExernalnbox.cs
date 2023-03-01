@@ -117,7 +117,7 @@ namespace MMSystem.Services.MailServeic
             if (_Inbox != null) {
                 _Inbox.action = model.action;
                 _Inbox.entity_reference_number = model.entity_reference_number;
-                _Inbox.SectionId = model.SectionId;
+              //  _Inbox.SectionId = model.SectionId;
                 _Inbox.section_Name = model.section_Name;
                 _Inbox.procedure_type = model.procedure_type;
                 _Inbox.to = model.to;
@@ -224,8 +224,8 @@ namespace MMSystem.Services.MailServeic
 
                         hVModels.Add(new HVModel { name = "الاجراء ", newvalue = ex.action, oldvalue = _Inbox.action });
                         hVModels.Add(new HVModel { name = "رقم اشاري الجهة", newvalue = ex.entity_reference_number, oldvalue = _Inbox.entity_reference_number });
-                        hVModels.Add(new HVModel { name = "رقم القسم", newvalue = ex.SectionId, oldvalue = _Inbox.SectionId });
-                        hVModels.Add(new HVModel { name = "اسم القسم", newvalue = ex.section_Name, oldvalue = _Inbox.section_Name });
+                  //      hVModels.Add(new HVModel { name = "رقم القسم", newvalue = ex.SectionId, oldvalue = _Inbox.SectionId });
+                     //   hVModels.Add(new HVModel { name = "اسم القسم", newvalue = ex.section_Name, oldvalue = _Inbox.section_Name });
                         hVModels.Add(new HVModel { name = "الاجراء المطلوب", newvalue = ex.procedure_type, oldvalue = _Inbox.procedure_type });
                         hVModels.Add(new HVModel { name = " وارد الي", newvalue = to2.ToString(), oldvalue = to.ToString() });
                         hVModels.Add(new HVModel { name = "نوع الاجراء", newvalue = ex.type, oldvalue = _Inbox.type });
@@ -234,7 +234,6 @@ namespace MMSystem.Services.MailServeic
 
                         _Inbox.action = ex.action;
                         _Inbox.entity_reference_number = ex.entity_reference_number;
-                        _Inbox.SectionId = ex.SectionId;
                         _Inbox.section_Name = ex.section_Name;
                         _Inbox.procedure_type = ex.procedure_type;
                         _Inbox.to = ex.to;

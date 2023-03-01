@@ -10,9 +10,15 @@ namespace MMSystem.Model.ViewModel
     public class Sended_Maill
     {
 
+        public int replay_To { get; set; }
+        public bool replay_isSend { get; set; }
+        public bool replay_State { get; set; }
+        public int external_sectionid { get; set; }
+        public int externalInbox_sectionid { get; set; }
 
 
         public int mail_id { get; set; }
+        public int to_rep { get; set; }
         public int mailid { get; set; }
         public int action { get; set; }
         public string action_required_by_the_entity { get; set; }
@@ -29,6 +35,8 @@ namespace MMSystem.Model.ViewModel
         public DateTime date { get; set; }
         public DateTime DateOfMail { get; set; }
         public DateTime date2 { get; set; }
+
+        public DateTime Insert_date { get; set; }
 
         public String Masure_type { get; set; }
 

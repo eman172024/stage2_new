@@ -25,16 +25,7 @@
               <div class="grid grid-cols-7 gap-6">
                 <section class="col-span-5 flex justify-between items-stretch">
                   <section
-                    class="
-                      w-6/12
-                      ml-3
-                      grid grid-cols-1
-                      gap-y-6 gap-x-4
-                      sm:grid-cols-6
-                      bg-gray-100
-                      rounded-md
-                      p-6
-                    "
+                    class="w-6/12 ml-3 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 bg-gray-100 rounded-md p-6"
                   >
                     <div class="sm:col-span-3">
                       <label
@@ -45,16 +36,7 @@
                       </label>
 
                       <div
-                        class="
-                          block
-                          mt-2
-                          w-full
-                          rounded-md
-                          h-10
-                          text-sm
-                          border border-gray-300
-                          p-2
-                        "
+                        class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
                       >
                         {{ to_test_passing_mail_type | mail_type }}
                       </div>
@@ -70,16 +52,7 @@
                         التصنيف
                       </label>
                       <div
-                        class="
-                          block
-                          mt-2
-                          w-full
-                          rounded-md
-                          h-10
-                          text-sm
-                          border border-gray-300
-                          p-2
-                        "
+                        class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
                       >
                         {{ classification }}
                       </div>
@@ -94,16 +67,7 @@
                       </label>
 
                       <div
-                        class="
-                          block
-                          mt-2
-                          w-full
-                          rounded-md
-                          h-10
-                          text-sm
-                          border border-gray-300
-                          p-2
-                        "
+                        class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
                       >
                         {{ releaseDate }}
                       </div>
@@ -118,16 +82,7 @@
                       </label>
 
                       <div
-                        class="
-                          block
-                          mt-2
-                          w-full
-                          rounded-md
-                          h-10
-                          text-sm
-                          border border-gray-300
-                          p-2
-                        "
+                        class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
                       >
                         {{ general_incoming_number }}
                       </div>
@@ -141,16 +96,7 @@
                         السنة
                       </label>
                       <div
-                        class="
-                          block
-                          mt-2
-                          w-full
-                          rounded-md
-                          h-10
-                          text-sm
-                          border border-gray-300
-                          p-2
-                        "
+                        class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
                       >
                         {{ genaral_inbox_year }}
                       </div>
@@ -158,16 +104,7 @@
                   </section>
 
                   <section
-                    class="
-                      w-6/12
-                      mr-3
-                      grid grid-cols-1
-                      gap-y-6 gap-x-4
-                      sm:grid-cols-6
-                      bg-gray-100
-                      rounded-md
-                      p-6
-                    "
+                    class="w-6/12 mr-3 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 bg-gray-100 rounded-md p-6"
                   >
                     <div class="sm:col-span-6">
                       <label
@@ -178,16 +115,7 @@
                       </label>
 
                       <div
-                        class="
-                          block
-                          mt-2
-                          w-full
-                          rounded-md
-                          h-24
-                          text-sm
-                          border border-gray-300
-                          p-2
-                        "
+                        class="block mt-2 w-full rounded-md h-24 text-sm border border-gray-300 p-2"
                       >
                         {{ summary }}
                       </div>
@@ -201,16 +129,7 @@
                         الإجراء المطلوب
                       </label>
                       <div
-                        class="
-                          block
-                          mt-2
-                          w-full
-                          rounded-md
-                          h-24
-                          text-sm
-                          border border-gray-300
-                          p-2
-                        "
+                        class="block mt-2 w-full rounded-md h-24 text-sm border border-gray-300 p-2"
                       >
                         {{ required_action }}
                       </div>
@@ -232,15 +151,7 @@
                     <div class="mt-4 pt-4 pb-4 rounded-md relative">
                       <div
                         v-if="!roles.includes('s')"
-                        class="
-                          cursor-not-allowed
-                          w-full
-                          h-full
-                          bg-gray-900 bg-opacity-90
-                          absolute
-                          z-20
-                          inset-0
-                        "
+                        class="cursor-not-allowed w-full h-full bg-gray-900 bg-opacity-90 absolute z-20 inset-0"
                       ></div>
                       <div class="">
                         <div class="relative h-64 w-full">
@@ -251,26 +162,12 @@
                           />
 
                           <div
-                            class="
-                              absolute
-                              inset-0
-                              flex
-                              justify-center
-                              items-center
-                            "
+                            class="absolute inset-0 flex justify-center items-center"
                           >
                             <button
                               @click="show_current_image_for_bigger_screen()"
                               type="button"
-                              class="
-                                bg-green-600
-                                hover:bg-green-500
-                                duration-500
-                                p-2
-                                rounded-full
-                                focus:outline-none
-                                ml-2
-                              "
+                              class="bg-green-600 hover:bg-green-500 duration-500 p-2 rounded-full focus:outline-none ml-2"
                             >
                               <svg
                                 class="w-4 h-4 text-white mx-auto"
@@ -294,28 +191,14 @@
                           class="flex justify-between items-center pt-2 MB-2"
                         >
                           <div
-                            class="
-                              ml-2
-                              flex
-                              justify-between
-                              items-center
-                              w-full
-                            "
+                            class="ml-2 flex justify-between items-center w-full"
                           >
                             <div class="w-8 h-8">
                               <button
                                 title="prev"
                                 v-if="doc_number > 1"
                                 @click="GetAllDocN('prev')"
-                                class="
-                                  w-8
-                                  h-8
-                                  bg-gray-300
-                                  rounded
-                                  flex
-                                  justify-center
-                                  items-center
-                                "
+                                class="w-8 h-8 bg-gray-300 rounded flex justify-center items-center"
                               >
                                 <svg
                                   class="w-4 h-4"
@@ -343,15 +226,7 @@
                                 v-if="doc_number < total_of_doc"
                                 title="next"
                                 @click="GetAllDocN('next')"
-                                class="
-                                  w-8
-                                  h-8
-                                  bg-gray-300
-                                  rounded
-                                  flex
-                                  justify-center
-                                  items-center
-                                "
+                                class="w-8 h-8 bg-gray-300 rounded flex justify-center items-center"
                               >
                                 <svg
                                   class="w-4 h-4"
@@ -379,14 +254,7 @@
 
               <section
                 v-if="mailType == '2' || mailType == '3'"
-                class="
-                  grid grid-cols-1
-                  gap-y-6 gap-x-4
-                  sm:grid-cols-8
-                  bg-gray-100
-                  rounded-md
-                  p-6
-                "
+                class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-8 bg-gray-100 rounded-md p-6"
               >
                 <div class="sm:col-span-2">
                   <label
@@ -398,16 +266,7 @@
                   </label>
 
                   <div
-                    class="
-                      block
-                      mt-2
-                      w-full
-                      rounded-md
-                      h-10
-                      text-sm
-                      border border-gray-300
-                      p-2
-                    "
+                    class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
                   >
                     {{
                       mail_forwarding_sector_side
@@ -425,16 +284,7 @@
                   </label>
 
                   <div
-                    class="
-                      block
-                      mt-2
-                      w-full
-                      rounded-md
-                      h-10
-                      text-sm
-                      border border-gray-300
-                      p-2
-                    "
+                    class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
                   >
                     {{ sectorNameSelected }}
                   </div>
@@ -449,16 +299,7 @@
                   </label>
 
                   <div
-                    class="
-                      block
-                      mt-2
-                      w-full
-                      rounded-md
-                      h-10
-                      text-sm
-                      border border-gray-300
-                      p-2
-                    "
+                    class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
                   >
                     {{ sideNameSelected }}
                   </div>
@@ -472,16 +313,7 @@
                   </label>
 
                   <div
-                    class="
-                      block
-                      mt-2
-                      w-full
-                      rounded-md
-                      h-10
-                      text-sm
-                      border border-gray-300
-                      p-2
-                    "
+                    class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
                   >
                     {{ ward_to | ward_to_filter }}
                   </div>
@@ -495,16 +327,7 @@
                   </label>
 
                   <div
-                    class="
-                      block
-                      mt-2
-                      w-full
-                      rounded-md
-                      h-10
-                      text-sm
-                      border border-gray-300
-                      p-2
-                    "
+                    class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
                   >
                     {{ mail_ward_type | mail_ward_type_filter }}
                   </div>
@@ -518,16 +341,7 @@
                     تاريخ رسالة الجهة
                   </label>
                   <div
-                    class="
-                      block
-                      mt-2
-                      w-full
-                      rounded-md
-                      h-10
-                      text-sm
-                      border border-gray-300
-                      p-2
-                    "
+                    class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
                   >
                     {{ entity_mail_date }}
                   </div>
@@ -541,16 +355,7 @@
                     رقم إشارة الجهة
                   </label>
                   <div
-                    class="
-                      block
-                      mt-2
-                      w-full
-                      rounded-md
-                      h-10
-                      text-sm
-                      border border-gray-300
-                      p-2
-                    "
+                    class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
                   >
                     {{ entity_reference_number }}
                   </div>
@@ -564,16 +369,7 @@
                     نوع الإجراء
                   </label>
                   <div
-                    class="
-                      block
-                      mt-2
-                      w-full
-                      rounded-md
-                      h-10
-                      text-sm
-                      border border-gray-300
-                      p-2
-                    "
+                    class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
                   >
                     {{ procedure_type | procedure_type_filter }}
                   </div>
@@ -587,16 +383,7 @@
                     الإجراء المطلوب من الجهة
                   </label>
                   <div
-                    class="
-                      block
-                      mt-2
-                      w-full
-                      rounded-md
-                      h-24
-                      text-sm
-                      border border-gray-300
-                      p-2
-                    "
+                    class="block mt-2 w-full rounded-md h-24 text-sm border border-gray-300 p-2"
                   >
                     {{ action_required_by_the_entity }}
                   </div>
@@ -613,14 +400,7 @@
 
                 <div
                   id="scroll"
-                  class="
-                    h-72
-                    overflow-y-scroll
-                    mt-4
-                    rounded-lg
-                    py-2
-                    border border-gray-300
-                  "
+                  class="h-72 overflow-y-scroll mt-4 rounded-lg py-2 border border-gray-300"
                 >
                   <div
                     v-for="(reply, index) in replies"
@@ -641,148 +421,93 @@
                             : 'justify-end flex-row-reverse'
                         "
                       >
+                        <button
+                          v-if="
+                            reply.reply.to != my_department_id &&
+                            reply.reply.userId == my_user_id
+                          "
+                          @click="
+                            (alert_delete_document = true),
+                              (reply_id_to_delete = reply.reply.replyId)
+                          "
+                          type="button"
+                          class="hover:bg-red-500 duration-500 p-1 rounded-full focus:outline-none ml-2"
+                        >
+                          <svg
+                            class="w-4 h-4 stroke-current text-red mx-auto"
+                            width="24"
+                            height="25"
+                            viewBox="0 0 24 25"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M3 6.5H5H21"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M8 6.5V4.5C8 3.96957 8.21071 3.46086 8.58579 3.08579C8.96086 2.71071 9.46957 2.5 10 2.5H14C14.5304 2.5 15.0391 2.71071 15.4142 3.08579C15.7893 3.46086 16 3.96957 16 4.5V6.5M19 6.5V20.5C19 21.0304 18.7893 21.5391 18.4142 21.9142C18.0391 22.2893 17.5304 22.5 17 22.5H7C6.46957 22.5 5.96086 22.2893 5.58579 21.9142C5.21071 21.5391 5 21.0304 5 20.5V6.5H19Z"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </button>
 
-
-
-                      <button
-                        v-if="reply.reply.to != my_department_id && reply.reply.userId==my_user_id"
-                              @click="alert_delete_document=true,reply_id_to_delete=reply.reply.replyId"
-                              type="button"
-                              class="
-                                
-                                hover:bg-red-500
-                                duration-500
-                                p-1
-                                rounded-full
-                                focus:outline-none
-                                ml-2
-                              "
-                             
-                            >
+                        <div
+                          v-if="alert_delete_document"
+                          class="w-screen h-full flex justify-center items-center absolute inset-0 z-50 overflow-hidden bg-black bg-opacity-70"
+                        >
+                          <div
+                            class="bg-yellow-100 rounded-md w-1/3 py-10 flex flex-col justify-center items-center"
+                          >
+                            <div class="">
                               <svg
-                                class="
-                                  w-4
-                                  h-4
-                                  stroke-current
-                                  text-red
-                                  mx-auto
-                                "
-                                width="24"
-                                height="25"
-                                viewBox="0 0 24 25"
+                                class="w-20 h-20 stroke-current text-red-600"
                                 fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M3 6.5H5H21"
-                                  stroke-width="2"
                                   stroke-linecap="round"
                                   stroke-linejoin="round"
-                                />
-                                <path
-                                  d="M8 6.5V4.5C8 3.96957 8.21071 3.46086 8.58579 3.08579C8.96086 2.71071 9.46957 2.5 10 2.5H14C14.5304 2.5 15.0391 2.71071 15.4142 3.08579C15.7893 3.46086 16 3.96957 16 4.5V6.5M19 6.5V20.5C19 21.0304 18.7893 21.5391 18.4142 21.9142C18.0391 22.2893 17.5304 22.5 17 22.5H7C6.46957 22.5 5.96086 22.2893 5.58579 21.9142C5.21071 21.5391 5 21.0304 5 20.5V6.5H19Z"
                                   stroke-width="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                />
+                                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                                ></path>
                               </svg>
-                            </button>
+                            </div>
+                            <p class="text-xl font-bold mt-4">
+                              هل انت متأكد من عملية الحذف؟
+                            </p>
+                            <p class="text-gray-600">
+                              لن تتمكن من استرداد الرد بعد حذفه.
+                            </p>
 
-             
-                            <div
-      v-if="alert_delete_document"
-      class="
-        w-screen
-        h-full
-        flex
-        justify-center
-        items-center
-        absolute
-        inset-0
-        z-50
-        overflow-hidden
-        bg-black bg-opacity-70
-      "
-    >
-      <div
-        class="
-          bg-yellow-100
-          rounded-md
-          w-1/3
-          py-10
-          flex flex-col
-          justify-center
-          items-center
-        "
-      >
-        <div class="">
-          <svg
-            class="w-20 h-20 stroke-current text-red-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-            ></path>
-          </svg>
-        </div>
-        <p class="text-xl font-bold mt-4">هل انت متأكد من عملية الحذف؟</p>
-        <p class="text-gray-600">لن تتمكن من استرداد الرد بعد حذفه.</p>
-
-        <div class="mt-6">
-          <button
-            @click="deletereply()"
-            class="
-              bg-red-600
-              hover:bg-red-700 hover:shadow-lg
-              duration-200
-              rounded
-              text-white
-              w-32
-              py-1
-              ml-2
-            "
-          >
-            نعم متأكد
-          </button>
-          <button
-            @click="alert_delete_document = false"
-            class="
-              bg-gray-400
-              hover:bg-gray-700 hover:shadow-lg
-              duration-200
-              rounded
-              text-white
-              w-32
-              py-1
-              mr-2
-            "
-          >
-            إلغاء
-          </button>
-        </div>
-      </div>
-    </div>
+                            <div class="mt-6">
+                              <button
+                                @click="deletereply()"
+                                class="bg-red-600 hover:bg-red-700 hover:shadow-lg duration-200 rounded text-white w-32 py-1 ml-2"
+                              >
+                                نعم متأكد
+                              </button>
+                              <button
+                                @click="alert_delete_document = false"
+                                class="bg-gray-400 hover:bg-gray-700 hover:shadow-lg duration-200 rounded text-white w-32 py-1 mr-2"
+                              >
+                                إلغاء
+                              </button>
+                            </div>
+                          </div>
+                        </div>
 
                         <div v-if="reply.resources != 0" class="mx-2">
                           <button
                             v-if="roles.includes('r')"
                             @click="GetResources_ById(reply.reply.replyId)"
-                            class="
-                              px-2
-                              text-xs
-                              rounded
-                              leading-9
-                              text-white
-                              bg-red-400
-                              flex
-                              items-center
-                            "
+                            class="px-2 text-xs rounded leading-9 text-white bg-red-400 flex items-center"
                           >
                             عرض الصور
                             <svg
@@ -821,18 +546,10 @@
                               ? 'bg-gray-700'
                               : 'bg-blue-700'
                           "
-                          class="
-                            text-white
-                            max-w-10/12
-                            py-0
-                            leading-9
-                            px-2
-                            rounded
-                          "
+                          class="text-white max-w-10/12 py-0 leading-9 px-2 rounded"
                         >
                           {{ reply.reply.mail_detail }}
                         </div>
-                        
                       </div>
 
                       <div
@@ -854,17 +571,7 @@
                     <div class="w-10/12">
                       <textarea
                         id=""
-                        class="
-                          block
-                          w-full
-                          h-20
-                          text-sm
-                          rounded-md
-                          border border-gray-200
-                          hover:shadow-sm
-                          focus:outline-none focus:border-gray-300
-                          p-2
-                        "
+                        class="block w-full h-20 text-sm rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
                         v-model="reply_to_add"
                       >
                       </textarea>
@@ -875,22 +582,7 @@
                       <a id="a5" @click="reply1()">
                         <label
                           v-if="reply_to_add != ''"
-                          class="
-                            w-48
-                            h-full
-                            flex
-                            justify-center
-                            items-center
-                            py-2
-                            bg-white
-                            rounded-lg
-                            tracking-wide
-                            border border-green-600
-                            cursor-pointer
-                            hover:text-white hover:bg-green-600
-                            focus:outline-none
-                            duration-300
-                          "
+                          class="w-48 h-full flex justify-center items-center py-2 bg-white rounded-lg tracking-wide border border-green-600 cursor-pointer hover:text-white hover:bg-green-600 focus:outline-none duration-300"
                         >
                           <svg
                             class="w-5 h-5 ml-2"
@@ -985,23 +677,7 @@
                     <button
                       v-if="reply_to_add != ''"
                       @click="AddReply()"
-                      class="
-                        w-full
-                        flex
-                        items-center
-                        justify-center
-                        h-20
-                        py-2
-                        bg-white
-                        rounded-lg
-                        text-blue-600
-                        tracking-wide
-                        border border-blue-600
-                        cursor-pointer
-                        hover:text-white hover:bg-blue-600
-                        focus:outline-none
-                        duration-300
-                      "
+                      class="w-full flex items-center justify-center h-20 py-2 bg-white rounded-lg text-blue-600 tracking-wide border border-blue-600 cursor-pointer hover:text-white hover:bg-blue-600 focus:outline-none duration-300"
                     >
                       <span class="leading-normal">إرسال</span>
                       <svg
@@ -1039,17 +715,7 @@
 
     <div
       v-if="screenFreeze"
-      class="
-        w-screen
-        h-screen
-        bg-black bg-opacity-30
-        absolute
-        inset-0
-        z-50
-        flex
-        justify-center
-        items-center
-      "
+      class="w-screen h-screen bg-black bg-opacity-30 absolute inset-0 z-50 flex justify-center items-center"
     >
       <div v-if="loading" class="">
         <svgLoadingComponent></svgLoadingComponent>
@@ -1094,30 +760,11 @@
         </div>
 
         <div
-          class="
-            h-screen
-            flex flex-col
-            justify-center
-            items-center
-            bg-black bg-opacity-90
-            absolute
-            top-0
-            inset-0
-            z-50
-            w-full
-          "
+          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
         >
           <div class="max-w-3xl mx-auto relative">
             <div
-              class="
-                absolute
-                top-6
-                z-50
-                flex
-                justify-between
-                items-center
-                w-full
-              "
+              class="absolute top-6 z-50 flex justify-between items-center w-full"
             >
               <button
                 @click="show_current_image_for_bigger_screen_model = false"
@@ -1142,14 +789,7 @@
                 v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#print_one_dec'"
-                class="
-                  bg-blue-500
-                  hover:bg-blue-400
-                  px-4
-                  py-2
-                  rounded-lg
-                  text-white
-                "
+                class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
               >
                 طباعة المستند الحالي
               </button>
@@ -1158,14 +798,7 @@
                 v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#printMe'"
-                class="
-                  bg-blue-500
-                  hover:bg-blue-400
-                  px-4
-                  py-2
-                  rounded-lg
-                  text-white
-                "
+                class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
               >
                 طباعة كافة المستندات
               </button>
@@ -1180,34 +813,14 @@
             </div>
 
             <div
-              class="
-                absolute
-                bottom-3
-                z-50
-                bg-gray-100
-                flex
-                justify-between
-                items-center
-                w-full
-                mx-auto
-                mt-4
-              "
+              class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
             >
               <div class="w-12 h-8">
                 <button
                   title="prev"
                   v-if="doc_number > 1"
                   @click="GetAllDocN('prev')"
-                  class="
-                    focus:outline-none
-                    w-12
-                    h-8
-                    bg-gray-300
-                    rounded
-                    flex
-                    justify-center
-                    items-center
-                  "
+                  class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
                 >
                   <svg
                     class="w-4 h-4"
@@ -1235,16 +848,7 @@
                   v-if="doc_number < total_of_doc"
                   title="next"
                   @click="GetAllDocN('next')"
-                  class="
-                    focus:outline-none
-                    w-12
-                    h-8
-                    bg-gray-300
-                    rounded
-                    flex
-                    justify-center
-                    items-center
-                  "
+                  class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
                 >
                   <svg
                     class="w-4 h-4"
@@ -1292,18 +896,7 @@
         </div>
 
         <div
-          class="
-            h-screen
-            flex flex-col
-            justify-center
-            items-center
-            bg-black bg-opacity-90
-            absolute
-            top-0
-            inset-0
-            z-50
-            w-full
-          "
+          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
         >
           <div class="max-w-3xl mx-auto">
             <div class="flex justify-between items-center w-full">
@@ -1344,29 +937,11 @@
 
             <div
               v-if="testimage_images_model"
-              class="
-                flex
-                justify-between
-                items-center
-                max-w-xs
-                mx-auto
-                w-full
-                mt-4
-                text-white
-              "
+              class="flex justify-between items-center max-w-xs mx-auto w-full mt-4 text-white"
             >
               <button
                 @click="previousImage_images_model()"
-                class="
-                  focus:outline-none
-                  w-12
-                  h-8
-                  bg-gray-300
-                  rounded
-                  flex
-                  justify-center
-                  items-center
-                "
+                class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
               >
                 <svg
                   class="w-4 h-4"
@@ -1392,16 +967,7 @@
               <button
                 title="next"
                 @click="nextImage_images_model()"
-                class="
-                  focus:outline-none
-                  w-12
-                  h-8
-                  bg-gray-300
-                  rounded
-                  flex
-                  justify-center
-                  items-center
-                "
+                class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
               >
                 <svg
                   class="w-4 h-4"
@@ -1442,30 +1008,11 @@
         </div>
 
         <div
-          class="
-            h-screen
-            flex flex-col
-            justify-center
-            items-center
-            bg-black bg-opacity-90
-            absolute
-            top-0
-            inset-0
-            z-50
-            w-full
-          "
+          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
         >
           <div class="max-w-3xl mx-auto relative">
             <div
-              class="
-                absolute
-                top-6
-                z-50
-                flex
-                justify-between
-                items-center
-                w-full
-              "
+              class="absolute top-6 z-50 flex justify-between items-center w-full"
             >
               <button
                 @click="
@@ -1491,14 +1038,7 @@
               <button
                 v-if="roles.includes('k')"
                 v-print="'#print_reply_doc_n'"
-                class="
-                  bg-blue-500
-                  hover:bg-blue-400
-                  px-4
-                  py-2
-                  rounded-lg
-                  text-white
-                "
+                class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
               >
                 طباعة المستند الحالي
               </button>
@@ -1513,34 +1053,14 @@
             </div>
 
             <div
-              class="
-                absolute
-                bottom-3
-                z-50
-                bg-gray-100
-                flex
-                justify-between
-                items-center
-                w-full
-                mx-auto
-                mt-4
-              "
+              class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
             >
               <div class="w-12 h-8">
                 <button
                   title="prev"
                   v-if="reply_doc_number > 1"
                   @click="Next_prevent_GetResources_ById('prev')"
-                  class="
-                    focus:outline-none
-                    w-12
-                    h-8
-                    bg-gray-300
-                    rounded
-                    flex
-                    justify-center
-                    items-center
-                  "
+                  class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
                 >
                   <svg
                     class="w-4 h-4"
@@ -1568,16 +1088,7 @@
                   v-if="reply_doc_number < reply_total_of_doc"
                   title="next"
                   @click="Next_prevent_GetResources_ById('next')"
-                  class="
-                    focus:outline-none
-                    w-12
-                    h-8
-                    bg-gray-300
-                    rounded
-                    flex
-                    justify-center
-                    items-center
-                  "
+                  class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
                 >
                   <svg
                     class="w-4 h-4"
@@ -1618,19 +1129,20 @@ export default {
   created() {},
 
   destroyed() {
-  console.log("destroyed_inbox_form")
-  if(this.conn!=null){
- if (this.conn.readystate!=3){
-   console.log("readystate destory_inbox_form="+this.conn.readyState);
-           this.conn.close();
-           console.log("close_inbox_form");
-         this.conn=null;
- }
-}},
+    console.log("destroyed_inbox_form");
+    if (this.conn != null) {
+      if (this.conn.readystate != 3) {
+        console.log("readystate destory_inbox_form=" + this.conn.readyState);
+        this.conn.close();
+        console.log("close_inbox_form");
+        this.conn = null;
+      }
+    }
+  },
 
   mounted() {
     //21/1/2023*********************websocket
-  /***********  this.conn = new WebSocket("ws://localhost:58316/ws");
+    /***********  this.conn = new WebSocket("ws://localhost:58316/ws");
     //  this.conn = new WebSocket("ws://mail:82/ws");
     console.log("inbox_form websocket connect ok");
 
@@ -1669,7 +1181,7 @@ console.log("code inbox_form="+event.code);
         }
       }
     };*/
-//****************21/1/2023
+    //****************21/1/2023
     this.my_user_id = localStorage.getItem("AY_LW");
     this.my_department_id = localStorage.getItem("chrome");
     this.roles = localStorage.getItem("Az07");
@@ -1701,13 +1213,12 @@ console.log("code inbox_form="+event.code);
 
   data() {
     return {
-
-//********21/1/2023
+      //********21/1/2023
       keyid: "",
       conn: null,
-//**end 21/1/2023
-      reply_id_to_delete:"",
-      alert_delete_document:false,
+      //**end 21/1/2023
+      reply_id_to_delete: "",
+      alert_delete_document: false,
 
       roles: [],
       from_reply_or_general: "",
@@ -1816,42 +1327,28 @@ console.log("code inbox_form="+event.code);
     };
   },
   methods: {
+    deletereply() {
+      this.alert_delete_document = false;
 
+      this.$http.mailService
+        .delete_reply(
+          Number(this.reply_id_to_delete),
+          Number(localStorage.getItem("AY_LW"))
+        )
+        .then((res) => {
+          this.getMailById();
+          this.GetAllDocN("next");
 
-
-
-    
-    deletereply(){
-
-        
-this.alert_delete_document = false;
-
-this.$http.mailService
-  .delete_reply(
-    Number(this.reply_id_to_delete),Number(localStorage.getItem("AY_LW"))
-  )
-  .then((res) => {
-
-    
-    this.getMailById();
-      this.GetAllDocN("next");
-    
-    // this.to_pass_data_to_get_mail_by_id(
-    //                 this.mail.mail_id,
-    //                 this.my_department_id,
-    //                 this.mail.type_of_mail,
-    //                 this.mail.sends_id,
-    //                 this.mail.mangment_sender
-    //               )
-                
-  })
-  .catch((err) => {
-
-  });
-
-
-},
-
+          // this.to_pass_data_to_get_mail_by_id(
+          //                 this.mail.mail_id,
+          //                 this.my_department_id,
+          //                 this.mail.type_of_mail,
+          //                 this.mail.sends_id,
+          //                 this.mail.mangment_sender
+          //               )
+        })
+        .catch((err) => {});
+    },
 
     Next_prevent_GetResources_ById(x) {
       if (x == "next") {
@@ -1976,98 +1473,90 @@ this.$http.mailService
 
     //*******************
     reply1() {
+      if (this.conn == null) {
+        console.log("conn=" + this.conn);
+        this.conn = new WebSocket("ws://localhost:58316/ws");
+        //  this.conn = new WebSocket("ws://mail:82/ws");
 
-
- if(this.conn==null){
-        console.log("conn="+this.conn);
-      this.conn = new WebSocket("ws://localhost:58316/ws");
-   //  this.conn = new WebSocket("ws://mail:82/ws");
-
-    this.conn.onclose=(event)=>{
-  console.log("close code_inbox_form="+event.code);
-  }
-this.conn.onmessage = (event) => {
-       console.log("inbox_form onmessage");
-      let scannedImage = event.data;
-      let mgs = JSON.parse(scannedImage);
-      this.imagesscantest = mgs;
-      var ind = this.imagesscantest.index;
-      console.log("inbox_form index="+ind);
-      if (ind == 1) {
-        this.keyid = this.imagesscantest.keyid;
-        console.log("inbox keyid="+this.keyid);
-         console.log("count websocket_inbox_form="+this.imagesscantest.count1);
-    
+        this.conn.onclose = (event) => {
+          console.log("close code_inbox_form=" + event.code);
+        };
+        this.conn.onmessage = (event) => {
+          console.log("inbox_form onmessage");
+          let scannedImage = event.data;
+          let mgs = JSON.parse(scannedImage);
+          this.imagesscantest = mgs;
+          var ind = this.imagesscantest.index;
+          console.log("inbox_form index=" + ind);
+          if (ind == 1) {
+            this.keyid = this.imagesscantest.keyid;
+            console.log("inbox keyid=" + this.keyid);
+            console.log(
+              "count websocket_inbox_form=" + this.imagesscantest.count1
+            );
+          } else {
+            console.log("inbox_form.vue else");
+            //this.imagesToSend=[]
+            for (var i = 0; i < mgs["image"].length; i++) {
+              this.indexOfimagesToShow++;
+              this.imagesToSend.push({
+                baseAs64: mgs["image"][i],
+                index: this.indexOfimagesToShow,
+              });
+            }
+          }
+        };
+      } else if (this.conn.readyState === 3 || this.conn.readyState === 2) {
+        console.log("readystate=" + this.conn.readyState);
+        this.conn = null;
+        this.reply1();
       } else {
-         console.log("inbox_form.vue else");
-        //this.imagesToSend=[]
-        for (var i = 0; i < mgs["image"].length; i++) {
-          this.indexOfimagesToShow++;
-          this.imagesToSend.push({
-            baseAs64: mgs["image"][i],
-            index: this.indexOfimagesToShow,
-          });
-        }
-      }
+        var mailId_to_get_mail_by_id = this.mailId_to_get_mail_by_id;
+        var mailId = this.mailId;
+        var sends_id = this.sends_id;
+        var department_Id = this.department_Id;
+        var keyid = this.keyid;
 
- }
- }
-  else if(this.conn.readyState===3||this.conn.readyState===2){
-            console.log("readystate="+this.conn.readyState)
-                  this.conn=null;
-                  this.reply1();
-           }
-  
-   else
-    {
-      var mailId_to_get_mail_by_id = this.mailId_to_get_mail_by_id;
-      var mailId = this.mailId;
-      var sends_id = this.sends_id;
-      var department_Id = this.department_Id;
-      var keyid = this.keyid;
+        var timeout;
+        window.addEventListener("blur", function (e) {
+          window.clearTimeout(timeout);
+        });
 
-      var timeout;
-      window.addEventListener("blur", function (e) {
-        window.clearTimeout(timeout);
-      });
+        timeout = window.setTimeout(function () {
+          window.location = "http://mail/scanner_app/Setup1.msi";
+        }, 1000);
 
-      timeout = window.setTimeout(function () {
-        window.location = "http://mail/scanner_app/Setup1.msi";
-      }, 1000);
-
-      console.log("replay" + "  id= " + mailId_to_get_mail_by_id);
-      document.location=
-        "SScaner:flag=0" +
-        "userId=" +
-        localStorage.getItem("AY_LW") +
-        "mId=" +
-        mailId +
-        "send_ToId=" +
-        sends_id +
-        "to=" +
-        department_Id +
-        "keyid=" +
-        keyid;
-
-      console.log(
-        "testreplay " +
-          "  id= " +
-          mailId +
+        console.log("replay" + "  id= " + mailId_to_get_mail_by_id);
+        document.location =
+          "SScaner:flag=0" +
           "userId=" +
           localStorage.getItem("AY_LW") +
+          "mId=" +
+          mailId +
           "send_ToId=" +
           sends_id +
           "to=" +
           department_Id +
           "keyid=" +
-          keyid
-      );
-             }
+          keyid;
 
+        console.log(
+          "testreplay " +
+            "  id= " +
+            mailId +
+            "userId=" +
+            localStorage.getItem("AY_LW") +
+            "send_ToId=" +
+            sends_id +
+            "to=" +
+            department_Id +
+            "keyid=" +
+            keyid
+        );
+      }
 
-
-     //***********21/1/2023 
-     /* var link = document.getElementById("a5");
+      //***********21/1/2023
+      /* var link = document.getElementById("a5");
       var mailId_to_get_mail_by_id = this.mailId_to_get_mail_by_id;
       var mailId = this.mailId;
       var sends_id = this.sends_id;

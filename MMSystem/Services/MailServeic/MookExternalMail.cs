@@ -192,8 +192,8 @@ namespace MMSystem.Services.MailServeic
                         hVModels.Add(new HVModel { name = "الجهة الخارجية", newvalue = mail.Sectionid, oldvalue = ex.Sectionid });
                         hVModels.Add(new HVModel { name = "الاجراء ", newvalue = mail.action, oldvalue = ex.action });
                         hVModels.Add(new HVModel { name = "الاجراء المطلوب من ", newvalue = mail.action_required_by_the_entity, oldvalue = ex.action_required_by_the_entity });
-                        hVModels.Add(new HVModel { name = "القطاع", newvalue = mail.SectorId, oldvalue = ex.SectorId });
-                        hVModels.Add(new HVModel { name = "الجهة", newvalue = mail.SectorType, oldvalue = ex.SectorType });
+                     //   hVModels.Add(new HVModel { name = "القطاع", newvalue = mail.SectorId, oldvalue = ex.SectorId });
+                     //   hVModels.Add(new HVModel { name = "الجهة", newvalue = mail.SectorType, oldvalue = ex.SectorType });
 
 
 
@@ -210,9 +210,9 @@ namespace MMSystem.Services.MailServeic
                             await _appDb.SaveChangesAsync();
                         }
                       
-                        ex.Sectionid = mail.Sectionid;
-                        ex.SectorType = mail.SectorType;
-                        ex.SectorId = mail.SectorId;
+                   //     ex.Sectionid = mail.Sectionid;
+                       //ex.SectorType = mail.SectorType;
+                    //    ex.SectorId = mail.SectorId;
                         ex.action = mail.action;
                         ex.action_required_by_the_entity = mail.action_required_by_the_entity;
 

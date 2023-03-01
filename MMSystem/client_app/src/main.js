@@ -4,7 +4,7 @@ import router from './router'
 import './assets/css/index.css'
 import DataService from './services/DataService.js';
 import './shared/GlobalFilters'
-import 'element-ui/lib/theme-chalk/index.css';
+// import 'element-ui/lib/theme-chalk/index.css';
 
 import Pagination from 'vue-pagination-2';
 
@@ -28,18 +28,18 @@ import VueHtmlToPaper from "vue-html-to-paper";
 const options = {
     name: 'report',
     specs: [
-      'fullscreen=yes',
-      'titlebar=yes',
-      'scrollbars=yes'
+        'fullscreen=yes',
+        'titlebar=yes',
+        'scrollbars=yes'
     ],
     styles: [
-      'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-      'https://unpkg.com/kidlat-css/css/kidlat.css',
-      'https://unpkg.com/tailwindcss-jit-cdn',
-      
-    ]  
-  }
-Vue.use(VueHtmlToPaper,options)
+        'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+        'https://unpkg.com/kidlat-css/css/kidlat.css',
+        'https://unpkg.com/tailwindcss-jit-cdn',
+
+    ]
+}
+Vue.use(VueHtmlToPaper, options)
 
 Vue.prototype.$http = DataService;
 Vue.prototype.$authenticatedUser = {

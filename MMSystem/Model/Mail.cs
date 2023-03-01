@@ -39,6 +39,8 @@ namespace MMSystem.Model
         public string conclusion { get; set; }
         public string office_type { get; set; }
 
+        public List<External_Department> external_Departments { get; set; }
+
 
 
 
