@@ -301,6 +301,8 @@
                 >
 
                 <input
+
+                          @click="departmentNameSelected='',departmentIdSelected=''"
                           v-model="departmentNameSelected"
                           type="text"
                           class="h-6 w-full"
@@ -753,6 +755,19 @@ export default {
   },
 
   methods: {
+
+
+
+    // empty(){
+
+
+    //   if(this.departmentIdSelected=='')
+      
+    //   {this.departmentNameSelected=''}
+    // },
+
+
+
     GetAllDepartments() {
       this.$http.mailService
         .AllDepartments()

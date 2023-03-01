@@ -268,6 +268,7 @@
                           "
                         >
                         <input
+                        @click="departmentNameSelected='',departmentIdSelected=''"
                           v-model="departmentNameSelected"
                           type="text"
                           class="h-6 w-full"
@@ -2154,6 +2155,14 @@ consol.log("code inbox.vue="+event.code);
       this.GetInboxs();
     },
 
+    departmentNameSelected: function() {
+
+      if(this.departmentNameSelected==""){
+      this.page_num = 1;
+      this.GetInboxs();
+      }
+    },
+
     mailType: function () {
       this.page_num = 1;
       this.GetInboxs();
@@ -2842,6 +2851,13 @@ this.conn.onmessage = (event) => {
         date_from2= this.year_filter + "-01-01"
         date_to2= this.year_filter + "-12-31"
       }
+
+
+      if(this.departmentNameSelected==""){
+
+         this.departmentIdSelected=''
+    }
+
       this.screenFreeze = true;
       this.loading = true;
       this.inboxMails = [];

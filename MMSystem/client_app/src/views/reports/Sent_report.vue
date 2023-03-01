@@ -184,30 +184,6 @@ export default {
 
 
 
-    if(this.$route.params.mail_type==0){
-
-          this.mailtype=""
-
-    }else
-    
-      if(this.$route.params.mail_type==1){
-      this.mailtype=this.$route.params.mail_type
-      this.mailtype2="لرسائل البريد الداخلي"
-      
-    }else
-
-      if(this.$route.params.mail_type==2){
-      this.mailtype=this.$route.params.mail_type
-      this.mailtype2="لرسائل البريد الصادر الخارجي"
-      
-    }else
-
-      if(this.$route.params.mail_type==3){
-      this.mailtype=this.$route.params.mail_type
-      this.mailtype2="لرسائل البريد الوارد الخارجي"
-      
-    }
-
 
 
 
@@ -249,6 +225,31 @@ export default {
 
     this.Get_sent_report_ayoub();
 
+
+    if(this.$route.params.mail_type==0){
+
+this.mailtype=""
+this.mailtype2=""
+
+}else
+
+if(this.$route.params.mail_type==1){
+this.mailtype=this.$route.params.mail_type;
+this.mailtype2="لرسائل البريد الداخلي"
+
+}else
+
+if(this.$route.params.mail_type==2){
+this.mailtype=this.$route.params.mail_type;
+this.mailtype2="لرسائل البريد الصادر الخارجي"
+
+}else
+
+if(this.$route.params.mail_type==3){
+this.mailtype=this.$route.params.mail_type;
+this.mailtype2="لرسائل البريد الوارد الخارجي"
+
+}
    
   },
 
@@ -258,7 +259,9 @@ export default {
       total: [],
 
       mail_type: "",
-      mail_type2: "",
+
+      mailtype2: "",
+      
       mail_type_num: 1,
       current_department_name:localStorage.getItem("current_department_name"),
 

@@ -648,6 +648,7 @@
                             "
                           >
                             <input
+                            @click="departmentNameSelected='',departmentIdSelected=''"
                               v-model="departmentNameSelected"
                               type="text"
                               class="h-6 w-full"

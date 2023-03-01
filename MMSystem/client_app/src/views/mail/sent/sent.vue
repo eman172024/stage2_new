@@ -272,6 +272,7 @@
                           "
                         >
                           <input
+                          @click="departmentNameSelected='',departmentIdSelected=''"
                             v-model="departmentNameSelected"
                             type="text"
                             class="h-6 w-full"
@@ -2234,6 +2235,19 @@ console.log("code sent.vue="+event.code);
   },
 
   watch: {
+
+    departmentNameSelected: function() {
+
+if(this.departmentNameSelected==""){
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = "";
+      this.page_num = 1;
+      this.GetSentMail();
+}
+},
     year_filter: function () {
       this.senders = [];
       this.show_senders_mail = "";
@@ -3111,6 +3125,11 @@ this.$http.mailService
         date_to2 = this.year_filter + "-12-31";
       }
 
+
+      if(this.departmentNameSelected==""){
+
+             this.departmentIdSelected=''
+        }
       this.screenFreeze = true;
       this.loading = true;
       this.inboxMails = [];
