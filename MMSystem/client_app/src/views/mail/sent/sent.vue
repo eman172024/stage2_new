@@ -22,32 +22,32 @@
                   من
                   <input type="date" pattern="\d{4}-\d{2}-\d{2}" placeholder="dd-mm-yyyy" min="2000-12-01"
                     max="2040-12-30" id="date_from" v-model="date_from" class="
-                        block
-                        mr-2
-                        w-full
-                        rounded-md
-                        h-10
-                        border border-gray-200
-                        hover:shadow-sm
-                        focus:outline-none focus:border-gray-300
-                        px-2
-                      " />
+                          block
+                          mr-2
+                          w-full
+                          rounded-md
+                          h-10
+                          border border-gray-200
+                          hover:shadow-sm
+                          focus:outline-none focus:border-gray-300
+                          px-2
+                        " />
                 </span>
 
                 <span class="flex items-center mr-4">
                   إلي
                   <input type="date" pattern="\d{4}-\d{2}-\d{2}" placeholder="dd-mm-yyyy" min="2000-12-01"
                     max="2040-12-30" id="date_to" v-model="date_to" class="
-                        block
-                        mr-2
-                        w-full
-                        rounded-md
-                        h-10
-                        border border-gray-200
-                        hover:shadow-sm
-                        focus:outline-none focus:border-gray-300
-                        px-2
-                      " />
+                          block
+                          mr-2
+                          w-full
+                          rounded-md
+                          h-10
+                          border border-gray-200
+                          hover:shadow-sm
+                          focus:outline-none focus:border-gray-300
+                          px-2
+                        " />
                 </span>
               </div>
 
@@ -91,18 +91,18 @@
             <div class="mt-2 flex">
               <div class="relative w-full">
                 <button @click="filter = !filter" :class="filter ? 'shadow-md' : ''" class="
-                      rounded-t-md
-                      border border-b-0
-                      hover:text-blue-600 hover:font-bold
-                      group
-                      w-full
-                      p-2
-                      bg-white
-                      flex
-                      items-center
-                      justify-between
-                      focus:outline-none
-                    ">
+                        rounded-t-md
+                        border border-b-0
+                        hover:text-blue-600 hover:font-bold
+                        group
+                        w-full
+                        p-2
+                        bg-white
+                        flex
+                        items-center
+                        justify-between
+                        focus:outline-none
+                      ">
                   <span class="flex items-center">
                     <svg class="w-6 h-6 ml-2 stroke-current group-hover:stroke-2" fill="none" stroke="currentColor"
                       viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -122,39 +122,39 @@
                 </button>
 
                 <div v-if="filter" class="
-                      rounded-b-md
-                      shadow-md
-                      absolute
-                      top-10
-                      border border-t-0
-                      z-40
-                      w-full
-                      bg-white
-                      px-4
-                      py-8
-                    ">
-                  <div class="
-                        grid grid-cols-1
-                        gap-y-6 gap-x-4
-                        sm:grid-cols-6
-                        max-w-4xl
-                        mx-auto
+                        rounded-b-md
+                        shadow-md
+                        absolute
+                        top-10
+                        border border-t-0
+                        z-40
+                        w-full
+                        bg-white
+                        px-4
+                        py-8
                       ">
+                  <div class="
+                          grid grid-cols-1
+                          gap-y-6 gap-x-4
+                          sm:grid-cols-6
+                          max-w-4xl
+                          mx-auto
+                        ">
                     <div class="sm:col-span-2">
                       <label for="mail_id" class="block text-base font-semibold text-gray-800">
                         رقم البريد
                       </label>
                       <input v-model="mail_id" type="number" min="1" max="5000" id="mail_id" class="
-                            block
-                            mt-2
-                            h-10
-                            w-full
-                            rounded-md
-                            border border-gray-300
-                            hover:shadow-sm
-                            focus:outline-none focus:border-gray-300
-                            px-2
-                          " />
+                              block
+                              mt-2
+                              h-10
+                              w-full
+                              rounded-md
+                              border border-gray-300
+                              hover:shadow-sm
+                              focus:outline-none focus:border-gray-300
+                              px-2
+                            " />
                     </div>
 
                     <div class="sm:col-span-2">
@@ -163,75 +163,66 @@
                       </label>
 
                       <div class="relative">
-                        <button
-                          @click="departmentselect = !departmentselect"
-                          @keyup.space.prevent
-                          id="department"
-                          class="
-                            text-right
-                            block
-                            mt-2
-                            w-full
-                            rounded-md
-                            h-10
-                            border
-                            text-sm
-                            bg-white
-                            border-gray-300
-                            hover:shadow-sm
-                            focus:outline-none focus:border-gray-300
-                            p-2
-                          "
-                        >
-                          <input
-                          @click="departmentNameSelected='',departmentIdSelected=''"
-                            v-model="departmentNameSelected"
-                            type="text"
-                            class="h-6 w-full"
-                          />
-                          <!-- {{ departmentNameSelected }} -->
-                        </button>
-
-                        <div v-if="departmentselect" class="
+                        <button @click="departmentselect = !departmentselect" @keyup.space.prevent id="department" class="
+                              text-right
+                              block
+                              mt-2
+                              w-full
+                              rounded-md
+                              h-10
                               border
                               text-sm
                               bg-white
                               border-gray-300
+                              hover:shadow-sm
+                              focus:outline-none focus:border-gray-300
                               p-2
-                              absolute
-                              w-full
-                              z-20
-                              shadow
-                              h-24
-                              overflow-y-scroll
-                              rounded-b-md
                             ">
-                          <button class="
-                                block
-                                focus:outline-none
+                          <input @click="departmentNameSelected = '', departmentIdSelected = ''"
+                            v-model="departmentNameSelected" type="text" class="h-6 w-full" />
+                          <!-- {{ departmentNameSelected }} -->
+                        </button>
+
+                        <div v-if="departmentselect" class="
+                                border
+                                text-sm
+                                bg-white
+                                border-gray-300
+                                p-2
+                                absolute
                                 w-full
-                                my-1
-                                text-right
-                              " @click="
-                                selectdepartment('', 'الكل');
-                              departmentselect = !departmentselect;
-                                                            ">
+                                z-20
+                                shadow
+                                h-24
+                                overflow-y-scroll
+                                rounded-b-md
+                              ">
+                          <button class="
+                                  block
+                                  focus:outline-none
+                                  w-full
+                                  my-1
+                                  text-right
+                                " @click="
+                                  selectdepartment('', 'الكل');
+                                departmentselect = !departmentselect;
+                                                                                              ">
                             الكل
                           </button>
 
                           <button class="
-                                block
-                                focus:outline-none
-                                w-full
-                                my-1
-                                text-right
-                              " @click="
-                                selectdepartment(
-                                  department.id,
-                                  department.departmentName
-                                );
-                              departmentselect = !departmentselect;
-                                                            " v-for="department in filterByTerm1" :key="department.id">
+                                  block
+                                  focus:outline-none
+                                  w-full
+                                  my-1
+                                  text-right
+                                " @click="
+                                  selectdepartment(
+                                    department.id,
+                                    department.departmentName
+                                  );
+                                departmentselect = !departmentselect;
+                                                                                              " v-for="department in filterByTerm1" :key="department.id">
                             {{ department.departmentName }}
                           </button>
                         </div>
@@ -245,63 +236,63 @@
 
                       <div class="relative">
                         <button @click="measureselect = !measureselect" id="measure" class="
-                              text-right
-                              block
-                              mt-2
-                              w-full
-                              rounded-md
-                              h-10
-                              border
-                              text-sm
-                              bg-white
-                              border-gray-300
-                              hover:shadow-sm
-                              focus:outline-none focus:border-gray-300
-                              p-2
-                            ">
+                                text-right
+                                block
+                                mt-2
+                                w-full
+                                rounded-md
+                                h-10
+                                border
+                                text-sm
+                                bg-white
+                                border-gray-300
+                                hover:shadow-sm
+                                focus:outline-none focus:border-gray-300
+                                p-2
+                              ">
                           {{ measureNameSelected }}
                         </button>
 
                         <div v-if="measureselect" class="
-                              border
-                              text-sm
-                              bg-white
-                              border-gray-300
-                              p-2
-                              absolute
-                              w-full
-                              z-20
-                              shadow
-                              h-24
-                              overflow-y-scroll
-                              rounded-b-md
-                            ">
-                          <button class="
-                                block
-                                focus:outline-none
+                                border
+                                text-sm
+                                bg-white
+                                border-gray-300
+                                p-2
+                                absolute
                                 w-full
-                                my-1
-                                text-right
-                              " @click="
-                                selectmeasure('', 'الكل');
-                              measureselect = !measureselect;
-                                                            ">
+                                z-20
+                                shadow
+                                h-24
+                                overflow-y-scroll
+                                rounded-b-md
+                              ">
+                          <button class="
+                                  block
+                                  focus:outline-none
+                                  w-full
+                                  my-1
+                                  text-right
+                                " @click="
+                                  selectmeasure('', 'الكل');
+                                measureselect = !measureselect;
+                                                                                              ">
                             الكل
                           </button>
 
                           <button class="
-                                block
-                                focus:outline-none
-                                w-full
-                                my-1
-                                text-right
-                              " @click="
-                                selectmeasure(
-                                  measure.measuresId,
-                                  measure.measuresName
-                                );
-                              measureselect = !measureselect;
-                                                            " v-for="measure in measures" :key="measure.measuresId">
+                                  block
+                                  focus:outline-none
+                                  w-full
+                                  my-1
+                                  text-right
+                                " @click="
+                                  selectmeasure(
+                                    measure.measuresId,
+                                    measure.measuresName
+                                  );
+                                measureselect = !measureselect;
+                                                                                              " v-for="measure in measures" :key="measure.measuresId">
                             {{ measure.measuresName }}
                           </button>
                         </div>
@@ -315,63 +306,63 @@
 
                       <div class="relative">
                         <button @click="mail_caseselect = !mail_caseselect" id="measure" class="
-                              text-right
-                              block
-                              mt-2
-                              w-full
-                              rounded-md
-                              h-10
-                              border
-                              text-sm
-                              bg-white
-                              border-gray-300
-                              hover:shadow-sm
-                              focus:outline-none focus:border-gray-300
-                              p-2
-                            ">
+                                text-right
+                                block
+                                mt-2
+                                w-full
+                                rounded-md
+                                h-10
+                                border
+                                text-sm
+                                bg-white
+                                border-gray-300
+                                hover:shadow-sm
+                                focus:outline-none focus:border-gray-300
+                                p-2
+                              ">
                           {{ mail_caseNameSelected }}
                         </button>
 
                         <div v-if="mail_caseselect" class="
-                              border
-                              text-sm
-                              bg-white
-                              border-gray-300
-                              p-2
-                              absolute
-                              w-full
-                              z-20
-                              shadow
-                              h-24
-                              overflow-y-scroll
-                              rounded-b-md
-                            ">
-                          <button class="
-                                block
-                                focus:outline-none
+                                border
+                                text-sm
+                                bg-white
+                                border-gray-300
+                                p-2
+                                absolute
                                 w-full
-                                my-1
-                                text-right
-                              " @click="
-                                select_mail_case('', 'الكل');
-                              mail_caseselect = !mail_caseselect;
-                                                            ">
+                                z-20
+                                shadow
+                                h-24
+                                overflow-y-scroll
+                                rounded-b-md
+                              ">
+                          <button class="
+                                  block
+                                  focus:outline-none
+                                  w-full
+                                  my-1
+                                  text-right
+                                " @click="
+                                  select_mail_case('', 'الكل');
+                                mail_caseselect = !mail_caseselect;
+                                                                                              ">
                             الكل
                           </button>
 
                           <button class="
-                                block
-                                focus:outline-none
-                                w-full
-                                my-1
-                                text-right
-                              " @click="
-                                select_mail_case(
-                                  mail_case.flag,
-                                  mail_case.statename
-                                );
-                              mail_caseselect = !mail_caseselect;
-                                                            " v-for="mail_case in mail_cases" :key="mail_case.flag">
+                                  block
+                                  focus:outline-none
+                                  w-full
+                                  my-1
+                                  text-right
+                                " @click="
+                                  select_mail_case(
+                                    mail_case.flag,
+                                    mail_case.statename
+                                  );
+                                mail_caseselect = !mail_caseselect;
+                                                                                              " v-for="mail_case in mail_cases" :key="mail_case.flag">
                             {{ mail_case.statename }}
                           </button>
                         </div>
@@ -385,63 +376,64 @@
 
                       <div class="relative">
                         <button @click="classificationselect = !classificationselect" id="classification" class="
-                              text-right
-                              block
-                              mt-2
-                              w-full
-                              rounded-md
-                              h-10
-                              border
-                              text-sm
-                              bg-white
-                              border-gray-300
-                              hover:shadow-sm
-                              focus:outline-none focus:border-gray-300
-                              p-2
-                            ">
+                                text-right
+                                block
+                                mt-2
+                                w-full
+                                rounded-md
+                                h-10
+                                border
+                                text-sm
+                                bg-white
+                                border-gray-300
+                                hover:shadow-sm
+                                focus:outline-none focus:border-gray-300
+                                p-2
+                              ">
                           {{ classificationNameSelected }}
                         </button>
 
                         <div v-if="classificationselect" class="
-                              border
-                              text-sm
-                              bg-white
-                              border-gray-300
-                              p-2
-                              absolute
-                              w-full
-                              z-20
-                              shadow
-                              h-24
-                              overflow-y-scroll
-                              rounded-b-md
-                            ">
-                          <button class="
-                                block
-                                focus:outline-none
+                                border
+                                text-sm
+                                bg-white
+                                border-gray-300
+                                p-2
+                                absolute
                                 w-full
-                                my-1
-                                text-right
-                              " @click="
-                                selectClassification('', 'الكل');
-                              classificationselect = !classificationselect;
-                                                            ">
+                                z-20
+                                shadow
+                                h-24
+                                overflow-y-scroll
+                                rounded-b-md
+                              ">
+                          <button class="
+                                  block
+                                  focus:outline-none
+                                  w-full
+                                  my-1
+                                  text-right
+                                " @click="
+                                  selectClassification('', 'الكل');
+                                classificationselect = !classificationselect;
+                                                                                              ">
                             الكل
                           </button>
 
                           <button class="
-                                block
-                                focus:outline-none
-                                w-full
-                                my-1
-                                text-right
-                              " @click="
-                                selectClassification(
-                                  classification.id,
-                                  classification.name
-                                );
-                              classificationselect = !classificationselect;
-                                                            " v-for="classification in classifications" :key="classification.id">
+                                  block
+                                  focus:outline-none
+                                  w-full
+                                  my-1
+                                  text-right
+                                " @click="
+                                  selectClassification(
+                                    classification.id,
+                                    classification.name
+                                  );
+                                classificationselect = !classificationselect;
+                                                                                              " v-for="classification in classifications"
+                            :key="classification.id">
                             {{ classification.name }}
                           </button>
                         </div>
@@ -453,17 +445,17 @@
                         جزء من الملخص
                       </label>
                       <input type="text" v-model="summary" id="summary" class="
-                            block
-                            mt-2
-                            w-full
-                            rounded-md
-                            h-10
-                            text-sm
-                            border border-gray-300
-                            hover:shadow-sm
-                            focus:outline-none focus:border-gray-300
-                            p-2
-                          " />
+                              block
+                              mt-2
+                              w-full
+                              rounded-md
+                              h-10
+                              text-sm
+                              border border-gray-300
+                              hover:shadow-sm
+                              focus:outline-none focus:border-gray-300
+                              p-2
+                            " />
                     </div>
 
                     <div class="sm:col-span-2" v-if="mailType != 1">
@@ -473,61 +465,61 @@
 
                       <div class="relative">
                         <button @keyup.space.prevent @click="sideselect = !sideselect" id="side" class="
-                              text-right
-                              block
-                              mt-2
-                              w-full
-                              rounded-md
-                              h-10
-                              border
-                              text-sm
-                              bg-white
-                              border-gray-300
-                              hover:shadow-sm
-                              focus:outline-none focus:border-gray-300
-                              p-2
-                            ">
+                                text-right
+                                block
+                                mt-2
+                                w-full
+                                rounded-md
+                                h-10
+                                border
+                                text-sm
+                                bg-white
+                                border-gray-300
+                                hover:shadow-sm
+                                focus:outline-none focus:border-gray-300
+                                p-2
+                              ">
                           <!-- {{ sideNameSelected }} -->
                           <input v-model="sideNameSelected" type="text" class="h-6 w-full" />
                         </button>
 
                         <div v-if="sideselect" class="
-                              border
-                              text-sm
-                              bg-white
-                              border-gray-300
-                              p-2
-                              absolute
-                              w-full
-                              z-20
-                              shadow
-                              h-24
-                              overflow-y-scroll
-                              rounded-b-md
-                            ">
-                          <button class="
-                                block
-                                focus:outline-none
+                                border
+                                text-sm
+                                bg-white
+                                border-gray-300
+                                p-2
+                                absolute
                                 w-full
-                                my-1
-                                text-right
-                              " @click="
-                                selectsides('', 'الكل');
-                              sideselect = !sideselect;
-                                                            ">
+                                z-20
+                                shadow
+                                h-24
+                                overflow-y-scroll
+                                rounded-b-md
+                              ">
+                          <button class="
+                                  block
+                                  focus:outline-none
+                                  w-full
+                                  my-1
+                                  text-right
+                                " @click="
+                                  selectsides('', 'الكل');
+                                sideselect = !sideselect;
+                                                                                              ">
                             الكل
                           </button>
 
                           <button class="
-                                block
-                                focus:outline-none
-                                w-full
-                                my-1
-                                text-right
-                              " @click="
-                                selectsides(side.id, side.section_Name);
-                              sideselect = !sideselect;
-                                                            " v-for="side in filterByTerm" :key="side.id">
+                                  block
+                                  focus:outline-none
+                                  w-full
+                                  my-1
+                                  text-right
+                                " @click="
+                                  selectsides(side.id, side.section_Name);
+                                sideselect = !sideselect;
+                                                                                              " v-for="side in filterByTerm" :key="side.id">
                             {{ side.section_Name }}
                           </button>
                         </div>
@@ -540,16 +532,16 @@
                       </label>
                       <input v-model="general_incoming_number" type="number" min="1" max="5000"
                         id="general_incoming_number" class="
-                            block
-                            mt-2
-                            h-10
-                            w-full
-                            rounded-md
-                            border border-gray-300
-                            hover:shadow-sm
-                            focus:outline-none focus:border-gray-300
-                            px-2
-                          " />
+                              block
+                              mt-2
+                              h-10
+                              w-full
+                              rounded-md
+                              border border-gray-300
+                              hover:shadow-sm
+                              focus:outline-none focus:border-gray-300
+                              px-2
+                            " />
                     </div>
 
                     <div class="sm:col-span-2">
@@ -557,17 +549,17 @@
                         حسب تاريخ الرد
                       </label>
                       <input v-model="by_date_of_reply" type="checkbox" id="by_date_of_reply" class="
-                            block
-                            mt-2
-                            h-10
-                            w-10
-                            overflow-hidden
-                            rounded-md
-                            border border-gray-300
-                            hover:shadow-sm
-                            focus:outline-none focus:border-gray-300
-                            px-2
-                          " />
+                              block
+                              mt-2
+                              h-10
+                              w-10
+                              overflow-hidden
+                              rounded-md
+                              border border-gray-300
+                              hover:shadow-sm
+                              focus:outline-none focus:border-gray-300
+                              px-2
+                            " />
                     </div>
 
                     <div class="sm:col-span-2">
@@ -576,22 +568,22 @@
                       </label>
 
                       <select id="small" class="
-                            block
-                            p-2
-                            mb-6
-                            w-28
-                            text-sm text-gray-900
-                            bg-gray-50
-                            rounded-lg
-                            border border-gray-300
-                            focus:ring-blue-500 focus:border-blue-500
-                            dark:bg-gray-700
-                            dark:border-gray-600
-                            dark:placeholder-gray-400
-                            dark:text-white
-                            dark:focus:ring-blue-500
-                            dark:focus:border-blue-500
-                          " v-model="year_filter">
+                              block
+                              p-2
+                              mb-6
+                              w-28
+                              text-sm text-gray-900
+                              bg-gray-50
+                              rounded-lg
+                              border border-gray-300
+                              focus:ring-blue-500 focus:border-blue-500
+                              dark:bg-gray-700
+                              dark:border-gray-600
+                              dark:placeholder-gray-400
+                              dark:text-white
+                              dark:focus:ring-blue-500
+                              dark:focus:border-blue-500
+                            " v-model="year_filter">
                         <option value="0" selected>اختر السنة</option>
                         <option value="0">إلغاء</option>
                         <option value="2023">2023</option>
@@ -649,30 +641,30 @@
               </div>
 
               <button v-if="roles.includes('m')" class="
-                    px-8
-                    mr-2
-                    w-2/12
-                    bg-green-700
-                    text-green-50
-                    rounded-md
-                    border border-green-300
-                    hover:bg-green-800
-                    focus:outline-none
-                    flex
-                    items-center
-                    justify-center
-                  " @click="GetMailsToPrint()">
+                      px-8
+                      mr-2
+                      w-2/12
+                      bg-green-700
+                      text-green-50
+                      rounded-md
+                      border border-green-300
+                      hover:bg-green-800
+                      focus:outline-none
+                      flex
+                      items-center
+                      justify-center
+                    " @click="GetMailsToPrint()">
                 <span class="text-sm font-bold block ml-1"> طباعة </span>
 
                 <svg class="
-                      h-5
-                      w-5
-                      mr-1
-                      text-white
-                      block
-                      fill-current
-                      hover:text-blue-500
-                    " id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512"
+                        h-5
+                        w-5
+                        mr-1
+                        text-white
+                        block
+                        fill-current
+                        hover:text-blue-500
+                      " id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512"
                   xmlns="http://www.w3.org/2000/svg">
                   <g>
                     <path
@@ -688,30 +680,30 @@
               </button>
 
               <button v-if="roles.includes('m') && !report_button" class="
-                    px-8
-                    mr-2
-                    w-2/12
-                    bg-green-700
-                    text-green-50
-                    rounded-md
-                    border border-green-300
-                    hover:bg-green-800
-                    focus:outline-none
-                    flex
-                    items-center
-                    justify-center
-                  " @click="print_report()">
+                      px-8
+                      mr-2
+                      w-2/12
+                      bg-green-700
+                      text-green-50
+                      rounded-md
+                      border border-green-300
+                      hover:bg-green-800
+                      focus:outline-none
+                      flex
+                      items-center
+                      justify-center
+                    " @click="print_report()">
                 <span class="text-sm font-bold block ml-1"> تقرير إحصائي </span>
 
                 <svg class="
-                      h-5
-                      w-5
-                      mr-1
-                      text-white
-                      block
-                      fill-current
-                      hover:text-blue-500
-                    " id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512"
+                        h-5
+                        w-5
+                        mr-1
+                        text-white
+                        block
+                        fill-current
+                        hover:text-blue-500
+                      " id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512"
                   xmlns="http://www.w3.org/2000/svg">
                   <g>
                     <path
@@ -732,14 +724,14 @@
                 <div class="w-5/12 ml-2 relative">
                   البريد
                   <div class="
-                        flex
-                        items-center
-                        bg-gray-100
-                        w-full
-                        text-sm
-                        pl-2
-                        mt-2
-                      ">
+                          flex
+                          items-center
+                          bg-gray-100
+                          w-full
+                          text-sm
+                          pl-2
+                          mt-2
+                        ">
                     <div class="w-9/12 flex items-center">
                       <div class="w-2/6 pr-4 py-1">رقم الرسالة</div>
                       <div class="w-2/6 pr-2">النوع</div>
@@ -752,14 +744,14 @@
 
                   <div id="handleScrollForAyoubTest" class="h-64 overflow-y-scroll text-sm bg-gray-100">
                     <div v-for="mail in inboxMails" :key="mail.mail_id" :class="mail.flag | mail_state_inbox" class="
-                          group
-                          border-r-8
-                          flex
-                          items-center
-                          bg-white
-                          hover:bg-gray-100
-                          pl-2
-                        ">
+                            group
+                            border-r-8
+                            flex
+                            items-center
+                            bg-white
+                            hover:bg-gray-100
+                            pl-2
+                          ">
                       <button @click="
                         show_senders(
                           mail.mail_id,
@@ -793,14 +785,14 @@
                               y="0px" viewBox="0 0 18.453 18.453" xml:space="preserve">
                               <rect x="2.711" y="4.058" width="8.23" height="1.334" />
                               <path d="M14.972,14.088c0.638-1.127,0.453-2.563-0.475-3.49c-0.549-0.549-1.279-0.852-2.058-0.852
-                                                                  c-0.779,0-1.51,0.303-2.059,0.852s-0.852,1.279-0.852,2.059c0,0.777,0.303,1.508,0.852,2.059c0.549,0.547,1.279,0.85,2.057,0.85
-                                                                  c0.507,0,0.998-0.129,1.434-0.375l3.262,3.262l1.101-1.102L14.972,14.088z M13.664,13.881c-0.652,0.652-1.796,0.652-2.448,0
-                                                                  c-0.675-0.676-0.675-1.773,0-2.449c0.326-0.326,0.762-0.506,1.225-0.506s0.897,0.18,1.224,0.506s0.507,0.762,0.507,1.225
-                                                                  S13.991,13.554,13.664,13.881z" />
+                                                                    c-0.779,0-1.51,0.303-2.059,0.852s-0.852,1.279-0.852,2.059c0,0.777,0.303,1.508,0.852,2.059c0.549,0.547,1.279,0.85,2.057,0.85
+                                                                    c0.507,0,0.998-0.129,1.434-0.375l3.262,3.262l1.101-1.102L14.972,14.088z M13.664,13.881c-0.652,0.652-1.796,0.652-2.448,0
+                                                                    c-0.675-0.676-0.675-1.773,0-2.449c0.326-0.326,0.762-0.506,1.225-0.506s0.897,0.18,1.224,0.506s0.507,0.762,0.507,1.225
+                                                                    S13.991,13.554,13.664,13.881z" />
                               <path d="M13.332,16.3H1.857c-0.182,0-0.329-0.148-0.329-0.328V1.638c0-0.182,0.147-0.329,0.329-0.329
-                                                                  h11.475c0.182,0,0.328,0.147,0.328,0.329V8.95c0.475,0.104,0.918,0.307,1.31,0.597V1.638C14.97,0.735,14.236,0,13.332,0H1.857
-                                                                  C0.954,0,0.219,0.735,0.219,1.638v14.334c0,0.902,0.735,1.637,1.638,1.637h11.475c0.685,0,1.009-0.162,1.253-0.76l-0.594-0.594
-                                                                  C13.772,16.347,13.426,16.3,13.332,16.3z" />
+                                                                    h11.475c0.182,0,0.328,0.147,0.328,0.329V8.95c0.475,0.104,0.918,0.307,1.31,0.597V1.638C14.97,0.735,14.236,0,13.332,0H1.857
+                                                                    C0.954,0,0.219,0.735,0.219,1.638v14.334c0,0.902,0.735,1.637,1.638,1.637h11.475c0.685,0,1.009-0.162,1.253-0.76l-0.594-0.594
+                                                                    C13.772,16.347,13.426,16.3,13.332,16.3z" />
                               <rect x="2.711" y="7.818" width="8.23" height="1.334" />
                             </svg>
                           </router-link>
@@ -828,23 +820,23 @@
                       </div>
 
                       <div class="
-                            group-hover:block
-                            items-end
-                            hidden
-                            absolute
-                            z-50
-                            w-full
-                            -top-24
-                            -left-0
-                            -right-0
-                            h-40
-                            bg-white
-                            p-2
-                            border-4 border-gray-300
-                            shadow-2xl
-                            rounded-md
-                            overflow-y-auto
-                          ">
+                              group-hover:block
+                              items-end
+                              hidden
+                              absolute
+                              z-50
+                              w-full
+                              -top-24
+                              -left-0
+                              -right-0
+                              h-40
+                              bg-white
+                              p-2
+                              border-4 border-gray-300
+                              shadow-2xl
+                              rounded-md
+                              overflow-y-auto
+                            ">
                         <p class="font-bold">ملخص الرسالة</p>
 
                         <p class="mt-2">
@@ -855,17 +847,17 @@
                   </div>
 
                   <div class="
-                        flex
-                        justify-end
-                        mt-8
-                        mx-auto
-                        px-4
-                        sm:px-6
-                        lg:px-8
-                        w-full
-                        bg-white
-                        relative
-                      ">
+                          flex
+                          justify-end
+                          mt-8
+                          mx-auto
+                          px-4
+                          sm:px-6
+                          lg:px-8
+                          w-full
+                          bg-white
+                          relative
+                        ">
                     <!-- <pagination
                       dir="rtl"
                       v-model="page_num"
@@ -876,19 +868,19 @@
                     /> -->
                     <div class="">
                       <div class="
-                            absolute
-                            z-0
-                            top-0
-                            py-2
-                            left-0
-                            w-full
-                            text-left
-                            p-1
-                            flex
-                            bg-white
-                            items-center
-                            justify-end
-                          ">
+                              absolute
+                              z-0
+                              top-0
+                              py-2
+                              left-0
+                              w-full
+                              text-left
+                              p-1
+                              flex
+                              bg-white
+                              items-center
+                              justify-end
+                            ">
                         <span class="text-xs ml-1"> عدد الرسائل </span>
                         {{ total_of_transaction }}
                       </div>
@@ -903,14 +895,14 @@
                     <span class="font-bold">{{ show_senders_mail }}</span>
                   </span>
                   <div class="
-                        flex
-                        items-center
-                        bg-gray-100
-                        w-full
-                        text-sm
-                        pl-2
-                        mt-2
-                      ">
+                          flex
+                          items-center
+                          bg-gray-100
+                          w-full
+                          text-sm
+                          pl-2
+                          mt-2
+                        ">
                     <div class="w-3/12 py-1 pr-1">اسم الإدارة</div>
                     <div class="w-2/12">تاريخ الإرسال</div>
                     <div class="w-2/12">وقت الإرسال</div>
@@ -921,22 +913,22 @@
                   </div>
 
                   <div class="
-                        min-h-64
-                        h-full
-                        overflow-y-auto
-                        max-h-64
-                        text-sm
-                        bg-gray-100
-                      ">
+                          min-h-64
+                          h-full
+                          overflow-y-auto
+                          max-h-64
+                          text-sm
+                          bg-gray-100
+                        ">
                     <div v-for="sender in senders" :key="sender.department_id" :class="sender.flag | mail_state_inbox"
                       class="
-                          group
-                          relative
-                          border-r-8
-                          bg-white
-                          hover:bg-gray-100
-                          pl-2
-                        ">
+                            group
+                            relative
+                            border-r-8
+                            bg-white
+                            hover:bg-gray-100
+                            pl-2
+                          ">
                       <button @click="
                         to_pass_data_to_get_mail_by_id(
                           sender.department_id,
@@ -985,13 +977,13 @@
                 </p>
 
                 <div id="scroll" class="
-                      h-72
-                      overflow-y-scroll
-                      mt-4
-                      rounded-lg
-                      py-2
-                      border border-gray-300
-                    ">
+                        h-72
+                        overflow-y-scroll
+                        mt-4
+                        rounded-lg
+                        py-2
+                        border border-gray-300
+                      ">
                   <div v-for="(reply, index) in replies" :key="index" :class="
                     reply.reply.to == my_department_id
                       ? ' flex-row-reverse justify-start'
@@ -1009,22 +1001,23 @@
 
 
                         <button v-if="reply.reply.to != my_department_id && reply.reply.userId == my_user_id"
-                          @click="alert_delete_document = true, reply_id_to_delete = reply.reply.replyId" type="button" class="
+                          @click="alert_delete_document = true, reply_id_to_delete = reply.reply.replyId" type="button"
+                          class="
                                 
-                                  hover:bg-red-500
-                                  duration-500
-                                  p-1
-                                  rounded-full
-                                  focus:outline-none
-                                  ml-2
-                                ">
+                                    hover:bg-red-500
+                                    duration-500
+                                    p-1
+                                    rounded-full
+                                    focus:outline-none
+                                    ml-2
+                                  ">
                           <svg class="
-                                    w-4
-                                    h-4
-                                    stroke-current
-                                    text-red
-                                    mx-auto
-                                  " width="24" height="25" viewBox="0 0 24 25" fill="none"
+                                      w-4
+                                      h-4
+                                      stroke-current
+                                      text-red
+                                      mx-auto
+                                    " width="24" height="25" viewBox="0 0 24 25" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path d="M3 6.5H5H21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             <path
@@ -1037,26 +1030,26 @@
 
 
                         <div v-if="alert_delete_document" class="
-          w-screen
-          h-full
-          flex
-          justify-center
-          items-center
-          absolute
-          inset-0
-          z-50
-          overflow-hidden
-          bg-black bg-opacity-70
-        ">
-                          <div class="
-            bg-yellow-100
-            rounded-md
-            w-1/3
-            py-10
-            flex flex-col
+            w-screen
+            h-full
+            flex
             justify-center
             items-center
+            absolute
+            inset-0
+            z-50
+            overflow-hidden
+            bg-black bg-opacity-70
           ">
+                          <div class="
+              bg-yellow-100
+              rounded-md
+              w-1/3
+              py-10
+              flex flex-col
+              justify-center
+              items-center
+            ">
                             <div class="">
                               <svg class="w-20 h-20 stroke-current text-red-600" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1070,27 +1063,27 @@
 
                             <div class="mt-6">
                               <button @click="deletereply()" class="
-                bg-red-600
-                hover:bg-red-700 hover:shadow-lg
-                duration-200
-                rounded
-                text-white
-                w-32
-                py-1
-                ml-2
-              ">
+                  bg-red-600
+                  hover:bg-red-700 hover:shadow-lg
+                  duration-200
+                  rounded
+                  text-white
+                  w-32
+                  py-1
+                  ml-2
+                ">
                                 نعم متأكد
                               </button>
                               <button @click="alert_delete_document = false" class="
-                bg-gray-400
-                hover:bg-gray-700 hover:shadow-lg
-                duration-200
-                rounded
-                text-white
-                w-32
-                py-1
-                mr-2
-              ">
+                  bg-gray-400
+                  hover:bg-gray-700 hover:shadow-lg
+                  duration-200
+                  rounded
+                  text-white
+                  w-32
+                  py-1
+                  mr-2
+                ">
                                 إلغاء
                               </button>
                             </div>
@@ -1100,15 +1093,15 @@
 
                         <div v-if="reply.resources == true" class="mx-2">
                           <button v-if="roles.includes('g')" @click="GetResources_ById(reply.reply.replyId)" class="
-                                px-2
-                                text-xs
-                                rounded
-                                leading-9
-                                text-white
-                                bg-red-400
-                                flex
-                                items-center
-                              ">
+                                  px-2
+                                  text-xs
+                                  rounded
+                                  leading-9
+                                  text-white
+                                  bg-red-400
+                                  flex
+                                  items-center
+                                ">
                             عرض الصور
                             <svg class="stroke-current mr-2 w-6 h-6" width="24" height="24" viewBox="0 0 24 24"
                               fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1129,13 +1122,13 @@
                             ? 'bg-gray-700'
                             : 'bg-blue-700'
                         " class="
-                              text-white
-                              max-w-10/12
-                              py-0
-                              leading-9
-                              px-2
-                              rounded
-                            ">
+                                text-white
+                                max-w-10/12
+                                py-0
+                                leading-9
+                                px-2
+                                rounded
+                              ">
                           {{ reply.reply.mail_detail }}
                         </div>
                       </div>
@@ -1155,38 +1148,38 @@
                   <div class="w-9/12 flex justify-between">
                     <div class="w-10/12">
                       <textarea id="" class="
-                            block
-                            w-full
-                            h-20
-                            text-sm
-                            rounded-md
-                            border border-gray-200
-                            hover:shadow-sm
-                            focus:outline-none focus:border-gray-300
-                            p-2
-                          " v-model="reply_to_add">
-                        </textarea>
+                              block
+                              w-full
+                              h-20
+                              text-sm
+                              rounded-md
+                              border border-gray-200
+                              hover:shadow-sm
+                              focus:outline-none focus:border-gray-300
+                              p-2
+                            " v-model="reply_to_add">
+                          </textarea>
                     </div>
 
                     <div class="w-2/12 mr-4">
                       <!--  <input class="hidden" type="button" @click="scanToJpg" />-->
                       <a id="a3" @click="reply1()">
                         <label v-if="reply_to_add != ''" class="
-                              w-48
-                              h-full
-                              flex
-                              justify-center
-                              items-center
-                              py-2
-                              bg-white
-                              rounded-lg
-                              tracking-wide
-                              border border-green-600
-                              cursor-pointer
-                              hover:text-white hover:bg-green-600
-                              focus:outline-none
-                              duration-300
-                            ">
+                                w-48
+                                h-full
+                                flex
+                                justify-center
+                                items-center
+                                py-2
+                                bg-white
+                                rounded-lg
+                                tracking-wide
+                                border border-green-600
+                                cursor-pointer
+                                hover:text-white hover:bg-green-600
+                                focus:outline-none
+                                duration-300
+                              ">
                           <svg class="w-5 h-5 ml-2" fill="currentColor" version="1.1" id="Capa_1"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                             viewBox="0 0 512 512" style="enable-background: new 0 0 512 512" xml:space="preserve">
@@ -1194,54 +1187,54 @@
                               <g>
                                 <g>
                                   <path d="M509.501,116.968c1.6-1.6,2.499-3.771,2.499-6.035V76.8c-0.019-1.015-0.222-2.019-0.598-2.962
-                                                c-0.076-0.203-0.14-0.399-0.23-0.595c-0.391-0.864-0.925-1.655-1.579-2.342c-0.123-0.128-0.265-0.221-0.396-0.341
-                                                c-0.309-0.312-0.643-0.6-0.997-0.86l-102.4-68.267C404.399,0.499,402.752,0,401.067,0H110.933
-                                                c-1.685,0.001-3.331,0.499-4.733,1.434L3.8,69.7c-0.354,0.26-0.688,0.548-0.997,0.86c-0.131,0.12-0.273,0.214-0.396,0.341
-                                                c-0.654,0.687-1.188,1.478-1.579,2.342c-0.091,0.195-0.154,0.392-0.23,0.595C0.222,74.781,0.019,75.785,0,76.8v34.133
-                                                c-0.001,2.263,0.898,4.434,2.499,6.035c1.6,1.6,3.771,2.499,6.035,2.499h73.225L0.496,347c-0.114,0.476-0.184,0.961-0.21,1.449
-                                                c-0.138,0.463-0.233,0.937-0.286,1.417V435.2c0.028,23.553,19.114,42.639,42.667,42.667h17.067v17.067
-                                                c0.011,9.421,7.645,17.056,17.067,17.067h358.4c9.421-0.011,17.056-7.645,17.067-17.067v-17.067h17.067
-                                                c23.553-0.028,42.639-19.114,42.667-42.667v-85.333c-0.218-0.946-0.383-1.903-0.496-2.867l-81.262-227.533h73.225
-                                                C505.73,119.467,507.901,118.568,509.501,116.968z M113.517,17.067h284.967l76.8,51.2H36.717L113.517,17.067z M76.8,494.933
-                                                v-17.067h358.404l0.008,17.067H76.8z M494.933,435.2c-0.015,14.132-11.468,25.585-25.6,25.6H42.667
-                                                c-14.132-0.015-25.585-11.468-25.6-25.6v-76.8H128v42.667c0.015,14.132,11.468,25.585,25.6,25.6h204.8
-                                                c14.132-0.015,25.585-11.468,25.6-25.6V358.4h110.933V435.2z M164.632,390.035c1.6,1.6,3.771,2.499,6.035,2.499h170.667
-                                                c2.263,0.001,4.434-0.898,6.035-2.499c1.6-1.6,2.499-3.771,2.499-6.035v-25.6h17.067v42.667
-                                                c-0.005,4.711-3.822,8.529-8.533,8.533H153.6c-4.711-0.005-8.529-3.822-8.533-8.533V358.4h17.067V384
-                                                C162.133,386.263,163.032,388.434,164.632,390.035z M179.2,375.467V358.4h17.067v17.067H179.2z M213.333,375.467V358.4H230.4
-                                                v17.067H213.333z M247.467,375.467V358.4h17.067v17.067H247.467z M281.6,375.467V358.4h17.067v17.067H281.6z M315.733,375.467
-                                                V358.4H332.8v17.067H315.733z M491.358,341.333H20.642L99.88,119.467h312.24L491.358,341.333z M494.933,102.4H17.067V85.333
-                                                h477.867V102.4z" />
+                                                  c-0.076-0.203-0.14-0.399-0.23-0.595c-0.391-0.864-0.925-1.655-1.579-2.342c-0.123-0.128-0.265-0.221-0.396-0.341
+                                                  c-0.309-0.312-0.643-0.6-0.997-0.86l-102.4-68.267C404.399,0.499,402.752,0,401.067,0H110.933
+                                                  c-1.685,0.001-3.331,0.499-4.733,1.434L3.8,69.7c-0.354,0.26-0.688,0.548-0.997,0.86c-0.131,0.12-0.273,0.214-0.396,0.341
+                                                  c-0.654,0.687-1.188,1.478-1.579,2.342c-0.091,0.195-0.154,0.392-0.23,0.595C0.222,74.781,0.019,75.785,0,76.8v34.133
+                                                  c-0.001,2.263,0.898,4.434,2.499,6.035c1.6,1.6,3.771,2.499,6.035,2.499h73.225L0.496,347c-0.114,0.476-0.184,0.961-0.21,1.449
+                                                  c-0.138,0.463-0.233,0.937-0.286,1.417V435.2c0.028,23.553,19.114,42.639,42.667,42.667h17.067v17.067
+                                                  c0.011,9.421,7.645,17.056,17.067,17.067h358.4c9.421-0.011,17.056-7.645,17.067-17.067v-17.067h17.067
+                                                  c23.553-0.028,42.639-19.114,42.667-42.667v-85.333c-0.218-0.946-0.383-1.903-0.496-2.867l-81.262-227.533h73.225
+                                                  C505.73,119.467,507.901,118.568,509.501,116.968z M113.517,17.067h284.967l76.8,51.2H36.717L113.517,17.067z M76.8,494.933
+                                                  v-17.067h358.404l0.008,17.067H76.8z M494.933,435.2c-0.015,14.132-11.468,25.585-25.6,25.6H42.667
+                                                  c-14.132-0.015-25.585-11.468-25.6-25.6v-76.8H128v42.667c0.015,14.132,11.468,25.585,25.6,25.6h204.8
+                                                  c14.132-0.015,25.585-11.468,25.6-25.6V358.4h110.933V435.2z M164.632,390.035c1.6,1.6,3.771,2.499,6.035,2.499h170.667
+                                                  c2.263,0.001,4.434-0.898,6.035-2.499c1.6-1.6,2.499-3.771,2.499-6.035v-25.6h17.067v42.667
+                                                  c-0.005,4.711-3.822,8.529-8.533,8.533H153.6c-4.711-0.005-8.529-3.822-8.533-8.533V358.4h17.067V384
+                                                  C162.133,386.263,163.032,388.434,164.632,390.035z M179.2,375.467V358.4h17.067v17.067H179.2z M213.333,375.467V358.4H230.4
+                                                  v17.067H213.333z M247.467,375.467V358.4h17.067v17.067H247.467z M281.6,375.467V358.4h17.067v17.067H281.6z M315.733,375.467
+                                                  V358.4H332.8v17.067H315.733z M491.358,341.333H20.642L99.88,119.467h312.24L491.358,341.333z M494.933,102.4H17.067V85.333
+                                                  h477.867V102.4z" />
                                   <path d="M68.267,375.467H51.2c-9.421,0.011-17.056,7.646-17.067,17.067V409.6c0.011,9.421,7.645,17.056,17.067,17.067h17.067
-                                                c9.421-0.011,17.056-7.645,17.067-17.067v-17.067C85.323,383.112,77.688,375.477,68.267,375.467z M51.2,409.6v-17.067h17.067
-                                                l0.012,17.067H51.2z" />
+                                                  c9.421-0.011,17.056-7.645,17.067-17.067v-17.067C85.323,383.112,77.688,375.477,68.267,375.467z M51.2,409.6v-17.067h17.067
+                                                  l0.012,17.067H51.2z" />
                                   <path d="M388.067,136.533H123.933c-7.21,0.012-13.639,4.545-16.071,11.333L53,301.458c-1.863,5.227-1.07,11.034,2.127,15.57
-                                                s8.399,7.236,13.948,7.238h373.85c5.548-0.003,10.748-2.701,13.945-7.235c3.197-4.534,3.991-10.339,2.13-15.565l-54.862-153.6
-                                                C401.705,141.079,395.277,136.546,388.067,136.533z M69.067,307.225l0.009-0.017V307.2l54.858-153.6h264.129l54.862,153.6
-                                                L69.067,307.225z" />
+                                                  s8.399,7.236,13.948,7.238h373.85c5.548-0.003,10.748-2.701,13.945-7.235c3.197-4.534,3.991-10.339,2.13-15.565l-54.862-153.6
+                                                  C401.705,141.079,395.277,136.546,388.067,136.533z M69.067,307.225l0.009-0.017V307.2l54.858-153.6h264.129l54.862,153.6
+                                                  L69.067,307.225z" />
                                   <path
                                     d="M128.009,221.867c1.682-0.001,3.326-0.5,4.725-1.434l25.6-17.067c3.872-2.633,4.899-7.894,2.302-11.79
-                                                s-7.849-4.971-11.768-2.409l-25.6,17.067c-3.13,2.087-4.524,5.977-3.432,9.577C120.927,219.41,124.247,221.87,128.009,221.867z" />
+                                                  s-7.849-4.971-11.768-2.409l-25.6,17.067c-3.13,2.087-4.524,5.977-3.432,9.577C120.927,219.41,124.247,221.87,128.009,221.867z" />
                                   <path
                                     d="M179.2,187.733c2.855,0.03,5.532-1.385,7.115-3.761c1.584-2.376,1.86-5.39,0.735-8.014
-                                                c-1.031-2.685-3.362-4.656-6.181-5.227c-2.819-0.571-5.733,0.338-7.728,2.41c-0.755,0.829-1.363,1.782-1.796,2.817
-                                                c-1.122,2.625-0.844,5.639,0.74,8.013C173.67,186.346,176.346,187.761,179.2,187.733z" />
+                                                  c-1.031-2.685-3.362-4.656-6.181-5.227c-2.819-0.571-5.733,0.338-7.728,2.41c-0.755,0.829-1.363,1.782-1.796,2.817
+                                                  c-1.122,2.625-0.844,5.639,0.74,8.013C173.67,186.346,176.346,187.761,179.2,187.733z" />
                                   <path d="M225.542,172.183l-110.933,76.8c-3.071,2.125-4.403,6.001-3.287,9.565c1.116,3.564,4.419,5.989,8.154,5.984
-                                                c1.733,0.001,3.426-0.529,4.85-1.517l110.933-76.8c3.864-2.687,4.824-7.996,2.144-11.865
-                                                C234.723,170.482,229.417,169.512,225.542,172.183z" />
+                                                  c1.733,0.001,3.426-0.529,4.85-1.517l110.933-76.8c3.864-2.687,4.824-7.996,2.144-11.865
+                                                  C234.723,170.482,229.417,169.512,225.542,172.183z" />
                                   <path
                                     d="M463.275,407.125c0.829,0.753,1.78,1.359,2.813,1.792c2.066,0.911,4.421,0.911,6.487,0
-                                                c1.034-0.433,1.987-1.039,2.817-1.792c0.751-0.832,1.357-1.784,1.792-2.817c0.438-1.026,0.67-2.127,0.683-3.242
-                                                c-0.016-0.545-0.073-1.088-0.171-1.625c-0.082-0.563-0.255-1.109-0.513-1.617c-0.187-0.546-0.447-1.064-0.771-1.542
-                                                c-0.313-0.446-0.654-0.872-1.021-1.275c-0.816-0.771-1.772-1.379-2.817-1.792c-3.177-1.341-6.849-0.634-9.3,1.792l-1.025,1.275
-                                                c-0.324,0.477-0.583,0.996-0.771,1.542c-0.258,0.507-0.43,1.053-0.508,1.617c-0.1,0.536-0.157,1.08-0.171,1.625
-                                                c0.012,1.115,0.243,2.216,0.679,3.242C461.914,405.342,462.521,406.295,463.275,407.125z" />
+                                                  c1.034-0.433,1.987-1.039,2.817-1.792c0.751-0.832,1.357-1.784,1.792-2.817c0.438-1.026,0.67-2.127,0.683-3.242
+                                                  c-0.016-0.545-0.073-1.088-0.171-1.625c-0.082-0.563-0.255-1.109-0.513-1.617c-0.187-0.546-0.447-1.064-0.771-1.542
+                                                  c-0.313-0.446-0.654-0.872-1.021-1.275c-0.816-0.771-1.772-1.379-2.817-1.792c-3.177-1.341-6.849-0.634-9.3,1.792l-1.025,1.275
+                                                  c-0.324,0.477-0.583,0.996-0.771,1.542c-0.258,0.507-0.43,1.053-0.508,1.617c-0.1,0.536-0.157,1.08-0.171,1.625
+                                                  c0.012,1.115,0.243,2.216,0.679,3.242C461.914,405.342,462.521,406.295,463.275,407.125z" />
                                   <path d="M431.954,408.916c2.067,0.911,4.421,0.911,6.487,0c1.034-0.433,1.987-1.039,2.817-1.792
-                                                c0.751-0.832,1.357-1.784,1.792-2.817c0.437-1.025,0.669-2.126,0.683-3.241c-0.016-0.545-0.073-1.088-0.171-1.625
-                                                c-0.082-0.563-0.255-1.109-0.513-1.617c-0.187-0.546-0.447-1.064-0.771-1.542c-0.338-0.425-0.679-0.85-1.021-1.275
-                                                c-0.83-0.753-1.783-1.359-2.817-1.792c-3.178-1.333-6.845-0.626-9.3,1.792l-1.025,1.275c-0.324,0.477-0.583,0.996-0.771,1.542
-                                                c-0.258,0.507-0.43,1.053-0.508,1.617c-0.1,0.536-0.157,1.08-0.171,1.625c-0.029,1.119,0.204,2.229,0.679,3.242
-                                                C428.126,406.449,429.813,408.136,431.954,408.916z" />
+                                                  c0.751-0.832,1.357-1.784,1.792-2.817c0.437-1.025,0.669-2.126,0.683-3.241c-0.016-0.545-0.073-1.088-0.171-1.625
+                                                  c-0.082-0.563-0.255-1.109-0.513-1.617c-0.187-0.546-0.447-1.064-0.771-1.542c-0.338-0.425-0.679-0.85-1.021-1.275
+                                                  c-0.83-0.753-1.783-1.359-2.817-1.792c-3.178-1.333-6.845-0.626-9.3,1.792l-1.025,1.275c-0.324,0.477-0.583,0.996-0.771,1.542
+                                                  c-0.258,0.507-0.43,1.053-0.508,1.617c-0.1,0.536-0.157,1.08-0.171,1.625c-0.029,1.119,0.204,2.229,0.679,3.242
+                                                  C428.126,406.449,429.813,408.136,431.954,408.916z" />
                                 </g>
                               </g>
                             </g>
@@ -1255,22 +1248,22 @@
 
                   <div class="w-2/12 mr-4">
                     <button v-if="reply_to_add != ''" @click="AddReply()" class="
-                          w-full
-                          flex
-                          items-center
-                          justify-center
-                          h-20
-                          py-2
-                          bg-white
-                          rounded-lg
-                          text-blue-600
-                          tracking-wide
-                          border border-blue-600
-                          cursor-pointer
-                          hover:text-white hover:bg-blue-600
-                          focus:outline-none
-                          duration-300
-                        ">
+                            w-full
+                            flex
+                            items-center
+                            justify-center
+                            h-20
+                            py-2
+                            bg-white
+                            rounded-lg
+                            text-blue-600
+                            tracking-wide
+                            border border-blue-600
+                            cursor-pointer
+                            hover:text-white hover:bg-blue-600
+                            focus:outline-none
+                            duration-300
+                          ">
                       <span class="leading-normal">إرسال</span>
                       <svg class="w-6 h-6 mr-2" viewBox="0 0 441 441" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
@@ -1295,16 +1288,16 @@
       </div>
     </div>
     <div v-if="screenFreeze" class="
-          w-screen
-          h-screen
-          bg-black bg-opacity-30
-          absolute
-          inset-0
-          z-50
-          flex
-          justify-center
-          items-center
-        ">
+            w-screen
+            h-screen
+            bg-black bg-opacity-30
+            absolute
+            inset-0
+            z-50
+            flex
+            justify-center
+            items-center
+          ">
       <div v-if="loading" class="">
         <svgLoadingComponent></svgLoadingComponent>
       </div>
@@ -1329,27 +1322,27 @@
         </div>
 
         <div class="
-              h-screen
-              flex flex-col
-              justify-center
-              items-center
-              bg-black bg-opacity-90
-              absolute
-              top-0
-              inset-0
-              z-50
-              w-full
-            ">
+                h-screen
+                flex flex-col
+                justify-center
+                items-center
+                bg-black bg-opacity-90
+                absolute
+                top-0
+                inset-0
+                z-50
+                w-full
+              ">
           <div class="max-w-3xl mx-auto relative">
             <div class="
-                  absolute
-                  top-6
-                  z-50
-                  flex
-                  justify-between
-                  items-center
-                  w-full
-                ">
+                    absolute
+                    top-6
+                    z-50
+                    flex
+                    justify-between
+                    items-center
+                    w-full
+                  ">
               <button @click="show_images_model = false">
                 <svg class="w-8 h-8 stroke-current text-red-500 hover:text-red-400" fill="none" stroke="currentColor"
                   viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1359,24 +1352,24 @@
               </button>
 
               <button v-if="roles.includes('k')" @click="print_image()" v-print="'#print_one_dec'" class="
-                    bg-blue-500
-                    hover:bg-blue-400
-                    px-4
-                    py-2
-                    rounded-lg
-                    text-white
-                  ">
+                      bg-blue-500
+                      hover:bg-blue-400
+                      px-4
+                      py-2
+                      rounded-lg
+                      text-white
+                    ">
                 طباعة المستند الحالي
               </button>
 
               <button v-if="roles.includes('k')" @click="print_image()" v-print="'#printMe'" class="
-                    bg-blue-500
-                    hover:bg-blue-400
-                    px-4
-                    py-2
-                    rounded-lg
-                    text-white
-                  ">
+                      bg-blue-500
+                      hover:bg-blue-400
+                      px-4
+                      py-2
+                      rounded-lg
+                      text-white
+                    ">
                 طباعة كافة المستندات
               </button>
             </div>
@@ -1386,28 +1379,28 @@
             </div>
 
             <div class="
-                  absolute
-                  bottom-3
-                  z-50
-                  bg-gray-100
-                  flex
-                  justify-between
-                  items-center
-                  w-full
-                  mx-auto
-                  mt-4
-                ">
+                    absolute
+                    bottom-3
+                    z-50
+                    bg-gray-100
+                    flex
+                    justify-between
+                    items-center
+                    w-full
+                    mx-auto
+                    mt-4
+                  ">
               <div v-if="testimage" class="w-12 h-8">
                 <button title="prev" @click="previousImage()" class="
-                      focus:outline-none
-                      w-12
-                      h-8
-                      bg-gray-300
-                      rounded
-                      flex
-                      justify-center
-                      items-center
-                    ">
+                        focus:outline-none
+                        w-12
+                        h-8
+                        bg-gray-300
+                        rounded
+                        flex
+                        justify-center
+                        items-center
+                      ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -1421,15 +1414,15 @@
 
               <div class="w-12 h-8">
                 <button title="next" @click="nextImage()" class="
-                      focus:outline-none
-                      w-12
-                      h-8
-                      bg-gray-300
-                      rounded
-                      flex
-                      justify-center
-                      items-center
-                    ">
+                        focus:outline-none
+                        w-12
+                        h-8
+                        bg-gray-300
+                        rounded
+                        flex
+                        justify-center
+                        items-center
+                      ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -1454,27 +1447,27 @@
         </div>
 
         <div class="
-              h-screen
-              flex flex-col
-              justify-center
-              items-center
-              bg-black bg-opacity-90
-              absolute
-              top-0
-              inset-0
-              z-50
-              w-full
-            ">
+                h-screen
+                flex flex-col
+                justify-center
+                items-center
+                bg-black bg-opacity-90
+                absolute
+                top-0
+                inset-0
+                z-50
+                w-full
+              ">
           <div class="max-w-3xl mx-auto relative">
             <div class="
-                  absolute
-                  top-6
-                  z-50
-                  flex
-                  justify-between
-                  items-center
-                  w-full
-                ">
+                    absolute
+                    top-6
+                    z-50
+                    flex
+                    justify-between
+                    items-center
+                    w-full
+                  ">
               <button @click="
                 show_current_reply_image_to_for_bigger_screen_model = false
               ">
@@ -1486,13 +1479,13 @@
               </button>
 
               <button v-if="roles.includes('k')" v-print="'#print_reply_doc_n'" class="
-                    bg-blue-500
-                    hover:bg-blue-400
-                    px-4
-                    py-2
-                    rounded-lg
-                    text-white
-                  ">
+                      bg-blue-500
+                      hover:bg-blue-400
+                      px-4
+                      py-2
+                      rounded-lg
+                      text-white
+                    ">
                 طباعة المستند الحالي
               </button>
             </div>
@@ -1502,28 +1495,28 @@
             </div>
 
             <div class="
-                  absolute
-                  bottom-3
-                  z-50
-                  bg-gray-100
-                  flex
-                  justify-between
-                  items-center
-                  w-full
-                  mx-auto
-                  mt-4
-                ">
+                    absolute
+                    bottom-3
+                    z-50
+                    bg-gray-100
+                    flex
+                    justify-between
+                    items-center
+                    w-full
+                    mx-auto
+                    mt-4
+                  ">
               <div class="w-12 h-8">
                 <button title="prev" v-if="reply_doc_number > 1" @click="Next_prevent_GetResources_ById('prev')" class="
-                      focus:outline-none
-                      w-12
-                      h-8
-                      bg-gray-300
-                      rounded
-                      flex
-                      justify-center
-                      items-center
-                    ">
+                        focus:outline-none
+                        w-12
+                        h-8
+                        bg-gray-300
+                        rounded
+                        flex
+                        justify-center
+                        items-center
+                      ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -1538,15 +1531,15 @@
               <div class="w-12 h-8">
                 <button v-if="reply_doc_number < reply_total_of_doc" title="next"
                   @click="Next_prevent_GetResources_ById('next')" class="
-                      focus:outline-none
-                      w-12
-                      h-8
-                      bg-gray-300
-                      rounded
-                      flex
-                      justify-center
-                      items-center
-                    ">
+                        focus:outline-none
+                        w-12
+                        h-8
+                        bg-gray-300
+                        rounded
+                        flex
+                        justify-center
+                        items-center
+                      ">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
