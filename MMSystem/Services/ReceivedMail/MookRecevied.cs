@@ -237,7 +237,7 @@ namespace MMSystem.Services.ReceivedMail
                                          (x.flag > 0) &&
                                         ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                         (x.flag == mail_state || State_filter == true) && x.sends_state == true
-                                           && (((x.external_sectionid == TheSection || x.externalInbox_sectionid == TheSection) || sectionstate == true)) && ((Replay_Date == true && x.replay_State == true && x.replay_isSend == true && x.replay_To == mangment) || rep_all == true))
+                                           && ((Replay_Date == true && x.replay_State == true && x.replay_isSend == true && x.replay_To == mangment) || rep_all == true))
 
 
 
@@ -247,9 +247,10 @@ namespace MMSystem.Services.ReceivedMail
 
                          join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true) && x.state == true) on mail.tomangment equals n.Id
 
+                         join ex_dep in dbcon.external_Departments.Where(x => (x.state == true && x.side_number == TheSection) || sectionstate == true) on mail.mail_id equals ex_dep.Mail_id
 
 
-                         select  new Sended_Maill()
+                         select new Sended_Maill()
                          {
                             
                              replay_State = mail == null ? false : mail.replay_State,
