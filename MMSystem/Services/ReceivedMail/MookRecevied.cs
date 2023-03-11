@@ -195,9 +195,15 @@ namespace MMSystem.Services.ReceivedMail
                                 into re
                                 from rep in re.DefaultIfEmpty()
 
+
+                                join ex_dep in dbcon.external_Departments on mail.MailID equals ex_dep.Mail_id
+                                 into ex_de
+                                from exde in ex_de.DefaultIfEmpty()
+
                                 select new Sended_Maill()
                                 {
-                                   
+                                   side_number=exde ==null? 0: exde.side_number,
+                                   exdep_state=exde == null? false : exde.state,
                                     replay_State = rep == null ? false : rep.state,
                                     replay_isSend = rep == null ? false : rep.IsSend,
                                     replay_To = rep == null ? 0 : rep.To,
@@ -237,7 +243,7 @@ namespace MMSystem.Services.ReceivedMail
                                          (x.flag > 0) &&
                                         ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                         (x.flag == mail_state || State_filter == true) && x.sends_state == true
-                                           && ((Replay_Date == true && x.replay_State == true && x.replay_isSend == true && x.replay_To == mangment) || rep_all == true))
+                                           && (((x.exdep_state == true && x.side_number == TheSection) || sectionstate == true))&&((Replay_Date == true && x.replay_State == true && x.replay_isSend == true && x.replay_To == mangment) || rep_all == true))
 
 
 
@@ -247,12 +253,13 @@ namespace MMSystem.Services.ReceivedMail
 
                          join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true) && x.state == true) on mail.tomangment equals n.Id
 
-                         join ex_dep in dbcon.external_Departments.Where(x => (x.state == true && x.side_number == TheSection) || sectionstate == true) on mail.mail_id equals ex_dep.Mail_id
 
 
                          select new Sended_Maill()
                          {
                             
+                            side_number=mail== null ? 0: mail.side_number,
+                            exdep_state=mail ==null? false:mail.exdep_state,
                              replay_State = mail == null ? false : mail.replay_State,
                              replay_isSend = mail == null ? false : mail.replay_isSend,
                              replay_To = mail == null ? 0 : mail.replay_To,
