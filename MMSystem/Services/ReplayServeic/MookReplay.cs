@@ -576,7 +576,8 @@ namespace MMSystem.Services.ReplayServeic
 
         }
 
-        public async Task<int> AddReplayWithPhoto(ReplayPhotoVM replay)
+        // public async Task<int> AddReplayWithPhoto(ReplayPhotoVM replay)
+        public async Task<Replayid> AddReplayWithPhoto(ReplayPhotoVM replay)
         {
             try
             {
@@ -589,6 +590,11 @@ namespace MMSystem.Services.ReplayServeic
                 if (reply1 != null) { reply.reply = reply1; reply.reply.mail_detail = replay.reply.mail_detail; } else { reply.reply = replay.reply; }
                 
                 bool result = await AddReplay(reply);
+
+                //***********5/3/2023
+                Replayid replayid = new Replayid();
+
+                //*******end 5/3/2023
 
                 if (result)
                 {
@@ -608,9 +614,23 @@ namespace MMSystem.Services.ReplayServeic
 
                         if (res1)
                         {
-                            return 1;
+                            //*******5/3/2023
+                            //return 1;
+                            replayid.result1 = 1;
+                            replayid.replyid = reply.reply.ReplyId;
+
+
+                            return replayid;
+                            //*end 5/3/2023
                         }
-                        return 2;
+                        //*******5/3/2023
+                        //return 2;
+                        replayid.result1 = 2;
+                        replayid.replyid = reply.reply.ReplyId;
+
+
+                        return replayid;
+                        //****end 5/3/2023
                     }
                     else
                     {
@@ -621,13 +641,34 @@ namespace MMSystem.Services.ReplayServeic
                             bool res = await Uplode(replay.file);
                             if (res)
                             {
-                                return 1;
+                                //****5/3/2023
+                                //return 1;
+                                replayid.result1 = 1;
+                                replayid.replyid = reply.reply.ReplyId;
+
+
+                                return replayid;
+                                //*end 5/3/2023
                             }
-                            return 2;
+                            //****5/3/2023
+                            //return 2;
+                            replayid.result1 = 2;
+                            replayid.replyid = reply.reply.ReplyId;
+
+
+                            return replayid;
+                            //*end 5/3/2023
                         }
                     }
                 }
-                return 3;
+                //*********5/3/2023
+                //return 3;
+                replayid.result1 = 3;
+                replayid.replyid = 0;
+
+
+                return replayid;
+                //********end 5/3/2023
             }
             catch (Exception)
             {
@@ -734,5 +775,34 @@ namespace MMSystem.Services.ReplayServeic
             return model;
 
         }
+        //*******************27/2/2023
+        public async Task<bool> update_replay(ReplayPhotoVM replay)
+        {
+            try
+            {
+                ReplyViewModel reply = new ReplyViewModel();
+                replay.file.mail_id = replay.id_of_reply;
+
+
+                if (replay.file.list.Count > 0)
+                {
+                    bool res = await Uplode(replay.file);
+                    //    if (res)
+                    //    {
+                    //        return 1;
+                    //    }
+                    //    return 2;
+                    //}
+                    //return 3;
+                    return res;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        //************end 27/2/2023
     }
 }

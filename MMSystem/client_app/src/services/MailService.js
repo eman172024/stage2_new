@@ -144,6 +144,12 @@ export default {
             //   return axios.post(`http://mail:82/api/Reply/AddReplyWithPhoto`, ReplyViewModel)
     },
 
+    //***********27/2/2023
+    update_replay(ReplyViewModel){
+        return axios.post(`/api/Reply/update_replay`, ReplyViewModel)
+    },
+    //********end 27/2/2023
+    
     // UploadImagesMail(id, list) {
     //      return axios.post(`/api/Mail/Uplode`, { userId: 9, mail_id: Number(id), list: list, })
     //  return axios.post(`http://mail:82/api/Mail/Uplode`, { userId: 9, mail_id: Number(id), list: list, })

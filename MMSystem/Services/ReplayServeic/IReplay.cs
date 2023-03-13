@@ -18,8 +18,13 @@ namespace MMSystem.Services.ReplayServeic
         Task<bool> AddResources(Reply_Resources resources);
         Task<List<RViewModel>> GetResourse(int id);
         Task<int> AddReplayWithPhotoFromDeskApp(ReplayPhotoVM replay);
-        Task<int> AddReplayWithPhoto(ReplayPhotoVM replay);
+        // Task<int> AddReplayWithPhoto(ReplayPhotoVM replay);
+        Task<Replayid> AddReplayWithPhoto(ReplayPhotoVM replay);
         Task<Page_Reply_Resources> GetResources_ById(int id, int page_number);
+
+        //*****28/2/2023
+        Task<bool> update_replay(ReplayPhotoVM replay);
+        //**end 28/2/2023
 
 
     }

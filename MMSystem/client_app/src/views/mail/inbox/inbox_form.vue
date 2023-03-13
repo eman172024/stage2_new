@@ -1874,7 +1874,7 @@ console.log("code inbox_form="+event.code);
       // }, 1000);
     },
 
-    AddReply() {
+    AddReply_old() {
       this.screenFreeze = true;
       this.loading = true;
 
@@ -1914,6 +1914,135 @@ console.log("code inbox_form="+event.code);
           }, 500);
         });
     },
+
+ //***************8/3/2023
+      AddReply() {
+      this.screenFreeze = true;
+      this.loading = true;
+      console.log("lenght1111="+this.imagesToSend.length);
+      var ReplyViewModel = {
+        userId: Number(localStorage.getItem("AY_LW")),
+         mailId: Number(this.mailId),
+        send_ToId: Number(this.sends_id),
+        from: Number(2),
+        reply: {
+          mail_detail: this.reply_to_add,
+          To: Number(this.department_Id),
+        },
+        file: {
+          list: this.imagesToSend.slice(0,50),
+        },
+      };
+//
+          
+//
+
+      this.$http.mailService
+        .NewAddReply(ReplyViewModel)
+        .then((res) => {
+          setTimeout(() => {
+            console.log("res="+res.data.replyid);
+           // this.imagesToSend = [];
+            // this.documentSection = true;
+            // this.proceduresSection = true;
+
+            this.loading = false;
+            this.screenFreeze = false;
+
+            this.reply_to_add = "";
+           //28/2/2023 this.getMailById();
+       var cou=Math.ceil(this.imagesToSend.length/50);
+          if(cou > 1)
+            {
+              console.log("cou="+cou);
+              var id_of_reply_from_beackend = res.data.replyid;//101
+             this.update_reply_to_complet_sent_img(1,id_of_reply_from_beackend,cou,50);
+            }
+            //****28/2/2023
+           else{
+           this.getMailById();
+           }
+           //********end 28/2/2023
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+          console.log(err);
+        });
+    },
+
+    update_reply_to_complet_sent_img(ii,id,count1,a2){
+    console.log("update_reply ii="+ii);
+   
+       if(ii < count1)
+      {
+
+     var a1=a2;
+      a2=a1+50;
+      this.screenFreeze = true;
+      this.loading = true;
+
+      var ReplyViewModel = {
+        userId: Number(localStorage.getItem("AY_LW")),
+        mailId: Number(this.mailId),
+        send_ToId: Number(this.sends_id),
+        from: Number(2),
+        reply: {
+          mail_detail: this.reply_to_add,
+          To: Number(this.department_Id),
+        },
+        file: {
+          list: this.imagesToSend.slice(a1,a2),
+        },
+        id_of_reply: id
+      };
+      this.$http.mailService
+        .update_replay(ReplyViewModel)
+        .then((res) => {
+          setTimeout(() => {
+            console.log(res);
+          //28/3/2023  this.imagesToSend = [];
+            // this.documentSection = true;
+            // this.proceduresSection = true;
+
+           
+            this.loading = false;
+            this.screenFreeze = false;
+
+            this.reply_to_add = "";
+            // this.getMailById();
+
+            ii++;
+             if(ii < count1)
+            {
+             // var id_of_reply_from_beackend = 1
+           //   this.update_reply_to_complet_sent_img(ii,id_of_reply_from_beackend);
+          this.update_reply_to_complet_sent_img(ii,id,count1,a2);
+         
+            }
+           //*********1/3/2023
+            else
+ this.getMailById();
+           //*******end 1/3/2023 
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+          console.log(err);
+        });
+
+
+      }
+    },
+//************************************8/3/2023
+
+
   },
 };
 </script>
