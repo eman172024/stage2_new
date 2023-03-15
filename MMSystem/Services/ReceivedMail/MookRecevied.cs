@@ -176,7 +176,7 @@ namespace MMSystem.Services.ReceivedMail
 
 
                 //chang where to firs or defult and remove order by 
-                var c1 = await (from mail in dbcon.Mails.Where(x=>x.Department_Id == mangment && x.state==true)
+                var c1 = await (from mail in dbcon.Mails.Where(x => x.Department_Id == mangment && x.state == true)
 
                                 join send in dbcon.Sends
                                 on mail.MailID equals send.MailID
@@ -195,9 +195,15 @@ namespace MMSystem.Services.ReceivedMail
                                 into re
                                 from rep in re.DefaultIfEmpty()
 
+
+                                join ex_dep in dbcon.external_Departments on mail.MailID equals ex_dep.Mail_id
+                                 into ex_de
+                                from exde in ex_de.DefaultIfEmpty()
+
                                 select new Sended_Maill()
                                 {
-                                   
+                                    side_number = exde == null ? 0 : exde.side_number,
+                                    exdep_state = exde == null ? false : exde.state,
                                     replay_State = rep == null ? false : rep.state,
                                     replay_isSend = rep == null ? false : rep.IsSend,
                                     replay_To = rep == null ? 0 : rep.To,
@@ -237,7 +243,7 @@ namespace MMSystem.Services.ReceivedMail
                                          (x.flag > 0) &&
                                         ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                         (x.flag == mail_state || State_filter == true) && x.sends_state == true
-                                           && ((Replay_Date == true && x.replay_State == true && x.replay_isSend == true && x.replay_To == mangment) || rep_all == true))
+                                           && (((x.exdep_state == true && x.side_number == TheSection) || sectionstate == true)) && ((Replay_Date == true && x.replay_State == true && x.replay_isSend == true && x.replay_To == mangment) || rep_all == true))
 
 
 
@@ -247,12 +253,13 @@ namespace MMSystem.Services.ReceivedMail
 
                          join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true) && x.state == true) on mail.tomangment equals n.Id
 
-                         join ex_dep in dbcon.external_Departments.Where(x => (x.state == true && x.side_number == TheSection) || sectionstate == true) on mail.mail_id equals ex_dep.Mail_id
 
 
                          select new Sended_Maill()
                          {
-                            
+
+                             side_number = mail == null ? 0 : mail.side_number,
+                             exdep_state = mail == null ? false : mail.exdep_state,
                              replay_State = mail == null ? false : mail.replay_State,
                              replay_isSend = mail == null ? false : mail.replay_isSend,
                              replay_To = mail == null ? 0 : mail.replay_To,
@@ -300,7 +307,7 @@ namespace MMSystem.Services.ReceivedMail
 
                 pag.mail = c.OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToList();
 
-            
+
 
                 pag.Total = c.Count();
 
@@ -468,10 +475,10 @@ namespace MMSystem.Services.ReceivedMail
 
 
                                }).OrderByDescending(v => v.date2).ToListAsync();
-                
 
-             pag.mail =  c.OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToList();
-               
+
+                pag.mail = c.OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToList();
+
 
 
                 pag.Total = c.Count();
@@ -503,7 +510,7 @@ namespace MMSystem.Services.ReceivedMail
 
 
 
-        public async Task<dynamic> GetDynamic( int? mailnum_bool,
+        public async Task<dynamic> GetDynamic(int? mailnum_bool,
             int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string summary,
             int? mail_Readed, int? mailReaded, int? mailnot_readed, int? Typeof_send, int? userid, int? mailNumType,
             int? mail_type, int pagenum, int size, int? Measure_filter,
@@ -530,11 +537,11 @@ namespace MMSystem.Services.ReceivedMail
                 throw;
             }
         }
-    
 
 
 
-     
+
+
 
         public async Task<int> GetState(int mail_id)
         {
@@ -554,9 +561,9 @@ namespace MMSystem.Services.ReceivedMail
 
 
 
-     
 
-        public async Task<dynamic> GetMail( int? mailnum_bool,
+
+        public async Task<dynamic> GetMail(int? mailnum_bool,
         int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
         int? mailReaded, int? mailnot_readed, int?
         Typeof_send, int? userid, int? mailNumType, int? mail_type, int pagenum,
@@ -583,7 +590,7 @@ namespace MMSystem.Services.ReceivedMail
                 throw;
             }
         }
-    
+
 
 
 
@@ -639,7 +646,7 @@ namespace MMSystem.Services.ReceivedMail
         }
 
 
-       
+
 
         public async Task<PagenationSendedEmail<Sended_Maill>> Getmailincoming(int depid, int size, int pagenum)
         {
@@ -648,7 +655,7 @@ namespace MMSystem.Services.ReceivedMail
             try
             {
                 var m = await dbcon.Departments.FindAsync(depid);
-              
+
 
 
                 var c2 = await (from mail in dbcon.Mails.Where(x => x.Department_Id == depid && x.Mail_Type == 1)
@@ -685,9 +692,9 @@ namespace MMSystem.Services.ReceivedMail
 
 
 
-        
-       
-        public async Task<int> GetFlag(int mail_id, int department_Id,int userId)
+
+
+        public async Task<int> GetFlag(int mail_id, int department_Id, int userId)
         {
 
             try
@@ -704,7 +711,7 @@ namespace MMSystem.Services.ReceivedMail
                     historyes.HistortyNameID = 15;
                     await dbcon.History.AddAsync(historyes);
 
-                    
+
                     c.flag = 3;
                     dbcon.Sends.Update(c);
                     await dbcon.SaveChangesAsync();
@@ -759,21 +766,21 @@ namespace MMSystem.Services.ReceivedMail
         public async Task<List<Extrmal_SectionDto>> getExtrinlSection()
 
         {
-            
+
             List<Extrmal_SectionDto> dtosection = new List<Extrmal_SectionDto>();
 
-            var c = await (from Sections in dbcon.Extrmal_Sections.Where(x => x.state == true && x.perent!=0).OrderByDescending(x=>x.id)
-                                             select new Extrmal_SectionDto
-                                             {
-                                                Section_Name= Sections.Section_Name,
-                                                id= Sections.id,
-                                                 perent = Sections.perent,
-                                                 state = Sections.state
+            var c = await (from Sections in dbcon.Extrmal_Sections.Where(x => x.state == true && x.perent != 0).OrderByDescending(x => x.id)
+                           select new Extrmal_SectionDto
+                           {
+                               Section_Name = Sections.Section_Name,
+                               id = Sections.id,
+                               perent = Sections.perent,
+                               state = Sections.state
 
-                                             }).ToListAsync();
+                           }).ToListAsync();
 
 
-            
+
 
 
             return c;

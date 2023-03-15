@@ -10,6 +10,8 @@ namespace MMSystem.Model.ViewModel
     public class Sended_Maill
     {
 
+        public bool exdep_state { get; set; }
+        public int side_number { get; set; }
         public int replay_To { get; set; }
         public bool replay_isSend { get; set; }
         public bool replay_State { get; set; }
