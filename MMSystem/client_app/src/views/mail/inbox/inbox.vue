@@ -2270,6 +2270,172 @@ this.conn.onmessage = (event) => {
 
       }
     },
+//*******************end addreply_old
+
+//*********************************1/3/2023
+    AddReply() {
+      this.screenFreeze = true;
+      this.loading = true;
+      console.log("lenght1111="+this.imagesToSend.length);
+      var ReplyViewModel = {
+        userId: Number(localStorage.getItem("AY_LW")),
+        mailId: Number(this.mailId_to_get_mail_by_id),
+        send_ToId: Number(this.sends_id_to_get_mail_by_id),
+        from: Number(2),
+        reply: {
+          mail_detail: this.reply_to_add,
+          To: Number(this.department_Id),
+        },
+        file: {
+          list: this.imagesToSend.slice(0,50),
+        },
+      };
+      this.$http.mailService
+        .NewAddReply(ReplyViewModel)
+        .then((res) => {
+          setTimeout(() => {
+            console.log("res="+res.data.replyid);
+           // this.imagesToSend = [];
+            // this.documentSection = true;
+            // this.proceduresSection = true;
+
+            for (let index = 0; index < this.inboxMails.length; index++) {
+              if (
+                this.inboxMails[index].mail_id == this.mailId_to_get_mail_by_id
+              ) {
+                if (
+                  this.inboxMails[index].flag == 2 ||
+                  this.inboxMails[index].flag == 3
+                ) {
+                  this.inboxMails[index].flag = 4;
+                  this.inboxMails[index].state = " تم الرد من قيلك ";
+                }
+              }
+            }
+
+            this.loading = false;
+            this.screenFreeze = false;
+
+            this.reply_to_add = "";
+           //28/2/2023 this.getMailById();
+
+            
+       var cou=Math.ceil(this.imagesToSend.length/50);
+       // from Ayoub to eman
+           // var index_of_reply_img = 12
+
+           // if(index_of_reply_img > 10)
+            if(cou > 1)
+            {
+              console.log("cou="+cou);
+              var id_of_reply_from_beackend = res.data.replyid;//101
+             this.update_reply_to_complet_sent_img(1,id_of_reply_from_beackend,cou,50);
+            }
+            //****28/2/2023
+           else{
+           this.getMailById();
+           }
+           //********end 28/2/2023
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+          console.log(err);
+        });
+    },
+
+    update_reply_to_complet_sent_img(ii,id,count1,a2){
+     // var new_index_of_reply_img = 10
+
+    //  if(index_of_reply_img > new_index_of_reply_img)
+    console.log("update_reply ii="+ii);
+
+    
+    if(ii < count1)
+     {
+     var a1=a2;
+      a2=a1+50;
+      this.screenFreeze = true;
+      this.loading = true;
+
+      var ReplyViewModel = {
+        userId: Number(localStorage.getItem("AY_LW")),
+        mailId: Number(this.mailId_to_get_mail_by_id),
+        send_ToId: Number(this.sends_id_to_get_mail_by_id),
+        from: Number(2),
+        reply: {
+          mail_detail: this.reply_to_add,
+          To: Number(this.department_Id),
+        },
+        file: {
+          list: this.imagesToSend.slice(a1,a2),
+        },
+        id_of_reply: id
+      };
+      this.$http.mailService
+        .update_replay(ReplyViewModel)
+        .then((res) => {
+          setTimeout(() => {
+            console.log(res);
+          //28/3/2023  this.imagesToSend = [];
+            // this.documentSection = true;
+            // this.proceduresSection = true;
+
+            for (let index = 0; index < this.inboxMails.length; index++) {
+              if (
+                this.inboxMails[index].mail_id == this.mailId_to_get_mail_by_id
+              ) {
+                if (
+                  this.inboxMails[index].flag == 2 ||
+                  this.inboxMails[index].flag == 3
+                ) {
+                  this.inboxMails[index].flag = 4;
+                  this.inboxMails[index].state = " تم الرد من قيلك ";
+                }
+              }
+            }
+
+            this.loading = false;
+            this.screenFreeze = false;
+
+            this.reply_to_add = "";
+            // this.getMailById();
+
+            // from Ayoub to eman
+
+            
+           // var index_of_reply_img = 12
+
+           // if(index_of_reply_img > 10)
+           ii++;
+             if(ii < count1)
+            {
+             // var id_of_reply_from_beackend = 1
+           //   this.update_reply_to_complet_sent_img(ii,id_of_reply_from_beackend);
+          this.update_reply_to_complet_sent_img(ii,id,count1,a2);
+         
+            }
+           //*********1/3/2023
+            else
+ this.getMailById();
+           //*******end 1/3/2023 
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+          console.log(err);
+        });
+
+
+      }
+    },
+//************************************end 1/3/2023 addreply
 
     to_pass_data_to_get_mail_by_id(
       mailId_to_get_mail_by_id,

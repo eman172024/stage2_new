@@ -100,12 +100,35 @@ namespace MMSystem.Controllers
             });
         }
 
+
+        //**************28/3/2023
+        [HttpPost("update_replay")]
+        public async Task<IActionResult> update_replay([FromBody] ReplayPhotoVM mail)
+        {
+            var result = await _Replay.update_replay(mail);
+            if (result)
+            {
+
+
+                return Ok(result);
+            }
+            return BadRequest(new Result()
+            {
+                message = "فشلت العملية",
+                statusCode = 400
+            });
+
+        }
+
+        //**********end 28/3/2023
+
         [HttpPost("AddReplyWithPhoto")]
         public async Task<IActionResult> AddReplyWithPhoto([FromBody] ReplayPhotoVM mail)
         {
             var result = await _Replay.AddReplayWithPhoto(mail);
             string massege;
-            switch (result) {
+           // switch (result) {
+             switch (result.result1) { 
                 case 1:
                     massege = "تمت الاضافة بنجاح";
                     break;
@@ -123,7 +146,9 @@ namespace MMSystem.Controllers
                     break;
             };
 
-            return Ok(massege);
+          
+            //1/3/2023 return Ok(massege);
+            return Ok(result);
 
         }
         [HttpPost("DeleteNotSendedReply")]
