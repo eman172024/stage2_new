@@ -202,13 +202,8 @@ namespace MMSystem.Services.ReceivedMail
 
                                 select new Sended_Maill()
                                 {
-<<<<<<< HEAD
                                     side_number = exde == null ? 0 : exde.side_number,
                                     exdep_state = exde == null ? false : exde.state,
-=======
-                                   side_number=exde ==null? 0: exde.side_number,
-                                   exdep_state=exde == null? false : exde.state,
->>>>>>> 510a008e7ecd85a63ebbf3fd2194e66323d2ed65
                                     replay_State = rep == null ? false : rep.state,
                                     replay_isSend = rep == null ? false : rep.IsSend,
                                     replay_To = rep == null ? 0 : rep.To,
@@ -248,11 +243,7 @@ namespace MMSystem.Services.ReceivedMail
                                          (x.flag > 0) &&
                                         ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                         (x.flag == mail_state || State_filter == true) && x.sends_state == true
-<<<<<<< HEAD
                                            && (((x.exdep_state == true && x.side_number == TheSection) || sectionstate == true)) && ((Replay_Date == true && x.replay_State == true && x.replay_isSend == true && x.replay_To == mangment) || rep_all == true))
-=======
-                                           && (((x.exdep_state == true && x.side_number == TheSection) || sectionstate == true))&&((Replay_Date == true && x.replay_State == true && x.replay_isSend == true && x.replay_To == mangment) || rep_all == true))
->>>>>>> 510a008e7ecd85a63ebbf3fd2194e66323d2ed65
 
 
 
@@ -266,15 +257,9 @@ namespace MMSystem.Services.ReceivedMail
 
                          select new Sended_Maill()
                          {
-<<<<<<< HEAD
 
                              side_number = mail == null ? 0 : mail.side_number,
                              exdep_state = mail == null ? false : mail.exdep_state,
-=======
-                            
-                            side_number=mail== null ? 0: mail.side_number,
-                            exdep_state=mail ==null? false:mail.exdep_state,
->>>>>>> 510a008e7ecd85a63ebbf3fd2194e66323d2ed65
                              replay_State = mail == null ? false : mail.replay_State,
                              replay_isSend = mail == null ? false : mail.replay_isSend,
                              replay_To = mail == null ? 0 : mail.replay_To,
