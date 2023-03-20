@@ -21,5 +21,7 @@ namespace MMSystem.Model.Dto
         public int sector_number { get; set; }
         public int Mail_id { get; set; }
 
+        public int mail_forwarding { get; set; }
+
     }
 }

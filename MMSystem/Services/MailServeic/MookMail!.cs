@@ -1827,9 +1827,11 @@ namespace MMSystem.Services.MailServeic
                             side_name = _appContext.Extrmal_Sections.FirstOrDefault(v => v.id == z.side_number).Section_Name,
                             side_number = z.side_number,
                             id = z.id,
+                            mail_forwarding=z.mail_forwarding,
                             Mail_id = z.Mail_id,
                             sector_name = _appContext.Extrmal_Sections.FirstOrDefault(v => v.id == z.sector_number).Section_Name,
-                            sector_number = z.sector_number
+                            sector_number = z.sector_number,
+                           
 
                         })
                             .ToListAsync();
@@ -1960,6 +1962,8 @@ namespace MMSystem.Services.MailServeic
                         side_name = _appContext.Extrmal_Sections.FirstOrDefault(v => v.id == z.side_number).Section_Name,
                         side_number = z.side_number,
                         id = z.id,
+                        mail_forwarding = z.mail_forwarding,
+
                         Mail_id = z.Mail_id,
                         sector_name = _appContext.Extrmal_Sections.FirstOrDefault(v => v.id == z.sector_number).Section_Name,
                         sector_number = z.sector_number
@@ -2301,7 +2305,9 @@ namespace MMSystem.Services.MailServeic
                                 id = z.id,
                                 Mail_id = z.Mail_id,
                                 sector_name = _appContext.Extrmal_Sections.FirstOrDefault(v => v.id == z.sector_number).Section_Name,
-                                sector_number = z.sector_number
+                                sector_number = z.sector_number,
+                                mail_forwarding = z.mail_forwarding
+
 
 
                             })
@@ -2391,7 +2397,9 @@ namespace MMSystem.Services.MailServeic
                                 id = z.id,
                                 Mail_id = z.Mail_id,
                                 sector_name = _appContext.Extrmal_Sections.FirstOrDefault(v => v.id == z.sector_number).Section_Name,
-                                sector_number = z.sector_number
+                                sector_number = z.sector_number,
+                                mail_forwarding = z.mail_forwarding
+
 
 
                             })
