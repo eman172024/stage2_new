@@ -143,6 +143,29 @@
                       المستندات
                     </h3>
                   </div>
+
+
+
+                  <div class="flex justify-between items-center mt-2">
+                    <div v-if="image_of_doc" class="w-1/2 flex items-center">
+                      <input
+                        type="text"
+                        v-model="doc_number_to_search"
+                        id="doc_number"
+                        class="ml-2 block w-16 rounded-md h-10 text-sm border border---200 hover:shadow-sm focus:outline-none focus:border-blue-300 p-2"
+                      />
+
+                      <button
+                        @click="search_the_doc()"
+                        class="py-2 px-4 bg-white rounded-lg tracking-wide border border-blue-600 cursor-pointer hover:text-white hover:bg-blue-600 focus:outline-none duration-300 text-sm leading-normal"
+                      >
+                        بحث
+                      </button>
+                    </div>
+
+                  </div>
+
+
                   <div
                     v-if="image_of_doc"
                     class="h-72 w-full bg-gray-100 rounded-md mt-4 mb-10"
@@ -162,28 +185,50 @@
                           />
 
                           <div
-                            class="absolute inset-0 flex justify-center items-center"
+                            class="absolute inset-0 flex justify-between items-center"
                           >
-                            <button
-                              @click="show_current_image_for_bigger_screen()"
-                              type="button"
-                              class="bg-green-600 hover:bg-green-500 duration-500 p-2 rounded-full focus:outline-none ml-2"
-                            >
-                              <svg
-                                class="w-4 h-4 text-white mx-auto"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
+
+                            <div class="">
+                              <button
+                                @click="farst_documents()"
+                                class="bg-gray-500 hover:bg-gray-400 px-2 py-2 rounded-lg text-xs text-white"
                               >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-                                ></path>
-                              </svg>
-                            </button>
+                                &#x276E; &#x276E;
+                              </button>
+                            </div>
+
+                            <div class="">
+                              <button
+                                @click="show_current_image_for_bigger_screen()"
+                                type="button"
+                                class="bg-green-600 hover:bg-green-500 duration-500 p-2 rounded-full focus:outline-none ml-2"
+                              >
+                                <svg
+                                  class="w-4 h-4 text-white mx-auto"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+                                  ></path>
+                                </svg>
+                              </button>
+                            </div>
+
+
+                            <div class="">
+                              <button
+                                @click="last_documents()"
+                                class="bg-gray-500 hover:bg-gray-400 px-2 py-2 rounded-lg text-xs text-white"
+                              >
+                                &#x276F; &#x276F;
+                              </button>
+                            </div>
                           </div>
                         </div>
 
@@ -193,6 +238,8 @@
                           <div
                             class="ml-2 flex justify-between items-center w-full"
                           >
+                            
+
                             <div class="w-8 h-8">
                               <button
                                 title="prev"
@@ -244,6 +291,9 @@
                                 </svg>
                               </button>
                             </div>
+
+
+                           
                           </div>
                         </div>
                       </div>
@@ -780,6 +830,26 @@
               >
                 طباعة كافة المستندات
               </button>
+
+              <div
+                v-if="image_of_doc"
+                class="flex items-center border border-blue-400 rounded-md"
+              >
+                <input
+                  type="text"
+                  v-model="doc_number_to_search"
+                  id="doc_number"
+                  class="ml-2 block w-16 rounded-md h-10 text-sm border border---200 hover:shadow-sm focus:outline-none focus:border-blue-300 p-2"
+                />
+
+                <button
+                  @click="search_the_doc()"
+                  class="py-2 px-4 bg-white rounded-lg tracking-wide border border-blue-600 cursor-pointer hover:text-white hover:bg-blue-600 focus:outline-none duration-300 text-sm leading-normal"
+                >
+                  بحث
+                </button>
+              </div>
+
             </div>
 
             <div class="h-screen-93 mt-4">
@@ -793,6 +863,16 @@
             <div
               class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
             >
+
+              <div class="">
+                <button
+                  @click="farst_documents()"
+                  class="bg-gray-500 hover:bg-gray-400 px-2 py-2 rounded-lg text-xs text-white"
+                >
+                  &#x276E; &#x276E;
+                </button>
+              </div>
+
               <div class="w-12 h-8">
                 <button
                   title="prev"
@@ -842,6 +922,15 @@
                       d="M15 19l-7-7 7-7"
                     ></path>
                   </svg>
+                </button>
+              </div>
+
+              <div class="">
+                <button
+                  @click="last_documents()"
+                  class="bg-gray-500 hover:bg-gray-400 px-2 py-2 rounded-lg text-xs text-white"
+                >
+                  &#x276F; &#x276F;
                 </button>
               </div>
             </div>
@@ -1191,6 +1280,9 @@ console.log("code inbox_form="+event.code);
 
   data() {
     return {
+
+      doc_number_to_search: '',
+      
       //********21/1/2023
       keyid: "",
       conn: null,
@@ -1303,6 +1395,49 @@ console.log("code inbox_form="+event.code);
     };
   },
   methods: {
+
+
+    farst_documents() {
+      this.doc_number_to_search = 1;
+      this.search_the_doc();
+    },
+
+    last_documents() {
+      this.doc_number_to_search = this.total_of_doc;
+      this.search_the_doc();
+    },
+
+    search_the_doc() {
+      // doc_number_to_search
+
+      if (this.doc_number_to_search > this.total_of_doc) {
+        alert("لقد ادخلة رقم خطا الرجاء إعادة المحاولة");
+      } else {
+        this.doc_number = this.doc_number_to_search;
+        this.screenFreeze = true;
+        this.loading = true;
+        this.$http.documentService
+          .GetAllDocN(this.mailId, this.doc_number)
+          .then((res) => {
+            this.total_of_doc = res.data.total;
+
+            this.image_of_doc = res.data.data.path;
+            this.id_of_doc = res.data.data.id;
+
+            setTimeout(() => {
+              this.screenFreeze = false;
+              this.loading = false;
+            }, 200);
+          })
+          .catch((err) => {
+            this.screenFreeze = false;
+            this.loading = false;
+            console.log(err);
+          });
+      }
+    },
+
+
     getMailById() {
       this.$http.mailService
         .GetInboxMailById(
