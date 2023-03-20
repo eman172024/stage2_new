@@ -13,13 +13,13 @@ namespace MMSystem.Model
 
         public int side_number { get; set; }
 
-        public string side_name { get; set; }
+      //  public string side_name { get; set; }
 
 
-          public string sector_name { get; set; }
+        //  public string sector_name { get; set; }
 
-
-          public int sector_number{ get; set; }
+        public Extrmal_Section side_ { get; set; }
+        public int sector_number{ get; set; }
 
 
         public int Mail_id { get; set; }

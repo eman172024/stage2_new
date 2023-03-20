@@ -1824,13 +1824,13 @@ namespace MMSystem.Services.MailServeic
 
                         ex.external_sectoin  =await _appContext.external_Departments.Where(x => x.Mail_id == ex.mail.MailID&&x.state==true).Select(z=>new Ex_Departments {
 
-                            side_name = z.side_name,
+                            side_name = _appContext.Extrmal_Sections.FirstOrDefault(v => v.id == z.side_number).Section_Name,
                             side_number = z.side_number,
-                            id =z.id,
-                        Mail_id=z.Mail_id,
-                        sector_name=z.sector_name,
-                        sector_number=z.sector_number
-                        
+                            id = z.id,
+                            Mail_id = z.Mail_id,
+                            sector_name = _appContext.Extrmal_Sections.FirstOrDefault(v => v.id == z.sector_number).Section_Name,
+                            sector_number = z.sector_number
+
                         })
                             .ToListAsync();
 
@@ -1957,12 +1957,11 @@ namespace MMSystem.Services.MailServeic
 
                     ex.external_sectoin = await _appContext.external_Departments.Where(x => x.Mail_id == ex.mail.MailID && x.state == true).Select(z => new Ex_Departments
                     {
-
-                        side_name = z.side_name,
+                        side_name = _appContext.Extrmal_Sections.FirstOrDefault(v => v.id == z.side_number).Section_Name,
                         side_number = z.side_number,
                         id = z.id,
                         Mail_id = z.Mail_id,
-                        sector_name = z.sector_name,
+                        sector_name = _appContext.Extrmal_Sections.FirstOrDefault(v => v.id == z.sector_number).Section_Name,
                         sector_number = z.sector_number
 
                     })
@@ -2297,12 +2296,13 @@ namespace MMSystem.Services.MailServeic
 
                             ex.external_sectoin = await _appContext.external_Departments.Where(x => x.Mail_id == ex.mail.MailID && x.state == true).Select(z => new Ex_Departments
                             {
-                                side_name = z.side_name,
+                                side_name = _appContext.Extrmal_Sections.FirstOrDefault(v => v.id == z.side_number).Section_Name,
                                 side_number = z.side_number,
                                 id = z.id,
                                 Mail_id = z.Mail_id,
-                                sector_name = z.sector_name,
+                                sector_name = _appContext.Extrmal_Sections.FirstOrDefault(v => v.id == z.sector_number).Section_Name,
                                 sector_number = z.sector_number
+
 
                             })
                            .ToListAsync();
@@ -2386,13 +2386,13 @@ namespace MMSystem.Services.MailServeic
 
                             ex1.external_sectoin = await _appContext.external_Departments.Where(x => x.Mail_id == ex1.mail.MailID && x.state == true).Select(z => new Ex_Departments
                             {
-
-                                side_name = z.side_name,
+                                side_name = _appContext.Extrmal_Sections.FirstOrDefault(v => v.id == z.side_number).Section_Name,
                                 side_number = z.side_number,
                                 id = z.id,
                                 Mail_id = z.Mail_id,
-                                sector_name = z.sector_name,
+                                sector_name = _appContext.Extrmal_Sections.FirstOrDefault(v => v.id == z.sector_number).Section_Name,
                                 sector_number = z.sector_number
+
 
                             })
                                                       .ToListAsync();

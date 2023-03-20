@@ -23,5 +23,9 @@ namespace MMSystem.Model
         [JsonIgnore]
         public List<External_Mail> External_Mails { get; set; }
 
+        public List<External_Department> departments { get; set; }
+
+
+
     }
 }
