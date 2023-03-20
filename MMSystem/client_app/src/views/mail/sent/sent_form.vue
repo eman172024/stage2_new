@@ -1448,7 +1448,7 @@
 
 
 
-                      <div v-for="sector_side in sector_side_array" :key="sector_side.side" class="
+                      <div v-for="sector_side in sector_side_new_array" :key="sector_side.side" class="
                                 border border-gary-200
                                 rounded-md
                                 text-sm
@@ -2104,7 +2104,7 @@
                         (consignees.length != 0 ||
                           newactionSenders.length != 0) &&
                         mail_forwarding &&
-                        sector_side_array &&
+                        sector_side_new_array &&
                         action_required_by_the_entity
                       " class="
                               flex
@@ -2159,7 +2159,7 @@
                         summary &&
                         classification &&
                         is_exisite_genaral_inbox_number == true &&
-                        sector_side_array &&
+                        sector_side_new_array &&
                         ward_to &&
                         mail_ward_type &&
                         entity_mail_date &&
@@ -3804,9 +3804,10 @@ console.log("index="+ind);
 
       office_type: "",
 
-      sector_side_array: [],
+      sector_side_new_array_id: [],
+      sector_side_new_array: [],
       sector_side_old_array: [],
-      sector_side_array_id: [],
+      sector_side_old_array_id: [],
     };
   },
 
@@ -3858,6 +3859,7 @@ console.log("index="+ind);
       this.sideNameSelected = "";
       this.sideIdSelected = "";
       this.sectorNameSelected = "";
+      this.sectorIdSelected = "";
 
       this.action_required_by_the_entity = "";
       this.mail_ward_type = 1;
@@ -3900,7 +3902,12 @@ console.log("index="+ind);
         this.office_type = "3";
       }
 
-      this.sector_side_array = []
+      this.sector_side_new_array = []
+      this.sector_side_new_array_id = []
+
+      this.sector_side_old_array = []
+      this.sector_side_old_array_id = []
+
       setTimeout(() => {
         if (this.mailType == 2) {
           this.newactionSendersIncludesId = [];
@@ -3949,6 +3956,80 @@ console.log("index="+ind);
 
   methods: {
 
+    add_sector_side_to_array() {
+      
+      // // sector_side
+       
+      //     // this.sector_side_new_array_id;
+      //     this.sector_side_new_array.push(
+      //       {
+      //         side_number: this.sideIdSelected,
+      //         side_name: this.sideNameSelected,
+      //         sector_number: this.sectorIdSelected,
+      //         sector_name: this.sectorNameSelected,
+      //       }
+      //     );
+
+
+      //     this.sector_side_new_array_id.push(this.sideIdSelected)
+
+      //     console.log(this.sector_side_new_array)
+      //     // this.sector_side_new_array_id.push(this.departmentIdSelected);
+
+      //     this.sideIdSelected = "";
+      //     this.sideNameSelected = "";
+
+      //     this.sectorIdSelected = "";
+      //     this.sectorNameSelected = "";
+
+
+
+
+
+
+
+
+
+          if (
+          this.sector_side_new_array_id.includes(this.sideIdSelected) ||
+          this.sector_side_old_array_id.includes(this.sideIdSelected)
+        ) {
+          alert("تم اضافة الجهة من قبل");
+          this.sideIdSelected = "";
+          this.sideNameSelected = "";
+
+          
+        } else {
+          this.sector_side_new_array.push({
+            mail_forwarding : Number(this.mail_forwarding),
+            side_number: this.sideIdSelected,
+            side_name: this.sideNameSelected,
+            sector_number: this.sectorIdSelected,
+            sector_name: this.sectorNameSelected,
+          });
+          this.sector_side_new_array_id.push(this.sideIdSelected);
+
+          this.sideIdSelected = "";
+          this.sideNameSelected = "";
+
+       
+        }
+
+
+        
+
+        // this.departments.splice(this.indexOfDepartment, 1);
+     
+    },
+
+
+
+
+
+
+
+
+
     
 
     delete_sector_side_from_array(id) {
@@ -3989,15 +4070,25 @@ console.log("index="+ind);
 
 
       
-        const index = this.sector_side_array.findIndex((element, index) => {
+        const index = this.sector_side_new_array.findIndex((element, index) => {
           if (element.side_number === sideId && element.sector_number === sectorId) {
             return true;
           }
         });
-        this.sector_side_array.splice(index, 1);
+        this.sector_side_new_array.splice(index, 1);
+
+
+
+
+        const index_id = this.sector_side_new_array_id.findIndex((element, index_id) => {
+          if (element === sideId ) {
+            return true;
+          }
+        });
+        this.sector_side_new_array_id.splice(index_id, 1);
+
         // this.newactionSendersIncludesId.splice(index, 1);
      
-        console.log(this.sector_side_array)
     },
 
 
@@ -4027,34 +4118,7 @@ console.log("index="+ind);
     
 
 
-    add_sector_side_to_array() {
-      
-      // sector_side
-       
-          // this.sector_side_array_id;
-          this.sector_side_array.push(
-            {
-              side_number: this.sideIdSelected,
-              side_name: this.sideNameSelected,
-              sector_number: this.sectorIdSelected,
-              sector_name: this.sectorNameSelected,
-            }
-          );
-
-
-          console.log(this.sector_side_array)
-          // this.sector_side_array_id.push(this.departmentIdSelected);
-
-          this.sideIdSelected = "";
-          this.sideNameSelected = "";
-
-          this.sectorIdSelected = "";
-          this.sectorNameSelected = "";
-        
-
-        // this.departments.splice(this.indexOfDepartment, 1);
-     
-    },
+    
 
 
 
@@ -4915,7 +4979,10 @@ console.log("close code="+event.code);
       this.newactionSenders = [];
       this.newactionSendersIncludesId = [];
 
-      this.sector_side_array = []
+      this.sector_side_new_array = []
+      this.sector_side_new_array_id = []
+
+
 
       this.doc_number = 0;
       this.total_of_doc = 0;
@@ -5008,10 +5075,15 @@ console.log("close code="+event.code);
             this.action_required_by_the_entity =
               res.data.external.action_required_by_the_entity;
 
-            this.mail_forwarding = res.data.external.action;
 
 
             this.sector_side_old_array = res.data.external_sectoin 
+
+            for (let index = 0; index < res.data.sector_side_old_array.length; index++) {
+              this.sector_side_old_array_id.push(
+                res.data.sector_side_old_array[index].side_number
+              );
+            }
 
 
             // this.get_sectors(this.mail_forwarding);
@@ -5026,10 +5098,18 @@ console.log("close code="+event.code);
           if (this.mailType == "3") {
             this.external_mailId = res.data.external.id;
 
-            this.mail_forwarding = res.data.external.action;
+           
 
 
             this.sector_side_old_array = res.data.external_sectoin 
+
+            for (let index = 0; index < res.data.sector_side_old_array.length; index++) {
+              this.sector_side_old_array_id.push(
+                res.data.sector_side_old_array[index].side_number
+              );
+            }
+
+            
 
             // this.get_sectors(this.mail_forwarding);
 
@@ -5329,7 +5409,7 @@ console.log("close code="+event.code);
             action_required_by_the_entity: this.action_required_by_the_entity,
           },
 
-          external_sectoin : this.sector_side_array,
+          external_sectoin : this.sector_side_new_array,
 
         };
       }
@@ -5367,7 +5447,7 @@ console.log("close code="+event.code);
             procedure_type: Number(this.procedure_type),
           },
 
-          external_sectoin : this.sector_side_array,
+          external_sectoin : this.sector_side_new_array,
         };
       }
 
@@ -5451,7 +5531,7 @@ console.log("close code="+event.code);
             action_required_by_the_entity: this.action_required_by_the_entity,
           },
 
-          external_sectoin : this.sector_side_array,
+          external_sectoin : this.sector_side_new_array,
           
 
 
@@ -5489,7 +5569,7 @@ console.log("close code="+event.code);
             procedure_type: Number(this.procedure_type),
           },
 
-          external_sectoin : this.sector_side_array,
+          external_sectoin : this.sector_side_new_array,
         };
       }
 
@@ -5537,7 +5617,11 @@ console.log("close code="+event.code);
       this.newactionSendersIncludesId = [];
       this.doc_number = 0;
 
-      this.sector_side_array = []
+      this.sector_side_new_array = []
+      this.sector_side_new_array_id = []
+
+      this.sector_side_old_array = []
+      this.sector_side_old_array_id = []
 
       this.screenFreeze = true;
       this.loading = true;
@@ -5552,7 +5636,7 @@ console.log("close code="+event.code);
             // this.add_button_consignees = false;
           }
 
-          this.sector_side_old_array = res.data.external_sectoin 
+          // this.sector_side_old_array = res.data.external_sectoin 
 
           this.summary = res.data.mail.mail_Summary;
 
@@ -5610,9 +5694,16 @@ console.log("close code="+event.code);
             this.action_required_by_the_entity =
               res.data.external.action_required_by_the_entity;
 
-            this.mail_forwarding = res.data.external.action;
 
             this.sector_side_old_array = res.data.external_sectoin 
+
+            for (let index = 0; index < res.data.external_sectoin.length; index++) {
+              this.sector_side_old_array_id.push(
+                res.data.external_sectoin[index].side_number
+              );
+            }
+
+
 
             // this.get_sectors(this.mail_forwarding);
 
@@ -5626,9 +5717,16 @@ console.log("close code="+event.code);
           if (this.to_test_passing_mail_type == "3") {
             this.external_mailId = res.data.external.id;
 
-            this.mail_forwarding = res.data.external.action;
 
             this.sector_side_old_array = res.data.external_sectoin 
+
+
+            for (let index = 0; index < res.data.external_sectoin.length; index++) {
+              this.sector_side_old_array_id.push(
+                res.data.external_sectoin[index].side_number
+              );
+            }
+
 
             // this.get_sectors(this.mail_forwarding);
 
@@ -5729,7 +5827,7 @@ console.log("close code="+event.code);
             action_required_by_the_entity: this.action_required_by_the_entity,
           },
 
-          external_sectoin : this.sector_side_array,
+          external_sectoin : this.sector_side_new_array,
 
         };
       }
@@ -5767,7 +5865,7 @@ console.log("close code="+event.code);
             procedure_type: Number(this.procedure_type),
           },
 
-          external_sectoin : this.sector_side_array,
+          external_sectoin : this.sector_side_new_array,
         };
       }
 
