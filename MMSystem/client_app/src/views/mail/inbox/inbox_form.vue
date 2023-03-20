@@ -144,8 +144,6 @@
                     </h3>
                   </div>
 
-
-
                   <div class="flex justify-between items-center mt-2">
                     <div v-if="image_of_doc" class="w-1/2 flex items-center">
                       <input
@@ -162,9 +160,7 @@
                         بحث
                       </button>
                     </div>
-
                   </div>
-
 
                   <div
                     v-if="image_of_doc"
@@ -187,7 +183,6 @@
                           <div
                             class="absolute inset-0 flex justify-between items-center"
                           >
-
                             <div class="">
                               <button
                                 @click="farst_documents()"
@@ -220,7 +215,6 @@
                               </button>
                             </div>
 
-
                             <div class="">
                               <button
                                 @click="last_documents()"
@@ -238,8 +232,6 @@
                           <div
                             class="ml-2 flex justify-between items-center w-full"
                           >
-                            
-
                             <div class="w-8 h-8">
                               <button
                                 title="prev"
@@ -291,9 +283,6 @@
                                 </svg>
                               </button>
                             </div>
-
-
-                           
                           </div>
                         </div>
                       </div>
@@ -410,8 +399,7 @@
                     الإجراء المطلوب من الجهة
                   </label>
                   <div
-                    class="block mt-2 w-full rounded-md h-24 text-sm border border-gray-300 p-2 overflow-y-scroll
-                    "
+                    class="block mt-2 w-full rounded-md h-24 text-sm border border-gray-300 p-2 overflow-y-scroll"
                   >
                     {{ action_required_by_the_entity }}
                   </div>
@@ -849,7 +837,6 @@
                   بحث
                 </button>
               </div>
-
             </div>
 
             <div class="h-screen-93 mt-4">
@@ -863,7 +850,6 @@
             <div
               class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
             >
-
               <div class="">
                 <button
                   @click="farst_documents()"
@@ -1280,9 +1266,8 @@ console.log("code inbox_form="+event.code);
 
   data() {
     return {
+      doc_number_to_search: "",
 
-      doc_number_to_search: '',
-      
       //********21/1/2023
       keyid: "",
       conn: null,
@@ -1395,8 +1380,6 @@ console.log("code inbox_form="+event.code);
     };
   },
   methods: {
-
-
     farst_documents() {
       this.doc_number_to_search = 1;
       this.search_the_doc();
@@ -1436,7 +1419,6 @@ console.log("code inbox_form="+event.code);
           });
       }
     },
-
 
     getMailById() {
       this.$http.mailService
