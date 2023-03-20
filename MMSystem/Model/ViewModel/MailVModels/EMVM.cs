@@ -18,5 +18,8 @@ namespace MMSystem.Model.ViewModel.MailVModels
 
         public List<RViewModel> list { get; set; } = new List<RViewModel>() { };
 
+        public List<Ex_Departments> external_sectoin { get; set; }
+
+
     }
 }

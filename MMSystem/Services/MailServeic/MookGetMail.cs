@@ -37,6 +37,27 @@ namespace MMSystem.Services.MailServeic
                 model.External = _mapper.Map<External_Mail, ExternalDto>(external_Mail);
                 List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id).ToListAsync();
                 Send_to c = await _dbCon.Sends.Where(x => x.to == Depa && x.MailID == mail_id).FirstOrDefaultAsync();
+
+
+               
+
+                    model.external_sectoin = await _dbCon.external_Departments.Where(x => x.Mail_id == model.mail.MailID && x.state == true).Select(z => new Ex_Departments
+                    {
+
+                        side_name = _dbCon.Extrmal_Sections.FirstOrDefault(v => v.id == z.side_number).Section_Name,
+                        side_number = z.side_number,
+                        id = z.id,
+                        Mail_id = z.Mail_id,
+                        sector_name = _dbCon.Extrmal_Sections.FirstOrDefault(v => v.id == z.sector_number).Section_Name,
+                        sector_number = z.sector_number
+                        ,
+                        mail_forwarding=z.mail_forwarding
+
+                    })
+                            .ToListAsync();
+
+
+
                 model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
                 model.list = await(from x in _dbCon.Replies.Where(x => x.send_ToId == c.Id&&x.state.Equals(true)&&x.IsSend.Equals(true))
                                   
@@ -211,8 +232,25 @@ namespace MMSystem.Services.MailServeic
                 //   Mail mail = await _dbCon.Mails.FindAsync(mail_id);
                 model.mail = await Getdto(mail_id, type);
                 Extrenal_inbox external_Mail = await _dbCon.Extrenal_Inboxes.OrderBy(x => x.Id).FirstOrDefaultAsync(x => x.MailID == mail_id);
-                model.side = await _dbCon.Extrmal_Sections.FindAsync(external_Mail.SectionId);
-                model.Sector = await _dbCon.Extrmal_Sections.FirstOrDefaultAsync(x => x.id == model.side.perent);
+              //  model.side = await _dbCon.Extrmal_Sections.FindAsync(external_Mail.SectionId);
+               // model.Sector = await _dbCon.Extrmal_Sections.FirstOrDefaultAsync(x => x.id == model.side.perent);
+
+
+
+                model.external_sectoin = await _dbCon.external_Departments.Where(x => x.Mail_id == model.mail.MailID && x.state == true).Select(z => new Ex_Departments
+                {
+
+                    side_name = _dbCon.Extrmal_Sections.FirstOrDefault(v => v.id == z.side_number).Section_Name,
+                    side_number = z.side_number,
+                    id = z.id,
+                    Mail_id = z.Mail_id,
+                    sector_name = _dbCon.Extrmal_Sections.FirstOrDefault(v => v.id == z.sector_number).Section_Name,
+                    sector_number = z.sector_number,
+                    mail_forwarding=z.mail_forwarding
+                   
+
+                })
+                        .ToListAsync();
 
                 model.Inbox = _mapper.Map<Extrenal_inbox, Extrenal_inboxDto>(external_Mail);
                 List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id&&x.State==true).ToListAsync();

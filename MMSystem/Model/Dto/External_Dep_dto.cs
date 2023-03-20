@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Model.Dto
 {
-    public class Ex_Departments
+    public class External_Dep_dto
     {
         public int id { get; set; }
-
 
         public int side_number { get; set; }
 
@@ -19,9 +18,8 @@ namespace MMSystem.Model.Dto
 
 
         public int sector_number { get; set; }
+
+
         public int Mail_id { get; set; }
-
-        public int mail_forwarding { get; set; }
-
     }
 }

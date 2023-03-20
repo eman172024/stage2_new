@@ -4,14 +4,16 @@ using MMSystem.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MMSystem.Migrations
 {
     [DbContext(typeof(AppDbCon))]
-    partial class AppDbConModelSnapshot : ModelSnapshot
+    [Migration("20230320095426_add foeaignkeyToExte")]
+    partial class addfoeaignkeyToExte
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -396,14 +398,17 @@ namespace MMSystem.Migrations
                     b.Property<DateTime>("insert_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("mail_forwarding")
-                        .HasColumnType("int");
+                    b.Property<string>("sector_name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("sector_number")
                         .HasColumnType("int");
 
                     b.Property<int?>("side_id")
                         .HasColumnType("int");
+
+                    b.Property<string>("side_name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("side_number")
                         .HasColumnType("int");
