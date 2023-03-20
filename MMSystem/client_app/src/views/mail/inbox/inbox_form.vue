@@ -115,7 +115,7 @@
                       </label>
 
                       <div
-                        class="block mt-2 w-full rounded-md h-24 text-sm border border-gray-300 p-2"
+                        class="block mt-2 w-full rounded-md h-24 text-sm border border-gray-300 p-2 overflow-y-scroll"
                       >
                         {{ summary }}
                       </div>
@@ -129,7 +129,7 @@
                         الإجراء المطلوب
                       </label>
                       <div
-                        class="block mt-2 w-full rounded-md h-24 text-sm border border-gray-300 p-2"
+                        class="block mt-2 w-full rounded-md h-24 text-sm border border-gray-300 p-2 overflow-y-scroll"
                       >
                         {{ required_action }}
                       </div>
@@ -264,44 +264,21 @@
 
                     <div v-if="mailType == '3'">وارد من</div>
                   </label>
-
-                  <div
-                    class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
-                  >
-                    {{
-                      mail_forwarding_sector_side
-                        | mail_forwarding_sector_side_filter
-                    }}
-                  </div>
                 </div>
 
-                <div class="sm:col-span-2">
-                  <label
-                    for="send_to_sector"
-                    class="block text-base font-semibold text-gray-800"
-                  >
-                    القطاع
-                  </label>
-
+                <div
+                  class="sm:col-span-8 mt-2 w-full rounded-md text-sm border border-gray-300 p-2 flex flex-wrap"
+                >
                   <div
-                    class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
+                    v-for="(sectoin, index) in external_sectoin"
+                    :key="index"
+                    class="rounded-md border border-gray-300 p-2 ml-4 mb-4"
                   >
-                    {{ sectorNameSelected }}
-                  </div>
-                </div>
-
-                <div class="sm:col-span-2">
-                  <label
-                    for="sideIdSelected"
-                    class="block text-base font-semibold text-gray-800"
-                  >
-                    الجهة
-                  </label>
-
-                  <div
-                    class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
-                  >
-                    {{ sideNameSelected }}
+                    {{ sectoin.mail_forwarding | mail_forwarding_filter }}
+                    /
+                    {{ sectoin.sector_name }}
+                    /
+                    {{ sectoin.side_name }}
                   </div>
                 </div>
 
@@ -383,7 +360,8 @@
                     الإجراء المطلوب من الجهة
                   </label>
                   <div
-                    class="block mt-2 w-full rounded-md h-24 text-sm border border-gray-300 p-2"
+                    class="block mt-2 w-full rounded-md h-24 text-sm border border-gray-300 p-2 overflow-y-scroll
+                    "
                   >
                     {{ action_required_by_the_entity }}
                   </div>
@@ -1270,13 +1248,11 @@ console.log("code inbox_form="+event.code);
 
       sectors: [],
       sectorselect: false,
-      sectorNameSelected: "",
       sectorIdSelected: "",
 
       sides: [],
 
       sideselect: false,
-      sideNameSelected: "",
       sideIdSelected: "",
 
       send_to_side: "",
@@ -1295,8 +1271,6 @@ console.log("code inbox_form="+event.code);
       action: 0,
 
       imagesToShow: [],
-
-      mail_forwarding_sector_side: "",
 
       loading: false,
       screenFreeze: false,
@@ -1324,9 +1298,86 @@ console.log("code inbox_form="+event.code);
       show_current_reply_image_to_for_bigger_screen_model: false,
 
       id_reply_image: "",
+
+      external_sectoin: [],
     };
   },
   methods: {
+    getMailById() {
+      this.$http.mailService
+        .GetInboxMailById(
+          this.mailId,
+          this.my_department_id,
+          this.to_test_passing_mail_type
+        )
+        .then((res) => {
+          this.mail_Number = res.data.mail.mail_Number;
+          this.department_Id = res.data.mail.department_Id;
+          this.mail_year = res.data.mail.mail_year;
+
+          this.releaseDate = res.data.mail.date_Of_Mail;
+          this.summary = res.data.mail.mail_Summary;
+          this.classification = res.data.mail.classification_name;
+          this.mailType = res.data.mail.mail_Type;
+          this.general_incoming_number = res.data.mail.genaral_inbox_Number;
+          this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
+          this.required_action = res.data.mail.action_Required;
+
+          this.replies = res.data.list;
+
+          setTimeout(() => {
+            document.getElementById("scroll").scrollTop =
+              document.getElementById("scroll").scrollHeight;
+          }, 100);
+
+          this.consignees = res.data.actionSenders;
+
+          this.imagesToShow = res.data.mail_Resourcescs;
+
+          if (this.imagesToShow.length > 0) {
+            this.testimage = this.imagesToShow[0].path;
+          }
+
+          if (this.to_test_passing_mail_type == "2") {
+            this.external_sectoin = res.data.external_sectoin;
+
+            this.external_mailId = res.data.external.id;
+
+            this.action_required_by_the_entity =
+              res.data.external.action_required_by_the_entity;
+
+            this.mail_forwarding = res.data.external.action;
+          }
+          if (this.to_test_passing_mail_type == "3") {
+            this.external_sectoin = res.data.external_sectoin;
+
+            this.external_mailId = res.data.inbox.id;
+
+            this.mail_forwarding = res.data.inbox.action;
+
+            this.ward_to = res.data.inbox.to;
+
+            this.mail_ward_type = res.data.inbox.type;
+
+            this.entity_mail_date = res.data.inbox.send_time;
+
+            this.entity_reference_number =
+              res.data.inbox.entity_reference_number;
+
+            this.procedure_type = res.data.inbox.procedure_type;
+          }
+
+          this.to_get_all_doc_of_mail();
+          //   this.GetDocmentForMail();
+          //   this.GetDocmentForMailToShow();
+
+          //   this.GetProcessingResponses()
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
     deletereply() {
       this.alert_delete_document = false;
 
@@ -1712,89 +1763,6 @@ console.log("code inbox_form="+event.code);
         });
     },
 
-    getMailById() {
-      this.$http.mailService
-        .GetInboxMailById(
-          this.mailId,
-          this.my_department_id,
-          this.to_test_passing_mail_type
-        )
-        .then((res) => {
-          this.mail_Number = res.data.mail.mail_Number;
-          this.department_Id = res.data.mail.department_Id;
-          this.mail_year = res.data.mail.mail_year;
-
-          this.releaseDate = res.data.mail.date_Of_Mail;
-          this.summary = res.data.mail.mail_Summary;
-          this.classification = res.data.mail.classification_name;
-          this.mailType = res.data.mail.mail_Type;
-          this.general_incoming_number = res.data.mail.genaral_inbox_Number;
-          this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
-          this.required_action = res.data.mail.action_Required;
-
-          this.replies = res.data.list;
-
-          setTimeout(() => {
-            document.getElementById("scroll").scrollTop =
-              document.getElementById("scroll").scrollHeight;
-          }, 100);
-
-          this.consignees = res.data.actionSenders;
-
-          this.imagesToShow = res.data.mail_Resourcescs;
-
-          if (this.imagesToShow.length > 0) {
-            this.testimage = this.imagesToShow[0].path;
-          }
-
-          if (this.to_test_passing_mail_type == "2") {
-            this.external_mailId = res.data.external.id;
-
-            this.action_required_by_the_entity =
-              res.data.external.action_required_by_the_entity;
-
-            this.mail_forwarding = res.data.external.action;
-
-            this.mail_forwarding_sector_side = res.data.sector.type;
-
-            this.sectorNameSelected = res.data.sector.section_Name;
-
-            this.sideNameSelected = res.data.side.section_Name;
-          }
-          if (this.to_test_passing_mail_type == "3") {
-            this.external_mailId = res.data.inbox.id;
-
-            this.mail_forwarding = res.data.inbox.action;
-
-            this.mail_forwarding_sector_side = res.data.sector.type;
-
-            this.sectorNameSelected = res.data.sector.section_Name;
-
-            this.sideNameSelected = res.data.side.section_Name;
-
-            this.ward_to = res.data.inbox.to;
-
-            this.mail_ward_type = res.data.inbox.type;
-
-            this.entity_mail_date = res.data.inbox.send_time;
-
-            this.entity_reference_number =
-              res.data.inbox.entity_reference_number;
-
-            this.procedure_type = res.data.inbox.procedure_type;
-          }
-
-          this.to_get_all_doc_of_mail();
-          //   this.GetDocmentForMail();
-          //   this.GetDocmentForMailToShow();
-
-          //   this.GetProcessingResponses()
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-
     previousImage() {
       if (this.indextotest > 0) {
         this.indextotest--;
@@ -1915,76 +1883,11 @@ console.log("code inbox_form="+event.code);
         });
     },
 
- //***************8/3/2023
-      AddReply() {
+    //***************8/3/2023
+    AddReply() {
       this.screenFreeze = true;
       this.loading = true;
-      console.log("lenght1111="+this.imagesToSend.length);
-      var ReplyViewModel = {
-        userId: Number(localStorage.getItem("AY_LW")),
-         mailId: Number(this.mailId),
-        send_ToId: Number(this.sends_id),
-        from: Number(2),
-        reply: {
-          mail_detail: this.reply_to_add,
-          To: Number(this.department_Id),
-        },
-        file: {
-          list: this.imagesToSend.slice(0,50),
-        },
-      };
-//
-          
-//
-
-      this.$http.mailService
-        .NewAddReply(ReplyViewModel)
-        .then((res) => {
-          setTimeout(() => {
-            console.log("res="+res.data.replyid);
-           // this.imagesToSend = [];
-            // this.documentSection = true;
-            // this.proceduresSection = true;
-
-            this.loading = false;
-            this.screenFreeze = false;
-
-            this.reply_to_add = "";
-           //28/2/2023 this.getMailById();
-       var cou=Math.ceil(this.imagesToSend.length/50);
-          if(cou > 1)
-            {
-              console.log("cou="+cou);
-              var id_of_reply_from_beackend = res.data.replyid;//101
-             this.update_reply_to_complet_sent_img(1,id_of_reply_from_beackend,cou,50);
-            }
-            //****28/2/2023
-           else{
-           this.getMailById();
-           }
-           //********end 28/2/2023
-          }, 500);
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.screenFreeze = false;
-          }, 500);
-          console.log(err);
-        });
-    },
-
-    update_reply_to_complet_sent_img(ii,id,count1,a2){
-    console.log("update_reply ii="+ii);
-   
-       if(ii < count1)
-      {
-
-     var a1=a2;
-      a2=a1+50;
-      this.screenFreeze = true;
-      this.loading = true;
-
+      console.log("lenght1111=" + this.imagesToSend.length);
       var ReplyViewModel = {
         userId: Number(localStorage.getItem("AY_LW")),
         mailId: Number(this.mailId),
@@ -1995,38 +1898,43 @@ console.log("code inbox_form="+event.code);
           To: Number(this.department_Id),
         },
         file: {
-          list: this.imagesToSend.slice(a1,a2),
+          list: this.imagesToSend.slice(0, 50),
         },
-        id_of_reply: id
       };
+      //
+
+      //
+
       this.$http.mailService
-        .update_replay(ReplyViewModel)
+        .NewAddReply(ReplyViewModel)
         .then((res) => {
           setTimeout(() => {
-            console.log(res);
-          //28/3/2023  this.imagesToSend = [];
+            console.log("res=" + res.data.replyid);
+            // this.imagesToSend = [];
             // this.documentSection = true;
             // this.proceduresSection = true;
 
-           
             this.loading = false;
             this.screenFreeze = false;
 
             this.reply_to_add = "";
-            // this.getMailById();
-
-            ii++;
-             if(ii < count1)
-            {
-             // var id_of_reply_from_beackend = 1
-           //   this.update_reply_to_complet_sent_img(ii,id_of_reply_from_beackend);
-          this.update_reply_to_complet_sent_img(ii,id,count1,a2);
-         
+            //28/2/2023 this.getMailById();
+            var cou = Math.ceil(this.imagesToSend.length / 50);
+            if (cou > 1) {
+              console.log("cou=" + cou);
+              var id_of_reply_from_beackend = res.data.replyid; //101
+              this.update_reply_to_complet_sent_img(
+                1,
+                id_of_reply_from_beackend,
+                cou,
+                50
+              );
             }
-           //*********1/3/2023
-            else
- this.getMailById();
-           //*******end 1/3/2023 
+            //****28/2/2023
+            else {
+              this.getMailById();
+            }
+            //********end 28/2/2023
           }, 500);
         })
         .catch((err) => {
@@ -2036,13 +1944,67 @@ console.log("code inbox_form="+event.code);
           }, 500);
           console.log(err);
         });
+    },
 
+    update_reply_to_complet_sent_img(ii, id, count1, a2) {
+      console.log("update_reply ii=" + ii);
 
+      if (ii < count1) {
+        var a1 = a2;
+        a2 = a1 + 50;
+        this.screenFreeze = true;
+        this.loading = true;
+
+        var ReplyViewModel = {
+          userId: Number(localStorage.getItem("AY_LW")),
+          mailId: Number(this.mailId),
+          send_ToId: Number(this.sends_id),
+          from: Number(2),
+          reply: {
+            mail_detail: this.reply_to_add,
+            To: Number(this.department_Id),
+          },
+          file: {
+            list: this.imagesToSend.slice(a1, a2),
+          },
+          id_of_reply: id,
+        };
+        this.$http.mailService
+          .update_replay(ReplyViewModel)
+          .then((res) => {
+            setTimeout(() => {
+              console.log(res);
+              //28/3/2023  this.imagesToSend = [];
+              // this.documentSection = true;
+              // this.proceduresSection = true;
+
+              this.loading = false;
+              this.screenFreeze = false;
+
+              this.reply_to_add = "";
+              // this.getMailById();
+
+              ii++;
+              if (ii < count1) {
+                // var id_of_reply_from_beackend = 1
+                //   this.update_reply_to_complet_sent_img(ii,id_of_reply_from_beackend);
+                this.update_reply_to_complet_sent_img(ii, id, count1, a2);
+              }
+              //*********1/3/2023
+              else this.getMailById();
+              //*******end 1/3/2023
+            }, 500);
+          })
+          .catch((err) => {
+            setTimeout(() => {
+              this.loading = false;
+              this.screenFreeze = false;
+            }, 500);
+            console.log(err);
+          });
       }
     },
-//************************************8/3/2023
-
-
+    //************************************8/3/2023
   },
 };
 </script>
