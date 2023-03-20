@@ -646,7 +646,7 @@
                               items-center
                             ">
                         <div v-for="consignee in consignees" :key="consignee.side" class="
-                                border border-gary-200
+                                border-2 border-green-500
                                 rounded-md
                                 text-sm
                                 flex
@@ -1414,7 +1414,7 @@
 
 
                       <div v-for="sector_side in sector_side_old_array" :key="sector_side.side" class="
-                                border border-gary-200
+                                border-2 border-green-500
                                 rounded-md
                                 text-sm
                                 flex
@@ -3808,6 +3808,9 @@ console.log("index="+ind);
       sector_side_new_array: [],
       sector_side_old_array: [],
       sector_side_old_array_id: [],
+
+
+      sector_side_from_delet_fun : false,
     };
   },
 
@@ -4033,59 +4036,77 @@ console.log("index="+ind);
     
 
     delete_sector_side_from_array(id) {
-      this.screenFreeze = true;
-      this.loading = true;
 
-      console.log(id)
-      this.$http.mailService
-        .cancel_sending_to_sector_side(
-          id,
-          Number(localStorage.getItem("AY_LW"))
-        )
-        .then((res) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.screenFreeze = false;
-        
-            this.GetSentMailById();
-            
-          }, 500);
-        })
-        .catch((err) => {
-          setTimeout(() => {
-            this.loading = false;
-            this.screenFreeze = false;
-          }, 500);
-          alert("لا يمكن إلغاء الإدارة بعد القراءة");
-        });
+      if ( this.sector_side_old_array_id.length > 1 ) {
+        this.screenFreeze = true;
+        this.loading = true;
+
+
+        this.sector_side_from_delet_fun = true;
+        console.log(id)
+        this.$http.mailService
+          .cancel_sending_to_sector_side(
+            id,
+            Number(localStorage.getItem("AY_LW"))
+          )
+          .then((res) => {
+            setTimeout(() => {
+              this.loading = false;
+              this.screenFreeze = false;
+          
+              this.GetSentMailById();
+              
+            }, 500);
+          })
+          .catch((err) => {
+            setTimeout(() => {
+              this.loading = false;
+              this.screenFreeze = false;
+            }, 500);
+            alert("لا يمكن إلغاء الإدارة بعد القراءة");
+          });
+
+      }
+         else{
+          alert("لا يمكن حذف جميع الجهات")
+        }
     },
 
 
     remove_sector_side_from_array(sideId, sideName, sectorId, sectorName) {
 
-      // sideId: this.sideIdSelected,
-      //                   sideName: this.sideNameSelected,
-      //                   sectorId: this.sectorIdSelected,
-      //                   sectorName: this.sectorNameSelected,
 
 
-      
-        const index = this.sector_side_new_array.findIndex((element, index) => {
-          if (element.side_number === sideId && element.sector_number === sectorId) {
-            return true;
+      console.log(this.sector_side_new_array_id.length)
+      console.log(this.sector_side_old_array_id.length)
+
+
+      console.log(this.sector_side_new_array_id.length + this.sector_side_old_array_id.length )
+      console.log(this.sector_side_new_array_id.length + this.sector_side_old_array_id.length < 1)
+
+        if (this.sector_side_new_array_id.length + this.sector_side_old_array_id.length > 1 ) {
+            
+
+
+            const index = this.sector_side_new_array.findIndex((element, index) => {
+            if (element.side_number === sideId && element.sector_number === sectorId) {
+              return true;
+            }
+          });
+          this.sector_side_new_array.splice(index, 1);
+
+          const index_id = this.sector_side_new_array_id.findIndex((element, index_id) => {
+            if (element === sideId ) {
+              return true;
+            }
+          });
+          this.sector_side_new_array_id.splice(index_id, 1);
+
+
           }
-        });
-        this.sector_side_new_array.splice(index, 1);
-
-
-
-
-        const index_id = this.sector_side_new_array_id.findIndex((element, index_id) => {
-          if (element === sideId ) {
-            return true;
-          }
-        });
-        this.sector_side_new_array_id.splice(index_id, 1);
+          else{
+          alert("لا يمكن حذف جميع الجهات")
+        }
 
         // this.newactionSendersIncludesId.splice(index, 1);
      
@@ -5617,8 +5638,12 @@ console.log("close code="+event.code);
       this.newactionSendersIncludesId = [];
       this.doc_number = 0;
 
-      this.sector_side_new_array = []
-      this.sector_side_new_array_id = []
+
+      if (!this.sector_side_from_delet_fun) {
+        this.sector_side_new_array = []
+        this.sector_side_new_array_id = []
+      }
+      
 
       this.sector_side_old_array = []
       this.sector_side_old_array_id = []
