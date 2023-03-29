@@ -633,7 +633,7 @@
                           {{ consignee.departmentName }} ,
                           {{ consignee.measureName }}
                           <button
-                            v-if="mail_flag <= 2 && consignees.length > 0"
+                            v-if="(mail_flag <= 2 && consignees.length > 1) || (mail_flag <= 2 && consignees.length > 0 && mailType=='3')"
                             @click="
                               delete_side_measure(
                                 consignee.departmentId,
@@ -669,6 +669,7 @@
                           {{ consignee.measureName }}
                           <!--  -->
                           <button
+                          
                             @click="
                               remove_to_array_of_side_measure(
                                 consignee.departmentId,
