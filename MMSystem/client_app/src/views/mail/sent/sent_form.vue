@@ -1329,10 +1329,20 @@
                       <div class="relative">
                         <button
                           @click="sideselect = !sideselect"
+                          @keyup.space.prevent
                           id="measure"
                           class="text-right block mt-2 w-full rounded-md h-10 border text-xs bg-white border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
                         >
-                          {{ sideNameSelected }}
+                          <!-- {{ sideNameSelected }} -->
+
+
+                            <input
+                            
+                          v-model="sideNameSelected"
+                          type="text"
+                          class="h-6 w-full"
+                        />
+
                         </button>
 
                         <div
@@ -4920,22 +4930,42 @@ console.log("close code="+event.code);
           }
 
           if (this.mailType == "2") {
+
+
+
             this.external_mailId = res.data.external.id;
 
-            this.action_required_by_the_entity =
-              res.data.external.action_required_by_the_entity;
+this.action_required_by_the_entity =
+  res.data.external.action_required_by_the_entity;
 
-            this.sector_side_old_array = res.data.external_sectoin;
+this.sector_side_old_array = res.data.external_sectoin;
 
-            for (
-              let index = 0;
-              index < res.data.sector_side_old_array.length;
-              index++
-            ) {
-              this.sector_side_old_array_id.push(
-                res.data.sector_side_old_array[index].side_number
-              );
-            }
+for (
+  let index = 0;
+  index < res.data.external_sectoin.length;
+  index++
+) {
+  this.sector_side_old_array_id.push(
+    res.data.external_sectoin[index].side_number
+  );
+}
+
+            // this.external_mailId = res.data.external.id;
+
+            // this.action_required_by_the_entity =
+            //   res.data.external.action_required_by_the_entity;
+
+            // this.sector_side_old_array = res.data.external_sectoin;
+
+            // for (
+            //   let index = 0;
+            //   index < res.data.sector_side_old_array.length;
+            //   index++
+            // ) {
+            //   this.sector_side_old_array_id.push(
+            //     res.data.sector_side_old_array[index].side_number
+            //   );
+            // }
 
             // this.get_sectors(this.mail_forwarding);
 
@@ -4947,17 +4977,19 @@ console.log("close code="+event.code);
             // this.sideIdSelected = res.data.side[0].id;
           }
           if (this.mailType == "3") {
+
+            
             this.external_mailId = res.data.external.id;
 
             this.sector_side_old_array = res.data.external_sectoin;
 
             for (
               let index = 0;
-              index < res.data.sector_side_old_array.length;
+              index < res.data.external_sectoin.length;
               index++
             ) {
               this.sector_side_old_array_id.push(
-                res.data.sector_side_old_array[index].side_number
+                res.data.external_sectoin[index].side_number
               );
             }
 
@@ -4980,6 +5012,42 @@ console.log("close code="+event.code);
               res.data.external.entity_reference_number;
 
             this.procedure_type = res.data.external.procedure_type;
+
+
+
+            // this.external_mailId = res.data.external.id;
+
+            // this.sector_side_old_array = res.data.external_sectoin;
+
+            // for (
+            //   let index = 0;
+            //   index < res.data.sector_side_old_array.length;
+            //   index++
+            // ) {
+            //   this.sector_side_old_array_id.push(
+            //     res.data.sector_side_old_array[index].side_number
+            //   );
+            // }
+
+            // // this.get_sectors(this.mail_forwarding);
+
+            // // this.sectorNameSelected = res.data.sector[0].section_Name;
+            // // this.sectorIdSelected = res.data.sector[0].id;
+
+            // // this.get_sides(this.sectorIdSelected, this.sectorNameSelected);
+            // // this.sideNameSelected = res.data.side[0].section_Name;
+            // // this.sideIdSelected = res.data.side[0].id;
+
+            // this.ward_to = res.data.external.to;
+
+            // this.mail_ward_type = res.data.external.type;
+
+            // this.entity_mail_date = res.data.external.send_time;
+
+            // this.entity_reference_number =
+            //   res.data.external.entity_reference_number;
+
+            // this.procedure_type = res.data.external.procedure_type;
           }
 
           setTimeout(() => {
@@ -5298,6 +5366,8 @@ console.log("close code="+event.code);
         .UpdateMail(dataUpdate)
         .then((res) => {
           this.newactionSenders = [];
+          this.sector_side_new_array=[];
+          this.sector_side_new_array_id="";
           this.newactionSendersIncludesId = [];
 
           if (this.mailType == 1) {
@@ -5552,6 +5622,10 @@ console.log("close code="+event.code);
             // this.sideIdSelected = res.data.side[0].id;
           }
           if (this.to_test_passing_mail_type == "3") {
+
+
+
+
             this.external_mailId = res.data.external.id;
 
             this.sector_side_old_array = res.data.external_sectoin;
