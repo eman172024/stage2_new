@@ -29,7 +29,6 @@ namespace MMSystem.Model
 
 
         public DateTime insert_at { get; set; }
-        public DateTime update_at { get; set; }
 
         public int mail_forwarding { get; set; }
 
