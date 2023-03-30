@@ -1,5 +1,14 @@
 import Vue from "vue";
 
+Vue.filter("mail_forwarding_filter", function(status) {
+    if (status === null) return "-";
+    let statusName = "";
+    if (status === 1) statusName = "فروع الرقابة";
+    else if (status === 2) statusName = "جهات عامة";
+    else if (status === 3) statusName = "جهات خاصة";
+    return statusName;
+});
+
 Vue.filter("mail_type", function(status) {
     if (status === null) return "-";
     let statusName = "";
@@ -22,9 +31,6 @@ Vue.filter("mail_state_inbox", function(status) {
     return statusName;
 });
 
-
-
-
 Vue.filter("mail_forwarding_sector_side_filter", function(status) {
     if (status === null) return "-";
     let statusName = "";
@@ -33,7 +39,6 @@ Vue.filter("mail_forwarding_sector_side_filter", function(status) {
     else if (status === 3) statusName = "جهات خاصة";
     return statusName;
 });
-
 
 Vue.filter("ward_to_filter", function(status) {
     if (status === null) return "-";

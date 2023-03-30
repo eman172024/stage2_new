@@ -14,7 +14,7 @@
     "postcss": "^7.0.39",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
     "vue": "^2.6.11",
-    "vue-disable-autocomplete": "0.0.4",
+    "vue-disable-autocomplete": "^0.0.4",
     "vue-html-to-paper": "^1.4.4",
     "vue-pagination-2": "^3.1.0",
     "vue-print-nb": "^1.7.5",
