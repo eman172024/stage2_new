@@ -1412,7 +1412,7 @@
                       for="consignees"
                       class="block text-sm font-semibold text-gray-800"
                     >
-                      المرسل إليهم
+                      الجهات المرسل إليهم
                     </label>
                     <div
                       class="mt-2 w-full rounded-md border border-gray-200 p-2 h-24 overflow-y-scroll flex flex-wrap items-center"
