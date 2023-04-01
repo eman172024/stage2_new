@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace MMSystem.Model
     {
         [Key]
         public int id { get; set; }
-
+        [ForeignKey("side_")]
         public int side_number { get; set; }
 
       //  public string side_name { get; set; }
@@ -28,7 +29,6 @@ namespace MMSystem.Model
 
 
         public DateTime insert_at { get; set; }
-        public DateTime update_at { get; set; }
 
         public int mail_forwarding { get; set; }
 
