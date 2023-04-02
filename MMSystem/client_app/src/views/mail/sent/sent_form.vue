@@ -633,7 +633,12 @@
                           {{ consignee.departmentName }} ,
                           {{ consignee.measureName }}
                           <button
-                            v-if="(mail_flag <= 2 && consignees.length > 1) || (mail_flag <= 2 && consignees.length > 0 && mailType=='3')"
+                            v-if="
+                              (mail_flag <= 2 && consignees.length > 1) ||
+                              (mail_flag <= 2 &&
+                                consignees.length > 0 &&
+                                mailType == '3')
+                            "
                             @click="
                               delete_side_measure(
                                 consignee.departmentId,
@@ -669,7 +674,6 @@
                           {{ consignee.measureName }}
                           <!--  -->
                           <button
-                          
                             @click="
                               remove_to_array_of_side_measure(
                                 consignee.departmentId,
@@ -1336,14 +1340,11 @@
                         >
                           <!-- {{ sideNameSelected }} -->
 
-
-                            <input
-                            
-                          v-model="sideNameSelected"
-                          type="text"
-                          class="h-6 w-full"
-                        />
-
+                          <input
+                            v-model="sideNameSelected"
+                            type="text"
+                            class="h-6 w-full"
+                          />
                         </button>
 
                         <div
@@ -1742,6 +1743,8 @@
                           summary &&
                           is_exisite_genaral_inbox_number == true &&
                           classification &&
+                          (sector_side_new_array.length != 0 ||
+                            sector_side_old_array.length != 0) &&
                           (consignees.length != 0 ||
                             newactionSenders.length != 0)
                         "
@@ -1795,6 +1798,8 @@
                         v-if="
                           summary &&
                           is_exisite_genaral_inbox_number == true &&
+                          (sector_side_new_array.length != 0 ||
+                            sector_side_old_array.length != 0) &&
                           classification
                         "
                         @click="updateMail"
@@ -2059,7 +2064,8 @@
                           (consignees.length != 0 ||
                             newactionSenders.length != 0) &&
                           mail_forwarding &&
-                          sector_side_new_array &&
+                          (sector_side_new_array.length != 0 ||
+                            sector_side_old_array.length != 0) &&
                           action_required_by_the_entity
                         "
                         class="flex justify-center items-center py-2 px-8 border border-transparent shadow-sm text-sm font-medium rounded-md border-green-600 text-white bg-green-600 hover:shadow-lg focus:shadow-none duration-300 focus:outline-none"
@@ -2109,7 +2115,8 @@
                           summary &&
                           classification &&
                           is_exisite_genaral_inbox_number == true &&
-                          sector_side_new_array &&
+                          (sector_side_new_array.length != 0 ||
+                            sector_side_old_array.length != 0) &&
                           ward_to &&
                           mail_ward_type &&
                           entity_mail_date &&
@@ -3732,6 +3739,14 @@ console.log("index="+ind);
     mailType: function () {
       var date = new Date();
 
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+
+      if (month < 10) month = "0" + month;
+      if (day < 10) day = "0" + day;
+
+      this.releaseDate = date.getFullYear() + "-" + month + "-" + day;
+
       this.genaral_inbox_year = date.getFullYear();
 
       this.mail_flag = "";
@@ -4865,6 +4880,16 @@ console.log("close code="+event.code);
 
       this.old_mail_number = "";
 
+      var date = new Date();
+
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+
+      if (month < 10) month = "0" + month;
+      if (day < 10) day = "0" + day;
+
+      this.releaseDate = date.getFullYear() + "-" + month + "-" + day;
+
       this.GetAllDepartments;
       this.$http.mailService
         .search(
@@ -4931,25 +4956,22 @@ console.log("close code="+event.code);
           }
 
           if (this.mailType == "2") {
-
-
-
             this.external_mailId = res.data.external.id;
 
-this.action_required_by_the_entity =
-  res.data.external.action_required_by_the_entity;
+            this.action_required_by_the_entity =
+              res.data.external.action_required_by_the_entity;
 
-this.sector_side_old_array = res.data.external_sectoin;
+            this.sector_side_old_array = res.data.external_sectoin;
 
-for (
-  let index = 0;
-  index < res.data.external_sectoin.length;
-  index++
-) {
-  this.sector_side_old_array_id.push(
-    res.data.external_sectoin[index].side_number
-  );
-}
+            for (
+              let index = 0;
+              index < res.data.external_sectoin.length;
+              index++
+            ) {
+              this.sector_side_old_array_id.push(
+                res.data.external_sectoin[index].side_number
+              );
+            }
 
             // this.external_mailId = res.data.external.id;
 
@@ -4978,8 +5000,6 @@ for (
             // this.sideIdSelected = res.data.side[0].id;
           }
           if (this.mailType == "3") {
-
-            
             this.external_mailId = res.data.external.id;
 
             this.sector_side_old_array = res.data.external_sectoin;
@@ -5013,8 +5033,6 @@ for (
               res.data.external.entity_reference_number;
 
             this.procedure_type = res.data.external.procedure_type;
-
-
 
             // this.external_mailId = res.data.external.id;
 
@@ -5367,8 +5385,8 @@ for (
         .UpdateMail(dataUpdate)
         .then((res) => {
           this.newactionSenders = [];
-          this.sector_side_new_array=[];
-          this.sector_side_new_array_id="";
+          this.sector_side_new_array = [];
+          this.sector_side_new_array_id = "";
           this.newactionSendersIncludesId = [];
 
           if (this.mailType == 1) {
@@ -5623,10 +5641,6 @@ for (
             // this.sideIdSelected = res.data.side[0].id;
           }
           if (this.to_test_passing_mail_type == "3") {
-
-
-
-
             this.external_mailId = res.data.external.id;
 
             this.sector_side_old_array = res.data.external_sectoin;
@@ -5815,6 +5829,17 @@ for (
         });
     },
 
+scanToJpg() {
+      scanner.scan(this.displayImagesOnPage, {
+        output_settings: [
+          {
+            type: "return-base64",
+            format: "jpg",
+          },
+        ],
+      });
+    },
+
     sendMail() {
       this.screenFreeze = true;
       this.loading = true;
@@ -5927,17 +5952,7 @@ for (
       // }, 1000);
     },
 
-    scanToJpg() {
-      scanner.scan(this.displayImagesOnPage, {
-        output_settings: [
-          {
-            type: "return-base64",
-            format: "jpg",
-          },
-        ],
-      });
-    },
-
+    
     displayImagesOnPage(successful, mesg, response) {
       if (!successful) {
         // On error
@@ -5991,6 +6006,22 @@ for (
       }, 1000);
     },
 
+
+    ImagetoPrint(img) {
+      return (
+        "<html><head><scri" +
+        "pt>function step1(){\n" +
+        "setTimeout('step2()', 10);}\n" +
+        "function step2(){window.print();window.close()}\n" +
+        "</scri" +
+        "pt></head><body onload='step1()'>\n" +
+        "<img  style='padding:0; width: 100%; size:A4; margin:0;' src='" +
+        img +
+        "' /></body></html>"
+      );
+    },
+
+
     UploadImagesMail() {
       this.screenFreeze = true;
       this.loading = true;
@@ -6035,6 +6066,12 @@ for (
         });
     },
 
+    
+
+
+
+    
+
     printImage(img) {
       var Pagelink = "هيئة الرقابة الادارية ليبيا";
       var pwa = window.open(
@@ -6048,19 +6085,6 @@ for (
       pwa.document.close();
     },
 
-    ImagetoPrint(img) {
-      return (
-        "<html><head><scri" +
-        "pt>function step1(){\n" +
-        "setTimeout('step2()', 10);}\n" +
-        "function step2(){window.print();window.close()}\n" +
-        "</scri" +
-        "pt></head><body onload='step1()'>\n" +
-        "<img  style='padding:0; width: 100%; size:A4; margin:0;' src='" +
-        img +
-        "' /></body></html>"
-      );
-    },
   },
 };
 </script>

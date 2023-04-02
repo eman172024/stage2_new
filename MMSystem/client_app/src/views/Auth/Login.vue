@@ -1,17 +1,7 @@
 <template>
   <div>
     <div
-      class="
-        min-h-screen
-        flex
-        items-center
-        justify-center
-        bg-gray-50
-        py-12
-        px-4
-        sm:px-6
-        lg:px-8
-      "
+      class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8"
     >
       <div class="max-w-md w-full space-y-8">
         <div>
@@ -24,7 +14,7 @@
             منظومة البريد الداخلي
           </h2>
         </div>
-        <div v-on:keyup.enter="submit" class="mt-8 space-y-6 ">
+        <div v-on:keyup.enter="submit" class="mt-8 space-y-6">
           <input type="hidden" name="remember" value="true" />
           <div class="rounded-md shadow-sm">
             <div class="">
@@ -38,48 +28,18 @@
               <div class="relative">
                 <button
                   @click="departmentselect = !departmentselect"
-                 
                   id="department"
-                  class="
-                    text-right
-                    block
-                    mt-2
-                    w-full
-                    rounded-md
-                    h-12
-                    border
-                    text-sm
-                    bg-white
-                    border-gray-300
-                    hover:shadow-sm
-                    focus:outline-none
-                    focus:border-gray-300
-                    p-2
-                  "
+                  class="text-right block mt-2 w-full rounded-md h-12 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
                 >
-
                   {{ departmentNameSelected }}
                 </button>
 
                 <div
                   v-if="departmentselect"
-                  class="
-                    border
-                    text-sm
-                    bg-white
-                    border-gray-300
-                    p-2
-                    absolute
-                    w-full
-                    z-20
-                    shadow
-                    h-40
-                    overflow-y-scroll
-                    rounded-b-md
-                  "
+                  class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md"
                 >
                   <button
-                    class="block focus:outline-none w-full duration-500 px-1 py-2 text-right hover:bg-gray-200  "
+                    class="block focus:outline-none w-full duration-500 px-1 py-2 text-right hover:bg-gray-200"
                     @click="
                       selectdepartment(
                         department.id,
@@ -90,9 +50,9 @@
                     v-for="department in departments"
                     :key="department.id"
                   >
-                <!--  <a  class="w-full block " :id="department.id" @click="test(department.id)" > {{ department.departmentName }}</a>-->
-                
-                 {{ department.departmentName }}
+                    <!--  <a  class="w-full block " :id="department.id" @click="test(department.id)" > {{ department.departmentName }}</a>-->
+
+                    {{ department.departmentName }}
                   </button>
                 </div>
               </div>
@@ -110,42 +70,14 @@
                 <button
                   @click="usersSelect = !usersSelect"
                   id="email"
-                  class="
-                    text-right
-                    block
-                    mt-2
-                    w-full
-                    rounded-md
-                    h-10
-                    border
-                    text-sm
-                    bg-white
-                    border-gray-300
-                    hover:shadow-sm
-                    focus:outline-none
-                    focus:border-gray-300
-                    p-2
-                  "
+                  class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
                 >
                   {{ userNameSelected }}
                 </button>
 
                 <div
                   v-if="usersSelect"
-                  class="
-                    border
-                    text-sm
-                    bg-white
-                    border-gray-300
-                    p-2
-                    absolute
-                    w-full
-                    z-20
-                    shadow
-                    h-24
-                    overflow-y-scroll
-                    rounded-b-md
-                  "
+                  class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
                 >
                   <button
                     class="block focus:outline-none w-full my-1 text-right"
@@ -179,24 +111,7 @@
                 autocomplete="password"
                 required
                 v-model="Password"
-                class="
-                  appearance-none
-                  rounded-none
-                  relative
-                  block
-                  w-full
-                  px-3
-                  py-2
-                  border border-gray-300
-                  placeholder-gray-500
-                  text-gray-900
-                  rounded-b-md
-                  focus:outline-none
-                  focus:ring-green-500
-                  focus:border-green-500
-                  focus:z-10
-                  sm:text-sm
-                "
+                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
               />
             </div>
           </div>
@@ -204,28 +119,7 @@
             <button
               @click="submit()"
               type="submit"
-              class="
-                group
-                relative
-                w-8/12
-                mx-auto
-                flex
-                justify-center
-                py-3
-                px-4
-                border border-transparent
-                shadow-sm
-                text-sm
-                font-bold
-                rounded-md
-                border-green-600
-                text-white
-                bg-green-600
-                hover:shadow-lg
-                focus:shadow-none
-                duration-300
-                focus:outline-none
-              "
+              class="group relative w-8/12 mx-auto flex justify-center py-3 px-4 border border-transparent shadow-sm text-sm font-bold rounded-md border-green-600 text-white bg-green-600 hover:shadow-lg focus:shadow-none duration-300 focus:outline-none"
             >
               <span class="absolute left-0 inset-y-0 flex items-center pl-3">
                 <svg
@@ -259,17 +153,7 @@
 
     <div
       v-if="screenFreeze"
-      class="
-        w-screen
-        h-screen
-        bg-black bg-opacity-30
-        absolute
-        inset-0
-        z-50
-        flex
-        justify-center
-        items-center
-      "
+      class="w-screen h-screen bg-black bg-opacity-30 absolute inset-0 z-50 flex justify-center items-center"
     >
       <div v-if="loading" class="">
         <svgLoadingComponent></svgLoadingComponent>
@@ -277,16 +161,7 @@
       <div v-else>
         <div v-if="loginSuccess" class="shadow-2xl">
           <div
-            class="
-              w-96
-              h-60
-              bg-white
-              rounded-lg
-              p-4
-              flex flex-col
-              justify-between
-              items-center
-            "
+            class="w-96 h-60 bg-white rounded-lg p-4 flex flex-col justify-between items-center"
           >
             <div class="flex justify-center items-center h-full">
               <span class="font-bold"> {{ user.name }} &nbsp; </span>
@@ -297,21 +172,7 @@
               <router-link
                 v-if="this.user.administrator.departmentId != 19"
                 :to="{ name: 'dashboard' }"
-                class="
-                  py-2
-                  px-8
-                  border border-transparent
-                  shadow-sm
-                  text-sm
-                  font-medium
-                  rounded-md
-                  text-green-600
-                  border-green-600
-                  hover:bg-green-600
-                  hover:text-white
-                  duration-300
-                  focus:outline-none
-                "
+                class="py-2 px-8 border border-transparent shadow-sm text-sm font-medium rounded-md text-green-600 border-green-600 hover:bg-green-600 hover:text-white duration-300 focus:outline-none"
               >
                 دخول
               </router-link>
@@ -319,21 +180,7 @@
               <router-link
                 v-else
                 :to="{ name: 'Archives' }"
-                class="
-                  py-2
-                  px-8
-                  border border-transparent
-                  shadow-sm
-                  text-sm
-                  font-medium
-                  rounded-md
-                  text-green-600
-                  border-green-600
-                  hover:bg-green-600
-                  hover:text-white
-                  duration-300
-                  focus:outline-none
-                "
+                class="py-2 px-8 border border-transparent shadow-sm text-sm font-medium rounded-md text-green-600 border-green-600 hover:bg-green-600 hover:text-white duration-300 focus:outline-none"
               >
                 دخول
               </router-link>
@@ -343,16 +190,7 @@
 
         <div v-else class="shadow-2xl">
           <div
-            class="
-              w-96
-              h-60
-              bg-white
-              rounded-lg
-              p-4
-              flex flex-col
-              justify-between
-              items-center
-            "
+            class="w-96 h-60 bg-white rounded-lg p-4 flex flex-col justify-between items-center"
           >
             <div class="flex justify-between items-center w-full">
               <p class="text-lg font-medium text-green-600">
@@ -366,14 +204,7 @@
                 class="focus:outline-none"
               >
                 <svg
-                  class="
-                    w-6
-                    h-6
-                    stroke-current
-                    text-base
-                    hover:text-red-500
-                    duration-300
-                  "
+                  class="w-6 h-6 stroke-current text-base hover:text-red-500 duration-300"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -403,14 +234,7 @@
             </div>
 
             <div
-              class="
-                flex
-                justify-center
-                items-center
-                h-full
-                text-center
-                leading-8
-              "
+              class="flex justify-center items-center h-full text-center leading-8"
             >
               يبدو أنك أخطأت في إدخال أحد الحقول.
               <br />
@@ -423,21 +247,7 @@
                   screenFreeze = false;
                   loading = false;
                 "
-                class="
-                  py-2
-                  px-8
-                  border border-transparent
-                  shadow-sm
-                  text-sm
-                  font-medium
-                  rounded-md
-                  text-green-600
-                  border-green-600
-                  hover:bg-green-600
-                  hover:text-white
-                  duration-300
-                  focus:outline-none
-                "
+                class="py-2 px-8 border border-transparent shadow-sm text-sm font-medium rounded-md text-green-600 border-green-600 hover:bg-green-600 hover:text-white duration-300 focus:outline-none"
               >
                 المحاولة مرة اخرى
               </button>
@@ -458,11 +268,16 @@ export default {
   },
 
   mounted() {
+    if (localStorage.getItem("p_v") != "v1") {
+      localStorage.setItem("p_v", "v1");
+      location.reload(true);
+    }
+
     this.GetAllDepartments();
-    
+
     //**********8/1/2023 stop websocket
-     //*********************websocket 13/12/2022
-      
+    //*********************websocket 13/12/2022
+
     /*this.conn = new WebSocket("ws://localhost:58316/ws");
      // this.conn = new WebSocket("ws://mail:82/ws");
    
@@ -487,17 +302,18 @@ export default {
   },
 
   watch: {
-    departmentIdSelected: function() {
+    departmentIdSelected: function () {
       this.GetUsersOfDepartment();
     },
   },
-  
+
   data() {
     return {
+      reload_page: 0,
       //******13/12/2022
-       keyid1:"",
-       macaddress:[],
-//****13/12/2022
+      keyid1: "",
+      macaddress: [],
+      //****13/12/2022
       loading: true,
       screenFreeze: true,
       loginSuccess: false,
@@ -507,8 +323,7 @@ export default {
 
       user: {},
 
-
-      clear_text:0,
+      clear_text: 0,
 
       departments: [],
       departmentselect: false,
@@ -522,34 +337,31 @@ export default {
     };
   },
   methods: {
-
-    clear_textf(){
-
-      if(this.clear_text==0){
-
-        this.departmentNameSelected="";
-        this.clear_text++
+    clear_textf() {
+      if (this.clear_text == 0) {
+        this.departmentNameSelected = "";
+        this.clear_text++;
       }
     },
 
-//********13/12/2022
+    //********13/12/2022
     //*****************29/3/2022
     test(id) {
       var link1 = document.getElementById(id);
-    
+
       var keyid = this.keyid;
-      link1.href = "MMac:flag=2"  + "keyid=" + keyid;
-   },
+      link1.href = "MMac:flag=2" + "keyid=" + keyid;
+    },
     test1() {
-      console.log("maaaac address")
+      console.log("maaaac address");
       var link1 = document.getElementById("a9");
-    
+
       var keyid = this.keyid;
-      link1.href = "MMac:flag=2"  + "keyid=" + keyid;
-   },
+      link1.href = "MMac:flag=2" + "keyid=" + keyid;
+    },
 
     //***********End 13/12/2022
-    
+
     GetUsersOfDepartment() {
       // console.log(this.departmentIdSelected)
       this.loading = true;
@@ -609,10 +421,9 @@ export default {
         DepartmentId: this.departmentIdSelected,
         UserId: Number(this.userIdSelected),
 
- //******21/12/2022
-        Mac:this.macaddress.mac,
+        //******21/12/2022
+        Mac: this.macaddress.mac,
         //*****end 21/12/2022
-
       };
 
       this.$http.securityService
@@ -629,10 +440,14 @@ export default {
 
             this.$authenticatedUser.userId = this.user.administrator.userId;
             this.$authenticatedUser.name = this.user.administrator.userName;
-            this.$authenticatedUser.departmentId = this.user.administrator.departmentId;
+            this.$authenticatedUser.departmentId =
+              this.user.administrator.departmentId;
 
             localStorage.setItem("AY_LW", this.user.administrator.userId);
-            localStorage.setItem("current_department_name", this.departmentNameSelected);
+            localStorage.setItem(
+              "current_department_name",
+              this.departmentNameSelected
+            );
             localStorage.setItem(
               "chrome",
               this.user.administrator.departmentId
@@ -642,11 +457,9 @@ export default {
             setTimeout(() => {
               if (this.user.administrator.departmentId != 19) {
                 this.$router.push({ name: "dashboard" });
-              }else{
+              } else {
                 this.$router.push({ name: "Archives" });
               }
-              
-              
             }, 400);
             // this.$authenticatedUser.userName = this.user.username
             // this.$authenticatedUser.validity = this.user.validity
