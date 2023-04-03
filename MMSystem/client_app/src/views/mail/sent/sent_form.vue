@@ -620,7 +620,7 @@
                         for="consignees"
                         class="block text-sm font-semibold text-gray-800"
                       >
-                        المرسل إليهم
+                        المرسل اليها
                       </label>
                       <div
                         class="mt-2 w-full rounded-md border border-gray-200 p-2 h-24 overflow-y-scroll flex flex-wrap items-center"
@@ -1265,9 +1265,16 @@
                   </fieldset>
 
 
-                  <div class="sm:col-span-3 border-2 border-red-500 rounded p-2">
-                    لإضافة جهة يجب اختيار القطاع والجهة والضغط على زر الاضافة (+) حتي يتم إضافة الجهة في مربع الجهات المرسل إليهم
+                  <div   v-if="mailType == '2'"  class="sm:col-span-3 border-2 border-red-500 rounded p-2">
+                    لإضافة جهة يجب اختيار القطاع والجهة والضغط على زر الاضافة (+) حتي يتم إضافة الجهة في مربع الجهات المرسل اليها
                   </div>
+
+                   <div  v-if="mailType == '3'" class="sm:col-span-3 border-2 border-red-500 rounded p-2">
+                    لإضافة جهة يجب اختيار القطاع والجهة والضغط على زر الاضافة (+) حتي يتم إضافة الجهة في مربع الجهة الوارد منها
+                  </div>
+
+
+
                   <!-- <br /> -->
 
                   <div
@@ -1417,7 +1424,7 @@
                       for="consignees"
                       class="block text-sm font-semibold text-gray-800"
                     >
-                    <div v-if="mailType == '2'">الجهات المرسل إليهم</div>
+                    <div v-if="mailType == '2'">الجهات المرسل اليها</div>
 
                     <div v-if="mailType == '3'">الجهة الوارد منها</div>
                       
