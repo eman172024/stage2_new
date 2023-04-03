@@ -1264,7 +1264,11 @@
                     </div>
                   </fieldset>
 
-                  <br />
+
+                  <div class="sm:col-span-3 border-2 border-red-500 rounded p-2">
+                    لإضافة جهة يجب اختيار القطاع والجهة والضغط على زر الاضافة (+) حتي يتم إضافة الجهة في مربع الجهات المرسل إليهم
+                  </div>
+                  <!-- <br /> -->
 
                   <div
                     class="sm:col-span-6 grid grid-cols-1 gap-y-6 gap-x-2 sm:grid-cols-7"
