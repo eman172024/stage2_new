@@ -1417,7 +1417,10 @@
                       for="consignees"
                       class="block text-sm font-semibold text-gray-800"
                     >
-                      الجهات المرسل إليهم
+                    <div v-if="mailType == '2'">الجهات المرسل إليهم</div>
+
+                    <div v-if="mailType == '3'">الجهة الوارد منها</div>
+                      
                     </label>
                     <div
                       class="mt-2 w-full rounded-md border border-gray-200 p-2 h-24 overflow-y-scroll flex flex-wrap items-center"
