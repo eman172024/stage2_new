@@ -3912,7 +3912,7 @@ console.log("index="+ind);
     },
 
     delete_sector_side_from_array(id) {
-      if (this.sector_side_old_array_id.length > 1) {
+      if (this.sector_side_old_array_id.length >1) {
         this.screenFreeze = true;
         this.loading = true;
 
@@ -3957,11 +3957,11 @@ console.log("index="+ind);
           1
       );
 
-      if (
-        this.sector_side_new_array_id.length +
-          this.sector_side_old_array_id.length >
-        1
-      ) {
+      // if (
+      //   this.sector_side_new_array_id.length +
+      //     this.sector_side_old_array_id.length >
+      //   1
+      // ) {
         const index = this.sector_side_new_array.findIndex((element, index) => {
           if (
             element.side_number === sideId &&
@@ -3980,9 +3980,9 @@ console.log("index="+ind);
           }
         );
         this.sector_side_new_array_id.splice(index_id, 1);
-      } else {
-        alert("لا يمكن حذف جميع الجهات");
-      }
+      // } else {
+      //   alert("لا يمكن حذف جميع الجهات");
+      // }
 
       // this.newactionSendersIncludesId.splice(index, 1);
     },
@@ -4658,9 +4658,20 @@ console.log("close code="+event.code);
     },
 
     clear_page() {
+
+ 
       this.screenFreeze = true;
       this.loading = true;
 
+
+
+      this.sideNameSelected = "";
+      this.sideIdSelected = "";
+      this.sectorIdSelected = "";
+      this.sectorNameSelected = "";
+      this.sectors = [];
+      this.sides = [];
+      
       this.consignees = [];
       this.consignees1 = [];
       this.consigneesIncludesId = [];
