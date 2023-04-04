@@ -96,26 +96,32 @@ namespace MMSystem.Services.Archives
                                  Where(a => a.Mail_Type == 2 //t
                                  && (a.Mail_Number == mail_number || mail_numbers == true) //t/t
                                  && ((a.Date_Of_Mail>= date_time_of_day && a.Date_Of_Mail <= date_time_from) /*|| (date == true)*/)//t
+                                
                                  && (a.Department_Id == department_id || departments_id == true)//t
                                  && (a.Mail_Summary.Contains(mail_summary) || (Summ == true))
                                  )
+                                  
                                    join m in _db.Sends.Where(x =>x.to==19 && x.State == true&&x.flag>1) on x.MailID equals m.MailID
-
+                                 
 
                                    join de in _db.Departments on x.Department_Id equals de.Id
 
                                    join y in _db.External_Mails
                                                   on m.MailID equals y.MailID
-                                                   //&& (c.perent == Perent || perent == true) || (c.state == true)
-                                   join w in _db.Extrmal_Sections.
-                                     Where(c => c.state == true
-                           && ((c.type == MailType) || (mail_type == true)) && (c.perent == Perent || perent == true) && (c.id == side_id || sides_id == true)
+                                   //&& (c.perent == Perent || perent == true) || (c.state == true)
+                                   
+                               //************eman 
+                                   join ex_dep in _db.external_Departments on x.MailID equals ex_dep.Mail_id
 
+                                  // join w in _db.Extrmal_Sections.Where(c => c.state == true
+                                   join w in _db.Extrmal_Sections
+                                  .Where(c => c.state == true
+                            && ((c.type == MailType) || (mail_type == true)) && (c.perent == Perent || perent == true) && (c.id == side_id || sides_id == true))
 
-                           )
-                                   on y.Sectionid equals w.id
+                                  // on y.Sectionid equals w.id
+                                    on ex_dep.side_number equals w.id
 
-
+                                   //****************end 
 
                                    select new ArchivesViewModel()
                                    {
@@ -133,8 +139,8 @@ namespace MMSystem.Services.Archives
                                        Mail_Number = x.Mail_Number,
                                        side_Name = w.Section_Name,
                                        side_id = w.id,
-                                       Perentid = _db.Extrmal_Sections.Where(p => p.id == w.perent).Select(p => p.id).FirstOrDefault(),
-                                       PerentName = _db.Extrmal_Sections.Where(p => p.id == w.perent).Select(p => p.Section_Name).FirstOrDefault().ToString(),
+                                      Perentid = _db.Extrmal_Sections.Where(p => p.id == w.perent).Select(p => p.id).FirstOrDefault(),
+                                      PerentName = _db.Extrmal_Sections.Where(p => p.id == w.perent).Select(p => p.Section_Name).FirstOrDefault().ToString(),
                                        note = y.note,
                                        Attachments = y.Attachments,
                                        Number_Of_Copies = y.number_of_copies
@@ -146,29 +152,33 @@ namespace MMSystem.Services.Archives
  var list = await (from x in _db.Mails.
                                  Where(a => a.Mail_Type == 2 //t
                                  && (a.Mail_Number == mail_number || mail_numbers == true) //t/t
-                                 && ((a.Date_Of_Mail>= date_time_of_day && a.Date_Of_Mail <= date_time_from) /*|| (date == true)*/)//t
+                                && ((a.Date_Of_Mail>= date_time_of_day && a.Date_Of_Mail <= date_time_from) /*|| (date == true)*/)//t
                                  && (a.Department_Id == department_id || departments_id == true)//t
                                  && (a.Mail_Summary.Contains(mail_summary) || (Summ == true))
                                  )
-                                   join m in _db.Sends.Where(x =>x.to==19 && x.State == true&&x.flag>1) on x.MailID equals m.MailID
+                                 
+                                  join m in _db.Sends.Where(x =>x.to==19 && x.State == true&&x.flag>1) on x.MailID equals m.MailID
+                           
 
-
-                                   join de in _db.Departments on x.Department_Id equals de.Id
+                   join de in _db.Departments on x.Department_Id equals de.Id
 
                                    join y in _db.External_Mails
                                                   on m.MailID equals y.MailID
-                                                   //&& (c.perent == Perent || perent == true) || (c.state == true)
-                                   join w in _db.Extrmal_Sections.
-                                     Where(c => c.state == true
-                           && ((c.type == MailType) || (mail_type == true)) && (c.perent == Perent || perent == true) && (c.id == side_id || sides_id == true)
+                   //&& (c.perent == Perent || perent == true) || (c.state == true)
+
+                   //************eman 
+                   join ex_dep in _db.external_Departments on x.MailID equals ex_dep.Mail_id
+                   join w in _db.Extrmal_Sections.
+                  // join w in _db.Extrmal_Sections.
+                   Where(c => c.state == true
+                   && ((c.type == MailType) || (mail_type == true)) && (c.perent == Perent || perent == true) && (c.id == side_id || sides_id == true))
+                   on ex_dep.side_number equals w.id
+                   //  on y.Sectionid equals w.id
+                   //****************end
 
 
-                           )
-                                   on y.Sectionid equals w.id
 
-
-
-                                   select new ArchivesViewModel()
+                   select new ArchivesViewModel()
                                    {
                                        summary = x.Mail_Summary,
                                        Flag = m.flag,
