@@ -2127,7 +2127,7 @@ this.conn.onmessage = (event) => {
       // }, 1000);
     },
 
-    AddReply() {
+    AddReply_old() {
       this.screenFreeze = true;
       this.loading = true;
 
@@ -2194,8 +2194,8 @@ this.conn.onmessage = (event) => {
           console.log(err);
         });
     },
-
-    update_reply_to_complet_sent_img(id){
+//*************************end addreplay_old
+    update_reply_to_complet_sent_img_old(id){
       var new_index_of_reply_img = 10
 
       if(index_of_reply_img > new_index_of_reply_img)
@@ -2254,7 +2254,7 @@ this.conn.onmessage = (event) => {
             if(index_of_reply_img > 10)
             {
               var id_of_reply_from_beackend = 1
-              this.update_reply_to_complet_sent_img(id_of_reply_from_beackend);
+              this.update_reply_to_complet_sent_img_old(id_of_reply_from_beackend);
             }
             
           }, 500);
@@ -2274,6 +2274,7 @@ this.conn.onmessage = (event) => {
 
 //*********************************1/3/2023
     AddReply() {
+
       this.screenFreeze = true;
       this.loading = true;
       console.log("lenght1111="+this.imagesToSend.length);
@@ -2290,7 +2291,8 @@ this.conn.onmessage = (event) => {
           list: this.imagesToSend.slice(0,50),
         },
       };
-      this.$http.mailService
+
+     this.$http.mailService
         .NewAddReply(ReplyViewModel)
         .then((res) => {
           setTimeout(() => {
@@ -2315,17 +2317,10 @@ this.conn.onmessage = (event) => {
 
             this.loading = false;
             this.screenFreeze = false;
-
             this.reply_to_add = "";
            //28/2/2023 this.getMailById();
-
-            
-       var cou=Math.ceil(this.imagesToSend.length/50);
-       // from Ayoub to eman
-           // var index_of_reply_img = 12
-
-           // if(index_of_reply_img > 10)
-            if(cou > 1)
+            var cou=Math.ceil(this.imagesToSend.length/50);
+           if(cou > 1)
             {
               console.log("cou="+cou);
               var id_of_reply_from_beackend = res.data.replyid;//101
