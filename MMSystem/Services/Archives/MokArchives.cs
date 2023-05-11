@@ -116,7 +116,8 @@ namespace MMSystem.Services.Archives
                                   // join w in _db.Extrmal_Sections.Where(c => c.state == true
                                    join w in _db.Extrmal_Sections
                                   .Where(c => c.state == true
-                            && ((c.type == MailType) || (mail_type == true)) && (c.perent == Perent || perent == true) && (c.id == side_id || sides_id == true))
+                            && ((c.type == MailType) || (mail_type == true))
+                            && (c.perent == Perent || perent == true) && (c.id == side_id || sides_id == true))
 
                                   // on y.Sectionid equals w.id
                                     on ex_dep.side_number equals w.id
