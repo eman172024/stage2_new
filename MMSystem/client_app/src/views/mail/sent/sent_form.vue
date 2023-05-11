@@ -2348,7 +2348,7 @@
                 </button>
               </section>
 
-              <!-- <section
+               <section
                 v-if="departmentflag > 2 && roles.includes('f')"
                 class="bg-gray-100 rounded-md p-6"
               >
@@ -2596,7 +2596,7 @@
                     </div>
                   </div>
                 </div>
-
+<!-- 
                 <div class="flex justify-between items-center mt-4">
                   <div class="w-9/12 flex justify-between">
                     <div class="w-10/12">
@@ -2779,8 +2779,8 @@
                       </svg>
                     </button>
                   </div>
-                </div>
-              </section> -->
+                </div> -->
+              </section> 
             </div>
           </main>
         </div>
