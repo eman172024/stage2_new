@@ -12,6 +12,8 @@ namespace MMSystem.Model.ViewModel
 
         public bool exdep_state { get; set; }
         public int side_number { get; set; }
+
+        public int entity_refernceNum { get; set; }
         public int replay_To { get; set; }
         public bool replay_isSend { get; set; }
         public bool replay_State { get; set; }

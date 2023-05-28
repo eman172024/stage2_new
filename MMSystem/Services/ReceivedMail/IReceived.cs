@@ -17,7 +17,7 @@ namespace MMSystem.Services.ReceivedMail
         int? mailReaded, int? mailnot_readed, int?
         Typeof_send, int? userid, int? mailNumType, int? mail_type, int pagenum,
         int size, int? Measure_filter, int? Department_filter, int? Classfication,
-        int? mail_state, int? genral_incoming_num, int? TheSection, bool? Replay_Date, int? office_type);
+        int? mail_state, int? genral_incoming_num, int? TheSection, bool? Replay_Date, int? office_type, int? entity_reference_number);
 
 
 
@@ -48,7 +48,7 @@ namespace MMSystem.Services.ReceivedMail
           int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
           int? mailReaded, int? mailnot_readed, int?Typeof_send, int? mail_type, int? userid, int pagenum,
           int? mailNumType, int size, int? Measure_filter, int? Department_filter, int? Classfication,
-          int? mail_state, int? genral_incoming_num, int? TheSection, bool? Replay_Date, int? office_type);
+          int? mail_state, int? genral_incoming_num, int? TheSection, bool? Replay_Date, int? office_type, int? entity_reference_number);
          Task<int> GetMailState(int mailid);
 
 

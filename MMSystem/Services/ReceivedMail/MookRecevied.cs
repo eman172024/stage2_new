@@ -25,7 +25,7 @@ namespace MMSystem.Services.ReceivedMail
             int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
             int? mailReaded, int? mailnot_readed, int? Typeof_send, int? mail_type, int? userid, int pagenum,
             int? mailNumType, int size, int? Measure_filter, int? Department_filter, int? Classfication, int? mail_state,
-            int? genral_incoming_num, int? TheSection, bool? Replay_Date, int? office_type)
+            int? genral_incoming_num, int? TheSection, bool? Replay_Date, int? office_type , int? entity_reference_number)
         {
             try
             {
@@ -43,6 +43,13 @@ namespace MMSystem.Services.ReceivedMail
                 int tomang;
                 bool allmailtype = false;
                 bool sectionstate = false;
+                bool entity_number = false;
+
+                if (entity_reference_number == null)
+                {
+                    entity_number = true;
+                }
+                else { entity_number = false; }
 
                 if ((mangment == 21 || mangment == 22) && office_type != null)
                 {
@@ -202,6 +209,7 @@ namespace MMSystem.Services.ReceivedMail
 
                                 select new Sended_Maill()
                                 {
+                                    entity_refernceNum=exin== null ? 0 :exin.entity_reference_number,
                                     side_number = exde == null ? 0 : exde.side_number,
                                     exdep_state = exde == null ? false : exde.state,
                                     replay_State = rep == null ? false : rep.state,
@@ -240,12 +248,12 @@ namespace MMSystem.Services.ReceivedMail
                                             (x.clasfiction == Classfication || clasf_filter == true) &&
                                             (x.genralinboxnumber == genral_incoming_num || incoing_num_filter == true) && x.mail_state == true &&
 
-                                         (x.flag > 0) &&
+                                         (x.flag > 0) && (x.entity_refernceNum == entity_reference_number || entity_number == true)&&
                                         ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                         (x.flag == mail_state || State_filter == true) && x.sends_state == true
                                            && (((x.exdep_state == true && x.side_number == TheSection) || sectionstate == true)) && ((Replay_Date == true && x.replay_State == true && x.replay_isSend == true && x.replay_To == mangment) || rep_all == true))
 
-
+                       
 
                          join z in dbcon.MailStatuses.Where(x => x.state == true || ((Replay_Date == true))) on mail.flag equals z.flag
 
@@ -253,11 +261,12 @@ namespace MMSystem.Services.ReceivedMail
 
                          join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true) && x.state == true) on mail.tomangment equals n.Id
 
+                        // join exin in dbcon.Extrenal_Inboxes.Where(x => (x.entity_reference_number == entity_reference_number || entity_number == true)) on mail.mail_id equals exin.Id
 
 
                          select new Sended_Maill()
                          {
-
+                             entity_refernceNum = mail == null ? 0 : mail.entity_refernceNum,
                              side_number = mail == null ? 0 : mail.side_number,
                              exdep_state = mail == null ? false : mail.exdep_state,
                              replay_State = mail == null ? false : mail.replay_State,
@@ -568,7 +577,7 @@ namespace MMSystem.Services.ReceivedMail
         int? mailReaded, int? mailnot_readed, int?
         Typeof_send, int? userid, int? mailNumType, int? mail_type, int pagenum,
         int size, int? Measure_filter, int? Department_filter, int? Classfication,
-        int? mail_state, int? genral_incoming_num, int? TheSection, bool? Replay_Date, int? office_type)
+        int? mail_state, int? genral_incoming_num, int? TheSection, bool? Replay_Date, int? office_type, int? entity_reference_number)
         {
 
 
@@ -579,7 +588,7 @@ namespace MMSystem.Services.ReceivedMail
              mangment, d1, d2, mailnum, summary,
             mail_Readed, mailReaded, mailnot_readed, Typeof_send, mail_type, userid, pagenum,
              mailNumType, size, Measure_filter, Department_filter, Classfication, mail_state,
-             genral_incoming_num, TheSection, Replay_Date, office_type
+             genral_incoming_num, TheSection, Replay_Date, office_type, entity_reference_number
              );
                 return c0;
 
