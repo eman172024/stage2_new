@@ -568,6 +568,21 @@
                           " />
                     </div>
 
+                    <div class="sm:col-span-2">
+                        <label
+                          for="s-number"
+                          class="block text-base font-semibold text-gray-800"
+                        >
+                      رقم إشارة الجهة
+                        </label>
+                        <input
+                          v-model="s_number"
+                          type="number"
+                          min="1"
+                          id="s-number"
+                          class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                        />
+                    </div>
 
                     <div class="sm:col-span-2 mt-2">
                       <label class="block text-base font-semibold text-gray-800">
@@ -1690,6 +1705,12 @@ consol.log("code inbox.vue="+event.code);
       this.page_num = 1;
       this.GetInboxs();
     },
+
+    s_number: function () {
+      this.page_num = 1;
+      this.GetInboxs();
+    },
+
   },
 
   components: {
@@ -1706,6 +1727,8 @@ consol.log("code inbox.vue="+event.code);
     conn: null,
 //**********end 21/1/2023
 
+
+      s_number:"",
       reply_id_to_delete:"",
       alert_delete_document:false,
       roles: [],
@@ -2602,6 +2625,7 @@ this.conn.onmessage = (event) => {
           this.measureIdSelected,
           this.classificationIdSelected,
           this.mail_caseIdSelected,
+          this.s_number,
           this.page_num,
           this.page_size
         )

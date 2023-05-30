@@ -511,7 +511,7 @@
 
 
 
-                    <div class="sm:col-span-2">
+                    <!-- <div class="sm:col-span-2">
                         <label
                           for="s-date"
                           class="block text-base font-semibold text-gray-800"
@@ -525,7 +525,7 @@
                           id="s-date"
                           class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
                         />
-                    </div>
+                    </div> -->
 
 
                     <div class="sm:col-span-2">
@@ -1762,6 +1762,16 @@ console.log("code sent.vue="+event.code);
       this.GetSentMail();
     },
 
+    s_number: function () {
+      this.senders = [];
+      this.show_senders_mail = "";
+      this.replies = [];
+      this.departmentflag = 0;
+      this.departmentName = "";
+      this.page_num = 1;
+      this.GetSentMail();
+    },
+
     show_senders_mail: function () {
       // this.senders = [];
       // this.show_senders_mail = "";
@@ -2642,6 +2652,7 @@ console.log("code sent.vue="+event.code);
           this.measureIdSelected,
           this.classificationIdSelected,
           this.mail_caseIdSelected,
+          this.s_number,
           this.page_num,
           this.page_size
         )
