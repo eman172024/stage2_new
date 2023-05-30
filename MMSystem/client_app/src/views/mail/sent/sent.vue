@@ -488,6 +488,46 @@
                       />
                     </div>
 
+                
+
+                    
+
+                 <div class="sm:col-span-2">
+                        <label
+                          for="s-number"
+                          class="block text-base font-semibold text-gray-800"
+                        >
+                      رقم إشارة الجهة
+                        </label>
+                        <input
+                          v-model="s_number"
+                          type="number"
+                          min="1"
+                          id="s-number"
+                          class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                        />
+                    </div>
+
+
+
+
+                    <div class="sm:col-span-2">
+                        <label
+                          for="s-date"
+                          class="block text-base font-semibold text-gray-800"
+                        >
+                            تاريخ رسالة الجهة                            </label>
+                        <input
+                          v-model="s_date"
+                          type="date" 
+                          min="2000-01-01"
+                          max="2040-12-30"
+                          id="s-date"
+                          class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                        />
+                    </div>
+
+
                     <div class="sm:col-span-2">
                       <label
                         class="block text-base font-semibold text-gray-800"
@@ -497,7 +537,7 @@
 
                       <select
                         id="small"
-                        class="block p-2 mb-6 w-28 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="block p-2  w-28 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         v-model="year_filter"
                       >
                         <option value="0" selected>اختر السنة</option>
@@ -552,8 +592,13 @@
                               <option value="2070">2070</option> -->
                       </select>
                     </div>
+
+                    </div>
+
+
+
                   </div>
-                </div>
+                
               </div>
 
               <button
@@ -1741,6 +1786,12 @@ console.log("code sent.vue="+event.code);
       alert_delete_document: false,
 
       year_filter: 0,
+
+
+      
+      s_number:"",
+      s_dare:"",
+      
 
       roles: [],
       by_date_of_reply: false,
