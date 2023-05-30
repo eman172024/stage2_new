@@ -93,7 +93,7 @@ namespace MMSystem.Controllers
             int? mailnum_bool, int? mangment, DateTime? date_from, DateTime? date_to, int? mailnum, string? summary,
             int? mail_Readed, int? mailReaded, int? mailnot_readed,  int? Typeof_send, int? mail_type, int? userid,int mailNumType, int page_num,
             int page_size, int? Measure_filter, int? Department_filter, int? Classfication,
-            int? mail_state, int? TheSection, int? genral_incoming_num 
+            int? mail_state, int? TheSection, int? genral_incoming_num ,int? entity_reference_number
 )
 
         {
@@ -103,7 +103,7 @@ namespace MMSystem.Controllers
             mail_Readed,  mailReaded,  mailnot_readed, Typeof_send,  userid,  mailNumType,
              mail_type, page_num, page_size,
              Measure_filter,  Department_filter,  Classfication,
-             mail_state, TheSection, genral_incoming_num);
+             mail_state, TheSection, genral_incoming_num, entity_reference_number);
             if(c!=null)
             return Ok(c);
             return Unauthorized("غير مسموح لك بدخول  ");
