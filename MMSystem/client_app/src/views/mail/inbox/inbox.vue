@@ -568,6 +568,21 @@
                           " />
                     </div>
 
+                    <div class="sm:col-span-2">
+                        <label
+                          for="s-number"
+                          class="block text-base font-semibold text-gray-800"
+                        >
+                      رقم إشارة الجهة
+                        </label>
+                        <input
+                          v-model="s_number"
+                          type="number"
+                          min="1"
+                          id="s-number"
+                          class="block mt-2 h-10 w-full rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                        />
+                    </div>
 
                     <div class="sm:col-span-2 mt-2">
                       <label class="block text-base font-semibold text-gray-800">
@@ -1690,6 +1705,12 @@ consol.log("code inbox.vue="+event.code);
       this.page_num = 1;
       this.GetInboxs();
     },
+
+    s_number: function () {
+      this.page_num = 1;
+      this.GetInboxs();
+    },
+
   },
 
   components: {
@@ -1706,6 +1727,8 @@ consol.log("code inbox.vue="+event.code);
     conn: null,
 //**********end 21/1/2023
 
+
+      s_number:"",
       reply_id_to_delete:"",
       alert_delete_document:false,
       roles: [],
@@ -2127,7 +2150,7 @@ this.conn.onmessage = (event) => {
       // }, 1000);
     },
 
-    AddReply() {
+    AddReply_old() {
       this.screenFreeze = true;
       this.loading = true;
 
@@ -2194,8 +2217,8 @@ this.conn.onmessage = (event) => {
           console.log(err);
         });
     },
-
-    update_reply_to_complet_sent_img(id){
+//*************************end addreplay_old
+    update_reply_to_complet_sent_img_old(id){
       var new_index_of_reply_img = 10
 
       if(index_of_reply_img > new_index_of_reply_img)
@@ -2254,7 +2277,7 @@ this.conn.onmessage = (event) => {
             if(index_of_reply_img > 10)
             {
               var id_of_reply_from_beackend = 1
-              this.update_reply_to_complet_sent_img(id_of_reply_from_beackend);
+              this.update_reply_to_complet_sent_img_old(id_of_reply_from_beackend);
             }
             
           }, 500);
@@ -2274,6 +2297,7 @@ this.conn.onmessage = (event) => {
 
 //*********************************1/3/2023
     AddReply() {
+
       this.screenFreeze = true;
       this.loading = true;
       console.log("lenght1111="+this.imagesToSend.length);
@@ -2290,7 +2314,8 @@ this.conn.onmessage = (event) => {
           list: this.imagesToSend.slice(0,50),
         },
       };
-      this.$http.mailService
+
+     this.$http.mailService
         .NewAddReply(ReplyViewModel)
         .then((res) => {
           setTimeout(() => {
@@ -2315,17 +2340,10 @@ this.conn.onmessage = (event) => {
 
             this.loading = false;
             this.screenFreeze = false;
-
             this.reply_to_add = "";
            //28/2/2023 this.getMailById();
-
-            
-       var cou=Math.ceil(this.imagesToSend.length/50);
-       // from Ayoub to eman
-           // var index_of_reply_img = 12
-
-           // if(index_of_reply_img > 10)
-            if(cou > 1)
+            var cou=Math.ceil(this.imagesToSend.length/50);
+           if(cou > 1)
             {
               console.log("cou="+cou);
               var id_of_reply_from_beackend = res.data.replyid;//101
@@ -2607,6 +2625,7 @@ this.conn.onmessage = (event) => {
           this.measureIdSelected,
           this.classificationIdSelected,
           this.mail_caseIdSelected,
+          this.s_number,
           this.page_num,
           this.page_size
         )
