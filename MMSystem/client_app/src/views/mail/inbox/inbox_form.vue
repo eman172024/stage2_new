@@ -778,6 +778,11 @@
         <div
           class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
         >
+        <button type="button" @click="image_rotate = !image_rotate"  class="absolute text-white font-bold px-8 z-50 bg-yellow-500 py-2 right-12">
+              تدوير الصفحة
+            </button>
+
+
           <div class="max-w-3xl mx-auto relative">
             <div
               class="absolute top-6 z-50 flex justify-between items-center w-full"
@@ -843,7 +848,8 @@
               <img
                 :src="image_of_doc"
                 alt="image"
-                class="h-full w-full object-contain"
+                :class="image_rotate ? 'rotate-0' : 'rotate-180'"
+                class="h-full w-full object-contain transform"
               />
             </div>
 
@@ -1266,6 +1272,10 @@ console.log("code inbox_form="+event.code);
 
   data() {
     return {
+
+      image_rotate : true,
+
+
       doc_number_to_search: "",
 
       //********21/1/2023
@@ -1381,11 +1391,15 @@ console.log("code inbox_form="+event.code);
   },
   methods: {
     farst_documents() {
+      this.image_rotate = true
+
       this.doc_number_to_search = 1;
       this.search_the_doc();
     },
 
     last_documents() {
+      this.image_rotate = true
+
       this.doc_number_to_search = this.total_of_doc;
       this.search_the_doc();
     },
@@ -1611,6 +1625,11 @@ console.log("code inbox_form="+event.code);
     },
 
     GetAllDocN(x) {
+
+      this.image_rotate = true
+
+
+
       if (x == "next") {
         this.doc_number++;
       } else {
