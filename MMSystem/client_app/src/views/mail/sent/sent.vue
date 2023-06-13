@@ -608,7 +608,7 @@
                         departmentflag = 0;
                         departmentName = '';
                         page_num = 1;
-                        GetSentMail();"
+                        GetSentMail();filter = !filter"
                     
                     id="search_button" class="
                     px-8

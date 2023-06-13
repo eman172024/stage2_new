@@ -656,7 +656,7 @@
                       <div class="mt-6">
                     
                         <button 
-                        @click="page_num=1; GetInboxs()"
+                        @click="page_num=1; GetInboxs();filter = !filter"
                         
                         id="search_button" class="
                         px-8
