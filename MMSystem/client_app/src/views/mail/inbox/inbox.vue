@@ -584,7 +584,12 @@
                         />
                     </div>
 
-                    <div class="sm:col-span-2 mt-2">
+                    <div class="sm:col-span-2 mt-2 flex justify-between">
+
+                      <div>
+
+
+                      
                       <label class="block text-base font-semibold text-gray-800">
                         السنة
                       </label>
@@ -647,7 +652,36 @@
                     </div>
 
 
-                    <!-- <div class="sm:col-span-2">
+
+                      <div class="mt-6">
+                    
+                        <button 
+                        @click="page_num=1; GetInboxs()"
+                        
+                        id="search_button" class="
+                        px-8
+                    mr-2
+                    bg-green-700
+                    text-green-50
+                    rounded-md
+                    py-2
+                    border border-green-300
+                    hover:bg-green-800
+                    focus:outline-none
+                    flex
+                    items-center
+                    justify-center
+                    col-span-2
+                            ">
+
+                            <span class="text-sm font-bold block ml-1"> بحث</span>
+                        </button>
+                        
+                      </div>
+                    
+                    
+                    </div>
+                      <!-- <div class="sm:col-span-2">
                       <label
                         for="by_date_of_reply"
                         class="block text-base font-semibold text-gray-800"
@@ -1666,50 +1700,51 @@ consol.log("code inbox.vue="+event.code);
       this.page_num = 1;
       this.GetInboxs();
     },
-    mail_id: function () {
-      this.page_num = 1;
-      this.GetInboxs();
-    },
 
-    general_incoming_number: function () {
-      this.page_num = 1;
-      this.GetInboxs();
-    },
+    // mail_id: function () {
+    //   this.page_num = 1;
+    //   this.GetInboxs();
+    // },
 
-    summary: function () {
-      this.page_num = 1;
-      this.GetInboxs();
-    },
-    departmentIdSelected: function () {
-      this.page_num = 1;
-      this.GetInboxs();
-    },
-    sideIdSelected: function () {
-      this.page_num = 1;
-      this.GetInboxs();
-    },
-    measureIdSelected: function () {
-      this.page_num = 1;
-      this.GetInboxs();
-    },
-    classificationIdSelected: function () {
-      this.page_num = 1;
-      this.GetInboxs();
-    },
+    // general_incoming_number: function () {
+    //   this.page_num = 1;
+    //   this.GetInboxs();
+    // },
 
-    mail_caseIdSelected: function () {
-      this.page_num = 1;
-      this.GetInboxs();
-    },
-    by_date_of_reply: function () {
-      this.page_num = 1;
-      this.GetInboxs();
-    },
+    // summary: function () {
+    //   this.page_num = 1;
+    //   this.GetInboxs();
+    // },
+    // departmentIdSelected: function () {
+    //   this.page_num = 1;
+    //   this.GetInboxs();
+    // },
+    // sideIdSelected: function () {
+    //   this.page_num = 1;
+    //   this.GetInboxs();
+    // },
+    // measureIdSelected: function () {
+    //   this.page_num = 1;
+    //   this.GetInboxs();
+    // },
+    // classificationIdSelected: function () {
+    //   this.page_num = 1;
+    //   this.GetInboxs();
+    // },
 
-    s_number: function () {
-      this.page_num = 1;
-      this.GetInboxs();
-    },
+    // mail_caseIdSelected: function () {
+    //   this.page_num = 1;
+    //   this.GetInboxs();
+    // },
+    // by_date_of_reply: function () {
+    //   this.page_num = 1;
+    //   this.GetInboxs();
+    // },
+
+    // s_number: function () {
+    //   this.page_num = 1;
+    //   this.GetInboxs();
+    // },
 
   },
 
