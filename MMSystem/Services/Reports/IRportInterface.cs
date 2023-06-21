@@ -19,5 +19,7 @@ namespace MMSystem.Services.Reports
             int? mailReaded, int? mailnot_readed, int? mail_type, int? Measure_filter, int? Classfication
  , int? mail_state, int? genral_incoming_num);
 
+        Task<Report_View_Model> Get_main_statistics_Report(DateTime from, DateTime to);
+        Task<List<Report_details_view_model>> Get_Detailes_statistics_Report(DateTime from, DateTime to);
     }
 }

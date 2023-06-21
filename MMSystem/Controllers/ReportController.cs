@@ -134,5 +134,36 @@ namespace MMSystem.Controllers
             }
 
         }
+        [HttpGet]
+        [Route("Get_main_statistics_Report")]
+        public async Task<IActionResult> Get_main_statistics_Report(DateTime from, DateTime to)
+        {
+            var role = await _data.Get_main_statistics_Report(from, to);
+
+            if (role != null)
+            {
+                return Ok(role);
+            }
+            else
+            {
+                return NotFound(new Result() { message = "التقارير غير موجودة", statusCode = 404 });
+            }
+        }
+
+        [HttpGet]
+        [Route("Get_Detailes_statistics_Report")]
+        public async Task<IActionResult> Get_Detailes_statistics_Report(DateTime from, DateTime to)
+        {
+            var role = await _data.Get_Detailes_statistics_Report(from, to);
+
+            if (role != null)
+            {
+                return Ok(role);
+            }
+            else
+            {
+                return NotFound(new Result() { message = "التقارير غير موجودة", statusCode = 404 });
+            }
+        }
     }
 }

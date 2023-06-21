@@ -895,6 +895,61 @@ namespace MMSystem.Services.Reports
         
         }
 
-      
+
+
+        public async Task<Report_View_Model> Get_main_statistics_Report(DateTime from,DateTime to)
+        {
+
+            Report_View_Model model = new Report_View_Model();
+
+
+
+            model.total_of_mail = await _data.Mails.Where(x => x.state == true && x.Date_Of_Mail >= from && x.Date_Of_Mail <= to&&x.Mail_Type==1).AsNoTracking().CountAsync();
+            model.total_of_External_Mail = await _data.Mails.Where(x => x.state == true && x.Date_Of_Mail >= from && x.Date_Of_Mail <= to && x.Mail_Type == 2).AsNoTracking().CountAsync();
+            model.total_Extrenal_inbox= await _data.Mails.Where(x => x.state == true && x.Date_Of_Mail >= from && x.Date_Of_Mail <= to && x.Mail_Type == 3).AsNoTracking().CountAsync();
+
+
+
+            return model;
+        }
+
+
+        public async Task<List<Report_details_view_model>> Get_Detailes_statistics_Report(DateTime from, DateTime to)
+        {
+
+          List<  Report_details_view_model>  list = new List< Report_details_view_model>();
+
+            var total_of_mail = await _data.Mails.Where(x => x.state == true && x.Date_Of_Mail >= from && x.Date_Of_Mail <= to ).AsNoTracking().ToListAsync();
+            var department = await _data.Departments.Where(x => x.state == true).AsNoTracking().ToListAsync();
+                 
+            foreach (var item in department)
+            {
+                list.Add(new Report_details_view_model
+                {
+
+
+                    department_name = item.DepartmentName,
+                    data = new Report_View_Model
+                    {
+
+                        total_Extrenal_inbox = total_of_mail.Where(x => x.Department_Id == item.Id && x.Mail_Type == 3).Count(),
+                        total_of_mail = total_of_mail.Where(x => x.Department_Id == item.Id && x.Mail_Type == 1).Count(),
+                        total_of_External_Mail = total_of_mail.Where(x => x.Department_Id == item.Id && x.Mail_Type == 2).Count(),
+
+
+
+
+                    }
+
+
+                });
+
+            }
+
+
+
+            return list;
+        }
+        
     }
 }
