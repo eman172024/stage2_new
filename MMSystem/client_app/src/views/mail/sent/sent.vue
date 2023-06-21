@@ -528,7 +528,11 @@
                     </div> -->
 
 
-                    <div class="sm:col-span-2">
+                    <div class="sm:col-span-2 flex justify-between">
+
+
+                      <div>
+
                       <label
                         class="block text-base font-semibold text-gray-800"
                       >
@@ -591,6 +595,43 @@
                               <option value="2069">2069</option>
                               <option value="2070">2070</option> -->
                       </select>
+
+                       </div>
+
+                      <div class="mt-6">
+                    
+                    <button 
+                    @click="   
+                        senders = [];
+                        show_senders_mail = '';
+                        replies = [];
+                        departmentflag = 0;
+                        departmentName = '';
+                        page_num = 1;
+                        GetSentMail();filter = !filter"
+                    
+                    id="search_button" class="
+                    px-8
+                mr-2
+                bg-green-700
+                text-green-50
+                rounded-md
+                py-2
+                border border-green-300
+                hover:bg-green-800
+                focus:outline-none
+                flex
+                items-center
+                justify-center
+                col-span-2
+                        ">
+
+                        <span class="text-sm font-bold block ml-1"> بحث</span>
+                    </button>
+                    
+                  </div>
+                
+                
                     </div>
 
                     </div>
@@ -1615,6 +1656,7 @@ console.log("code sent.vue="+event.code);
   },
 
   watch: {
+
     departmentNameSelected: function () {
       if (this.departmentNameSelected == "") {
         this.senders = [];
@@ -1657,6 +1699,8 @@ console.log("code sent.vue="+event.code);
       }
       this.GetSentMail();
     },
+
+
     date_from: function () {
       this.senders = [];
       this.show_senders_mail = "";
@@ -1675,109 +1719,112 @@ console.log("code sent.vue="+event.code);
       this.page_num = 1;
       this.GetSentMail();
     },
-    mail_id: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
-    general_incoming_number: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
 
-    summary: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
-    departmentIdSelected: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
 
-    sideIdSelected: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
+    // mail_id: function () {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.replies = [];
+    //   this.departmentflag = 0;
+    //   this.departmentName = "";
+    //   this.page_num = 1;
+    //   this.GetSentMail();
+    // },
 
-    measureIdSelected: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
-    classificationIdSelected: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
+    // general_incoming_number: function () {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.replies = [];
+    //   this.departmentflag = 0;
+    //   this.departmentName = "";
+    //   this.page_num = 1;
+    //   this.GetSentMail();
+    // },
 
-    mail_caseIdSelected: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
+    // summary: function () {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.replies = [];
+    //   this.departmentflag = 0;
+    //   this.departmentName = "";
+    //   this.page_num = 1;
+    //   this.GetSentMail();
+    // },
+    // departmentIdSelected: function () {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.replies = [];
+    //   this.departmentflag = 0;
+    //   this.departmentName = "";
+    //   this.page_num = 1;
+    //   this.GetSentMail();
+    // },
 
-    by_date_of_reply: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
+    // sideIdSelected: function () {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.replies = [];
+    //   this.departmentflag = 0;
+    //   this.departmentName = "";
+    //   this.page_num = 1;
+    //   this.GetSentMail();
+    // },
 
-    s_number: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
+    // measureIdSelected: function () {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.replies = [];
+    //   this.departmentflag = 0;
+    //   this.departmentName = "";
+    //   this.page_num = 1;
+    //   this.GetSentMail();
+    // },
+    // classificationIdSelected: function () {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.replies = [];
+    //   this.departmentflag = 0;
+    //   this.departmentName = "";
+    //   this.page_num = 1;
+    //   this.GetSentMail();
+    // },
 
-    show_senders_mail: function () {
-      // this.senders = [];
-      // this.show_senders_mail = "";
-      // this.page_num = 1;
-      // this.GetSentMail();
-    },
+    // mail_caseIdSelected: function () {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.replies = [];
+    //   this.departmentflag = 0;
+    //   this.departmentName = "";
+    //   this.page_num = 1;
+    //   this.GetSentMail();
+    // },
+
+    // by_date_of_reply: function () {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.replies = [];
+    //   this.departmentflag = 0;
+    //   this.departmentName = "";
+    //   this.page_num = 1;
+    //   this.GetSentMail();
+    // },
+
+    // s_number: function () {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.replies = [];
+    //   this.departmentflag = 0;
+    //   this.departmentName = "";
+    //   this.page_num = 1;
+    //   this.GetSentMail();
+    // },
+
+    // show_senders_mail: function () {
+    //   // this.senders = [];
+    //   // this.show_senders_mail = "";
+    //   // this.page_num = 1;
+    //   // this.GetSentMail();
+    // },
   },
 
   components: {
@@ -1970,6 +2017,7 @@ console.log("code sent.vue="+event.code);
           this.measureIdSelected,
           this.classificationIdSelected,
           this.mail_caseIdSelected,
+          this.s_number,
           this.page_num,
           this.page_size
         )
