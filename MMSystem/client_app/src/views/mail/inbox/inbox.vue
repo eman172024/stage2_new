@@ -1348,6 +1348,12 @@
               z-50
               w-full
             ">
+
+            <button type="button" @click="image_rotate = !image_rotate"  class="absolute text-white font-bold px-8 z-50 bg-yellow-500 py-2 right-12">
+              تدوير الصفحة
+            </button>
+
+
           <div class="max-w-3xl mx-auto relative">
             <div class="
                   absolute
@@ -1390,7 +1396,19 @@
             </div>
 
             <div class="h-screen-93 mt-4">
-              <img :src="testimage" alt="image" class="h-full w-full object-contain" />
+
+
+              <div class="h-screen-93 mt-4">
+              <img
+                :src="testimage"
+                alt="image"
+                :class="image_rotate ? 'rotate-0' : 'rotate-180'"
+                class="h-full w-full object-contain transform"
+              />
+            </div>
+
+
+              <!-- <img :src="testimage" alt="image" class="h-full w-full object-contain" /> -->
             </div>
 
             <div class="
@@ -1756,7 +1774,9 @@ consol.log("code inbox.vue="+event.code);
 
   data() {
     return {
+      image_rotate : true,
 
+      
 //*********21/1/2023
     keyid: "",
     conn: null,

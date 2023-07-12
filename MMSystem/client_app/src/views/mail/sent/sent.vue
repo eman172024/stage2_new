@@ -1328,6 +1328,13 @@
         <div
           class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
         >
+
+
+        <button type="button" @click="image_rotate = !image_rotate"  class="absolute text-white font-bold px-8 z-50 bg-yellow-500 py-2 right-12">
+              تدوير الصفحة
+            </button>
+
+
           <div class="max-w-3xl mx-auto relative">
             <div
               class="absolute top-6 z-50 flex justify-between items-center w-full"
@@ -1355,7 +1362,7 @@
                 v-print="'#print_one_dec'"
                 class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
               >
-                طباعة المستند الحالي
+                طباعة المستند الحالي 
               </button>
 
               <button
@@ -1366,19 +1373,52 @@
               >
                 طباعة كافة المستندات
               </button>
+
+
+              <!-- <div
+                v-if="image_of_doc"
+                class="flex items-center border border-blue-400 rounded-md"
+              >
+                <input
+                  type="text"
+                  v-model="doc_number_to_search"
+                  id="doc_number"
+                  class="ml-2 block w-16 rounded-md h-10 text-sm border border---200 hover:shadow-sm focus:outline-none focus:border-blue-300 p-2"
+                />
+
+                <button
+                  @click="search_the_doc()"
+                  class="py-2 px-4 bg-white rounded-lg tracking-wide border border-blue-600 cursor-pointer hover:text-white hover:bg-blue-600 focus:outline-none duration-300 text-sm leading-normal"
+                >
+                  بحث
+                </button>
+              </div> -->
+
+
             </div>
 
             <div class="h-screen-93 mt-4">
               <img
                 :src="testimage"
-                alt="image"
-                class="h-full w-full object-contain"
+                :class="image_rotate ? 'rotate-0' : 'rotate-180'"
+                class="h-full w-full object-contain transform  "
               />
             </div>
 
             <div
               class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
             >
+<!-- 
+            <div class="">
+                <button
+                  @click="farst_documents()"
+                  class="bg-gray-500 hover:bg-gray-400 px-2 py-2 rounded-lg text-xs text-white"
+                >
+                  &#x276E; &#x276E;
+                </button>
+              </div> -->
+
+
               <div v-if="testimage" class="w-12 h-8">
                 <button
                   title="prev"
@@ -1428,6 +1468,19 @@
                   </svg>
                 </button>
               </div>
+
+
+<!-- 
+              <div class="">
+                <button
+                  @click="last_documents()"
+                  class="bg-gray-500 hover:bg-gray-400 px-2 py-2 rounded-lg text-xs text-white"
+                >
+                  &#x276F; &#x276F;
+                </button>
+              </div> -->
+
+
             </div>
           </div>
         </div>
@@ -1835,6 +1888,9 @@ console.log("code sent.vue="+event.code);
 
   data() {
     return {
+
+
+      image_rotate : true,
       //********21/1/2023
       conn: null,
       keyid: "",
@@ -1844,7 +1900,9 @@ console.log("code sent.vue="+event.code);
 
       year_filter: 0,
 
-
+      image_of_doc: "",
+      id_of_doc: "",
+      image_to_print_n: [],
       
       s_number:"",
       s_dare:"",
@@ -1955,6 +2013,64 @@ console.log("code sent.vue="+event.code);
   },
 
   methods: {
+
+
+
+
+
+    farst_documents() {
+      this.image_rotate = true
+
+
+      this.doc_number_to_search = 1;
+      this.search_the_doc();
+    },
+
+    last_documents() {
+
+      this.image_rotate = true
+
+
+      this.doc_number_to_search = this.total_of_doc;
+      this.search_the_doc();
+    },
+
+    search_the_doc() {
+
+
+      
+      // doc_number_to_search
+
+      if (this.doc_number_to_search > this.total_of_doc) {
+        alert("لقد ادخلة رقم خطا الرجاء إعادة المحاولة");
+      } else {
+        this.doc_number = this.doc_number_to_search;
+        this.screenFreeze = true;
+        this.loading = true;
+        this.$http.documentService
+          .GetAllDocN(this.mailId, this.doc_number)
+          .then((res) => {
+            this.total_of_doc = res.data.total;
+
+            this.image_of_doc = res.data.data.path;
+            this.id_of_doc = res.data.data.id;
+
+            setTimeout(() => {
+              this.screenFreeze = false;
+              this.loading = false;
+            }, 200);
+          })
+          .catch((err) => {
+            this.screenFreeze = false;
+            this.loading = false;
+            console.log(err);
+          });
+      }
+    },
+
+
+
+
     deletereply() {
       this.alert_delete_document = false;
 
