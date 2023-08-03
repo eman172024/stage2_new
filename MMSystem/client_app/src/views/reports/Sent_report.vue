@@ -178,17 +178,43 @@
 export default {
   components: {},
 
+
+
+  
   mounted() {
 
 
+    if(this.$route.params.mail_type==0){
+
+this.$route.params.mail_type="";
+this.mailtype2=""
+
+}else
+
+if(this.$route.params.mail_type==1){
+this.mail_type_new=1;
+this.mailtype2="لرسائل البريد الداخلي"
+
+}else
+
+if(this.$route.params.mail_type==2){
+this.mail_type_new=2;
+this.mailtype2="لرسائل البريد الصادر الخارجي"
+
+}else
+
+if(this.$route.params.mail_type==3){
+this.mail_type_new=3;
+this.mailtype2="لرسائل البريد الوارد الخارجي"
+
+}
 
 
 
 
 
 
-
-    console.log(this.$route.params)
+    console.log(this.$route.params.mail_type)
 
 
     var date = new Date();
@@ -225,31 +251,8 @@ export default {
 
     this.Get_sent_report_ayoub();
 
+       
 
-    if(this.$route.params.mail_type==0){
-
-this.mailtype=""
-this.mailtype2=""
-
-}else
-
-if(this.$route.params.mail_type==1){
-this.mailtype=this.$route.params.mail_type;
-this.mailtype2="لرسائل البريد الداخلي"
-
-}else
-
-if(this.$route.params.mail_type==2){
-this.mailtype=this.$route.params.mail_type;
-this.mailtype2="لرسائل البريد الصادر الخارجي"
-
-}else
-
-if(this.$route.params.mail_type==3){
-this.mailtype=this.$route.params.mail_type;
-this.mailtype2="لرسائل البريد الوارد الخارجي"
-
-}
    
   },
 
@@ -267,7 +270,8 @@ this.mailtype2="لرسائل البريد الوارد الخارجي"
 
       date: "",
 
-      mailtype:"",
+      mailtype:0,
+      mail_type_new:"",
     };
   },
 
@@ -311,9 +315,7 @@ this.mailtype2="لرسائل البريد الوارد الخارجي"
           this.$route.params.department_id_selected,
            this.$route.params.mail_id,
            this.$route.params.summary,
-            this.mailtype,
-          
-          
+           this.$route.params.mail_type,
            this.$route.params.measure_selected,
            this.$route.params.classifaction_selected,
            this.$route.params.mail_caseid,
