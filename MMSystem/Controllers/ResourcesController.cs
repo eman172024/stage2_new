@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MMSystem.Model.Dto;
+using MMSystem.Model.ViewModel;
 using MMSystem.Services.MailServeic;
 using System;
 using System.Collections.Generic;
@@ -110,6 +111,25 @@ namespace MMSystem.Controllers
             
                 return Ok(resulte);
         }
-        
+
+
+
+        [HttpPut("update_mail_Resources_order")]
+        public async Task<IActionResult> update_mail_Resources(List<ResViewModel> list)
+        {
+
+
+            if (list.Count != 0) {
+
+                var isudate = await _resourcescs.order_images(list);
+                if (isudate)
+                    return Ok(new { message = "تمت العملية بنجاح" });
+                return NotFound("لايوجد صور ");
+
+            }
+
+            return NotFound("لايوجد صور ");
+
+        }
     }
 }

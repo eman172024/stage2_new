@@ -1,5 +1,6 @@
 ﻿using MMSystem.Model;
 using MMSystem.Model.Dto;
+using MMSystem.Model.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,5 +26,8 @@ namespace MMSystem.Services.MailServeic
         Task<RessObj> GetAllResswithPage(int id, int pageNumber);
 
         Task<dynamic> delete_all_image(int id,int userid);
+
+        Task<bool> order_images(List<ResViewModel> list);
+
     }
 }

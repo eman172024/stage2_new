@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MMSystem.Model;
 using MMSystem.Model.Dto;
+using MMSystem.Model.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -480,6 +481,33 @@ namespace MMSystem.Services.MailServeic
                 throw;
             }
 
+        }
+
+        public async Task<bool> order_images(List<ResViewModel> list)
+        {
+
+
+            bool isUpdate = false;
+            foreach (var item in list)
+            {
+
+                var obj = await _dbCon.Mail_Resourcescs.FindAsync(item.id);
+
+                if (obj != null) {
+                    obj.order = item.order;
+                    _dbCon.Mail_Resourcescs.Update(obj);
+
+                    await _dbCon.SaveChangesAsync();
+
+                    isUpdate = true;
+                
+                }
+
+
+
+            }
+
+            return isUpdate;
         }
     }
 }
