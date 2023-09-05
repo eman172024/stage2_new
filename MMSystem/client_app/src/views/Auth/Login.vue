@@ -11,7 +11,7 @@
             alt="logo"
           />
           <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            منظومة البريد الداخلي
+             منظومة البريد الداخلي المرحلة التانية
           </h2>
         </div>
         <div v-on:keyup.enter="submit" class="mt-8 space-y-6">
