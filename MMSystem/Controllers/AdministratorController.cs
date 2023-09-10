@@ -199,7 +199,6 @@ namespace MMSystem.Controllers
 
               }
 
-
         [HttpGet]
         [Route("GetByDepartmentId")]
         public async Task<ActionResult<List<Administrator>>> GetByDepartmentId(int department)
@@ -212,6 +211,23 @@ namespace MMSystem.Controllers
             else
             {
                 return NotFound(new Result() { message = "لايوجد مستخدم في هذه الإدارة  ", statusCode = 400 });
+
+            }
+        }
+
+
+        [HttpGet]
+        [Route("GetBranchByDepartmentId")]
+        public async Task<ActionResult<List<Department>>> GetBranchByDepartmentId(int departmentid)
+        {
+            var branchs = await _data.SearchforBrachByDepartmentId(departmentid);
+            if (branchs != null)
+            {
+                return Ok(branchs);
+            }
+            else
+            {
+                return NotFound(new Result() { message = "لايوجد فروع في هذه الإدارة  ", statusCode = 400 });
 
             }
         }

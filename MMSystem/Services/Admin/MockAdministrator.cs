@@ -428,6 +428,28 @@ namespace MMSystem.Services
         {
             throw new NotImplementedException();
         }
-      
+
+        /// <summary>
+        ///  البحث عن الفروع او الادرات الفرعية في الادارات العامة
+        /// </summary>
+        /// <param name="DepartmentId"></param>
+        /// <returns></returns>
+        public async Task<List<DepartmentDto>> SearchforBrachByDepartmentId(int DepartmentId)
+        {
+            try
+            {
+                List<Department> brachs = await _data.Departments.OrderByDescending(x => x.DepartmentName).Where(x => x.perent == DepartmentId && x.state == true).ToListAsync();
+
+                List<DepartmentDto> departmentDto = _mapper.Map<List<Department>, List<DepartmentDto>>(brachs);
+
+                if (departmentDto.Count == 0) { return null; } else {return departmentDto; }
+                
+            }
+            catch
+            {
+                throw;
+            }
+
+        }
     }
 }

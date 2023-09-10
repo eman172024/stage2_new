@@ -18,7 +18,7 @@ namespace MMSystem.Services
         Task<PageintoinAdmin> GetAdministrator(int page, int pageSize);
         Task<List<UserFind>> SearchByName(string user);
         Task <List<AdministratorDto>> SearchByDepartmentId(int Department);
-
+        Task<List<DepartmentDto>> SearchforBrachByDepartmentId(int DepartmentId);
         Task<List<AdministratorDto>> SearchByDepartmentIdControl(int Department);
         Task<UserWithOnlyRoleNum> login(Login user);
     }
