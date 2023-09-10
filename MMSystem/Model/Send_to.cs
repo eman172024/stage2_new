@@ -17,11 +17,14 @@ namespace MMSystem.Model
         public int type_of_send{ get; set; }
         public DateTime Send_time { get; set; }
         public int flag { get; set; }
-     public bool State { get; set; }
+        public bool State { get; set; }
         public DateTime time_of_read { get; set; }
         public DateTime update_At { get; set; }
         public List<Reply> replies { get; set; }
         public bool isMulti { get; set; }
 
+        public int resendfrom { get; set; }
+
     }
 }
+

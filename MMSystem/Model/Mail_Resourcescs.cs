@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace MMSystem.Model
         public int MailID { get; set; }
         public Mail Mail { get; set; }
         public string path { get; set; }
-
+        public int fromWho { get; set; }
         public int order { get; set; }
         public bool State { get; set; }
 
