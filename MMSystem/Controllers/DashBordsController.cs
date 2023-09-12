@@ -29,5 +29,16 @@ namespace MMSystem.Controllers
                 return Ok(GetTotal);
      
         }
+
+        [HttpGet]
+        [Route("GetTotalSection")]
+        public async Task<IActionResult> GetDashbordofSections(int ManagementId)
+        {
+
+            var GetTotal = await DashBord.GetDashbordofSections(ManagementId);
+
+            return Ok(GetTotal);
+
+        }
     }
 }
