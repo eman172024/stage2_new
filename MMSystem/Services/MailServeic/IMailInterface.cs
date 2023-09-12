@@ -52,6 +52,6 @@ namespace MMSystem.Services.MailServeic
 
 
         Task<bool> delete_sector(int id);
-
+        Task<List<SendsDetalies>> GetDetaliesInIncomingMails(int mail_id, int department_id);
     }
 }
