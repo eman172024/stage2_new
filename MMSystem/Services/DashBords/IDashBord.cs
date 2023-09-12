@@ -9,6 +9,7 @@ namespace MMSystem.Services.DashBords
    public interface IDashBord
     {
         Task<Dashbord> GetDashbord(int ManagementId);
+        Task<Dashbord> GetDashbordofSections(int ManagementId);
 
     }
 
