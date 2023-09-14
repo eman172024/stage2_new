@@ -93,7 +93,6 @@ namespace MMSystem.Services.Depart
         {
             try
             {
-                //  List<Department> dep = await _db.Departments.ToListAsync();
                 List<Department> dep = await _db.Departments.Where(x => x.perent == 0 && x.state==true).ToListAsync();
 
                 var depdto = _mapper.Map<List<Department>, List<DepartmentDto>>(dep);
@@ -105,12 +104,30 @@ namespace MMSystem.Services.Depart
             }
         }
 
+        public async Task<List<DepartmentDto>> GetAllDepartmentAndMysections(int dep)
+        {
+            try
+            {
+
+              List<Department> departments =  await _db.Departments.Where(x =>( x.perent == 0 || x.perent == dep) && x.state == true).ToListAsync();
+              var department = _mapper.Map<List<Department>, List<DepartmentDto>>(departments);
+
+              return department;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public async Task<List<DepartmentDto>> GetDepartment(int id)
         {
             try
             {
 
                 List<Department> departs = await _db.Departments.Where(x => x.Id != id).ToListAsync();
+
                 var list = _mapper.Map<List<Department>, List<DepartmentDto>>(departs);
 
                 return list;
@@ -131,6 +148,7 @@ namespace MMSystem.Services.Depart
 
 
                 List<DepartmentDto> dt = _mapper.Map<List<DepartmentDto>>(t1);
+
                 return dt;
 
             }
@@ -143,6 +161,7 @@ namespace MMSystem.Services.Depart
         public async Task<bool> Update(Department depart)
         {
             var dep = await find(depart.Id);
+
             if (dep != null)
             {
                 dep.perent = depart.perent;

@@ -3,17 +3,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-
 using MMSystem.Model;
 using MMSystem.Model.ViewModel;
 using MMSystem.Services;
 using MMSystem.Services.MailServeic;
-
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
@@ -36,16 +33,6 @@ namespace MMSystem.Controllers
             _getMailServices = getMailServices;
         }
 
-        [HttpGet("GetAllDepartments")]
-        public async Task<IActionResult> GetAllDepartments()
-        {
-
-            var c = await appDb.Departments.ToListAsync();
-            return Ok(c);
-
-
-
-        }
 
 
         [HttpGet("GetMailInfo")]
