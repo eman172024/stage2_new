@@ -50,6 +50,12 @@
 <script>
 export default {
   mounted() {
+
+    if (localStorage.getItem("AY_LW") == null || sessionStorage.getItem("id") == null) {
+      this.$router.push("/");
+    }
+
+    
     this.my_user_id = localStorage.getItem("AY_LW");
     this.my_department_id = localStorage.getItem("chrome");
   },

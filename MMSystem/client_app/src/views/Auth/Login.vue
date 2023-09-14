@@ -444,6 +444,7 @@ export default {
               this.user.administrator.departmentId;
 
             localStorage.setItem("AY_LW", this.user.administrator.userId);
+            sessionStorage.setItem("id", this.user.administrator.userId);
             localStorage.setItem(
               "current_department_name",
               this.departmentNameSelected

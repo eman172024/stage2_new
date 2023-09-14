@@ -308,7 +308,7 @@
 <script>
 export default {
   mounted() {
-    if (localStorage.getItem("AY_LW") == null) {
+    if (localStorage.getItem("AY_LW") == null || sessionStorage.getItem("id") == null) {
       this.$router.push("/");
     }
 
