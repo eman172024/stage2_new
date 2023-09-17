@@ -530,7 +530,7 @@ namespace MMSystem.Services.ReceivedMail
                              typeofsend = mail.typeofsend,
                              sends_state = mail == null ? true : mail.sends_state,
                              mail_id = mail.mail_id,
-                             State = mail.State,
+                             State = z.inbox,
                              type_of_mail = mail.type_of_mail,
                              Mail_Number = mail.Mail_Number,
                              date = mail.date.Date,
