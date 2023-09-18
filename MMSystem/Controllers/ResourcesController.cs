@@ -131,5 +131,34 @@ namespace MMSystem.Controllers
             return NotFound("لايوجد صور ");
 
         }
+
+
+        [HttpGet("Get_Mail_Resourcescs_orders")]
+        public async Task<IActionResult> Get_Mail_Resourcescs_orders(int mail_id)
+        {
+
+            try
+            {
+                var result = await _resourcescs.Get_Mail_Resourcescs_orders(mail_id);
+
+                if (result.Count > 0)
+                    return Ok(result);
+                else
+                {
+
+                    return NotFound("لايوجد صور");
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { massege = ex.Message, StatusCode = 400 });
+            }
+
+
+
+        }
     }
 }

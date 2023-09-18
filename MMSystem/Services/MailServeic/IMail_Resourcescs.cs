@@ -28,6 +28,6 @@ namespace MMSystem.Services.MailServeic
         Task<dynamic> delete_all_image(int id,int userid);
 
         Task<bool> order_images(List<ResViewModel> list);
-
+        Task<List<ResViewModel>> Get_Mail_Resourcescs_orders(int id);
     }
 }

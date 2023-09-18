@@ -25,7 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Mail_photos\2021\12\15\" />
+    <Folder Include="wwwroot\Mail_photos\" />
+    <Folder Include="wwwroot\reply_photos\" />
     <Folder Include="wwwroot\reply_photos\2022\5\" />
     <Folder Include="wwwroot\reply_photos\2022\8\4\" />
   </ItemGroup>

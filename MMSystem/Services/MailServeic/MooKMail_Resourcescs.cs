@@ -375,7 +375,7 @@ namespace MMSystem.Services.MailServeic
 
                 ressPage.total = _dbCon.Mail_Resourcescs.Where(x => x.State.Equals(true) && x.MailID == id).ToList().Count();
 
-                var list = await _dbCon.Mail_Resourcescs.
+                var list = await _dbCon.Mail_Resourcescs.OrderBy(x=>x.order).
                  Where(x => x.MailID == id&&x.State==true).Skip((pageNumber - 1) * 1).Take(1).ToListAsync();
 
                 if (list.Count > 0)
@@ -416,6 +416,62 @@ namespace MMSystem.Services.MailServeic
             }
 
         }
+
+
+
+
+        public async Task<RessObj> GetAllResswithPage1(int id, int pageNumber)
+        {
+            try
+            {
+
+                RessObj ressPage = new RessObj();
+
+
+                ressPage.total = _dbCon.Mail_Resourcescs.Where(x => x.State.Equals(true) && x.ID == id).ToList().Count();
+
+                var list = await _dbCon.Mail_Resourcescs.
+                 Where(x => x.MailID == id && x.State == true).Skip((pageNumber - 1) * 1).Take(1).ToListAsync();
+
+                if (list.Count > 0)
+                {
+
+                    var data = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(list);
+
+                    foreach (var xx in list)
+                    {
+                        string pat = xx.path;
+                        xx.path = await tobase64(pat);
+                    }
+
+
+                    ressPage.data = data.FirstOrDefault();
+                    string x = ressPage.data.path;
+
+                    ressPage.data.path = await tobase64(x);
+
+
+                    return ressPage;
+
+                }
+
+                else
+                {
+                    return ressPage;
+
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
+
 
 
         public async Task<dynamic> delete_all_image(int id,int userid)
@@ -486,7 +542,7 @@ namespace MMSystem.Services.MailServeic
         public async Task<bool> order_images(List<ResViewModel> list)
         {
 
-
+            int order = 1;
             bool isUpdate = false;
             foreach (var item in list)
             {
@@ -494,13 +550,15 @@ namespace MMSystem.Services.MailServeic
                 var obj = await _dbCon.Mail_Resourcescs.FindAsync(item.id);
 
                 if (obj != null) {
-                    obj.order = item.order;
+                    obj.order = order;
                     _dbCon.Mail_Resourcescs.Update(obj);
 
                     await _dbCon.SaveChangesAsync();
 
                     isUpdate = true;
-                
+                    order++;
+
+
                 }
 
 
@@ -508,6 +566,26 @@ namespace MMSystem.Services.MailServeic
             }
 
             return isUpdate;
+        }
+
+
+
+        public async Task<List<ResViewModel>> Get_Mail_Resourcescs_orders(int id)
+        {
+           List<ResViewModel> list = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == id && x.State == true).OrderBy(z=>z.order).Select(z=>new ResViewModel { 
+                
+                
+                
+                id=z.ID,
+                order=z.order
+                
+                
+                
+                } ).ToListAsync();
+
+
+            return list;
+
         }
     }
 }
