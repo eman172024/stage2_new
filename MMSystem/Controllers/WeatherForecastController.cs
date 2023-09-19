@@ -34,12 +34,27 @@ namespace MMSystem.Controllers
         }
 
 
+        /// <summary>
+        /// تم استبدالها بي depatmrntcontrol getall() يجب مسحها في المرحلة الثانية
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetAllDepartments")]
+        public async Task<IActionResult> GetAllDepartments()
+        {
+
+            var c = await appDb.Departments.ToListAsync();
+            return Ok(c);
+
+
+
+        }
+
+
 
         [HttpGet("GetMailInfo")]
         public async Task<IActionResult> GetMailInfo(int mail_id, int Department_Id, int type)
         {
           
-
             switch (type)
             {
                 case 1:
