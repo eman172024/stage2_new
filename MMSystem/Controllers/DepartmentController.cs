@@ -45,6 +45,35 @@ namespace MMSystem.Controllers
             }
         }
 
+
+        [HttpGet("GetAllDepartmentAndMysections")]
+        public async Task<IActionResult> GetAllDepartmentAndMysections(int dep)
+        {
+            try
+            {
+
+                var c = await _data.GetAllDepartmentAndMysections(dep);
+
+                if (c != null)
+                {
+                    return Ok(c);
+                }
+                else {
+
+                    return NotFound(new Result() { message = "الادارة غير موجود", statusCode = 404 });
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+         
+
+
+        }
+
         [HttpGet]
         [Route("Getsub")]
 

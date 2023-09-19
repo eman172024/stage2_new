@@ -2210,6 +2210,79 @@ namespace MMSystem.Services.MailServeic
 
         }
 
+        public async Task<List<SendsDetalies>> GetDetaliesInIncomingMails(int mail_id,int department_id)
+        {
+            try
+            {
+
+                var d= await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true )
+                               join send in _appContext.Sends.Where(x => x.State == true && x.resendfrom == department_id ) on mail.MailID equals send.MailID
+                               join department in _appContext.Departments on send.to equals department.Id
+                               join measures in _appContext.measures on send.type_of_send equals measures.MeasuresId
+                               join mailState in _appContext.MailStatuses on send.flag equals mailState.flag
+
+
+
+                               // 
+                               //   
+                               select new SendsDetalies()
+                               {
+                                   Department_id = send.to,
+                                   Department_name = department.DepartmentName,
+                                   flag = mailState.flag,
+                                   MesureName = measures.MeasuresName,
+                                   State = mailState.sent,
+                                   send_ToId = send.Id,
+
+                                   date = (send.Send_time.ToString().StartsWith("0001")) ? "لم يتم الارسال" : send.Send_time.ToString("yyyy-MM-dd"),
+                                   date_read = (send.time_of_read.ToString().StartsWith("0001")) ? "لم يتم الرد" : send.time_of_read.ToString("yyyy-MM-dd"),
+                                   time_of_read = (send.time_of_read.ToString().EndsWith("0000000")) ? "لم يتم الرد" : send.time_of_read.ToString("hh:mm:ss"),
+                                   time_of_send = (send.Send_time.ToString().EndsWith("0000000")) ? "لم يتم الارسال" : send.Send_time.ToString("hh:mm:ss")
+                               }).ToListAsync();
+
+             var c =  await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true)
+                       join send in _appContext.Sends.Where(x => x.State == true && x.to == department_id) on mail.MailID equals send.MailID
+                       join department in _appContext.Departments on mail.Department_Id equals department.Id
+                       join measures in _appContext.measures on send.type_of_send equals measures.MeasuresId
+                       join mailState in _appContext.MailStatuses on send.flag equals mailState.flag
+
+
+
+                       // 
+                       //   
+                       select new SendsDetalies()
+                       {
+                           Department_id = mail.Department_Id,
+                           Department_name = department.DepartmentName,
+                           flag = mailState.flag,
+                           MesureName = measures.MeasuresName,
+                           State = mailState.inbox,
+                           send_ToId = send.Id,
+
+                           date = (send.Send_time.ToString().StartsWith("0001")) ? "لم يتم الارسال" : send.Send_time.ToString("yyyy-MM-dd"),
+                           date_read = (send.time_of_read.ToString().StartsWith("0001")) ? "لم يتم الرد" : send.time_of_read.ToString("yyyy-MM-dd"),
+                           time_of_read = (send.time_of_read.ToString().EndsWith("0000000")) ? "لم يتم الرد" : send.time_of_read.ToString("hh:mm:ss"),
+                           time_of_send = (send.Send_time.ToString().EndsWith("0000000")) ? "لم يتم الارسال" : send.Send_time.ToString("hh:mm:ss")
+                       }).ToListAsync();
+
+
+
+
+                c.AddRange(d);
+
+
+
+                return c;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
         public async Task<dynamic> search(int id, int type, int year, int departmentId)
         {
             try

@@ -13,6 +13,7 @@ namespace MMSystem.Services.Depart
     {
         Task<List<DepartmentDto>> getsub(int par);
 
+        Task<List<DepartmentDto>> GetAllDepartmentAndMysections(int dep);
 
         Task<bool> addsub(int par, Department department);
 

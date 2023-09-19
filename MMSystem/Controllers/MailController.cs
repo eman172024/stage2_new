@@ -261,7 +261,15 @@ namespace MMSystem.Controllers
             return NotFound("لايوجد بريد ");
         }
 
+        [HttpGet("GetDetaliesInIncomingMails")]
+        public async Task<IActionResult> GetDetaliesInIncomingMails(int mail_id, int department_id)
+        {
 
+            var c = await _Imail.GetDetaliesInIncomingMails(mail_id, department_id);
+            if (c.Count > 0)
+                return Ok(c);
+            return NotFound("لايوجد بريد ");
+        }
 
 
         [HttpPut("update_send")]
