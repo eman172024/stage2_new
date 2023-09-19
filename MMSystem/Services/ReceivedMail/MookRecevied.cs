@@ -336,7 +336,7 @@ namespace MMSystem.Services.ReceivedMail
            int? mailReaded, int? mailnot_readed, int? Typeof_send
            , int? mail_type, int? userid, int? mailNumType, int pagenum, int size, int? Measure_filter,
            int? Department_filter, int? Classfication,
-           int? mail_state, int? TheSection, int? genral_incoming_num, int? entity_reference_number)
+           int? mail_state, int? TheSection, int? genral_incoming_num, int? entity_reference_number, bool? resend_mail)
         {
             try
             {
@@ -351,13 +351,30 @@ namespace MMSystem.Services.ReceivedMail
                 bool incoing_num_filter = false;
                 bool mangmentrole = false;
                 bool allmailtype = true;
-                bool entity_number = false;
+                bool entity_number = false;              
+                bool nomangment = true;
+                bool truley = true;
+
+                if (resend_mail == null)
+                {
+                    nomangment = false;
+                    truley = true;
+
+
+                }
+                else
+                {
+                    nomangment = true;
+                    truley = false;
+                }
+
 
                 if (entity_reference_number == null)
                 {
                     entity_number = true;
                 }
                 else { entity_number = false; }
+
                 if (genral_incoming_num != null && mangment == 21)
                 {
                     mangmentrole = true;
@@ -455,7 +472,7 @@ namespace MMSystem.Services.ReceivedMail
 
                    var c1 = await (from mail in dbcon.Mails.Where(x => x.state == true)
 
-                                join send in dbcon.Sends.Where(x=> x.to == mangment && x.State ==true && x.flag >1)
+                                join send in dbcon.Sends.Where(x=> x.State == true&& ((x.to == mangment && truley==true) ||(x.resendfrom==mangment && nomangment ==true)) && x.flag >1 )
                                 on mail.MailID equals send.MailID
                                    into fullmail
                                 from b1 in fullmail.DefaultIfEmpty()
@@ -472,7 +489,7 @@ namespace MMSystem.Services.ReceivedMail
                                 select new Sended_Maill()
                                 {
                                     entity_refernceNum=exin== null ? 0 :exin.entity_reference_number,
-                                  
+                                   
                                     externalInbox_sectionid = exin == null ? 0 : exin.SectionId,
                                     typeofsend = b1 == null ? 1 : b1.type_of_send,
                                     mail_id = mail.MailID,
@@ -505,7 +522,7 @@ namespace MMSystem.Services.ReceivedMail
                                             (x.clasfiction == Classfication || clasf_filter == true) &&
                                             (x.genralinboxnumber == genral_incoming_num || incoing_num_filter == true) && x.mail_state == true &&
 
-                                         (x.flag > 1) && (mangmentrole == true || (mangmentrole == false && x.tomangment == mangment)) &&
+                                         (x.flag > 1) && (mangmentrole == true || (mangmentrole == false /*&& x.tomangment == mangment*/)) &&
                                          (x.entity_refernceNum == entity_reference_number || entity_number == true)&&
                                         ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
                                         (x.flag == mail_state || State_filter == true) && x.sends_state == true)
@@ -523,14 +540,13 @@ namespace MMSystem.Services.ReceivedMail
 
                          select new Sended_Maill()
                          {
-                             entity_refernceNum = mail == null ? 0 : mail.entity_refernceNum,
-                             
+                             entity_refernceNum = mail == null ? 0 : mail.entity_refernceNum,                            
                              externalInbox_sectionid = mail == null ? 0 : mail.externalInbox_sectionid,
                              measure_id = dx == null ? 1 : dx.MeasuresId,
                              typeofsend = mail.typeofsend,
                              sends_state = mail == null ? true : mail.sends_state,
                              mail_id = mail.mail_id,
-                             State = mail.State,
+                             State = z.inbox,
                              type_of_mail = mail.type_of_mail,
                              Mail_Number = mail.Mail_Number,
                              date = mail.date.Date,
@@ -548,7 +564,8 @@ namespace MMSystem.Services.ReceivedMail
                              clasfiction = mail.clasfiction,
                              genralinboxnumber = mail.genralinboxnumber,
                              tomangment = mail == null ? 0 : mail.tomangment,
-                             dep_fil = mail.dep_fil
+                             dep_fil = mail.dep_fil,
+                             
 
 
 
@@ -593,7 +610,7 @@ namespace MMSystem.Services.ReceivedMail
             int? mail_Readed, int? mailReaded, int? mailnot_readed, int? Typeof_send, int? userid, int? mailNumType,
             int? mail_type, int pagenum, int size, int? Measure_filter,
             int? Department_filter, int? Classfication, int? mail_state, int? genral_incoming_num,
-            int? TheSection, int? entity_reference_number)
+            int? TheSection, int? entity_reference_number, bool? resend_mail)
         {
             var role_id = await dbcon.userRoles.Where(x => x.UserId == userid).ToListAsync();
 
@@ -605,7 +622,7 @@ namespace MMSystem.Services.ReceivedMail
             mangment, d1, d2, mailnum, summary, mail_Readed,
             mailReaded, mailnot_readed,
            Typeof_send, mail_type, userid, mailNumType, pagenum, size, Measure_filter,
-           Department_filter, Classfication, mail_state, genral_incoming_num, TheSection, entity_reference_number);
+           Department_filter, Classfication, mail_state, genral_incoming_num, TheSection, entity_reference_number, resend_mail);
                 return c0;
 
             }

@@ -33,7 +33,9 @@ namespace MMSystem.Services.ReceivedMail
         int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
         int? mailReaded, int? mailnot_readed, int?
         Typeof_send, int? userid, int? mailNumType, int? mail_type, int pagenum,
-        int size, int? Measure_filter, int? genral_incoming_num, int? Department_filter, int? Classfication, int? mail_state, int? TheSection, int? entity_reference_number);
+        int size, int? Measure_filter, int? genral_incoming_num, 
+        int? Department_filter, int? Classfication,
+        int? mail_state, int? TheSection, int? entity_reference_number, bool? resend_mail);
 
 
 
@@ -42,7 +44,7 @@ namespace MMSystem.Services.ReceivedMail
           int? mailReaded, int? mailnot_readed,  int?
           Typeof_send, int? mail_type, int? userid, int? mailNumType, int pagenum, int size,
           int? Measure_filter, int? Department_filter, int? Classfication, int? mail_state,
-          int? genral_incoming_num,int? TheSection, int? entity_reference_number);
+          int? genral_incoming_num,int? TheSection, int? entity_reference_number, bool? resend_mail);
 
         Task<PagenationSendedEmail<Sended_Maill>> GetAll( int? mailnum_bool,
           int? mangment, DateTime? d1, DateTime? d2, int? mailnum, string? summary, int? mail_Readed,
