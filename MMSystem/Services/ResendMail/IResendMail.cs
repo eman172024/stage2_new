@@ -7,5 +7,7 @@ namespace MMSystem.Services.ResendMail
 {
     public class IResendMail
     {
+
+
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MMSystem.Services.Histor;
+using MMSystem.Services.ResendMail;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,11 +8,25 @@ using System.Threading.Tasks;
 
 namespace MMSystem.Controllers
 {
-    public class ResendController : Controller
+
+    [ApiController]
+    [Route("api/[controller]")]
+
+    public class ResendController : ControllerBase
     {
-        public IActionResult Index()
+
+        public ResendController(IResendMail resendmail, IHistory hstory)
         {
-            return View();
+            _data = resendmail;
+            _hstory = hstory;
+
         }
+        private readonly IResendMail _data;
+
+        private readonly IHistory _hstory;
+
+
+
+       
     }
 }
