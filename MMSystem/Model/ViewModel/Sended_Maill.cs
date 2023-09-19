@@ -12,7 +12,8 @@ namespace MMSystem.Model.ViewModel
 
         public bool exdep_state { get; set; }
         public int side_number { get; set; }
-
+        public int resendfrom { get; set; }
+        
         public int dep_fil { get; set; }
 
         public int entity_refernceNum { get; set; }
