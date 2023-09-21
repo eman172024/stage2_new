@@ -3331,13 +3331,11 @@
 
                 <button @click="transfer_image_to_order()" class="bg-gray-600 hover:bg-gray-500 my-5 py-1 w-44">نقل المرفق</button>
 
-                <button class="bg-gray-600 hover:bg-gray-500 my-5 py-1 w-44">إرجاع المرفق</button>
+                <button @click="transfer_back_image_to_order()" class="bg-gray-600 hover:bg-gray-500 my-5 py-1 w-44">إرجاع المرفق</button>
 
-                <button class="bg-gray-600 hover:bg-gray-500 my-5 py-1 w-44">نقل كل المرفقات</button>
+                <button @click="transfer_all_images_to_order()" class="bg-gray-600 hover:bg-gray-500 my-5 py-1 w-44">نقل كل المرفقات</button>
 
-                <button class="bg-gray-600 hover:bg-gray-500 my-5 py-1 w-44">إرجاع كل المرفقات</button>
-
-
+                <button @click="transfer_back_images_to_order()" class="bg-gray-600 hover:bg-gray-500 my-5 py-1 w-44">إرجاع كل المرفقات</button>
 
                 <button @click="save_new_order()" class="bg-green-600 hover:bg-green-500 mt-10 py-1 w-48 text-lg font-bold"> حفظ الترتيب الجديد </button>
               </div>
@@ -3347,16 +3345,15 @@
               <div class="w-3/12 h-screen-75">
                 <p>الترتيب الجديد</p>
                 <div class="bg-white p-1 overflow-y-scroll mt-4 h-screen-75">
-                  <ul>
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>5</li>
-                    <li>6</li>
-                    <li>7</li>
-                    <li>8</li>
-                  </ul>
+                    <button 
+                      @click="select_image_to_ordering(n)" 
+                      class="my-1 py-1  w-full" v-for="n in new_ordering_image_list" :key="n.id"
+                      :class="index_of_image_selected == n.order? 'bg-blue-700 hover:bg-blue-600' : 'bg-gray-700 hover:bg-gray-600'"
+                      >
+                      الصورة رقم 
+                      {{ n.order }}
+                    </button>
+              
                 </div>
               </div>
 
@@ -3375,6 +3372,8 @@
                   />
                 </div>
               </div>
+
+
             </div>
           </div>
         </div>
@@ -4004,16 +4003,48 @@ console.log("index="+ind);
 
   methods: {
 
+    transfer_back_images_to_order(){
+      for (let index = 0; index < this.new_ordering_image_list.length; index++) {
+        const element = this.new_ordering_image_list[index];
+        this.ordering_image_list.push(element)
+        
+      }
+      this.new_ordering_image_list = []
+    },
+
+    transfer_all_images_to_order(){
+      for (let index = 0; index < this.ordering_image_list.length; index++) {
+        const element = this.ordering_image_list[index];
+        this.new_ordering_image_list.push(element)
+        
+      }
+      this.ordering_image_list = []
+    },
+
     save_new_order(){
+
+      this.transfer_all_images_to_order()
+
+      this.screenFreeze = true;
+        this.loading = true;
+
+
       this.$http.documentService
           .save_new_order(this.new_ordering_image_list)
           .then((res) => {
             // this.ordering_image_list = res.data
             console.log(res)
+            this.show_model_to_order_image = false;
+
+            setTimeout(() => {
+              this.screenFreeze = false;
+        this.loading = false;
+            }, 100);
    
           })
           .catch((err) => {
-       
+            this.screenFreeze = false;
+        this.loading = false;
             console.log(err);
           });
     },
@@ -4021,7 +4052,30 @@ console.log("index="+ind);
     transfer_image_to_order(){
       this.new_ordering_image_list.push(this.selected_image)
 
-      console.log(this.new_ordering_image_list)
+      const index = this.ordering_image_list.findIndex((element, index) => {
+        if (
+          element.id === this.selected_image.id &&
+          element.order === this.selected_image.order
+        ) {
+          return true;
+        }
+      });
+      this.ordering_image_list.splice(index, 1);
+    },
+
+
+    transfer_back_image_to_order(){
+      this.ordering_image_list.push(this.selected_image)
+
+      const index = this.new_ordering_image_list.findIndex((element, index) => {
+        if (
+          element.id === this.selected_image.id &&
+          element.order === this.selected_image.order
+        ) {
+          return true;
+        }
+      });
+      this.new_ordering_image_list.splice(index, 1);
     },
 
     open_model_to_order_image() {
@@ -4029,7 +4083,7 @@ console.log("index="+ind);
      this.show_model_to_order_image = true;
      this.get_ordering_image();
     
- },
+    },
 
 
 
