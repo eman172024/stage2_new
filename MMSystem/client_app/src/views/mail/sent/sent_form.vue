@@ -1068,6 +1068,86 @@
 
                             <div class="">
                               <button
+                                @click="open_model_to_order_image()"
+                                type="button"
+                                class="bg-green-600 hover:bg-green-500 duration-500 p-0 rounded-full focus:outline-none ml-2"
+                              >
+                                <div class="w-8 h-8">
+                                  <svg
+                                    class="w-full h-full text-white mx-auto"
+                                    enable-background="new 0 0 100 100"
+                                    id="Layer_1"
+                                    version="1.1"
+                                    viewBox="0 0 100 100"
+                                    xml:space="preserve"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                  >
+                                    <g>
+                                      <rect
+                                        fill="none"
+                                        height="5.9"
+                                        width="28.7"
+                                        x="32.4"
+                                        y="42.7"
+                                      />
+                                      <rect
+                                        fill="none"
+                                        height="5.9"
+                                        width="28.7"
+                                        x="32.4"
+                                        y="51.2"
+                                      />
+                                      <rect
+                                        fill="#010101"
+                                        height="2.5"
+                                        width="28.7"
+                                        x="32.4"
+                                        y="48.6"
+                                      />
+                                      <rect
+                                        fill="#010101"
+                                        height="2.5"
+                                        width="28.7"
+                                        x="32.4"
+                                        y="40.2"
+                                      />
+                                      <rect
+                                        fill="#010101"
+                                        height="2.5"
+                                        width="28.7"
+                                        x="32.4"
+                                        y="57.1"
+                                      />
+                                      <g>
+                                        <polygon
+                                          points="24.4,26 24.2,26.2 15.1,35.3 16.1,36.3 16.2,36.4 16.4,36.6 16.6,36.8 23.5,29.8 23.5,60.9 24.9,60.9 25.1,60.9     25.3,60.9 25.6,60.9 25.6,29.8 32.5,36.8 33,36.3 33.5,35.8 33.6,35.7 33.8,35.5 34,35.3 24.6,25.9   "
+                                        />
+                                        <polygon
+                                          points="75.4,64.6 75.3,64.5 74.8,64.1 74.5,63.7 74.4,63.6 67.4,70.5 67.4,39.4 66.9,39.4 66.7,39.4 65.6,39.4     65.3,39.4 65.3,70.5 58.4,63.6 58,63.9 57.9,64.1 56.9,65 66,74.1 66.2,74.3 66.4,74.5 66.6,74.3 75.8,65   "
+                                        />
+                                      </g>
+                                    </g>
+                                  </svg>
+                                </div>
+
+                                <!-- <svg
+                                  class="w-4 h-4 text-white mx-auto"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+                                  ></path>
+                                </svg> -->
+                              </button>
+
+                              <button
                                 @click="show_current_image_for_bigger_screen()"
                                 type="button"
                                 class="bg-green-600 hover:bg-green-500 duration-500 p-2 rounded-full focus:outline-none ml-2"
@@ -1264,16 +1344,21 @@
                     </div>
                   </fieldset>
 
-
-                  <div   v-if="mailType == '2'"  class="sm:col-span-3 border-2 border-red-500 rounded p-2">
-                    لإضافة جهة يجب اختيار القطاع والجهة والضغط على زر الاضافة (+) حتي يتم إضافة الجهة في مربع الجهات المرسل اليها
+                  <div
+                    v-if="mailType == '2'"
+                    class="sm:col-span-3 border-2 border-red-500 rounded p-2"
+                  >
+                    لإضافة جهة يجب اختيار القطاع والجهة والضغط على زر الاضافة
+                    (+) حتي يتم إضافة الجهة في مربع الجهات المرسل اليها
                   </div>
 
-                   <div  v-if="mailType == '3'" class="sm:col-span-3 border-2 border-red-500 rounded p-2">
-                    لإضافة جهة يجب اختيار القطاع والجهة والضغط على زر الاضافة (+) حتي يتم إضافة الجهة في مربع الجهة الوارد منها
+                  <div
+                    v-if="mailType == '3'"
+                    class="sm:col-span-3 border-2 border-red-500 rounded p-2"
+                  >
+                    لإضافة جهة يجب اختيار القطاع والجهة والضغط على زر الاضافة
+                    (+) حتي يتم إضافة الجهة في مربع الجهة الوارد منها
                   </div>
-
-
 
                   <!-- <br /> -->
 
@@ -1424,10 +1509,9 @@
                       for="consignees"
                       class="block text-sm font-semibold text-gray-800"
                     >
-                    <div v-if="mailType == '2'">الجهات المرسل اليها</div>
+                      <div v-if="mailType == '2'">الجهات المرسل اليها</div>
 
-                    <div v-if="mailType == '3'">الجهة الوارد منها</div>
-                      
+                      <div v-if="mailType == '3'">الجهة الوارد منها</div>
                     </label>
                     <div
                       class="mt-2 w-full rounded-md border border-gray-200 p-2 h-24 overflow-y-scroll flex flex-wrap items-center"
@@ -2348,7 +2432,7 @@
                 </button>
               </section>
 
-               <section
+              <section
                 v-if="departmentflag > 2 && roles.includes('f')"
                 class="bg-gray-100 rounded-md p-6"
               >
@@ -2358,14 +2442,7 @@
 
                 <div
                   id="scroll"
-                  class="
-                    h-72
-                    overflow-y-scroll
-                    mt-4
-                    rounded-lg
-                    py-2
-                    border border-gray-300
-                  "
+                  class="h-72 overflow-y-scroll mt-4 rounded-lg py-2 border border-gray-300"
                 >
                   <div
                     v-for="(reply, index) in replies"
@@ -2386,152 +2463,90 @@
                             : 'justify-end flex-row-reverse'
                         "
                       >
+                        <button
+                          v-if="reply.reply.to != my_department_id"
+                          @click="
+                            (alert_delete_document = true),
+                              (reply_id_to_delete = reply.reply.replyId)
+                          "
+                          type="button"
+                          class="hover:bg-red-500 duration-500 p-1 rounded-full focus:outline-none ml-2"
+                        >
+                          <svg
+                            class="w-4 h-4 stroke-current text-red mx-auto"
+                            width="24"
+                            height="25"
+                            viewBox="0 0 24 25"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M3 6.5H5H21"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M8 6.5V4.5C8 3.96957 8.21071 3.46086 8.58579 3.08579C8.96086 2.71071 9.46957 2.5 10 2.5H14C14.5304 2.5 15.0391 2.71071 15.4142 3.08579C15.7893 3.46086 16 3.96957 16 4.5V6.5M19 6.5V20.5C19 21.0304 18.7893 21.5391 18.4142 21.9142C18.0391 22.2893 17.5304 22.5 17 22.5H7C6.46957 22.5 5.96086 22.2893 5.58579 21.9142C5.21071 21.5391 5 21.0304 5 20.5V6.5H19Z"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </button>
 
-
-
-                         
-                      <button
-                        v-if="reply.reply.to != my_department_id"
-                              @click="alert_delete_document=true,reply_id_to_delete=reply.reply.replyId"
-                              type="button"
-                              class="
-                                
-                                hover:bg-red-500
-                                duration-500
-                                p-1
-                                rounded-full
-                                focus:outline-none
-                                ml-2
-                              "
-                             
-                            >
+                        <div
+                          v-if="alert_delete_document"
+                          class="w-screen h-full flex justify-center items-center absolute inset-0 z-50 overflow-hidden bg-black bg-opacity-70"
+                        >
+                          <div
+                            class="bg-yellow-100 rounded-md w-1/3 py-10 flex flex-col justify-center items-center"
+                          >
+                            <div class="">
                               <svg
-                                class="
-                                  w-4
-                                  h-4
-                                  stroke-current
-                                  text-red
-                                  mx-auto
-                                "
-                                width="24"
-                                height="25"
-                                viewBox="0 0 24 25"
+                                class="w-20 h-20 stroke-current text-red-600"
                                 fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M3 6.5H5H21"
-                                  stroke-width="2"
                                   stroke-linecap="round"
                                   stroke-linejoin="round"
-                                />
-                                <path
-                                  d="M8 6.5V4.5C8 3.96957 8.21071 3.46086 8.58579 3.08579C8.96086 2.71071 9.46957 2.5 10 2.5H14C14.5304 2.5 15.0391 2.71071 15.4142 3.08579C15.7893 3.46086 16 3.96957 16 4.5V6.5M19 6.5V20.5C19 21.0304 18.7893 21.5391 18.4142 21.9142C18.0391 22.2893 17.5304 22.5 17 22.5H7C6.46957 22.5 5.96086 22.2893 5.58579 21.9142C5.21071 21.5391 5 21.0304 5 20.5V6.5H19Z"
                                   stroke-width="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                />
+                                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                                ></path>
                               </svg>
-                            </button>
+                            </div>
+                            <p class="text-xl font-bold mt-4">
+                              هل انت متأكد من عملية الحذف؟
+                            </p>
+                            <p class="text-gray-600">
+                              لن تتمكن من استرداد الرد بعد حذفه.
+                            </p>
 
-
-
-                        
-                            <div
-      v-if="alert_delete_document"
-      class="
-        w-screen
-        h-full
-        flex
-        justify-center
-        items-center
-        absolute
-        inset-0
-        z-50
-        overflow-hidden
-        bg-black bg-opacity-70
-      "
-    >
-      <div
-        class="
-          bg-yellow-100
-          rounded-md
-          w-1/3
-          py-10
-          flex flex-col
-          justify-center
-          items-center
-        "
-      >
-        <div class="">
-          <svg
-            class="w-20 h-20 stroke-current text-red-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-            ></path>
-          </svg>
-        </div>
-        <p class="text-xl font-bold mt-4">هل انت متأكد من عملية الحذف؟</p>
-        <p class="text-gray-600">لن تتمكن من استرداد الرد بعد حذفه.</p>
-
-        <div class="mt-6">
-          <button
-            @click="deletereply()"
-            class="
-              bg-red-600
-              hover:bg-red-700 hover:shadow-lg
-              duration-200
-              rounded
-              text-white
-              w-32
-              py-1
-              ml-2
-            "
-          >
-            نعم متأكد
-          </button>
-          <button
-            @click="alert_delete_document = false"
-            class="
-              bg-gray-400
-              hover:bg-gray-700 hover:shadow-lg
-              duration-200
-              rounded
-              text-white
-              w-32
-              py-1
-              mr-2
-            "
-          >
-            إلغاء
-          </button>
-        </div>
-      </div>
-    </div>
-
+                            <div class="mt-6">
+                              <button
+                                @click="deletereply()"
+                                class="bg-red-600 hover:bg-red-700 hover:shadow-lg duration-200 rounded text-white w-32 py-1 ml-2"
+                              >
+                                نعم متأكد
+                              </button>
+                              <button
+                                @click="alert_delete_document = false"
+                                class="bg-gray-400 hover:bg-gray-700 hover:shadow-lg duration-200 rounded text-white w-32 py-1 mr-2"
+                              >
+                                إلغاء
+                              </button>
+                            </div>
+                          </div>
+                        </div>
 
                         <div v-if="reply.resources == true" class="mx-2">
                           <button
                             v-if="roles.includes('g')"
                             @click="GetResources_ById(reply.reply.replyId)"
-                            class="
-                              px-2
-                              text-xs
-                              rounded
-                              leading-9
-                              text-white
-                              bg-red-400
-                              flex
-                              items-center
-                            "
+                            class="px-2 text-xs rounded leading-9 text-white bg-red-400 flex items-center"
                           >
                             عرض الصور
                             <svg
@@ -2570,14 +2585,7 @@
                               ? 'bg-gray-700'
                               : 'bg-blue-700'
                           "
-                          class="
-                            text-white
-                            max-w-10/12
-                            py-0
-                            leading-9
-                            px-2
-                            rounded
-                          "
+                          class="text-white max-w-10/12 py-0 leading-9 px-2 rounded"
                         >
                           {{ reply.reply.mail_detail }}
                         </div>
@@ -2596,7 +2604,7 @@
                     </div>
                   </div>
                 </div>
-<!-- 
+                <!-- 
                 <div class="flex justify-between items-center mt-2">
                   <div class="w-9/12 flex justify-between">
                     <div class="w-10/12">
@@ -2780,7 +2788,7 @@
                     </button>
                   </div>
                 </div> -->
-              </section> 
+              </section>
             </div>
           </main>
         </div>
@@ -2929,13 +2937,16 @@
         </div>
 
         <div
-          class="h-screen  flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
+          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
         >
+          <button
+            type="button"
+            @click="image_rotate = !image_rotate"
+            class="absolute text-white font-bold px-8 z-50 bg-yellow-500 py-2 right-12"
+          >
+            تدوير الصفحة
+          </button>
 
-            <button type="button" @click="image_rotate = !image_rotate"  class="absolute text-white font-bold px-8 z-50 bg-yellow-500 py-2 right-12">
-              تدوير الصفحة
-            </button>
-            
           <div class="max-w-3xl mx-auto relative">
             <div
               class="absolute top-6 z-50 flex justify-between items-center w-full"
@@ -2965,7 +2976,7 @@
                 v-print="'#print_one_dec'"
                 class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
               >
-                طباعة المستند الحالي 
+                طباعة المستند الحالي
               </button>
 
               <button
@@ -3001,9 +3012,8 @@
               <img
                 :src="image_of_doc"
                 alt="image"
-
                 :class="image_rotate ? 'rotate-0' : 'rotate-180'"
-                class="h-full w-full object-contain transform  "
+                class="h-full w-full object-contain transform"
               />
             </div>
 
@@ -3269,6 +3279,103 @@
           >
             حسناً
           </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      v-if="show_model_to_order_image"
+      class="w-screen h-full absolute inset-0 z-50 overflow-hidden"
+    >
+      <div class="relative">
+        <div class="h-screen bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full">
+
+          <div class="w-full text-white">
+            <div class="">
+              <div
+                class="flex justify-between items-center w-full p-4 text-white text-xl"
+              >
+                <div class="">
+                  <span>ترتيب مرفقات للبريد </span> 
+                  <span class="underline">
+                    {{ mail_Number }} {{ my_department_id }} {{mail_year}}
+                  </span>
+                </div>
+                <div
+                  @click="show_model_to_order_image = false"
+                  class="bg-red-600 w-8 h-8 rounded-full flex items-center justify-center"
+                >
+                  X
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-start justify-between p-4">
+              <div class="w-3/12 h-screen-75">
+                <p>الترتيب الحالي</p>
+                <div class="bg-white p-1 overflow-y-scroll mt-4 h-screen-75">
+                    <button 
+                      @click="select_image_to_ordering(n)" 
+                      class="my-1 py-1  w-full" v-for="n in ordering_image_list" :key="n.id"
+                      :class="index_of_image_selected == n.order? 'bg-blue-700 hover:bg-blue-600' : 'bg-gray-700 hover:bg-gray-600'"
+                      >
+                      الصورة رقم 
+                      {{ n.order }}
+                    </button>
+              
+                </div>
+              </div>
+
+              <div class="w-2/12 h-screen-75 flex flex-col items-center justify-center">
+                <button @click="show_image_to_ordering()" class="bg-gray-600 hover:bg-gray-500 my-5 py-1 w-44">عرض المرفق</button>
+
+                <button @click="transfer_image_to_order()" class="bg-gray-600 hover:bg-gray-500 my-5 py-1 w-44">نقل المرفق</button>
+
+                <button @click="transfer_back_image_to_order()" class="bg-gray-600 hover:bg-gray-500 my-5 py-1 w-44">إرجاع المرفق</button>
+
+                <button @click="transfer_all_images_to_order()" class="bg-gray-600 hover:bg-gray-500 my-5 py-1 w-44">نقل كل المرفقات</button>
+
+                <button @click="transfer_back_images_to_order()" class="bg-gray-600 hover:bg-gray-500 my-5 py-1 w-44">إرجاع كل المرفقات</button>
+
+                <button @click="save_new_order()" class="bg-green-600 hover:bg-green-500 mt-10 py-1 w-48 text-lg font-bold"> حفظ الترتيب الجديد </button>
+              </div>
+
+
+
+              <div class="w-3/12 h-screen-75">
+                <p>الترتيب الجديد</p>
+                <div class="bg-white p-1 overflow-y-scroll mt-4 h-screen-75">
+                    <button 
+                      @click="select_image_to_ordering(n)" 
+                      class="my-1 py-1  w-full" v-for="n in new_ordering_image_list" :key="n.id"
+                      :class="index_of_image_selected == n.order? 'bg-blue-700 hover:bg-blue-600' : 'bg-gray-700 hover:bg-gray-600'"
+                      >
+                      الصورة رقم 
+                      {{ n.order }}
+                    </button>
+              
+                </div>
+              </div>
+
+      
+
+           
+
+              <div class="w-4/12 h-screen-75 pr-6">
+                <p>المرفق</p>
+                <div class="w-full h-screen-75 bg-gray-400 mt-4">
+                  <img
+                    :src="image_ordering"
+                    alt="image"
+                    :class="image_rotate ? 'rotate-0' : 'rotate-180'"
+                    class="h-full w-full object-contain transform"
+                  />
+                </div>
+              </div>
+
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -3540,8 +3647,16 @@ console.log("index="+ind);
 
   data() {
     return {
+      selected_image:'',
+      ordering_image_list: [],
+      new_ordering_image_list: [],
+      
+      index_of_image_selected:'',
+      image_ordering:'',
+      id_image_ordering:'',
 
-      image_rotate : true,
+
+      image_rotate: true,
       doc_number_to_search: "",
       delete_all_documents: false,
 
@@ -3706,6 +3821,7 @@ console.log("index="+ind);
 
       image_to_print_n_model: false,
       show_current_image_for_bigger_screen_model: false,
+      show_model_to_order_image: false,
 
       reply_doc_number: 0,
       reply_total_of_doc: 0,
@@ -3886,6 +4002,147 @@ console.log("index="+ind);
   },
 
   methods: {
+
+    transfer_back_images_to_order(){
+      for (let index = 0; index < this.new_ordering_image_list.length; index++) {
+        const element = this.new_ordering_image_list[index];
+        this.ordering_image_list.push(element)
+        
+      }
+      this.new_ordering_image_list = []
+    },
+
+    transfer_all_images_to_order(){
+      for (let index = 0; index < this.ordering_image_list.length; index++) {
+        const element = this.ordering_image_list[index];
+        this.new_ordering_image_list.push(element)
+        
+      }
+      this.ordering_image_list = []
+    },
+
+    save_new_order(){
+
+      this.transfer_all_images_to_order()
+
+      this.screenFreeze = true;
+        this.loading = true;
+
+
+      this.$http.documentService
+          .save_new_order(this.new_ordering_image_list)
+          .then((res) => {
+            // this.ordering_image_list = res.data
+            console.log(res)
+            this.show_model_to_order_image = false;
+
+            setTimeout(() => {
+              this.screenFreeze = false;
+        this.loading = false;
+            }, 100);
+   
+          })
+          .catch((err) => {
+            this.screenFreeze = false;
+        this.loading = false;
+            console.log(err);
+          });
+    },
+
+    transfer_image_to_order(){
+      this.new_ordering_image_list.push(this.selected_image)
+
+      const index = this.ordering_image_list.findIndex((element, index) => {
+        if (
+          element.id === this.selected_image.id &&
+          element.order === this.selected_image.order
+        ) {
+          return true;
+        }
+      });
+      this.ordering_image_list.splice(index, 1);
+    },
+
+
+    transfer_back_image_to_order(){
+      this.ordering_image_list.push(this.selected_image)
+
+      const index = this.new_ordering_image_list.findIndex((element, index) => {
+        if (
+          element.id === this.selected_image.id &&
+          element.order === this.selected_image.order
+        ) {
+          return true;
+        }
+      });
+      this.new_ordering_image_list.splice(index, 1);
+    },
+
+    open_model_to_order_image() {
+     
+     this.show_model_to_order_image = true;
+     this.get_ordering_image();
+    
+    },
+
+
+
+
+    select_image_to_ordering(n){
+      this.selected_image = n
+      this.index_of_image_selected = n.order
+
+    },
+
+
+    
+
+
+    get_ordering_image() {
+        this.$http.documentService
+          .get_ordering_image(this.mailId)
+          .then((res) => {
+            this.ordering_image_list = res.data
+   
+          })
+          .catch((err) => {
+       
+            console.log(err);
+          });
+    },
+
+
+
+    
+    show_image_to_ordering() {
+      // doc_number_to_search
+
+    
+    
+        this.$http.documentService
+          .GetAllDocN(this.mailId, this.index_of_image_selected)
+          .then((res) => {
+            this.total_of_doc = res.data.total;
+
+            this.image_ordering = res.data.data.path;
+            this.id_image_ordering = res.data.data.id;
+
+            setTimeout(() => {
+              this.screenFreeze = false;
+              this.loading = false;
+            }, 200);
+          })
+          .catch((err) => {
+            this.screenFreeze = false;
+            this.loading = false;
+            console.log(err);
+          });
+    },
+
+
+
+
+
     add_sector_side_to_array() {
       // // sector_side
 
@@ -3935,7 +4192,7 @@ console.log("index="+ind);
     },
 
     delete_sector_side_from_array(id) {
-      if (this.sector_side_old_array_id.length >1) {
+      if (this.sector_side_old_array_id.length > 1) {
         this.screenFreeze = true;
         this.loading = true;
 
@@ -3985,24 +4242,24 @@ console.log("index="+ind);
       //     this.sector_side_old_array_id.length >
       //   1
       // ) {
-        const index = this.sector_side_new_array.findIndex((element, index) => {
-          if (
-            element.side_number === sideId &&
-            element.sector_number === sectorId
-          ) {
+      const index = this.sector_side_new_array.findIndex((element, index) => {
+        if (
+          element.side_number === sideId &&
+          element.sector_number === sectorId
+        ) {
+          return true;
+        }
+      });
+      this.sector_side_new_array.splice(index, 1);
+
+      const index_id = this.sector_side_new_array_id.findIndex(
+        (element, index_id) => {
+          if (element === sideId) {
             return true;
           }
-        });
-        this.sector_side_new_array.splice(index, 1);
-
-        const index_id = this.sector_side_new_array_id.findIndex(
-          (element, index_id) => {
-            if (element === sideId) {
-              return true;
-            }
-          }
-        );
-        this.sector_side_new_array_id.splice(index_id, 1);
+        }
+      );
+      this.sector_side_new_array_id.splice(index_id, 1);
       // } else {
       //   alert("لا يمكن حذف جميع الجهات");
       // }
@@ -4033,26 +4290,20 @@ console.log("index="+ind);
     },
 
     farst_documents() {
-      this.image_rotate = true
-
+      this.image_rotate = true;
 
       this.doc_number_to_search = 1;
       this.search_the_doc();
     },
 
     last_documents() {
-
-      this.image_rotate = true
-
+      this.image_rotate = true;
 
       this.doc_number_to_search = this.total_of_doc;
       this.search_the_doc();
     },
 
     search_the_doc() {
-
-
-      
       // doc_number_to_search
 
       if (this.doc_number_to_search > this.total_of_doc) {
@@ -4326,6 +4577,7 @@ console.log("fun1");
 
     //*****************29/3/2022
 
+    
     show_current_image_for_bigger_screen() {
       this.screenFreeze = true;
       this.loading = true;
@@ -4337,8 +4589,7 @@ console.log("fun1");
     },
 
     GetAllDocN(x) {
-
-      this.image_rotate = true
+      this.image_rotate = true;
 
       if (x == "next") {
         this.doc_number++;
@@ -4694,12 +4945,8 @@ console.log("close code="+event.code);
     },
 
     clear_page() {
-
- 
       this.screenFreeze = true;
       this.loading = true;
-
-
 
       this.sideNameSelected = "";
       this.sideIdSelected = "";
@@ -4707,7 +4954,7 @@ console.log("close code="+event.code);
       this.sectorNameSelected = "";
       this.sectors = [];
       this.sides = [];
-      
+
       this.consignees = [];
       this.consignees1 = [];
       this.consigneesIncludesId = [];
@@ -4962,7 +5209,7 @@ console.log("close code="+event.code);
           }
 
           this.mailId = res.data.mail.mailID;
-          this.to_get_all_doc_of_mail();
+          // this.to_get_all_doc_of_mail();
           this.mail_Number = res.data.mail.mail_Number;
           this.department_Id = res.data.mail.department_Id;
           this.mail_year = res.data.mail.mail_year;
@@ -5723,7 +5970,7 @@ console.log("close code="+event.code);
             this.procedure_type = res.data.external.procedure_type;
           }
 
-          this.to_get_all_doc_of_mail();
+          // this.to_get_all_doc_of_mail();
 
           // this.GetDocmentForMail();
           // this.GetDocmentForMailToShow();
@@ -5876,7 +6123,7 @@ console.log("close code="+event.code);
         });
     },
 
-scanToJpg() {
+    scanToJpg() {
       scanner.scan(this.displayImagesOnPage, {
         output_settings: [
           {
@@ -5999,7 +6246,6 @@ scanToJpg() {
       // }, 1000);
     },
 
-    
     displayImagesOnPage(successful, mesg, response) {
       if (!successful) {
         // On error
@@ -6053,7 +6299,6 @@ scanToJpg() {
       }, 1000);
     },
 
-
     ImagetoPrint(img) {
       return (
         "<html><head><scri" +
@@ -6067,7 +6312,6 @@ scanToJpg() {
         "' /></body></html>"
       );
     },
-
 
     UploadImagesMail() {
       this.screenFreeze = true;
@@ -6113,12 +6357,6 @@ scanToJpg() {
         });
     },
 
-    
-
-
-
-    
-
     printImage(img) {
       var Pagelink = "هيئة الرقابة الادارية ليبيا";
       var pwa = window.open(
@@ -6131,7 +6369,6 @@ scanToJpg() {
       pwa.document.write(this.ImagetoPrint(img));
       pwa.document.close();
     },
-
   },
 };
 </script>

@@ -2,6 +2,22 @@ import axios from 'axios';
 
 export default {
 
+
+    
+
+    save_new_order(list) {
+        return axios.put(`/api/Resources/update_mail_Resources_order`, list)
+     //   return axios.post(`http://mail:82/api/Documents/AddDocuments`, newDocuments)
+
+    },
+
+    get_ordering_image(mail_id) {
+        return axios.get(`/api/Resources/Get_Mail_Resourcescs_orders?mail_id=${mail_id}`);
+      //  return axios.get(`http://mail:82/api/Resources/GetAllDoc?mail_id=${mail_id}&page_number=${page_number}`);
+    },
+
+
+
     GetAllDocN(mail_id, page_number) {
         return axios.get(`/api/Resources/GetAllDoc?mail_id=${mail_id}&page_number=${page_number}`);
       //  return axios.get(`http://mail:82/api/Resources/GetAllDoc?mail_id=${mail_id}&page_number=${page_number}`);
