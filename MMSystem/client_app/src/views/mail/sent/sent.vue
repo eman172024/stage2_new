@@ -2839,7 +2839,8 @@ console.log("code sent.vue="+event.code);
 
     GetAllDepartments() {
       this.$http.mailService
-        .AllDepartments()
+        .AllDepartments( localStorage.getItem(
+              "current_department_id"))
         .then((res) => {
           this.departments = res.data;
         })
