@@ -120,9 +120,10 @@ export default {
     },
 
     AllDepartments() {
-        return axios.get(`/api/WeatherForecast/GetAllDepartments`);
+        return axios.get(`/api/Department/GetAll`);
         //  return axios.get(`http://mail:82/api/WeatherForecast/GetAllDepartments`);
     },
+
 
     AllSides() {
         return axios.get(`/api/ExternalMails/Get_Extirnl_Sections`);
@@ -223,14 +224,31 @@ export default {
         //   return axios.get(`http://mail:82/api/Role/GetAll`);
     },
 
-    GetUsersOfDepartment(id) {
+    GetUsersOfBranchDepartment(id) {
         return axios.get(`/api/Administrator/GetByDepartmentId?department=${id}`);
         //   return axios.get(`http://mail:82/api/Administrator/GetByDepartmentId?department=${id}`);
     },
 
+    
+    GetUsersOfDepartment(id) {
+        return axios.get(`/api/Administrator/GetByDepartmentId?department=${id}`);
+        //   return axios.get(`http://mail:82/api/Administrator/GetByDepartmentId?department=${id}`);
+    },
+    
+
+
     GetUsersOfDepartmentControl(id) {
         return axios.get(`/api/Administrator/GetByDepartmentIdControl?department=${id}`);
         //   return axios.get(`http://mail:82/api/Administrator/GetByDepartmentIdControl?department=${id}`);
+    },
+
+    StopPublicAdministrations(stop_PublicAdministrations) {
+        return axios.put(`/api/Department/change_state?StopActive=${stop_PublicAdministrations}`)
+      //  return axios.put(`http://mail:82/api/Administrator/Delete/`, StopActive)
+     },
+
+    GetBranchOfDepartment(id){
+        return axios.get(`/api/Administrator/GetBranchByDepartmentId?departmentid=${id}`);
     },
 
     GetAllDocuments2(id) {
