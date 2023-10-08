@@ -58,7 +58,7 @@ namespace MMSystem.Controllers
             switch (type)
             {
                 case 1:
-                    var mail = await _getMailServices.GetMail(mail_id, Department_Id, type);
+                    var mail = await _getMailServices.GetMailAndResendList(mail_id, Department_Id, type);
                     obj = mail;
                     break;
                 case 2:
@@ -78,6 +78,35 @@ namespace MMSystem.Controllers
 
         }
 
+
+
+
+        [HttpGet("GetMailInfoWithResend")]
+        public async Task<IActionResult> GetMailInfoWithResend(int mail_id, int Department_Id, int type)
+        {
+
+            switch (type)
+            {
+                case 1:
+                    var mail = await _getMailServices.GetMailAndResendList(mail_id, Department_Id, type);
+                    obj = mail;
+                    break;
+                case 2:
+                    var External = await _getMailServices.GetExternalMail(mail_id, Department_Id, type);
+                    obj = External;
+                    break;
+                case 3:
+                    var ExternalInbox = await _getMailServices.GetExternalbox(mail_id, Department_Id, type);
+                    obj = ExternalInbox;
+                    break;
+                default:
+                    break;
+            }
+
+
+            return Ok(obj);
+
+        }
 
 
 

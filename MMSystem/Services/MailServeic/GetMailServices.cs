@@ -9,8 +9,9 @@ namespace MMSystem.Services.MailServeic
 {
   public  interface GetMailServices
     {
-
         Task<MVM> GetMail(int mail_id,int Depa,int tybe);
+
+        Task<MVM> GetMailAndResendList(int mail_id, int Department_Id, int type);
         Task<string> tobase64(string patj);
         Task<EMVM> GetExternalMail(int mail_id, int Depa, int type);
         Task<MailDto> Getdto(int id, int type);

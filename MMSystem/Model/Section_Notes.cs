@@ -17,6 +17,6 @@ namespace MMSystem.Model
         public bool State { get; set; }
         public Send_to send_To { get; set; }
 
-
+        
     }
 }
