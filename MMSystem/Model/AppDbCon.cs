@@ -155,9 +155,9 @@ namespace MMSystem.Model
                 new Department { Id = 54, DepartmentName = "لجنة ربط الفروع ", perent = 0, state = true },
                 new Department { Id = 55, DepartmentName = "لجنة متابعة تنفيد مبني الهيئة   ", perent = 0, state = true },
                 new Department { Id = 56, DepartmentName = "فرع شرق طرابلس", perent = 0, state = true },
-                 new Department { Id = 57, DepartmentName = "قسم البرمجة  ", perent = 17, state = true },
-                new Department { Id = 58, DepartmentName = "قسم الشبكات", perent = 17, state = true }
-
+               
+                  new Department { Id = 90, DepartmentName = "قسم البرمجة  ", perent = 17, state = true },
+                new Department { Id = 91, DepartmentName = "قسم الشبكات", perent = 17, state = true }
                                          );
 
 
