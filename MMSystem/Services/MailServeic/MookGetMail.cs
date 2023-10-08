@@ -103,8 +103,8 @@ namespace MMSystem.Services.MailServeic
                 MVM model = new MVM();
 
                 model.mail = await Getdto(mail_id, tybe);
-                List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id&&x.State==true).ToListAsync();
-                Send_to c =  await _dbCon.Sends.Where(x => x.to == department_Id && x.MailID == mail_id&&x.State==true).FirstOrDefaultAsync();
+                List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State==true && x.fromWho == model.mail.department_Id).ToListAsync();
+                Send_to c =  await _dbCon.Sends.Where(x => x.to == department_Id  && x.MailID == mail_id&&x.State==true ).FirstOrDefaultAsync();
                 model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>,List<Mail_ResourcescsDto>>(mail_Resourcescs);
                 model.list = await (from x in _dbCon.Replies.Where(x => x.send_ToId == c.Id&&x.state.Equals(true)&&x.IsSend.Equals(true))
                       //       join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
@@ -151,6 +151,90 @@ namespace MMSystem.Services.MailServeic
 
         }
 
+
+        public async Task<MVM> GetMailAndResendList(int mail_id, int department_Id, int tybe)
+        {
+            try
+            {
+             
+                MVM model = new MVM();
+
+                model.mail = await Getdto(mail_id, tybe);
+                List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == model.mail.department_Id).ToListAsync();
+                List <Send_to> c = await _dbCon.Sends.Where(x => (x.to == department_Id || x.resendfrom == department_Id) && x.MailID == mail_id && x.State == true).ToListAsync();
+              
+                model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
+
+                foreach (var item in c)
+                {
+      
+                model.list = await (from x in _dbCon.Replies.Where(x => x.send_ToId == item.Id && x.state.Equals(true) && x.IsSend.Equals(true))
+                                        //       join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
+                                    select new RViewModel
+                                    {
+                                        reply = _mapper.Map<Reply, ReplayDto>(x),
+                                        Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
+                                    }).ToListAsync();
+
+                    List<section_NotesDto> section_N = await (from x in _dbCon.section_Notes.Where(x => x.send_ToId == item.Id && x.State == true) 
+                                                            join y in _dbCon.Sends.Where(x=>x.State == true) on x.send_ToId equals y.Id
+                                                            join z in _dbCon.Departments.Where(x=>x.perent == department_Id) on y.to equals z.Id
+                                                           select new section_NotesDto {
+                                                               ID = x.ID ,
+                                                               department_name = z.DepartmentName ,
+                                                               Note = x.Note,
+                                                               send_ToId = x.send_ToId ,
+                                                               State = x.State                                                       
+                                                           }
+                                                           ).ToListAsync();
+                 
+                    model.section_Notes.AddRange(section_N);
+
+                    List<Mail_Resourcescs> mail_Resources_resended = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == department_Id).ToListAsync();
+
+                    model.mail_Resources_resended = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resources_resended);
+
+                }
+
+
+
+                //foreach (var xx in model.mail_Resourcescs)
+                //{
+                //    string x = xx.path;
+                //    if (File.Exists(x))
+                //    {
+                //        xx.path = await tobase64(x);
+
+                //    }
+
+                //}
+
+                //foreach (var item in model.list)
+                //{
+                //    foreach (var item2 in item.Resources)
+                //    {
+                //        string x = item2.path;
+                //        if (File.Exists(x))
+                //        {
+                //            item2.path = await tobase64(x);
+
+                //        }
+
+                //    }
+                //}
+
+
+                return model;
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
 
         public async Task<string> tobase64(string patj)
         {
