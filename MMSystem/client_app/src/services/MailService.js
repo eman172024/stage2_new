@@ -124,6 +124,12 @@ export default {
         //  return axios.get(`http://mail:82/api/WeatherForecast/GetAllDepartments`);
     },
 
+    AllDepartments_and_mysections(id) {
+        return axios.get(`/api/Department/GetAllDepartmentAndMysections?dep=${id}`);
+        //  return axios.get(`http://mail:82/api/WeatherForecast/GetAllDepartments`);
+    },
+
+
 
     AllSides() {
         return axios.get(`/api/ExternalMails/Get_Extirnl_Sections`);
