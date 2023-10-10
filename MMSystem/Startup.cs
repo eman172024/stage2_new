@@ -31,6 +31,7 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Threading;
 using System.Collections.Concurrent;
+using MMSystem.Services.ResendMail;
 
 namespace MMSystem
 {
@@ -69,6 +70,9 @@ namespace MMSystem
             services.AddScoped<IArchives, MokArchives>();
             services.AddScoped<IReceived, MookRecevied>();
             services.AddScoped<GetMailServices, MookGetMail>();
+
+            services.AddScoped<IResendMail, MockResendMail>();
+
             services.AddSignalR();
 
         }

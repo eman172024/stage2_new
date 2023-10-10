@@ -1,16 +1,15 @@
 ﻿using MMSystem.Model;
+using MMSystem.Model.Dto;
 using MMSystem.Model.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace MMSystem.Services.ResendMail
 {
-    public interface  IResendMail
+    public interface ISectionNote
     {
-
-        Task<bool> SaveResendMail(ResendViewModel t);
+        Task<bool> AddNotes(Section_Notes t);
 
     }
 }
