@@ -66,7 +66,7 @@ namespace MMSystem.Controllers
                     obj = External;
                     break;
                 case 3:
-                    var ExternalInbox = await _getMailServices.GetExternalbox(mail_id, Department_Id, type);
+                    var ExternalInbox = await _getMailServices.GetExternalboxAndResended(mail_id, Department_Id, type);
                     obj = ExternalInbox;
                     break;
                 default:

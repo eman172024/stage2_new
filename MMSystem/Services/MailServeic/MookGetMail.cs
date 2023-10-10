@@ -167,15 +167,16 @@ namespace MMSystem.Services.MailServeic
 
                 foreach (var item in c)
                 {
-      
-                model.list = await (from x in _dbCon.Replies.Where(x => x.send_ToId == item.Id && x.state.Equals(true) && x.IsSend.Equals(true))
-                                        //       join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
-                                    select new RViewModel
-                                    {
-                                        reply = _mapper.Map<Reply, ReplayDto>(x),
-                                        Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
-                                    }).ToListAsync();
 
+                    //List<RViewModel> replies = await (from x in _dbCon.Replies.Where(x => x.send_ToId == item.Id && x.state.Equals(true) && x.IsSend.Equals(true))
+                    //                    //       join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
+                    //                select new RViewModel
+                    //                {
+                    //                    reply = _mapper.Map<Reply, ReplayDto>(x),
+                    //                    Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
+                    //                }).ToListAsync();
+
+                    //model.list.AddRange(replies);
                     List<section_NotesDto> section_N = await (from x in _dbCon.section_Notes.Where(x => x.send_ToId == item.Id && x.State == true) 
                                                             join y in _dbCon.Sends.Where(x=>x.State == true) on x.send_ToId equals y.Id
                                                             join z in _dbCon.Departments.Where(x=>x.perent == department_Id) on y.to equals z.Id
@@ -352,6 +353,7 @@ namespace MMSystem.Services.MailServeic
                                        Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
                                    }).ToListAsync();
 
+
                 //foreach (var xx in model.mail_Resourcescs)
                 //{
                 //    string x = xx.path;
@@ -390,6 +392,124 @@ namespace MMSystem.Services.MailServeic
             }
         }
 
-       
+
+        public async Task<ExInboxModel> GetExternalboxAndResended(int mail_id, int Depa, int type)
+        {
+            try
+            {
+
+                ExInboxModel model = new ExInboxModel();
+                bool dep = false;
+                if (Depa == 21)
+                {
+
+                    dep = true;
+                }
+                //   Mail mail = await _dbCon.Mails.FindAsync(mail_id);
+                model.mail = await Getdto(mail_id, type);
+                Extrenal_inbox external_Mail = await _dbCon.Extrenal_Inboxes.OrderBy(x => x.Id).FirstOrDefaultAsync(x => x.MailID == mail_id);
+                //  model.side = await _dbCon.Extrmal_Sections.FindAsync(external_Mail.SectionId);
+                // model.Sector = await _dbCon.Extrmal_Sections.FirstOrDefaultAsync(x => x.id == model.side.perent);
+
+
+
+                model.external_sectoin = await _dbCon.external_Departments.Where(x => x.Mail_id == model.mail.MailID && x.state == true).Select(z => new Ex_Departments
+                {
+
+                    side_name = _dbCon.Extrmal_Sections.FirstOrDefault(v => v.id == z.side_number).Section_Name,
+                    side_number = z.side_number,
+                    id = z.id,
+                    Mail_id = z.Mail_id,
+                    sector_name = _dbCon.Extrmal_Sections.FirstOrDefault(v => v.id == z.sector_number).Section_Name,
+                    sector_number = z.sector_number,
+                    mail_forwarding = z.mail_forwarding
+
+
+                })
+                        .ToListAsync();
+
+                model.Inbox = _mapper.Map<Extrenal_inbox, Extrenal_inboxDto>(external_Mail);
+                List<Mail_Resourcescs> mail_Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id  && x.State == true && x.fromWho == model.mail.department_Id).ToListAsync();
+                // Send_to c = await _dbCon.Sends.Where(x =>  x.MailID == mail_id&&(dep == true||dep== false&&x.to == Depa )).FirstOrDefaultAsync();
+                // Send_to c = await _dbCon.Sends.Where(x => x.MailID == mail_id && ((dep == true || dep == false) && x.to == Depa)).FirstOrDefaultAsync();
+               List<Send_to> c = await _dbCon.Sends.Where(x => (x.to == Depa || x.resendfrom == Depa) && x.MailID == mail_id && x.State == true && ((dep == true || dep == false) )).ToListAsync();
+
+
+                model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
+
+                foreach (var item in c)
+                {
+
+                    //List<ReplayModel> replies = await (from x in _dbCon.Replies.Where(x => x.send_ToId == item.Id && x.state.Equals(true) && x.IsSend.Equals(true))
+                    //                                       //  join y in _dbCon.Reply_Resources.Where(x=>x.ReplyId==x.ID)
+                    //                                   select new ReplayModel
+                    //                                   {
+                    //                                       DepRepaly = item.to.ToString(),
+                    //                                       reply = _mapper.Map<Reply, ReplayDto>(x),
+                    //                                       Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
+                    //                                   }).ToListAsync();
+
+                    //model.list.AddRange(replies);
+
+                    List<section_NotesDto> section_N = await (from x in _dbCon.section_Notes.Where(x => x.send_ToId == item.Id && x.State == true)
+                                                              join y in _dbCon.Sends.Where(x => x.State == true) on x.send_ToId equals y.Id
+                                                              join z in _dbCon.Departments.Where(x => x.perent == Depa) on y.to equals z.Id
+                                                              select new section_NotesDto
+                                                              {
+                                                                  ID = x.ID,
+                                                                  department_name = z.DepartmentName,
+                                                                  Note = x.Note,
+                                                                  send_ToId = x.send_ToId,
+                                                                  State = x.State
+                                                              }
+                                                           ).ToListAsync();
+
+                    model.section_Notes.AddRange(section_N);
+
+                    List<Mail_Resourcescs> mail_Resources_resended = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == Depa).ToListAsync();
+
+                    model.mail_Resources_resended = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resources_resended);
+
+                }
+
+
+                //foreach (var xx in model.mail_Resourcescs)
+                //{
+                //    string x = xx.path;
+                //    if (File.Exists(x))
+                //    {
+                //        xx.path = await tobase64(x);
+
+                //    }
+
+                //}
+
+                //foreach (var item in model.list)
+                //{
+                //    foreach (var item2 in item.Resources)
+                //    {
+                //        string x1 = item2.path;
+                //        if (File.Exists(x1))
+                //        {
+                //            item2.path = await tobase64(x1);
+
+                //        }
+
+
+                //    }
+                //}
+
+
+                return model;
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
     }
 }
