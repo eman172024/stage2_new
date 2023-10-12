@@ -11,7 +11,7 @@
             alt="logo"
           />
           <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-             منظومة البريد الداخلي المرحلة التانية
+            منظومة البريد الداخلي
           </h2>
         </div>
         <div v-on:keyup.enter="submit" class="mt-8 space-y-6">
@@ -27,7 +27,9 @@
 
               <div class="relative">
                 <button
-                  @click="departmentselect = !departmentselect"
+                  @click="
+                  departmentselect = !departmentselect; "
+                  
                   id="department"
                   class="text-right block mt-2 w-full rounded-md h-12 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
                 >
@@ -38,13 +40,15 @@
                   v-if="departmentselect"
                   class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md"
                 >
-                  <button
+                  <button 
                     class="block focus:outline-none w-full duration-500 px-1 py-2 text-right hover:bg-gray-200"
                     @click="
                       selectdepartment(
                         department.id,
-                        department.departmentName
+                        department.departmentName,
                       );
+                      branchdepartmentNameSelected='',
+                      
                       departmentselect = !departmentselect;
                     "
                     v-for="department in departments"
@@ -52,6 +56,62 @@
                   >
                     <!--  <a  class="w-full block " :id="department.id" @click="test(department.id)" > {{ department.departmentName }}</a>-->
 
+                    {{ department.departmentName }}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="my-4">
+              <label
+                for="department"
+                class="block text-base font-semibold text-gray-800"
+              >
+                الإدارات الفرعية و الأقسام
+              </label>
+
+              <div class="relative">
+                <button
+                  @click="branchdepartmentdelect = !branchdepartmentdelect"
+                  id="department"
+                  class="text-right block mt-2 w-full rounded-md h-12 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                >
+                  {{ branchdepartmentNameSelected }}
+                </button>
+
+                <div
+                  v-if="branchdepartmentdelect"
+                  class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md"
+                ><!--selectUserOfDepartment-->
+                
+                  <button v-if="departmentNameSelected != ''"
+                    class="block focus:outline-none w-full duration-500 px-1 py-2 text-right hover:bg-gray-200"
+                    @click="
+                      GetUsersOfDepartment()
+                      userNameSelected ='';
+                      branchdepartmentdelect = !branchdepartmentdelect;
+                      branchdepartmentNameSelected='الأمانة الإدارية';
+                    "
+                  >
+                    <!--  <a  class="w-full block " :id="department.id" @click="test(department.id)" > {{ department.departmentName }}</a>-->
+                  الأمانة الإدارية 
+                  </button>
+
+                  <button
+                    class="block focus:outline-none w-full duration-500 px-1 py-2 text-right hover:bg-gray-200"
+                    @click="
+                      GetUsersOfBranchDepartment()
+                      selectbranchdepartment(
+                        department.id,
+                        department.departmentName
+                      );
+                      branchdepartmentdelect = !branchdepartmentdelect;
+                    "
+                    v-for="department in branches"
+                    :key="department.id"
+                  >
+                    <!--  <a  class="w-full block " :id="department.id" @click="test(department.id)" > {{ department.departmentName }}</a>-->
+                    
                     {{ department.departmentName }}
                   </button>
                 </div>
@@ -115,9 +175,10 @@
               />
             </div>
           </div>
-          <div>
-            <button
+          <div >
+            <button 
               @click="submit()"
+              
               type="submit"
               class="group relative w-8/12 mx-auto flex justify-center py-3 px-4 border border-transparent shadow-sm text-sm font-bold rounded-md border-green-600 text-white bg-green-600 hover:shadow-lg focus:shadow-none duration-300 focus:outline-none"
             >
@@ -272,8 +333,9 @@ export default {
       localStorage.setItem("p_v", "v1");
       location.reload(true);
     }
-
+    
     this.GetAllDepartments();
+    
 
     //**********8/1/2023 stop websocket
     //*********************websocket 13/12/2022
@@ -303,7 +365,12 @@ export default {
 
   watch: {
     departmentIdSelected: function () {
-      this.GetUsersOfDepartment();
+      this.GetBranchOfDepartment()
+      //this.GetUsersOfDepartment() ;
+    },
+
+    branchIdSelected: function () {
+      this.GetUsersOfBranchDepartment();
     },
   },
 
@@ -330,6 +397,15 @@ export default {
       departmentNameSelected: "",
       departmentIdSelected: "",
 
+      AdministrativesecretariatSelect: false,
+
+      branches: [],
+      branchdepartmentdelect: false,
+      branchdepartmentNameSelected: "",
+      branchIdSelected: "",
+      
+      //branchdepartment: true,
+
       users: [],
       usersSelect: false,
       userNameSelected: "",
@@ -342,7 +418,9 @@ export default {
         this.departmentNameSelected = "";
         this.clear_text++;
       }
+      
     },
+
 
     //********13/12/2022
     //*****************29/3/2022
@@ -361,6 +439,51 @@ export default {
     },
 
     //***********End 13/12/2022
+    GetBranchOfDepartment() {
+      // console.log(this.departmentIdSelected)
+      this.loading = true;
+      this.screenFreeze = true;
+
+      this.$http.mailService
+        .GetBranchOfDepartment(this.departmentIdSelected)
+        .then((res) => {
+          this.loading = false;
+          this.screenFreeze = false;
+          this.branches = res.data;
+        })
+        .catch((err) => {
+          this.branchdepartmentNameSelected='';
+          this.branches=[];
+          this.loading = false;
+          this.screenFreeze = false;
+          console.log(err);
+        });
+    },
+
+    selectbranchdepartment(id, name) {
+      this.userNameSelected = "";
+      this.branchdepartmentNameSelected = name;
+      this.branchIdSelected = id;
+    },
+
+    GetUsersOfBranchDepartment() {
+      // console.log(this.departmentIdSelected)
+      this.loading = true;
+      this.screenFreeze = true;
+
+      this.$http.mailService
+        .GetUsersOfBranchDepartment(this.branchIdSelected)
+        .then((res) => {
+          this.loading = false;
+          this.screenFreeze = false;
+          this.users = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loading = false;
+          this.screenFreeze = false;
+        });
+    },
 
     GetUsersOfDepartment() {
       // console.log(this.departmentIdSelected)
@@ -372,19 +495,21 @@ export default {
         .then((res) => {
           this.loading = false;
           this.screenFreeze = false;
-
           this.users = res.data;
         })
         .catch((err) => {
           console.log(err);
+          this.loading = false;
+          this.screenFreeze = false;
         });
     },
-
+   
     selectUser(id, name) {
       this.userNameSelected = name;
       this.UserName = name;
       this.userIdSelected = id;
     },
+
 
     GetAllDepartments() {
       this.$http.mailService
@@ -402,12 +527,14 @@ export default {
         });
     },
 
+
     selectdepartment(id, name) {
       this.userNameSelected = "";
       this.departmentNameSelected = name;
       this.departmentIdSelected = id;
     },
 
+  
     totest() {
       console.log("IN");
       this.$router.push({ name: "dashboard" });
@@ -416,18 +543,31 @@ export default {
     submit() {
       this.screenFreeze = true;
       this.loading = true;
-      var Login = {
-        Password: this.Password,
-        DepartmentId: this.departmentIdSelected,
+      
+      if (this.branchdepartmentNameSelected === 'الأمانة الإدارية') {
+        var Login = {
+        Password: this.Password, 
+        DepartmentId:  this.departmentIdSelected,     
         UserId: Number(this.userIdSelected),
 
         //******21/12/2022
         Mac: this.macaddress.mac,
         //*****end 21/12/2022
       };
+    } else {
+      var Login2 = {
+        Password: this.Password, 
+        DepartmentId:  this.branchIdSelected,     
+        UserId: Number(this.userIdSelected),
 
+        //******21/12/2022
+        Mac: this.macaddress.mac,
+        //*****end 21/12/2022
+      };
+    }
       this.$http.securityService
-        .Login(Login)
+       
+        .Login(Login || Login2)
         .then((res) => {
           setTimeout(() => {
             this.loading = false;
@@ -444,10 +584,19 @@ export default {
               this.user.administrator.departmentId;
 
             localStorage.setItem("AY_LW", this.user.administrator.userId);
+
             localStorage.setItem(
               "current_department_name",
               this.departmentNameSelected
             );
+
+            localStorage.setItem(
+              "current_department_id",
+              this.user.administrator.departmentId
+            );
+
+
+
             localStorage.setItem(
               "chrome",
               this.user.administrator.departmentId

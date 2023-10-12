@@ -21,5 +21,13 @@ namespace MMSystem.Model.ViewModel.MailVModels
 
         public List<RViewModel> list { get; set; } = new List<RViewModel>() { };
 
+        public List<section_NotesDto> section_Notes { get; set; } = new List<section_NotesDto>() { };
+
+        public List<Mail_ResourcescsDto> mail_Resources_resended { get; set; } = new List<Mail_ResourcescsDto>() { };
+
+
+
+      
+
     }
 }

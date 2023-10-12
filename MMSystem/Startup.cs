@@ -71,6 +71,7 @@ namespace MMSystem
             services.AddScoped<IReceived, MookRecevied>();
             services.AddScoped<GetMailServices, MookGetMail>();
 
+
             services.AddScoped<IResendMail, MockResendMail>();
 
             services.AddSignalR();

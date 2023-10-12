@@ -15,14 +15,14 @@ namespace MMSystem.Services.ResendMail
 
 
     {
-       
         public MockResendMail(AppDbCon data,IMail_Resourcescs resourcescs ,
-            ISender sender,IHistory history /*ISectionNote sectionNote*/)
+            ISender sender,IHistory history )
         {
             _data = data;
             _sender = sender;
+
+           // ISectionNote = sectionNot;
            // _history = history;
-           //_sectionNote = sectionNote;
 
         }
 
@@ -30,7 +30,7 @@ namespace MMSystem.Services.ResendMail
         private AppDbCon _data { get; }
         private readonly ISender _sender;
         private readonly IHistory _history;
-        //private readonly ISectionNote _sectionNote;
+
 
 
 
@@ -81,8 +81,10 @@ namespace MMSystem.Services.ResendMail
                             SNotes.send_ToId = LastID;
                             SNotes.Note = mail.actionSenders[i].Note;
                             SNotes.State = true;
-                            //bool note=await _sectionNote.AddNotes(SNotes);
-                            //await _data.SaveChangesAsync();
+
+                         await   _data.section_Notes.AddAsync(SNotes);
+                           await _data.SaveChangesAsync();
+
                         }
 
                         result = true;

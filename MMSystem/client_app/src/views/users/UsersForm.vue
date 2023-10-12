@@ -11,8 +11,6 @@
         max-w-4xl
         p-2
         flex flex-col
-        
-        
         relative
       "
       >
@@ -289,7 +287,7 @@
                   mt-2
                   w-full
                   rounded-md
-                  h-8
+                  h-9
                   border
                   text-sm
                   bg-white
@@ -346,45 +344,7 @@
               </div>
             </div>
 
-            <div>
-              <span class="font-medium text-gray-700">حالة الحساب</span>
-
-              <div class="flex items-center mt-2 justify-around">
-                <div class="flex items-center">
-                  <input
-                    id="active"
-                    type="radio"
-                    class="h-4 w-4 border-gray-300"
-                    value="true"
-                    v-model="state1"
-                  />
-
-                  <label
-                    for="active"
-                    class="mr-3 text-sm font-medium text-gray-700"
-                  >
-                    مفعل
-                  </label>
-                </div>
-
-                <div class="flex items-center">
-                  <input
-                    id="deactive"
-                    type="radio"
-                    class="h-4 w-4"
-                    value=""
-                    v-model="state1"
-                  />
-
-                  <label
-                    for="deactive"
-                    class="mr-3 text-sm font-medium text-gray-700"
-                  >
-                    غير مفعل
-                  </label>
-                </div>
-              </div>
-            </div>
+            
 
             <div>
               <label for="roles" class="font-medium text-gray-700">
@@ -508,6 +468,46 @@
                       ></path>
                     </svg>
                   </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="justify-center">
+              <span class="font-medium text-gray-700">حالة الحساب</span>
+
+              <div class="flex items-center mt-2 justify-around">
+                <div class="flex items-center">
+                  <input
+                    id="active"
+                    type="radio"
+                    class="h-4 w-4 border-gray-300"
+                    value="true"
+                    v-model="state1"
+                  />
+
+                  <label
+                    for="active"
+                    class="mr-3 text-sm font-medium text-gray-700"
+                  >
+                    مفعل
+                  </label>
+                </div>
+
+                <div class="flex items-center">
+                  <input
+                    id="deactive"
+                    type="radio"
+                    class="h-4 w-4"
+                    value=""
+                    v-model="state1"
+                  />
+
+                  <label
+                    for="deactive"
+                    class="mr-3 text-sm font-medium text-gray-700"
+                  >
+                    غير مفعل
+                  </label>
                 </div>
               </div>
             </div>
@@ -687,6 +687,11 @@ export default {
       mac2_valid: false,
       username_valid: false,
 
+      branches: [],
+      branchdepartmentdelect: false,
+      branchdepartmentNameSelected: "إختر الفرع أو القسم",
+      branchIdSelected: "",
+
       testarry:[],
     };
   },
@@ -732,7 +737,9 @@ export default {
       }
     },
 
-
+    departmentIdSelected: function() {
+      this.GetBranchOfDepartment();
+    },
 
     UserName: function() {
       if (this.UserName.length < 12 && this.UserName.length != 0) {
@@ -777,6 +784,31 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+
+    GetBranchOfDepartment() {
+      // console.log(this.departmentIdSelected)
+      this.loading = true;
+      this.screenFreeze = true;
+
+      this.$http.mailService
+        .GetBranchOfDepartment(this.departmentIdSelected)
+        .then((res) => {
+          this.loading = false;
+          this.screenFreeze = false;
+          this.branches = res.data;
+        })
+        .catch((err) => {
+          this.branches=[];
+          this.loading = false;
+          this.screenFreeze = false;
+          console.log(err);
+        });
+    },
+
+    selectbranchdepartment(id, name) {
+      this.branchdepartmentNameSelected = name;
+      this.branchIdSelected = id;
     },
 
     GetAllRoles() {
