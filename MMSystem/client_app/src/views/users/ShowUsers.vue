@@ -59,6 +59,7 @@
                           v-model="departmentNameSelected"
                           type="text"
                           class="h-6 w-full"
+                          placeholder="إختر الإدارة"
                         />
                 <!-- {{ departmentNameSelected }} -->
               </button>
@@ -136,7 +137,7 @@
                           v-model="branchdepartmentNameSelected"
                           type="text"
                           class="h-6 w-full"
-                          placeholder="إختر الفرع  أو القسم"
+                          placeholder="إختر الفرع أو القسم"
                         />
                 <!-- {{ departmentNameSelected }} -->
               </button>
@@ -223,6 +224,7 @@
           <div
             class="
             grid grid-cols-6
+            w-full
             border-b
             items-center
             p-1
@@ -235,11 +237,16 @@
               >اسم المستخدم</span
             >
 
-            <span class="col-span-2 mx-auto text-lg font-bold">الإدارة</span>
+            <span class="col-span-2 mx-auto text-lg font-bold">الفرع أو القسم</span>
+
+            
+
 
             <span class="col-span-1 mx-auto text-lg font-bold">الحالة</span>
 
-            <span></span>
+            
+
+            <span> </span>
           </div>
 
           <div>
@@ -255,6 +262,7 @@
                   params: {
                     id: user.userId,
                     departmentName11: departmentNameSelected,
+                    branchdepartmentName11:branchdepartmentNameSelected
                   },
                 }"
               >
@@ -264,7 +272,8 @@
                   user.department_name
                 }}</span>
                 <span class="col-span-2 mx-auto" v-else>{{
-                  departmentNameSelected
+                  branchdepartmentNameSelected
+                 
                 }}</span>
 
                 <span class="col-span-1 mx-auto" v-if="user.state == true"
@@ -365,15 +374,15 @@ export default {
     if (localStorage.getItem("AY_LW") == null || localStorage.getItem("AY_LW") !=29 || localStorage.getItem("chrome")!=17 ) {
       this.$router.push("/");
     }
-    this.$http.mailService
-      .GetUsersOfDepartmentControl(this.departmentIdSelected)
-      .then((res) => {
-        console.log(res.data);
-        this.users = res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // this.$http.mailService
+    //   .GetUsersOfDepartmentControl(this.departmentIdSelected)
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     this.users = res.data;
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
 
     this.GetAllDepartments();
   },
@@ -394,8 +403,8 @@ export default {
 
       departments: [],
       departmentselect: false,
-      departmentNameSelected: "الادارة العامة للتحقيق",
-      departmentIdSelected: "1",
+      departmentNameSelected: " ",
+      departmentIdSelected: "",
       username: "",
     };
   },
