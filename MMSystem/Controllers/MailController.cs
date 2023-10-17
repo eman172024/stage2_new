@@ -385,5 +385,61 @@ namespace MMSystem.Controllers
 
 
         }
+
+
+
+        [HttpGet("ReportAllMail")]
+        public async Task<IActionResult> ReportAllMail()
+        {
+            try
+            {
+                var list = await _Imail.Reppor();
+
+                if (list.Count > 0)
+
+                    return Ok(list);
+                return BadRequest(new Result()
+                {
+                    message = "فشلت العملية",
+                    statusCode = 400
+                });
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new Result() { message = "حدث خطأ", statusCode = 400 });
+            }
+
+
+        }
+
+
+
+        [HttpGet("Report")]
+        public async Task<IActionResult> Report()
+        {
+            try
+            {
+                var list = await _Imail.ReportViewModelData();
+
+                if (list.Count > 0)
+
+                    return Ok(list);
+                return BadRequest(new Result()
+                {
+                    message = "فشلت العملية",
+                    statusCode = 400
+                });
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new Result() { message = "حدث خطأ", statusCode = 400 });
+            }
+
+
+        }
     }
 }

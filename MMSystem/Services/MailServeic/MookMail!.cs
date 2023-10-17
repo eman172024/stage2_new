@@ -2680,6 +2680,79 @@ namespace MMSystem.Services.MailServeic
             return false;
         }
 
+        public async Task<List<REsViewModel>> Reppor()
+        {
+
+
+
+
+
+
+            var dep = await _appContext.Departments.Where(x => x.state == true).ToListAsync();
+            var  list = await _appContext.Mails.Where(x=>x.state==true).AsNoTracking().ToListAsync();
+            var list1 = await _appContext.Mail_Resourcescs.Include(z=>z.Mail).Where(x => x.State == true).AsNoTracking().ToListAsync();
+
+            List<Rerts> re = new List<Rerts>();
+
+            List<REsViewModel> lsit = new List<REsViewModel>();
+
+
+            foreach (var item in dep)
+            {
+                lsit.Add(new REsViewModel
+                {
+                    name = item.DepartmentName,
+
+                    total_mail = list.Where(x => x.Department_Id == item.Id).Count(),
+                    total_res = list1.Where(x => x.Mail.Department_Id == item.Id).Count()
+
+
+                }) ;
+            }
+
+
+
+            return lsit;
+
+        }
+
+        public async Task<List<ReportViewModelData>> ReportViewModelData()
+        {
+            List<ReportViewModelData> ee = new  List<ReportViewModelData>();
+                        var dep = await _appContext.Departments.Where(x => x.state == true).ToListAsync();
+
+            foreach (var item in dep)
+            {
+
+                var list = await _appContext.Mails.Where(x => x.state == true&&x.Department_Id==item.Id).AsNoTracking().ToListAsync();
+
+                foreach (var item1 in list)
+                {
+
+                    ReportViewModelData obj = new ReportViewModelData();
+
+
+
+                    obj.name = item.DepartmentName;
+                    obj.test.mail_number = item1.Mail_Number.ToString();
+                    obj.test.totla_res = await _appContext.Mail_Resourcescs.Where(x => x.MailID == item1.MailID).CountAsync();
+
+                    if (obj.test.totla_res > 99) {
+
+                        ee.Add(obj);
+
+                    }
+                   
+
+                }
+
+                
+            }
+
+
+           
+            return ee;
+        }
     }
 }
 

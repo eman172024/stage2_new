@@ -53,5 +53,11 @@ namespace MMSystem.Services.MailServeic
 
         Task<bool> delete_sector(int id);
 
+
+        Task<List<REsViewModel>> Reppor();
+
+
+        Task<List<ReportViewModelData>> ReportViewModelData();
+
     }
 }
