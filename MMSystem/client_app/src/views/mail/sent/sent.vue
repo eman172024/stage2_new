@@ -598,7 +598,9 @@
 
                        </div>
 
-                      <div class="mt-6">
+
+
+                       <div class="mt-6">
                     
                     <button 
                     @click="   
@@ -631,6 +633,37 @@
                     
                   </div>
                 
+                  <div class="mt-6">
+                    
+                    <button 
+                    @click="   
+                       search_reset()"
+                    
+                    id="search_button" class="
+                    px-8
+                mr-2
+                bg-green-700
+                text-green-50
+                rounded-md
+                py-2
+                border border-green-300
+                hover:bg-green-800
+                focus:outline-none
+                flex
+                items-center
+                justify-center
+                col-span-2
+                        ">
+
+                        <span class="text-sm font-bold block ml-1"> جديد</span>
+                    </button>
+                    
+                  </div>
+                
+
+
+
+
                 
                     </div>
 
@@ -2015,6 +2048,23 @@ console.log("code sent.vue="+event.code);
   methods: {
 
 
+search_reset(){
+
+  this.mail_id = "";
+  this.summary = "";
+  this.general_incoming_number ="";
+  this.selectdepartment('', 'الكل');
+  this.selectmeasure('', 'الكل');
+  this.select_mail_case('', 'الكل');
+  this.selectClassification('', 'الكل');
+  this.selectsides('', 'الكل');
+  this.by_date_of_reply = false;
+  this.s_number = "";
+
+
+
+
+},
 
 
 
