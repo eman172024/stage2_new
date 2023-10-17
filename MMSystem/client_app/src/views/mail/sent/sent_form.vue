@@ -4036,6 +4036,9 @@ console.log("index="+ind);
             console.log(res)
             this.show_model_to_order_image = false;
 
+            this.new_ordering_image_list = []
+            this.doc_number = 0;
+            this.GetAllDocN("next");
             setTimeout(() => {
               this.screenFreeze = false;
         this.loading = false;
