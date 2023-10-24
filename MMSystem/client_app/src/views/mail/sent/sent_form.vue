@@ -3886,6 +3886,8 @@ console.log("index="+ind);
   },
 
   methods: {
+
+    
     add_sector_side_to_array() {
       // // sector_side
 
@@ -5319,7 +5321,8 @@ console.log("close code="+event.code);
 
     GetAllDepartments() {
       this.$http.mailService
-        .AllDepartments()
+        .AllDepartments_and_mysections( localStorage.getItem(
+              "current_department_id"))
         .then((res) => {
           this.departments = res.data;
         })
