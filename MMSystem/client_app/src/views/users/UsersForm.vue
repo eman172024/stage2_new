@@ -192,12 +192,12 @@
 
             <div class="flex justify-between ">
               <div class="ml-1 ">
-                <label for="password" class="font-medium text-gray-700">
+                <label for="password1" class="font-medium text-gray-700">
                   كلمة المرور
                 </label>
 
                 <input
-                  id="password"
+                  id="password1"
                   :type="fieldtyp"
                   v-model="pass"
                   class="
@@ -344,7 +344,90 @@
               </div>
             </div>
 
+            <div class="">
+            <label class="font-medium mr-1 text-gray-700"> الإدارات الفرعية و الأقسام</label>
+
+            <div class="relative">
+              <button
+                @click="branchdepartmentdelect = !branchdepartmentdelect"
+                @keyup.space.prevent
+                id="department"
+                class="
+                  text-right
+                  block
+                  mt-2
+                  w-full
+                  rounded-md
+                  h-9
+                  border
+                  text-sm
+                  bg-white
+                  border-gray-300
+                  hover:shadow-sm
+                  focus:outline-none focus:border-gray-300
+                  p-2
+                "
+              placeholder="إختر الفرع  أو القسم"
+              >
+              <input
+              @click="branchdepartmentNameSelected='',branchIdSelected=''"
+                          v-model="branchdepartmentNameSelected"
+                          type="text"
+                          class="h-6 w-full"
+                        />
+                <!-- {{ departmentNameSelected }} -->
+              </button>
+
+              <div
+                v-if="branchdepartmentdelect"
+                class="
+                border
+                text-sm
+                bg-white
+                border-gray-300
+                p-2
+                absolute
+                w-full
+                z-20
+                shadow
+                h-24
+                overflow-y-scroll
+                rounded-b-md
+              "
+              >
+              <button v-if="departmentNameSelected != ''"
+                    class="block focus:outline-none w-full duration-500  text-right hover:bg-gray-200"
+                    @click="
+                      
+                      branchdepartmentdelect = !branchdepartmentdelect;
+                      branchdepartmentNameSelected='الأمانة الإدارية';
+                    "
+                  >
+                    <!--  <a  class="w-full block " :id="department.id" @click="test(department.id)" > {{ department.departmentName }}</a>-->
+                  الأمانة الإدارية 
+              </button>
+
+                <button
+                  class="block focus:outline-none w-full my-1 text-right"
+                  @click=" 
+                    selectbranchdepartment(department.id, department.departmentName);
+                    branchdepartmentdelect = !branchdepartmentdelect;
+                  "
+                  v-for="department in branches"
+                  :key="department.id"
+                >
+                  {{ department.departmentName }}
+                </button>
+              </div>
+            </div>
             
+
+            <!-- <select class="shadow-sm w-full focus:outline-none rounded-md mt-2 px-2 py-1 " name="mangment_name">
+                    <option value="1">التوثيق</option>
+                    <option value="2">مكتب</option>
+
+                </select> -->
+          </div>
 
             <div>
               <label for="roles" class="font-medium text-gray-700">
@@ -406,11 +489,51 @@
               </div>
             </div>
 
-            <div>
+            <div class="justify-center">
+              <span class="font-medium text-gray-700">حالة الحساب</span>
+
+              <div class="flex items-center mt-2 justify-around">
+                <div class="flex items-center">
+                  <input
+                    id="active"
+                    type="radio"
+                    class="h-4 w-4 border-gray-300"
+                    value="true"
+                    v-model="state1"
+                  />
+
+                  <label
+                    for="active"
+                    class="mr-3 text-sm font-medium text-gray-700"
+                  >
+                    مفعل
+                  </label>
+                </div>
+
+                <div class="flex items-center">
+                  <input
+                    id="deactive"
+                    type="radio"
+                    class="h-4 w-4"
+                    value=""
+                    v-model="state1"
+                  />
+
+                  <label
+                    for="deactive"
+                    class="mr-3 text-sm font-medium text-gray-700"
+                  >
+                    غير مفعل
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-span-2">
               <span class="font-medium text-gray-700">الصلاحيات المتاحة</span>
 
               <div
-                class="
+                class=" 
                 mt-2
                 w-full
                 max-h-40
@@ -468,46 +591,6 @@
                       ></path>
                     </svg>
                   </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="justify-center">
-              <span class="font-medium text-gray-700">حالة الحساب</span>
-
-              <div class="flex items-center mt-2 justify-around">
-                <div class="flex items-center">
-                  <input
-                    id="active"
-                    type="radio"
-                    class="h-4 w-4 border-gray-300"
-                    value="true"
-                    v-model="state1"
-                  />
-
-                  <label
-                    for="active"
-                    class="mr-3 text-sm font-medium text-gray-700"
-                  >
-                    مفعل
-                  </label>
-                </div>
-
-                <div class="flex items-center">
-                  <input
-                    id="deactive"
-                    type="radio"
-                    class="h-4 w-4"
-                    value=""
-                    v-model="state1"
-                  />
-
-                  <label
-                    for="deactive"
-                    class="mr-3 text-sm font-medium text-gray-700"
-                  >
-                    غير مفعل
-                  </label>
                 </div>
               </div>
             </div>
@@ -927,19 +1010,21 @@ export default {
         !this.mac1_valid &&
         !this.mac2_valid&&
         this.mac1!=""
-      ) {
+      )
+      
+      {
         for (var i = 0; i < this.pirms.length; i++) {
           this.roles1.push(this.pirms[i].roleId);
         }
 
-        var user = {
+        if (this.branchdepartmentNameSelected=="الأمانة الإدارية") {
+          var user = {
           Administrator: {
             Username: this.UserName,
             Password: this.pass,
             userNetwork: this.UserNet,
             nationalNumber: this.num,
             DepartmentId: Number(this.departmentIdSelected),
-
             FirstMACAddress: this.mac1,
             SecandMACAddress: this.mac2,
 
@@ -949,10 +1034,30 @@ export default {
           Listrole: this.roles1,
 
           currentUser: Number(localStorage.getItem("AY_LW")),
-        };
+        } 
+        } else {
+          var user2 = {
+          Administrator: {
+            Username: this.UserName,
+            Password: this.pass,
+            userNetwork: this.UserNet,
+            nationalNumber: this.num,
+            DepartmentId: Number(this.branchIdSelected),
+            FirstMACAddress: this.mac1,
+            SecandMACAddress: this.mac2,
+
+            state: Boolean(this.state1),
+          },
+
+          Listrole: this.roles1,
+
+          currentUser: Number(localStorage.getItem("AY_LW")),
+        } 
+        }
+        
 
         this.$http.usersService
-          .Add_user(user)
+          .Add_user(user || user2)
           .then((res) => {
             setTimeout(() => {
               this.addsuccess = res.data.message;
@@ -994,7 +1099,8 @@ export default {
           this.roles1.push(this.pirms[i].roleId);
         }
 
-        var user = {
+        if (this.branchdepartmentNameSelected=="الأمانة الإدارية") {
+          var user = {
           Administrator: {
             UserId: this.$route.params.id,
             Username: this.UserName,
@@ -1011,10 +1117,30 @@ export default {
           Listrole: this.roles1,
 
           currentUser: Number(localStorage.getItem("AY_LW")),
-        };
+        } 
+        } else {
+          var user2 = {
+          Administrator: {
+            UserId: this.$route.params.id,
+            Username: this.UserName,
+            Password: this.pass,
+            userNetwork: this.UserNet,
+            nationalNumber: this.num,
+            DepartmentId: Number(this.branchIdSelected),
+            FirstMACAddress: this.mac1,
+            SecandMACAddress: this.mac2,
+
+            state: Boolean(this.state1),
+          },
+
+          Listrole: this.roles1,
+
+          currentUser: Number(localStorage.getItem("AY_LW")),
+        } 
+        }
 
         this.$http.usersService
-          .Edite_user(user)
+          .Edite_user(user || user2)
           .then((res) => {
             setTimeout(() => {
               this.editesuccess = res.data.message;
@@ -1026,13 +1152,13 @@ export default {
           .catch(() => {
             setTimeout(() => {
               this.editesuccess =
-                "فشلت عملية التعديل الرجاء التأكد من البيانات وإعادة المحاولة";
+                "222222222222فشلت عملية التعديل الرجاء التأكد من البيانات وإعادة المحاولة";
               this.iseditesuccess = true;
             }, 500);
           });
       } else {
         this.editesuccess =
-          "فشلت عملية التعديل الرجاء التأكد من البيانات وإعادة المحاولة";
+          "1111111111111111فشلت عملية التعديل الرجاء التأكد من البيانات وإعادة المحاولة";
         this.iseditesuccess = true;
       }
     },
@@ -1049,6 +1175,9 @@ export default {
           this.confir_pass = res.data.administrator.password;
           this.departmentIdSelected = res.data.administrator.departmentId;
           this.departmentNameSelected = this.$route.params.departmentName11;
+          
+          //this.branchIdSelected = res.data.administrator.departmentId;
+          this.branchdepartmentNameSelected = this.$route.params.branchdepartmentName11;
           this.mac1=res.data.administrator.firstMACAddress;
           this.mac2=res.data.administrator.secandMACAddress;
 

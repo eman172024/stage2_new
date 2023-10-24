@@ -355,7 +355,7 @@ namespace MMSystem.Services.ReceivedMail
                 bool nomangment = true;
                 bool truley = true;
 
-                if (resend_mail == null)
+                if (resend_mail == false)
                 {
                     nomangment = false;
                     truley = true;
@@ -472,7 +472,7 @@ namespace MMSystem.Services.ReceivedMail
 
                    var c1 = await (from mail in dbcon.Mails.Where(x => x.state == true)
 
-                                join send in dbcon.Sends.Where(x=> x.State == true&& ((x.to == mangment && truley==true) ||(x.resendfrom==mangment && nomangment ==true)) && x.flag >1 )
+                                join send in dbcon.Sends.Where(x=> x.State == true&& x.flag > 1 && ((x.to == mangment && truley==true) ||(x.resendfrom==mangment && nomangment ==true))   )
                                 on mail.MailID equals send.MailID
                                    into fullmail
                                 from b1 in fullmail.DefaultIfEmpty()
