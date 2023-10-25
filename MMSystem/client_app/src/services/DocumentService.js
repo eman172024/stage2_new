@@ -3,7 +3,11 @@ import axios from 'axios';
 export default {
 
 
-    
+    show_doc_for_order(id) {
+        return axios.get(`/api/Resources/GetSingleImage?id=${id}`)
+     //   return axios.post(`http://mail:82/api/Documents/AddDocuments`, newDocuments)
+
+    },
 
     save_new_order(list) {
         return axios.put(`/api/Resources/update_mail_Resources_order`, list)

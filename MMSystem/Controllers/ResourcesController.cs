@@ -160,5 +160,33 @@ namespace MMSystem.Controllers
 
 
         }
+
+        [HttpGet("GetSingleImage")]
+        public async Task<IActionResult> GetSingleImage(int id)
+        {
+
+            try
+            {
+                var result = await _resourcescs.GetSingleImage(id);
+
+                if (result.total > 0)
+                    return Ok(result);
+                else
+                {
+
+                    return NotFound("لايوجد صور");
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { massege = ex.Message, StatusCode = 400 });
+            }
+
+
+
+        }
     }
 }
