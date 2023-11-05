@@ -584,7 +584,22 @@
                         />
                     </div>
 
-                    <div class="sm:col-span-2 mt-2 flex justify-between">
+                    <div class="sm:col-span-2 ">
+                      <label
+                        for="redirection"
+                        class="block text-base font-semibold text-gray-800"
+                      >
+                      الرسائل التي تم إعادة توجيهها
+                      </label>
+                      <input
+                        v-model="redirection"
+                        type="checkbox"
+                        id="redirection"
+                        class="block mt-2 h-10 w-10 overflow-hidden rounded-md border border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                      />
+                    </div>
+
+                    <div class="sm:col-span-6 mt-2 flex justify-between">
 
                       <div>
 
@@ -651,10 +666,14 @@
                       </select>
                     </div>
 
-
+               
+                    
 
                       <div class="mt-6">
-                    
+
+
+
+           
                         <button 
                         @click="page_num=1; GetInboxs();filter = !filter"
                         
@@ -1801,6 +1820,11 @@ consol.log("code inbox.vue="+event.code);
 
   data() {
     return {
+
+
+      redirection : false,
+
+
       image_rotate : true,
 
       
@@ -2728,6 +2752,7 @@ this.conn.onmessage = (event) => {
           this.classificationIdSelected,
           this.mail_caseIdSelected,
           this.s_number,
+          this.redirection,
           this.page_num,
           this.page_size
         )
@@ -2849,7 +2874,8 @@ this.conn.onmessage = (event) => {
 
     GetAllDepartments() {
       this.$http.mailService
-        .AllDepartments()
+        .AllDepartments_and_mysections( localStorage.getItem(
+              "current_department_id"))
         .then((res) => {
           this.departments = res.data;
         })
