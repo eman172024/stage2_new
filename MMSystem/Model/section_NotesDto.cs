@@ -9,9 +9,8 @@ namespace MMSystem.Model
     {
         public int ID { get; set; }  
         public int send_ToId { get; set; }
-
+        public int department_id { get; set; }
         public string department_name { get; set; }
-
         public string Note { get; set; }
         public bool State { get; set; }
       

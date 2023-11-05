@@ -182,6 +182,7 @@ namespace MMSystem.Services.MailServeic
                                                             join z in _dbCon.Departments.Where(x=>x.perent == department_Id) on y.to equals z.Id
                                                            select new section_NotesDto {
                                                                ID = x.ID ,
+                                                               department_id= z.Id,
                                                                department_name = z.DepartmentName ,
                                                                Note = x.Note,
                                                                send_ToId = x.send_ToId ,
@@ -457,6 +458,7 @@ namespace MMSystem.Services.MailServeic
                                                               select new section_NotesDto
                                                               {
                                                                   ID = x.ID,
+                                                                  department_id= z.Id,
                                                                   department_name = z.DepartmentName,
                                                                   Note = x.Note,
                                                                   send_ToId = x.send_ToId,
