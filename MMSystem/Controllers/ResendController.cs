@@ -54,7 +54,15 @@ namespace MMSystem.Controllers
             });
         }
 
+        [HttpDelete("DeleteSections")]
+        public async Task<IActionResult> DeleteSections(int mail_id, int departmentId, int userId)
+        {
+            bool result = await _data.deleteSectionsSender(mail_id, departmentId, userId);
+            if (result)
+                return StatusCode(203, new Result() { message = "تمت عملية الحذف بنجاح", statusCode = 203 });
+            return BadRequest(new Result() { message = "لايمكنك حذف الادارة ", statusCode = 404 });
 
+        }
 
     }
 }
