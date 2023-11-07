@@ -178,12 +178,13 @@ namespace MMSystem.Services.MailServeic
 
                     //model.list.AddRange(replies);
                     List<section_NotesDto> section_N = await (from x in _dbCon.section_Notes.Where(x => x.send_ToId == item.Id && x.State == true) 
-                                                            join y in _dbCon.Sends.Where(x=>x.State == true) on x.send_ToId equals y.Id
+                                                            join y in _dbCon.Sends on x.send_ToId equals y.Id
                                                             join z in _dbCon.Departments.Where(x=>x.perent == department_Id) on y.to equals z.Id
                                                            select new section_NotesDto {
                                                                ID = x.ID ,
                                                                department_id= z.Id,
                                                                department_name = z.DepartmentName ,
+                                                               sends_state = y.State,
                                                                Note = x.Note,
                                                                send_ToId = x.send_ToId ,
                                                                State = x.State                                                       
@@ -453,13 +454,14 @@ namespace MMSystem.Services.MailServeic
                     //model.list.AddRange(replies);
 
                     List<section_NotesDto> section_N = await (from x in _dbCon.section_Notes.Where(x => x.send_ToId == item.Id && x.State == true)
-                                                              join y in _dbCon.Sends.Where(x => x.State == true) on x.send_ToId equals y.Id
+                                                              join y in _dbCon.Sends on x.send_ToId equals y.Id
                                                               join z in _dbCon.Departments.Where(x => x.perent == Depa) on y.to equals z.Id
                                                               select new section_NotesDto
                                                               {
                                                                   ID = x.ID,
                                                                   department_id= z.Id,
                                                                   department_name = z.DepartmentName,
+                                                                  sends_state = y.State,
                                                                   Note = x.Note,
                                                                   send_ToId = x.send_ToId,
                                                                   State = x.State

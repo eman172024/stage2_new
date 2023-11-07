@@ -1463,6 +1463,7 @@ namespace MMSystem.Services.MailServeic
                     mail.MailID = file.mail_id;
                     mail.path = path + extention;
                     mail.order = item.index;
+                
                    
                  
                     bool res = await _resourcescs.Add(mail);
@@ -2131,6 +2132,67 @@ namespace MMSystem.Services.MailServeic
                     }
                     
                    
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        public async Task<bool> deleteSectionsSender(int mail_id, int departmentId, int userid)
+        {
+            try
+            {
+                Historyes historyes = new Historyes();
+
+                historyes.currentUser = userid;
+                historyes.mailid = mail_id;
+
+                historyes.HistortyNameID = 9;
+
+
+                Send_to send_ = await _appContext.Sends.FirstOrDefaultAsync(x => x.MailID == mail_id && x.to == departmentId && x.State == true);
+
+                Section_Notes section_note = await _appContext.section_Notes.FirstOrDefaultAsync(x => x.send_ToId == send_.Id && x.State == true);
+
+                if (send_ != null)
+                {
+                    if (send_.flag <= 2)
+                    {
+                        
+                        send_.State = false;
+
+                        section_note.State = false;
+
+                        historyes.changes = $" {departmentId}   تم حدف الادارة رقم";
+
+                        historyes.Time = DateTime.Now;
+
+                        
+                        _appContext.Sends.Update(send_);
+                        
+                        _appContext.section_Notes.Update(section_note);
+
+                        _appContext.History.Add(historyes);
+
+                        await _appContext.SaveChangesAsync();
+                        
+                        
+                        return true;
+
+
+                    }
+                    else
+                    {
+
+                        return false;
+                    }
+
+
                 }
                 return false;
             }

@@ -38,6 +38,8 @@ namespace MMSystem.Services.MailServeic
         Task<bool> DeletePhote(int id,int userId);
         Task<bool> deleteSender(int mail_id, int departmentId,int userid);
 
+        Task<bool> deleteSectionsSender(int mail_id, int departmentId, int userid);
+       
         Task<List<MailStatus>> GetMailStatuses();
 
 
