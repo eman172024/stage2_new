@@ -31,6 +31,12 @@ export default {
             //  return axios.post(`http://mail:82/api/Mail/AddMail`, info)
     },
 
+
+    Save_resend(info) {
+        return axios.post(`/api/Resend/ResendMail`, info)
+            //  return axios.post(`http://mail:82/api/Mail/AddMail`, info)
+    },
+
     SendMail(mailId, userId) {
         return axios.put(`/api/Mail/Send?mailid=${mailId}&userId=${userId}`)
             //  return axios.put(`http://mail:82/api/Mail/Send?mailid=${mailId}&userId=${userId}`)
@@ -91,8 +97,14 @@ export default {
 
 
 
+    
 
 
+
+    show_senders2(id,department_id) {
+        return axios.get(`/api/Mail/GetDetaliesInIncomingMails?mail_id=${id}&department_id=${department_id}`);
+        //  return axios.get(`http://mail:82/api/Mail/GetDetalies?mail_id=${id}`);
+    },
 
     show_senders(id) {
         return axios.get(`/api/Mail/GetDetalies?mail_id=${id}`);
