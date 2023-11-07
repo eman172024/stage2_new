@@ -170,5 +170,55 @@ namespace MMSystem.Services.ResendMail
 
         }
 
+        public async Task<bool> SendResendMail(ResendViewModel mail)
+        {
+
+            try
+            {
+                bool result = false;
+
+
+                var mail_s = await _data.Mails.FindAsync(mail.Mail_id);
+ 
+                if (mail_s != null)
+                {
+
+                    mail_s.resended = true;
+
+                    _data.Mails.Add(mail_s);
+                    await _data.SaveChangesAsync();
+
+                    Send_to sender = new Send_to();
+                    
+                    var sender_resend = await (from x in _data.Sends.Where(x => x.MailID.Equals(mail_s.MailID) && x.State==false)
+                                               join y in _data.section_Notes.Where(x => x.State == true) on x.Id equals y.send_ToId
+                                               select new Send_to {
+
+                                               }
+
+                                               ).ToListAsync();
+
+                            foreach (var item in sender_resend)
+                            {
+                                item.State = true;
+                      
+                               _data.Sends.Add(item);
+                               await _data.SaveChangesAsync();
+                        
+                            }
+
+                    return result;
+                }
+
+                return result;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }
