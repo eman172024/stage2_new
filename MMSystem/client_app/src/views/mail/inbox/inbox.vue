@@ -1037,9 +1037,9 @@
                     <div class="w-2/12">تاريخ الإرسال</div>
                     <div class="w-2/12">وقت الإرسال</div>
                     <div class="w-2/12">تاريخ الرد</div>
-                    <div class="w-1/12">الإجراء</div>
-                    <div class="w-1/12">الحالة</div>
-                    <div class="w-1/12">وقت القراءة</div>
+                    
+                    <div class="w-2/12">الحالة</div>
+                    <div class="">وقت القراءة</div>
                   </div>
 
                   <div
@@ -1079,15 +1079,12 @@
                           {{ sender.date_read }}
                         </div>
 
-                        <div class="w-1/12">
-                          {{ sender.mesureName }}
-                        </div>
-
-                        <div class="w-1/12">
+                       
+                        <div class="w-2/12">
                           {{ sender.state }}
                         </div>
 
-                        <div class="w-1/12">
+                        <div class="">
                           {{ sender.time_of_read }}
                         </div>
                       </button>
@@ -1421,11 +1418,11 @@
 
             <section  
 
-            
+            v-if="sender"
                 class="bg-gray-100 rounded-md p-6 mt-16"
               >
                 <p class="block text-sm font-semibold text-gray-800">
-                  ردود - {{ departmentName }}
+                  ردود - {{ sender.department_name }}
                 </p>
 
                 <div
@@ -2218,7 +2215,7 @@ consol.log("code inbox.vue="+event.code);
   data() {
     return {
 
-
+      sender:[],
       departmentName:"",
       redirection : false,
 
@@ -2343,7 +2340,7 @@ consol.log("code inbox.vue="+event.code);
       this.departmentflag = 0;
 
       this.$http.mailService
-        .show_senders(id)
+        .show_senders2(id,this.my_department_id)
         .then((res) => {
           this.show_senders_mail = number;
           this.senders = res.data;

@@ -629,16 +629,11 @@
                            {{ consignee.note }} 
                           <button
                         
-                          v-if="
-                              (
-                                 consignees.length>1 
-                                )
-                            "
-
+                       
                             @click="
                               delete_side_measure(
-                                consignee.departmentId,
-                                consignee.departmentName
+                                consignee.department_id,
+                                consignee.department_name
                               )
                             "
                             class="mr-1 rounded-full"
@@ -709,6 +704,7 @@
                    
                       <button
                   
+                      v-if="(newactionSenders.length>0 || consignees.length > 0) && section_Notes.length>0  " 
                     
                         type="button"
                         id="edit"
@@ -761,9 +757,10 @@
                
                  
 
-                  <div v-if="newactionSenders.length>0 " class="flex justify-end">
+                  <div v-if="(newactionSenders.length>0 || consignees.length > 0) && section_Notes.length==0  " class="flex justify-end">
                    
                       <button
+                      @click="save_resend()"
                  
                         class="flex justify-center items-center py-2 px-8 border border-transparent shadow-sm text-sm font-medium rounded-md border-green-600 text-white bg-green-600 hover:shadow-lg focus:shadow-none duration-300 focus:outline-none"
                         
@@ -802,7 +799,7 @@
                             </g>
                           </g>
                         </svg>
-                        إرسال
+                        حفظ
                       </button>
                     </div>
                </div>  
@@ -835,7 +832,7 @@
                       
                     >
                       <label
-                        v-if="newactionSenders.length>0 || consignees.length>0"
+                        v-if="(newactionSenders.length>0 || consignees.length > 0) && section_Notes.length>0 "
                         class="w-48 flex justify-center items-center py-2 bg-white rounded-lg tracking-wide border border-green-600 cursor-pointer hover:text-white hover:bg-green-600 focus:outline-none duration-300"
                       >
                         <svg
@@ -1744,6 +1741,8 @@ console.log("code inbox_form="+event.code);
     return {
 
 
+      department_list:[],
+      section_Notes:[],
       alert_delete_document: false,
 
 alert_state: false,
@@ -1891,7 +1890,97 @@ alert_prepare_delete_mail: false,
     };
   },
   methods: {
+  
 
+
+    save_resend(){
+
+      for (let index = 0; index < this.newactionSenders.length; index++) {
+
+        this.department_list.push({
+          Sendes_to: this.newactionSenders[index].departmentId,
+          ResendFrom: Number(this.newactionSenders[index].resend_from),
+          Note:this.newactionSenders[index].measureName
+              });
+
+      }
+
+      this.screenFreeze = true;
+      this.loading = true;
+      var info = {
+
+        Mail_id:Number(this.mailId),
+        actionSenders: this.department_list
+
+         
+        };
+
+        this.$http.mailService
+        .Save_resend(info)
+        .then((res) => {
+          setTimeout(() => {
+            // this.loading = false;
+
+            // this.documentSection = true;
+            // this.proceduresSection = true;
+
+            this.loading = false;
+            this.screenFreeze = false;
+
+            this.newactionSenders=[];
+      
+            // this.mail_Number = res.data.mail_Number;
+
+            // this.mailId = res.data.mailId;
+            // this.department_Id = res.data.department_Id;
+            // this.mail_year = res.data.mail_year;
+            // this.to_test_passing_mail_type = this.mailType;
+
+            this.getMailById();
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+        });
+
+
+    },
+
+    delete_side_measure(department_id, name) {
+      this.screenFreeze = true;
+      this.loading = true;
+
+      this.$http.mailService
+        .cancel_sending_to_department(
+          this.mailId,
+          department_id,
+          Number(localStorage.getItem("AY_LW"))
+        )
+        .then((res) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+            // this.consignees = res.data.actionSenders
+            this.GetInboxMailById();
+            // const index = this.consignees.findIndex((element, index) => {
+            //   if (element.departmentId === department_id) {
+            //     return true;
+            //   }
+            // });
+            // this.consignees.splice(index, 1);
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+          alert("لا يمكن إلغاء الإدارة بعد القراءة");
+        });
+    },
 
 
     prepare_delete_all_documents() {
@@ -2179,9 +2268,10 @@ alert_prepare_delete_mail: false,
         } else {
           this.newactionSendersIncludesId;
           this.newactionSenders.push({
+            
             departmentId: this.departmentIdSelected2,
             departmentName: this.departmentNameSelected2,
-            
+            resend_from :this.my_department_id,
             measureName: this.required_action2
           });
           this.newactionSendersIncludesId.push(this.departmentIdSelected2);
@@ -2288,9 +2378,15 @@ alert_prepare_delete_mail: false,
 
           this.replies = res.data.list;
 
-
+          this.section_Notes = res.data.section_Notes;
           this.consignees=res.data.section_Notes;
           
+
+          for (let index = 0; index < res.data.section_Notes.length; index++) {
+            this.consigneesIncludesId.push(
+              res.data.section_Notes[index].department_id
+            );
+          }
 
           setTimeout(() => {
             // document.getElementById("scroll").scrollTop =
