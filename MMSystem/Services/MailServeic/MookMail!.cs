@@ -1463,6 +1463,7 @@ namespace MMSystem.Services.MailServeic
                     mail.MailID = file.mail_id;
                     mail.path = path + extention;
                     mail.order = item.index;
+                    mail.fromWho = item.fromWho;
                    
                  
                     bool res = await _resourcescs.Add(mail);
