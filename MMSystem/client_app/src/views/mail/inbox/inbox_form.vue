@@ -412,19 +412,21 @@
              
 
                 <button
-                class="border border-green-600 duration-300 bg-white px-2 py-2 rounded-lg text-gray-900 font-bold   focus:outline-none"
+                class="border flex justify-between w-44 border-black duration-300 bg-white pl-2 pr-6 py-2 rounded-md text-gray-900 font-bold hover:bg-green-600 hover:text-white focus:outline-none"
                 @click="redirection1 = !redirection1">
                   
-              <span class="flex items-center text-xl">
+              <span class="flex items-center text-xl ">
               
                 إعادة توجيه 
 
-                    <svg class="w-6 h-6 font-bold text-xl stroke-current group-hover:stroke-2" fill="none" stroke="currentColor"
+                  </span>
+
+                  
+                  <svg class="w-6 h-6 font-bold text-xl stroke-current group-hover:stroke-2" fill="none" stroke="currentColor"
                       viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="{2}" d="M19 9l-7 7-7-7" />
                     </svg>
 
-                  </span>
                 </button>
 
 
@@ -1954,7 +1956,7 @@ alert_prepare_delete_mail: false,
       this.loading = true;
 
       this.$http.mailService
-        .cancel_sending_to_department(
+        .cancel_sending_to_department_resend(
           this.mailId,
           department_id,
           Number(localStorage.getItem("AY_LW"))
@@ -1964,7 +1966,7 @@ alert_prepare_delete_mail: false,
             this.loading = false;
             this.screenFreeze = false;
             // this.consignees = res.data.actionSenders
-            this.GetInboxMailById();
+            this.getMailById();
             // const index = this.consignees.findIndex((element, index) => {
             //   if (element.departmentId === department_id) {
             //     return true;
