@@ -55,6 +55,33 @@ namespace MMSystem.Controllers
         }
 
 
+        [HttpPost("SendResendMail")]
+        public async Task<IActionResult> SendResendMail([FromBody] ResendViewModel mail)
+        {
+            var result = await _data.SendResendMail(mail);
+            if (result)
+                return Created("SendResendMail", new
+                {
+                    message = "تمت العملية بنجاح",
+                    statusCode = 200,
+                 
+                });
+            return BadRequest(new Result()
+            {
+                message = "فشلت العملية",
+                statusCode = 400
+            });
+        }
+
+        [HttpDelete("DeleteSections")]
+        public async Task<IActionResult> DeleteSections(int mail_id, int departmentId, int userId)
+        {
+            bool result = await _data.deleteSectionsSender(mail_id, departmentId, userId);
+            if (result)
+                return StatusCode(203, new Result() { message = "تمت عملية الحذف بنجاح", statusCode = 203 });
+            return BadRequest(new Result() { message = "لايمكنك حذف الادارة ", statusCode = 404 });
+
+        }
 
     }
 }
