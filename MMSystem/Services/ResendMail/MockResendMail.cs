@@ -170,7 +170,7 @@ namespace MMSystem.Services.ResendMail
 
         }
 
-        public async Task<bool> SendResendMail(ResendViewModel mail)
+        public async Task<bool> SendResendMail(int Mail_id)
         {
 
             try
@@ -178,7 +178,7 @@ namespace MMSystem.Services.ResendMail
                 bool result = false;
 
 
-                var mail_s = await _data.Mails.FindAsync(mail.Mail_id);
+                var mail_s = await _data.Mails.FindAsync(Mail_id);
  
                 if (mail_s != null)
                 {

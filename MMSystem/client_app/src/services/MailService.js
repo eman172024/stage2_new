@@ -158,6 +158,13 @@ export default {
         //  return axios.get(`http://mail:82/api/WeatherForecast/GetMailInfo?mail_id=${id}&Department_Id=${department}&type=${type}`);
     },
 
+    GetInboxMailById2(id, department, type) {
+        return axios.get(`/api/Mail/GetMailInfoWithResend?mail_id=${id}&Department_Id=${department}&type=${type}`);
+        //  return axios.get(`http://mail:82/api/WeatherForecast/GetMailInfo?mail_id=${id}&Department_Id=${department}&type=${type}`);
+    },
+
+    
+
     GetAllDocuments(id, userId) {
         return axios.get(`/api/Resources/GetMailResources?mail_id=${id}&userId=${userId}`);
         //  return axios.get(`http://mail:82/api/Resources/GetMailResources?mail_id=${id}&userId=${userId}`);

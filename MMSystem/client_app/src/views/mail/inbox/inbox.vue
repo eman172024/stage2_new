@@ -3061,7 +3061,7 @@ this.conn.onmessage = (event) => {
       this.reply_to_add = "";
       this.imagesToSend = [];
       this.$http.mailService
-        .GetInboxMailById(
+        .GetInboxMailById2(
           this.mailId_to_get_mail_by_id,
           this.my_department_id_to_get_mail_by_id,
           this.to_test_passing_mail_type_to_get_mail_by_id

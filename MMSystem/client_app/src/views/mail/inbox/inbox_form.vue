@@ -2359,7 +2359,7 @@ alert_prepare_delete_mail: false,
 
     getMailById() {
       this.$http.mailService
-        .GetInboxMailById(
+        .GetInboxMailById2(
           this.mailId,
           this.my_department_id,
           this.to_test_passing_mail_type

@@ -24,7 +24,7 @@ namespace MMSystem.Controllers
     {
         private readonly IMailInterface _Imail;
         private readonly AppDbCon dbcon;
-
+        public dynamic obj;
         //   private IWebHostEnvironment iwebHostEnvironment;
 
         private readonly ISender _sender;
@@ -394,5 +394,35 @@ namespace MMSystem.Controllers
 
 
         }
+
+
+
+        [HttpGet("GetMailInfoWithResend")]
+        public async Task<IActionResult> GetMailInfo(int mail_id, int Department_Id, int type)
+        {
+
+            switch (type)
+            {
+                case 1:
+                    var mail = await _Imail.GetMailAndResendList(mail_id, Department_Id, type);
+                    obj = mail;
+                    break;
+                case 2:
+                    var External = await _Imail.GetExternalbox(mail_id, Department_Id, type);
+                    obj = External;
+                    break;
+                case 3:
+                    var ExternalInbox = await _Imail.GetExternalboxAndResended(mail_id, Department_Id, type);
+                    obj = ExternalInbox;
+                    break;
+                default:
+                    break;
+            }
+
+
+            return Ok(obj);
+
+        }
+
     }
 }

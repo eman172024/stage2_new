@@ -56,9 +56,9 @@ namespace MMSystem.Controllers
 
 
         [HttpPost("SendResendMail")]
-        public async Task<IActionResult> SendResendMail([FromBody] ResendViewModel mail)
+        public async Task<IActionResult> SendResendMail(int mail_id)
         {
-            var result = await _data.SendResendMail(mail);
+            var result = await _data.SendResendMail(mail_id);
             if (result)
                 return Created("SendResendMail", new
                 {
