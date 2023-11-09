@@ -2335,6 +2335,8 @@ consol.log("code inbox.vue="+event.code);
       this.loading = true;
       this.mailId_to_get_mail_by_id = id;
       this.to_test_passing_mail_type_to_get_mail_by_id = mail_type;
+      this.departmentName="";
+
 
       this.replies = [];
       this.departmentflag = 0;
@@ -3175,6 +3177,8 @@ this.conn.onmessage = (event) => {
     GetInboxs() {
 
 
+          this.show_senders_mail =0;
+          this.senders = [];
       var date_from2=this.date_from;
       var date_to2=this.date_to;
 
