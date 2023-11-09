@@ -168,15 +168,15 @@ namespace MMSystem.Services.MailServeic
                 foreach (var item in c)
                 {
 
-                    //List<RViewModel> replies = await (from x in _dbCon.Replies.Where(x => x.send_ToId == item.Id && x.state.Equals(true) && x.IsSend.Equals(true))
-                    //                    //       join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
-                    //                select new RViewModel
-                    //                {
-                    //                    reply = _mapper.Map<Reply, ReplayDto>(x),
-                    //                    Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
-                    //                }).ToListAsync();
+                    List<RViewModel> replies = await (from x in _dbCon.Replies.Where(x => x.send_ToId == item.Id && x.state.Equals(true) && x.IsSend.Equals(true))
+                                                          //       join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
+                                                      select new RViewModel
+                                                      {
+                                                          reply = _mapper.Map<Reply, ReplayDto>(x),
+                                                          Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
+                                                      }).ToListAsync();
 
-                    //model.list.AddRange(replies);
+                    model.list.AddRange(replies);
                     List<section_NotesDto> section_N = await (from x in _dbCon.section_Notes.Where(x => x.send_ToId == item.Id && x.State == true) 
                                                             join y in _dbCon.Sends on x.send_ToId equals y.Id
                                                             join z in _dbCon.Departments.Where(x=>x.perent == department_Id) on y.to equals z.Id
@@ -442,16 +442,16 @@ namespace MMSystem.Services.MailServeic
                 foreach (var item in c)
                 {
 
-                    //List<ReplayModel> replies = await (from x in _dbCon.Replies.Where(x => x.send_ToId == item.Id && x.state.Equals(true) && x.IsSend.Equals(true))
-                    //                                       //  join y in _dbCon.Reply_Resources.Where(x=>x.ReplyId==x.ID)
-                    //                                   select new ReplayModel
-                    //                                   {
-                    //                                       DepRepaly = item.to.ToString(),
-                    //                                       reply = _mapper.Map<Reply, ReplayDto>(x),
-                    //                                       Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
-                    //                                   }).ToListAsync();
+                    List<ReplayModel> replies = await (from x in _dbCon.Replies.Where(x => x.send_ToId == item.Id && x.state.Equals(true) && x.IsSend.Equals(true))
+                                                           //  join y in _dbCon.Reply_Resources.Where(x=>x.ReplyId==x.ID)
+                                                       select new ReplayModel
+                                                       {
+                                                           DepRepaly = item.to.ToString(),
+                                                           reply = _mapper.Map<Reply, ReplayDto>(x),
+                                                           Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
+                                                       }).ToListAsync();
 
-                    //model.list.AddRange(replies);
+                    model.list.AddRange(replies);
 
                     List<section_NotesDto> section_N = await (from x in _dbCon.section_Notes.Where(x => x.send_ToId == item.Id && x.State == true)
                                                               join y in _dbCon.Sends on x.send_ToId equals y.Id

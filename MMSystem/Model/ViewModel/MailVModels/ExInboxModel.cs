@@ -17,7 +17,7 @@ namespace MMSystem.Model.ViewModel.MailVModels
         public List<Mail_ResourcescsDto> mail_Resourcescs { get; set; } = new List<Mail_ResourcescsDto>() { };
         public List<Ex_Departments> external_sectoin { get; set; }
 
-   //     public List<ReplayModel> list { get; set; } = new List<ReplayModel>() { };
+       public List<ReplayModel> list { get; set; } = new List<ReplayModel>() { };
 
         public List<section_NotesDto> section_Notes { get; set; } = new List<section_NotesDto>() { };
 

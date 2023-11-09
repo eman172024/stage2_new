@@ -58,7 +58,7 @@ export default {
     },
 
     cancel_sending_to_department_resend(mailId, department_id, userId) {
-        return axios.delete(`/api/Mail/DeleteSections?mail_id=${mailId}&departmentId=${department_id}&userId=${userId}`);
+        return axios.delete(`/api/Resend/DeleteSections?mail_id=${mailId}&departmentId=${department_id}&userId=${userId}`);
         //  return axios.delete(`http://mail:82/api/Mail/DeleteMangament?mail_id=${mailId}&departmentId=${department_id}&userId=${userId}`);
     },
 

@@ -1058,7 +1058,7 @@
                             sender.send_ToId,
                             sender.department_name,
                             sender.flag
-                          ),departmentName= sender.departmentName
+                          )
 
                         "
                         class="flex items-center w-full text-right"
@@ -1418,11 +1418,11 @@
 
             <section  
 
-            v-if="sender"
+            v-if="departmentName  &&  roles.includes('f')"
                 class="bg-gray-100 rounded-md p-6 mt-16"
               >
                 <p class="block text-sm font-semibold text-gray-800">
-                  ردود - {{ sender.department_name }}
+                  ردود - {{ departmentName }}
                 </p>
 
                 <div
@@ -2215,7 +2215,7 @@ consol.log("code inbox.vue="+event.code);
   data() {
     return {
 
-      sender:[],
+      sender2:[],
       departmentName:"",
       redirection : false,
 
@@ -3041,7 +3041,18 @@ this.conn.onmessage = (event) => {
       this.sends_id = sends_id;
       
       this.departmentName = departmentName;
+     
       this.departmentflag = flag;
+
+
+
+     
+      this.my_department_id_to_get_mail_by_id =
+        my_department_id_to_get_mail_by_id;
+
+     
+      this.sends_id_to_get_mail_by_id = sends_id;
+      
 
       this.getMailById();
     },
@@ -3060,8 +3071,8 @@ this.conn.onmessage = (event) => {
           this.replies = res.data.list;
 
           setTimeout(() => {
-            document.getElementById("scroll").scrollTop =
-              document.getElementById("scroll").scrollHeight;
+            // document.getElementById("scroll").scrollTop =
+            //   document.getElementById("scroll").scrollHeight;
           }, 100);
 
           this.consignees = res.data.actionSenders;
