@@ -37,6 +37,13 @@ export default {
             //  return axios.post(`http://mail:82/api/Mail/AddMail`, info)
     },
 
+    Send_resend(mailId, userId) {
+        return axios.post(`/api/Resend/SendResendMail?mail_id=${mailId}&userId=${userId}`)
+            //  return axios.put(`http://mail:82/api/Mail/Send?mailid=${mailId}&userId=${userId}`)
+    },
+
+
+
     SendMail(mailId, userId) {
         return axios.put(`/api/Mail/Send?mailid=${mailId}&userId=${userId}`)
             //  return axios.put(`http://mail:82/api/Mail/Send?mailid=${mailId}&userId=${userId}`)

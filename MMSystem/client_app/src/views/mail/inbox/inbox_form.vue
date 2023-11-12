@@ -443,43 +443,11 @@
                   <section
                     class="w-full mr-3 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 bg-gray-100 rounded-md p-6"
                   >
-                    <div class="sm:col-span-6">
-                      <label
-                        for="action_required"
-                        class="block text-sm font-semibold text-gray-800"
-                      >
-                        الإجراء المطلوب
-                      </label>
-                      <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
-                      <textarea
-                        v-model="required_action2"
-                        id="required_action"
-                        rows="3"
-                        class="block mt-2 w-full text-sm rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
-                      >
-                      </textarea>
-
-                      <!-- <div
-                        v-else
-                        class="
-                          block
-                          mt-2
-                          w-full
-                          rounded-md
-                          h-24
-                          text-sm
-                          border border-gray-300
-                          p-2
-                        "
-                      >
-                        {{ required_action }}
-                      </div> -->
-                    </div>
-
+                 
                     <div
                       class="sm:col-span-6 grid grid-cols-1 gap-y-6 gap-x-2 sm:grid-cols-7"
                     >
-                      <div class="sm:col-span-6">
+                      <div class="sm:col-span-5">
                         <label
                           for="department"
                           class="block text-sm font-semibold text-gray-800"
@@ -570,8 +538,45 @@
                         </div>
                       </div> -->
 
+                    </div>
+
+                    <div class="sm:col-span-6  flex ">
+                      <div class="w-11/12">
+                      <label
+                        for="action_required"
+                        class="block text-sm font-semibold text-gray-800"
+                      >
+                        الإجراء المطلوب
+                      </label>
+                      <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
+                      <textarea
+                        v-model="required_action2"
+                        id="required_action"
+                        rows="3"
+                        class="block mt-2 w-full text-sm rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                      >
+                      </textarea>
+                    </div>
+                      <!-- <div
+                        v-else
+                        class="
+                          block
+                          mt-2
+                          w-full
+                          rounded-md
+                          h-24
+                          text-sm
+                          border border-gray-300
+                          p-2
+                        "
+                      >
+                        {{ required_action }}
+                      </div> -->
+
+
+                      
                       <div
-                        class="sm:col-span-1 flex justify-end"
+                        class="sm:col-span-1 flex justify-center self-center center w-1/12"
                         v-if=" departmentNameSelected2 && required_action2"
                       >
                         <button
@@ -611,6 +616,8 @@
                         </button>
                       </div>
                     </div>
+
+
 
                     <div class="sm:col-span-6">
                       <label
@@ -804,6 +811,55 @@
                         حفظ
                       </button>
                     </div>
+
+                    
+                  <div v-if="!mail_sended && section_Notes.length!=0  " class="flex justify-end">
+                   
+                   <button
+                   @click="send_resend()"
+              
+                     class="flex justify-center items-center py-2 px-8 border border-transparent shadow-sm text-sm font-medium rounded-md border-green-600 text-white bg-green-600 hover:shadow-lg focus:shadow-none duration-300 focus:outline-none"
+                     
+                   >
+                     <svg
+                       class="w-4 h-4 stroke-current ml-2 fill-current"
+                       version="1.1"
+                       id="Capa_1"
+                       xmlns="http://www.w3.org/2000/svg"
+                       xmlns:xlink="http://www.w3.org/1999/xlink"
+                       x="0px"
+                       y="0px"
+                       viewBox="0 0 512 512"
+                       style="enable-background: new 0 0 512 512"
+                       xml:space="preserve"
+                     >
+                       <g>
+                         <g>
+                           <g>
+                             <path
+                               d="M166,332h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,332,166,332z"
+                             ></path>
+                             <path
+                               d="M166,392h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,392,166,392z"
+                             ></path>
+                             <path
+                               d="M507.606,84.394l-80-80C424.793,1.58,420.978,0,417,0H15C6.716,0,0,6.716,0,15v482c0,8.284,6.716,15,15,15
+                                               c6.912,0,477.495,0,482,0c8.284,0,15-6.716,15-15V95C512,91.021,510.419,87.206,507.606,84.394z M121,30h210v100H121V30z
+                                               M391,482H121V272h270V482z M482,482h-61V257c0-8.284-6.716-15-15-15H106c-8.284,0-15,6.716-15,15v225H30V30h61v115
+                                               c0,8.284,6.716,15,15,15h240c8.284,0,15-6.716,15-15V30h49.787L482,101.213V482z"
+                             ></path>
+                             <path
+                               d="M166,452h180c8.284,0,15-6.716,15-15s-6.716-15-15-15H166c-8.284,0-15,6.716-15,15S157.716,452,166,452z"
+                             ></path>
+                           </g>
+                         </g>
+                       </g>
+                     </svg>
+                     إرسال
+                   </button>
+
+                 </div>
+
                </div>  
                
               
@@ -1742,7 +1798,7 @@ console.log("code inbox_form="+event.code);
   data() {
     return {
 
-
+      mail_sended :false,
       department_list:[],
       section_Notes:[],
       alert_delete_document: false,
@@ -1893,7 +1949,32 @@ alert_prepare_delete_mail: false,
   },
   methods: {
   
+    send_resend(){
 
+      this.screenFreeze = true;
+      this.loading = true;
+
+      // this.updateMail();
+
+      this.$http.mailService
+        .Send_resend(Number(this.mailId), Number(localStorage.getItem("AY_LW")))
+        .then((res) => {
+          setTimeout(() => {
+       
+            this.loading = false;
+            this.screenFreeze = false;
+            this.getMailById();
+          }, 500);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.loading = false;
+            this.screenFreeze = false;
+          }, 500);
+        });
+
+
+    },
 
     save_resend(){
 
@@ -2264,6 +2345,7 @@ alert_prepare_delete_mail: false,
           alert("تم اضافة الادارة من قبل");
           this.departmentNameSelected2 = "";
           this.departmentIdSelected2 = "";
+          
 
           // this.measureIdSelected = "";
           // this.measureNameSelected = "";
@@ -2358,6 +2440,9 @@ alert_prepare_delete_mail: false,
     },
 
     getMailById() {
+
+    this.newactionSendersIncludesId=[];
+    this.consigneesIncludesId=[];
       this.$http.mailService
         .GetInboxMailById2(
           this.mailId,
@@ -2376,7 +2461,7 @@ alert_prepare_delete_mail: false,
           this.general_incoming_number = res.data.mail.genaral_inbox_Number;
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
-
+          this.mail_sended = res.data.mail.resended;
 
           this.replies = res.data.list;
 
