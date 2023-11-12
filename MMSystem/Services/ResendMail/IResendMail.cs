@@ -9,7 +9,7 @@ namespace MMSystem.Services.ResendMail
 {
     public interface  IResendMail
     {
-        Task<bool> SendResendMail(int mail_id);
+        Task<bool> SendResendMail(int mail_id,int user_id);
         Task<bool> deleteSectionsSender(int mail_id, int departmentId, int userid);
 
 

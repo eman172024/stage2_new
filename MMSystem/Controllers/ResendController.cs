@@ -55,10 +55,10 @@ namespace MMSystem.Controllers
         }
 
 
-        [HttpPost("SendResendMail")]
-        public async Task<IActionResult> SendResendMail(int mail_id)
+        [HttpPut("SendResendMail")]
+        public async Task<IActionResult> SendResendMail(int mail_id,int user_id)
         {
-            var result = await _data.SendResendMail(mail_id);
+            var result = await _data.SendResendMail(mail_id,user_id);
             if (result)
                 return Created("SendResendMail", new
                 {

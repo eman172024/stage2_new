@@ -170,14 +170,12 @@ namespace MMSystem.Services.ResendMail
 
         }
 
-        public async Task<bool> SendResendMail(int Mail_id)
+        public async Task<bool> SendResendMail(int Mail_id,int user_id)
         {
 
             try
             {
-                bool result = false;
-
-
+             
                 var mail_s = await _data.Mails.FindAsync(Mail_id);
  
                 if (mail_s != null)
@@ -206,11 +204,18 @@ namespace MMSystem.Services.ResendMail
                                await _data.SaveChangesAsync();
                         
                             }
+                    Historyes histor = new Historyes();
+                    histor.currentUser = user_id;
+                    histor.mailid = Mail_id;
+                    histor.HistortyNameID = 28;
+                    histor.Time = DateTime.Now;
+                    bool res = await _history.Add(histor);
+                    await _data.SaveChangesAsync();
 
-                    return result;
+                    return true;
                 }
 
-                return result;
+                   return true;
 
             }
             catch (Exception)
