@@ -456,6 +456,21 @@ namespace MMSystem.Model
                       ID = 25,
                       name = "ملاحظات  في المحفوظات "
 
+                  },new HistortyName
+                  {
+                      ID = 26,
+                      name = "حفظ اعادة توجيه البريد"
+
+                  }, new HistortyName
+                  {
+                      ID = 27,
+                      name = "تعديل اعادة توجيه البريد "
+
+                  }, new HistortyName
+                  {
+                      ID = 28,
+                      name = "ارسال اعادة توجيه البريد "
+
                   }
 
 
