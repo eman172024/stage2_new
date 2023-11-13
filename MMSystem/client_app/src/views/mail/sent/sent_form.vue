@@ -23,7 +23,7 @@
                   </h3>
                 </div>
 
-                <fieldset class="w-6/12 mr-3 mt-2">
+                <fieldset v-if="isperent=='true'" class="w-6/12 mr-3 mt-2">
                   <div class="flex items-center">
                     <legend class="text-sm font-semibold text-gray-800 ml-4">
                       نوع البريد
@@ -324,7 +324,7 @@
                       </div> -->
                     </div>
 
-                    <div class="sm:col-span-2">
+                    <div v-if="isperent=='true'" class="sm:col-span-2">
                       <label
                         for="general_incoming_number"
                         class="block text-sm font-semibold text-gray-800"
@@ -399,7 +399,7 @@
                       </div> -->
                     </div>
 
-                    <div class="sm:col-span-2">
+                    <div v-if="isperent=='true'" class="sm:col-span-2">
                       <label
                         for="year"
                         class="block text-sm font-semibold text-gray-800"
@@ -3476,6 +3476,15 @@ console.log("index="+ind);
       }
     };end 21/1/2023*/
     //var   conn= null;
+
+    this.isperent = localStorage.getItem('isperent');
+
+    if(this.isperent != "true"){
+
+this.mailType=1
+}
+
+
     var date = new Date();
 
     var month = date.getMonth() + 1;
@@ -3540,6 +3549,8 @@ console.log("index="+ind);
 
   data() {
     return {
+
+      isperent:false,
 
       image_rotate : true,
       doc_number_to_search: "",

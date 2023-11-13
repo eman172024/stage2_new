@@ -7,6 +7,7 @@
           <navComponent></navComponent>
           <main class="flex-1 relative focus:outline-none pt-2 pb-24">
             <div class="flex justify-between items-center">
+
               <div class="">
                 <h1 class="text-xl font-semibold text-gray-900">
                   البريد الصادر
@@ -47,7 +48,7 @@
                 </span>
               </div>
 
-              <fieldset class="">
+              <fieldset v-if="ispernet=='true'" class="">
                 <div class="flex items-center">
                   <legend class="text-base font-medium text-gray-800 w-16">
                     نوع البريد
@@ -116,6 +117,9 @@
                   </div>
                 </div>
               </fieldset>
+
+              <div v-else>                  </div>
+              
             </div>
 
             <div class="mt-2 flex">
@@ -456,7 +460,7 @@
                       </div>
                     </div>
 
-                    <div class="sm:col-span-2">
+                    <div  v-if="isperent=='true'" class="sm:col-span-2">
                       <label
                         for="general_incoming_number"
                         class="block text-base font-semibold text-gray-800"
@@ -492,7 +496,7 @@
 
                     
 
-                 <div class="sm:col-span-2">
+                 <div v-if="isperent=='true'" class="sm:col-span-2">
                         <label
                           for="s-number"
                           class="block text-base font-semibold text-gray-800"
@@ -1678,6 +1682,13 @@ console.log("code sent.vue="+event.code);
     };*/
     //*************21/1/2023
 
+    this.isperent = localStorage.getItem('isperent');
+
+    if(this.isperent != "true"){
+
+      this.mailType=1
+    }
+
     var date = new Date();
 
     var month = date.getMonth() + 1;
@@ -1889,6 +1900,8 @@ console.log("code sent.vue="+event.code);
   data() {
     return {
 
+
+      isperent:false,
 
       image_rotate : true,
       //********21/1/2023
