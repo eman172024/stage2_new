@@ -412,7 +412,7 @@
              
 
                 <button
-                v-if="isperent=='true'"
+                v-if="isperent=='true' && mailType !=2"
                 class="border flex justify-between w-44 border-black duration-300 bg-white pl-2 pr-6 py-2 rounded-md text-gray-900 font-bold hover:bg-green-600 hover:text-white focus:outline-none"
                 @click="redirection1 = !redirection1">
                   
@@ -433,7 +433,7 @@
 
                 
               
-              <div v-if="redirection1 ==true && isperent=='true'" class="grid grid-cols-7 gap-6">
+              <div v-if="redirection1 ==true && isperent=='true' && mailType !=2" class="grid grid-cols-7 gap-6">
 
 
               
@@ -714,7 +714,7 @@
                    
                       <button
                   
-                      v-if="(newactionSenders.length>0 || consignees.length > 0) && section_Notes.length>0  " 
+                      v-if="(newactionSenders.length>0 || consignees.length > 0) && section_Notes.length>0 || mail_sended  " 
                     
                         type="button"
                         id="edit"
@@ -767,7 +767,7 @@
                
                  
 
-                  <div v-if="(newactionSenders.length>0 || consignees.length > 0) && section_Notes.length==0  " class="flex justify-end">
+                  <div v-if="(newactionSenders.length>0 || consignees.length > 0) && section_Notes.length==0 && !mail_sended " class="flex justify-end">
                    
                       <button
                       @click="save_resend()"
@@ -2454,6 +2454,7 @@ alert_prepare_delete_mail: false,
 
     this.newactionSendersIncludesId=[];
     this.consigneesIncludesId=[];
+    this.required_action2="",
       this.$http.mailService
         .GetInboxMailById2(
           this.mailId,
