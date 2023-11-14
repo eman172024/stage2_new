@@ -23,7 +23,7 @@ namespace MMSystem.Services.ResendMail
             _sender = sender;
 
            // ISectionNote = sectionNot;
-           // _history = history;
+            _history = history;
 
         }
 
@@ -309,10 +309,8 @@ namespace MMSystem.Services.ResendMail
 
         public async Task<bool> SendResendMail(int Mail_id,int user_id)
         {
-
             try
-            {
-             
+            {                
                 var mail_s = await _data.Mails.FindAsync(Mail_id);
  
                 if (mail_s != null)
@@ -320,15 +318,16 @@ namespace MMSystem.Services.ResendMail
 
                     mail_s.resended = true;
 
-                    _data.Mails.Add(mail_s);
-                    await _data.SaveChangesAsync();
+                    _data.Mails.Update(mail_s);
+                   await _data.SaveChangesAsync();
 
-                    Send_to sender = new Send_to();
+               //     Send_to sender = new Send_to();
                     
                     var sender_resend = await (from x in _data.Sends.Where(x => x.MailID.Equals(mail_s.MailID) && x.State==false)
                                                join y in _data.section_Notes.Where(x => x.State == true) on x.Id equals y.send_ToId
                                                select new Send_to {
-
+                                                   MailID =x.MailID ,
+                                                    
                                                }
 
                                                ).ToListAsync();
@@ -337,22 +336,22 @@ namespace MMSystem.Services.ResendMail
                             {
                                 item.State = true;
                       
-                               _data.Sends.Add(item);
-                               await _data.SaveChangesAsync();
-                        
-                            }
+                               _data.Sends.Update(item);
+                             await _data.SaveChangesAsync();
+                             }
+                 
+
                     Historyes histor = new Historyes();
                     histor.currentUser = user_id;
                     histor.mailid = Mail_id;
                     histor.HistortyNameID = 28;
                     histor.Time = DateTime.Now;
                     bool res = await _history.Add(histor);
-                    await _data.SaveChangesAsync();
-
+                    
                     return true;
                 }
 
-                   return true;
+                   return false;
 
             }
             catch (Exception)
