@@ -54,6 +54,25 @@ namespace MMSystem.Controllers
             });
         }
 
+        [HttpPost("UpdateResendMail")]
+        public async Task<IActionResult> Updateresendmail([FromBody] ResendViewModel mail)
+        {
+            var result = await _data.UpdateResendMail(mail);
+            if (result)
+                return Created("UpdateResendMail", new
+                {
+                    message = "تمت العملية التحديث بنجاح",
+                    statusCode = 201,
+                    mailId = mail.Mail_id,
+
+                });
+            return BadRequest(new Result()
+            {
+                message = "فشلت العملية",
+                statusCode = 400
+            });
+        }
+
 
         [HttpPut("SendResendMail")]
         public async Task<IActionResult> SendResendMail(int mail_id,int user_id)
