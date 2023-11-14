@@ -255,13 +255,14 @@ namespace MMSystem.Services.ResendMail
 
                 Send_to send_ = await _data.Sends.FindAsync(sends_to_id);
 
-
+                if (send_!=null) { 
                 send_.State = false;
+                
                 _data.Sends.Update(send_);
                 await _data.SaveChangesAsync();
 
-
-                    Section_Notes section_note = await _data.section_Notes.FindAsync(section_note_id);
+               
+                Section_Notes section_note = await _data.section_Notes.FindAsync(section_note_id);
                   
                      section_note.State = false;
                     _data.section_Notes.Update(section_note);
@@ -286,8 +287,9 @@ namespace MMSystem.Services.ResendMail
 
 
                         return true;
+                }
+                return false;
 
-             
             }
             catch (Exception)
             {
