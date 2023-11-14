@@ -33,7 +33,7 @@ export default {
 
 
     UpdateResendMail(Mail) {
-        return axios.post(`/api/Resend/UpdateResendMail`, Mail)
+        return axios.put(`/api/Resend/UpdateResendMail`, Mail)
             //  return axios.put(`http://mail:82/api/Mail/UpdateMail`, Mail)
     },
 
@@ -72,7 +72,7 @@ export default {
     },
 
     cancel_sending_to_department_resend(sends_id, section_id, userId) {
-        return axios.put(`/api/Resend/DeleteSections?mail_id=${sends_id}&departmentId=${section_id}&userId=${userId}`);
+        return axios.put(`/api/Resend/DeleteSections?sends_to_id=${sends_id}&section_note_id=${section_id}&userId=${userId}`);
         //  return axios.delete(`http://mail:82/api/Mail/DeleteMangament?mail_id=${mailId}&departmentId=${department_id}&userId=${userId}`);
     },
 
