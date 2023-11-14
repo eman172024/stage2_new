@@ -25,6 +25,8 @@ namespace MMSystem.Model
 
         public int resendfrom { get; set; }
 
+        public bool resended { get; set; }
+
     }
 }
 

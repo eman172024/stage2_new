@@ -170,7 +170,7 @@ namespace MMSystem.Services.ResendMail
 
         }
 
-        public async Task<bool> SendResendMail(int Mail_id,int user_id)
+        public async Task<bool> SendResendMail(int Mail_id,int user_id, int departmen_id)
         {
             try
             {                
@@ -179,14 +179,17 @@ namespace MMSystem.Services.ResendMail
                 if (mail_s != null)
                 {
 
-                    mail_s.resended = true;
+                    //     Send_to sender = new Send_to();
+                    var change_resended = await  _data.Sends.FirstOrDefaultAsync(x => x.MailID.Equals(mail_s.MailID) && x.to == 17&& x.State==true);
 
-                    _data.Mails.Update(mail_s);
-                   await _data.SaveChangesAsync();
+                        change_resended.resended = true;
 
-               //     Send_to sender = new Send_to();
-                    
-                    var sender_resend = await (from x in _data.Sends.Where(x => x.MailID.Equals(mail_s.MailID) && x.State==false)
+                        _data.Sends.Update(change_resended);
+                   
+                         await _data.SaveChangesAsync();
+
+
+                    var sender_resend = await (from x in _data.Sends.Where(x => x.MailID.Equals(mail_s.MailID) && x.resendfrom ==17 && x.State==false)
                                                join y in _data.section_Notes.Where(x => x.State == true) on x.Id equals y.send_ToId
                                                select new Send_to {
                                                    MailID =x.MailID ,
