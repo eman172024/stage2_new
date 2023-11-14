@@ -181,12 +181,12 @@ namespace MMSystem.Services.Depart
             
             if(Departments.perent == 0)
             {
-                depsec = await _db.Departments.Where(x => x.Id == dep && x.perent ==dep).ToListAsync();
+                depsec = await _db.Departments.Where(x => x.Id == dep || x.perent ==dep).ToListAsync();
 
             }
             else
             {
-                depsec = await _db.Departments.Where(x => x.Id == dep && x.perent == Departments.perent).ToListAsync();
+                depsec = await _db.Departments.Where(x => x.Id == dep || x.perent == Departments.perent).ToListAsync();
 
             }
 
