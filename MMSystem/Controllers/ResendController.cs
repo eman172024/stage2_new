@@ -54,7 +54,7 @@ namespace MMSystem.Controllers
             });
         }
 
-        [HttpPost("UpdateResendMail")]
+        [HttpPut("UpdateResendMail")]
         public async Task<IActionResult> Updateresendmail([FromBody] ResendViewModel mail)
         {
             var result = await _data.UpdateResendMail(mail);

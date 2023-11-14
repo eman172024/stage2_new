@@ -87,7 +87,7 @@ namespace MMSystem.Services.ResendMail
                         sender.flag = 1;
                         sender.resendfrom = mail.actionSenders[i].ResendFrom;
                         sender.update_At = DateTime.Now;
-                        sender.State = true;
+                        sender.State = false;
                         bool send = await Add(sender);
                         await _data.SaveChangesAsync();
                         sender = _data.Sends.OrderBy(x => x.Id).LastOrDefault();
