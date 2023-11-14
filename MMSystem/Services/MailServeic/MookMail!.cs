@@ -1566,7 +1566,7 @@ namespace MMSystem.Services.MailServeic
                 List<Mail_Resourcescs> mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == model.mail.department_Id).ToListAsync();
                 // Send_to c = await _dbCon.Sends.Where(x =>  x.MailID == mail_id&&(dep == true||dep== false&&x.to == Depa )).FirstOrDefaultAsync();
                 // Send_to c = await _dbCon.Sends.Where(x => x.MailID == mail_id && ((dep == true || dep == false) && x.to == Depa)).FirstOrDefaultAsync();
-                List<Send_to> c = await _appContext.Sends.Where(x => (x.to == Depa || x.resendfrom == Depa) && x.MailID == mail_id && x.State == true && ((dep == true || dep == false))).ToListAsync();
+                List<Send_to> c = await _appContext.Sends.Where(x => (x.to == Depa || x.resendfrom == Depa) && x.MailID == mail_id  && ((dep == true || dep == false))).ToListAsync();
 
 
                 model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
