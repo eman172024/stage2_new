@@ -45,6 +45,24 @@ namespace MMSystem.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetDepartmentandSections")]
+        public async Task<List<Department>> GetDepartmentandSections(int dep)
+        {
+            var dep1 = await _data.GetDepartmentandSections(dep);
+
+          if(dep1 != null)
+            {
+                return dep1;
+            }
+            else
+            {
+                return null;
+            }
+              
+           
+           
+        }
 
         [HttpGet("GetAllDepartmentAndMysections")]
         public async Task<IActionResult> GetAllDepartmentAndMysections(int dep)

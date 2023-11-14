@@ -11,6 +11,7 @@ namespace MMSystem.Services.Depart
        
 
     {
+
         Task<List<DepartmentDto>> getsub(int par);
 
         Task<List<DepartmentDto>> GetAllDepartmentAndMysections(int dep);
@@ -20,6 +21,8 @@ namespace MMSystem.Services.Depart
         Task<Department> find(int id);
 
         Task<List<DepartmentDto>> GetDepartment(int id);
+
+        Task<List<Department>> GetDepartmentandSections(int dep);
 
     }
 }
