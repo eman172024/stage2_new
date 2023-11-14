@@ -412,6 +412,7 @@
              
 
                 <button
+                v-if="isperent=='true'"
                 class="border flex justify-between w-44 border-black duration-300 bg-white pl-2 pr-6 py-2 rounded-md text-gray-900 font-bold hover:bg-green-600 hover:text-white focus:outline-none"
                 @click="redirection1 = !redirection1">
                   
@@ -432,7 +433,7 @@
 
                 
               
-              <div v-if="redirection1 ==true" class="grid grid-cols-7 gap-6">
+              <div v-if="redirection1 ==true && isperent=='true'" class="grid grid-cols-7 gap-6">
 
 
               
@@ -1764,7 +1765,15 @@ console.log("code inbox_form="+event.code);
         }
       }
     };*/
-    //****************21/1/2023
+    //****************21/1/20232
+
+
+
+    this.isperent = localStorage.getItem('isperent');
+
+
+
+
     this.my_user_id = localStorage.getItem("AY_LW");
     this.my_department_id = localStorage.getItem("chrome");
     this.roles = localStorage.getItem("Az07");
@@ -1798,6 +1807,8 @@ console.log("code inbox_form="+event.code);
   data() {
     return {
 
+      isperent:false,
+      
       mail_sended :false,
       department_list:[],
       section_Notes:[],

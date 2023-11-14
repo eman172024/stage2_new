@@ -69,7 +69,7 @@
                     </label>
                   </div>
 
-                  <div class="flex items-center mr-6">
+                  <div v-if="ispernet=='true'" class="flex items-center mr-6">
                     <input v-model="mailType" id="internal_export" type="radio" name="type" class="h-4 w-4" value="2" />
                     <label for="internal_export" class="mr-2 block text-gray-800">
                       صادر خارجي
@@ -584,7 +584,7 @@
                         />
                     </div>
 
-                    <div class="sm:col-span-2 ">
+                    <div v-if="isperent=='true'" class="sm:col-span-2 ">
                       <label
                         for="redirection"
                         class="block text-base font-semibold text-gray-800"
@@ -2093,6 +2093,9 @@ consol.log("code inbox.vue="+event.code);
 
     //*********************end websocket 21/1/2023
 
+    this.isperent = localStorage.getItem('isperent');
+
+
     var date = new Date();
 
     var month = date.getMonth() + 1;
@@ -2215,6 +2218,8 @@ consol.log("code inbox.vue="+event.code);
   data() {
     return {
 
+      isperent:false,
+
       sender2:[],
       departmentName:"",
       redirection : false,
@@ -2298,7 +2303,7 @@ consol.log("code inbox.vue="+event.code);
       date_to: "",
 
       page_size: 10,
-      page_size2: 100000,
+      page_size2: 1000000000,
       page_num: 1,
 
       mailId_to_get_mail_by_id: "",
@@ -3179,6 +3184,7 @@ this.conn.onmessage = (event) => {
 
           this.show_senders_mail =0;
           this.senders = [];
+
       var date_from2=this.date_from;
       var date_to2=this.date_to;
 
@@ -3252,6 +3258,10 @@ this.conn.onmessage = (event) => {
       }
 
 
+      if(this.departmentNameSelected==""){
+
+         this.departmentIdSelected=''
+    }
 
       this.screenFreeze = true;
       this.loading = true;
@@ -3272,6 +3282,8 @@ this.conn.onmessage = (event) => {
           this.measureIdSelected,
           this.classificationIdSelected,
           this.mail_caseIdSelected,
+          this.s_number,
+          this.redirection,
           this.page_num,
           this.page_size2
         )

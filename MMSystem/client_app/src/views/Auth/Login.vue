@@ -585,15 +585,52 @@ export default {
 
             localStorage.setItem("AY_LW", this.user.administrator.userId);
 
-            localStorage.setItem(
+
+            if(!this.branchdepartmentNameSelected) {
+
+              localStorage.setItem(
               "current_department_name",
               this.departmentNameSelected
             );
+            }
+            else{
+
+              localStorage.setItem(
+              "current_department_name",
+              this.branchdepartmentNameSelected
+            );
+
+            }
+
+           
 
             localStorage.setItem(
               "current_department_id",
               this.user.administrator.departmentId
             );
+
+
+
+            if ( this.user.administrator.departmentId < 90) {
+
+              localStorage.setItem(
+              "isperent",
+              true
+            );
+              
+            }
+            else {
+
+              localStorage.setItem(
+              "isperent",
+              false
+            );
+              
+              
+
+
+            }
+          
 
 
 

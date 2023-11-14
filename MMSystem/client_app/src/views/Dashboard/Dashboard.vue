@@ -693,6 +693,9 @@
               </div>
             </section>
 
+
+            <div v-if="isperent=='true'">
+
             <h1 class="self-center text-center text-3xl font-semibold text-black mt-6">الأقسام والإدارات الفرعية</h1>
 
             <section class="grid grid-cols-2 gap-8">
@@ -1376,6 +1379,7 @@
                 </section>
               </div>
             </section>
+          </div>
           </main>
         </div>
       </div>
@@ -1408,6 +1412,7 @@ import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 
 export default {
   mounted() {
+    this.isperent = localStorage.getItem('isperent');
     this.my_user_id = localStorage.getItem("AY_LW");
     this.my_department_id = localStorage.getItem("chrome");
     this.roles = localStorage.getItem("Az07");
@@ -1423,6 +1428,8 @@ export default {
 
   data() {
     return {
+
+      isperent:false,
       // userId: this.$authenticatedUser.userId,
       //name: this.$authenticatedUser.name,
       // userName: this.$authenticatedUser.userName,
