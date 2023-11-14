@@ -172,10 +172,8 @@ namespace MMSystem.Services.ResendMail
 
         public async Task<bool> SendResendMail(int Mail_id,int user_id)
         {
-
             try
-            {
-                
+            {                
                 var mail_s = await _data.Mails.FindAsync(Mail_id);
  
                 if (mail_s != null)
