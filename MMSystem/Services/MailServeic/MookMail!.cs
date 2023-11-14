@@ -2520,10 +2520,7 @@ namespace MMSystem.Services.MailServeic
                             //   join measures in _appContext.measures on send.type_of_send equals measures.MeasuresId
                                join mailState in _appContext.MailStatuses on send.flag equals mailState.flag
 
-
-
-                               // 
-                               //   
+  
                                select new SendsDetalies()
                                {
                                    Department_id = send.to,
