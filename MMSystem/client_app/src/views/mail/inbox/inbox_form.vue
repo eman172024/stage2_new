@@ -716,6 +716,7 @@
                   
                       v-if="(newactionSenders.length>0 || consignees.length > 0) && section_Notes.length>0 || mail_sended  " 
                     
+                    @click="update_resend()"
                         type="button"
                         id="edit"
                         class="w-full sm:w-auto sm:mr-3 flex justify-center items-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md border-green-600 text-white bg-green-600 hover:shadow-lg focus:shadow-none duration-300 focus:outline-none"
