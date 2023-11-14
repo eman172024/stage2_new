@@ -9,8 +9,8 @@ namespace MMSystem.Services.ResendMail
 {
     public interface  IResendMail
     {
-        Task<bool> SendResendMail(int mail_id,int user_id , int departmen_id);
-        Task<bool> deleteSectionsSender(int mail_id, int departmentId, int userid);
+        Task<bool> SendResendMail(int mail_id,int user_id , int department_id);
+        Task<bool> deleteSectionsSender(int sends_to_id, int section_note_id, int userid);
 
         Task<bool> Add(Send_to t);
         Task<bool> SaveResendMail(ResendViewModel t);

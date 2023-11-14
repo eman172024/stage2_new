@@ -75,9 +75,9 @@ namespace MMSystem.Controllers
 
 
         [HttpPut("SendResendMail")]
-        public async Task<IActionResult> SendResendMail(int mail_id,int user_id, int departmen_id)
+        public async Task<IActionResult> SendResendMail(int mail_id,int user_id, int department_id)
         {
-            var result = await _data.SendResendMail(mail_id,user_id,  departmen_id);
+            var result = await _data.SendResendMail(mail_id,user_id, department_id);
             if (result)
                 return Created("SendResendMail", new
                 {
@@ -92,10 +92,10 @@ namespace MMSystem.Controllers
             });
         }
 
-        [HttpDelete("DeleteSections")]
-        public async Task<IActionResult> DeleteSections(int mail_id, int departmentId, int userId)
+        [HttpPut("DeleteSections")]
+        public async Task<IActionResult> DeleteSections(int sends_to_id, int section_note_id, int userId)
         {
-            bool result = await _data.deleteSectionsSender(mail_id, departmentId, userId);
+            bool result = await _data.deleteSectionsSender(sends_to_id, section_note_id, userId);
             if (result)
                 return StatusCode(203, new Result() { message = "تمت عملية الحذف بنجاح", statusCode = 203 });
             return BadRequest(new Result() { message = "لايمكنك حذف الادارة ", statusCode = 404 });
