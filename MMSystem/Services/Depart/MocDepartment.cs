@@ -173,5 +173,35 @@ namespace MMSystem.Services.Depart
             else
                 return false;
         }
+        public async Task<List<Department>> GetDepartmentandSections(int dep)
+        {
+            Department Departments = new Department();
+            List<Department> depsec = new List<Department>();
+            Departments = await _db.Departments.FindAsync(dep);
+            
+            if(Departments.perent == 0)
+            {
+                depsec = await _db.Departments.Where(x => x.Id == dep || x.perent ==dep).ToListAsync();
+
+            }
+            else
+            {
+                depsec = await _db.Departments.Where(x => x.Id == dep || x.perent == Departments.perent).ToListAsync();
+
+            }
+
+            if (depsec != null)
+            {
+                return depsec;
+            }
+            else
+            {
+                return null;
+            }
+               
+        }
+
+
+
     }
 }
