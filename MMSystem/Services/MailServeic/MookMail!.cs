@@ -2515,11 +2515,12 @@ namespace MMSystem.Services.MailServeic
             {
 
                 var d= await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true )
-                               join send in _appContext.Sends.Where(x => x.State == true && x.resendfrom == department_id ) on mail.MailID equals send.MailID
-                               join department in _appContext.Departments on send.to equals department.Id
+                               join send in _appContext.Sends.Where(x => x.resendfrom == department_id ) on mail.MailID equals send.MailID
+                              join sectionnot in _appContext.section_Notes.Where(x => x.State == true) on send.Id equals sectionnot.send_ToId
+                              join department in _appContext.Departments on send.to equals department.Id
                             //   join measures in _appContext.measures on send.type_of_send equals measures.MeasuresId
                                join mailState in _appContext.MailStatuses on send.flag equals mailState.flag
-
+                              
   
                                select new SendsDetalies()
                                {
