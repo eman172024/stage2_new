@@ -322,7 +322,6 @@ namespace MMSystem.Services.ResendMail
                                                join yj in _data.section_Notes.Where(x => x.State == true) on x.Id equals yj.send_ToId
                                                select new Send_to {
                                                   Id = x.Id,
-                                                 
                                                     
                                                }
 
