@@ -309,7 +309,7 @@ namespace MMSystem.Services.ResendMail
                 {
 
                     //     Send_to sender = new Send_to();
-                    var change_resended = await  _data.Sends.FirstOrDefaultAsync(x => x.MailID.Equals(mail_s.MailID) && x.to == department_id&& x.State==true);
+                    var change_resended = await  _data.Sends.FirstOrDefaultAsync(x => x.MailID.Equals(Mail_id) && x.to == department_id&& x.State==true);
 
                         change_resended.resended = true;
 
@@ -318,10 +318,11 @@ namespace MMSystem.Services.ResendMail
                          await _data.SaveChangesAsync();
 
 
-                    var sender_resend = await (from x in _data.Sends.Where(x => x.MailID.Equals(mail_s.MailID) && x.resendfrom == department_id && x.State==false)
-                                               join y in _data.section_Notes.Where(x => x.State == true) on x.Id equals y.send_ToId
+                   List<Send_to> sender_resend = await (from x in _data.Sends.Where(x => x.MailID == Mail_id && x.resendfrom == department_id && x.State==false)
+                                               join yj in _data.section_Notes.Where(x => x.State == true) on x.Id equals yj.send_ToId
                                                select new Send_to {
-                                                   MailID =x.MailID ,
+                                                  Id = x.Id,
+                                                 
                                                     
                                                }
 
@@ -329,12 +330,14 @@ namespace MMSystem.Services.ResendMail
 
                             foreach (var item in sender_resend)
                             {
-                                item.State = true;
+                              var section_sended = await _data.Sends.FirstOrDefaultAsync(x => x.Id.Equals(item.Id));
+
+                               section_sended.State = true;
                       
-                               _data.Sends.Update(item);
-                             await _data.SaveChangesAsync();
-                             }
-                 
+                               _data.Sends.Update(section_sended);
+                               await _data.SaveChangesAsync();
+                           }
+                            
 
                     Historyes histor = new Historyes();
                     histor.currentUser = user_id;
