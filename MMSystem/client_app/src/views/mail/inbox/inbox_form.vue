@@ -2027,7 +2027,7 @@ this.$http.mailService
       // this.updateMail();
 
       this.$http.mailService
-        .Send_resend(Number(this.mailId), Number(localStorage.getItem("AY_LW"),this.my_department_id))
+        .Send_resend(Number(this.mailId), Number(localStorage.getItem("AY_LW") ) , Number(this.my_department_id))
         .then((res) => {
           setTimeout(() => {
        

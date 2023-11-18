@@ -5331,6 +5331,9 @@ console.log("close code="+event.code);
     },
 
     GetAllDepartments() {
+
+      if(this.isperent=='true'){
+
       this.$http.mailService
         .AllDepartments_and_mysections( localStorage.getItem(
               "current_department_id"))
@@ -5340,6 +5343,22 @@ console.log("close code="+event.code);
         .catch((err) => {
           console.log(err);
         });
+      }
+
+        else{
+
+              
+this.$http.mailService
+  .get_department_and_sections( localStorage.getItem(
+        "current_department_id"))
+  .then((res) => {
+    this.departments = res.data;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+}
     },
 
     updateMail() {

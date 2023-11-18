@@ -44,8 +44,8 @@ export default {
             //  return axios.post(`http://mail:82/api/Mail/AddMail`, info)
     },
 
-    Send_resend(mailId, userId,department_id) {
-        return axios.put(`/api/Resend/SendResendMail?mail_id=${mailId}&user_id=${userId}&department_id=${department_id}`)
+    Send_resend(mailId, userId,department_id1) {
+        return axios.put(`/api/Resend/SendResendMail?mail_id=${mailId}&user_id=${userId}&department_id=${department_id1}`)
             //  return axios.put(`http://mail:82/api/Mail/Send?mailid=${mailId}&userId=${userId}`)
     },
 
@@ -157,6 +157,11 @@ export default {
 
     AllDepartments_and_mysections(id) {
         return axios.get(`/api/Department/GetAllDepartmentAndMysections?dep=${id}`);
+        //  return axios.get(`http://mail:82/api/WeatherForecast/GetAllDepartments`);
+    },
+
+    get_department_and_sections(id) {
+        return axios.get(`/api/Department/GetDepartmentandSections?dep=${id}`);
         //  return axios.get(`http://mail:82/api/WeatherForecast/GetAllDepartments`);
     },
 
