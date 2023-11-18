@@ -28,7 +28,7 @@ namespace MMSystem.Model.Dto
         public string old_mail_number { get; set; }
         public string office_type { get; set; }
 
-        public bool resended { get; set; }
+    
 
 
 
