@@ -2532,7 +2532,7 @@ this.$http.mailService
           this.general_incoming_number = res.data.mail.genaral_inbox_Number;
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
-          this.mail_sended = res.data.mail.resended;
+          this.mail_sended = res.data.is_resended;
 
           this.replies = res.data.list;
 
