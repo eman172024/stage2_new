@@ -36,9 +36,9 @@ namespace MMSystem.Controllers
 
 
         [HttpPost("ResendMail")]
-        public async Task<IActionResult> Resendmail([FromBody] ResendViewModel mail)
+        public async Task<IActionResult> Resendmail([FromBody] ResendViewModel mail, int userid)
         {
-            var result = await _data.SaveResendMail(mail);
+            var result = await _data.SaveResendMail(mail, userid);
             if (result)
                 return Created("ResendMail", new
                 {
@@ -55,9 +55,9 @@ namespace MMSystem.Controllers
         }
 
         [HttpPut("UpdateResendMail")]
-        public async Task<IActionResult> Updateresendmail([FromBody] ResendViewModel mail)
+        public async Task<IActionResult> Updateresendmail([FromBody] ResendViewModel mail, int userid)
         {
-            var result = await _data.UpdateResendMail(mail);
+            var result = await _data.UpdateResendMail(mail, userid);
             if (result)
                 return Created("UpdateResendMail", new
                 {

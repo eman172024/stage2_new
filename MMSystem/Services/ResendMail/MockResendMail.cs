@@ -52,7 +52,10 @@ namespace MMSystem.Services.ResendMail
             }
 
         }
-        public async Task<bool> SaveResendMail(ResendViewModel mail)
+
+
+
+        public async Task<bool> SaveResendMail(ResendViewModel mail, int userid)
     {
 
 
@@ -64,7 +67,7 @@ namespace MMSystem.Services.ResendMail
 
 
                 var mail1 = await _data.Mails.FindAsync(mail.Mail_id);
-
+                Send_to main_mail;
 
                 if (mail1 != null)
 
@@ -73,7 +76,7 @@ namespace MMSystem.Services.ResendMail
                     {
                         Send_to sender = new Send_to();
                         Section_Notes SNotes = new Section_Notes();
-
+                         main_mail = _data.Sends.Where(x => x.MailID == mail.Mail_id && x.to == mail.actionSenders[i].ResendFrom).FirstOrDefault();
                         if (i == (mail.actionSenders.Count - 1))
                         {
                             sender.isMulti = true;
@@ -88,6 +91,7 @@ namespace MMSystem.Services.ResendMail
                         sender.resendfrom = mail.actionSenders[i].ResendFrom;
                         sender.update_At = DateTime.Now;
                         sender.State = false;
+                        sender.type_of_send = main_mail.type_of_send;
                         bool send = await Add(sender);
                         await _data.SaveChangesAsync();
                         sender = _data.Sends.OrderBy(x => x.Id).LastOrDefault();
@@ -103,6 +107,12 @@ namespace MMSystem.Services.ResendMail
                          await   _data.section_Notes.AddAsync(SNotes);
                          await _data.SaveChangesAsync();
 
+                            Historyes histor = new Historyes();
+                            histor.currentUser = userid;
+                            histor.mailid = mail1.MailID;
+                            histor.HistortyNameID = 26;
+                            histor.Time = DateTime.Now;
+                            bool res = await _history.Add(histor);
                         }
 
                         result = true;
@@ -128,9 +138,10 @@ namespace MMSystem.Services.ResendMail
 
 
 
-        public async Task<bool> UpdateResendMail(ResendViewModel mail)
+        public async Task<bool> UpdateResendMail(ResendViewModel mail,int userid)
         {
             bool result = false;
+            bool sendsState =false;
             int j;
             Section_Notes SNotes = new Section_Notes();
             int LastID;
@@ -147,12 +158,24 @@ namespace MMSystem.Services.ResendMail
                         Send_to sender = new Send_to(); 
                         List<Section_Notes> SNote;
                         List<Send_to> sends;
+                        List<Send_to> sends_state;
                         // virable sends empty when action sender get one more when its add 
                         sends = _data.Sends.Where(x => x.MailID == mail.Mail_id && x.resendfrom == mail.actionSenders[i].ResendFrom && mail.actionSenders[i].Sendes_to==x.to).ToList();
+                        sends_state  = _data.Sends.Where(x => x.MailID == mail.Mail_id && x.resendfrom == mail.actionSenders[i].ResendFrom ).ToList();
+                        if(sends_state.Count != 0)
+                        {
+                            for (int t = 0; t < sends_state.Count; t++)
+                            {
+                                if (sends_state[t].State == true)
+                                {
+                                    sendsState = true;
+                                }
+                            }
+                        }
+                       
 
-                       
-                       
-                       
+
+
                         if (sends != null)
                         {
                             if (i == (mail.actionSenders.Count - 1))
@@ -169,7 +192,7 @@ namespace MMSystem.Services.ResendMail
 
                                 for ( j=j ; j < sends.Count; j++)
                             {
-                             
+                            
 
                                 if (sends.Count==0)
                                 {
@@ -181,7 +204,6 @@ namespace MMSystem.Services.ResendMail
                                     sender.State = false;
                                     bool send= await Add(sender);
                                     await _data.SaveChangesAsync();
-
                                     sender = _data.Sends.OrderBy(x => x.Id).LastOrDefault();
 
                                     LastID = sender.Id;
@@ -197,6 +219,12 @@ namespace MMSystem.Services.ResendMail
                                         await _data.SaveChangesAsync();
                                         result = true;
 
+                                        Historyes histor = new Historyes();
+                                        histor.currentUser = userid;
+                                        histor.mailid = mail1.MailID;
+                                        histor.HistortyNameID = 26;
+                                        histor.Time = DateTime.Now;
+                                        bool res = await _history.Add(histor);
                                     }
                                 }
                                 else if (mail.actionSenders[i].Sendes_to == sends[j].to && mail.actionSenders[i].ResendFrom == sends[j].resendfrom && mail.Mail_id == sends[j].MailID)
@@ -206,7 +234,7 @@ namespace MMSystem.Services.ResendMail
                                     sends[j].flag = 1;
                                     sends[j].resendfrom = mail.actionSenders[i].ResendFrom;
                                     sends[j].update_At = DateTime.Now;
-                                    sends[j].State = false;
+                                    sends[j].State = sendsState;
                                      _data.Sends.Update(sends[j]);
                                     await _data.SaveChangesAsync();
                                     sender = _data.Sends.OrderBy(x => x.Id).LastOrDefault();
@@ -222,7 +250,14 @@ namespace MMSystem.Services.ResendMail
 
                                          _data.section_Notes.Update(SNote[j]);
                                         await _data.SaveChangesAsync();
-                                        result = true;
+
+                                            Historyes histor = new Historyes();
+                                            histor.currentUser = userid;
+                                            histor.mailid = mail1.MailID;
+                                            histor.HistortyNameID = 27;
+                                            histor.Time = DateTime.Now;
+                                            bool res = await _history.Add(histor);
+                                            result = true;
 
                                     }
                                     }
@@ -244,6 +279,7 @@ namespace MMSystem.Services.ResendMail
             return result;
 
         }
+
 
 
         public async Task<bool> deleteSectionsSender(int mail_id, int departmentId, int userid)
@@ -306,6 +342,8 @@ namespace MMSystem.Services.ResendMail
             }
 
         }
+
+
 
         public async Task<bool> SendResendMail(int Mail_id,int user_id, int departmen_id)
         {
