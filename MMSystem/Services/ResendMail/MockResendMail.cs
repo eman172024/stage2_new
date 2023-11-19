@@ -332,6 +332,7 @@ namespace MMSystem.Services.ResendMail
                               var section_sended = await _data.Sends.FirstOrDefaultAsync(x => x.Id.Equals(item.Id));
 
                                section_sended.State = true;
+                               section_sended.flag = 2;
                       
                                _data.Sends.Update(section_sended);
                                await _data.SaveChangesAsync();
