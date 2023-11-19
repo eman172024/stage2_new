@@ -281,40 +281,45 @@ namespace MMSystem.Services.ResendMail
         }
 
 
+<<<<<<< HEAD
 
         public async Task<bool> deleteSectionsSender(int mail_id, int departmentId, int userid)
+=======
+        public async Task<bool> deleteSectionsSender(int sends_to_id, int section_note_id, int userid)
+>>>>>>> 79daba8b88f0961d92a51f41398c8902cc355afc
         {
             try
             {
+
+
+
+                Send_to send_ = await _data.Sends.FindAsync(sends_to_id);
+
+                if (send_!=null) { 
+                send_.State = false;
+                
+                _data.Sends.Update(send_);
+                await _data.SaveChangesAsync();
+
+               
+                Section_Notes section_note = await _data.section_Notes.FindAsync(section_note_id);
+                  
+                     section_note.State = false;
+                    _data.section_Notes.Update(section_note);
+                    await _data.SaveChangesAsync();
+
+
+                
                 Historyes historyes = new Historyes();
 
                 historyes.currentUser = userid;
-                historyes.mailid = mail_id;
+                historyes.mailid = send_.MailID;
 
                 historyes.HistortyNameID = 9;
 
-
-                Send_to send_ = await _data.Sends.FirstOrDefaultAsync(x => x.MailID == mail_id && x.to == departmentId && x.State == true);
-
-                Section_Notes section_note = await _data.section_Notes.FirstOrDefaultAsync(x => x.send_ToId == send_.Id && x.State == true);
-
-                if (send_ != null)
-                {
-                    if (send_.flag <= 2)
-                    {
-
-                        send_.State = false;
-
-                        section_note.State = false;
-
-                        historyes.changes = $" {departmentId}   تم حدف الادارة رقم";
+                historyes.changes = $" {send_.to}   تم حدف الادارة رقم";
 
                         historyes.Time = DateTime.Now;
-
-
-                        _data.Sends.Update(send_);
-
-                        _data.section_Notes.Update(section_note);
 
                         _data.History.Add(historyes);
 
@@ -322,18 +327,9 @@ namespace MMSystem.Services.ResendMail
 
 
                         return true;
-
-
-                    }
-                    else
-                    {
-
-                        return false;
-                    }
-
-
                 }
                 return false;
+
             }
             catch (Exception)
             {
@@ -343,9 +339,13 @@ namespace MMSystem.Services.ResendMail
 
         }
 
+<<<<<<< HEAD
 
 
         public async Task<bool> SendResendMail(int Mail_id,int user_id, int departmen_id)
+=======
+        public async Task<bool> SendResendMail(int Mail_id,int user_id, int department_id)
+>>>>>>> 79daba8b88f0961d92a51f41398c8902cc355afc
         {
             try
             {                
@@ -355,7 +355,7 @@ namespace MMSystem.Services.ResendMail
                 {
 
                     //     Send_to sender = new Send_to();
-                    var change_resended = await  _data.Sends.FirstOrDefaultAsync(x => x.MailID.Equals(mail_s.MailID) && x.to == 17&& x.State==true);
+                    var change_resended = await  _data.Sends.FirstOrDefaultAsync(x => x.MailID.Equals(Mail_id) && x.to == department_id&& x.State==true);
 
                         change_resended.resended = true;
 
@@ -364,10 +364,10 @@ namespace MMSystem.Services.ResendMail
                          await _data.SaveChangesAsync();
 
 
-                    var sender_resend = await (from x in _data.Sends.Where(x => x.MailID.Equals(mail_s.MailID) && x.resendfrom ==17 && x.State==false)
-                                               join y in _data.section_Notes.Where(x => x.State == true) on x.Id equals y.send_ToId
+                   List<Send_to> sender_resend = await (from x in _data.Sends.Where(x => x.MailID == Mail_id && x.resendfrom == department_id && x.State==false)
+                                               join yj in _data.section_Notes.Where(x => x.State == true) on x.Id equals yj.send_ToId
                                                select new Send_to {
-                                                   MailID =x.MailID ,
+                                                  Id = x.Id,
                                                     
                                                }
 
@@ -375,12 +375,15 @@ namespace MMSystem.Services.ResendMail
 
                             foreach (var item in sender_resend)
                             {
-                                item.State = true;
+                              var section_sended = await _data.Sends.FirstOrDefaultAsync(x => x.Id.Equals(item.Id));
+
+                               section_sended.State = true;
+                               section_sended.flag = 2;
                       
-                               _data.Sends.Update(item);
-                             await _data.SaveChangesAsync();
-                             }
-                 
+                               _data.Sends.Update(section_sended);
+                               await _data.SaveChangesAsync();
+                           }
+                            
 
                     Historyes histor = new Historyes();
                     histor.currentUser = user_id;

@@ -642,8 +642,9 @@
                        
                             @click="
                               delete_side_measure(
-                                consignee.department_id,
-                                consignee.department_name
+                               
+                                consignee.send_ToId,
+                                consignee.id,
                               )
                             "
                             class="mr-1 rounded-full"
@@ -1960,6 +1961,63 @@ alert_prepare_delete_mail: false,
     };
   },
   methods: {
+
+
+  update_resend(){
+
+    for (let index = 0; index < this.newactionSenders.length; index++) {
+
+this.department_list.push({
+  Sendes_to: this.newactionSenders[index].departmentId,
+  ResendFrom: Number(this.newactionSenders[index].resend_from),
+  Note:this.newactionSenders[index].measureName
+      });
+
+}
+
+this.screenFreeze = true;
+this.loading = true;
+var info = {
+
+Mail_id:Number(this.mailId),
+actionSenders: this.department_list
+
+ 
+};
+
+this.$http.mailService
+.UpdateResendMail(info)
+.then((res) => {
+  setTimeout(() => {
+    // this.loading = false;
+
+    // this.documentSection = true;
+    // this.proceduresSection = true;
+
+    this.loading = false;
+    this.screenFreeze = false;
+
+    this.newactionSenders=[];
+
+    // this.mail_Number = res.data.mail_Number;
+
+    // this.mailId = res.data.mailId;
+    // this.department_Id = res.data.department_Id;
+    // this.mail_year = res.data.mail_year;
+    // this.to_test_passing_mail_type = this.mailType;
+
+    this.getMailById();
+  }, 500);
+})
+.catch((err) => {
+  setTimeout(() => {
+    this.loading = false;
+    this.screenFreeze = false;
+  }, 500);
+});
+
+    
+  },
   
     send_resend(){
 
@@ -1969,7 +2027,7 @@ alert_prepare_delete_mail: false,
       // this.updateMail();
 
       this.$http.mailService
-        .Send_resend(Number(this.mailId), Number(localStorage.getItem("AY_LW")))
+        .Send_resend(Number(this.mailId), Number(localStorage.getItem("AY_LW") ) , Number(this.my_department_id))
         .then((res) => {
           setTimeout(() => {
        
@@ -2044,14 +2102,14 @@ alert_prepare_delete_mail: false,
 
     },
 
-    delete_side_measure(department_id, name) {
+    delete_side_measure(sends, section_id) {
       this.screenFreeze = true;
       this.loading = true;
 
       this.$http.mailService
         .cancel_sending_to_department_resend(
-          this.mailId,
-          department_id,
+          sends,
+          section_id,
           Number(localStorage.getItem("AY_LW"))
         )
         .then((res) => {
@@ -2474,7 +2532,7 @@ alert_prepare_delete_mail: false,
           this.general_incoming_number = res.data.mail.genaral_inbox_Number;
           this.genaral_inbox_year = res.data.mail.genaral_inbox_year;
           this.required_action = res.data.mail.action_Required;
-          this.mail_sended = res.data.mail.resended;
+          this.mail_sended = res.data.is_resended;
 
           this.replies = res.data.list;
 

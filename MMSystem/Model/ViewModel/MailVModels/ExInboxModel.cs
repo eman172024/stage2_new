@@ -8,6 +8,8 @@ namespace MMSystem.Model.ViewModel.MailVModels
 {
     public class ExInboxModel
     {
+
+        public bool is_resended { get; set; }
         public MailDto mail { get; set; }
 
         public Extrenal_inboxDto Inbox { get; set; }

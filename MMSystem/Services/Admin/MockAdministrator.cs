@@ -236,6 +236,14 @@ namespace MMSystem.Services
 
                     if (isValid)
                     {
+                        Department ff = await _data.Departments.FirstOrDefaultAsync(x=>x.Id == user.DepartmentId);
+                        
+                        Department dd = await _data.Departments.FirstOrDefaultAsync(x => x.Id == ff.perent);
+
+                        view.parent_id = ff.perent;
+                        if (dd!=null) { 
+                        view.parent_name = dd.DepartmentName ;
+                        }
                         view.Administrator = _mapper.Map<Administrator, AdministratorDto>(user);
 
                         view.Listrole = await (from userrole in _data.userRoles.Where(x => x.UserId == user.UserId)

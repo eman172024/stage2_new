@@ -32,13 +32,20 @@ export default {
     },
 
 
+    UpdateResendMail(Mail) {
+        return axios.put(`/api/Resend/UpdateResendMail`, Mail)
+            //  return axios.put(`http://mail:82/api/Mail/UpdateMail`, Mail)
+    },
+
+
+
     Save_resend(info) {
         return axios.post(`/api/Resend/ResendMail`, info)
             //  return axios.post(`http://mail:82/api/Mail/AddMail`, info)
     },
 
-    Send_resend(mailId, userId) {
-        return axios.put(`/api/Resend/SendResendMail?mail_id=${mailId}&user_id=${userId}`)
+    Send_resend(mailId, userId,department_id1) {
+        return axios.put(`/api/Resend/SendResendMail?mail_id=${mailId}&user_id=${userId}&department_id=${department_id1}`)
             //  return axios.put(`http://mail:82/api/Mail/Send?mailid=${mailId}&userId=${userId}`)
     },
 
@@ -64,8 +71,8 @@ export default {
         //  return axios.delete(`http://mail:82/api/Mail/DeleteMangament?mail_id=${mailId}&departmentId=${department_id}&userId=${userId}`);
     },
 
-    cancel_sending_to_department_resend(mailId, department_id, userId) {
-        return axios.delete(`/api/Resend/DeleteSections?mail_id=${mailId}&departmentId=${department_id}&userId=${userId}`);
+    cancel_sending_to_department_resend(sends_id, section_id, userId) {
+        return axios.put(`/api/Resend/DeleteSections?sends_to_id=${sends_id}&section_note_id=${section_id}&userId=${userId}`);
         //  return axios.delete(`http://mail:82/api/Mail/DeleteMangament?mail_id=${mailId}&departmentId=${department_id}&userId=${userId}`);
     },
 
@@ -150,6 +157,11 @@ export default {
 
     AllDepartments_and_mysections(id) {
         return axios.get(`/api/Department/GetAllDepartmentAndMysections?dep=${id}`);
+        //  return axios.get(`http://mail:82/api/WeatherForecast/GetAllDepartments`);
+    },
+
+    get_department_and_sections(id) {
+        return axios.get(`/api/Department/GetDepartmentandSections?dep=${id}`);
         //  return axios.get(`http://mail:82/api/WeatherForecast/GetAllDepartments`);
     },
 

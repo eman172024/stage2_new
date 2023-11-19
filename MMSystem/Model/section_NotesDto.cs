@@ -15,7 +15,7 @@ namespace MMSystem.Model
 
         public string Note { get; set; }
         public bool State { get; set; }
-      
+       
 
     }
 }

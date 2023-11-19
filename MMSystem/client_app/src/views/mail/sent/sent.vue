@@ -187,7 +187,7 @@
                       />
                     </div>
 
-                    <div class="sm:col-span-2">
+                    <div v-if="isperent=='true'" class="sm:col-span-2">
                       <label
                         for="department"
                         class="block text-base font-semibold text-gray-800"
@@ -245,6 +245,67 @@
                         </div>
                       </div>
                     </div>
+
+
+                    <div v-else class="sm:col-span-2">
+                      <label
+                        for="department"
+                        class="block text-base font-semibold text-gray-800"
+                      >
+                        الإدارات المرسل إليها
+                      </label>
+
+                      <div class="relative">
+                        <button
+                          @click="departmentselect = !departmentselect"
+                          @keyup.space.prevent
+                          id="department"
+                          class="text-right block mt-2 w-full rounded-md h-10 border text-sm bg-white border-gray-300 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        >
+                          <input
+                            @click="
+                              (departmentNameSelected = ''),
+                                (departmentIdSelected = '')
+                            "
+                            v-model="departmentNameSelected"
+                            type="text"
+                            class="h-6 w-full"
+                          />
+                          <!-- {{ departmentNameSelected }} -->
+                        </button>
+
+                        <div
+                          v-if="departmentselect"
+                          class="border text-sm bg-white border-gray-300 p-2 absolute w-full z-20 shadow h-24 overflow-y-scroll rounded-b-md"
+                        >
+                          <button
+                            class="block focus:outline-none w-full my-1 text-right"
+                            @click="
+                              selectdepartment('', 'الكل');
+                              departmentselect = !departmentselect;
+                            "
+                          >
+                            الكل
+                          </button>
+
+                          <button
+                            class="block focus:outline-none w-full my-1 text-right"
+                            @click="
+                              selectdepartment(
+                                department.id,
+                                department.departmentName
+                              );
+                              departmentselect = !departmentselect;
+                            "
+                            v-for="department in filterByTerm1"
+                            :key="department.id"
+                          >
+                            {{ department.departmentName }}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
 
                     <div class="sm:col-span-2">
                       <label
@@ -2851,6 +2912,12 @@ console.log("code sent.vue="+event.code);
     },
 
     GetAllDepartments() {
+
+
+      if(this.isperent=='true'){
+
+
+      
       this.$http.mailService
         .AllDepartments_and_mysections( localStorage.getItem(
               "current_department_id"))
@@ -2860,6 +2927,22 @@ console.log("code sent.vue="+event.code);
         .catch((err) => {
           console.log(err);
         });
+      }
+
+      else{
+
+              
+      this.$http.mailService
+        .get_department_and_sections( localStorage.getItem(
+              "current_department_id"))
+        .then((res) => {
+          this.departments = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      }
     },
 
     selectdepartment(id, name) {
