@@ -1979,6 +1979,7 @@ this.screenFreeze = true;
 this.loading = true;
 var info = {
 
+  userid:Number(this.my_user_id),
 Mail_id:Number(this.mailId),
 actionSenders: this.department_list
 
@@ -1986,7 +1987,7 @@ actionSenders: this.department_list
 };
 
 this.$http.mailService
-.UpdateResendMail(info,29)
+.UpdateResendMail(info)
 .then((res) => {
   setTimeout(() => {
     // this.loading = false;
@@ -2062,6 +2063,7 @@ this.$http.mailService
       this.loading = true;
       var info = {
 
+        userid:Number(this.my_user_id),
         Mail_id:Number(this.mailId),
         actionSenders: this.department_list
 
@@ -2069,7 +2071,7 @@ this.$http.mailService
         };
 
         this.$http.mailService
-        .Save_resend(info,Number(this.my_user_id))
+        .Save_resend(info)
         .then((res) => {
           setTimeout(() => {
             // this.loading = false;

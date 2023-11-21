@@ -32,15 +32,15 @@ export default {
     },
 
 
-    UpdateResendMail(Mail,userid) {
-        return axios.put(`/api/Resend/UpdateResendMail`, Mail,userid)
+    UpdateResendMail(Mail) {
+        return axios.put(`/api/Resend/UpdateResendMail`, Mail)
             //  return axios.put(`http://mail:82/api/Mail/UpdateMail`, Mail)
     },
 
 
 
-    Save_resend(info ,userid) {
-        return axios.post(`/api/Resend/ResendMail`, info,userid)
+    Save_resend(info ) {
+        return axios.post(`/api/Resend/ResendMail`, info)
             //  return axios.post(`http://mail:82/api/Mail/AddMail`, info)
     },
 
