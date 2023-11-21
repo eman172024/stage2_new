@@ -207,11 +207,13 @@ namespace MMSystem.Services.ResendMail
                                 for ( j=j ; j < sends.Count; j++)
 
                             {
-                                
+                              
 
                                 if (sends.Count==0)
                                 {
-                                    sender.MailID = mail1.MailID;
+                                    if (Sends_flag>1)
+                                    { sender.Send_time = DateTime.Now; }
+                                        sender.MailID = mail1.MailID;
                                     sender.to = mail.actionSenders[i].Sendes_to;
                                     sender.flag = Sends_flag;
                                     sender.resendfrom = mail.actionSenders[i].ResendFrom;
@@ -245,6 +247,8 @@ namespace MMSystem.Services.ResendMail
                                 }
                                 else if (mail.actionSenders[i].Sendes_to == sends[j].to && mail.actionSenders[i].ResendFrom == sends[j].resendfrom && mail.Mail_id == sends[j].MailID)
                                 {
+                                    if (Sends_flag > 1)
+                                    { sends[j].Send_time = DateTime.Now; }
                                     sends[j].MailID = mail1.MailID;
                                     sends[j].to = mail.actionSenders[i].Sendes_to;
                                     sends[j].flag = Sends_flag;
@@ -300,12 +304,7 @@ namespace MMSystem.Services.ResendMail
 
 
 
-<<<<<<< HEAD
 
-      
-=======
-       
->>>>>>> 426e4c969a0f4bfea269338562fa5a9d3d67e552
         public async Task<bool> deleteSectionsSender(int sends_to_id, int section_note_id, int userid)
         {
             try
@@ -359,14 +358,7 @@ namespace MMSystem.Services.ResendMail
 
         }
 
-<<<<<<< HEAD
 
-        
-=======
-
-
-      
->>>>>>> 426e4c969a0f4bfea269338562fa5a9d3d67e552
         public async Task<bool> SendResendMail(int Mail_id,int user_id, int department_id)
         {
             try
