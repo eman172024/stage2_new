@@ -611,7 +611,7 @@ export default {
 
 
 
-            if ( this.user.administrator.departmentId < 90) {
+            if ( this.user.parent_id == "0") {
 
               localStorage.setItem(
               "isperent",

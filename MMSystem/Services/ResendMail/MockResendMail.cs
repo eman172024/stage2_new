@@ -281,12 +281,9 @@ namespace MMSystem.Services.ResendMail
         }
 
 
-<<<<<<< HEAD
 
-        public async Task<bool> deleteSectionsSender(int mail_id, int departmentId, int userid)
-=======
+       
         public async Task<bool> deleteSectionsSender(int sends_to_id, int section_note_id, int userid)
->>>>>>> 79daba8b88f0961d92a51f41398c8902cc355afc
         {
             try
             {
@@ -339,13 +336,10 @@ namespace MMSystem.Services.ResendMail
 
         }
 
-<<<<<<< HEAD
 
 
-        public async Task<bool> SendResendMail(int Mail_id,int user_id, int departmen_id)
-=======
+      
         public async Task<bool> SendResendMail(int Mail_id,int user_id, int department_id)
->>>>>>> 79daba8b88f0961d92a51f41398c8902cc355afc
         {
             try
             {                

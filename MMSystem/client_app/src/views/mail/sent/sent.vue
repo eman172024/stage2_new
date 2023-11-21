@@ -48,7 +48,7 @@
                 </span>
               </div>
 
-              <fieldset v-if="ispernet=='true'" class="">
+              <fieldset v-if="isperent=='true'" class="">
                 <div class="flex items-center">
                   <legend class="text-base font-medium text-gray-800 w-16">
                     نوع البريد

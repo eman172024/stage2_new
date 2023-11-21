@@ -69,7 +69,7 @@
                     </label>
                   </div>
 
-                  <div v-if="ispernet=='true'" class="flex items-center mr-6">
+                  <div v-if="isperent=='true'" class="flex items-center mr-6">
                     <input v-model="mailType" id="internal_export" type="radio" name="type" class="h-4 w-4" value="2" />
                     <label for="internal_export" class="mr-2 block text-gray-800">
                       صادر خارجي
@@ -2094,7 +2094,7 @@ consol.log("code inbox.vue="+event.code);
     //*********************end websocket 21/1/2023
 
     this.isperent = localStorage.getItem('isperent');
-
+    
 
     var date = new Date();
 
