@@ -1986,14 +1986,14 @@ actionSenders: this.department_list
 };
 
 this.$http.mailService
-.UpdateResendMail(info)
+.UpdateResendMail(info,29)
 .then((res) => {
   setTimeout(() => {
     // this.loading = false;
 
     // this.documentSection = true;
     // this.proceduresSection = true;
-
+    this.department_list=[];
     this.loading = false;
     this.screenFreeze = false;
 
@@ -2069,7 +2069,7 @@ this.$http.mailService
         };
 
         this.$http.mailService
-        .Save_resend(info)
+        .Save_resend(info,Number(this.my_user_id))
         .then((res) => {
           setTimeout(() => {
             // this.loading = false;
