@@ -111,6 +111,7 @@ namespace MMSystem.Services.ResendMail
                             histor.currentUser = mail.userid;
                             histor.mailid = mail1.MailID;
                             histor.HistortyNameID = 26;
+                            histor.changes = "عملية حفظ أعادة التوجيه ";
                             histor.Time = DateTime.Now;
                             bool res = await _history.Add(histor);
                         }
@@ -174,7 +175,7 @@ namespace MMSystem.Services.ResendMail
                             {
                                 if (sends_state[t].flag > 1)
                                 {
-                                    Sends_flag = sends_state[t].flag;
+                                    Sends_flag = 2;
                                 }
 
                               
@@ -240,7 +241,9 @@ namespace MMSystem.Services.ResendMail
                                         Historyes histor = new Historyes();
                                         histor.currentUser = mail.userid;
                                         histor.mailid = mail1.MailID;
-                                        histor.HistortyNameID = 26;
+                                        histor.HistortyNameID = 27;
+                                        histor.changes = "عملية تحديث أعادة التوجيه ";
+
                                         histor.Time = DateTime.Now;
                                         bool res = await _history.Add(histor);
                                     }
@@ -277,6 +280,8 @@ namespace MMSystem.Services.ResendMail
                                             histor.currentUser = mail.userid;
                                             histor.mailid = mail1.MailID;
                                             histor.HistortyNameID = 27;
+                                            histor.changes = "عملية تحديث أعادة التوجيه ";
+
                                             histor.Time = DateTime.Now;
                                             bool res = await _history.Add(histor);
                                             result = true;
