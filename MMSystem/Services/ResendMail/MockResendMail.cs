@@ -55,7 +55,7 @@ namespace MMSystem.Services.ResendMail
 
 
 
-        public async Task<bool> SaveResendMail(ResendViewModel mail, int userid)
+        public async Task<bool> SaveResendMail(ResendViewModel mail)
     {
 
 
@@ -108,7 +108,7 @@ namespace MMSystem.Services.ResendMail
                          await _data.SaveChangesAsync();
 
                             Historyes histor = new Historyes();
-                            histor.currentUser = userid;
+                            histor.currentUser = mail.userid;
                             histor.mailid = mail1.MailID;
                             histor.HistortyNameID = 26;
                             histor.Time = DateTime.Now;
@@ -138,13 +138,16 @@ namespace MMSystem.Services.ResendMail
 
 
 
-        public async Task<bool> UpdateResendMail(ResendViewModel mail,int userid)
+        public async Task<bool> UpdateResendMail(ResendViewModel mail)
         {
             bool result = false;
             bool sendsState =false;
             int j;
             Section_Notes SNotes = new Section_Notes();
             int LastID;
+            Send_to main_mail;
+            int Sends_flag = 1;
+
             try
             {
                 var mail1 = await _data.Mails.FindAsync(mail.Mail_id);
@@ -159,13 +162,24 @@ namespace MMSystem.Services.ResendMail
                         List<Section_Notes> SNote;
                         List<Send_to> sends;
                         List<Send_to> sends_state;
-                        // virable sends empty when action sender get one more when its add 
+                        // virable sends empty when action sender get one more when its add                        
                         sends = _data.Sends.Where(x => x.MailID == mail.Mail_id && x.resendfrom == mail.actionSenders[i].ResendFrom && mail.actionSenders[i].Sendes_to==x.to).ToList();
-                        sends_state  = _data.Sends.Where(x => x.MailID == mail.Mail_id && x.resendfrom == mail.actionSenders[i].ResendFrom ).ToList();
+                        main_mail = _data.Sends.Where(x => x.MailID == mail.Mail_id && x.to == mail.actionSenders[i].ResendFrom).FirstOrDefault();
+                        sends_state = _data.Sends.Where(x => x.MailID == mail.Mail_id && x.resendfrom == mail.actionSenders[i].ResendFrom ).ToList();
                         if(sends_state.Count != 0)
                         {
                             for (int t = 0; t < sends_state.Count; t++)
+
+
                             {
+                                if (sends_state[t].flag > 1)
+                                {
+                                    Sends_flag = sends_state[t].flag;
+                                }
+
+                              
+
+
                                 if (sends_state[t].State == true)
                                 {
                                     sendsState = true;
@@ -191,17 +205,19 @@ namespace MMSystem.Services.ResendMail
                                {  j = -1; }else { j = 0; }
 
                                 for ( j=j ; j < sends.Count; j++)
+
                             {
-                            
+                                
 
                                 if (sends.Count==0)
                                 {
                                     sender.MailID = mail1.MailID;
                                     sender.to = mail.actionSenders[i].Sendes_to;
-                                    sender.flag = 1;
+                                    sender.flag = Sends_flag;
                                     sender.resendfrom = mail.actionSenders[i].ResendFrom;
                                     sender.update_At = DateTime.Now;
-                                    sender.State = false;
+                                    sender.State = sendsState;
+                                    sender.type_of_send = main_mail.type_of_send;
                                     bool send= await Add(sender);
                                     await _data.SaveChangesAsync();
                                     sender = _data.Sends.OrderBy(x => x.Id).LastOrDefault();
@@ -220,7 +236,7 @@ namespace MMSystem.Services.ResendMail
                                         result = true;
 
                                         Historyes histor = new Historyes();
-                                        histor.currentUser = userid;
+                                        histor.currentUser = mail.userid;
                                         histor.mailid = mail1.MailID;
                                         histor.HistortyNameID = 26;
                                         histor.Time = DateTime.Now;
@@ -231,11 +247,13 @@ namespace MMSystem.Services.ResendMail
                                 {
                                     sends[j].MailID = mail1.MailID;
                                     sends[j].to = mail.actionSenders[i].Sendes_to;
-                                    sends[j].flag = 1;
+                                    sends[j].flag = Sends_flag;
                                     sends[j].resendfrom = mail.actionSenders[i].ResendFrom;
                                     sends[j].update_At = DateTime.Now;
                                     sends[j].State = sendsState;
-                                     _data.Sends.Update(sends[j]);
+                                    sends[j].type_of_send = main_mail.type_of_send;
+
+                                    _data.Sends.Update(sends[j]);
                                     await _data.SaveChangesAsync();
                                     sender = _data.Sends.OrderBy(x => x.Id).LastOrDefault();
 
@@ -252,7 +270,7 @@ namespace MMSystem.Services.ResendMail
                                         await _data.SaveChangesAsync();
 
                                             Historyes histor = new Historyes();
-                                            histor.currentUser = userid;
+                                            histor.currentUser = mail.userid;
                                             histor.mailid = mail1.MailID;
                                             histor.HistortyNameID = 27;
                                             histor.Time = DateTime.Now;
@@ -281,12 +299,10 @@ namespace MMSystem.Services.ResendMail
         }
 
 
-<<<<<<< HEAD
 
-        public async Task<bool> deleteSectionsSender(int mail_id, int departmentId, int userid)
-=======
+
+      
         public async Task<bool> deleteSectionsSender(int sends_to_id, int section_note_id, int userid)
->>>>>>> 79daba8b88f0961d92a51f41398c8902cc355afc
         {
             try
             {
@@ -339,13 +355,9 @@ namespace MMSystem.Services.ResendMail
 
         }
 
-<<<<<<< HEAD
 
-
-        public async Task<bool> SendResendMail(int Mail_id,int user_id, int departmen_id)
-=======
+        
         public async Task<bool> SendResendMail(int Mail_id,int user_id, int department_id)
->>>>>>> 79daba8b88f0961d92a51f41398c8902cc355afc
         {
             try
             {                

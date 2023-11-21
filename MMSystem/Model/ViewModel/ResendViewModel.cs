@@ -9,6 +9,7 @@ namespace MMSystem.Model.ViewModel
     {
 
         public int Mail_id { get; set; }
+        public int userid { get; set; }
         public List<ActionResender> actionSenders { get; set; }
 
     }

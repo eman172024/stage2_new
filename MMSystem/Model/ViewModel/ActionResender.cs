@@ -9,6 +9,8 @@ namespace MMSystem.Model.ViewModel
     {
 
         public int Sendes_to { get; set; }
+      
+     
         public int ResendFrom { get; set; }
 
         public string Note { get; set; }
