@@ -2546,20 +2546,22 @@ namespace MMSystem.Services.MailServeic
                                    time_of_send = (send.Send_time.ToString().EndsWith("0000000")) ? "لم يتم الارسال" : send.Send_time.ToString("hh:mm:ss")
                                }).ToListAsync();
 
-             var c =  await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true)
+            //    var department1 = await _appContext.Departments.Where(x => x.Id ==  );
+             
+                var c =  await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true)
                        join send in _appContext.Sends.Where(x => x.State == true && x.to == department_id) on mail.MailID equals send.MailID
                        join department in _appContext.Departments on mail.Department_Id equals department.Id
                        join measures in _appContext.measures on send.type_of_send equals measures.MeasuresId
                        join mailState in _appContext.MailStatuses on send.flag equals mailState.flag
+                 
 
 
-
-                       // 
-                       //   
-                       select new SendsDetalies()
+                             // send.resendfrom == 0 ? department.DepartmentName : department.Id.Equals(send.resendfrom).ToString()
+                             //   
+                             select new SendsDetalies()
                        {
-                           Department_id = department_id,
-                           Department_name = department.DepartmentName,
+                           Department_id = send.resendfrom == 0 ? mail.Department_Id : send.resendfrom,
+                           Department_name = department.DepartmentName  ,
                            flag = mailState.flag,
                            MesureName = measures.MeasuresName,
                            State = mailState.inbox,
