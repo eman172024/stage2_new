@@ -1413,11 +1413,21 @@ import svgLoadingComponent from "@/components/svgLoadingComponent.vue";
 export default {
   mounted() {
     this.isperent = localStorage.getItem('isperent');
+
     this.my_user_id = localStorage.getItem("AY_LW");
     this.my_department_id = localStorage.getItem("chrome");
     this.roles = localStorage.getItem("Az07");
+
+    if (this.isperent == "true") {
+      this.GetNumbersOfReports();
+      this.GetNumbersOfReports2();
+    }
+   else{
+
     this.GetNumbersOfReports();
-    this.GetNumbersOfReports2();
+    
+   }
+    
   },
 
   components: {

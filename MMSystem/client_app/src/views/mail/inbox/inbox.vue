@@ -867,8 +867,12 @@
                         {{ mail.type_of_mail | mail_type }}
                       </div>
 
-                      <div class="w-5/12 truncate text-center">
+                      <div v-if=" (mail.mangment_sender_id > 89 && isperent!='true') || isperent == 'true' " class="w-5/12 truncate text-center">
                         {{ mail.mangment_sender }}
+                      </div>
+
+                      <div v-else class="w-5/12 truncate text-center">
+                        {{ perent_name }}
                       </div>
 
                       <div class="w-1/12 text-center ">
@@ -1063,9 +1067,20 @@
                         "
                         class="flex items-center w-full text-right"
                       >
-                        <div class="w-3/12 pr-1 py-1">
+                        <div v-if="(sender.department_id > 89 && isperent!='true') || isperent == 'true' " class="w-3/12 pr-1 py-1">
+
+                          
                           {{ sender.department_name }}
                         </div>
+
+                        <div v-else class="w-3/12 pr-1 py-1">
+
+                          
+                          {{ perent_name }}
+
+                        </div>  
+
+
 
                         <div class="w-2/12">
                           {{ sender.date }}
@@ -2095,6 +2110,8 @@ consol.log("code inbox.vue="+event.code);
 
     this.isperent = localStorage.getItem('isperent');
     
+    this.perent_id = localStorage.getItem('perent_id');
+    this.perent_name = localStorage.getItem('perent_name');
 
     var date = new Date();
 
@@ -2217,6 +2234,9 @@ consol.log("code inbox.vue="+event.code);
 
   data() {
     return {
+
+      perent_id:0,
+      perent_name:"",
 
       isperent:false,
 
@@ -3045,8 +3065,12 @@ this.conn.onmessage = (event) => {
       this.departmentflag = 0;
       this.my_department_id_to_get_mail_by_id =
         my_department_id_to_get_mail_by_id;
+
       this.sends_id = sends_id;
       
+
+      
+
       this.departmentName = departmentName;
      
       this.departmentflag = flag;

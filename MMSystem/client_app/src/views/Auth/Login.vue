@@ -100,11 +100,12 @@
                   <button
                     class="block focus:outline-none w-full duration-500 px-1 py-2 text-right hover:bg-gray-200"
                     @click="
-                      GetUsersOfBranchDepartment()
-                      selectbranchdepartment(
+                         selectbranchdepartment(
                         department.id,
                         department.departmentName
                       );
+                      
+                 
                       branchdepartmentdelect = !branchdepartmentdelect;
                     "
                     v-for="department in branches"
@@ -369,9 +370,9 @@ export default {
       //this.GetUsersOfDepartment() ;
     },
 
-    branchIdSelected: function () {
-      this.GetUsersOfBranchDepartment();
-    },
+    // branchIdSelected: function () {
+    //   this.GetUsersOfBranchDepartment();
+    // },
   },
 
   data() {
@@ -464,6 +465,7 @@ export default {
       this.userNameSelected = "";
       this.branchdepartmentNameSelected = name;
       this.branchIdSelected = id;
+      this.GetUsersOfBranchDepartment();
     },
 
     GetUsersOfBranchDepartment() {
@@ -608,6 +610,20 @@ export default {
               "current_department_id",
               this.user.administrator.departmentId
             );
+
+
+
+
+            localStorage.setItem(
+              "perent_id",
+              this.user.parent_id
+            );
+
+            localStorage.setItem(
+              "perent_name",
+              this.user.parent_name
+            );
+
 
 
 
