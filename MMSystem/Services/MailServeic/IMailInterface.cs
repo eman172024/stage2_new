@@ -15,7 +15,8 @@ namespace MMSystem.Services.MailServeic
     {
         Task<MailDto> Getdto(int id, int type);
 
-      
+        Task<List<RViewModel>> GetRepliesList(int SendsToId, int userid);
+
         Task<bool> addMail( MailViewModel mail);
 
         Task<bool> Delete(int id, int userid,int MailId);

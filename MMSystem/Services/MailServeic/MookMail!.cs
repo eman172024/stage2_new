@@ -1364,24 +1364,16 @@ namespace MMSystem.Services.MailServeic
                 {
                     var is_resended = c.Where(x => x.MailID == mail_id && x.to == department_Id && x.State == true).ToList();
 
-                    if(is_resended.Count()!=0)
-                    model.is_resended = is_resended[0].resended;
+                    if (is_resended.Count() != 0)
+                        model.is_resended = is_resended[0].resended;
 
                     model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
 
                     foreach (var item in c)
                     {
 
-                        List<RViewModel> replies = await (from x in _appContext.Replies.Where(x => x.send_ToId == item.Id && x.state.Equals(true) && x.IsSend.Equals(true))
-                                                              //       join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
-                                                          select new RViewModel
-                                                          {
-                                                              reply = _mapper.Map<Reply, ReplayDto>(x),
-                                                              Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
-                                                          }).ToListAsync();
-                        if (replies.Count()!=0)  
-                        model.list.AddRange(replies);
-                        
+                      
+
                         List<section_NotesDto> section_N = await (from x in _appContext.section_Notes.Where(x => x.send_ToId == item.Id && x.State == true)
                                                                   join y in _appContext.Sends on x.send_ToId equals y.Id
                                                                   join z in _appContext.Departments.Where(x => x.perent == department_Id) on y.to equals z.Id
@@ -1405,8 +1397,7 @@ namespace MMSystem.Services.MailServeic
 
                     }
                 }
-
-
+               
                 //foreach (var xx in model.mail_Resourcescs)
                 //{
                 //    string x = xx.path;
@@ -1445,6 +1436,33 @@ namespace MMSystem.Services.MailServeic
 
         }
 
+        public async Task<List<RViewModel>> GetRepliesList(int SendsToId,  int userid)
+        {
+            try
+            {
+
+        
+            List<RViewModel> list = new List<RViewModel>();
+
+            List<RViewModel> replies = await (from x in _appContext.Replies.Where(x => x.send_ToId == SendsToId && x.state.Equals(true) && x.IsSend.Equals(true))
+                                                  //       join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
+                                              select new RViewModel
+                                              {
+                                                  reply = _mapper.Map<Reply, ReplayDto>(x),
+                                                  Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
+                                              }).ToListAsync();
+            if (replies.Count() != 0)
+                list.AddRange(replies);
+
+            return list;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public async Task<EIMVM> GetExternalbox(int mail_id, int Depa, int type)
         {
             try

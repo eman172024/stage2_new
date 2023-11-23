@@ -424,5 +424,21 @@ namespace MMSystem.Controllers
 
         }
 
+
+        [HttpGet("GetRepliesList")]
+        public async Task<IActionResult> GetRepliesList(int SendsToId,int userid)
+        {
+
+            List<RViewModel> list = await _Imail.GetRepliesList(SendsToId,  userid);
+            if (list.Count > 0)
+                return Ok(list);
+            return BadRequest(new Result() { message = "لايوجد ردود للبريد", statusCode = 404 });
+
+
+        }
+
+
+
     }
+
 }
