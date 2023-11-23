@@ -3068,7 +3068,7 @@ this.conn.onmessage = (event) => {
 
       this.sends_id = sends_id;
       
-
+      this.department_Id = my_department_id_to_get_mail_by_id;
       
 
       this.departmentName = departmentName;
@@ -3078,9 +3078,6 @@ this.conn.onmessage = (event) => {
 
 
      
-      this.my_department_id_to_get_mail_by_id =
-        my_department_id_to_get_mail_by_id;
-
      
       this.sends_id_to_get_mail_by_id = sends_id;
       
@@ -3098,7 +3095,7 @@ this.conn.onmessage = (event) => {
           this.to_test_passing_mail_type_to_get_mail_by_id
         )
         .then((res) => {
-          this.department_Id = res.data.mail.department_Id;
+         
           this.replies = res.data.list;
 
           setTimeout(() => {
