@@ -867,7 +867,7 @@
                         {{ mail.type_of_mail | mail_type }}
                       </div>
 
-                      <div v-if=" (mail.mangment_sender_id > 89 && isperent!='true') || isperent == 'true' " class="w-5/12 truncate text-center">
+                      <div v-if=" (mail.resendfrom == 0 && isperent!='true') || isperent == 'true' " class="w-5/12 truncate text-center">
                         {{ mail.mangment_sender }}
                       </div>
 
