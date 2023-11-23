@@ -1360,48 +1360,51 @@ namespace MMSystem.Services.MailServeic
                 model.mail = await Getdto(mail_id, tybe);
                 List<Mail_Resourcescs> mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == model.mail.department_Id).ToListAsync();
                 List<Send_to> c = await _appContext.Sends.Where(x => (x.to == department_Id || x.resendfrom == department_Id) && x.MailID == mail_id ).ToListAsync();
-                
-                var is_resended =  c.Where(x => x.MailID == mail_id  && x.to == department_Id && x.State == true).ToList();
-
-                model.is_resended = is_resended[0].resended;
-             
-                model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
-
-                foreach (var item in c)
+                if (c.Count() != 0)
                 {
+                    var is_resended = c.Where(x => x.MailID == mail_id && x.to == department_Id && x.State == true).ToList();
 
-                    List<RViewModel> replies = await (from x in _appContext.Replies.Where(x => x.send_ToId == item.Id && x.state.Equals(true) && x.IsSend.Equals(true))
-                                                          //       join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
-                                                      select new RViewModel
-                                                      {
-                                                          reply = _mapper.Map<Reply, ReplayDto>(x),
-                                                          Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
-                                                      }).ToListAsync();
+                    if(is_resended.Count()!=0)
+                    model.is_resended = is_resended[0].resended;
 
-                    model.list.AddRange(replies);
-                    List<section_NotesDto> section_N = await (from x in _appContext.section_Notes.Where(x => x.send_ToId == item.Id && x.State == true)
-                                                              join y in _appContext.Sends on x.send_ToId equals y.Id
-                                                              join z in _appContext.Departments.Where(x => x.perent == department_Id) on y.to equals z.Id
-                                                              select new section_NotesDto
-                                                              {
-                                                                  ID = x.ID,                                           
-                                                                  department_id = z.Id,
-                                                                  department_name = z.DepartmentName,
-                                                                  sends_state = y.State,
-                                                                  Note = x.Note,
-                                                                  send_ToId = x.send_ToId,
-                                                                  State = x.State
-                                                              }
-                                                           ).ToListAsync();
+                    model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
 
-                    model.section_Notes.AddRange(section_N);
+                    foreach (var item in c)
+                    {
 
-                    List<Mail_Resourcescs> mail_Resources_resended = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == department_Id).ToListAsync();
+                        List<RViewModel> replies = await (from x in _appContext.Replies.Where(x => x.send_ToId == item.Id && x.state.Equals(true) && x.IsSend.Equals(true))
+                                                              //       join y in _dbCon.Reply_Resources on x.ReplyId equals y.ReplyId
+                                                          select new RViewModel
+                                                          {
+                                                              reply = _mapper.Map<Reply, ReplayDto>(x),
+                                                              Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
+                                                          }).ToListAsync();
+                        if (replies.Count()!=0)  
+                        model.list.AddRange(replies);
+                        
+                        List<section_NotesDto> section_N = await (from x in _appContext.section_Notes.Where(x => x.send_ToId == item.Id && x.State == true)
+                                                                  join y in _appContext.Sends on x.send_ToId equals y.Id
+                                                                  join z in _appContext.Departments.Where(x => x.perent == department_Id) on y.to equals z.Id
+                                                                  select new section_NotesDto
+                                                                  {
+                                                                      ID = x.ID,
+                                                                      department_id = z.Id,
+                                                                      department_name = z.DepartmentName,
+                                                                      sends_state = y.State,
+                                                                      Note = x.Note,
+                                                                      send_ToId = x.send_ToId,
+                                                                      State = x.State
+                                                                  }
+                                                               ).ToListAsync();
 
-                    model.mail_Resources_resended = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resources_resended);
+                        model.section_Notes.AddRange(section_N);
 
+                        List<Mail_Resourcescs> mail_Resources_resended = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == department_Id).ToListAsync();
+
+                        model.mail_Resources_resended = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resources_resended);
+
+                    }
                 }
-
 
 
                 //foreach (var xx in model.mail_Resourcescs)
@@ -1572,29 +1575,31 @@ namespace MMSystem.Services.MailServeic
                 // Send_to c = await _dbCon.Sends.Where(x =>  x.MailID == mail_id&&(dep == true||dep== false&&x.to == Depa )).FirstOrDefaultAsync();
                 // Send_to c = await _dbCon.Sends.Where(x => x.MailID == mail_id && ((dep == true || dep == false) && x.to == Depa)).FirstOrDefaultAsync();
                 List<Send_to> c = await _appContext.Sends.Where(x => (x.to == Depa || x.resendfrom == Depa) && x.MailID == mail_id  && ((dep == true || dep == false))).ToListAsync();
-
-                var is_resended = c.Where(x => x.MailID == mail_id && x.to == Depa && x.State == true).ToList();
+                if (c.Count != 0)
+                {
+                    var is_resended = c.Where(x => x.MailID == mail_id && x.to == Depa && x.State == true).ToList();
 
                 model.is_resended = is_resended[0].resended;
 
 
                 model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
 
-                foreach (var item in c)
-                {
+                    foreach (var item in c)
+                    {
 
-                    List<ReplayModel> replies = await (from x in _appContext.Replies.Where(x => x.send_ToId == item.Id && x.state.Equals(true) && x.IsSend.Equals(true))
-                                                           //  join y in _dbCon.Reply_Resources.Where(x=>x.ReplyId==x.ID)
-                                                       select new ReplayModel
-                                                       {
-                                                           DepRepaly = item.to.ToString(),
-                                                           reply = _mapper.Map<Reply, ReplayDto>(x),
-                                                           Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
-                                                       }).ToListAsync();
-
+                        List<ReplayModel> replies = await (from x in _appContext.Replies.Where(x => x.send_ToId == item.Id && x.state.Equals(true) && x.IsSend.Equals(true))
+                                                               //  join y in _dbCon.Reply_Resources.Where(x=>x.ReplyId==x.ID)
+                                                           select new ReplayModel
+                                                           {
+                                                               DepRepaly = item.to.ToString(),
+                                                               reply = _mapper.Map<Reply, ReplayDto>(x),
+                                                               Resources = x._Resources.Where(a => a.State == true && x.ReplyId == x.ReplyId).Any()
+                                                           }).ToListAsync();
+                        if (replies.Count() != 0)
+                        { 
                     model.list.AddRange(replies);
-
-                    List<section_NotesDto> section_N = await (from x in _appContext.section_Notes.Where(x => x.send_ToId == item.Id && x.State == true)
+                        }
+                        List<section_NotesDto> section_N = await (from x in _appContext.section_Notes.Where(x => x.send_ToId == item.Id && x.State == true)
                                                               join y in _appContext.Sends on x.send_ToId equals y.Id
                                                               join z in _appContext.Departments.Where(x => x.perent == Depa) on y.to equals z.Id
                                                               select new section_NotesDto
@@ -1617,7 +1622,7 @@ namespace MMSystem.Services.MailServeic
 
                 }
 
-
+                }
                 //foreach (var xx in model.mail_Resourcescs)
                 //{
                 //    string x = xx.path;
@@ -2546,7 +2551,7 @@ namespace MMSystem.Services.MailServeic
                                    time_of_send = (send.Send_time.ToString().EndsWith("0000000")) ? "لم يتم الارسال" : send.Send_time.ToString("hh:mm:ss")
                                }).ToListAsync();
 
-            //    var department1 = await _appContext.Departments.Where(x => x.Id ==  );
+                
              
                 var c =  await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true)
                        join send in _appContext.Sends.Where(x => x.State == true && x.to == department_id) on mail.MailID equals send.MailID
@@ -2560,6 +2565,7 @@ namespace MMSystem.Services.MailServeic
                              //   
                              select new SendsDetalies()
                        {
+                           sends_from = send.resendfrom,
                            Department_id = send.resendfrom == 0 ? mail.Department_Id : send.resendfrom,
                            Department_name = department.DepartmentName  ,
                            flag = mailState.flag,
@@ -2573,6 +2579,12 @@ namespace MMSystem.Services.MailServeic
                            time_of_send = (send.Send_time.ToString().EndsWith("0000000")) ? "لم يتم الارسال" : send.Send_time.ToString("hh:mm:ss")
                        }).ToListAsync();
 
+                if (c[0].sends_from != 0)
+                {
+                    Department department1 = await _appContext.Departments.FindAsync(c[0].Department_id);
+
+                c[0].Department_name = department1.DepartmentName;
+                }
 
 
 
