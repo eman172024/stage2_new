@@ -488,8 +488,7 @@ namespace MMSystem.Services.ReceivedMail
 
                                 select new Sended_Maill()
                                 {
-                                    entity_refernceNum=exin== null ? 0 :exin.entity_reference_number,
-                                   
+                                    entity_refernceNum=exin== null ? 0 :exin.entity_reference_number,                               
                                     externalInbox_sectionid = exin == null ? 0 : exin.SectionId,
                                     typeofsend = b1 == null ? 1 : b1.type_of_send,
                                     mail_id = mail.MailID,
@@ -540,7 +539,8 @@ namespace MMSystem.Services.ReceivedMail
 
                          select new Sended_Maill()
                          {
-                             entity_refernceNum = mail == null ? 0 : mail.entity_refernceNum,                            
+                            
+                             entity_refernceNum = mail == null ? 0 : mail.entity_refernceNum,                    
                              externalInbox_sectionid = mail == null ? 0 : mail.externalInbox_sectionid,
                              measure_id = dx == null ? 1 : dx.MeasuresId,
                              typeofsend = mail.typeofsend,
@@ -567,19 +567,15 @@ namespace MMSystem.Services.ReceivedMail
                              dep_fil = mail.dep_fil,
                              
 
-
-
                          }).OrderByDescending(v => v.date2).ToList();
 
 
                 pag.mail = c.OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToList();
 
 
-
                 pag.Total = c.Count();
 
                 return pag;
-
 
             }
 
