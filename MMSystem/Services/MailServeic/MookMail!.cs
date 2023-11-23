@@ -1436,7 +1436,7 @@ namespace MMSystem.Services.MailServeic
 
         }
 
-        public async Task<List<RViewModel>> GetRepliesList(int SendsToId,  int userid)
+        public async Task<List<RViewModel>> GetRepliesList(int SendsToId)
         {
             try
             {
