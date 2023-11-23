@@ -21,7 +21,7 @@ namespace MMSystem.Model.ViewModel
         public string time_of_send { get; set; }
         public string time_of_read{ get; set; }
 
-
+        public int sends_from { get; set; }
 
 
         // public List<ReplayDto> Replies { get; set; } = new List<ReplayDto>();
