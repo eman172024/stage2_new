@@ -1055,6 +1055,7 @@
                       :class="sender.flag | mail_state_inbox"
                       class="group relative border-r-8 bg-white hover:bg-gray-100 pl-2"
                     >
+
                       <button
                         @click="
                           to_pass_data_to_get_mail_by_id(
@@ -2235,6 +2236,9 @@ consol.log("code inbox.vue="+event.code);
   data() {
     return {
 
+
+      sends_id22: 0,
+
       perent_id:0,
       perent_name:"",
 
@@ -3080,6 +3084,8 @@ this.conn.onmessage = (event) => {
      
      
       this.sends_id_to_get_mail_by_id = sends_id;
+
+      
       
 
       this.getMailById();
@@ -3088,74 +3094,93 @@ this.conn.onmessage = (event) => {
     getMailById() {
       this.reply_to_add = "";
       this.imagesToSend = [];
-      this.$http.mailService
-        .GetInboxMailById2(
-          this.mailId_to_get_mail_by_id,
-          this.my_department_id_to_get_mail_by_id,
-          this.to_test_passing_mail_type_to_get_mail_by_id
-        )
+
+
+   this.$http.mailService
+        .GetReplies(this.sends_id_to_get_mail_by_id)
         .then((res) => {
          
-          this.replies = res.data.list;
+          this.replies = res.data;
 
           setTimeout(() => {
             // document.getElementById("scroll").scrollTop =
             //   document.getElementById("scroll").scrollHeight;
           }, 100);
 
-          this.consignees = res.data.actionSenders;
-
-          this.imagesToShow = res.data.mail_Resourcescs;
-
-          if (this.imagesToShow.length > 0) {
-            this.testimage = this.imagesToShow[0].path;
-          }
-
-          if (this.to_test_passing_mail_type == "2") {
-            this.external_mailId = res.data.external.id;
-
-            this.action_required_by_the_entity =
-              res.data.external.action_required_by_the_entity;
-
-            this.mail_forwarding = res.data.external.action;
-
-            this.mail_forwarding_sector_side = res.data.sector.type;
-
-            this.sectorNameSelected = res.data.sector.section_Name;
-
-            this.sideNameSelected = res.data.side.section_Name;
-          }
-          if (this.to_test_passing_mail_type == "3") {
-            this.external_mailId = res.data.inbox.id;
-
-            this.mail_forwarding = res.data.inbox.action;
-
-            this.mail_forwarding_sector_side = res.data.sector.type;
-
-            this.sectorNameSelected = res.data.sector.section_Name;
-
-            this.sideNameSelected = res.data.side.section_Name;
-
-            this.ward_to = res.data.inbox.to;
-
-            this.mail_ward_type = res.data.inbox.type;
-
-            this.entity_mail_date = res.data.inbox.send_time;
-
-            this.entity_reference_number =
-              res.data.inbox.entity_reference_number;
-
-            this.procedure_type = res.data.inbox.procedure_type;
-          }
-
-          //   this.GetDocmentForMail();
-          //   this.GetDocmentForMailToShow();
-
-          //   this.GetProcessingResponses()
-        })
+      })
         .catch((err) => {
           console.log(err);
         });
+
+
+      // this.$http.mailService
+      //   .GetInboxMailById2(
+      //     this.mailId_to_get_mail_by_id,
+      //     this.my_department_id_to_get_mail_by_id,
+      //     this.to_test_passing_mail_type_to_get_mail_by_id
+      //   )
+      //   .then((res) => {
+         
+      //     this.replies = res.data.list;
+
+      //     setTimeout(() => {
+      //       // document.getElementById("scroll").scrollTop =
+      //       //   document.getElementById("scroll").scrollHeight;
+      //     }, 100);
+
+      //     this.consignees = res.data.actionSenders;
+
+      //     this.imagesToShow = res.data.mail_Resourcescs;
+
+      //     if (this.imagesToShow.length > 0) {
+      //       this.testimage = this.imagesToShow[0].path;
+      //     }
+
+      //     if (this.to_test_passing_mail_type == "2") {
+      //       this.external_mailId = res.data.external.id;
+
+      //       this.action_required_by_the_entity =
+      //         res.data.external.action_required_by_the_entity;
+
+      //       this.mail_forwarding = res.data.external.action;
+
+      //       this.mail_forwarding_sector_side = res.data.sector.type;
+
+      //       this.sectorNameSelected = res.data.sector.section_Name;
+
+      //       this.sideNameSelected = res.data.side.section_Name;
+      //     }
+      //     if (this.to_test_passing_mail_type == "3") {
+      //       this.external_mailId = res.data.inbox.id;
+
+      //       this.mail_forwarding = res.data.inbox.action;
+
+      //       this.mail_forwarding_sector_side = res.data.sector.type;
+
+      //       this.sectorNameSelected = res.data.sector.section_Name;
+
+      //       this.sideNameSelected = res.data.side.section_Name;
+
+      //       this.ward_to = res.data.inbox.to;
+
+      //       this.mail_ward_type = res.data.inbox.type;
+
+      //       this.entity_mail_date = res.data.inbox.send_time;
+
+      //       this.entity_reference_number =
+      //         res.data.inbox.entity_reference_number;
+
+      //       this.procedure_type = res.data.inbox.procedure_type;
+      //     }
+
+      //     //   this.GetDocmentForMail();
+      //     //   this.GetDocmentForMailToShow();
+
+      //     //   this.GetProcessingResponses()
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
     },
 
     previousImage() {
