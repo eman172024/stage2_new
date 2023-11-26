@@ -1358,6 +1358,9 @@ namespace MMSystem.Services.MailServeic
 
                 
                 model.mail = await Getdto(mail_id, tybe);
+
+                Department dpart = await _appContext.Departments.FindAsync(department_Id);
+                
                 List<Mail_Resourcescs> mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == model.mail.department_Id).ToListAsync();
                 List<Send_to> c = await _appContext.Sends.Where(x => (x.to == department_Id || x.resendfrom == department_Id) && x.MailID == mail_id ).ToListAsync();
                 if (c.Count() != 0)
@@ -1387,8 +1390,9 @@ namespace MMSystem.Services.MailServeic
                                                                       send_ToId = x.send_ToId,
                                                                       State = x.State
                                                                   }
-                                                               ).ToListAsync();
-
+                               
+                                                                  ).ToListAsync();
+                        
                         model.section_Notes.AddRange(section_N);
 
                         List<Mail_Resourcescs> mail_Resources_resended = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == department_Id).ToListAsync();
@@ -1396,8 +1400,15 @@ namespace MMSystem.Services.MailServeic
                         model.mail_Resources_resended = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resources_resended);
 
                     }
+
+                    if (dpart.perent != 0) {
+
+               var h = await _appContext.section_Notes.Where(x => x.send_ToId == c[0].Id).ToListAsync();
+                    
+                    model.mail.Action_Required =h[0].Note;
+                    }
                 }
-               
+
                 //foreach (var xx in model.mail_Resourcescs)
                 //{
                 //    string x = xx.path;
@@ -1422,8 +1433,7 @@ namespace MMSystem.Services.MailServeic
 
                 //    }
                 //}
-
-
+                
                 return model;
 
 
@@ -1567,6 +1577,9 @@ namespace MMSystem.Services.MailServeic
                 }
                 //   Mail mail = await _dbCon.Mails.FindAsync(mail_id);
                 model.mail = await Getdto(mail_id, type);
+
+                Department dpart = await _appContext.Departments.FindAsync(Depa);
+
                 Extrenal_inbox external_Mail = await _appContext.Extrenal_Inboxes.OrderBy(x => x.Id).FirstOrDefaultAsync(x => x.MailID == mail_id);
                 //  model.side = await _dbCon.Extrmal_Sections.FindAsync(external_Mail.SectionId);
                 // model.Sector = await _dbCon.Extrmal_Sections.FirstOrDefaultAsync(x => x.id == model.side.perent);
@@ -1639,6 +1652,13 @@ namespace MMSystem.Services.MailServeic
                     model.mail_Resources_resended = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resources_resended);
 
                 }
+                    if (dpart.perent != 0)
+                    {
+
+                        var h = await _appContext.section_Notes.Where(x => x.send_ToId == c[0].Id).ToListAsync();
+
+                        model.mail.Action_Required = h[0].Note;
+                    }
 
                 }
                 //foreach (var xx in model.mail_Resourcescs)
@@ -1853,7 +1873,7 @@ namespace MMSystem.Services.MailServeic
                             mail.departments = await _appContext.Departments.ToListAsync();
                             foreach (var item in mail.actionSenders)
                             {
-                                mail.departments.RemoveAll(x => x.Id == item.departmentId);
+                                mail.departments.RemoveAll(x => x.Id == item.departmentId );
                             }
 
 
@@ -1975,7 +1995,7 @@ namespace MMSystem.Services.MailServeic
                 {
 
                     mail.mail = dto;
-                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID&&x.State==true).ToListAsync();
+                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID&&x.State==true && x.resendfrom ==0).ToListAsync();
                     if (sends.Count > 0) {
                         foreach (var item in sends)
                         {
@@ -2499,7 +2519,7 @@ namespace MMSystem.Services.MailServeic
 
 
                 var c = await (from mail in _appContext.Mails.Where(x => x.MailID == mail_id && x.state == true)
-                               join send in _appContext.Sends.Where(x => x.State == true) on mail.MailID equals send.MailID
+                               join send in _appContext.Sends.Where(x => x.State == true && x.resendfrom == 0) on mail.MailID equals send.MailID
                                join department in _appContext.Departments on send.to equals department.Id
                                join measures in _appContext.measures on send.type_of_send equals measures.MeasuresId
                                join mailState in _appContext.MailStatuses on send.flag equals mailState.flag
