@@ -3,6 +3,12 @@ import axios from 'axios';
 export default {
 
 
+    GetReplies(sends_id) {
+        return axios.get(`/api/Mail/GetRepliesList?SendsToId=${sends_id}`);
+        //  return axios.get(`http://mail:82/api/Reply/GetReplyById?department_id=${department}&mail_id=${mail}`);
+    },
+
+
     delete_reply(id, userid) {
 
         return axios.put(`/api/Reply/DeleteReply?id=${id}&&UserId=${userid}`);
