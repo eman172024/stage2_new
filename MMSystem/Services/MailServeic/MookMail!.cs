@@ -1811,6 +1811,7 @@ namespace MMSystem.Services.MailServeic
                     mail.MailID = file.mail_id;
                     mail.path = path + extention;
                     mail.order = item.index;
+                    mail.fromWho = item.department_id;
                 
                    
                  
