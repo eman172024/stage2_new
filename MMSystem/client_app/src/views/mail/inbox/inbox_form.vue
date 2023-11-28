@@ -2265,7 +2265,8 @@ this.$http.mailService
         .UploadImagesMail(
           this.mailId,
           this.imagesToSend,
-          Number(localStorage.getItem("AY_LW"))
+          Number(localStorage.getItem("AY_LW"),
+          this.my_department_id)
         )
         //*************end 20/11/2022
         .then((res) => {
