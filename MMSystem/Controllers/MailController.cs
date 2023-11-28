@@ -432,7 +432,7 @@ namespace MMSystem.Controllers
             List<RViewModel> list = await _Imail.GetRepliesList(SendsToId);
             if (list.Count > 0)
                 return Ok(list);
-            return BadRequest(new Result() { message = "لايوجد ردود للبريد", statusCode = 404 });
+            return  BadRequest(new Result() { message = "لايوجد ردود للبريد", statusCode = 404 });
 
 
         }
