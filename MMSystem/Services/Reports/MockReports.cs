@@ -818,11 +818,13 @@ namespace MMSystem.Services.Reports
             }
 
 
-          
 
 
+            var dep1 = await _data.Departments.FindAsync(departmentid);
 
-            var dep = await _data.Departments.Where(x => x.Id != departmentid).ToListAsync();
+
+            var dep = await _data.Departments.Where(x => x.Id != departmentid && (x.perent == 0 || x.perent == departmentid || x.perent == dep1.perent)).ToListAsync();
+           
             var listOfStautes = await _data.MailStatuses.ToListAsync();
 
 
