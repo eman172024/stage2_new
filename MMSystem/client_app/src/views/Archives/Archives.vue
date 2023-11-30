@@ -1626,6 +1626,8 @@ this.mail_id = "";
 this.summary = "";
 this.sectorIdSelected = 0;
 
+
+
 this.selectdepartment('', 'الكل');
 this.pass_side(0, 'الكل')
 this.get_sides(0,'الكل')
