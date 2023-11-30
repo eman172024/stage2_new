@@ -508,6 +508,66 @@
                             {{ side.section_Name }}
                           </button>
                         </div>
+
+
+                        <div class="flex justify-between">
+
+
+                      <div class="mt-6">
+                    
+                    <button 
+                    @click="   page_num=1; GetMailsForArchives();filter = !filter"
+                    
+                    id="search_button" class="
+                    px-8
+                mr-2
+                bg-green-700
+                text-green-50
+                rounded-md
+                py-2
+                border border-green-300
+                hover:bg-green-800
+                focus:outline-none
+                flex
+                items-center
+                justify-center
+                col-span-2
+                        ">
+
+                        <span class="text-sm font-bold block ml-1"> بحث</span>
+                    </button>
+                    
+                  </div>
+
+                  <div class="mt-6">
+                
+                <button 
+                @click="   
+                   search_reset()"
+                
+                id="search_button" class="
+                px-8
+            mr-2
+            bg-green-700
+            text-green-50
+            rounded-md
+            py-2
+            border border-green-300
+            hover:bg-green-800
+            focus:outline-none
+            flex
+            items-center
+            justify-center
+            col-span-2
+                    ">
+
+                    <span class="text-sm font-bold block ml-1"> جديد</span>
+                </button>
+                
+              </div>
+            </div>
+                
+                
                       </div>
                     </div>
                   </div>
@@ -1432,39 +1492,41 @@ export default {
       this.page_num = 1;
       this.GetMailsForArchives();
     },
-    mail_id: function() {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.page_num = 1;
-      this.GetMailsForArchives();
-    },
-    summary: function() {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.page_num = 1;
-      this.GetMailsForArchives();
-    },
-    departmentIdSelected: function() {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.page_num = 1;
-      this.GetMailsForArchives();
-    },
 
-    sideIdSelected: function() {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.page_num = 1;
-      this.GetMailsForArchives();
-    },
 
-    sectorIdSelected: function() {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.page_num = 1;
+    // mail_id: function() {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.page_num = 1;
+    //   this.GetMailsForArchives();
+    // },
+    // summary: function() {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.page_num = 1;
+    //   this.GetMailsForArchives();
+    // },
+    // departmentIdSelected: function() {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.page_num = 1;
+    //   this.GetMailsForArchives();
+    // },
+
+    // sideIdSelected: function() {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.page_num = 1;
+    //   this.GetMailsForArchives();
+    // },
+
+    // sectorIdSelected: function() {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.page_num = 1;
       
-      this.GetMailsForArchives();
-    },
+    //   this.GetMailsForArchives();
+    // },
   },
 
   components: {
@@ -1555,6 +1617,25 @@ export default {
   },
 
   methods: {
+
+
+
+    search_reset(){
+
+this.mail_id = "";
+this.summary = "";
+this.sectorIdSelected = 0;
+
+this.selectdepartment('', 'الكل');
+this.pass_side(0, 'الكل')
+this.get_sides(0,'الكل')
+
+
+
+
+
+},
+
     pass_side(id, name) {
 
      
