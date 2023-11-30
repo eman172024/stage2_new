@@ -587,5 +587,56 @@ namespace MMSystem.Services.MailServeic
             return list;
 
         }
+
+        public async Task<RessObj> GetSingleImage( int id)
+        {
+            try
+            {
+
+                RessObj ressPage = new RessObj();
+
+
+                ressPage.total = _dbCon.Mail_Resourcescs.Where(x => x.State.Equals(true) &&x.ID==id).ToList().Count();
+
+                var list = await _dbCon.Mail_Resourcescs.OrderBy(x => x.order).
+                 Where(x => x.ID == id && x.State == true).Take(1).ToListAsync();
+
+                if (list.Count > 0)
+                {
+
+                    var data = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(list);
+
+                    foreach (var xx in list)
+                    {
+                        string pat = xx.path;
+                        xx.path = await tobase64(pat);
+                    }
+
+
+                    ressPage.data = data.FirstOrDefault();
+                    string x = ressPage.data.path;
+
+                    ressPage.data.path = await tobase64(x);
+
+
+                    return ressPage;
+
+                }
+
+                else
+                {
+                    return ressPage;
+
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
     }
 }

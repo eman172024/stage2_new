@@ -12,6 +12,7 @@ namespace MMSystem.Model
         [Key]
         public int MailID { get; set; }
         public int Mail_Number { get; set; }
+
         public int Department_Id { get; set; }
         public DateTime Date_Of_Mail { get; set; }
         public string Mail_Summary { get; set; }
@@ -38,9 +39,9 @@ namespace MMSystem.Model
 
         public string conclusion { get; set; }
         public string office_type { get; set; }
-
+    
         public List<External_Department> external_Departments { get; set; }
-
+        public List<Mail_Resourcescs> mail_Resourcescs { get; set; }
 
 
 

@@ -27,7 +27,7 @@
                     min="2000-12-01"
                     max="2040-12-30"
                     id="date_from"
-                    v-model="date_from"
+                    v-model="date_from"  @change="change_date"
                     class="block mr-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
                   />
                 </span>
@@ -41,7 +41,7 @@
                     min="2000-12-01"
                     max="2040-12-30"
                     id="date_to"
-                    v-model="date_to"
+                    v-model="date_to"   @change="change_date"
                     class="block mr-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
                   />
                 </span>
@@ -1794,7 +1794,7 @@ console.log("code sent.vue="+event.code);
       this.departmentflag = 0;
       this.departmentName = "";
       this.page_num = 1;
-      this.GetSentMail();
+     // this.GetSentMail();
     },
     date_to: function () {
       this.senders = [];
@@ -1803,7 +1803,7 @@ console.log("code sent.vue="+event.code);
       this.departmentflag = 0;
       this.departmentName = "";
       this.page_num = 1;
-      this.GetSentMail();
+     // this.GetSentMail();
     },
 
 
@@ -2047,6 +2047,12 @@ console.log("code sent.vue="+event.code);
 
   methods: {
 
+//*************added function change_date
+change_date(){
+  console.log("ch_change");
+  this.GetSentMail();
+},
+//**********end function change_date
 
 search_reset(){
 

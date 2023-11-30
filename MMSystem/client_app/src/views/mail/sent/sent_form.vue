@@ -3316,11 +3316,11 @@
                 <div class="bg-white p-1 overflow-y-scroll mt-4 h-screen-75">
                     <button 
                       @click="select_image_to_ordering(n)" 
-                      class="my-1 py-1  w-full" v-for="n in ordering_image_list" :key="n.id"
+                      class="my-1 py-1  w-full" v-for="(n, index) in ordering_image_list" :key="n.id"
                       :class="index_of_image_selected == n.order? 'bg-blue-700 hover:bg-blue-600' : 'bg-gray-700 hover:bg-gray-600'"
                       >
                       الصورة رقم 
-                      {{ n.order }}
+                      {{ index+1 }}
                     </button>
               
                 </div>
@@ -3347,11 +3347,11 @@
                 <div class="bg-white p-1 overflow-y-scroll mt-4 h-screen-75">
                     <button 
                       @click="select_image_to_ordering(n)" 
-                      class="my-1 py-1  w-full" v-for="n in new_ordering_image_list" :key="n.id"
+                      class="my-1 py-1  w-full" v-for="(n, index) in new_ordering_image_list" :key="n.id"
                       :class="index_of_image_selected == n.order? 'bg-blue-700 hover:bg-blue-600' : 'bg-gray-700 hover:bg-gray-600'"
                       >
                       الصورة رقم 
-                      {{ n.order }}
+                      {{ index+1 }}
                     </button>
               
                 </div>
@@ -3647,6 +3647,8 @@ console.log("index="+ind);
 
   data() {
     return {
+
+      id_of_image_selected : '',
       selected_image:'',
       ordering_image_list: [],
       new_ordering_image_list: [],
@@ -4004,21 +4006,30 @@ console.log("index="+ind);
   methods: {
 
     transfer_back_images_to_order(){
+
+      if( this.selected_image != ''){
+
       for (let index = 0; index < this.new_ordering_image_list.length; index++) {
         const element = this.new_ordering_image_list[index];
         this.ordering_image_list.push(element)
         
       }
       this.new_ordering_image_list = []
+      }
     },
 
     transfer_all_images_to_order(){
+
+      if( this.selected_image != ''){
+
       for (let index = 0; index < this.ordering_image_list.length; index++) {
         const element = this.ordering_image_list[index];
         this.new_ordering_image_list.push(element)
         
       }
       this.ordering_image_list = []
+
+      }
     },
 
     save_new_order(){
@@ -4036,6 +4047,9 @@ console.log("index="+ind);
             console.log(res)
             this.show_model_to_order_image = false;
 
+            this.new_ordering_image_list = []
+            this.doc_number = 0;
+            this.GetAllDocN("next");
             setTimeout(() => {
               this.screenFreeze = false;
         this.loading = false;
@@ -4050,6 +4064,11 @@ console.log("index="+ind);
     },
 
     transfer_image_to_order(){
+
+
+      if( this.selected_image != ''){
+
+
       this.new_ordering_image_list.push(this.selected_image)
 
       const index = this.ordering_image_list.findIndex((element, index) => {
@@ -4061,11 +4080,17 @@ console.log("index="+ind);
         }
       });
       this.ordering_image_list.splice(index, 1);
+
+      }
     },
 
 
     transfer_back_image_to_order(){
-      this.ordering_image_list.push(this.selected_image)
+
+ 
+
+      if( this.selected_image != ''){
+        this.ordering_image_list.push(this.selected_image)
 
       const index = this.new_ordering_image_list.findIndex((element, index) => {
         if (
@@ -4076,6 +4101,8 @@ console.log("index="+ind);
         }
       });
       this.new_ordering_image_list.splice(index, 1);
+      }
+      
     },
 
     open_model_to_order_image() {
@@ -4089,8 +4116,11 @@ console.log("index="+ind);
 
 
     select_image_to_ordering(n){
+
+      
       this.selected_image = n
       this.index_of_image_selected = n.order
+      this.id_of_image_selected = n.id
 
     },
 
@@ -4115,17 +4145,21 @@ console.log("index="+ind);
 
     
     show_image_to_ordering() {
-      // doc_number_to_search
+
+
+      if( this.selected_image != ''){
 
     
     
         this.$http.documentService
-          .GetAllDocN(this.mailId, this.index_of_image_selected)
+          .show_doc_for_order(this.id_of_image_selected)
           .then((res) => {
+
+            console.log(res)
             this.total_of_doc = res.data.total;
 
             this.image_ordering = res.data.data.path;
-            this.id_image_ordering = res.data.data.id;
+           this.id_image_ordering = res.data.data.id;
 
             setTimeout(() => {
               this.screenFreeze = false;
@@ -4137,6 +4171,8 @@ console.log("index="+ind);
             this.loading = false;
             console.log(err);
           });
+
+      }
     },
 
 
