@@ -1795,7 +1795,13 @@ console.log("code inbox_form="+event.code);
 
       this.getMailById();
       this.GetAllDocN("next");
+
+      if(this.isperent=='true'){
       this.GetAllDepartments2();
+    }
+
+
+
     } else {
     }
   },
