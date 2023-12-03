@@ -209,8 +209,8 @@ export default {
     // UploadImagesMail(id, list) {
     //      return axios.post(`/api/Mail/Uplode`, { userId: 9, mail_id: Number(id), list: list, })
     //  return axios.post(`http://mail:82/api/Mail/Uplode`, { userId: 9, mail_id: Number(id), list: list, })
-    UploadImagesMail(id, list, userId) {
-        return axios.post(`/api/Mail/Uplode`, { userId: userId, mail_id: Number(id), list: list, })
+    UploadImagesMail(id, list, userId,department_id) {
+        return axios.post(`/api/Mail/Uplode`, { userId: userId, mail_id: Number(id), list: list, department_id:Number(department_id)})
             // return axios.post(`http://mail:82/api/Mail/Uplode`, { userId: userId, mail_id: Number(id), list: list, })
 
     },

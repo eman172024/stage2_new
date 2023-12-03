@@ -3094,7 +3094,7 @@ this.conn.onmessage = (event) => {
     getMailById() {
       this.reply_to_add = "";
       this.imagesToSend = [];
-
+      //this.replies =[];
 
    this.$http.mailService
         .GetReplies(this.sends_id_to_get_mail_by_id)

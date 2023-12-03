@@ -1795,7 +1795,13 @@ console.log("code inbox_form="+event.code);
 
       this.getMailById();
       this.GetAllDocN("next");
+
+      if(this.isperent=='true'){
       this.GetAllDepartments2();
+    }
+
+
+
     } else {
     }
   },
@@ -2265,7 +2271,8 @@ this.$http.mailService
         .UploadImagesMail(
           this.mailId,
           this.imagesToSend,
-          Number(localStorage.getItem("AY_LW"))
+          Number(localStorage.getItem("AY_LW"),
+          this.my_department_id)
         )
         //*************end 20/11/2022
         .then((res) => {
