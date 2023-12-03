@@ -1401,6 +1401,7 @@ namespace MMSystem.Services.MailServeic
 
                     }
 
+
                    if (dpart.perent != 0) {
 
                     var h = await _appContext.section_Notes.Where(x => x.send_ToId == c[0].Id).ToListAsync();
@@ -1409,6 +1410,7 @@ namespace MMSystem.Services.MailServeic
                      model.mail.Action_Required =h[0].Note;
                     
                     }
+
                 }
 
                 //foreach (var xx in model.mail_Resourcescs)
