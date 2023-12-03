@@ -2271,8 +2271,8 @@ this.$http.mailService
         .UploadImagesMail(
           this.mailId,
           this.imagesToSend,
-          Number(localStorage.getItem("AY_LW"),
-          this.my_department_id)
+          Number(localStorage.getItem("AY_LW"))
+    
         )
         //*************end 20/11/2022
         .then((res) => {
@@ -2331,6 +2331,7 @@ this.$http.mailService
               this.imagesToSend.push({
                 baseAs64: mgs["image"][i],
                 index: this.indexOfimagesToShow,
+                department_id:Number(this.my_department_id),
               });
             }
 
@@ -2597,7 +2598,7 @@ this.$http.mailService
             this.procedure_type = res.data.inbox.procedure_type;
           }
 
-          this.to_get_all_doc_of_mail();
+        //  this.to_get_all_doc_of_mail();
           //   this.GetDocmentForMail();
           //   this.GetDocmentForMailToShow();
 
@@ -2788,6 +2789,7 @@ this.$http.mailService
               this.imagesToSend.push({
                 baseAs64: mgs["image"][i],
                 index: this.indexOfimagesToShow,
+                department_id:Number(this.my_department_id),
               });
             }
           }
@@ -3052,6 +3054,7 @@ this.$http.mailService
         this.imagesToSend.push({
           baseAs64: scannedImage.src,
           index: this.indexOfimagesToShow,
+          department_id:Number(this.my_department_id),
         });
 
         // if (this.imagesToSend.length > 0) {

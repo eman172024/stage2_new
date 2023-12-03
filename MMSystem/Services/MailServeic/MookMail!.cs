@@ -1355,13 +1355,20 @@ namespace MMSystem.Services.MailServeic
             {
 
                 MVM model = new MVM();
+                List<Mail_Resourcescs> mail_Resourcescs = new List<Mail_Resourcescs>();
 
-                
+
                 model.mail = await Getdto(mail_id, tybe);
 
                 Department dpart = await _appContext.Departments.FindAsync(department_Id);
-                
-                List<Mail_Resourcescs> mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == model.mail.department_Id).ToListAsync();
+
+                if (dpart.perent != 0)
+                {
+                    mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true &&  x.fromWho == dpart.perent).ToListAsync();
+                }
+                else {
+                    mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == model.mail.department_Id ).ToListAsync();
+                }
                 List<Send_to> c = await _appContext.Sends.Where(x => (x.to == department_Id || x.resendfrom == department_Id) && x.MailID == mail_id ).ToListAsync();
                 if (c.Count() != 0)
                 {
@@ -1573,6 +1580,7 @@ namespace MMSystem.Services.MailServeic
             {
 
                 ExInboxModel model = new ExInboxModel();
+                List<Mail_Resourcescs> mail_Resourcescs = new List<Mail_Resourcescs>();
                 bool dep = false;
                 if (Depa == 21)
                 {
@@ -1606,8 +1614,16 @@ namespace MMSystem.Services.MailServeic
                         .ToListAsync();
 
                 model.Inbox = _mapper.Map<Extrenal_inbox, Extrenal_inboxDto>(external_Mail);
-                List<Mail_Resourcescs> mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == model.mail.department_Id).ToListAsync();
-                // Send_to c = await _dbCon.Sends.Where(x =>  x.MailID == mail_id&&(dep == true||dep== false&&x.to == Depa )).FirstOrDefaultAsync();
+
+
+                if (dpart.perent != 0)
+                {
+                    mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == dpart.perent).ToListAsync();
+                }
+                else
+                {
+                    mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == model.mail.department_Id).ToListAsync();
+                }          // Send_to c = await _dbCon.Sends.Where(x =>  x.MailID == mail_id&&(dep == true||dep== false&&x.to == Depa )).FirstOrDefaultAsync();
                 // Send_to c = await _dbCon.Sends.Where(x => x.MailID == mail_id && ((dep == true || dep == false) && x.to == Depa)).FirstOrDefaultAsync();
                 List<Send_to> c = await _appContext.Sends.Where(x => (x.to == Depa || x.resendfrom == Depa) && x.MailID == mail_id  && ((dep == true || dep == false))).ToListAsync();
                 if (c.Count != 0)

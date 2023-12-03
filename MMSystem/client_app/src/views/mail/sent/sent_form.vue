@@ -4010,6 +4010,7 @@ console.log("fun1");
               this.imagesToSend.push({
                 baseAs64: mgs["image"][i],
                 index: this.indexOfimagesToShow,
+                department_id:Number(this.my_department_id),
               });
             }
 
@@ -5580,6 +5581,7 @@ scanToJpg() {
         this.imagesToSend.push({
           baseAs64: scannedImage.src,
           index: this.indexOfimagesToShow,
+          department_id:Number(this.my_department_id),
         });
 
         // if (this.imagesToSend.length > 0) {
@@ -5633,6 +5635,7 @@ scanToJpg() {
         this.imagesToSend.push({
           baseAs64: scannedImage.src,
           index: this.indexOfimagesToShow,
+          department_id:Number(this.my_department_id),
         });
 
         // if (this.imagesToSend.length > 0) {
@@ -5684,8 +5687,7 @@ scanToJpg() {
         .UploadImagesMail(
           this.mailId,
           this.imagesToSend,
-          Number(localStorage.getItem("AY_LW"),
-          this.my_department_id)
+          Number(localStorage.getItem("AY_LW"))
         )
         //*************end 20/11/2022
         .then((res) => {

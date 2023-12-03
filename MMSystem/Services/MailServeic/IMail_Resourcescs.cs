@@ -23,7 +23,7 @@ namespace MMSystem.Services.MailServeic
         Task<bool> print(int mailid, int userId, int type);
         
         Task<RessPage> GetAllResss(int id, int pageNumber);
-        Task<RessObj> GetAllResswithPage(int id, int pageNumber);
+        Task<RessObj> GetAllResswithPage(int id, int pageNumber, int department_id);
 
         Task<dynamic> delete_all_image(int id,int userid);
 

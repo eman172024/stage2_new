@@ -365,7 +365,7 @@ namespace MMSystem.Services.MailServeic
 
         }
 
-        public async Task<RessObj> GetAllResswithPage(int id, int pageNumber)
+        public async Task<RessObj> GetAllResswithPage(int id, int pageNumber, int department_id)
         {
             try
             {
@@ -373,7 +373,7 @@ namespace MMSystem.Services.MailServeic
                 RessObj ressPage = new RessObj();
 
 
-                ressPage.total = _dbCon.Mail_Resourcescs.Where(x => x.State.Equals(true) && x.MailID == id).ToList().Count();
+                ressPage.total = _dbCon.Mail_Resourcescs.Where(x => x.State.Equals(true) && x.MailID == id && x.fromWho == department_id).ToList().Count();
 
                 var list = await _dbCon.Mail_Resourcescs.
                  Where(x => x.MailID == id&&x.State==true).Skip((pageNumber - 1) * 1).Take(1).ToListAsync();

@@ -2537,6 +2537,7 @@ this.conn.onmessage = (event) => {
           this.imagesToSend.push({
             baseAs64: mgs["image"][i],
             index: this.indexOfimagesToShow,
+            department_id:Number(this.my_department_id),
           });
         }
       }
@@ -2710,6 +2711,7 @@ this.conn.onmessage = (event) => {
         this.imagesToSend.push({
           baseAs64: scannedImage.src,
           index: this.indexOfimagesToShow,
+          department_id:Number(this.my_department_id),
         });
 
         // if (this.imagesToSend.length > 0) {

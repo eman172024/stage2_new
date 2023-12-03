@@ -78,12 +78,12 @@ namespace MMSystem.Controllers
 
         //api/Resources/GetAllDoc
         [HttpGet("GetAllDoc")]
-        public async Task<IActionResult> GetAllDoc(int mail_id, int page_number)
+        public async Task<IActionResult> GetAllDoc(int mail_id, int page_number, int department_id)
         {
 
             try
             {
-                var result = await _resourcescs.GetAllResswithPage(mail_id, page_number);
+                var result = await _resourcescs.GetAllResswithPage(mail_id, page_number,  department_id);
 
                 if (result.total > 0)
                     return Ok(result);
