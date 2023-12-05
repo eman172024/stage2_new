@@ -143,7 +143,7 @@
                 <section class="col-span-2 bg-gray-100 rounded-md p-6">
                   <div class="flex justify-between items-center">
                     <h3 class="block text-base font-semibold text-gray-800">
-                      المستندات
+                     1 المستندات
                     </h3>
                   </div>
 
@@ -875,7 +875,7 @@
                 >
                   <div class="flex justify-between items-center">
                     <h3 class="block text-sm font-semibold text-gray-800">
-                      المستندات
+                    2  المستندات
                       <!-- <div class="">
                         doc_number : {{ doc_number }} //
                         total_of_doc : {{ total_of_doc }}
@@ -985,7 +985,7 @@
                   </div>
 
                   <div class="flex justify-between items-center mt-2">
-                    <div v-if="image_of_doc" class="w-1/2 flex items-center">
+                    <div v-if="image_of_doc2" class="w-1/2 flex items-center">
                       <input
                         type="text"
                         v-model="doc_number_to_search"
@@ -1003,7 +1003,7 @@
 
                     <div class="w-1/2 flex justify-end">
                       <button
-                        v-if="roles.includes('6') && image_of_doc"
+                        v-if="roles.includes('6') && image_of_doc2"
                         @click="prepare_delete_all_documents()"
                         class="bg-red-500 hover:bg-red-400 px-4 py-2 rounded-lg text-white"
                       >
@@ -1013,7 +1013,7 @@
                   </div>
 
                   <div
-                    v-if="image_of_doc"
+                    v-if="image_of_doc2"
                     class="h-72 w-full rounded-md mt-2 mb-10"
                   >
                     <!--  v-if="imagesToSend != '' || imagesToShow != ''" -->
@@ -1025,7 +1025,7 @@
                       <div class="">
                         <div class="relative h-64 w-full">
                           <img
-                            :src="image_of_doc"
+                            :src="image_of_doc2"
                             alt="image"
                             class="w-full h-full rounded object-contain"
                           />
@@ -1114,8 +1114,8 @@
                             <div class="w-8 h-8">
                               <button
                                 title="prev"
-                                v-if="doc_number > 1"
-                                @click="GetAllDocN('prev')"
+                                v-if="doc_number2 > 1"
+                                @click="GetAllDocN_resend('prev')"
                                 class="w-8 h-8 bg-gray-300 rounded flex justify-center items-center"
                               >
                                 <svg
@@ -1136,14 +1136,14 @@
                             </div>
 
                             <div class="">
-                              {{ doc_number }} / {{ total_of_doc }}
+                              {{ doc_number2 }} / {{ total_of_doc2 }}
                             </div>
 
                             <div class="w-8 h-8">
                               <button
-                                v-if="doc_number < total_of_doc"
+                                v-if="doc_number2 < total_of_doc2"
                                 title="next"
-                                @click="GetAllDocN('next')"
+                                @click="GetAllDocN_resend('next')"
                                 class="w-8 h-8 bg-gray-300 rounded flex justify-center items-center"
                               >
                                 <svg
@@ -1373,7 +1373,7 @@
                 <button
                   title="prev"
                   v-if="doc_number > 1"
-                  @click="GetAllDocN('prev')"
+                  @click="GetAllDocN_resend('prev')"
                   class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
                 >
                   <svg
@@ -1726,7 +1726,7 @@ export default {
 },
 
 
-  mounted() {
+   mounted() {
     //21/1/2023*********************websocket
     /***********  this.conn = new WebSocket("ws://localhost:58316/ws");
     //  this.conn = new WebSocket("ws://mail:82/ws");
@@ -1769,11 +1769,20 @@ console.log("code inbox_form="+event.code);
     };*/
     //****************21/1/20232
 
+    this.department_id2 =this.$route.params.department_id2;
 
+    if(this.department_id2){
+
+
+    localStorage.setItem('department_id3',this.department_id2)
+
+    }
+
+    this.department_id2 = localStorage.getItem('department_id3');
 
     this.isperent = localStorage.getItem('isperent');
 
-
+   
 
 
     this.my_user_id = localStorage.getItem("AY_LW");
@@ -1791,12 +1800,19 @@ console.log("code inbox_form="+event.code);
         this.to_test_passing_mail_type = 3;
       }
 
-      this.mailId = this.$route.params.mail;
+              this.mailId = this.$route.params.mail;
+    
 
       this.getMailById();
+
+
+
       this.GetAllDocN("next");
 
+ 
+
       if(this.isperent=='true'){
+        this.GetAllDocN_resend("next");
       this.GetAllDepartments2();
     }
 
@@ -1897,6 +1913,8 @@ alert_prepare_delete_mail: false,
 
       department_Id: "",
 
+      department_id2: "",
+
       imagesToSend: [],
       indexOfimagesToShow: 0,
 
@@ -1942,6 +1960,15 @@ alert_prepare_delete_mail: false,
       image_of_doc: "",
       id_of_doc: "",
       image_to_print_n: [],
+
+
+      doc_number2: 0,
+      total_of_doc2: 0,
+
+      image_of_doc2: "",
+      id_of_doc2: "",
+      image_to_print_n2: [],
+
 
       image_to_print_n_model: false,
       show_current_image_for_bigger_screen_model: false,
@@ -2174,6 +2201,14 @@ this.$http.mailService
           this.image_of_doc = "";
           this.id_of_doc = "";
 
+          this.doc_number2 = 0;
+          this.total_of_doc2 = 0;
+
+          this.image_of_doc2 = "";
+          this.id_of_doc2 = "";
+
+
+
           this.alert_state = true;
           this.alert_state_true_false = true;
 
@@ -2196,7 +2231,7 @@ this.$http.mailService
 
       this.$http.mailService
         .DeleteDocument(
-          Number(this.id_of_doc),
+          Number(this.id_of_doc2),
           Number(localStorage.getItem("AY_LW"))
         )
         .then((res) => {
@@ -2206,13 +2241,22 @@ this.$http.mailService
           this.image_of_doc = "";
           this.id_of_doc = "";
 
+
+          this.doc_number2 = 0;
+          this.total_of_doc2 = 0;
+
+          this.image_of_doc2 = "";
+          this.id_of_doc2 = "";
+
+
           this.alert_state = true;
           this.alert_state_true_false = true;
 
           this.GetAllDocN("next");
+          this.GetAllDocN_resend("next");
 
           // this.imagesToShow.splice(index, 1);
-          this.mail_search();
+         // this.mail_search();
 
           // this.imagesToShow = res.data.result.documents
         })
@@ -2237,6 +2281,14 @@ this.$http.mailService
 
           this.image_of_doc = "";
           this.id_of_doc = "";
+
+
+          this.doc_number2 = 0;
+          this.total_of_doc2 = 0;
+
+          this.image_of_doc2 = "";
+          this.id_of_doc2 = "";
+
 
           this.alert_state = true;
           this.alert_state_true_false = true;
@@ -2285,7 +2337,12 @@ this.$http.mailService
             console.log(res);
 
             this.getMailById();
+
+            this.doc_number2=0;
+            this.doc_number=0;
+            
             this.GetAllDocN("next");
+            this.GetAllDocN_resend("next");
           }, 500);
         })
         .catch((err) => {
@@ -2550,6 +2607,18 @@ this.$http.mailService
           this.consignees=res.data.section_Notes;
           
 
+          // this.total_of_doc = res.data.total;
+
+          // this.image_of_doc = res.data.data.path;
+          // this.id_of_doc = res.data.data.id;
+
+
+          
+          // this.total_of_doc2 = res.data.total;
+
+          // this.image_of_doc2 = res.data.data.path;
+          // this.id_of_doc2 = res.data.data.id;
+
           for (let index = 0; index < res.data.section_Notes.length; index++) {
             this.consigneesIncludesId.push(
               res.data.section_Notes[index].department_id
@@ -2724,6 +2793,41 @@ this.$http.mailService
       }, 300);
     },
 
+    
+    GetAllDocN_resend(x) {
+
+this.image_rotate = true
+
+
+
+if (x == "next") {
+  this.doc_number2++;
+} else {
+  this.doc_number2--;
+}
+
+this.screenFreeze = true;
+this.loading = true;
+this.$http.documentService
+  .GetAllDocN(this.mailId, this.doc_number2,Number(this.my_department_id))
+  .then((res) => {
+    this.total_of_doc2 = res.data.total;
+
+    this.image_of_doc2 = res.data.data.path;
+    this.id_of_doc2 = res.data.data.id;
+
+    setTimeout(() => {
+      this.screenFreeze = false;
+      this.loading = false;
+    }, 200);
+  })
+  .catch((err) => {
+    this.screenFreeze = false;
+    this.loading = false;
+    console.log(err);
+  });
+},
+
     GetAllDocN(x) {
 
       this.image_rotate = true
@@ -2739,7 +2843,7 @@ this.$http.mailService
       this.screenFreeze = true;
       this.loading = true;
       this.$http.documentService
-        .GetAllDocN(this.mailId, this.doc_number)
+        .GetAllDocN(this.mailId, this.doc_number,Number(this.department_id2))
         .then((res) => {
           this.total_of_doc = res.data.total;
 

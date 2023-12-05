@@ -3648,7 +3648,7 @@ this.mailType=1
         this.screenFreeze = true;
         this.loading = true;
         this.$http.documentService
-          .GetAllDocN(this.mailId, this.doc_number)
+          .GetAllDocN(this.mailId, this.doc_number,Number(this.my_department_id))
           .then((res) => {
             this.total_of_doc = res.data.total;
 
@@ -3935,7 +3935,7 @@ console.log("fun1");
       this.screenFreeze = true;
       this.loading = true;
       this.$http.documentService
-        .GetAllDocN(this.mailId, this.doc_number)
+        .GetAllDocN(this.mailId, this.doc_number,Number(this.my_department_id))
         .then((res) => {
           this.total_of_doc = res.data.total;
 
