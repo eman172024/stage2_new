@@ -988,13 +988,13 @@
                     <div v-if="image_of_doc2" class="w-1/2 flex items-center">
                       <input
                         type="text"
-                        v-model="doc_number_to_search"
+                        v-model="doc_number_to_search2"
                         id="doc_number"
                         class="ml-2 block w-16 rounded-md h-10 text-sm border border---200 hover:shadow-sm focus:outline-none focus:border-blue-300 p-2"
                       />
 
                       <button
-                        @click="search_the_doc()"
+                        @click="search_the_doc2()"
                         class="py-2 px-4 bg-white rounded-lg tracking-wide border border-blue-600 cursor-pointer hover:text-white hover:bg-blue-600 focus:outline-none duration-300 text-sm leading-normal"
                       >
                         بحث
@@ -1035,7 +1035,7 @@
                           >
                             <div class="">
                               <button
-                                @click="farst_documents()"
+                                @click="farst_documents2()"
                                 class="bg-gray-500 hover:bg-gray-400 px-2 py-2 rounded-lg text-xs text-white"
                               >
                                 &#x276E; &#x276E;
@@ -1096,7 +1096,7 @@
 
                             <div class="">
                               <button
-                                @click="last_documents()"
+                                @click="last_documents2()"
                                 class="bg-gray-500 hover:bg-gray-400 px-2 py-2 rounded-lg text-xs text-white"
                               >
                                 &#x276F; &#x276F;
@@ -1856,6 +1856,7 @@ alert_prepare_delete_mail: false,
 
       documentSection:true,
       doc_number_to_search: "",
+      doc_number_to_search2: "",
 
       //********21/1/2023
       keyid: "",
@@ -2273,7 +2274,8 @@ this.$http.mailService
       this.$http.mailService
         .DeleteAllDocuments(
           Number(this.mailId),
-          Number(localStorage.getItem("AY_LW"))
+          Number(localStorage.getItem("AY_LW")),
+          Number(this.my_department_id)
         )
         .then((res) => {
           this.doc_number = 0;
@@ -2293,7 +2295,8 @@ this.$http.mailService
           this.alert_state = true;
           this.alert_state_true_false = true;
 
-          // this.GetAllDocN("next");
+           this.GetAllDocN("next");
+           
 
           // this.imagesToShow.splice(index, 1);
           // this.mail_search();
@@ -2539,11 +2542,27 @@ this.$http.mailService
       this.search_the_doc();
     },
 
+    farst_documents2() {
+      this.image_rotate = true
+
+      this.doc_number_to_search2 = 1;
+      this.search_the_doc2();
+    },
+
+
+
     last_documents() {
       this.image_rotate = true
 
       this.doc_number_to_search = this.total_of_doc;
       this.search_the_doc();
+    },
+
+    last_documents2() {
+      this.image_rotate = true
+
+      this.doc_number_to_search2 = this.total_of_doc2;
+      this.search_the_doc2();
     },
 
     search_the_doc() {
@@ -2556,12 +2575,43 @@ this.$http.mailService
         this.screenFreeze = true;
         this.loading = true;
         this.$http.documentService
-          .GetAllDocN(this.mailId, this.doc_number)
+          .GetAllDocN(this.mailId, this.doc_number,Number(this.department_id2))
           .then((res) => {
             this.total_of_doc = res.data.total;
 
             this.image_of_doc = res.data.data.path;
             this.id_of_doc = res.data.data.id;
+
+            setTimeout(() => {
+              this.screenFreeze = false;
+              this.loading = false;
+            }, 200);
+          })
+          .catch((err) => {
+            this.screenFreeze = false;
+            this.loading = false;
+            console.log(err);
+          });
+      }
+    },
+
+
+    search_the_doc2() {
+      // doc_number_to_search
+
+      if (this.doc_number_to_search2 > this.total_of_doc2) {
+        alert("لقد ادخلة رقم خطا الرجاء إعادة المحاولة");
+      } else {
+        this.doc_number2 = this.doc_number_to_search2;
+        this.screenFreeze = true;
+        this.loading = true;
+        this.$http.documentService
+          .GetAllDocN(this.mailId, this.doc_number2,Number(this.my_department_id))
+          .then((res) => {
+            this.total_of_doc2 = res.data.total;
+
+            this.image_of_doc2 = res.data.data.path;
+            this.id_of_doc2 = res.data.data.id;
 
             setTimeout(() => {
               this.screenFreeze = false;

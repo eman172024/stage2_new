@@ -215,8 +215,8 @@ export default {
 
     },
 
-    DeleteAllDocuments(id, userId) {
-        return axios.delete(`/api/Resources/delete_all_image?id=${id}&userId=${userId}`)
+    DeleteAllDocuments(id, userId,department_id) {
+        return axios.delete(`/api/Resources/delete_all_image?id=${id}&userId=${userId}&departmentid=${department_id}`)
             //   return axios.delete(`http://mail:82/api/Mail/DeleteDocument?id=${id}&userId=${userId}`)
     },
 
