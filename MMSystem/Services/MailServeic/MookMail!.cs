@@ -461,7 +461,9 @@ namespace MMSystem.Services.MailServeic
                     case 1:
                         Mail mail = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 1 && x.state == true);
                         dto1 = _mapper.Map<Mail, MailDto>(mail);
-            
+                        var dd = await _appContext.clasifications.OrderBy(x => x.Id).FirstOrDefaultAsync(x => x.Id == dto1.clasification);
+                        dto1.classification_name = dd.Name;
+
 
 
 
@@ -469,11 +471,16 @@ namespace MMSystem.Services.MailServeic
                     case 2:
                         Mail mail1 = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 2 && x.state == true);
                         dto1 = _mapper.Map<Mail, MailDto>(mail1);
+                           dd = await _appContext.clasifications.OrderBy(x => x.Id).FirstOrDefaultAsync(x => x.Id == dto1.clasification);
+                        dto1.classification_name = dd.Name;
 
                         break;
                     case 3:
                         Mail mail2 = await _appContext.Mails.FirstOrDefaultAsync(x => x.MailID == id && x.Mail_Type == 3 && x.state == true);
                         dto1 = _mapper.Map<Mail, MailDto>(mail2);
+                           dd = await _appContext.clasifications.OrderBy(x => x.Id).FirstOrDefaultAsync(x => x.Id == dto1.clasification);
+                        dto1.classification_name = dd.Name;
+
                         break;
                     default: break;
 

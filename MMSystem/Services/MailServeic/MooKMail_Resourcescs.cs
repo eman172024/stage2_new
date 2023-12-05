@@ -418,14 +418,14 @@ namespace MMSystem.Services.MailServeic
         }
 
 
-        public async Task<dynamic> delete_all_image(int id,int userid)
+        public async Task<dynamic> delete_all_image(int id,int userid ,int departmentid)
         {
             try
             {
                 bool IsDelete = false;
                 string massage = "";
 
-                List<Mail_Resourcescs> mailResourse = await _dbCon.Mail_Resourcescs.Where(x=>x.MailID==id&&x.State.Equals(true)).ToListAsync();
+                List<Mail_Resourcescs> mailResourse = await _dbCon.Mail_Resourcescs.Where(x=>x.MailID==id&&x.State.Equals(true && x.fromWho == departmentid) ).ToListAsync();
                 if (mailResourse .Count>0)
                 {
 
