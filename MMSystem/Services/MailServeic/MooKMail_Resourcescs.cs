@@ -376,7 +376,7 @@ namespace MMSystem.Services.MailServeic
                 ressPage.total = _dbCon.Mail_Resourcescs.Where(x => x.State.Equals(true) && x.MailID == id && x.fromWho == department_id).ToList().Count();
 
                 var list = await _dbCon.Mail_Resourcescs.
-                 Where(x => x.MailID == id&&x.State==true).Skip((pageNumber - 1) * 1).Take(1).ToListAsync();
+                 Where(x => x.MailID == id&&x.State==true && x.fromWho == department_id).Skip((pageNumber - 1) * 1).Take(1).ToListAsync();
 
                 if (list.Count > 0)
                 {
