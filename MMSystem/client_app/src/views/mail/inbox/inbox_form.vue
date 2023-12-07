@@ -1044,7 +1044,7 @@
 
                             <div class="">
                               <button
-                                @click="show_current_image_for_bigger_screen()"
+                                @click="show_current_image_for_bigger_screen2()"
                                 type="button"
                                 class="bg-green-600 hover:bg-green-500 duration-500 p-2 rounded-full focus:outline-none ml-2"
                               >
@@ -1373,7 +1373,7 @@
                 <button
                   title="prev"
                   v-if="doc_number > 1"
-                  @click="GetAllDocN_resend('prev')"
+                  @click="GetAllDocN('prev')"
                   class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
                 >
                   <svg
@@ -1434,6 +1434,205 @@
         </div>
       </div>
     </div>
+
+
+
+
+
+    
+    <div
+      v-if="show_current_image_for_bigger_screen_model2"
+      class="w-screen h-full absolute inset-0 z-50 overflow-hidden"
+    >
+      <div class="relative">
+        <div
+          v-if="image_to_print_n_model2"
+          id="printMe"
+          class="bg-black bg-opacity-50 h-screen-100"
+        >
+          <div
+            v-for="image in image_to_print_n2"
+            :key="image.id"
+            class="h-screen-100"
+          >
+            <img
+              :src="image.path"
+              alt=""
+              class="h-full w-full object-contain"
+            />
+          </div>
+        </div>
+
+        <div
+          v-if="image_to_print_n_model2"
+          id="print_one_dec"
+          class="bg-black bg-opacity-50 h-screen-100"
+        >
+          <div class="h-screen-100">
+            <img
+              :src="image_of_doc2"
+              alt=""
+              class="h-full w-full object-contain"
+            />
+          </div>
+        </div>
+
+        <div
+          class="h-screen flex flex-col justify-center items-center bg-black bg-opacity-90 absolute top-0 inset-0 z-50 w-full"
+        >
+        <button type="button" @click="image_rotate = !image_rotate"  class="absolute text-white font-bold px-8 z-50 bg-yellow-500 py-2 right-12">
+              تدوير الصفحة
+            </button>
+
+
+          <div class="max-w-3xl mx-auto relative">
+            <div
+              class="absolute top-6 z-50 flex justify-between items-center w-full"
+            >
+              <button
+                @click="show_current_image_for_bigger_screen_model2 = false"
+              >
+                <svg
+                  class="w-8 h-8 stroke-current text-red-500 hover:text-red-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </button>
+
+              <button
+                v-if="roles.includes('k')"
+                @click="print_image2()"
+                v-print="'#print_one_dec'"
+                class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+              >
+                طباعة المستند الحالي
+              </button>
+
+              <button
+                v-if="roles.includes('k')"
+                @click="print_image2()"
+                v-print="'#printMe'"
+                class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
+              >
+                طباعة كافة المستندات
+              </button>
+
+              <div
+                v-if="image_of_doc2"
+                class="flex items-center border border-blue-400 rounded-md"
+              >
+                <input
+                  type="text"
+                  v-model="doc_number_to_search2"
+                  id="doc_number"
+                  class="ml-2 block w-16 rounded-md h-10 text-sm border border---200 hover:shadow-sm focus:outline-none focus:border-blue-300 p-2"
+                />
+
+                <button
+                  @click="search_the_doc2()"
+                  class="py-2 px-4 bg-white rounded-lg tracking-wide border border-blue-600 cursor-pointer hover:text-white hover:bg-blue-600 focus:outline-none duration-300 text-sm leading-normal"
+                >
+                  بحث
+                </button>
+              </div>
+            </div>
+
+            <div class="h-screen-93 mt-4">
+              <img
+                :src="image_of_doc2"
+                alt="image"
+                :class="image_rotate ? 'rotate-0' : 'rotate-180'"
+                class="h-full w-full object-contain transform"
+              />
+            </div>
+
+            <div
+              class="absolute bottom-3 z-50 bg-gray-100 flex justify-between items-center w-full mx-auto mt-4"
+            >
+              <div class="">
+                <button
+                  @click="farst_documents2()"
+                  class="bg-gray-500 hover:bg-gray-400 px-2 py-2 rounded-lg text-xs text-white"
+                >
+                  &#x276E; &#x276E;
+                </button>
+              </div>
+
+              <div class="w-12 h-8">
+                <button
+                  title="prev"
+                  v-if="doc_number2 > 1"
+                  @click="GetAllDocN_resend('prev')"
+                  class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="text-black">
+                {{ doc_number2 }} / {{ total_of_doc2 }}
+              </div>
+
+              <div class="w-12 h-8">
+                <button
+                  v-if="doc_number2 < total_of_doc2"
+                  title="next"
+                  @click="GetAllDocN_resend('next')"
+                  class="focus:outline-none w-12 h-8 bg-gray-300 rounded flex justify-center items-center"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 19l-7-7 7-7"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="">
+                <button
+                  @click="last_documents2()"
+                  class="bg-gray-500 hover:bg-gray-400 px-2 py-2 rounded-lg text-xs text-white"
+                >
+                  &#x276F; &#x276F;
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <div
       v-if="show_images_model"
@@ -1972,7 +2171,11 @@ alert_prepare_delete_mail: false,
 
 
       image_to_print_n_model: false,
+      image_to_print_n_model2: false,
+
       show_current_image_for_bigger_screen_model: false,
+      show_current_image_for_bigger_screen_model2: false,
+
 
       reply_doc_number: 0,
       reply_total_of_doc: 0,
@@ -2833,11 +3036,44 @@ this.$http.mailService
         });
     },
 
+
+    to_get_all_doc_of_mail2() {
+      this.screenFreeze = true;
+      this.loading = true;
+      this.$http.mailService
+        .GetAllDocuments(this.mailId, Number(localStorage.getItem("AY_LW")))
+        .then((res) => {
+          this.image_to_print_n2 = res.data;
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 300);
+        })
+        .catch((err) => {
+          this.loading = false;
+          setTimeout(() => {
+            this.screenFreeze = false;
+            console.log(err);
+          }, 700);
+        });
+    },
+
     show_current_image_for_bigger_screen() {
       this.screenFreeze = true;
       this.loading = true;
       setTimeout(() => {
         this.show_current_image_for_bigger_screen_model = true;
+        this.screenFreeze = false;
+        this.loading = false;
+      }, 300);
+    },
+    
+    
+    show_current_image_for_bigger_screen2() {
+      this.screenFreeze = true;
+      this.loading = true;
+      setTimeout(() => {
+        this.show_current_image_for_bigger_screen_model2 = true;
         this.screenFreeze = false;
         this.loading = false;
       }, 300);
@@ -3047,6 +3283,32 @@ this.$http.documentService
 
     print_image() {
       this.image_to_print_n_model = true;
+
+      // this.$http.mailService
+      //   .PrintOrShowDocument(
+      //     Number(this.mailId),
+      //     Number(localStorage.getItem("AY_LW")),
+      //     Number(this.from_reply_or_general)
+      //   )
+      //   .then((res) => {
+      //     setTimeout(() => {
+      //       console.log(res);
+      //       this.loading = false;
+      //       this.screenFreeze = false;
+      //     }, 500);
+      //   })
+      //   .catch((err) => {
+      //     setTimeout(() => {
+      //       this.loading = false;
+      //       this.screenFreeze = false;
+      //     }, 500);
+      //     console.log(err);
+      //   });
+    },
+
+    
+    print_image2() {
+      this.image_to_print_n_model2 = true;
 
       // this.$http.mailService
       //   .PrintOrShowDocument(
