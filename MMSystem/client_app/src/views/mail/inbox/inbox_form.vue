@@ -1320,6 +1320,7 @@
               </button>
 
               <button
+              id="p_button"
                 v-if="roles.includes('k')"
                 @click="print_image()"
                 v-print="'#printMe'"
@@ -1447,7 +1448,7 @@
       <div class="relative">
         <div
           v-if="image_to_print_n_model2"
-          id="printMe"
+          id="printMe2"
           class="bg-black bg-opacity-50 h-screen-100"
         >
           <div
@@ -1465,7 +1466,7 @@
 
         <div
           v-if="image_to_print_n_model2"
-          id="print_one_dec"
+          id="print_one_dec2"
           class="bg-black bg-opacity-50 h-screen-100"
         >
           <div class="h-screen-100">
@@ -1511,7 +1512,7 @@
               <button
                 v-if="roles.includes('k')"
                 @click="print_image2()"
-                v-print="'#print_one_dec'"
+                v-print="'#print_one_dec2'"
                 class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
               >
                 طباعة المستند الحالي
@@ -1520,7 +1521,7 @@
               <button
                 v-if="roles.includes('k')"
                 @click="print_image2()"
-                v-print="'#printMe'"
+                v-print="'#printMe2'"
                 class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white"
               >
                 طباعة كافة المستندات
@@ -3059,6 +3060,8 @@ this.$http.mailService
     },
 
     show_current_image_for_bigger_screen() {
+
+      this.to_get_all_doc_of_mail()
       this.screenFreeze = true;
       this.loading = true;
       setTimeout(() => {
@@ -3070,6 +3073,7 @@ this.$http.mailService
     
     
     show_current_image_for_bigger_screen2() {
+      this.to_get_all_doc_of_mail2()
       this.screenFreeze = true;
       this.loading = true;
       setTimeout(() => {
@@ -3282,8 +3286,13 @@ this.$http.documentService
     //**************************************
 
     print_image() {
-      this.image_to_print_n_model = true;
 
+      
+      this.image_to_print_n_model = true;
+     
+
+
+     
       // this.$http.mailService
       //   .PrintOrShowDocument(
       //     Number(this.mailId),
