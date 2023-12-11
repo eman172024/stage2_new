@@ -203,11 +203,11 @@ namespace MMSystem.Services.MailServeic
 
       
 
-        public async Task<List<Mail_ResourcescsDto>> GetAllRes(int id, int userId)
+        public async Task<List<Mail_ResourcescsDto>> GetAllRes(int mail_id, int userId , int department_id)
         {
             try
             {
-                List<Mail_Resourcescs> _Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == id && x.State == true).ToListAsync();
+                List<Mail_Resourcescs> _Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == department_id).ToListAsync();
                 List<Mail_ResourcescsDto> mail_ResourcescsDtos = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(_Resourcescs);
 
 
@@ -242,8 +242,8 @@ namespace MMSystem.Services.MailServeic
                     Historyes historyes = new Historyes();
                     historyes.currentUser = userId;
 
-                    historyes.mailid = id;
-                    historyes.changes = $" تم عرض الصورة   {id} ";
+                    historyes.mailid = mail_id;
+                    historyes.changes = $" تم عرض الصورة   {mail_id} ";
                     historyes.Time = DateTime.Now;
                     historyes.HistortyNameID = 13;
                     await _dbCon.History.AddAsync(historyes);

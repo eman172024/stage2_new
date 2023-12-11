@@ -23,10 +23,10 @@ namespace MMSystem.Controllers
 
 
         [HttpGet("GetMailResources")]
-        public async Task<IActionResult> GetMailResources(int mail_id, int userId)
+        public async Task<IActionResult> GetMailResources(int mail_id, int userId, int department_id)
         {
 
-           List< Mail_ResourcescsDto >list = await _resourcescs.GetAllRes(mail_id,userId);
+           List< Mail_ResourcescsDto >list = await _resourcescs.GetAllRes(mail_id,userId,department_id);
                 if(list.Count>0)
             return Ok(list);
             return NotFound("لايوجد صور ");
