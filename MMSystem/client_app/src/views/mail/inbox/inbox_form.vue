@@ -3020,7 +3020,7 @@ this.$http.mailService
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .GetAllDocuments(this.mailId, Number(localStorage.getItem("AY_LW")))
+        .GetAllDocuments(this.mailId, Number(localStorage.getItem("AY_LW")),Number(this.department_id2))
         .then((res) => {
           this.image_to_print_n = res.data;
           setTimeout(() => {
@@ -3042,7 +3042,7 @@ this.$http.mailService
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .GetAllDocuments(this.mailId, Number(localStorage.getItem("AY_LW")))
+        .GetAllDocuments(this.mailId, Number(localStorage.getItem("AY_LW")),Number(this.my_department_id))
         .then((res) => {
           this.image_to_print_n2 = res.data;
           setTimeout(() => {
@@ -3397,33 +3397,33 @@ this.$http.documentService
       }
     },
 
-    GetAllDocuments(id, plase) {
-      this.from_reply_or_general = plase;
-      this.screenFreeze = true;
-      this.loading = true;
-      this.$http.mailService
-        .GetAllDocuments(id, Number(localStorage.getItem("AY_LW")))
-        .then((res) => {
-          this.show_images_images_model = res.data;
+    // GetAllDocuments(id, plase) {
+    //   this.from_reply_or_general = plase;
+    //   this.screenFreeze = true;
+    //   this.loading = true;
+    //   this.$http.mailService
+    //     .GetAllDocuments(id, Number(localStorage.getItem("AY_LW")))
+    //     .then((res) => {
+    //       this.show_images_images_model = res.data;
 
-          this.testimage_images_model = this.show_images_images_model[0].path;
+    //       this.testimage_images_model = this.show_images_images_model[0].path;
 
-          setTimeout(() => {
-            this.show_images_model = true;
-            this.screenFreeze = false;
-            this.loading = false;
-          }, 300);
-        })
-        .catch((err) => {
-          this.loading = false;
-          this.there_are_no_documents = true;
-          setTimeout(() => {
-            this.screenFreeze = false;
-            this.there_are_no_documents = false;
-            console.log(err);
-          }, 700);
-        });
-    },
+    //       setTimeout(() => {
+    //         this.show_images_model = true;
+    //         this.screenFreeze = false;
+    //         this.loading = false;
+    //       }, 300);
+    //     })
+    //     .catch((err) => {
+    //       this.loading = false;
+    //       this.there_are_no_documents = true;
+    //       setTimeout(() => {
+    //         this.screenFreeze = false;
+    //         this.there_are_no_documents = false;
+    //         console.log(err);
+    //       }, 700);
+    //     });
+    // },
 
     previousImage() {
       if (this.indextotest > 0) {

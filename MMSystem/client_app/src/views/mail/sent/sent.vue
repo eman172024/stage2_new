@@ -2878,7 +2878,7 @@ this.s_number = "";
       this.loading = true;
       this.mailId_to_get_mail_by_id = id;
       this.$http.mailService
-        .GetAllDocuments(id, Number(localStorage.getItem("AY_LW")))
+        .GetAllDocuments(id, Number(localStorage.getItem("AY_LW")),Number(this.my_department_id))
         .then((res) => {
           this.show_images = res.data;
 

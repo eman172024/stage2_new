@@ -4177,7 +4177,7 @@ console.log("close code="+event.code);
       this.screenFreeze = true;
       this.loading = true;
       this.$http.mailService
-        .GetAllDocuments(this.mailId, Number(localStorage.getItem("AY_LW")))
+        .GetAllDocuments(this.mailId, Number(localStorage.getItem("AY_LW")),Number(this.my_department_id))
         .then((res) => {
           this.image_to_print_n = res.data;
           setTimeout(() => {

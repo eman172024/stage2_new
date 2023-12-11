@@ -190,8 +190,8 @@ export default {
 
     
 
-    GetAllDocuments(id, userId) {
-        return axios.get(`/api/Resources/GetMailResources?mail_id=${id}&userId=${userId}`);
+    GetAllDocuments(id, userId,department_id) {
+        return axios.get(`/api/Resources/GetMailResources?mail_id=${id}&userId=${userId}&department_id=${department_id}`);
         //  return axios.get(`http://mail:82/api/Resources/GetMailResources?mail_id=${id}&userId=${userId}`);
     },
 
