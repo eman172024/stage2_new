@@ -8,7 +8,7 @@ export default {
     },
 
 
-    GetResources_ById(id, page_number) {
+    GetResources_ById(id, page_number,department_id) {
         return axios.get(`/api/Reply/GetResources_ById?id=${id}&page_number=${page_number}`);
      //  return axios.get(`http://mail:82/api/Reply/GetResources_ById?id=${id}&page_number=${page_number}`);
     },
