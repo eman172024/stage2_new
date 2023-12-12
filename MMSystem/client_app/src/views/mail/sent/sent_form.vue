@@ -4615,6 +4615,8 @@ console.log("fun1");
 
     
     show_current_image_for_bigger_screen() {
+
+      this.to_get_all_doc_of_mail();
       this.screenFreeze = true;
       this.loading = true;
       setTimeout(() => {

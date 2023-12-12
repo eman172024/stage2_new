@@ -1498,7 +1498,7 @@ console.log("code inbox_form="+event.code);
             this.procedure_type = res.data.inbox.procedure_type;
           }
 
-          this.to_get_all_doc_of_mail();
+        //  this.to_get_all_doc_of_mail();
           //   this.GetDocmentForMail();
           //   this.GetDocmentForMailToShow();
 
@@ -1615,6 +1615,8 @@ console.log("code inbox_form="+event.code);
     },
 
     show_current_image_for_bigger_screen() {
+
+      this.to_get_all_doc_of_mail();
       this.screenFreeze = true;
       this.loading = true;
       setTimeout(() => {
