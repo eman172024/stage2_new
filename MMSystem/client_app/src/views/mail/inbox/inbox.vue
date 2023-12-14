@@ -2730,6 +2730,21 @@ this.conn.onmessage = (event) => {
           this.s_number,
           this.page_num,
           this.page_size
+
+         
+          
+          
+         
+          
+         
+          
+          
+         
+          
+         
+          
+          
+          
         )
         .then((res) => {
           this.inboxMails = res.data.mail;
@@ -2786,12 +2801,13 @@ this.conn.onmessage = (event) => {
           this.measureIdSelected,
           this.classificationIdSelected,
           this.mail_caseIdSelected,
+          this.s_number,
           this.page_num,
           this.page_size2
         )
         .then((res) => {
           this.mails_to_print = res.data.mail;
-          this.mails_to_print = res.data.mail;
+         
 
           this.total_of_transaction = res.data.total;
           setTimeout(() => {
