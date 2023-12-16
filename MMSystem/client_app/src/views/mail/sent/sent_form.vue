@@ -222,7 +222,7 @@
                         v-model="summary"
                         id="summary"
                         rows="3"
-                        class="block mt-2 w-full text-sm rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        class="block mt-2 w-full text-sm rounded-md border border-green-400 hover:shadow-sm focus:outline-none focus:border-green-500 p-2"
                       >
                       </textarea>
 
@@ -447,7 +447,7 @@
                         v-model="required_action"
                         id="required_action"
                         rows="3"
-                        class="block mt-2 w-full text-sm rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        class="block mt-2 w-full text-sm rounded-md border border-green-400 hover:shadow-sm focus:outline-none focus:border-green-500 p-2"
                       >
                       </textarea>
 
@@ -2411,7 +2411,10 @@
                 </div>
               </section>
 
-              <section
+
+
+              <div>.</div>
+              <!-- <section
                 class="bg-gray-100 rounded-md p-6 flex flex-wrap items-center"
               >
                 <button
@@ -2430,9 +2433,9 @@
                   {{ consignee.departmentName }} ,
                   {{ consignee.measureName }}
                 </button>
-              </section>
+              </section> -->
 
-              <section
+              <!-- <section
                 v-if="departmentflag > 2 && roles.includes('f')"
                 class="bg-gray-100 rounded-md p-6"
               >
@@ -2603,7 +2606,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!-- 
                 <div class="flex justify-between items-center mt-2">
                   <div class="w-9/12 flex justify-between">
@@ -2788,7 +2791,9 @@
                     </button>
                   </div>
                 </div> -->
-              </section>
+              <!-- </section> -->
+
+
             </div>
           </main>
         </div>

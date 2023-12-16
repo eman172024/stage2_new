@@ -25,7 +25,7 @@
                 class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center justify-center text-sm font-medium"
               >
                 <svg
-                  class="text-gray-400 group-hover:text-gray-500 h-6 w-6  "
+                  class="text-green-400 group-hover:text-green-500 h-6 w-6  "
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -50,7 +50,7 @@
                 class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center justify-center text-sm font-medium"
               >
                 <svg
-                  class="text-gray-400 group-hover:text-gray-500 h-6 w-6 "
+                  class="text-red-500 group-hover:text-red-600 h-6 w-6 "
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -75,7 +75,7 @@
                 class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center justify-center text-sm font-medium"
               >
                 <svg
-                  class="text-gray-400 group-hover:text-gray-500  h-6 w-6 fill-current stroke-current "
+                  class="text-blue-400 group-hover:text-blue-500  h-6 w-6 fill-current stroke-current "
                   fill="none"
                   stroke="currentColor"
                   version="1.1"
