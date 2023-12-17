@@ -191,7 +191,7 @@ namespace MMSystem.Services.ReceivedMail
                           join ex in dbcon.Extrenal_Inboxes on mail.MailID equals ex.MailID into mail_ex
                           from mex in mail_ex.DefaultIfEmpty()
                            
-                          join send in dbcon.Sends on mail.MailID equals send.MailID into msg1
+                          join send in dbcon.Sends.Where(x=>x.State==true) on mail.MailID equals send.MailID into msg1
                           from ms in msg1.DefaultIfEmpty()
 
                           join rep in dbcon.Replies on ms.Id equals rep.send_ToId into rep_send1
@@ -203,7 +203,8 @@ namespace MMSystem.Services.ReceivedMail
                           where (ms.to == Department_filter || dep_filter == true) &&(ms.flag == mail_state || State_filter == true) && (ms.type_of_send == Measure_filter || meas_filter == true)
                           && (mex.entity_reference_number == entity_reference_number || entity_number == true) && ((m_ex_dep1.state == true && m_ex_dep1.side_number == TheSection) || sectionstate == true)
                           && (((rep_send.Date >= d1 && rep_send.Date <= d2) && (rep_send.state == true)) || rep_all == true)
-                          
+                          //&& (ms.State == true)
+
                           select new Sended_Maill { 
                               Mail_Number = mail.Mail_Number, summary = mail.Mail_Summary, date = mail.insert_at.Date, date2 = mail.Date_Of_Mail, mailid = mail.MailID, mail_id = mail.MailID, type_of_mail = mail.Mail_Type
                             

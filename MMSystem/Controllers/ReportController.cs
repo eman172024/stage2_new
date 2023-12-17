@@ -104,16 +104,19 @@ namespace MMSystem.Controllers
 
         [HttpGet]
         [Route("GetReportDepartment")]
+
+        
         public async Task<IActionResult> GetDepartment(int departmenti_d, DateTime? from, DateTime? to, int? Department_filter, int? mailnum, int? mailnum_bool, string? summary, int? mail_Readed,
             int? mailReaded, int? mailnot_readed, int? mail_type, int? Measure_filter, int? Classfication
- , int? mail_state, int? genral_incoming_num)
+                   //    , int? mail_state, int? genral_incoming_num)
+                   , int? mail_state, int? genral_incoming_num,int? thesection, int? entity_reference_number, bool? Replay_Date)
         {
 
             try
             {
                 var c = await _data.ReportForDep( departmenti_d,  from,  to,  Department_filter,  mailnum,  mailnum_bool,  summary, mail_Readed,
             mailReaded,  mailnot_readed,  mail_type,  Measure_filter,  Classfication
- , mail_state,  genral_incoming_num);
+ , mail_state,  genral_incoming_num, thesection, entity_reference_number, Replay_Date);
                 if (c.Count() > 0)
                 {
 

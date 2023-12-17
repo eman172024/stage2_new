@@ -17,7 +17,7 @@ namespace MMSystem.Services.Reports
 
         Task<List<ReportViewModel>> ReportForDep(int departmenti_d, DateTime? from, DateTime? to, int? Department_filter, int? mailnum, int? mailnum_bool, string? summary, int? mail_Readed,
             int? mailReaded, int? mailnot_readed, int? mail_type, int? Measure_filter, int? Classfication
- , int? mail_state, int? genral_incoming_num);
+ , int? mail_state, int? genral_incoming_num,int? thesection, int? entity_reference_number, bool? Replay_Date);
 
         Task<Report_View_Model> Get_main_statistics_Report(DateTime from, DateTime to);
         Task<List<Report_details_view_model>> Get_Detailes_statistics_Report(DateTime from, DateTime to);

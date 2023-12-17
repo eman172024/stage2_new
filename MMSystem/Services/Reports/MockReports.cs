@@ -694,7 +694,7 @@ namespace MMSystem.Services.Reports
         public async Task<List<ReportViewModel>> ReportForDep(int departmentid,DateTime? fromm, DateTime? to ,
             int? Department_filter, int? mailnum, int? mailnum_bool, string? summary, int? mail_Readed,
             int? mailReaded, int? mailnot_readed , int? mail_type, int? Measure_filter, int? Classfication
- , int? mail_state, int? genral_incoming_num)
+ , int? mail_state, int? genral_incoming_num,int? TheSection, int? entity_reference_number, bool? Replay_Date)
         {
 
             bool dep_filter = false;
@@ -704,6 +704,26 @@ namespace MMSystem.Services.Reports
             bool clasf_filter = false;
             bool State_filter = false;
             bool mangmentrole = false;
+            bool sectionstate = false;
+            bool entity_number = false;
+            bool rep_all = false;
+
+            if (Replay_Date == null || Replay_Date == false)
+            {
+                rep_all = true;
+
+            }
+            else
+            {
+                rep_all = false;
+
+            }
+
+            if (entity_reference_number == null)
+            {
+                entity_number = true;
+            }
+            else { entity_number = false; }
 
 
             if (genral_incoming_num == null )
@@ -794,8 +814,23 @@ namespace MMSystem.Services.Reports
             else { dep_filter = false; }
 
 
+
+            //***********update eman
+            if (mail_type == 1)
+            { TheSection = null; }
+
+            if (TheSection == null)
+            {
+                sectionstate = true;
+            }
+            else
+            {
+                sectionstate = false;
+            }
+            //***********end update eman
+
             List<ReportViewModel> list  = new List<ReportViewModel>(){};
-            List<ReportViewModel> clear = new List<ReportViewModel>();
+          //  List<ReportViewModel> clear = new List<ReportViewModel>();
 
 
 
@@ -818,75 +853,164 @@ namespace MMSystem.Services.Reports
             }
 
 
-          
 
 
 
-            var dep = await _data.Departments.Where(x => x.Id != departmentid).ToListAsync();
-            var listOfStautes = await _data.MailStatuses.ToListAsync();
+            //*************code stop 14/12/2023
+            //  var dep = await _data.Departments.Where(x => x.Id != departmentid).ToListAsync();
+            //  var listOfStautes = await _data.MailStatuses.ToListAsync();
 
 
 
-            foreach (var item in dep)
-                    {
+            //  foreach (var item in dep)
+            //          {
 
 
-                var sc = await (from x in _data.Mails.Where(x => x.Department_Id == departmentid&& ((x.Date_Of_Mail <= to || fr == true) && (x.Date_Of_Mail >= fromm) || fr == true)&&
-                                (mailnum_bool == 1 || x.Mail_Number == mailnum)&& (x.Mail_Summary.Contains(summary)) && (mailtype==true|| x.Mail_Type == mail_type)
-                                && (clasf_filter == true || x.clasification == Classfication )&& (x.Genaral_inbox_Number == genral_incoming_num || mangmentrole == true))
-                                join
+            //      var sc = await (from x in _data.Mails.Where(x => x.Department_Id == departmentid&& ((x.Date_Of_Mail <= to || fr == true) && (x.Date_Of_Mail >= fromm) || fr == true)&&
+            //                      (mailnum_bool == 1 || x.Mail_Number == mailnum)&& (x.Mail_Summary.Contains(summary)) && (mailtype==true|| x.Mail_Type == mail_type)
+            //                      && (clasf_filter == true || x.clasification == Classfication )&& (x.Genaral_inbox_Number == genral_incoming_num || mangmentrole == true))
+            //                      join
 
 
-          z in _data.Sends.Where(p => p.to == item.Id&&p.State==true && ((p.flag >= mailReaded && p.flag <= mailnot_readed) || mail_accept == true) &&
-          (p.flag == mail_state || (State_filter == true &&p.flag!=1))) on x.MailID equals z.MailID
-                                join n in _data.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on z.to equals n.Id
-                                join dx in _data.measures.Where(x => (x.MeasuresId == Measure_filter || (meas_filter == true && x.MeasuresId != 1))) on z.type_of_send equals dx.MeasuresId
-                                select new DepartmentViewModelDto
-                                {
-
-                                    dateOfSend = z.Send_time.ToString("yyyy-MM-dd"),
-                                    Mail_Number = x.Mail_Number,
-                                    Mail_Summary = x.Mail_Summary,
-                                    TimeOfSend = z.Send_time.ToString("HH:mm:ss"),
-                                    mail_state = (z.flag==1)? "لم ترسل " : (z.flag == 2)? "لم تقرأ" :
-                                    (z.flag == 3) ? "قرأت " : (z.flag == 4) ? "تم الرد":(z.flag == 5)?
-                                    "تم الرد من قبلك": (z.flag ==6) ?" تم السحب":""
+            //z in _data.Sends.Where(p => p.to == item.Id&&p.State==true && ((p.flag >= mailReaded && p.flag <= mailnot_readed) || mail_accept == true) &&
+            //(p.flag == mail_state || (State_filter == true &&p.flag!=1))) on x.MailID equals z.MailID
+            //                      join n in _data.Departments.Where(x => (x.Id == Department_filter || dep_filter == true)) on z.to equals n.Id
+            //                      join dx in _data.measures.Where(x => (x.MeasuresId == Measure_filter || (meas_filter == true && x.MeasuresId != 1))) on z.type_of_send equals dx.MeasuresId
 
 
+            //                      //**************
+            //                      join ex_Dep in _data.external_Departments on x.MailID equals ex_Dep.Mail_id into m_ex_dep
+            //                      from m_ex_dep1 in m_ex_dep.DefaultIfEmpty()
+            //                          //******************
 
+            //                      select new DepartmentViewModelDto
+            //                      {
 
-                                }).ToListAsync();
-
-                        list.Add(new ReportViewModel
-                        {
-
-                            data = sc,
-                            DepartmentName = item.DepartmentName,
-                            total = sc.Count()
-
-
-
-                        }) ;
-
-
-                    }
-
-
-
-            foreach (var item in list)
-            {
-                if (item.data.Count()!= 0) {
-
-                    clear.Add(item);
-                }
-
-
-            }
+            //                          dateOfSend = z.Send_time.ToString("yyyy-MM-dd"),
+            //                          Mail_Number = x.Mail_Number,
+            //                          Mail_Summary = x.Mail_Summary,
+            //                          TimeOfSend = z.Send_time.ToString("HH:mm:ss"),
+            //                          mail_state = (z.flag==1)? "لم ترسل " : (z.flag == 2)? "لم تقرأ" :
+            //                          (z.flag == 3) ? "قرأت " : (z.flag == 4) ? "تم الرد":(z.flag == 5)?
+            //                          "تم الرد من قبلك": (z.flag ==6) ?" تم السحب":""
 
 
 
 
-                
+            //                      }).ToListAsync();
+
+            //              list.Add(new ReportViewModel
+            //              {
+
+            //                  data = sc,
+            //                  DepartmentName = item.DepartmentName,
+            //                  total = sc.Count()
+
+
+
+            //              }) ;
+
+
+            //          }
+
+
+
+            //  foreach (var item in list)
+            //  {
+            //      if (item.data.Count()!= 0) {
+
+            //          clear.Add(item);
+            //      }
+
+
+            //  }
+
+            //***************************end code stop 14/12/2023
+
+            //*************update 14/12/2023
+           // PagenationSendedEmail<Sended_Maill> pag = new PagenationSendedEmail<Sended_Maill>();
+
+            //***********************update
+            var ca = (from mail in _data.Mails.Where(x => x.Department_Id == departmentid && x.state == true && x.Mail_Summary.Contains(summary)
+                        && ((x.insert_at.Date >= fromm && x.insert_at.Date <= to) || rep_all == false) && ((x.Mail_Type == mail_type) || mailtype == true)
+                      //&& ((x.insert_at.Date >= fromm && x.insert_at.Date <= to)) && ((x.Mail_Type == mail_type) || mailtype == true)
+                      && (mailnum_bool == 1 || x.Mail_Number == mailnum) && (x.clasification == Classfication || clasf_filter == true)
+                      && (x.Genaral_inbox_Number == genral_incoming_num || mangmentrole == true))
+
+                      join ex in _data.Extrenal_Inboxes on mail.MailID equals ex.MailID into mail_ex
+                      from mex in mail_ex.DefaultIfEmpty()
+
+                     // join send in _data.Sends on mail.MailID equals send.MailID into msg1
+
+            
+                      join send in _data.Sends.Where(x=>x.State== true && x.flag != 1) on mail.MailID equals send.MailID into msg1
+                      from ms in msg1.DefaultIfEmpty()
+
+                      join rep in _data.Replies on ms.Id equals rep.send_ToId into rep_send1
+                      from rep_send in rep_send1.DefaultIfEmpty()
+
+                      join ex_Dep in _data.external_Departments on mail.MailID equals ex_Dep.Mail_id into m_ex_dep
+                      from m_ex_dep1 in m_ex_dep.DefaultIfEmpty()
+
+//**************************************
+                      join depart in _data.Departments.Where(x=>x.state == true) on ms.to equals depart.Id // into depart_s
+                      
+
+                      // from depart_s1 in m_ex_dep.DefaultIfEmpty()
+                      //**************************************
+                      where (ms.to == Department_filter || dep_filter == true) && (ms.flag == mail_state || State_filter == true) && (ms.type_of_send == Measure_filter || meas_filter == true)
+                      //&&(ms.State==true)&&(ms.flag>1)
+                      && (mex.entity_reference_number == entity_reference_number || entity_number == true) 
+                      && ((m_ex_dep1.state == true && m_ex_dep1.side_number == TheSection) || sectionstate == true)
+                      && (((rep_send.Date >= fromm && rep_send.Date <= to) && (rep_send.state == true)) || rep_all == true)
+                      // && (((rep_send.Date >= fromm && rep_send.Date <= to) && (rep_send.state == true)) )
+
+                      select new DepartmentViewModelDto
+                      {
+                          dateOfSend = ms.Send_time.ToString("yyyy-MM-dd"),
+                          Mail_Number = mail.Mail_Number,
+                          Mail_Summary = mail.Mail_Summary,
+                          TimeOfSend = ms.Send_time.ToString("HH:mm:ss"),
+
+                          send_to_name= depart == null ? "" : depart.DepartmentName,
+                          send_to = ms == null ? 0 : ms.to,
+
+                          mail_state = (ms.flag == 1) ? "لم ترسل " : (ms.flag == 2) ? "لم تقرأ" :
+                                                    (ms.flag == 3) ? "قرأت " : (ms.flag == 4) ? "تم الرد" : (ms.flag == 5) ?
+                                                    "تم الرد من قبلك" : (ms.flag == 6) ? " تم السحب" : ""
+
+
+
+                      }).Distinct();
+
+
+            // 
+           // var c = await ca.OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToListAsync();
+            //  var c = await ca.OrderByDescending(v => v.date2).ToListAsync();
+
+           // pag.mail = c;
+
+            var kk = await ca.ToListAsync() ;
+           // var jj = kk.GroupBy(x => x.send_to);
+            var bb = kk.ToLookup(x => x.send_to_name);
+           // var nn = from g in bb orderby g.Count() select new { cccc = g.Key, coun = g.Count(), hh = g.ToList() };
+
+
+           // var clear = (from g in bb orderby g.Count() select new ReportViewModel  { DepartmentName = g.Key.ToString(), total = g.Count(), data = g.ToList() }).ToList();
+
+            var clear = (from g in bb  orderby g.Count() select new ReportViewModel { DepartmentName = g.Key.ToString(), total = g.Count(), data = g.ToList() }).ToList();
+            // List<ReportViewModel> clear = new List<ReportViewModel>() {data=nn.ToList() };
+            //clear = new ReportViewModel
+            //{
+            //    data = nn.Select(x=>x.hh).ToList(),
+            //    //  DepartmentName = g.Key.ToString(),
+            //    total = nn.Count()
+            //};
+
+
+            //*********end update 14/12/2023
+
+
 
             return clear;     
         

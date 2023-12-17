@@ -320,6 +320,11 @@ this.mailtype2="لرسائل البريد الوارد الخارجي"
            this.$route.params.classifaction_selected,
            this.$route.params.mail_caseid,
            this.$route.params.g_in_num,
+           //*******eman
+           this.$route.params.side_selected,
+           this.$route.params.entity_ref_num,
+           this.$route.params.date_of_reply
+           //****end eman
         )
         .then((res) => {
           this.mails = res.data;

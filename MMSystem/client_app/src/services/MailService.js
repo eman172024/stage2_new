@@ -278,8 +278,11 @@ export default {
     },
 
 
-    Get_sent_report_ayoub(department_Id, from, to, Department_filter, mailnum, summary, mail_type, Measure_filter, Classfication, mail_state, genral_incoming_num) {
-        return axios.get(`/api/Reports/GetReportDepartment?departmenti_d=${department_Id}&from=${from}&to=${to}&Department_filter=${Department_filter}&mailnum=${mailnum}&summary=${summary}&mail_type=${mail_type}&Measure_filter=${Measure_filter}&Classfication=${Classfication}&mail_state=${mail_state}&genral_incoming_num=${genral_incoming_num}`);
+    Get_sent_report_ayoub(department_Id, from, to, Department_filter, mailnum, summary, mail_type, Measure_filter, Classfication, mail_state, genral_incoming_num,side_selected,entity_ref_num,date_of_reply) {
+       // return axios.get(`/api/Reports/GetReportDepartment?departmenti_d=${department_Id}&from=${from}&to=${to}&Department_filter=${Department_filter}&mailnum=${mailnum}&summary=${summary}&mail_type=${mail_type}&Measure_filter=${Measure_filter}&Classfication=${Classfication}&mail_state=${mail_state}&genral_incoming_num=${genral_incoming_num}`);
+       return axios.get(`/api/Reports/GetReportDepartment?departmenti_d=${department_Id}&from=${from}&to=${to}&Department_filter=${Department_filter}&mailnum=${mailnum}&summary=${summary}&mail_type=${mail_type}&Measure_filter=${Measure_filter}&Classfication=${Classfication}&mail_state=${mail_state}&genral_incoming_num=${genral_incoming_num}&thesection=${side_selected}&entity_reference_number=${entity_ref_num}&Replay_Date=${date_of_reply}`);
+       
+        
         //  return axios.get(`http://mail:82/api/Reports/GetReportDepartment?departmenti_d=${department_Id}&from=${from}&to=${to}`);
     },
 

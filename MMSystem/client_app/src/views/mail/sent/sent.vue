@@ -2214,6 +2214,7 @@ search_reset(){
     },
 
     GetMailsToPrint() {
+   
       var date_from2 = this.date_from;
       var date_to2 = this.date_to;
 
@@ -2241,8 +2242,13 @@ search_reset(){
           mail_caseid: this.mail_caseIdSelected,
           page_num: 1,
           page_size: 1000000,
+           //***********eman
+          entity_ref_num: this.s_number,
+          //*****End  eman 
         },
       });
+
+       
     },
 
     Next_prevent_GetResources_ById(x) {

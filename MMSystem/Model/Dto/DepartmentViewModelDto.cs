@@ -8,6 +8,8 @@ namespace MMSystem.Model.Dto
     public class DepartmentViewModelDto
     {
 
+        public string  send_to_name { get; set; }
+        public  int send_to { get; set; }
         public int Mail_Number { get; set; }
 
         public string Mail_Summary { get; set; }
