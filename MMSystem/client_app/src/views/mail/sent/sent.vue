@@ -997,7 +997,7 @@
 
                 <div
                   id="scroll"
-                  class="h-72 overflow-y-scroll mt-4 rounded-lg py-2 border border-gray-300"
+                  class="h-72 overflow-y-scroll mt-4 rounded-lg py-2 border border-green-400"
                 >
                   <div
                     v-for="(reply, index) in replies"
@@ -1168,7 +1168,7 @@
                     <div class="w-10/12">
                       <textarea
                         id=""
-                        class="block w-full h-20 text-sm rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        class="block w-full h-20 text-sm rounded-md border border-green-400 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
                         v-model="reply_to_add"
                       >
                       </textarea>

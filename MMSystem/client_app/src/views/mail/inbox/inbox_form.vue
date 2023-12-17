@@ -36,7 +36,7 @@
                       </label>
 
                       <div
-                        class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
+                        class="block mt-2 w-full rounded-md h-10 text-sm border border-green-400 p-2"
                       >
                         {{ to_test_passing_mail_type | mail_type }}
                       </div>
@@ -52,7 +52,7 @@
                         التصنيف
                       </label>
                       <div
-                        class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
+                        class="block mt-2 w-full rounded-md h-10 text-sm border border-green-400 p-2"
                       >
                         {{ classification }}
                       </div>
@@ -67,7 +67,7 @@
                       </label>
 
                       <div
-                        class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
+                        class="block mt-2 w-full rounded-md h-10 text-sm border border-green-400 p-2"
                       >
                         {{ releaseDate }}
                       </div>
@@ -82,7 +82,7 @@
                       </label>
 
                       <div
-                        class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
+                        class="block mt-2 w-full rounded-md h-10 text-sm border border-green-400 p-2"
                       >
                         {{ general_incoming_number }}
                       </div>
@@ -96,7 +96,7 @@
                         السنة
                       </label>
                       <div
-                        class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
+                        class="block mt-2 w-full rounded-md h-10 text-sm border border-green-400 p-2"
                       >
                         {{ genaral_inbox_year }}
                       </div>
@@ -115,7 +115,7 @@
                       </label>
 
                       <div
-                        class="block mt-2 w-full rounded-md h-24 text-sm border border-gray-300 p-2 overflow-y-scroll"
+                        class="block mt-2 w-full rounded-md h-24 text-sm border border-green-400 p-2 overflow-y-scroll"
                       >
                         {{ summary }}
                       </div>
@@ -129,7 +129,7 @@
                         الإجراء المطلوب
                       </label>
                       <div
-                        class="block mt-2 w-full rounded-md h-24 text-sm border border-gray-300 p-2 overflow-y-scroll"
+                        class="block mt-2 w-full rounded-md h-24 text-sm border border-green-400 p-2 overflow-y-scroll"
                       >
                         {{ required_action }}
                       </div>
@@ -306,12 +306,12 @@
                 </div>
 
                 <div
-                  class="sm:col-span-8 mt-2 w-full rounded-md text-sm border border-gray-300 p-2 flex flex-wrap"
+                  class="sm:col-span-8 mt-2 w-full rounded-md text-sm border border-gray-400 p-2 flex flex-wrap"
                 >
                   <div
                     v-for="(sectoin, index) in external_sectoin"
                     :key="index"
-                    class="rounded-md border border-gray-300 p-2 ml-4 mb-4"
+                    class="rounded-md border border-green-400 p-2 ml-4 mb-4"
                   >
                     {{ sectoin.mail_forwarding | mail_forwarding_filter }}
                     /
@@ -329,7 +329,7 @@
                   </label>
 
                   <div
-                    class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
+                    class="block mt-2 w-full rounded-md h-10 text-sm border border-green-400 p-2"
                   >
                     {{ ward_to | ward_to_filter }}
                   </div>
@@ -343,7 +343,7 @@
                   </label>
 
                   <div
-                    class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
+                    class="block mt-2 w-full rounded-md h-10 text-sm border border-green-400 p-2"
                   >
                     {{ mail_ward_type | mail_ward_type_filter }}
                   </div>
@@ -357,7 +357,7 @@
                     تاريخ رسالة الجهة
                   </label>
                   <div
-                    class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
+                    class="block mt-2 w-full rounded-md h-10 text-sm border border-green-400 p-2"
                   >
                     {{ entity_mail_date }}
                   </div>
@@ -371,7 +371,7 @@
                     رقم إشارة الجهة
                   </label>
                   <div
-                    class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
+                    class="block mt-2 w-full rounded-md h-10 text-sm border border-green-400 p-2"
                   >
                     {{ entity_reference_number }}
                   </div>
@@ -385,7 +385,7 @@
                     نوع الإجراء
                   </label>
                   <div
-                    class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-300 p-2"
+                    class="block mt-2 w-full rounded-md h-10 text-sm border border-green-400 p-2"
                   >
                     {{ procedure_type | procedure_type_filter }}
                   </div>
@@ -399,7 +399,7 @@
                     الإجراء المطلوب من الجهة
                   </label>
                   <div
-                    class="block mt-2 w-full rounded-md h-24 text-sm border border-gray-300 p-2 overflow-y-scroll"
+                    class="block mt-2 w-full rounded-md h-24 text-sm border border-green-400 p-2 overflow-y-scroll"
                   >
                     {{ action_required_by_the_entity }}
                   </div>
@@ -416,14 +416,14 @@
 
                 <div
                   id="scroll"
-                  class="h-72 overflow-y-scroll mt-4 rounded-lg py-2 border border-gray-300"
+                  class="h-72 overflow-y-scroll mt-4 rounded-lg py-2 border border-green-400"
                 >
                   <div
                     v-for="(reply, index) in replies"
                     :key="index"
                     :class="
                       reply.reply.to == my_department_id
-                        ? ' flex-row-reverse justify-start'
+                        ? ' flex-row-reverse justify-start '
                         : 'justify-start'
                     "
                     class="w-full my-0.5 flex px-2"
@@ -587,7 +587,7 @@
                     <div class="w-10/12">
                       <textarea
                         id=""
-                        class="block w-full h-20 text-sm rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        class="block w-full h-20 text-sm rounded-md border hover:shadow-sm focus:outline-none border-green-400 p-2"
                         v-model="reply_to_add"
                       >
                       </textarea>

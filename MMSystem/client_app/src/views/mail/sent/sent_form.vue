@@ -235,7 +235,7 @@
                           rounded-md
                           h-24
                           text-sm
-                          border border-gray-300
+                          border border-green-400
                           p-2
                         "
                       >
@@ -254,7 +254,7 @@
                       <select
                         v-model="classification"
                         id="classification"
-                        class="block mt-2 w-full h-10 text-sm rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        class="block mt-2 w-full h-10 text-sm rounded-md border border-green-400 hover:shadow-sm focus:outline-none focus:border-green-400 p-2"
                       >
                         <option disabled selected value="0">
                           إختر التصنيف
@@ -277,7 +277,7 @@
                           rounded-md
                           h-10
                           text-sm
-                          border border-gray-300
+                          border border-green-400
                           p-2
                           overflow-hidden
                         "
@@ -304,7 +304,7 @@
                         max="2040-12-30"
                         type="date"
                         id="date"
-                        class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        class="block mt-2 w-full rounded-md h-10 text-sm border border-green-400 hover:shadow-sm focus:outline-none focus:border-green-400 p-2"
                       />
 
                       <!-- <div
@@ -316,7 +316,7 @@
                           rounded-md
                           h-10
                           text-sm
-                          border border-gray-300
+                          border border-green-400
                           p-2
                         "
                       >
@@ -340,10 +340,10 @@
                         id="general_incoming_number"
                         :class="
                           is_exisite_genaral_inbox_number
-                            ? 'border-gray-200'
+                            ? 'border-green-400'
                             : 'border-red-500'
                         "
-                        class="block mt-2 h-10 text-sm w-full rounded-md border hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                        class="block mt-2 h-10 text-sm w-full rounded-md border hover:shadow-sm focus:outline-none focus:border-green-400 px-2"
                         required
                       />
 
@@ -356,7 +356,7 @@
                           rounded-md
                           h-10
                           text-sm
-                          border border-gray-300
+                          border border-green-400
                           p-2
                         "
                       >
@@ -379,7 +379,7 @@
                         max="2100"
                         v-model="genaral_inbox_year"
                         id="year"
-                        class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        class="block mt-2 w-full rounded-md h-10 text-sm border border-green-400 hover:shadow-sm focus:outline-none focus:border-green-400 p-2"
                       />
 
                       <!-- <div
@@ -391,7 +391,7 @@
                           rounded-md
                           h-10
                           text-sm
-                          border border-gray-300
+                          border border-green-400
                           p-2
                         "
                       >
@@ -411,7 +411,7 @@
                         type="text"
                         v-model="old_mail_number"
                         id="old_mail_number"
-                        class="block mt-2 w-full rounded-md h-10 text-sm border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                        class="block mt-2 w-full rounded-md h-10 text-sm border border-green-400 hover:shadow-sm focus:outline-none focus:border-green-400 p-2"
                       />
 
                       <!-- <div
@@ -423,7 +423,7 @@
                           rounded-md
                           h-10
                           text-sm
-                          border border-gray-300
+                          border border-green-400
                           p-2
                         "
                       >
@@ -460,7 +460,7 @@
                           rounded-md
                           h-24
                           text-sm
-                          border border-gray-300
+                          border border-green-400
                           p-2
                         "
                       >
@@ -484,7 +484,7 @@
                             @click="departmentselect = !departmentselect"
                             @keyup.space.prevent
                             id="department"
-                            class="overflow-hidden text-right block mt-2 w-full rounded-md h-10 border text-xs bg-white border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                            class="overflow-hidden text-right block mt-2 w-full rounded-md h-10 border text-xs bg-white border-green-400 hover:shadow-sm focus:outline-none focus:border-green-400 p-2"
                           >
                             <input
                               @click="
@@ -501,7 +501,7 @@
 
                           <div
                             v-if="departmentselect"
-                            class="border text-sm bg-white border-gray-200 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md"
+                            class="border text-sm bg-white border-green-400 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md"
                           >
                             <button
                               v-if="allDepartmentButton"
@@ -546,14 +546,14 @@
                           <button
                             @click="measureselect = !measureselect"
                             id="measure"
-                            class="text-right block mt-2 w-full rounded-md h-10 border text-xs bg-white border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                            class="text-right block mt-2 w-full rounded-md h-10 border text-xs bg-white border-green-400 hover:shadow-sm focus:outline-none focus:border-green-400 p-2"
                           >
                             {{ measureNameSelected }}
                           </button>
 
                           <div
                             v-if="measureselect"
-                            class="border text-sm bg-white border-gray-200 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md"
+                            class="border text-sm bg-white border-green-400 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md"
                           >
                             <button
                               class="block focus:outline-none w-full my-1 text-right"
@@ -623,12 +623,12 @@
                         المرسل اليها
                       </label>
                       <div
-                        class="mt-2 w-full rounded-md border border-gray-200 p-2 h-24 overflow-y-scroll flex flex-wrap items-center"
+                        class="mt-2 w-full rounded-md border border-green-400 p-2 h-24 overflow-y-scroll flex flex-wrap items-center"
                       >
                         <div
                           v-for="consignee in consignees"
                           :key="consignee.side"
-                          class="border-2 border-green-500 rounded-md text-sm flex items-center p-2 m-0.5"
+                          class="border-2 border-green-400 rounded-md text-sm flex items-center p-2 m-0.5"
                         >
                           {{ consignee.departmentName }} ,
                           {{ consignee.measureName }}
@@ -1344,21 +1344,21 @@
                     </div>
                   </fieldset>
 
-                  <div
+                  <!-- <div
                     v-if="mailType == '2'"
                     class="sm:col-span-3 border-2 border-red-500 rounded p-2"
                   >
                     لإضافة جهة يجب اختيار القطاع والجهة والضغط على زر الاضافة
                     (+) حتي يتم إضافة الجهة في مربع الجهات المرسل اليها
-                  </div>
+                  </div> -->
 
-                  <div
+                  <!-- <div
                     v-if="mailType == '3'"
                     class="sm:col-span-3 border-2 border-red-500 rounded p-2"
                   >
                     لإضافة جهة يجب اختيار القطاع والجهة والضغط على زر الاضافة
                     (+) حتي يتم إضافة الجهة في مربع الجهة الوارد منها
-                  </div>
+                  </div> -->
 
                   <!-- <br /> -->
 
@@ -1377,14 +1377,14 @@
                         <button
                           @click="sectorselect = !sectorselect"
                           id="department"
-                          class="overflow-hidden text-right block mt-2 w-full rounded-md h-10 border text-xs bg-white border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                          class="overflow-hidden text-right block mt-2 w-full rounded-md h-10 border text-xs bg-white border-green-400 hover:shadow-sm focus:outline-none focus:border-green-400 p-2"
                         >
                           {{ sectorNameSelected }}
                         </button>
 
                         <div
                           v-if="sectorselect"
-                          class="border text-sm bg-white border-gray-200 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md"
+                          class="border text-sm bg-white border-green-400 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md"
                         >
                           <!-- <button
                               v-if="allDepartmentButton"
@@ -1432,7 +1432,7 @@
                           @click="sideselect = !sideselect"
                           @keyup.space.prevent
                           id="measure"
-                          class="text-right block mt-2 w-full rounded-md h-10 border text-xs bg-white border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                          class="text-right block mt-2 w-full rounded-md h-10 border text-xs bg-white border-green-400 hover:shadow-sm focus:outline-none focus:border-green-400 p-2"
                         >
                           <!-- {{ sideNameSelected }} -->
 
@@ -1445,7 +1445,7 @@
 
                         <div
                           v-if="sideselect"
-                          class="border text-sm bg-white border-gray-200 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md"
+                          class="border text-sm bg-white border-green-400 p-2 absolute w-full z-20 shadow h-40 overflow-y-scroll rounded-b-md"
                         >
                           <button
                             class="block focus:outline-none w-full my-1 text-right"
@@ -1514,7 +1514,7 @@
                       <div v-if="mailType == '3'">الجهة الوارد منها</div>
                     </label>
                     <div
-                      class="mt-2 w-full rounded-md border border-gray-200 p-2 h-24 overflow-y-scroll flex flex-wrap items-center"
+                      class="mt-2 w-full rounded-md border border-green-400 p-2 h-24 overflow-y-scroll flex flex-wrap items-center"
                     >
                       <div
                         v-for="sector_side in sector_side_old_array"
@@ -1597,7 +1597,7 @@
                     v-model="action_required_by_the_entity"
                     id="action_required"
                     rows="3"
-                    class="block mt-2 w-full text-sm rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                    class="block mt-2 w-full text-sm rounded-md border border-green-400 hover:shadow-sm focus:outline-none focus:border-green-400 p-2"
                   >
                   </textarea>
                 </div>
@@ -1707,7 +1707,7 @@
                       min="2000-01-01"
                       max="2040-12-30"
                       id="entity_mail_date"
-                      class="block mt-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                      class="block mt-2 w-full rounded-md h-10 border border-green-400 hover:shadow-sm focus:outline-none focus:border-green-400 px-2"
                       required
                     />
                   </div>
@@ -1723,7 +1723,7 @@
                       v-model="entity_reference_number"
                       type="number"
                       id="entity_reference_number"
-                      class="block mt-2 h-10 w-full rounded-md border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 px-2"
+                      class="block mt-2 h-10 w-full rounded-md border border-green-400 hover:shadow-sm focus:outline-none focus:border-green-400 px-2"
                       required
                     />
                   </div>
@@ -1738,7 +1738,7 @@
                     <select
                       v-model="procedure_type"
                       id="procedure_type"
-                      class="block mt-2 w-full rounded-md h-10 border border-gray-200 hover:shadow-sm focus:outline-none focus:border-gray-300 p-2"
+                      class="block mt-2 w-full rounded-md h-10 border border-green-400 hover:shadow-sm focus:outline-none focus:border-green-400 p-2"
                     >
                       <option value="1">لم تعرض</option>
                       <option value="2">عرضت</option>
@@ -2445,7 +2445,7 @@
 
                 <div
                   id="scroll"
-                  class="h-72 overflow-y-scroll mt-4 rounded-lg py-2 border border-gray-300"
+                  class="h-72 overflow-y-scroll mt-4 rounded-lg py-2 border border-green-400"
                 >
                   <div
                     v-for="(reply, index) in replies"
@@ -2619,9 +2619,9 @@
                           h-20
                           text-sm
                           rounded-md
-                          border border-gray-200
+                          border border-green-400
                           hover:shadow-sm
-                          focus:outline-none focus:border-gray-300
+                          focus:outline-none focus:border-green-400
                           p-2
                         "
                         v-model="reply_to_add"

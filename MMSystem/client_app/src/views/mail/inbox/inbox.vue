@@ -1186,7 +1186,7 @@
                               h-24
                               text-sm
                               rounded-md
-                              border border-gray-200
+                              border border-green-400
                               hover:shadow-sm
                               focus:outline-none focus:border-gray-300
                               p-2
