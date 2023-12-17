@@ -2027,7 +2027,7 @@ this.s_number = "";
 if(this.conn==null){
      console.log("conn="+this.conn);
       this.conn = new WebSocket("ws://localhost:58316/ws");
-     //  this.conn = new WebSocket("ws://mail:82/ws");
+      // this.conn = new WebSocket("ws://mail:82/ws");
    
   this.conn.onclose=(event)=>{
   console.log("close code_inbox.vue="+event.code);
