@@ -10,7 +10,7 @@ import Pagination from 'vue-pagination-2';
 
 Vue.component('pagination', Pagination);
 
-//axios.defaults.baseURL='http://mail:82/';
+//axios.defaults.baseURL='http://mail:96/';
 import Print from 'vue-print-nb'
 // Global instruction 
 Vue.use(Print);
