@@ -547,8 +547,8 @@
                         <option value="0" selected>اختر السنة</option>
                         <option value="0">إلغاء</option>
                         <option value="2023">2023</option>
-                        <!-- <option value="2024">2024</option>
-                              <option value="2025">2025</option>
+                         <option value="2024">2024</option>
+                            <!--  <option value="2025">2025</option>
                               <option value="2026">2026</option>
                               <option value="2027">2027</option>
                               <option value="2028">2028</option>
@@ -1725,7 +1725,7 @@ console.log("code sent.vue="+event.code);
     document
       .querySelector("#handleScrollForAyoubTest")
       .addEventListener("scroll", this.handleScroll);
-    this.date_from = date.getFullYear() + "-" + month1 + "-" + day1;
+    this.date_from = "2023" + "-" + month1 + "-" + day1;
     this.date_to = date.getFullYear() + "-" + month + "-" + day;
 
     this.my_user_id = localStorage.getItem("AY_LW");
@@ -1754,21 +1754,21 @@ console.log("code sent.vue="+event.code);
         this.GetSentMail();
       }
     },
-    year_filter: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
+    // year_filter: function () {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.replies = [];
+    //   this.departmentflag = 0;
+    //   this.departmentName = "";
+    //   this.page_num = 1;
 
-      if (this.mailType == 0 || this.mailType == 2) {
-        this.report_button = true;
-      } else {
-        this.report_button = false;
-      }
-      this.GetSentMail();
-    },
+    //   if (this.mailType == 0 || this.mailType == 2) {
+    //     this.report_button = true;
+    //   } else {
+    //     this.report_button = false;
+    //   }
+    //   this.GetSentMail();
+    // },
 
     mailType: function () {
       this.senders = [];
@@ -2066,7 +2066,7 @@ search_reset(){
   this.selectsides('', 'الكل');
   this.by_date_of_reply = false;
   this.s_number = "";
-
+  this.year_filter="2023"
 
 
 

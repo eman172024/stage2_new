@@ -601,8 +601,8 @@
                         <option value="0" selected>اختر السنة</option>
                         <option value="0">إلغاء</option>
                         <option value="2023">2023</option>
-                        <!-- <option value="2024">2024</option>
-                              <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                           <!--    <option value="2025">2025</option>
                               <option value="2026">2026</option>
                               <option value="2027">2027</option>
                               <option value="2028">2028</option>
@@ -1692,7 +1692,7 @@ consol.log("code inbox.vue="+event.code);
     if (month < 10) month = "0" + month;
     if (day < 10) day = "0" + day;
 
-    this.date_from = date.getFullYear() + "-" + month1 + "-" + day1;
+    this.date_from = "2023" + "-" + month1 + "-" + day1;
     this.date_to = date.getFullYear() + "-" + month + "-" + day;
 
     this.my_user_id = localStorage.getItem("AY_LW");
@@ -1720,10 +1720,10 @@ consol.log("code inbox.vue="+event.code);
   watch: {
 
 
-    year_filter: function() {
-      this.page_num = 1;
-      this.GetInboxs();
-    },
+    // year_filter: function() {
+    //   this.page_num = 1;
+    //   this.GetInboxs();
+    // },
 
     departmentNameSelected: function() {
 
@@ -1917,7 +1917,7 @@ this.selectdepartment('', 'الكل');
 this.selectmeasure('', 'الكل');
 this.select_mail_case('', 'الكل');
 this.selectClassification('', 'الكل');
-
+this.year_filter="2023"
 
 this.s_number = "";
 
