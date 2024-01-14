@@ -2431,7 +2431,7 @@ consol.log("code inbox.vue="+event.code);
 
   methods: {
 
-    show_senders(id, mail_type, numbre,resend_from) {
+    show_senders(id, mail_type, number,resend_from) {
       this.screenFreeze = true;
       this.loading = true;
       this.mailId_to_get_mail_by_id = id;
