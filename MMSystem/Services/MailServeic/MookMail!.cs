@@ -2356,7 +2356,7 @@ namespace MMSystem.Services.MailServeic
                     //ex.sector.Add(sector);
 
 
-                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == id&&x.State==true).ToListAsync();
+                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == id&&x.State==true && x.resendfrom == 0).ToListAsync();
 
 
                     if (sends.Count > 0) {
@@ -2683,7 +2683,7 @@ namespace MMSystem.Services.MailServeic
                         if (dto != null) {
 
                             mail.mail = dto;
-                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID&&x.State==true).ToListAsync();
+                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID && x.State==true && x.resendfrom==0).ToListAsync();
 
                             if (sends.Count > 0) {
 
@@ -2775,7 +2775,7 @@ namespace MMSystem.Services.MailServeic
 
 
 
-                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == ex.mail.MailID&&x.State==true).ToListAsync();
+                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == ex.mail.MailID&&x.State==true && x.resendfrom ==0).ToListAsync();
 
                             if (sends.Count > 0) {
 
@@ -2865,7 +2865,7 @@ namespace MMSystem.Services.MailServeic
                                                       .ToListAsync();
 
 
-                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == dto.MailID && x.State == true).ToListAsync();
+                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == dto.MailID && x.State == true && x.resendfrom == 0).ToListAsync();
 
 
 
