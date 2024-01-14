@@ -612,8 +612,8 @@
                         <option value="0" selected>اختر السنة</option>
                         <option value="0">إلغاء</option>
                         <option value="2023">2023</option>
-                        <!-- <option value="2024">2024</option>
-                              <option value="2025">2025</option>
+                         <option value="2024">2024</option>
+                           <!--   <option value="2025">2025</option>
                               <option value="2026">2026</option>
                               <option value="2027">2027</option>
                               <option value="2028">2028</option>
@@ -1853,24 +1853,24 @@ console.log("code sent.vue="+event.code);
     },
 
 
-    date_from: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
-    date_to: function () {
-      this.senders = [];
-      this.show_senders_mail = "";
-      this.replies = [];
-      this.departmentflag = 0;
-      this.departmentName = "";
-      this.page_num = 1;
-      this.GetSentMail();
-    },
+    // date_from: function () {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.replies = [];
+    //   this.departmentflag = 0;
+    //   this.departmentName = "";
+    //   this.page_num = 1;
+    //   this.GetSentMail();
+    // },
+    // date_to: function () {
+    //   this.senders = [];
+    //   this.show_senders_mail = "";
+    //   this.replies = [];
+    //   this.departmentflag = 0;
+    //   this.departmentName = "";
+    //   this.page_num = 1;
+    //   this.GetSentMail();
+    // },
 
 
     // mail_id: function () {

@@ -143,7 +143,7 @@
                 <section class="col-span-2 bg-gray-100 rounded-md p-6">
                   <div class="flex justify-between items-center">
                     <h3 class="block text-base font-semibold text-gray-800">
-                     1 المستندات
+                      المستندات
                     </h3>
                   </div>
 
@@ -875,7 +875,7 @@
                 >
                   <div class="flex justify-between items-center">
                     <h3 class="block text-sm font-semibold text-gray-800">
-                    2  المستندات
+                    المستندات
                       <!-- <div class="">
                         doc_number : {{ doc_number }} //
                         total_of_doc : {{ total_of_doc }}
