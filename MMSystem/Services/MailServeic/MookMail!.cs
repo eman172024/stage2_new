@@ -2131,7 +2131,7 @@ namespace MMSystem.Services.MailServeic
 
                         );
                     }
-                    mail.resourcescs = await _resourcescs.GetAll(mail.mail.MailID);
+                    mail.resourcescs = await _resourcescs.GetAll(mail.mail.MailID,mail.mail.department_Id);
 
 
                     foreach (var xx in mail.resourcescs)
@@ -2713,7 +2713,7 @@ namespace MMSystem.Services.MailServeic
                             ActionSender sender = new ActionSender();
                            
 
-                            mail.resourcescs = await _resourcescs.GetAll(mail.mail.MailID);
+                            mail.resourcescs = await _resourcescs.GetAll(mail.mail.MailID,mail.mail.department_Id);
 
 
                             foreach (var xx in mail.resourcescs)
@@ -2803,7 +2803,7 @@ namespace MMSystem.Services.MailServeic
 
                             }
 
-                            ex.resourcescs = await _resourcescs.GetAll(dto.MailID);
+                            ex.resourcescs = await _resourcescs.GetAll(dto.MailID,dto.department_Id);
 
 
                             foreach (var xx in ex.resourcescs)
@@ -2898,7 +2898,7 @@ namespace MMSystem.Services.MailServeic
 
                             //
 
-                            ex1.resourcescs = await _resourcescs.GetAll(dto.MailID);
+                            ex1.resourcescs = await _resourcescs.GetAll(dto.MailID,dto.department_Id);
 
 
                             foreach (var xx in ex1.resourcescs)

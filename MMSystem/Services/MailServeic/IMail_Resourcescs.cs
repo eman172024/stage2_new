@@ -11,9 +11,9 @@ namespace MMSystem.Services.MailServeic
   public interface IMail_Resourcescs:GenericInterface<Mail_Resourcescs, Mail_ResourcescsDto>
     {
 
+        Task<List<Mail_ResourcescsDto>> GetAll(int id,int department_Id);
         Task<List<Mail_ResourcescsDto>> GetAll(int id);
 
-     
 
         Task<string> tobase64(string patj);
 

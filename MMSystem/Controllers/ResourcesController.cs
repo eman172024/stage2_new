@@ -22,7 +22,7 @@ namespace MMSystem.Controllers
         }
 
 
-        [HttpGet("GetMailResources")]
+        [HttpGet("GetMailResources")] 
         public async Task<IActionResult> GetMailResources(int mail_id, int userId, int department_id)
         {
 

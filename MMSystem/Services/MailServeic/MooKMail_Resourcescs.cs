@@ -87,11 +87,11 @@ namespace MMSystem.Services.MailServeic
             throw new NotImplementedException();
         }
 
-        public async Task<List<Mail_ResourcescsDto>> GetAll(int id)
+        public async Task<List<Mail_ResourcescsDto>> GetAll(int id, int department_Id)
         {
             try
             {
-                List<Mail_Resourcescs> _Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == id && x.State == true).ToListAsync();
+                List<Mail_Resourcescs> _Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == id && x.State == true && x.fromWho == department_Id).ToListAsync();
                 List<Mail_ResourcescsDto> mail_ResourcescsDtos = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(_Resourcescs);
 
 
@@ -177,11 +177,11 @@ namespace MMSystem.Services.MailServeic
 
         }
 
-        public async Task<List<Mail_ResourcescsDto>> GetAllRes(int id)
+        public async Task<List<Mail_ResourcescsDto>> GetAllRes(int id,int department_Id)
         {
             try
             {
-                var list = await GetAll(id);
+                var list = await GetAll(id, department_Id);
 
                foreach (var xx in list)
                {
@@ -508,6 +508,16 @@ namespace MMSystem.Services.MailServeic
             }
 
             return isUpdate;
+        }
+
+        public Task<List<Mail_ResourcescsDto>> GetAll(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Mail_ResourcescsDto>> GetAllRes(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
