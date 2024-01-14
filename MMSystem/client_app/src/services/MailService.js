@@ -126,8 +126,8 @@ export default {
 
 
 
-    show_senders2(id,department_id) {
-        return axios.get(`/api/Mail/GetDetaliesInIncomingMails?mail_id=${id}&department_id=${department_id}`);
+    show_senders2(id,department_id,resend_from) {
+        return axios.get(`/api/Mail/GetDetaliesInIncomingMails?mail_id=${id}&department_id=${department_id}&resendfrom=${resend_from}`);
         //  return axios.get(`http://mail:82/api/Mail/GetDetalies?mail_id=${id}`);
     },
 

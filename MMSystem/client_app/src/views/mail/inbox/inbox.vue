@@ -616,8 +616,8 @@
                         <option value="0" selected>اختر السنة</option>
                         <option value="0">إلغاء</option>
                         <option value="2023">2023</option>
-                        <!-- <option value="2024">2024</option>
-                              <option value="2025">2025</option>
+                         <option value="2024">2024</option>
+                           <!--   <option value="2025">2025</option>
                               <option value="2026">2026</option>
                               <option value="2027">2027</option>
                               <option value="2028">2028</option>
@@ -853,7 +853,8 @@
                        show_senders(
                             mail.mail_id,
                             mail.type_of_mail,
-                            mail.mail_Number
+                            mail.mail_Number,
+                            mail.resendfrom
                           ) "
                     >
                       <div class="w-12 pr-2 py-1 text-right">
@@ -1099,7 +1100,7 @@
               </div>
 
               <div class="w-7/12 mr-2">
-                  الجهات المرسل إليها
+                   الجهات المرسل إليها والوارد منها
                   <span v-if="show_senders_mail">
                     - رقم البريد
                     <span class="font-bold">{{ show_senders_mail }}</span>
@@ -2241,14 +2242,15 @@ consol.log("code inbox.vue="+event.code);
       this.page_num = 1;
       this.GetInboxs();
     },
-    date_from: function () {
-      this.page_num = 1;
-      this.GetInboxs();
-    },
-    date_to: function () {
-      this.page_num = 1;
-      this.GetInboxs();
-    },
+
+    // date_from: function () {
+    //   this.page_num = 1;
+    //   this.GetInboxs();
+    // },
+    // date_to: function () {
+    //   this.page_num = 1;
+    //   this.GetInboxs();
+    // },
 
     // mail_id: function () {
     //   this.page_num = 1;
@@ -2429,7 +2431,7 @@ consol.log("code inbox.vue="+event.code);
 
   methods: {
 
-    show_senders(id, mail_type, number) {
+    show_senders(id, mail_type, numbre,resend_from) {
       this.screenFreeze = true;
       this.loading = true;
       this.mailId_to_get_mail_by_id = id;
@@ -2441,7 +2443,7 @@ consol.log("code inbox.vue="+event.code);
       this.departmentflag = 0;
 
       this.$http.mailService
-        .show_senders2(id,this.my_department_id)
+        .show_senders2(id,this.my_department_id,Number(resend_from))
         .then((res) => {
           this.show_senders_mail = number;
           this.senders = res.data;
