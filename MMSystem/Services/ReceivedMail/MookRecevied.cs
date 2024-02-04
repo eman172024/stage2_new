@@ -207,10 +207,12 @@ namespace MMSystem.Services.ReceivedMail
 
                           select new Sended_Maill { 
                               Mail_Number = mail.Mail_Number, summary = mail.Mail_Summary, date = mail.insert_at.Date, date2 = mail.Date_Of_Mail, mailid = mail.MailID, mail_id = mail.MailID, type_of_mail = mail.Mail_Type
-                            
+
                               //                    date2 = mail.Date_Of_Mail.Date,
-                          }).Distinct();
-                         var c = await ca.OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToListAsync();
+                                }).Distinct();
+
+                        //  }).OrderByDescending(v => v.date2).Distinct().Skip((pagenum - 1) * size).Take(size).ToListAsync(); ;
+                var c = await ca.OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToListAsync();
                         // var c = await ca.Skip((pagenum - 1) * size).Take(size).OrderByDescending(v => v.date).ToListAsync();
 
                          pag.mail = c;
@@ -493,115 +495,247 @@ namespace MMSystem.Services.ReceivedMail
                 var m = await dbcon.Departments.FindAsync(mangment);
 
                 PagenationSendedEmail<Sended_Maill> pag = new PagenationSendedEmail<Sended_Maill>();
+                //**************************************stop code 30/1/2024
 
-                   var c1 = await (from mail in dbcon.Mails.Where(x => x.state == true)
+                //   var c1 = await (from mail in dbcon.Mails.Where(x => x.state == true)
 
-                                join send in dbcon.Sends.Where(x=> x.to == mangment && x.State ==true && x.flag >1)
-                                on mail.MailID equals send.MailID
-                                   into fullmail
-                                from b1 in fullmail.DefaultIfEmpty()
+                //                join send in dbcon.Sends.Where(x=> x.to == mangment && x.State ==true && x.flag >1)
+                //                on mail.MailID equals send.MailID
+                //                   into fullmail
+                //                from b1 in fullmail.DefaultIfEmpty()
 
 
-                                join exInmail in dbcon.Extrenal_Inboxes on mail.MailID equals exInmail.MailID
-                                 into exInmailin
-                                from exin in exInmailin.DefaultIfEmpty()
+                //                join exInmail in dbcon.Extrenal_Inboxes on mail.MailID equals exInmail.MailID
+                //                 into exInmailin
+                //                from exin in exInmailin.DefaultIfEmpty()
 
-                               
 
-                               
 
-                                select new Sended_Maill()
-                                {
-                                    entity_refernceNum=exin== null ? 0 :exin.entity_reference_number,
+
+
+                //                select new Sended_Maill()
+                //                {
+                //                    entity_refernceNum=exin== null ? 0 :exin.entity_reference_number,
+
+                //                    externalInbox_sectionid = exin == null ? 0 : exin.SectionId,
+                //                    typeofsend = b1 == null ? 1 : b1.type_of_send,
+                //                    mail_id = mail.MailID,
+                //                    sends_state = b1 == null ? true : b1.State,
+                //                    type_of_mail = mail.Mail_Type,
+                //                    Mail_Number = mail.Mail_Number,
+                //                    date = mail.insert_at.Date,
+                //                    date2 = mail.Date_Of_Mail.Date,
+                //                    mangment_sender_id = mail.Department_Id,
+                //                    Send_time = b1.Send_time.ToString("yyyy-MM-dd"),
+                //                    time = b1.Send_time.ToString("HH:mm:ss"),
+                //                    summary = mail.Mail_Summary,
+                //                    flag = b1 == null ? 1 : b1.flag,
+                //                    Sends_id = b1 == null ? 0 : b1.Id,
+                //                    is_multi = b1 == null ? true : b1.isMulti,
+                //                    mail_state = mail.state,
+                //                    clasfiction = mail.clasification,
+                //                    genralinboxnumber = mail.Genaral_inbox_Number,
+                //                    tomangment = b1 == null ? 0 : b1.to,
+                //                    dep_fil= mail.Department_Id
+
+                //                }).OrderByDescending(v => v.date2).Distinct().ToListAsync();
+
+
+
+                //var c = (from mail in c1.Where(x =>(  
+                //                            x.summary.Contains(summary)) &&
+                //                  (x.date.Date >= d1 && x.date.Date <= d2) && ((x.type_of_mail == mailNumType) || allmailtype == true)
+                //                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) &&
+                //                            (x.clasfiction == Classfication || clasf_filter == true) &&
+                //                            (x.genralinboxnumber == genral_incoming_num || incoing_num_filter == true) && x.mail_state == true &&
+
+                //                         (x.flag > 1) && (mangmentrole == true || (mangmentrole == false && x.tomangment == mangment)) &&
+                //                         (x.entity_refernceNum == entity_reference_number || entity_number == true)&&
+                //                        ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
+                //                        (x.flag == mail_state || State_filter == true) && x.sends_state == true)
+
+
+
+                //         join z in dbcon.MailStatuses.Where(x => x.state == true ) on mail.flag equals z.flag
+
+                //         join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on mail.typeofsend equals dx.MeasuresId
+
+                //         join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true) && x.state == true) on mail.dep_fil equals n.Id
+
+                //        // join exin in dbcon.Extrenal_Inboxes.Where(x => (x.entity_reference_number == entity_reference_number || entity_number == true)) on mail.mail_id equals exin.Id
+
+
+                //         select new Sended_Maill()
+                //         {
+                //             entity_refernceNum = mail == null ? 0 : mail.entity_refernceNum,
+
+                //             externalInbox_sectionid = mail == null ? 0 : mail.externalInbox_sectionid,
+                //             measure_id = dx == null ? 1 : dx.MeasuresId,
+                //             typeofsend = mail.typeofsend,
+                //             sends_state = mail == null ? true : mail.sends_state,
+                //             mail_id = mail.mail_id,
+                //             State = z.inbox,
+                //             type_of_mail = mail.type_of_mail,
+                //             Mail_Number = mail.Mail_Number,
+                //             date = mail.date.Date,
+                //             date2 = mail.date2.Date,
+                //             Masure_type = dx == null ? " " : dx.MeasuresName,
+                //             mangment_sender = n == null ? "" : n.DepartmentName,
+                //             mangment_sender_id = mail.mangment_sender_id,
+                //             Send_time = mail.Send_time,
+                //             time = mail.Send_time,
+                //             summary = mail.summary,
+                //             flag = mail == null ? 0 : mail.flag,
+                //             Sends_id = mail == null ? 0 : mail.Sends_id,
+                //             is_multi = mail == null ? true : mail.is_multi,
+                //             mail_state = mail.mail_state,
+                //             clasfiction = mail.clasfiction,
+                //             genralinboxnumber = mail.genralinboxnumber,
+                //             tomangment = mail == null ? 0 : mail.tomangment,
+                //             dep_fil = mail.dep_fil
+
+
+
+                //         }).OrderByDescending(v => v.date2).ToList();
+
+
+                //pag.mail = c.OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToList();
+
+
+
+                //pag.Total = c.Count();
+
+                //*****************************stop code end 30/1/2024
+
+                //********update code 11/1/2024
+                var ca = await (from mail in dbcon.Mails
+                                         join send in dbcon.Sends.Where(x => x.State == true && x.flag > 1 && x.to == mangment) on mail.MailID equals send.MailID into sends_mail
+                             //   join send in dbcon.Sends.Where(x => x.State == true && x.flag > 1 && ((x.to == mangment && truley == true) || (x.resendfrom == mangment && nomangment == true))) on mail.MailID equals send.MailID into sends_mail
+
+                                from send_mail in sends_mail.DefaultIfEmpty()
+                                join ex in dbcon.Extrenal_Inboxes on mail.MailID equals ex.MailID into send_mail_ext
+                                from send_mail_ext_m in send_mail_ext.DefaultIfEmpty()
+                                join depart in dbcon.Departments on send_mail.Mail.Department_Id equals depart.Id
+                                join ms in dbcon.measures on send_mail.type_of_send equals ms.MeasuresId
+
+                                join ma_st in dbcon.MailStatuses.Where(x => x.state == true) on send_mail.flag equals ma_st.flag
+
+
+                                join ex_dep in dbcon.external_Departments on send_mail.Mail.MailID equals ex_dep.Mail_id into all_tables
+                                from all_table in all_tables.DefaultIfEmpty()
+
+                                where (mail.state == true
+                               && mail.Mail_Summary.Contains(summary) && (mail.Date_Of_Mail.Date >= d1 && mail.Date_Of_Mail.Date <= d2)
+                                       && ((mail.Mail_Type == mailNumType) || allmailtype == true)
+                                       && (mailnum_bool == 1 || mail.Mail_Number == mailnum) && (mail.clasification == Classfication || clasf_filter == true)
+                                       && (mail.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true)
+                                      //&& (send_mail.to == mangment) 
+
+                                     // update 11/1/2024  
+                                     && (mail.Department_Id == Department_filter || dep_filter == true)
+                                     // && (((mail.Department_Id == Department_filter && send_mail.resendfrom == 0) || send_mail.resendfrom == Department_filter) || dep_filter == true)
+
+                                       && (send_mail.flag == mail_state || State_filter == true) && (send_mail.type_of_send == Measure_filter || meas_filter == true)
+                                        && (send_mail_ext_m.entity_reference_number == entity_reference_number || entity_number == true))
                                   
-                                    externalInbox_sectionid = exin == null ? 0 : exin.SectionId,
-                                    typeofsend = b1 == null ? 1 : b1.type_of_send,
+                                      
+
+
+
+
+                                select new Sended_Maill
+                                {
+                                    
                                     mail_id = mail.MailID,
-                                    sends_state = b1 == null ? true : b1.State,
-                                    type_of_mail = mail.Mail_Type,
-                                    Mail_Number = mail.Mail_Number,
-                                    date = mail.insert_at.Date,
-                                    date2 = mail.Date_Of_Mail.Date,
-                                    mangment_sender_id = mail.Department_Id,
-                                    Send_time = b1.Send_time.ToString("yyyy-MM-dd"),
-                                    time = b1.Send_time.ToString("HH:mm:ss"),
-                                    summary = mail.Mail_Summary,
-                                    flag = b1 == null ? 1 : b1.flag,
-                                    Sends_id = b1 == null ? 0 : b1.Id,
-                                    is_multi = b1 == null ? true : b1.isMulti,
-                                    mail_state = mail.state,
-                                    clasfiction = mail.clasification,
-                                    genralinboxnumber = mail.Genaral_inbox_Number,
-                                    tomangment = b1 == null ? 0 : b1.to,
-                                    dep_fil= mail.Department_Id
-
-                                }).OrderByDescending(v => v.date2).Distinct().ToListAsync();
+                                   
+                                    //   }).Distinct().Count();
+                                    // }).OrderBy(Z=>Z.date2).Distinct();
+                                    //  }).Distinct().Skip((pagenum - 1) * size).Take(size).ToListAsync();
+                                }).Distinct().CountAsync();
+                // }).AsNoTracking().Distinct().CountAsync();
 
 
 
-                var c = (from mail in c1.Where(x =>(  
-                                            x.summary.Contains(summary)) &&
-                                  (x.date.Date >= d1 && x.date.Date <= d2) && ((x.type_of_mail == mailNumType) || allmailtype == true)
-                                            && (mailnum_bool == 1 || x.Mail_Number == mailnum) &&
-                                            (x.clasfiction == Classfication || clasf_filter == true) &&
-                                            (x.genralinboxnumber == genral_incoming_num || incoing_num_filter == true) && x.mail_state == true &&
+                //*****************added code 
+                //***24/1/2024
 
-                                         (x.flag > 1) && (mangmentrole == true || (mangmentrole == false && x.tomangment == mangment)) &&
-                                         (x.entity_refernceNum == entity_reference_number || entity_number == true)&&
-                                        ((x.flag >= mailReaded && x.flag <= mailnot_readed) || mail_accept == true) &&
-                                        (x.flag == mail_state || State_filter == true) && x.sends_state == true)
+                var ca1 = await (from mail in dbcon.Mails
+                                 join send in dbcon.Sends.Where(x => x.State == true && x.flag > 1 && x.to == mangment) on mail.MailID equals send.MailID into sends_mail
+                                 //   join send in dbcon.Sends.Where(x => x.State == true && x.flag > 1 && ((x.to == mangment && truley == true) || (x.resendfrom == mangment && nomangment == true))) on mail.MailID equals send.MailID into sends_mail
 
-                       
+                                 from send_mail in sends_mail.DefaultIfEmpty()
+                                 join ex in dbcon.Extrenal_Inboxes on mail.MailID equals ex.MailID into send_mail_ext
+                                 from send_mail_ext_m in send_mail_ext.DefaultIfEmpty()
+                                 join depart in dbcon.Departments on send_mail.Mail.Department_Id equals depart.Id
+                                 join ms in dbcon.measures on send_mail.type_of_send equals ms.MeasuresId
 
-                         join z in dbcon.MailStatuses.Where(x => x.state == true ) on mail.flag equals z.flag
-
-                         join dx in dbcon.measures.Where(x => (x.MeasuresId == Measure_filter || meas_filter == true)) on mail.typeofsend equals dx.MeasuresId
-
-                         join n in dbcon.Departments.Where(x => (x.Id == Department_filter || dep_filter == true) && x.state == true) on mail.dep_fil equals n.Id
-
-                        // join exin in dbcon.Extrenal_Inboxes.Where(x => (x.entity_reference_number == entity_reference_number || entity_number == true)) on mail.mail_id equals exin.Id
+                                 join ma_st in dbcon.MailStatuses.Where(x => x.state == true) on send_mail.flag equals ma_st.flag
 
 
-                         select new Sended_Maill()
-                         {
-                             entity_refernceNum = mail == null ? 0 : mail.entity_refernceNum,
-                             
-                             externalInbox_sectionid = mail == null ? 0 : mail.externalInbox_sectionid,
-                             measure_id = dx == null ? 1 : dx.MeasuresId,
-                             typeofsend = mail.typeofsend,
-                             sends_state = mail == null ? true : mail.sends_state,
-                             mail_id = mail.mail_id,
-                             State = z.inbox,
-                             type_of_mail = mail.type_of_mail,
-                             Mail_Number = mail.Mail_Number,
-                             date = mail.date.Date,
-                             date2 = mail.date2.Date,
-                             Masure_type = dx == null ? " " : dx.MeasuresName,
-                             mangment_sender = n == null ? "" : n.DepartmentName,
-                             mangment_sender_id = mail.mangment_sender_id,
-                             Send_time = mail.Send_time,
-                             time = mail.Send_time,
-                             summary = mail.summary,
-                             flag = mail == null ? 0 : mail.flag,
-                             Sends_id = mail == null ? 0 : mail.Sends_id,
-                             is_multi = mail == null ? true : mail.is_multi,
-                             mail_state = mail.mail_state,
-                             clasfiction = mail.clasfiction,
-                             genralinboxnumber = mail.genralinboxnumber,
-                             tomangment = mail == null ? 0 : mail.tomangment,
-                             dep_fil = mail.dep_fil
+                                 join ex_dep in dbcon.external_Departments on send_mail.Mail.MailID equals ex_dep.Mail_id into all_tables
+                                 from all_table in all_tables.DefaultIfEmpty()
+
+                                 where (mail.state == true
+                                && mail.Mail_Summary.Contains(summary) && (mail.Date_Of_Mail.Date >= d1 && mail.Date_Of_Mail.Date <= d2)
+                                        && ((mail.Mail_Type == mailNumType) || allmailtype == true)
+                                        && (mailnum_bool == 1 || mail.Mail_Number == mailnum) && (mail.clasification == Classfication || clasf_filter == true)
+                                        && (mail.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true)
+                                      //&& (send_mail.to == mangment) 
+
+                                      // update 11/1/2024  
+                                      && (mail.Department_Id == Department_filter || dep_filter == true)
+                                        // && (((mail.Department_Id == Department_filter && send_mail.resendfrom == 0) || send_mail.resendfrom == Department_filter) || dep_filter == true)
+
+                                        && (send_mail.flag == mail_state || State_filter == true) && (send_mail.type_of_send == Measure_filter || meas_filter == true)
+                                         && (send_mail_ext_m.entity_reference_number == entity_reference_number || entity_number == true))
 
 
 
-                         }).OrderByDescending(v => v.date2).ToList();
+
+                                 select new Sended_Maill
+                                 {
+
+                                    
+                                     entity_refernceNum = send_mail_ext_m == null ? 0 : send_mail_ext_m.entity_reference_number,
+
+                                     // externalInbox_sectionid = mail == null ? 0 : mail.externalInbox_sectionid,
+                                     measure_id = ms == null ? 1 : ms.MeasuresId,
+                                     // typeofsend = dx.MeasuresName,
+                                     //  sends_state = mail == null ? true : mail.sends_state,
+                                     mail_id = mail.MailID,
+
+                                     mailid = send_mail.MailID,
+
+                                     State = ma_st.inbox,
+                                     type_of_mail = send_mail.Mail.Mail_Type,
+                                     Mail_Number = mail.Mail_Number,
+                                     date = mail.insert_at.Date,
+                                     date2 = mail.Date_Of_Mail.Date,
 
 
-                pag.mail = c.OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToList();
+                                     Masure_type = ms == null ? " " : ms.MeasuresName,
+
+                                     mangment_sender_id = mail.Department_Id,
+                                     mangment_sender = depart == null ? "" : depart.DepartmentName,
+                                    
+                                     Send_time = send_mail.Send_time.ToString(),
+
+                                     summary = mail.Mail_Summary,
+                                     flag = send_mail == null ? 0 : send_mail.flag,
+                                     Sends_id = send_mail == null ? 0 : send_mail.Id,
 
 
+                                     genralinboxnumber = mail.Genaral_inbox_Number,
 
-                pag.Total = c.Count();
+                                     // }).Distinct();//.OrderByDescending(v => v.date2);
 
+                                 }).Distinct().OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).AsNoTracking().ToListAsync();
+
+
+                pag.mail = ca1;// await ca1.Skip((pagenum - 1) * size).Take(size).AsNoTracking().ToListAsync(); //.ToList();
+                //  pag.mail =  await ca.AsNoTracking().OrderByDescending(v=>v.date2).Skip((pagenum - 1) * size).Take(size).ToListAsync(); //.ToList();
+                // pag.mail = await ca.Skip((pagenum - 1) * size).Take(size).ToListAsync();
+                pag.Total = ca;
                 return pag;
 
 

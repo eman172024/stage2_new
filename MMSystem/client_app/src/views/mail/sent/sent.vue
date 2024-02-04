@@ -1751,7 +1751,9 @@ console.log("code sent.vue="+event.code);
         this.departmentflag = 0;
         this.departmentName = "";
         this.page_num = 1;
-        this.GetSentMail();
+        //***********stop code 1/2/2024
+     //   this.GetSentMail();
+     //****end stop code 1/2/2024
       }
     },
     // year_filter: function () {

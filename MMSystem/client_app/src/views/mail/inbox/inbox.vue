@@ -1724,27 +1724,29 @@ consol.log("code inbox.vue="+event.code);
     //   this.page_num = 1;
     //   this.GetInboxs();
     // },
+     mailType: function () {
+      this.page_num = 1;
+      this.GetInboxs();
+    },
+//************code stop 1/2/2024
+   // departmentNameSelected: function() {
 
-    departmentNameSelected: function() {
+    //  if(this.departmentNameSelected==""){
+     // this.page_num = 1;
+    //  this.GetInboxs();
+    //  }
+   // },
 
-      if(this.departmentNameSelected==""){
-      this.page_num = 1;
-      this.GetInboxs();
-      }
-    },
-
-    mailType: function () {
-      this.page_num = 1;
-      this.GetInboxs();
-    },
-    date_from: function () {
-      this.page_num = 1;
-      this.GetInboxs();
-    },
-    date_to: function () {
-      this.page_num = 1;
-      this.GetInboxs();
-    },
+   
+   // date_from: function () {
+   //   this.page_num = 1;
+  //    this.GetInboxs();
+   // },
+   // date_to: function () {
+    //  this.page_num = 1;
+   //   this.GetInboxs();
+   // },
+//******end code stop 1/2/2024
 
     // mail_id: function () {
     //   this.page_num = 1;
