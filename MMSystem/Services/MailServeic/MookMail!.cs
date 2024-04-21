@@ -1371,7 +1371,7 @@ namespace MMSystem.Services.MailServeic
 
                 if (dpart.perent != 0)
                 {
-                    mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true &&  x.fromWho == dpart.perent).ToListAsync();
+                    mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true ).ToListAsync();
                 }
                 else {
                     mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == model.mail.department_Id ).ToListAsync();
@@ -1625,7 +1625,7 @@ namespace MMSystem.Services.MailServeic
 
                 if (dpart.perent != 0)
                 {
-                    mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == dpart.perent).ToListAsync();
+                    mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true ).ToListAsync();
                 }
                 else
                 {

@@ -373,11 +373,25 @@ namespace MMSystem.Services.MailServeic
                 RessObj ressPage = new RessObj();
 
 
-                ressPage.total = _dbCon.Mail_Resourcescs.Where(x => x.State.Equals(true) && x.MailID == id && x.fromWho == department_id).ToList().Count();
+                Department dpart = await _dbCon.Departments.FindAsync(department_id);
 
-                var list = await _dbCon.Mail_Resourcescs.
-                 Where(x => x.MailID == id&&x.State==true && x.fromWho == department_id).Skip((pageNumber - 1) * 1).Take(1).ToListAsync();
+                List<Mail_Resourcescs> list = new List<Mail_Resourcescs>() ;
+                
+                if (dpart.perent != 0)
+                {
+                    ressPage.total = _dbCon.Mail_Resourcescs.Where(x => x.State.Equals(true) && x.MailID == id ).ToList().Count();
+                     list = await _dbCon.Mail_Resourcescs.
+                     Where(x => x.MailID == id && x.State == true ).Skip((pageNumber - 1) * 1).Take(1).ToListAsync();
 
+                }
+                else
+                {
+                    ressPage.total = _dbCon.Mail_Resourcescs.Where(x => x.State.Equals(true) && x.MailID == id && x.fromWho == department_id).ToList().Count();
+                     list = await _dbCon.Mail_Resourcescs.
+                     Where(x => x.MailID == id && x.State == true && x.fromWho == department_id).Skip((pageNumber - 1) * 1).Take(1).ToListAsync();
+
+                }
+                
                 if (list.Count > 0)
                 {
 
