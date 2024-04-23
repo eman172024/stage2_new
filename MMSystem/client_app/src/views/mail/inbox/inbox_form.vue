@@ -412,7 +412,7 @@
              
 
                 <button
-                v-if="isperent=='true' && mailType !=2"
+                v-if="isperent=='true' && mailType !=2 && this.department_id2 != this.my_department_id"
                 class="border flex justify-between w-44 border-black duration-300 bg-white pl-2 pr-6 py-2 rounded-md text-gray-900 font-bold hover:bg-green-600 hover:text-white focus:outline-none"
                 @click="redirection1 = !redirection1">
                   
@@ -433,7 +433,7 @@
 
                 
               
-              <div v-if="redirection1 ==true && isperent=='true' && mailType !=2" class="grid grid-cols-7 gap-6">
+              <div v-if="redirection1 ==true && isperent=='true' && mailType !=2  && this.department_id2 != this.my_department_id" class="grid grid-cols-7 gap-6">
 
 
               
