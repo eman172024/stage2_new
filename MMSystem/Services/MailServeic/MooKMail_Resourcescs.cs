@@ -87,11 +87,11 @@ namespace MMSystem.Services.MailServeic
             throw new NotImplementedException();
         }
 
-        public async Task<List<Mail_ResourcescsDto>> GetAll(int id)
+        public async Task<List<Mail_ResourcescsDto>> GetAll(int id, int department_Id)
         {
             try
             {
-                List<Mail_Resourcescs> _Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == id && x.State == true).ToListAsync();
+                List<Mail_Resourcescs> _Resourcescs = await _dbCon.Mail_Resourcescs.Where(x => x.MailID == id && x.State == true && x.fromWho == department_Id).ToListAsync();
                 List<Mail_ResourcescsDto> mail_ResourcescsDtos = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(_Resourcescs);
 
 
@@ -177,11 +177,11 @@ namespace MMSystem.Services.MailServeic
 
         }
 
-        public async Task<List<Mail_ResourcescsDto>> GetAllRes(int id)
+        public async Task<List<Mail_ResourcescsDto>> GetAllRes(int id,int department_Id)
         {
             try
             {
-                var list = await GetAll(id);
+                var list = await GetAll(id, department_Id);
 
                foreach (var xx in list)
                {
@@ -373,11 +373,25 @@ namespace MMSystem.Services.MailServeic
                 RessObj ressPage = new RessObj();
 
 
-                ressPage.total = _dbCon.Mail_Resourcescs.Where(x => x.State.Equals(true) && x.MailID == id && x.fromWho == department_id).ToList().Count();
+                Department dpart = await _dbCon.Departments.FindAsync(department_id);
 
-                var list = await _dbCon.Mail_Resourcescs.
-                 Where(x => x.MailID == id&&x.State==true && x.fromWho == department_id).Skip((pageNumber - 1) * 1).Take(1).ToListAsync();
+                List<Mail_Resourcescs> list = new List<Mail_Resourcescs>() ;
+                
+                if (dpart.perent != 0)
+                {
+                    ressPage.total = _dbCon.Mail_Resourcescs.Where(x => x.State.Equals(true) && x.MailID == id ).ToList().Count();
+                     list = await _dbCon.Mail_Resourcescs.
+                     Where(x => x.MailID == id && x.State == true ).Skip((pageNumber - 1) * 1).Take(1).ToListAsync();
 
+                }
+                else
+                {
+                    ressPage.total = _dbCon.Mail_Resourcescs.Where(x => x.State.Equals(true) && x.MailID == id && x.fromWho == department_id).ToList().Count();
+                     list = await _dbCon.Mail_Resourcescs.
+                     Where(x => x.MailID == id && x.State == true && x.fromWho == department_id).Skip((pageNumber - 1) * 1).Take(1).ToListAsync();
+
+                }
+                
                 if (list.Count > 0)
                 {
 
@@ -508,6 +522,16 @@ namespace MMSystem.Services.MailServeic
             }
 
             return isUpdate;
+        }
+
+        public Task<List<Mail_ResourcescsDto>> GetAll(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Mail_ResourcescsDto>> GetAllRes(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

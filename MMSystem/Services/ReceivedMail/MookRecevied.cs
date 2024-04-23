@@ -570,6 +570,18 @@ namespace MMSystem.Services.ReceivedMail
 
                          }).OrderByDescending(v => v.date2).ToList();
 
+                List<Sended_Maill> dd = new List<Sended_Maill>();
+                foreach (var item in c)
+                {
+
+                    if (!dd.Exists(x => x.mail_id == item.mail_id))
+                    {
+
+                        dd.Add(item);
+                    }
+                }
+
+                c = dd;
 
                 pag.mail = c.OrderByDescending(v => v.date2).Skip((pagenum - 1) * size).Take(size).ToList();
 

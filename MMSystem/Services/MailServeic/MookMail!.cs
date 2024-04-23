@@ -1371,7 +1371,7 @@ namespace MMSystem.Services.MailServeic
 
                 if (dpart.perent != 0)
                 {
-                    mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true &&  x.fromWho == dpart.perent).ToListAsync();
+                    mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true ).ToListAsync();
                 }
                 else {
                     mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == model.mail.department_Id ).ToListAsync();
@@ -1625,7 +1625,7 @@ namespace MMSystem.Services.MailServeic
 
                 if (dpart.perent != 0)
                 {
-                    mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == dpart.perent).ToListAsync();
+                    mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true ).ToListAsync();
                 }
                 else
                 {
@@ -2131,7 +2131,7 @@ namespace MMSystem.Services.MailServeic
 
                         );
                     }
-                    mail.resourcescs = await _resourcescs.GetAll(mail.mail.MailID);
+                    mail.resourcescs = await _resourcescs.GetAll(mail.mail.MailID,mail.mail.department_Id);
 
 
                     foreach (var xx in mail.resourcescs)
@@ -2356,7 +2356,7 @@ namespace MMSystem.Services.MailServeic
                     //ex.sector.Add(sector);
 
 
-                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == id&&x.State==true).ToListAsync();
+                    List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == id&&x.State==true && x.resendfrom == 0).ToListAsync();
 
 
                     if (sends.Count > 0) {
@@ -2683,7 +2683,7 @@ namespace MMSystem.Services.MailServeic
                         if (dto != null) {
 
                             mail.mail = dto;
-                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID&&x.State==true).ToListAsync();
+                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == mail.mail.MailID && x.State==true && x.resendfrom==0).ToListAsync();
 
                             if (sends.Count > 0) {
 
@@ -2713,7 +2713,7 @@ namespace MMSystem.Services.MailServeic
                             ActionSender sender = new ActionSender();
                            
 
-                            mail.resourcescs = await _resourcescs.GetAll(mail.mail.MailID);
+                            mail.resourcescs = await _resourcescs.GetAll(mail.mail.MailID,mail.mail.department_Id);
 
 
                             foreach (var xx in mail.resourcescs)
@@ -2775,7 +2775,7 @@ namespace MMSystem.Services.MailServeic
 
 
 
-                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == ex.mail.MailID&&x.State==true).ToListAsync();
+                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == ex.mail.MailID&&x.State==true && x.resendfrom ==0).ToListAsync();
 
                             if (sends.Count > 0) {
 
@@ -2803,7 +2803,7 @@ namespace MMSystem.Services.MailServeic
 
                             }
 
-                            ex.resourcescs = await _resourcescs.GetAll(dto.MailID);
+                            ex.resourcescs = await _resourcescs.GetAll(dto.MailID,dto.department_Id);
 
 
                             foreach (var xx in ex.resourcescs)
@@ -2865,7 +2865,7 @@ namespace MMSystem.Services.MailServeic
                                                       .ToListAsync();
 
 
-                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == dto.MailID && x.State == true).ToListAsync();
+                            List<Send_to> sends = await _appContext.Sends.Where(x => x.MailID == dto.MailID && x.State == true && x.resendfrom == 0).ToListAsync();
 
 
 
@@ -2898,7 +2898,7 @@ namespace MMSystem.Services.MailServeic
 
                             //
 
-                            ex1.resourcescs = await _resourcescs.GetAll(dto.MailID);
+                            ex1.resourcescs = await _resourcescs.GetAll(dto.MailID,dto.department_Id);
 
 
                             foreach (var xx in ex1.resourcescs)
