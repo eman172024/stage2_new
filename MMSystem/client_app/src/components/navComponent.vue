@@ -397,6 +397,16 @@ export default {
         });
     },
 
+
+    Logout() {
+      localStorage.removeItem("AY_LW");
+      localStorage.removeItem("chrome");
+      localStorage.removeItem("Az07");
+      this.$router.push("/");
+    },
+
+    
+
     canselSearch() {
       this.searchFor = "";
       this.searchMenu = false;
