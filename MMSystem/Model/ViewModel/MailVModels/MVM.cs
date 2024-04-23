@@ -10,6 +10,9 @@ namespace MMSystem.Model.ViewModel.MailVModels
     public class MVM
     {
         public bool is_resended { get; set; }
+
+        public int resended_from { get; set; }
+
         public MailDto mail { get; set; }
         public List<Mail_ResourcescsDto> mail_Resourcescs { get; set; } = new List<Mail_ResourcescsDto> (){ };
 
