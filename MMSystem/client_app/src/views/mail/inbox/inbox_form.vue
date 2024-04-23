@@ -3132,6 +3132,8 @@ this.$http.documentService
 
       this.screenFreeze = true;
       this.loading = true;
+
+      if(this.isperent){
       this.$http.documentService
         .GetAllDocN(this.mailId, this.doc_number,Number(this.department_id2))
         .then((res) => {
@@ -3150,6 +3152,31 @@ this.$http.documentService
           this.loading = false;
           console.log(err);
         });
+      }
+
+      else {
+
+        this.$http.documentService
+        .GetAllDocN(this.mailId, this.doc_number,Number(this.my_department_id))
+        .then((res) => {
+          this.total_of_doc = res.data.total;
+
+          this.image_of_doc = res.data.data.path;
+          this.id_of_doc = res.data.data.id;
+
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 200);
+        })
+        .catch((err) => {
+          this.screenFreeze = false;
+          this.loading = false;
+          console.log(err);
+        });
+
+
+      }
     },
 
     //*******************
