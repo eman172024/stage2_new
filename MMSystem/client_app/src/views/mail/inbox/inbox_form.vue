@@ -1969,6 +1969,8 @@ console.log("code inbox_form="+event.code);
     };*/
     //****************21/1/20232
 
+    this.resended_from=this.$route.params.resended_from;
+
     this.department_id2 =this.$route.params.department_id2;
 
     if(this.department_id2){
@@ -2030,6 +2032,8 @@ console.log("code inbox_form="+event.code);
 
   data() {
     return {
+
+      resended_from:0,
 
       isperent:false,
       
@@ -2855,6 +2859,8 @@ this.$http.mailService
           this.required_action = res.data.mail.action_Required;
           this.mail_sended = res.data.is_resended;
 
+      //    this.resended_from = res.data.resended_from;
+
           this.replies = res.data.list;
 
           this.section_Notes = res.data.section_Notes;
@@ -3133,9 +3139,11 @@ this.$http.documentService
       this.screenFreeze = true;
       this.loading = true;
 
-      if(this.isperent){
+      if(this.isperent=="false" && this.resended_from!=0){
+        console.log("1111111111111111111111111111111111111111",this.isperent,"2222222222",this.resended_from)
+
       this.$http.documentService
-        .GetAllDocN(this.mailId, this.doc_number,Number(this.department_id2))
+        .GetAllDocN(this.mailId, this.doc_number,Number(this.my_department_id))
         .then((res) => {
           this.total_of_doc = res.data.total;
 
@@ -3156,8 +3164,10 @@ this.$http.documentService
 
       else {
 
+        console.log("1111111111111111111111111111111111111111",this.isperent,"2222222222",this.resended_from)
+
         this.$http.documentService
-        .GetAllDocN(this.mailId, this.doc_number,Number(this.my_department_id))
+        .GetAllDocN(this.mailId, this.doc_number,Number(this.department_id2))
         .then((res) => {
           this.total_of_doc = res.data.total;
 

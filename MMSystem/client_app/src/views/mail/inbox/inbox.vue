@@ -890,7 +890,7 @@
                             department_id2: mail.mangment_sender_id,
                             mail: mail.mail_id,
                             department: my_department_id,
-                            
+                            resended_from:mail.resendfrom,
                             type: mail.type_of_mail,
                             sends_id: mail.sends_id,
                           },
