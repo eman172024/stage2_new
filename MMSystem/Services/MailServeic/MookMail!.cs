@@ -1377,6 +1377,7 @@ namespace MMSystem.Services.MailServeic
                     mail_Resourcescs = await _appContext.Mail_Resourcescs.Where(x => x.MailID == mail_id && x.State == true && x.fromWho == model.mail.department_Id ).ToListAsync();
                 }
                 List<Send_to> c = await _appContext.Sends.Where(x => (x.to == department_Id || x.resendfrom == department_Id) && x.MailID == mail_id ).ToListAsync();
+               
                 if (c.Count() != 0)
                 {
                     var is_resended = c.Where(x => x.MailID == mail_id && x.to == department_Id && x.State == true).ToList();
@@ -1384,7 +1385,11 @@ namespace MMSystem.Services.MailServeic
                     if (is_resended.Count() != 0)
                         model.is_resended = is_resended[0].resended;
 
-                    model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
+                       model.mail_Resourcescs = _mapper.Map<List<Mail_Resourcescs>, List<Mail_ResourcescsDto>>(mail_Resourcescs);
+                    
+                        var resended_from = c.FirstOrDefault(x => x.MailID == mail_id && x.to == department_Id && x.State == true);
+                    if (resended_from != null)
+                        model.resended_from = resended_from.resendfrom;
 
                     foreach (var item in c)
                     {
