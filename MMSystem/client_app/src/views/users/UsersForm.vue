@@ -746,8 +746,9 @@ export default {
       num: null,
       mangement: "1",
       state1: "true",
-      pirms: [],
+      
       roles: [],
+      pirms: [],
       roles1: [],
 
       roleId1: null,

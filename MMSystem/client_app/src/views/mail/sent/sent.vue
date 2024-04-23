@@ -846,7 +846,7 @@
                         </div>
 
                         <div class="w-2/6 text-right">
-                          {{ mail.date }}
+                          {{  date_format(mail.date)}}
                         </div>
                       </button>
 
@@ -2826,6 +2826,27 @@ this.s_number = "";
         .catch((err) => {
           console.log(err);
         });
+    },
+
+
+
+    date_format(date){
+
+      var date2 = new Date(date);
+
+     
+
+var month = date2.getMonth() + 1;
+var day = date2.getDate();
+
+
+
+if (month < 10) month = "0" + month;
+if (day < 10) day = "0" + day;
+
+return date2.getFullYear() + "-" + month + "-" + day;
+
+
     },
 
     show_senders(id, mail_type, number) {

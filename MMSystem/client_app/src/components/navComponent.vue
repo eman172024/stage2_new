@@ -196,6 +196,8 @@
       </div> -->
 
       <!-- Profile dropdown -->
+
+
       <div class="relative md:mr-6 ml-4">
         <div>
           <!--  @click="userProcedure = !userProcedure" -->
@@ -363,12 +365,7 @@ export default {
     },
 
 
-    Logout() {
-      localStorage.removeItem("AY_LW");
-      localStorage.removeItem("chrome");
-      localStorage.removeItem("Az07");
-      this.$router.push("/");
-    },
+ 
     search() {
       this.closeSearchMenu = true;
 
@@ -399,6 +396,16 @@ export default {
           console.log(err);
         });
     },
+
+
+    Logout() {
+      localStorage.removeItem("AY_LW");
+      localStorage.removeItem("chrome");
+      localStorage.removeItem("Az07");
+      this.$router.push("/");
+    },
+
+    
 
     canselSearch() {
       this.searchFor = "";
