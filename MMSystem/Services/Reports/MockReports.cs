@@ -953,18 +953,19 @@ namespace MMSystem.Services.Reports
                       from m_ex_dep1 in m_ex_dep.DefaultIfEmpty()
 
                           //*******add code 12/5/2024
-                      join ex_s in _data.Extrmal_Sections.Where(x => x.state == true) on m_ex_dep1.side_number equals ex_s.id
-                      //*End 12/5/2024
+                      join ex_s in _data.Extrmal_Sections.Where(x => x.state == true) on m_ex_dep1.side_number equals ex_s.id into m_ex_s
+                      from m_ex_s1 in m_ex_s.DefaultIfEmpty()
+                          //*End 12/5/2024
 
-                      //**************************************
+
+                          //**************************************
                       join depart in _data.Departments.Where(x=>x.state == true) on ms.to equals depart.Id // into depart_s
 
+                     
 
-                   
 
-
-                      // from depart_s1 in m_ex_dep.DefaultIfEmpty()
-                      //**************************************
+                          // from depart_s1 in m_ex_dep.DefaultIfEmpty()
+                          //**************************************
                       where (ms.to == Department_filter || dep_filter == true) && (ms.flag == mail_state || State_filter == true) && (ms.type_of_send == Measure_filter || meas_filter == true)
                       //&&(ms.State==true)&&(ms.flag>1)
                       && (mex.entity_reference_number == entity_reference_number || entity_number == true) 
@@ -975,7 +976,7 @@ namespace MMSystem.Services.Reports
                       select new DepartmentViewModelDto
                       {
                           //**add 12/5/2024
-                          section_name=ex_s.Section_Name,
+                          section_name=m_ex_s1.Section_Name,
                           //*****end 12/5/2024
                           dateOfSend = ms.Send_time.ToString("yyyy-MM-dd"),
                           Mail_Number = mail.Mail_Number,
