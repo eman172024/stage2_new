@@ -70,7 +70,7 @@
                       </td>
 
                       <td style="border:1px solid black; width: 20%; text-align: center; padding-top:6px; padding-bottom: 6px;">
-                        {{ sub_mail.section}}
+                        {{ sub_mail.section_name}}
                       </td>
 
 
