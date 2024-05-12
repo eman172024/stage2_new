@@ -528,7 +528,7 @@
                     </div> -->
 
 
-                    <div class="sm:col-span-2 flex justify-between">
+                 <div class="sm:col-span-2 flex justify-between mt-2">
 
 
                       <div>
@@ -596,7 +596,58 @@
                               <option value="2070">2070</option> -->
                       </select>
 
-                       </div>
+                 </div> 
+
+
+
+                 
+                 <div v-if="this.my_department_id == 21">
+
+<label
+  class="block text-base font-semibold text-gray-800"
+>
+  معتمدة من
+</label>
+
+<select
+  id="small"
+  class="block p-2 mr-4 w-28 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+  v-model="certified"
+>
+  <option value="0" selected>الكل</option>
+  
+  <option value="1">رئيس الهيئة</option>
+   <option value="2">مدير مكتب الرئيس</option>
+   
+</select>
+
+</div> 
+
+
+              
+<div v-if="this.my_department_id == 22">
+
+<label
+  class="block text-base font-semibold text-gray-800"
+>
+  معتمدة من
+</label>
+
+<select
+  id="small"
+  class="block p-2 mr-4 w-28 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+  v-model="certified"
+>
+  <option value="0" selected>الكل</option>
+  
+  <option value="3">وكيل الهيئة</option>
+   <option value="4">مدير مكتب الوكيل</option>
+   
+</select>
+
+</div> 
+
+
 
 
 
@@ -1924,6 +1975,7 @@ console.log("code sent.vue="+event.code);
   data() {
     return {
 
+      certified:0,
 
       image_rotate : true,
       //********21/1/2023
@@ -2881,6 +2933,7 @@ search_reset(){
           this.classificationIdSelected,
           this.mail_caseIdSelected,
           this.s_number,
+          this.certified,
           this.page_num,
           this.page_size
         )
