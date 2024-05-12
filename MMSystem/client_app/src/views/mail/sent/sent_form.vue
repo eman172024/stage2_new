@@ -219,6 +219,7 @@
                       </label>
                       <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
                       <textarea
+                      tabindex="1"
                         v-model="summary"
                         id="summary"
                         rows="3"
@@ -252,6 +253,7 @@
                       </label>
                       <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
                       <select
+                      tabindex="2"
                         v-model="classification"
                         id="classification"
                         class="block mt-2 w-full h-10 text-sm rounded-md border border-green-400 hover:shadow-sm focus:outline-none focus:border-green-400 p-2"
@@ -333,6 +335,7 @@
                       </label>
                       <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
                       <input
+                      tabindex="3"
                         v-model="general_incoming_number"
                         type="text"
                         min="1"
@@ -443,7 +446,8 @@
                         الإجراء المطلوب
                       </label>
                       <!-- v-if="mail_flag <= 2 || roles.includes('7')" -->
-                      <textarea
+                      <textarea 
+                      tabindex="4"
                         v-model="required_action"
                         id="required_action"
                         rows="3"
@@ -473,9 +477,12 @@
                     >
                       <div class="sm:col-span-4">
                         <label
+                        tabindex="5"
+                        
                           for="department"
                           class="block text-sm font-semibold text-gray-800"
                         >
+                        
                           الإدارات
                         </label>
 
@@ -516,6 +523,7 @@
                             </button>
 
                             <button
+                            
                               class="block focus:outline-none w-full my-1 text-right"
                               @click="
                                 selectdepartment(

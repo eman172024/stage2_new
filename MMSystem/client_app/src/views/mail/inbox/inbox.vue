@@ -948,10 +948,12 @@
                         <p class="font-bold">ملخص الرسالة</p>
 
                         <div class="underline">
-                          تاريخ الارسال - {{ mail.send_time }}
+                        <!--  تاريخ الارسال - {{ mail.send_time }}-->
+                         تاريخ الارسال - {{ mail.send_time.substring(0,10)}}
                         </div>
                         <div class="underline">
-                          وقت الارسال - {{ mail.time }}
+                         <!-- وقت الارسال - {{ mail.time }}-->
+                            وقت الارسال - {{ mail.send_time.substring(11,16) }}
                         </div>
                       </div>
 
@@ -1908,7 +1910,7 @@ consol.log("code inbox.vue="+event.code);
 
   methods: {
 
-
+  
 
     search_reset(){
 

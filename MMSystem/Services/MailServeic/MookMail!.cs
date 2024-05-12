@@ -538,7 +538,9 @@ namespace MMSystem.Services.MailServeic
                 switch (MailType)
                 {
                     case 1:
-                        Mail mail = await _appContext.Mails.OrderBy(x => x.MailID).Where(x => x.Department_Id == id && x.Mail_Type == 1 && x.Date_Of_Mail.Year == year).LastOrDefaultAsync();
+                       // Mail mail = await _appContext.Mails.OrderBy(x => x.MailID).Where(x => x.Department_Id == id && x.Mail_Type == 1 && x.Date_Of_Mail.Year == year).LastOrDefaultAsync();
+                        Mail mail = await _appContext.Mails.OrderBy(x => x.MailID).Where(x => x.Department_Id == id && x.Mail_Type == 1 && x.insert_at.Year == year).LastOrDefaultAsync();
+
                         if (mail != null)
                         {
                             LastNumber = mail.Mail_Number + 1;
@@ -550,11 +552,12 @@ namespace MMSystem.Services.MailServeic
                     case 2:
                         //     var mail_number =  _appContext.Mails.Where(x=> x.Mail_Type == 2 && x.Date_Of_Mail.Year == year).Max(p => p.Mail_Number);
 
-                       // int mail_number = _appContext.Mails.Where(x => x.Mail_Type == 2 && x.Date_Of_Mail.Year == year).Select(x => x.Mail_Number).DefaultIfEmpty(0).Max();
+                        // int mail_number = _appContext.Mails.Where(x => x.Mail_Type == 2 && x.Date_Of_Mail.Year == year).Select(x => x.Mail_Number).DefaultIfEmpty(0).Max();
 
 
 
-                        int mail_number = _appContext.Mails.Where(x => x.Mail_Type == 2 && x.Date_Of_Mail.Year == year).Max(x => (int?)x.Mail_Number) ?? 0;
+                        // int mail_number = _appContext.Mails.Where(x => x.Mail_Type == 2 && x.Date_Of_Mail.Year == year).Max(x => (int?)x.Mail_Number) ?? 0;
+                        int mail_number = _appContext.Mails.Where(x => x.Mail_Type == 2 && x.insert_at.Year == year).Max(x => (int?)x.Mail_Number) ?? 0;
 
 
                         if (mail_number!=0)
@@ -565,7 +568,8 @@ namespace MMSystem.Services.MailServeic
                         LastNumber += 1;
                         break;
                     case 3:
-                        int mail_number1 = _appContext.Mails.Where(x => x.Mail_Type == 3 && x.Date_Of_Mail.Year == year).Max(x => (int?)x.Mail_Number) ?? 0;
+                        //int mail_number1 = _appContext.Mails.Where(x => x.Mail_Type == 3 && x.Date_Of_Mail.Year == year).Max(x => (int?)x.Mail_Number) ?? 0;
+                        int mail_number1 = _appContext.Mails.Where(x => x.Mail_Type == 3 && x.insert_at.Year == year).Max(x => (int?)x.Mail_Number) ?? 0;
 
                         //  Mail mail13 = await _appContext.Mails.OrderBy(x => x.MailID).Where(x => x.Mail_Type == 3 && x.Date_Of_Mail.Year == year).LastOrDefaultAsync();
                         if (mail_number1 !=0)
