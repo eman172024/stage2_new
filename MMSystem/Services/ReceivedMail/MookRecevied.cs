@@ -51,8 +51,11 @@ namespace MMSystem.Services.ReceivedMail
                 }
                 else { entity_number = false; }
 
-                if ((mangment == 21 || mangment == 22) && office_type != null)
-                {
+                //**********update code  12/5/2024
+               // if ((mangment == 21 || mangment == 22) && office_type != null)
+                    if ((mangment == 21 || mangment == 22) && office_type != 0)
+                        //**End 12/5/2024
+                    {
                     officetype = false;
                 }
                 else { officetype = true; }
@@ -186,8 +189,14 @@ namespace MMSystem.Services.ReceivedMail
                 var ca = (from mail in dbcon.Mails.Where(x => x.Department_Id == mangment && x.state == true && x.Mail_Summary.Contains(summary)
                           && ((x.insert_at.Date >= d1 && x.insert_at.Date <= d2) || rep_all == false) && ((x.Mail_Type == mailNumType) || allmailtype == true)
                           && (mailnum_bool == 1 || x.Mail_Number == mailnum) && (x.clasification == Classfication || clasf_filter == true) 
-                          && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true))
-                       
+                          && (x.Genaral_inbox_Number == genral_incoming_num || incoing_num_filter == true)
+                          //**Eman 12/5/2024
+                          && (x.office_type == office_type.ToString() || officetype == true)
+                          )
+
+
+                              //**End 12/5/2024
+
                           join ex in dbcon.Extrenal_Inboxes on mail.MailID equals ex.MailID into mail_ex
                           from mex in mail_ex.DefaultIfEmpty()
                            
