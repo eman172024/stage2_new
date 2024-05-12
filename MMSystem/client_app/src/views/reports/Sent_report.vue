@@ -42,9 +42,14 @@
                       <th style="border:1px solid black; width: 10%; text-align: center;">
                         رقم الوارد
                       </th>
-                      <th style="border:1px solid black; width: 60%; text-align: center;">
+                      <th style="border:1px solid black; width: 40%; text-align: center;">
                         ملخص الرسالة
                       </th>
+
+                      <th style="border:1px solid black; width: 20%; text-align: center;">
+                        الجهة
+                      </th>
+
                       <th style="border:1px solid black; width: 10%; text-align: center;">
                         تاريخ الارسال
                       </th>
@@ -57,19 +62,25 @@
                     </tr>
 
                     <tr  v-for="sub_mail in mail.data" :key="sub_mail.mail_Number" style="width: 100%; border:1px solid black;font-weight: 600; font-size: 1rem/* 24px */;line-height: 1.5rem/* 32px */;">
-                      <td style="border:1px solid black; width: 10%; text-align: center; padding-top:6px; padding-button: 6px;">
+                      <td style="border:1px solid black; width: 10%; text-align: center; padding-top:6px; padding-bottom: 6px;">
                         {{ sub_mail.mail_Number }}
                       </td>
-                      <td style="border:1px solid black; width: 60%; text-align: center; padding-top:6px; padding-button: 6px;">
+                      <td style="border:1px solid black; width: 40%; text-align: center; padding-top:6px; padding-bottom: 6px;">
                         {{ sub_mail.mail_Summary }}
                       </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center; padding-top:6px; padding-button: 6px;">
+
+                      <td style="border:1px solid black; width: 20%; text-align: center; padding-top:6px; padding-bottom: 6px;">
+                        {{ sub_mail.section}}
+                      </td>
+
+
+                      <td style="border:1px solid black; width: 10%; text-align: center; padding-top:6px; padding-bottom: 6px;">
                         {{ sub_mail.dateOfSend }}
                       </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center; padding-top:6px; padding-button: 6px;">
+                      <td style="border:1px solid black; width: 10%; text-align: center; padding-top:6px; padding-bottom: 6px;">
                         {{ sub_mail.timeOfSend }}
                       </td>
-                      <td style="border:1px solid black; width: 10%; text-align: center; padding-top:6px; padding-button: 6px;">
+                      <td style="border:1px solid black; width: 10%; text-align: center; padding-top:6px; padding-bottom: 6px;">
                         {{ sub_mail.mail_state }}
                       </td>
                     </tr>
