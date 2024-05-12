@@ -952,9 +952,16 @@ namespace MMSystem.Services.Reports
                       join ex_Dep in _data.external_Departments on mail.MailID equals ex_Dep.Mail_id into m_ex_dep
                       from m_ex_dep1 in m_ex_dep.DefaultIfEmpty()
 
-//**************************************
+                          //*******add code 12/5/2024
+                      join ex_s in _data.Extrmal_Sections.Where(x => x.state == true) on m_ex_dep1.side_number equals ex_s.id
+                      //*End 12/5/2024
+
+                      //**************************************
                       join depart in _data.Departments.Where(x=>x.state == true) on ms.to equals depart.Id // into depart_s
-                      
+
+
+                   
+
 
                       // from depart_s1 in m_ex_dep.DefaultIfEmpty()
                       //**************************************
@@ -967,6 +974,9 @@ namespace MMSystem.Services.Reports
 
                       select new DepartmentViewModelDto
                       {
+                          //**add 12/5/2024
+                          section_name=ex_s.Section_Name,
+                          //*****end 12/5/2024
                           dateOfSend = ms.Send_time.ToString("yyyy-MM-dd"),
                           Mail_Number = mail.Mail_Number,
                           Mail_Summary = mail.Mail_Summary,

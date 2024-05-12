@@ -19,5 +19,9 @@ namespace MMSystem.Model.Dto
         public string TimeOfSend { get; set; }
 
         public string mail_state { get; set; }
+
+        //******add code 12/5/2024
+        public string section_name { get; set; }
+        //*end 12/5/2024
     }
 }
