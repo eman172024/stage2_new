@@ -979,7 +979,7 @@
                       <div  v-else
                       
                       class="w-1/3 flex justify-center items-center">
-                      <button v-if="roles.includes('s')" @click="GetAllDocuments(mail.mail_id, 1, perent_id)" title="عرض المستندات"
+                      <button v-if="roles.includes('s')" @click="GetAllDocuments_sec(mail.mail_id, 1, perent_id)" title="عرض المستندات"
                         class="focus:outline-none">
                         <svg class="w-4 h-4 fill-current hover:text-blue-500" id="Capa_1"
                           enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512"
@@ -3277,6 +3277,36 @@ this.conn.onmessage = (event) => {
       this.loading = true;
       this.$http.mailService
         .GetAllDocuments(id, Number(localStorage.getItem("AY_LW")),Number(department_id))
+        .then((res) => {
+          this.show_images = res.data;
+
+          this.testimage = this.show_images[0].path;
+
+          setTimeout(() => {
+            this.show_images_model = true;
+            this.screenFreeze = false;
+            this.loading = false;
+          }, 300);
+        })
+        .catch((err) => {
+          this.loading = false;
+          this.there_are_no_documents = true;
+          setTimeout(() => {
+            this.screenFreeze = false;
+            this.there_are_no_documents = false;
+            console.log(err);
+          }, 700);
+        });
+    },
+
+
+    
+    GetAllDocuments_sec(id, plase,department_id) {
+      this.from_reply_or_general = plase;
+      this.screenFreeze = true;
+      this.loading = true;
+      this.$http.mailService
+        .GetAllDocuments_sec(id, Number(localStorage.getItem("AY_LW")),Number(department_id))
         .then((res) => {
           this.show_images = res.data;
 

@@ -140,7 +140,7 @@
                   </section>
                 </section>
 
-                <section class="col-span-2 bg-gray-100 rounded-md p-6">
+                <section  class="col-span-2 bg-gray-100 rounded-md p-6">
                   <div class="flex justify-between items-center">
                     <h3 class="block text-base font-semibold text-gray-800">
                       المستندات
@@ -156,8 +156,15 @@
                         class="ml-2 block w-16 rounded-md h-10 text-sm border border---200 hover:shadow-sm focus:outline-none focus:border-blue-300 p-2"
                       />
 
-                      <button
+                      <button v-if="isperent=='true'"
                         @click="search_the_doc()"
+                        class="py-2 px-4 bg-white rounded-lg tracking-wide border border-blue-600 cursor-pointer hover:text-white hover:bg-blue-600 focus:outline-none duration-300 text-sm leading-normal"
+                      >
+                        بحث
+                      </button>
+
+                      <button v-else
+                        @click="search_the_doc_sec()"
                         class="py-2 px-4 bg-white rounded-lg tracking-wide border border-blue-600 cursor-pointer hover:text-white hover:bg-blue-600 focus:outline-none duration-300 text-sm leading-normal"
                       >
                         بحث
@@ -1340,8 +1347,15 @@
                   class="ml-2 block w-16 rounded-md h-10 text-sm border border---200 hover:shadow-sm focus:outline-none focus:border-blue-300 p-2"
                 />
 
-                <button
+                <button v-if="isperent=='true'"
                   @click="search_the_doc()"
+                  class="py-2 px-4 bg-white rounded-lg tracking-wide border border-blue-600 cursor-pointer hover:text-white hover:bg-blue-600 focus:outline-none duration-300 text-sm leading-normal"
+                >
+                  بحث
+                </button>
+
+                <button v-else
+                  @click="search_the_doc_sec()"
                   class="py-2 px-4 bg-white rounded-lg tracking-wide border border-blue-600 cursor-pointer hover:text-white hover:bg-blue-600 focus:outline-none duration-300 text-sm leading-normal"
                 >
                   بحث
@@ -2009,18 +2023,25 @@ console.log("code inbox_form="+event.code);
 
 
 
-      this.GetAllDocN("next");
+      
 
  
 
       if(this.isperent=='true'){
+        this.GetAllDocN("next");
         this.GetAllDocN_resend("next");
       this.GetAllDepartments2();
     }
 
+    else {
+
+this.GetAllDocN_sec("next");
+}
 
 
     } else {
+
+      
     }
   },
 
@@ -2804,6 +2825,38 @@ this.$http.mailService
     },
 
 
+
+    search_the_doc_sec() {
+      // doc_number_to_search
+
+      if (this.doc_number_to_search > this.total_of_doc) {
+        alert("لقد ادخلة رقم خطا الرجاء إعادة المحاولة");
+      } else {
+        this.doc_number = this.doc_number_to_search;
+        this.screenFreeze = true;
+        this.loading = true;
+        this.$http.documentService
+          .GetAllDocN_sec(this.mailId, this.doc_number,Number(this.department_id2))
+          .then((res) => {
+            this.total_of_doc = res.data.total;
+
+            this.image_of_doc = res.data.data.path;
+            this.id_of_doc = res.data.data.id;
+
+            setTimeout(() => {
+              this.screenFreeze = false;
+              this.loading = false;
+            }, 200);
+          })
+          .catch((err) => {
+            this.screenFreeze = false;
+            this.loading = false;
+            console.log(err);
+          });
+      }
+    },
+
+
     search_the_doc2() {
       // doc_number_to_search
 
@@ -3188,6 +3241,72 @@ this.$http.documentService
 
       }
     },
+
+    GetAllDocN_sec(x) {
+
+this.image_rotate = true
+
+
+
+if (x == "next") {
+  this.doc_number++;
+} else {
+  this.doc_number--;
+}
+
+this.screenFreeze = true;
+this.loading = true;
+
+if(this.isperent=="false" && this.resended_from!=0){
+  console.log("1111111111111111111111111111111111111111",this.isperent,"2222222222",this.resended_from)
+
+this.$http.documentService
+  .GetAllDocN_sec(this.mailId, this.doc_number,Number(this.my_department_id))
+  .then((res) => {
+    this.total_of_doc = res.data.total;
+
+    this.image_of_doc = res.data.data.path;
+    this.id_of_doc = res.data.data.id;
+
+    setTimeout(() => {
+      this.screenFreeze = false;
+      this.loading = false;
+    }, 200);
+  })
+  .catch((err) => {
+    this.screenFreeze = false;
+    this.loading = false;
+    console.log(err);
+  });
+}
+
+else {
+
+  console.log("1111111111111111111111111111111111111111",this.isperent,"2222222222",this.resended_from)
+
+  this.$http.documentService
+  .GetAllDocN(this.mailId, this.doc_number,Number(this.department_id2))
+  .then((res) => {
+    this.total_of_doc = res.data.total;
+
+    this.image_of_doc = res.data.data.path;
+    this.id_of_doc = res.data.data.id;
+
+    setTimeout(() => {
+      this.screenFreeze = false;
+      this.loading = false;
+    }, 200);
+  })
+  .catch((err) => {
+    this.screenFreeze = false;
+    this.loading = false;
+    console.log(err);
+  });
+
+
+}
+},
+
 
     //*******************
     reply1() {

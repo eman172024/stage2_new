@@ -194,6 +194,12 @@ export default {
         return axios.get(`/api/Resources/GetMailResources?mail_id=${id}&userId=${userId}&department_id=${department_id}`);
         //  return axios.get(`http://mail:82/api/Resources/GetMailResources?mail_id=${id}&userId=${userId}`);
     },
+    
+
+    GetAllDocuments_sec(id, userId,department_id) {
+        return axios.get(`/api/Resources/GetMailResourcesSection?mail_id=${id}&userId=${userId}&department_id=${department_id}`);
+        //  return axios.get(`http://mail:82/api/Resources/GetMailResources?mail_id=${id}&userId=${userId}`);
+    },
 
     NewAddReply(ReplyViewModel) {
         return axios.post(`/api/Reply/AddReplyWithPhoto`, ReplyViewModel)

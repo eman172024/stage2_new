@@ -32,6 +32,16 @@ namespace MMSystem.Controllers
             return NotFound("لايوجد صور ");
         }
 
+        [HttpGet("GetMailResourcesSection")]
+        public async Task<IActionResult> GetMailResourcesSection(int mail_id, int userId, int department_id)
+        {
+
+            List<Mail_ResourcescsDto> list = await _resourcescs.GetAllResSection(mail_id, userId, department_id);
+            if (list.Count > 0)
+                return Ok(list);
+            return NotFound("لايوجد صور ");
+        }
+
         // GetResourse
 
         [HttpGet("GetMailReplyResources")]
@@ -100,6 +110,37 @@ namespace MMSystem.Controllers
 
             return    BadRequest(new { massege=ex.Message,StatusCode=400});            }
           
+
+
+        }
+
+
+        //api/Resources/GetAllDocSction
+        //جلب الصور للفروع
+        [HttpGet("GetAllDocSection")]
+        public async Task<IActionResult> GetAllDocSection(int mail_id, int page_number, int department_id)
+        {
+
+            try
+            {
+                var result = await _resourcescs.GetAllResswithPageSection(mail_id, page_number, department_id);
+
+                if (result.total > 0)
+                    return Ok(result);
+                else
+                {
+
+                    return NotFound("لايوجد صور");
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { massege = ex.Message, StatusCode = 400 });
+            }
+
 
 
         }

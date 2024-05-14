@@ -8,6 +8,12 @@ export default {
     },
 
 
+    GetAllDocN_sec(mail_id, page_number,department_id) {
+        return axios.get(`/api/Resources/GetAllDocSection?mail_id=${mail_id}&page_number=${page_number}&department_id=${department_id}`);
+      //  return axios.get(`http://mail:82/api/Resources/GetAllDoc?mail_id=${mail_id}&page_number=${page_number}`);
+    },
+
+
     GetResources_ById(id, page_number) {
         return axios.get(`/api/Reply/GetResources_ById?id=${id}&page_number=${page_number}`);
      //  return axios.get(`http://mail:82/api/Reply/GetResources_ById?id=${id}&page_number=${page_number}`);
