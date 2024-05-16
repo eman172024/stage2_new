@@ -2120,7 +2120,8 @@ search_reset(){
   this.selectsides('', 'الكل');
   this.by_date_of_reply = false;
   this.s_number = "";
-  this.year_filter="2023"
+  this.year_filter="2023",
+  this.certified = "الكل"
 
 
 
@@ -2244,6 +2245,7 @@ search_reset(){
           this.classificationIdSelected,
           this.mail_caseIdSelected,
           this.s_number,
+          this.certified,
           this.page_num,
           this.page_size
         )
@@ -2294,6 +2296,7 @@ search_reset(){
           measure_selected: this.measureIdSelected,
           classifaction_selected: this.classificationIdSelected,
           mail_caseid: this.mail_caseIdSelected,
+          certified :this.certified,
           page_num: 1,
           page_size: 1000000,
            //***********eman
