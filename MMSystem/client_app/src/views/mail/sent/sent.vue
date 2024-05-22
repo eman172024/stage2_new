@@ -2121,7 +2121,7 @@ search_reset(){
   this.by_date_of_reply = false;
   this.s_number = "";
   this.year_filter="2023",
-  this.certified = "الكل"
+  this.certified = 0
 
 
 
