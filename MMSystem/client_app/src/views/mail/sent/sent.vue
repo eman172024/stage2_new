@@ -2372,6 +2372,7 @@ search_reset(){
     reply1() {
       if (this.conn == null) {
         console.log("conn=" + this.conn);
+        consol.log("test");
         this.conn = new WebSocket("ws://localhost:58316/ws");
         //  this.conn = new WebSocket("ws://mail:82/ws");
 
